@@ -215,6 +215,287 @@ main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bot
 .fin-alb{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:15px;font-weight:700;color:var(--mu)}
 .fin-alb b{color:var(--ink)}
 .btn svg{margin-right:8px}
+/* ---------- base ---------- */
+.pjx .oc,.pjx .bo,.pjx .r1,.pjx .r2,.pjx .l1,.pjx .l2{opacity:0}
+.pjx .oc{animation:pjparp 4s infinite}
+@keyframes pjparp{0%,92%,100%{opacity:0}94%,97%{opacity:1}}
+.pjx .sp{transform-box:fill-box;transform-origin:center;animation:pjbrilla 1s ease-in-out infinite}
+@keyframes pjbrilla{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes pjua{0%{opacity:1}50%{opacity:0}}
+@keyframes pjub{0%{opacity:0}50%{opacity:1}}
+
+/* ---------- SALUDAR (7 s) ---------- */
+.pjx .saludo .mov{animation:pjresp 2.4s ease-in-out infinite}
+@keyframes pjresp{0%,100%{transform:translateY(0)}50%{transform:translateY(-.25px)}}
+.pjx .saludo .rd{animation:pjsd 7s step-end infinite}
+.pjx .saludo .r1{animation:pjs1 7s step-end infinite}
+.pjx .saludo .r2{animation:pjs2 7s step-end infinite}
+.pjx .saludo .bo{animation:pjsb 7s step-end infinite}
+@keyframes pjsd{0%{opacity:1}10%{opacity:0}50%{opacity:1}100%{opacity:1}}
+@keyframes pjs1{0%{opacity:0}10%{opacity:1}15%{opacity:0}20%{opacity:1}25%{opacity:0}30%{opacity:1}35%{opacity:0}40%{opacity:1}45%{opacity:0}100%{opacity:0}}
+@keyframes pjs2{0%{opacity:0}15%{opacity:1}20%{opacity:0}25%{opacity:1}30%{opacity:0}35%{opacity:1}40%{opacity:0}45%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes pjsb{0%{opacity:0}10%{opacity:1}13%{opacity:0}15%{opacity:1}18%{opacity:0}20%{opacity:1}23%{opacity:0}25%{opacity:1}28%{opacity:0}30%{opacity:1}33%{opacity:0}35%{opacity:1}38%{opacity:0}40%{opacity:1}43%{opacity:0}45%{opacity:1}48%{opacity:0}100%{opacity:0}}
+
+/* ---------- ALEGRE: salta, aplaude y se ríe ---------- */
+.pjx .alegre .mov{animation:pjsalta .6s ease-in-out infinite alternate}
+@keyframes pjsalta{from{transform:translateY(0)}to{transform:translateY(-1px)}}
+.pjx .alegre .rd,.pjx .alegre .ld{opacity:0}
+.pjx .alegre .r1,.pjx .alegre .l1{animation:pjua .6s step-end infinite}
+.pjx .alegre .r2,.pjx .alegre .l2{animation:pjub .6s step-end infinite}
+.pjx .alegre .bo{animation:pjua .3s step-end infinite}
+
+/* ---------- TRISTE: llora y se limpia las lágrimas (6 s) ---------- */
+.pjx .triste .cab{animation:pjnod 3s ease-in-out infinite alternate}
+@keyframes pjnod{from{transform:translateY(.4px)}to{transform:translateY(.8px)}}
+.pjx .triste .mov{animation:pjsollozo 1.4s ease-in-out infinite}
+@keyframes pjsollozo{0%,60%,100%{transform:translateY(0)}70%{transform:translateY(.25px)}80%{transform:translateY(0)}90%{transform:translateY(.25px)}}
+.pjx .triste .rd{animation:pjwd 6s step-end infinite}
+.pjx .triste .r1{animation:pjw1 6s step-end infinite}
+.pjx .triste .r2{animation:pjw2 6s step-end infinite}
+@keyframes pjwd{0%{opacity:1}20%{opacity:0}70%{opacity:1}100%{opacity:1}}
+@keyframes pjw1{0%{opacity:0}20%{opacity:1}30%{opacity:0}40%{opacity:1}50%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes pjw2{0%{opacity:0}30%{opacity:1}40%{opacity:0}50%{opacity:1}60%{opacity:0}100%{opacity:0}}
+.pjx .tA,.pjx .tB{opacity:0;animation:pjtA 1.8s step-end infinite}
+.pjx .tB{animation-name:pjtB}
+@keyframes pjtA{0%{opacity:1}33%{opacity:0}100%{opacity:0}}
+@keyframes pjtB{0%{opacity:0}33%{opacity:1}66%{opacity:0}100%{opacity:0}}
+
+/* ---------- BRAVA: tiembla, saca humo y levanta el puño ---------- */
+.pjx .brava .mov{animation:pjtiembla .12s linear infinite alternate}
+@keyframes pjtiembla{from{transform:translateX(-.1px)}to{transform:translateX(.1px)}}
+.pjx .brava .rd{animation:pjub 1s step-end infinite}
+.pjx .brava .r1{animation:pjua 1s step-end infinite}
+.pjx .brava .bo{animation:pjua .5s step-end infinite}
+.pjx .rojo,.pjx .vena{animation:pjlate 1s ease-in-out infinite alternate}
+.pjx .rojo{opacity:.15}
+@keyframes pjlate{from{opacity:.15}to{opacity:.5}}
+.pjx .humo{animation:pjsube 1.2s linear infinite}
+@keyframes pjsube{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(-2px);opacity:0}}
+
+/* ================= EVALUACIONES ================= */
+.pjx .gu,.pjx .gl{opacity:0}
+@keyframes pjwink{0%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes pjladea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+@keyframes pjflota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+@keyframes pjsigue{from{transform:translateX(0)}to{transform:translateX(.3px)}}
+@keyframes pjbalanceo{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
+@keyframes pjsube2{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
+.pjx .cor{opacity:0;animation:pjsube2 2.4s linear infinite}
+.pjx .q{animation:pjflota 1.6s ease-in-out infinite alternate}
+/* pulgar arriba: guiña el ojo y mueve el pulgar */
+.pjx .pulgar .mov{animation:pjsalta 1s ease-in-out infinite alternate}
+.pjx .pulgar .rd{opacity:0}
+.pjx .pulgar .r1{animation:pjua .8s step-end infinite}
+.pjx .pulgar .r2{animation:pjub .8s step-end infinite}
+.pjx .pulgar .gu{animation:pjwink 3s step-end infinite}
+/* ánimo: puño que bombea y grita */
+.pjx .animo .mov{animation:pjsalta .5s ease-in-out infinite alternate}
+.pjx .animo .rd{animation:pjub .5s step-end infinite}
+.pjx .animo .r1{animation:pjua .5s step-end infinite}
+.pjx .animo .bo{animation:pjua .25s step-end infinite}
+/* pensando: mano en la barbilla */
+.pjx .pienso .cab{animation:pjladea 2s ease-in-out infinite alternate}
+.pjx .pienso .rd{opacity:0}
+.pjx .pienso .r1{animation:pjua 1.2s step-end infinite}
+.pjx .pienso .r2{animation:pjub 1.2s step-end infinite}
+/* copión: mira de lado y pasa el papelito */
+.pjx .copion .mov{animation:pjsigue 1.8s ease-in-out infinite alternate}
+.pjx .copion .rd{opacity:0}
+.pjx .copion .r1{animation:pjua .9s step-end infinite}
+.pjx .copion .r2{animation:pjub .9s step-end infinite}
+.pjx .copion .gl{animation:pjua 2.4s step-end infinite}
+/* enamorado: se balancea y le salen corazones */
+.pjx .amor .mov{animation:pjbalanceo 1.6s ease-in-out infinite alternate}
+.pjx .amor .rd{opacity:0}
+.pjx .amor .r1{animation:pjua 1.2s step-end infinite}
+.pjx .amor .r2{animation:pjub 1.2s step-end infinite}
+/* ups: tiembla del susto con las manos arriba */
+.pjx .ups .mov{animation:pjtiembla .1s linear infinite alternate}
+.pjx .ups .rd,.pjx .ups .ld{opacity:0}
+.pjx .ups .r1,.pjx .ups .l1{opacity:1}
+
+/* ================= AVENTURAS RANDOM ================= */
+
+
+@keyframes pjvibra{from{transform:translateY(0)}to{transform:translateY(.15px)}}
+@keyframes pjcorre{from{transform:translateY(-3px);opacity:0}30%{opacity:.8}to{transform:translateY(5px);opacity:0}}
+@keyframes pjgalopa{from{transform:translateY(0)}to{transform:translateY(-.5px)}}
+@keyframes pjpez{0%,60%{opacity:0;transform:translate(0,2px)}65%{opacity:1;transform:translate(1px,-1.5px)}75%{transform:translate(2px,-2.5px)}85%{transform:translate(3px,-1px)}90%{opacity:1;transform:translate(3.5px,2px)}100%{opacity:0}}
+.pjx .linea{animation:pjcorre .5s linear infinite}
+/* moto */
+.pjx .moto .mov{animation:pjvibra .12s linear infinite alternate}
+.pjx .moto .ra{animation:pjua .08s step-end infinite}
+.pjx .moto .rb{animation:pjub .08s step-end infinite}
+/* caballo */
+.pjx .caballo .mov,.pjx .caballo .atras,.pjx .caballo .fuera{animation:pjgalopa .35s ease-in-out infinite alternate}
+.pjx .caballo .hA{animation:pjua .35s step-end infinite}
+.pjx .caballo .hB{animation:pjub .35s step-end infinite}
+/* pescando */
+.pjx .pesca .rd{opacity:0}
+.pjx .pesca .r1{animation:pjua 2s step-end infinite}
+.pjx .pesca .r2{animation:pjub 2s step-end infinite}
+.pjx .pesca .wA{animation:pjua .8s step-end infinite}
+.pjx .pesca .wB{animation:pjub .8s step-end infinite}
+.pjx .bob{animation:pjflota 1s ease-in-out infinite alternate}
+.pjx .pez{opacity:0;animation:pjpez 3.5s ease-in-out infinite}
+/* baile */
+.pjx .baile .mov{animation:pjsalta .3s ease-in-out infinite alternate}
+.pjx .baile .rd{animation:pjub .6s step-end infinite}
+.pjx .baile .r1{animation:pjua .6s step-end infinite}
+.pjx .baile .ld{animation:pjua .6s step-end infinite}
+.pjx .baile .l1{animation:pjub .6s step-end infinite}
+/* dormido */
+.pjx .dormido .oc{animation:none}
+.pjx .dormido .cab{animation:pjnod 3s ease-in-out infinite alternate}
+.pjx .dormido .mov{animation:pjresp 3s ease-in-out infinite}
+.pjx .dormido .bo{animation:pjua 2.4s step-end infinite}
+
+/* ================= MÁS EXPRESIONES ================= */
+@keyframes pjq1{0%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes pjq2{0%{opacity:0}25%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes pjq3{0%,25%{opacity:0}50%{opacity:1}75%{opacity:0}100%{opacity:0}}
+@keyframes pjq4{0%,50%{opacity:0}75%{opacity:1}100%{opacity:0}}
+@keyframes pjvuela{0%,50%{opacity:0;transform:translate(0,0)}55%{opacity:1}100%{opacity:0;transform:translate(3px,-2px)}}
+@keyframes pjvuela2{0%,100%{transform:translate(0,0)}25%{transform:translate(2px,-2px)}50%{transform:translate(0,2px)}75%{transform:translate(3px,0)}}
+@keyframes pjsusto{0%,70%,100%{transform:translateY(0)}75%{transform:translateY(-1px)}85%{transform:translateY(0)}}
+@keyframes pjcj{0%,20%{opacity:0}30%,80%{opacity:1}90%,100%{opacity:0}}
+.pjx .t1,.pjx .t2,.pjx .t3,.pjx .t4,.pjx .beso,.pjx .mari{opacity:0}
+.pjx .t1{animation:pjq1 1s step-end infinite}.pjx .t2{animation:pjq2 1s step-end infinite}.pjx .t3{animation:pjq3 1s step-end infinite}.pjx .t4{animation:pjq4 1s step-end infinite}
+.pjx .beso{animation:pjvuela 1.6s linear infinite}
+.pjx .mari{opacity:1;animation:pjvuela2 6s ease-in-out infinite}
+.pjx .m1{animation:pjua .2s step-end infinite}.pjx .m2{opacity:0;animation:pjub .2s step-end infinite}
+/* ceja levantada */
+.pjx .ceja .cab{animation:pjladea 2s ease-in-out infinite alternate}
+.pjx .ceja .gu{animation:pjcj 3s step-end infinite}
+/* llorón */
+.pjx .lloron .oc,.pjx .sorpresa .oc,.pjx .amoroso .oc,.pjx .cool .oc{animation:none}
+.pjx .lloron .mov{animation:pjsollozo .5s ease-in-out infinite}
+.pjx .lloron .cab{animation:pjnod .5s ease-in-out infinite alternate}
+.pjx .lloron .rd,.pjx .lloron .ld,.pjx .sorpresa .rd,.pjx .sorpresa .ld{opacity:0}
+.pjx .lloron .r1{animation:pjua .5s step-end infinite}.pjx .lloron .r2{animation:pjub .5s step-end infinite}
+.pjx .lloron .l1{animation:pjub .5s step-end infinite}.pjx .lloron .l2{animation:pjua .5s step-end infinite}
+.pjx .lloron .bo{animation:pjua .4s step-end infinite}
+/* amoroso: beso volado */
+.pjx .amoroso .mov{animation:pjbalanceo 1.6s ease-in-out infinite alternate}
+.pjx .amoroso .rd{opacity:0}
+.pjx .amoroso .r1{animation:pjua 1.6s step-end infinite}.pjx .amoroso .r2{animation:pjub 1.6s step-end infinite}
+/* tonto */
+.pjx .tonto .cab{animation:pjladea .4s ease-in-out infinite alternate}
+.pjx .tonto .gl{animation:pjua .6s step-end infinite}
+.pjx .tonto .bo{animation:pjua .4s step-end infinite}
+.pjx .tonto .rd{animation:pjub .4s step-end infinite}.pjx .tonto .r1{animation:pjua .4s step-end infinite}
+.pjx .tonto .ld{animation:pjua .4s step-end infinite}.pjx .tonto .l1{animation:pjub .4s step-end infinite}
+/* carro */
+.pjx .carro .mov,.pjx .carro .fuera{animation:pjvibra .12s linear infinite alternate}
+.pjx .carro .ra{animation:pjua .08s step-end infinite}.pjx .carro .rb{animation:pjub .08s step-end infinite}
+/* distraído */
+.pjx .distraido .cab{animation:pjladea 3s ease-in-out infinite alternate}
+.pjx .distraido .gl{animation:pjua 4s step-end infinite}
+/* sorprendido */
+.pjx .sorpresa .mov{animation:pjsusto 1.6s ease-in-out infinite}
+.pjx .sorpresa .r1,.pjx .sorpresa .l1{opacity:1}
+/* cool */
+.pjx .cool .rd{opacity:0}
+.pjx .cool .r1{animation:pjua 3s step-end infinite}.pjx .cool .r2{animation:pjub 3s step-end infinite}
+.pjx .cool .gu{animation:pjwink 3s step-end infinite}
+
+/* ================= REACCIONES ================= */
+@keyframes pjnono{0%,100%{transform:translateX(0)}25%{transform:translateX(-.5px)}75%{transform:translateX(.5px)}}
+@keyframes pjsino{0%,100%{transform:translateY(0)}50%{transform:translateY(.55px)}}
+@keyframes pjcae2{0%{transform:translateY(-1px);opacity:0}15%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+.pjx .nieve{opacity:0;animation:pjcae2 2.2s linear infinite}
+.pjx .b1{animation:pjua .5s step-end infinite}.pjx .b2{opacity:0;animation:pjub .5s step-end infinite}
+.pjx .neg .cab{animation:pjnono .6s ease-in-out infinite}
+.pjx .neg .rd{opacity:0}.pjx .neg .r1{animation:pjua .3s step-end infinite}.pjx .neg .r2{animation:pjub .3s step-end infinite}
+.pjx .afirma .cab{animation:pjsino .5s ease-in-out infinite}
+.pjx .miedo .mov{animation:pjtiembla .08s linear infinite alternate}
+.pjx .miedo .bo{animation:pjua .1s step-end infinite}
+.pjx .miedo .gl{animation:pjua .5s step-end infinite}
+.pjx .miedo .rd,.pjx .miedo .ld{opacity:0}.pjx .miedo .r1,.pjx .miedo .l1{opacity:1}
+.pjx .ansiedad .mov{animation:pjvibra .1s linear infinite alternate}
+.pjx .ansiedad .rd{opacity:0}.pjx .ansiedad .r1{animation:pjua .15s step-end infinite}.pjx .ansiedad .r2{animation:pjub .15s step-end infinite}
+.pjx .ansiedad .gl{animation:pjua .3s step-end infinite}
+.pjx .nube{animation:pjtiembla .1s linear infinite alternate}
+.pjx .frio .mov{animation:pjtiembla .08s linear infinite alternate}
+.pjx .frio .rd,.pjx .frio .ld{opacity:0}
+.pjx .frio .bo{animation:pjua .1s step-end infinite}
+.pjx .frio .oc{animation:none}
+.pjx .enfermo .oc{animation:none}
+.pjx .enfermo .mov{animation:pjsusto 2.4s ease-in-out infinite}
+.pjx .enfermo .cab{animation:pjnod 2.4s ease-in-out infinite alternate}
+.pjx .enfermo .rd{opacity:0}.pjx .enfermo .r1{opacity:1}
+.pjx .hambre .mov{animation:pjsollozo 1s ease-in-out infinite}
+.pjx .hambre .rd{opacity:0}.pjx .hambre .r1{animation:pjua .8s step-end infinite}.pjx .hambre .r2{animation:pjub .8s step-end infinite}
+.pjx .idea .mov{animation:pjsalta .5s ease-in-out infinite alternate}
+.pjx .idea .rd{opacity:0}.pjx .idea .r1{animation:pjua .5s step-end infinite}.pjx .idea .r2{animation:pjub .5s step-end infinite}
+
+/* ================= HÉROES Y RETOS ================= */
+@keyframes pjhd{0%{opacity:1}10%{opacity:0}100%{opacity:0}}
+@keyframes pjh2{0%{opacity:0}10%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes pjh1{0%{opacity:0}25%{opacity:1}100%{opacity:1}}
+.pjx .heroe .rd{animation:pjhd 5s step-end infinite}
+.pjx .heroe .r2{animation:pjh2 5s step-end infinite}
+.pjx .heroe .r1{animation:pjh1 5s step-end infinite}
+.pjx .heroe .gu{animation:pjh1 5s step-end infinite}
+.pjx .ejer .mov{animation:pjvibra .1s linear infinite alternate}
+.pjx .ejer .rd,.pjx .ejer .ld{opacity:0}
+.pjx .ejer .r1,.pjx .ejer .l1{animation:pjua .8s step-end infinite}
+.pjx .ejer .r2,.pjx .ejer .l2{animation:pjub .8s step-end infinite}
+.pjx .copa .mov{animation:pjsalta .4s ease-in-out infinite alternate}
+.pjx .copa .rd,.pjx .copa .ld{opacity:0}
+.pjx .copa .r1,.pjx .copa .l2{animation:pjua .4s step-end infinite}
+.pjx .copa .r2,.pjx .copa .l1{animation:pjub .4s step-end infinite}
+.pjx .super .mov{animation:pjsalta 1s ease-in-out infinite alternate}
+.pjx .super .cab{animation:pjtiembla .06s linear infinite alternate}
+.pjx .super .oc{animation:none}
+.pjx .super .bo{animation:pjua .3s step-end infinite}
+
+@media (prefers-reduced-motion:reduce){.pjx *{animation:none!important}}
+
+/* ===== abajo: personaje y ejemplo ===== */
+.pie{flex:none;container-type:size;position:relative;display:flex;align-items:center;gap:12px;min-height:0;overflow:hidden}
+.pj-fig{flex:none;width:70px;cursor:pointer}
+.pj-fig svg{display:block;width:100%;height:auto;overflow:visible}
+.pj-tx{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pj-tx.in{animation:pjIn .35s cubic-bezier(.2,1.3,.4,1)}
+@keyframes pjIn{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.pj-en{font-size:17px;font-weight:900;line-height:1.3}
+.pj-en i{font-style:normal;display:inline-block;animation:pjW .4s both}
+@keyframes pjW{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.pj-en b{color:var(--lc);font-weight:900}
+.pj-es{font-size:14px;font-weight:700;line-height:1.35;color:var(--mu)}
+.pj-voz{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);background:transparent;color:var(--ink);cursor:pointer}
+@media (prefers-reduced-motion:reduce){.pj-tx.in,.pj-en i{animation:none}}
+
+/* A: globo de diálogo */
+.pie.A .pj-tx{position:relative;flex:1;padding:10px 14px;border-radius:18px;background:var(--card);border:1px solid var(--bd)}
+.pie.A .pj-tx::before{content:"";position:absolute;left:-7px;top:50%;width:12px;height:12px;margin-top:-6px;background:var(--card);border-left:1px solid var(--bd);border-bottom:1px solid var(--bd);transform:rotate(45deg)}
+.pie.A .pj-tx.ej{border-color:color-mix(in srgb,var(--lc) 60%,var(--bd))}
+.pie.A .pj-voz{position:absolute;right:6px;top:calc(50% - 16px);width:32px;height:32px;border:none}
+.pie.A .pj-tx.ej{padding-right:38px}
+
+/* B: subtítulos, sin recuadro; el personaje a la derecha y puntos para volver a ver */
+.pie.B{flex-direction:row-reverse;align-items:center}
+.pie.B .pj-fig{width:64px}
+.pie.B .pj-tx{flex:1}
+.pie.B .pj-tag{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--lc)}
+.pie.B .pj-en{font-size:18px}
+.pie.B .pj-voz{width:30px;height:30px;border:none}
+.pj-row{display:flex;align-items:center;gap:10px;margin-top:4px}.pj-row .pj-dots{margin:0}
+.pj-dots{display:flex;gap:6px;margin-top:4px}
+.pj-dots button{width:18px;height:6px;padding:0;border:none;border-radius:99px;background:var(--track);cursor:pointer}
+.pj-dots button.si{background:color-mix(in srgb,var(--lc) 45%,var(--track))}
+.pj-dots button.on{background:var(--lc);width:28px}
+.pie.B .pj-col{flex:1;display:flex;flex-direction:column;min-width:0}
+
+/* C: escena con piso; el personaje camina y el ejemplo aparece arriba */
+.pie.C{display:block}
+.pie.C .pj-tx{position:absolute;left:0;right:44px;top:2px;text-align:left}
+.pie.C .pj-voz{position:absolute;right:0;top:0;width:36px;height:36px}
+.pie.C::after{content:"";position:absolute;left:-16px;right:-16px;bottom:0;height:8px;background:linear-gradient(#5DB33A 0 4px,#7A5230 4px 8px)}
+.pie.C .pj-fig{position:absolute;bottom:6px;left:50%;width:46px;transform:translateX(-50%);transition:left 1.1s cubic-bezier(.4,0,.3,1)}
+.pie.C .pj-fig.izq svg{transform:scaleX(-1)}
+@container (min-height:190px){.pie.A .pj-fig,.pie.B .pj-fig{width:96px}.pie.C .pj-fig{width:84px}.pj-en{font-size:19px}.pj-es{font-size:15px}}
 </style>
 </head>
 <body>
@@ -237,6 +518,7 @@ main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bot
     <div class="cinta" id="cinta" aria-live="polite"></div>
     <section class="pal" id="pal" aria-label="Palabras para encontrar"></section>
     <div class="zona" id="zona"><div class="tablero" id="tablero"></div></div>
+    <div class="pie A" id="pie" aria-live="polite"><div class="pj-fig" id="pjFig"></div><div class="pj-tx" id="pjTx"></div><button type="button" class="pj-voz" id="pjVoz" aria-label="Escuchar el ejemplo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"></path></svg></button></div>
   </main>
 </div>
 <div class="aviso" id="aviso" role="status" hidden></div>
@@ -456,9 +738,8 @@ function iniciarRonda() {
   caja.innerHTML = '<div class="caps" id="caps"></div><div class="g" id="g">' + J.s.g.map(f => f.map(x => '<span>' + x + '</span>').join("")).join("") + '</div>';
   caja.classList.remove("entra"); void caja.offsetWidth; caja.classList.add("entra");
   $("ronda").textContent = R.n.toUpperCase() + " DE " + RONDAS.length;
-  medir();
   $("rondas").innerHTML = RONDAS.map((x, i) => '<i class="' + (i < J.r ? "hecha" : i === J.r ? "ahora" : "") + '"></i>').join("");
-  cinta(); pintarPalabras();
+  cinta(); pintarPalabras(); medir(); pieRonda();
 }
 const celdas = () => $("g").children;
 function geo() { const r = $("g").getBoundingClientRect(); return { r:r, cs:r.width / J.n }; }
@@ -515,13 +796,13 @@ function acierto(p, a, b, ls) {
   t.innerHTML = esc(p[0].toLowerCase()) + " <small>= " + esc(p[1]) + "</small>" + (nueva ? '<span class="nv">NUEVA</span>' : "");
   $("tablero").appendChild(t); setTimeout(() => t.remove(), 1900);
   voz(p[0].toLowerCase()); vibrar(30);
-  cinta(p[0]); pintarPalabras(p[0]);
+  cinta(p[0]); pintarPalabras(p[0]); pieAcierto(p);
   if (Object.keys(J.hallada).length === J.pal.length) setTimeout(rondaLista, 1100);
 }
 function error(ls) {
   J.errores++;
   ls.forEach(q => { const el = celdas()[q[0] * J.n + q[1]]; el.classList.remove("mal"); void el.offsetWidth; el.classList.add("mal"); setTimeout(() => el.classList.remove("mal"), 500); });
-  vibrar([20, 40, 20]);
+  vibrar([20, 40, 20]); pieError();
 }
 /* premio por ronda: la primera vez del día da el Aura completa; si la repite, AURA_REPETIR */
 function rondaLista() {
@@ -569,7 +850,9 @@ function aviso(t) { const a = $("aviso"); a.textContent = t; a.hidden = false; c
 
 /* la sopa ocupa el espacio que queda, sin que la pantalla tenga que bajar */
 function medir() {
-  const z = $("zona"), lado = Math.max(200, Math.min(z.clientWidth, z.clientHeight));
+  const z = $("zona"), pie = $("pie"), tot = z.clientHeight + pie.offsetHeight;
+  const lado = Math.max(200, Math.min(z.clientWidth, tot - PIE_MIN));
+  pie.style.height = Math.max(PIE_MIN, tot - lado) + "px";
   const caja = $("tablero"); caja.style.width = lado + "px";
   caja.style.setProperty("--fs", Math.round(lado / J.n * .56) + "px");
 }
@@ -617,6 +900,271 @@ function eventos() {
   $("sigue").addEventListener("click", () => { $("entre").hidden = true; J.r++; iniciarRonda(); });
   $("otra").addEventListener("click", () => empezar(Math.floor(Math.random() * 999) + 1));
 }
+
+if (document.fonts) document.fonts.ready.then(() => { if (J.t) medir(); });
+
+const PIE = "A";
+const PJX = (() => {
+const BASE = [
+"...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..",
+"ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss",
+"..ppp..ppp..","..fff..fff.."
+];
+const PAL = { k:"#151518", w:"#F2F4F8", h:"#8A5A33", e:"#3A2414", s:"#F2B98F", m:"#B8704F", M:"#7A1F1F", g:"#5A5A5E", l:"#C4C4C8", q:"#A0A0A5", z:"#0B0B0D", p:"#1A1A1E", f:"#F2F4F8", W:"#FFFFFF", r:"#FF8FA3", t:"#6EC6FF", v:"#FF2D2D", S:"#E3A67C", H:"#FF4D8D", y:"#FFC83D", R:"#E5322B", N:"#2B1B12", B:"#8B5A2B", b:"#5E3E22", C:"#C98F6B", U:"#2E86DE", O:"#FF8A3D", T:"#FF6B5E", G:"#44444A", c:"#3FD8C8" };
+
+const solo = (r1, r2, c1, c2, k) => { const o = []; for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) o.push([r, c, k]); return o; };
+const rects = l => l.map(x => '<rect x="' + x[1] + '" y="' + x[0] + '" width="1" height="1" fill="' + PAL[x[2]] + '"></rect>').join("");
+// brazo levantado (lado "R" o "L"), top = fila donde empieza la mano
+const arriba = (lado, top) => { const a = lado === "R" ? 10 : 0; return solo(top, top + 1, a, a + 1, "s").concat(solo(top + 2, top + 2, a, a + 1, "l"), solo(top + 3, 8, a, a + 1, "g")); };
+// brazo ladeado (para el saludo)
+const lado = top => solo(top, top + 1, 11, 12, "s").concat(solo(top + 2, top + 2, 11, 12, "l"), solo(top + 3, 8, 10, 11, "g"));
+// mano en la cara (para limpiarse las lágrimas)
+const cara = () => solo(4, 5, 9, 10, "s").concat(solo(6, 6, 10, 11, "l"), solo(7, 8, 10, 11, "g"));
+const chispa = (x, y, d) => '<g class="sp" style="animation-delay:' + d + 's"><rect x="' + (x + 1) + '" y="' + y + '" width="1" height="3" fill="#FFC83D"></rect><rect x="' + x + '" y="' + (y + 1) + '" width="3" height="1" fill="#FFC83D"></rect></g>';
+
+const papel = x => [[3,x,"W"],[3,x+1,"W"],[4,x,"q"],[4,x+1,"W"]];
+const corazon = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"H"],[y,x+2,"H"],[y+1,x,"H"],[y+1,x+1,"H"],[y+1,x+2,"H"],[y+2,x+1,"H"]]) + '</g>';
+const interrog = '<g class="q">' + rects([[-2,10,"y"],[-2,11,"y"],[-2,12,"y"],[-1,12,"y"],[0,11,"y"],[2,11,"y"]]) + '</g>';
+const sudor = (a, b, d) => '<g class="tA" style="animation-delay:' + d + 's">' + rects([[a[0],a[1],"t"]]) + '</g><g class="tB" style="animation-delay:' + d + 's">' + rects([[b[0],b[1],"t"]]) + '</g>';
+const SONRISA = [[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"]];
+
+const nota = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x+1,"y"],[y+1,x+1,"y"],[y+2,x,"y"],[y+2,x+1,"y"]]) + '</g>';
+const zeta = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"W"],[y,x+1,"W"],[y,x+2,"W"],[y+1,x+1,"W"],[y+2,x,"W"],[y+2,x+1,"W"],[y+2,x+2,"W"]]) + '</g>';
+const lineas = x => [0, .17, .34].map((d, i) => '<g class="linea" style="animation-delay:' + d + 's">' + rects([[2 + i * 3, x, "q"], [3 + i * 3, x, "q"]]) + '</g>').join("");
+const SIN_PIERNAS = [[13,2,9,"."],[14,2,9,"."],[15,2,9,"."]];
+
+const caraL = () => solo(4, 5, 1, 2, "s").concat(solo(6, 6, 0, 1, "l"), solo(7, 8, 0, 1, "g"));
+const cara2 = () => solo(5, 6, 9, 10, "s").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g"));
+const caraL2 = () => solo(5, 6, 1, 2, "s").concat(solo(7, 7, 0, 1, "l"), solo(8, 8, 0, 1, "g"));
+const excl = x => '<g class="vena">' + rects([[-2,x,"v"],[-1,x,"v"],[0,x,"v"],[2,x,"v"]]) + '</g>';
+const mariposa = '<g class="mari"><g class="m1">' + rects([[1,10,"H"],[1,12,"H"],[2,11,"z"],[3,10,"H"],[3,12,"H"]]) + '</g><g class="m2">' + rects([[2,10,"H"],[2,12,"H"],[2,11,"z"]]) + '</g></g>';
+const lagrimas = '<g class="t1">' + rects([[5,3,"t"],[5,8,"t"]]) + '</g><g class="t2">' + rects([[6,3,"t"],[6,8,"t"]]) + '</g><g class="t3">' + rects([[7,3,"t"],[7,8,"t"]]) + '</g><g class="t4">' + rects([[8,3,"t"],[8,8,"t"]]) + '</g>';
+const OJOS_CERRADOS = [[4,3,4,"e"],[4,7,8,"e"]];
+
+const MANOBOCA = [[6,7,"S"],[6,8,"S"],[7,7,"S"],[7,8,"S"],[7,9,"l"],[8,9,"l"],[7,10,"g"],[7,11,"g"],[8,10,"g"],[8,11,"g"]];
+const MANOBOCA2 = [[6,8,"S"],[6,9,"S"],[7,8,"S"],[7,9,"S"],[7,10,"l"],[8,10,"l"],[7,11,"g"],[8,11,"g"]];
+const copo = x => '<g class="nieve" style="left:0;animation-delay:' + (-x * .3) + 's">' + rects([[-2,x,"W"]]) + '</g>';
+const fantasma = '<g class="q">' + rects([[0,11,"W"],[0,12,"W"],[0,13,"W"]].concat(solo(1, 1, 10, 14, "W"), [[2,10,"W"],[2,11,"z"],[2,12,"W"],[2,13,"z"],[2,14,"W"]], solo(3, 3, 10, 14, "W"), [[4,10,"W"],[4,12,"W"],[4,14,"W"]])) + '</g>';
+const pizza = '<g class="q">' + rects(solo(1, 1, 11, 15, "B").concat([[2,11,"y"],[2,12,"R"],[2,13,"y"],[2,14,"R"],[2,15,"y"],[3,12,"y"],[3,13,"y"],[3,14,"y"],[4,13,"y"]])) + '</g>';
+const bombilla = '<g class="b1">' + rects(solo(-3, -2, 4, 6, "y").concat([[-1,5,"q"]])) + '</g><g class="b2">' + rects(solo(-3, -2, 4, 6, "W").concat([[-1,5,"q"],[-3,3,"y"],[-3,7,"y"],[-2,2,"y"],[-2,8,"y"]])) + '</g>';
+
+const barra = y => solo(y, y, -1, 12, "q").concat(solo(y - 2, y + 2, -1, -1, "z"), solo(y - 2, y + 2, 12, 12, "z"));
+const copaC = y => solo(y, y, 10, 13, "y").concat([[y+1,10,"y"],[y+1,11,"W"],[y+1,12,"y"],[y+1,13,"y"]], solo(y + 2, y + 3, 11, 12, "y"), [[y,9,"y"],[y+1,9,"y"],[y,14,"y"],[y+1,14,"y"]]);
+const confeti = (x, col, d) => '<g class="nieve" style="animation-delay:' + d + 's"><rect x="' + x + '" y="-3" width=".8" height=".8" fill="' + col + '"></rect></g>';
+const llamas = hs => [-1, 0, 11, 12].reduce((o, x, i) => { for (let k = 0; k < hs[i]; k++) o.push([14 - k, x, k < 2 ? "O" : "y"]); return o; }, []);
+const CAPA_A = solo(13, 16, 1, 10, "R").concat(solo(15, 16, 11, 12, "R"));
+const CAPA_B = solo(13, 16, 1, 10, "R").concat(solo(15, 16, -1, 0, "R"));
+
+const ACCIONES = [
+  { id:"saludo", n:"Saludar", d:"Saluda con la mano y mueve la boca al decir hola.", g:"¡Hola!", mod:[],
+    bo:solo(5, 6, 5, 6, "M"), r1:arriba("R", 3), r2:lado(3), extra:"" },
+  { id:"alegre", n:"Alegre", d:"Salta con los dos brazos arriba, se ríe y le salen destellos.", g:"¡Yupi!",
+    mod:[[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"],[5,2,2,"r"],[5,9,9,"r"]],
+    bo:solo(6, 6, 5, 6, "W"), r1:arriba("R", 3), r2:arriba("R", 4), l1:arriba("L", 3), l2:arriba("L", 4),
+    extra:"", fuera:chispa(-1, 0, 0) + chispa(11, 0, .4) + chispa(5, -2, .8) },
+  { id:"triste", n:"Triste", d:"Cabeza baja, llora y se limpia las lágrimas.", g:"Buaaa...",
+    mod:[[6,5,6,"s"],[5,5,6,"m"],[6,4,4,"m"],[6,7,7,"m"]],
+    bo:[], r1:arriba("R", 4), r2:cara(),
+    extra:'<g class="tA">' + rects([[5,3,"t"],[5,8,"t"]]) + '</g><g class="tB">' + rects([[6,3,"t"],[6,8,"t"]]) + '</g>' +
+          '<g class="tA" style="animation-delay:-.9s">' + rects([[5,8,"t"]]) + '</g>' },
+  { id:"brava", n:"Brava", d:"Se pone roja, tiembla, saca humo y levanta el puño.", g:"¡Grrr!",
+    mod:[[3,3,8,"e"],[6,4,7,"M"],[6,5,6,"W"]],
+    bo:solo(5, 5, 4, 7, "M"), r1:arriba("R", 3),
+    extra:'<rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect>',
+    fuera:'<g class="vena">' + rects([[1,10,"v"],[1,12,"v"],[2,11,"v"],[3,10,"v"],[3,12,"v"]]) + '</g>' +
+          '<g class="humo">' + rects([[1,0,"W"],[0,1,"W"],[1,1,"W"]]).replace(/fill="#FFFFFF"/g, 'fill="#E8E8EE"') + '</g>' },
+  { eval:true, id:"pulgar", n:"Pulgar arriba", d:"Guiña el ojo y sube el pulgar para decir 'vas muy bien'.", g:"¡Muy bien!",
+    mod:SONRISA, bo:[], gu:[[4,7,"e"],[4,8,"e"]],
+    r1:arriba("R", 5).concat(solo(3, 4, 11, 11, "s")), r2:arriba("R", 5).concat(solo(2, 3, 11, 11, "s")),
+    extra:"", fuera:chispa(11, -2, 0) + chispa(-1, 1, .5) },
+  { eval:true, id:"animo", n:"Ánimo", d:"Levanta el puño y grita para darle fuerzas a quien está en el examen.", g:"¡Tú puedes!",
+    mod:SONRISA, bo:solo(6, 6, 5, 6, "W"), r1:arriba("R", 3), extra:"", fuera:chispa(-1, 0, 0) + chispa(11, -1, .5) },
+  { eval:true, id:"pienso", n:"Pensando", d:"Mano en la barbilla, mueve la cabeza y le sale un signo de pregunta.", g:"Hmm...",
+    mod:[[6,5,6,"s"],[6,6,7,"m"]], bo:[],
+    r1:solo(5, 6, 9, 10, "S").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g")),
+    r2:solo(6, 7, 9, 10, "S").concat(solo(8, 8, 10, 11, "l")), extra:"", fuera:interrog },
+  { eval:true, id:"copion", n:"Copión", d:"Mira de lado, susurra y pasa un papelito con la respuesta.", g:"Psst... 🤫",
+    mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,"e"],[4,4,"w"],[4,7,"e"],[4,8,"w"]],
+    r1:arriba("R", 5).concat(papel(10)), r2:lado(5).concat(papel(11)),
+    extra:sudor([3,1], [4,1], 0) },
+  { eval:true, id:"amor", n:"Enamorado", d:"Ojos de corazón, mejillas rosadas y corazones que flotan.", g:"Ay, qué lindo 😍",
+    mod:[[4,3,4,"H"],[4,7,8,"H"],[5,2,3,"r"],[5,8,9,"r"],[6,4,7,"m"]], bo:[],
+    r1:arriba("R", 4), r2:cara(), extra:"", fuera:corazon(10, 2, 0) + corazon(-1, 1, .8) + corazon(10, -2, 1.6) },
+  { eval:true, id:"ups", n:"¡Ups!", d:"Se equivocó: tiembla, suda y levanta las manos del susto.", g:"¡Ups!",
+    mod:[[5,5,6,"M"],[6,5,6,"M"]], bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:sudor([1,1], [2,1], 0),
+    fuera:'<g class="vena">' + rects([[-2,10,"v"],[-1,10,"v"],[0,10,"v"],[2,10,"v"]]) + '</g>' },
+  { rand:true, id:"moto", n:"En moto", d:"Maneja una moto a toda velocidad: la rueda gira y se ven las líneas de velocidad.", g:"¡Brum brum!",
+    vb:"-1 -2 14 21", sy:18, mod:SIN_PIERNAS.concat(SONRISA, [[14,2,3,"p"],[14,8,9,"p"],[15,2,3,"f"],[15,8,9,"f"]]), bo:[],
+    atras:rects(solo(13, 13, -1, 12, "q").concat([[13,-1,"z"],[13,12,"z"],[14,4,"q"],[14,5,"y"],[14,6,"y"],[14,7,"q"]], solo(15, 15, 4, 7, "R"))) +
+          '<g class="ra">' + rects([[16,5,"z"],[16,6,"q"],[17,5,"q"],[17,6,"z"]]) + '</g><g class="rb">' + rects([[16,5,"q"],[16,6,"z"],[17,5,"z"],[17,6,"q"]]) + '</g>',
+    extra:"", fuera:lineas(-1) + lineas(12) },
+  { rand:true, id:"caballo", n:"A caballo", d:"Galopa montado en su caballo: sube y baja y las pezuñas se alternan.", g:"¡Arre!",
+    vb:"-1 -2 14 22", sy:19, mod:SIN_PIERNAS.concat(SONRISA, [[13,2,3,"p"],[13,8,9,"p"],[14,2,2,"p"],[14,9,9,"p"],[15,2,2,"f"],[15,9,9,"f"]]), bo:[],
+    atras:rects(solo(14, 16, 1, 10, "B").concat([[17,2,"B"],[17,3,"B"],[17,8,"B"],[17,9,"B"]])) +
+          '<g class="hA">' + rects([[18,2,"b"],[18,3,"b"]]) + '</g><g class="hB">' + rects([[18,8,"b"],[18,9,"b"]]) + '</g>',
+    extra:"", fuera:rects(solo(14, 16, 4, 7, "B").concat([[13,4,"b"],[13,7,"b"],[13,5,"R"],[13,6,"R"],[14,3,"N"],[14,8,"N"],[15,3,"N"],[15,8,"N"],[15,4,"z"],[15,7,"z"],[15,5,"W"],[15,6,"W"],[16,5,"W"],[16,6,"W"]], solo(17, 17, 4, 7, "C"), [[17,4,"z"],[17,7,"z"]])) },
+  { rand:true, ancha:true, id:"pesca", n:"Pescando", d:"Sostiene la caña, el flotador se mece y de vez en cuando salta un pez.", g:"¡Algo picó!",
+    vb:"-1 -2 19 18.8", mod:SONRISA, bo:[], r1:arriba("R", 5), r2:arriba("R", 6),
+    extra:"", fuera:rects([[4,12,"N"],[3,12,"N"],[2,13,"N"],[1,14,"N"],[0,14,"N"],[-1,15,"N"],[-2,16,"N"]]) +
+          '<rect x="16.4" y="-1.5" width=".2" height="14.5" fill="#F2F4F8"></rect>' +
+          rects(solo(15, 16, 12, 17, "U")) + '<g class="wA">' + rects([[15,12,"t"],[15,14,"t"],[15,16,"t"]]) + '</g><g class="wB">' + rects([[15,13,"t"],[15,15,"t"],[15,17,"t"]]) + '</g>' +
+          '<g class="bob">' + rects([[13,16,"W"],[14,16,"v"]]) + '</g>' +
+          '<g class="pez">' + rects([[14,12,"O"],[14,13,"O"],[14,14,"y"]]) + '</g>' },
+  { rand:true, id:"baile", n:"Bailando", d:"Salta al ritmo, alterna los brazos arriba y sueltan notas musicales.", g:"¡Qué ritmo! 🎵",
+    mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:"", fuera:nota(10, 1, 0) + nota(-1, 0, .8) + nota(10, -2, 1.6) },
+  { rand:true, id:"dormido", n:"Dormido", d:"Se queda dormido: respira lento, ronca y le salen las Zzz.", g:"Zzz...",
+    mod:[[4,3,4,"e"],[4,7,8,"e"]], bo:solo(5, 6, 5, 6, "M"), extra:"", fuera:zeta(10, 2, 0) + zeta(10, -2, 1.2) },
+  { mas:true, id:"ceja", n:"Ceja levantada", d:"Mira de lado con una ceja arriba y media sonrisa, como dudando.", g:"¿En serio? 🤨",
+    mod:[[3,3,8,"e"],[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"m"],[5,7,7,"m"]], bo:[], gu:[[3,6,8,"h"],[2,6,8,"e"]], extra:"", fuera:interrog },
+  { mas:true, id:"lloron", n:"Llorón", d:"Llora a mares con las manos en los ojos, la boca abierta y un charco en el piso.", g:"¡Buaaaa!",
+    vb:"-1 -2 14 19.8", sy:17, mod:OJOS_CERRADOS.concat([[5,4,7,"M"],[6,4,7,"M"]]), bo:[[5,4,"s"],[5,7,"s"],[6,4,"s"],[6,7,"s"]],
+    r1:cara(), r2:cara2(), l1:caraL(), l2:caraL2(), extra:lagrimas, fuera:rects(solo(16, 16, 1, 10, "U")) },
+  { mas:true, id:"amoroso", n:"Amoroso", d:"Cierra los ojos, se sonroja y manda un beso volado con la mano.", g:"Muac 😘",
+    vb:"-1 -2 16 18.8", mod:OJOS_CERRADOS.concat([[5,2,3,"r"],[5,8,9,"r"],[6,5,6,"H"]]), bo:[],
+    r1:[[6,7,"S"],[6,8,"S"],[7,7,"S"],[7,8,"S"],[7,9,"l"],[8,9,"l"],[7,10,"g"],[7,11,"g"],[8,10,"g"],[8,11,"g"]], r2:lado(5),
+    extra:"", fuera:'<g class="beso">' + rects([[2,12,"H"],[2,14,"H"],[3,12,"H"],[3,13,"H"],[3,14,"H"],[4,13,"H"]]) + '</g>' + corazon(-1, 1, .6) },
+  { mas:true, id:"tonto", n:"Tonto", d:"Pone ojos locos, saca la lengua y agita los brazos sin sentido.", g:"¡Bleeeh! 🤪",
+    mod:[[6,4,7,"M"],[7,5,6,"H"]], bo:[[8,5,"H"],[8,6,"H"]], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"w"],[4,8,8,"e"]],
+    r1:arriba("R", 4), l1:arriba("L", 4), extra:"" },
+  { mas:true, id:"carro", n:"En carro", d:"Maneja un carro rojo con volante, faros y llantas que giran.", g:"¡Piii piii!",
+    vb:"-1 -2 14 19.8", sy:17, mod:SIN_PIERNAS.concat(SONRISA), bo:[], extra:"",
+    fuera:rects(solo(-2, -1, -1, 12, "R").concat(solo(0, 10, -1, -1, "R"), solo(0, 10, 12, 12, "R"),
+            [[8,4,"z"],[8,5,"z"],[8,6,"z"],[8,7,"z"],[9,3,"s"],[9,8,"s"],[10,4,"z"],[10,5,"z"],[10,6,"z"],[10,7,"z"]],
+            solo(11, 13, -1, 12, "R"), solo(11, 11, 0, 11, "T"), [[12,0,"y"],[12,1,"y"],[12,10,"y"],[12,11,"y"]],
+            solo(12, 12, 4, 7, "q"), solo(13, 13, 4, 7, "z"), solo(14, 14, -1, 12, "q"),
+            solo(14, 16, -1, 1, "z"), solo(14, 16, 10, 12, "z"))) +
+          '<g class="ra">' + rects([[15,0,"q"],[15,11,"z"]]) + '</g><g class="rb">' + rects([[15,0,"z"],[15,11,"q"]]) + '</g>' },
+  { mas:true, id:"distraido", n:"Distraído", d:"Silba mirando para todos lados, siguiendo una mariposa que pasa.", g:"Mmm... ¿qué?",
+    vb:"-1 -2 16 18.8", mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"e"],[4,8,8,"w"]],
+    extra:"", fuera:mariposa + nota(-1, 1, 0) },
+  { mas:true, id:"sorpresa", n:"Sorprendido", d:"Se asusta: ojos enormes, boca abierta, manos en la cara y signos de exclamación.", g:"¡¿Qué?!",
+    mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,5,6,"M"]], bo:[],
+    r1:cara(), l1:caraL(), extra:"", fuera:excl(10) + excl(0) },
+  { mas:true, id:"cool", n:"Cool", d:"Con lentes oscuros, sonrisa de lado y se acomoda los lentes con la mano.", g:"Qué cool 😎",
+    mod:[[4,3,8,"z"],[6,4,7,"m"],[5,8,8,"m"]], bo:[], gu:[[4,4,"W"],[4,7,"W"]],
+    r1:arriba("R", 4), r2:cara(), extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 0, .7) },
+  { rx:true, id:"neg", n:"Diciendo no", d:"Mueve la cabeza de lado a lado y el dedo, con cara seria.", g:"¡No, no, no!",
+    mod:[[3,3,8,"e"],[6,4,7,"m"]], bo:[], r1:arriba("R", 4), r2:lado(4), extra:"" },
+  { rx:true, id:"afirma", n:"Diciendo sí", d:"Asiente con la cabeza una y otra vez con una gran sonrisa.", g:"¡Sí, sí, sí!",
+    mod:SONRISA, bo:[], extra:"", fuera:chispa(11, -1, 0) },
+  { rx:true, id:"miedo", n:"Con miedo", d:"Tiembla con los dientes castañeando, mira para todos lados y lo asusta un fantasma.", g:"¡Aaah! 😱",
+    vb:"-1 -2 16 18.8", mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,4,4,"M"],[6,5,5,"m"],[6,6,6,"M"],[6,7,7,"m"]],
+    bo:[[6,4,4,"m"],[6,5,5,"M"],[6,6,6,"m"],[6,7,7,"M"]], gl:[[5,3,3,"e"],[5,4,4,"w"],[5,7,7,"e"],[5,8,8,"w"]],
+    r1:cara2(), l1:caraL2(), extra:sudor([3,1], [4,1], 0), fuera:fantasma },
+  { rx:true, id:"ansiedad", n:"Ansiedad", d:"Se come las uñas, mira nervioso a todos lados y una nube lo sigue.", g:"Uy, uy, uy...",
+    mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"e"],[4,8,8,"w"]],
+    r1:MANOBOCA, r2:MANOBOCA2, extra:sudor([3,1], [4,1], 0) + sudor([2,10], [3,10], .5),
+    fuera:'<g class="nube">' + rects(solo(-2, -2, 4, 7, "q").concat(solo(-1, -1, 3, 8, "q"))) + '</g>' },
+  { rx:true, id:"frio", n:"Con frío", d:"Se abraza, le castañean los dientes, tiene la nariz roja y cae nieve.", g:"Brrr... 🥶",
+    mod:OJOS_CERRADOS.concat([[5,5,6,"T"],[6,4,7,"M"],[10,2,9,"G"],[11,2,9,"G"],[10,2,2,"s"],[11,9,9,"s"]]), bo:[[6,4,7,"W"]],
+    extra:"", fuera:copo(-1) + copo(3) + copo(7) + copo(11) },
+  { rx:true, id:"enfermo", n:"Enfermo", d:"Está verde, con termómetro en la boca, la mano en la frente y muy decaído.", g:"Achú... 🤒",
+    mod:OJOS_CERRADOS.concat([[5,5,6,"T"],[6,5,6,"M"]]), bo:[], r1:cara(),
+    extra:'<rect class="rojo" x="2" y="3" width="8" height="4" fill="#7BC96F"></rect>' + rects([[6,7,"W"],[6,8,"W"],[6,9,"W"],[6,10,"v"]]) + sudor([3,1], [4,1], 0) },
+  { rx:true, id:"hambre", n:"Con hambre", d:"Se le hace agua la boca, estira la mano hacia una pizza y le ruge la panza.", g:"¡Tengo hambre! 🍕",
+    vb:"-1 -2 16 18.8", mod:[[6,4,7,"M"]], bo:[], r1:lado(6), r2:lado(5), extra:sudor([7,4], [8,4], 0), fuera:pizza },
+  { rx:true, id:"idea", n:"¡Una idea!", d:"Levanta el dedo y se le prende un foco sobre la cabeza.", g:"¡Ya sé!",
+    vb:"-1 -3 14 19.8", mod:SONRISA, bo:[], r1:arriba("R", 1), r2:arriba("R", 2), extra:"", fuera:bombilla },
+  { her:true, id:"ejer", n:"Haciendo ejercicio", d:"Levanta una pesa con los dos brazos, aprieta los dientes y se pone rojo del esfuerzo.", g:"¡Uno más! 💪",
+    vb:"-1 -4 14 20.8", mod:[[3,3,8,"e"],[6,4,7,"W"]], bo:[],
+    r1:arriba("R", 0).concat(barra(-1)), r2:arriba("R", 3).concat(barra(2)), l1:arriba("L", 0), l2:arriba("L", 3),
+    extra:'<rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect>' },
+  { her:true, id:"copa", n:"Ganando la copa", d:"Levanta un trofeo dorado, salta de alegría y le cae confeti.", g:"¡Campeón! 🏆",
+    vb:"-1 -3 16 19.8", mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[],
+    r1:arriba("R", 3).concat(copaC(-1)), r2:arriba("R", 2).concat(copaC(-2)), l1:arriba("L", 3), l2:arriba("L", 4),
+    extra:"", fuera:confeti(-1, "#FF4D4D", 0) + confeti(2, "#3FD8C8", .5) + confeti(5, "#FFC83D", 1) + confeti(8, "#8E5BD6", 1.5) + confeti(12, "#5DB33A", .3) + confeti(14, "#FF4D8D", 1.1) },
+  { her:true, id:"super", n:"Poder máximo", d:"Se le para el pelo dorado, lo rodea un aura de fuego con rayos y grita levitando.", g:"¡Poder máximo! ⚡",
+    vb:"-1 -4 14 20.8", mod:[[0,3,8,"y"],[1,2,9,"y"],[2,2,9,"y"],[3,2,9,"y"],[4,4,4,"c"],[4,7,7,"c"],[6,4,7,"W"]], bo:solo(5, 6, 5, 6, "M"),
+    atras:'<rect class="rojo" x="-1" y="-4" width="14" height="20.8" fill="#FFC83D"></rect>' +
+          '<g class="m1">' + rects(llamas([7,5,5,7])) + '</g><g class="m2">' + rects(llamas([5,8,8,5])) + '</g>' +
+          '<g class="b1">' + rects([[2,-1,"c"],[3,0,"c"],[4,-1,"c"],[5,0,"c"],[4,12,"c"],[5,11,"c"],[6,12,"c"],[7,11,"c"]]) + '</g>' +
+          '<g class="b2">' + rects([[6,-1,"c"],[7,0,"c"],[8,-1,"c"],[9,0,"c"],[1,12,"c"],[2,11,"c"],[3,12,"c"],[4,11,"c"]]) + '</g>',
+    extra:'<g class="m1">' + rects([[-1,3,"y"],[-1,5,"y"],[-1,6,"y"],[-1,8,"y"],[-2,4,"y"],[-2,7,"y"],[-3,5,"y"]]) + '</g><g class="m2">' + rects([[-1,3,"y"],[-1,4,"y"],[-1,7,"y"],[-1,8,"y"],[-2,3,"y"],[-2,6,"y"],[-2,8,"y"],[-3,4,"y"],[-3,7,"y"]]) + '</g>' },
+  { her:true, id:"heroe", n:"Superhéroe", d:"Se pone el antifaz con la mano y levanta el puño con la capa al viento.", g:"¡Súper Gamer! 🦸",
+    mod:SONRISA.concat([[9,5,6,"y"],[10,5,6,"y"]]), bo:[], gu:[[4,2,"R"],[4,5,"R"],[4,6,"R"],[4,9,"R"]],
+    r1:arriba("R", 3), r2:cara(),
+    atras:'<g class="m1">' + rects(CAPA_A) + '</g><g class="m2">' + rects(CAPA_B) + '</g>', extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 1, .6) }
+];
+
+function dibujar(a) {
+  const g = BASE.map(f => f.split(""));
+  a.mod.forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [], rd = [], ld = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => {
+    if (k === ".") return;
+    const x = [r, c, k];
+    if (r <= 6) cab.push(x); else if (r <= 13 && c >= 10) rd.push(x); else if (r <= 13 && c <= 1) ld.push(x); else cue.push(x);
+  }));
+  const ojos = [[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]];
+  return '<svg class="' + a.id + '" viewBox="' + (a.vb || "-1 -2 14 18.8") + '" shape-rendering="crispEdges" role="img" aria-label="' + a.n + '">' +
+    '<rect x="2" y="' + (a.sy || 16) + '" width="8" height=".6" fill="#000" opacity=".4"></rect><g class="atras">' + (a.atras || "") + '</g>' +
+    '<g class="mov">' + rects(cue) +
+    '<g class="cab">' + rects(cab) + '<g class="oc">' + rects(ojos) + '</g><g class="bo">' + rects(a.bo) + '</g>' + a.extra + '</g>' +
+    '<g class="ld">' + rects(ld) + '</g><g class="l1">' + rects(a.l1 || []) + '</g><g class="l2">' + rects(a.l2 || []) + '</g>' +
+    '<g class="rd">' + rects(rd) + '</g><g class="r1">' + rects(a.r1 || []) + '</g><g class="r2">' + rects(a.r2 || []) + '</g>' +
+    '</g><g class="fuera">' + (a.fuera || "") + '</g></svg>';
+}
+
+const A = {}; ACCIONES.forEach(a => { A[a.id] = a; });
+return { dib: id => dibujar(A[id]) };
+})();
+
+/* ================= abajo: el personaje y el ejemplo ================= */
+const PIE_MIN = 108;                       // alto mínimo de la parte de abajo
+const PIE_SI = ["alegre", "pulgar", "baile", "cool", "afirma", "idea", "animo"];   // al encontrar una palabra
+const PIE_NO = ["ups", "neg", "pienso", "ceja"];                                   // al equivocarse
+const P = { ej:[], ver:-1, t:null, quieto:null, x:50 };
+function marca(s) { return esc(s).replace(/\*(.+?)\*/g, '<b>$1</b>'); }
+function pj(id) { const e = $("pjFig"); if (e.dataset.id === id) return; e.dataset.id = id; e.innerHTML = PJX.dib(id); }
+function decir(html, tipo) {
+  const d = $("pjTx"); d.className = "pj-tx " + (tipo || ""); d.innerHTML = html;
+  d.classList.remove("in"); void d.offsetWidth; d.classList.add("in");
+  $("pjVoz").style.visibility = tipo === "ej" ? "" : "hidden";
+}
+function pieReposo(id) {
+  clearTimeout(P.quieto);
+  P.quieto = setTimeout(() => { pj("dormido"); if (PIE === "C") decir('<span class="pj-es">Zzz… ¿seguimos? Busca las que faltan.</span>'); }, 14000);
+  if (id) pj(id);
+}
+function pieRonda() {
+  P.ej = []; P.ver = -1;
+  const R = RONDAS[J.r];
+  const txt = J.r === 0 ? "¡Hola! Encuentra las 4 palabras. Cada una que encuentres trae su ejemplo." :
+              R.rev >= 4 ? "¡Ojo! Aquí todas van al revés y hay letras trampa." :
+              "Ahora " + R.rev + " palabras van al revés. ¡Tú puedes!";
+  decir('<span class="pj-es">' + esc(txt) + '</span>', "hola");
+  pj(J.r === 0 ? "saludo" : "animo"); puntos(); caminar(50); pieReposo();
+}
+function pieAcierto(p) {
+  P.ej.push(p); P.ver = P.ej.length - 1;
+  verEjemplo(p, true);
+  pj(PIE_SI[(P.ej.length + J.r) % PIE_SI.length]);
+  if (Object.keys(J.hallada).length === J.pal.length) pj("copa");
+  caminar(15 + Math.random() * 70); pieReposo();
+}
+function verEjemplo(p, nuevo) {
+  const en = p[2].split(" ").map((w, i) => '<i style="animation-delay:' + (i * 70) + 'ms">' + marca(w) + '</i>').join(" ");
+  decir((PIE === "B" ? '<small class="pj-tag">EJEMPLO · ' + esc(p[0].toLowerCase()) + '</small>' : '') +
+        '<span class="pj-en">' + en + '</span><span class="pj-es">' + esc(p[3]) + '</span>', "ej");
+  puntos();
+  if (nuevo) setTimeout(() => voz(p[2].replace(/\*/g, "")), 700);
+}
+function pieError() {
+  pj(PIE_NO[J.errores % PIE_NO.length]);
+  if (P.ver < 0) decir('<span class="pj-es">Casi… prueba en otra dirección. Algunas van al revés.</span>', "mal");
+  clearTimeout(P.t); P.t = setTimeout(() => pj(P.ej.length ? "pulgar" : "pienso"), 1600);
+  pieReposo();
+}
+function puntos() {
+  const e = $("pjDots"); if (!e) return;
+  e.innerHTML = J.pal.map((x, i) => '<button type="button" aria-label="Ejemplo ' + (i + 1) + '" class="' + (i < P.ej.length ? "si" : "") + (i === P.ver ? " on" : "") + '"' + (i < P.ej.length ? "" : " disabled") + ' data-i="' + i + '"></button>').join("");
+}
+function caminar(x) { if (PIE !== "C") return; const f = $("pjFig"); f.classList.toggle("izq", x < P.x); P.x = x; f.style.left = x + "%"; }
+$("pjVoz").addEventListener("click", () => { const p = P.ej[P.ver]; if (p) voz(p[2].replace(/\*/g, "")); });
+if ($("pjDots")) $("pjDots").addEventListener("click", e => { const b = e.target.closest("button[data-i]"); if (b && P.ej[+b.dataset.i]) { P.ver = +b.dataset.i; verEjemplo(P.ej[P.ver], false); } });
+$("pjFig").addEventListener("click", () => { pj(PIE_SI[Math.floor(Math.random() * PIE_SI.length)]); pieReposo(); });
 
 eventos();
 empezar(0);
