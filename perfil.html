@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Perfil · InglésGamer</title>
+<meta name="theme-color" content="#000000">
+<script>
+/* Paletas: las mismas del Inicio (clave "ingles_gamer_tema"). Si el jugador elige Día, Rosa o Azul en el Inicio, el Perfil también. */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--line":"rgba(255,255,255,.22)" } },
+  dia:   { meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--line":"rgba(0,0,0,.16)" } },
+  rosa:  { meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--line":"rgba(160,40,95,.20)" } },
+  azul:  { meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--line":"rgba(20,85,170,.20)" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs;
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+window.addEventListener("pageshow", function () { aplicarTema(temaActual()); });
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--hi:#fff;--on-hi:#000;--track:#2A2A2E;--toff:#3A3A40;--nav:#0E0E10;--line:rgba(255,255,255,.22)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding:calc(24px + env(safe-area-inset-top)) 20px calc(110px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+.top{display:flex;align-items:center;justify-content:space-between}
+.logo{margin:0;font-size:22px;font-weight:800;letter-spacing:-.5px}
+.logo span{color:var(--mu)}
+.acc{display:flex;gap:8px}
+.circ{width:44px;height:44px;border-radius:999px;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px}
+.lab{display:flex;justify-content:space-between;margin:0 0 12px;font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--mu)}
+.lab span:last-child{letter-spacing:.3px}
+.hero{display:flex;gap:16px;align-items:center}
+.hav{width:96px;height:96px;border-radius:999px;background:var(--chip);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hnm{font-size:26px;font-weight:800;letter-spacing:-.5px;overflow-wrap:anywhere}
+.chip{display:inline-flex;align-items:center;gap:6px;margin-top:8px;background:var(--hi);color:var(--on-hi);border-radius:999px;padding:4px 12px 4px 8px;font-size:11px;font-weight:800;letter-spacing:1px}
+.chip svg{display:block}
+.bar{height:8px;border-radius:999px;background:var(--track);margin-top:12px}
+.bar i{display:block;height:8px;border-radius:999px;background:var(--hi);transition:width .6s}
+.sub{margin-top:8px;font-size:12px;color:var(--mu);line-height:1.4}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.st{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 4px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:18px;font-weight:800}
+.inp{width:100%;height:52px;border-radius:16px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:0 16px;font:700 18px "Plus Jakarta Sans",sans-serif}
+.inp:focus{outline:none;border-color:var(--hi)}
+.inp[readonly]{opacity:.85;cursor:default}
+.aviso{min-height:20px;margin-top:8px;font-size:13px;color:var(--ink)}
+.nota{margin:4px 0 0;font-size:12px;line-height:1.5;color:var(--mu)}
+.nota b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.av{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 4px 10px;border-radius:18px;background:var(--bg);border:1px solid var(--line);cursor:pointer;font-size:12px;font-weight:700}
+.av.on{background:var(--chip);border:2px solid var(--hi)}
+.av.on::before{content:"TÚ";position:absolute;top:-9px;background:var(--hi);color:var(--on-hi);border-radius:999px;padding:2px 8px;font-size:9px;font-weight:800}
+.av.lock{opacity:.5;border-style:dashed}
+.av span{display:flex;gap:4px;align-items:center}
+.rks{display:flex;justify-content:space-between}
+.rks div{text-align:center;font-size:11px;font-weight:700;color:var(--mu)}
+.rks div.yo{color:var(--ink)}
+.rks svg{display:block;margin:0 auto 6px;opacity:.3}
+.rks .yo svg{opacity:1}
+.rks small{display:block;font-size:10px;font-weight:600}
+.aura{display:flex;align-items:center;gap:14px}
+.aura b{display:block;font-size:38px;line-height:1;font-weight:800}
+.aura small{font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--mu)}
+.mov{display:flex;gap:12px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-top:8px;font-size:14px;font-weight:600}
+.mov b{min-width:34px}
+.mov em{margin-left:auto;font-size:11px;font-style:normal;color:var(--mu)}
+.vacio{margin:14px 0 0;font-size:13px;line-height:1.5;color:var(--mu)}
+.niv{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.niv .n{width:34px;height:34px;border-radius:12px;background:var(--chip);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+.niv .t{flex:1;font-size:15px;font-weight:700}
+.niv .s{display:flex;gap:2px}
+.vermas{display:flex;align-items:center;justify-content:center;width:100%;height:46px;margin-top:6px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer;font-size:14px;font-weight:700}
+.go{display:flex;align-items:center;justify-content:center;height:54px;margin-top:12px;border-radius:999px;background:var(--hi);color:var(--on-hi);font-size:15px;font-weight:800}
+.mis{position:relative;display:block;margin-top:18px;min-height:80px;padding:18px 20px;border-radius:24px;background:#0B0B0D;color:#fff;border:1px solid rgba(255,255,255,.14)}
+.mis b{display:block;font-size:21px;font-weight:800;letter-spacing:-.4px}
+.mis span.t{display:block;margin-top:4px;font-size:13px;color:rgba(255,255,255,.82)}
+.mis .pj{position:absolute;right:20px;bottom:0;display:flex;align-items:flex-end;pointer-events:none}
+.mis .pj svg{display:block;margin-bottom:-1px}
+.mis:active{transform:scale(.99)}
+.meds{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.med{border-radius:16px;padding:12px;background:var(--bg);border:1px solid var(--line);opacity:.45}
+.med.ok{opacity:1;background:var(--chip);border-color:var(--hi)}
+.med i{display:block;width:26px;height:26px;border-radius:999px;margin-bottom:8px;background:var(--toff)}
+.med.ok i{background:var(--hi)}
+.med b{display:block;font-size:13px}
+.med span{display:block;margin-top:2px;font-size:11px;line-height:1.3;color:var(--mu)}
+.sk{display:inline-flex}.sk svg{display:block;filter:drop-shadow(0 4px 0 rgba(0,0,0,.3))}
+.arco{animation:hue 3s linear infinite}@keyframes hue{to{filter:hue-rotate(360deg)}}
+.fr{display:inline-flex;align-items:flex-end;justify-content:center;overflow:hidden;border-radius:50%;border:5px solid var(--b,#9A6A3A);background:#0F0F12;box-shadow:0 0 var(--g,0px) var(--b)}
+.m0{--b:#9A6A3A}.m1{--b:#9A9AA6}.m2{--b:#FFC83D;--g:14px}.m3{--b:#3FD8C8;--g:14px}.m5{--b:#E8F7FF;--g:18px}
+.m4{animation:fuego 1s ease-in-out infinite alternate}.m6{animation:arcoB 3s linear infinite}
+@keyframes fuego{from{border-color:#FF4D4D;box-shadow:0 0 8px #FF4D4D}to{border-color:#FFC83D;box-shadow:0 0 22px #FF8A3D}}
+@keyframes arcoB{0%,100%{border-color:#FF4D4D}20%{border-color:#FFC83D}40%{border-color:#5DB33A}60%{border-color:#3FD8C8}80%{border-color:#8E5BD6}}
+.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none}.fx::before,.fx::after{content:"";position:absolute;inset:0}
+.f-mp0::before{background:radial-gradient(circle,#FFF28A 0 2px,transparent 3px) 0 0/70px 60px,radial-gradient(circle,#B6FF8A 0 1.5px,transparent 2.5px) 30px 25px/90px 70px;animation:luci 6s ease-in-out infinite alternate,parp2 1.8s ease-in-out infinite alternate}
+.f-mp0::after{top:12%;height:14%;background:radial-gradient(ellipse at 20% 50%,rgba(255,255,255,.18) 0 40%,transparent 41%) 0 0/160px 100%;animation:nube 28s linear infinite}
+@keyframes luci{from{background-position:0 0,30px 25px}to{background-position:26px -30px,0 -10px}}
+@keyframes parp2{from{opacity:.25}to{opacity:1}}@keyframes nube{from{background-position:0 0}to{background-position:160px 0}}
+.f-mp1::before{background:radial-gradient(circle,#fff 0 1.5px,transparent 2px) 10px 10px/46px 38px;animation:parp2 1.4s ease-in-out infinite alternate}
+.f-mp1::after{left:-80px;top:10%;width:70px;height:2px;inset:auto;background:linear-gradient(90deg,transparent,#fff);transform:rotate(25deg);animation:fugaz 4s ease-in infinite}
+@keyframes fugaz{0%{transform:translate(0,0) rotate(25deg);opacity:0}8%{opacity:1}30%{transform:translate(520px,240px) rotate(25deg);opacity:0}100%{opacity:0}}
+.f-mp2::before{background:repeating-linear-gradient(0deg,transparent 0 14px,rgba(255,235,170,.16) 14px 16px),radial-gradient(circle,rgba(255,240,190,.7) 0 1px,transparent 1.5px) 0 0/30px 22px;animation:viento 1.6s linear infinite}
+.f-mp2::after{background:linear-gradient(transparent 55%,rgba(255,220,140,.22) 70%,transparent 85%);animation:calor 2.2s ease-in-out infinite alternate}
+@keyframes viento{from{background-position:0 0,0 0}to{background-position:-120px 0,-120px 6px}}@keyframes calor{from{transform:translateY(-3px)}to{transform:translateY(3px)}}
+.f-mp3::before{background:radial-gradient(circle,#fff 0 2px,transparent 2.8px) 0 0/40px 40px;animation:nieva 3s linear infinite}
+.f-mp3::after{background:radial-gradient(circle,rgba(255,255,255,.8) 0 1.2px,transparent 2px) 14px 0/24px 28px;animation:nieva 1.8s linear infinite}
+@keyframes nieva{from{background-position-y:0}to{background-position-y:40px}}
+.f-mp4::before{background:radial-gradient(circle,#FFB347 0 2px,transparent 3px) 0 0/44px 50px,radial-gradient(circle,#FF5A2A 0 1.5px,transparent 2.5px) 20px 20px/62px 60px;animation:brasas 2.6s linear infinite}
+.f-mp4::after{top:auto;height:45%;background:linear-gradient(transparent,rgba(255,90,30,.55));animation:late2 1.2s ease-in-out infinite alternate}
+@keyframes brasas{from{background-position:0 0,20px 20px}to{background-position:14px -50px,6px -40px}}@keyframes late2{from{opacity:.35}to{opacity:1}}
+.f-mp5::before{background:radial-gradient(circle,#fff 0 1px,transparent 1.6px) 0 0/30px 26px,radial-gradient(circle,#9FD8FF 0 1.4px,transparent 2px) 12px 8px/50px 44px;animation:viaja 2.4s linear infinite}
+.f-mp5::after{background:radial-gradient(circle at 25% 70%,rgba(63,216,200,.35),transparent 40%),radial-gradient(circle at 80% 25%,rgba(214,91,214,.35),transparent 45%);animation:respira 4s ease-in-out infinite alternate}
+@keyframes viaja{from{background-position:0 0,12px 8px}to{background-position:-60px 26px,-100px 44px}}@keyframes respira{from{opacity:.4;transform:scale(1)}to{opacity:1;transform:scale(1.15)}}
+/* ===== LOOK del jugador: fondo (mapa), marco, skin y título que equipó en la Tienda ===== */
+.lk-sc{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.lk-gr{position:absolute;left:0;right:0;bottom:0;height:22px;z-index:1;opacity:.9}
+.lk-fade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.5))}
+.fr{flex:none;position:relative;z-index:2}
+.lk-tt{position:absolute;z-index:3;padding:3px 4px;border-radius:99px;background:rgba(255,255,255,.92);color:#0B0B0D;font-size:10px;font-weight:800;line-height:1.2;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (prefers-reduced-motion:reduce){.fx::before,.fx::after,.fr,.arco{animation:none!important}}
+.hero{position:relative;overflow:hidden;padding-bottom:42px;--tt-b:10px;--ink:#fff;--mu:rgba(255,255,255,.86);--hi:#fff;--on-hi:#000;--track:rgba(255,255,255,.28);--gold:#FFD166;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.55)}.hero .rk,.hero .chip,.hero .lk-tt{text-shadow:none}
+/* ===== cuenta ===== */
+.cbtn{display:flex;align-items:center;justify-content:center;width:100%;height:50px;margin-top:10px;border-radius:999px;border:1px solid var(--line);background:transparent;font-size:15px;font-weight:700;cursor:pointer}
+.cbtn.pri{background:var(--hi);color:var(--on-hi);border-color:var(--hi);font-weight:800}
+.cbtn.pel{border-color:#FF4D4D;color:#FF4D4D}
+.cbtn.ok{background:#FF4D4D;border-color:#FF4D4D;color:#fff;font-weight:800}
+.cbtn[disabled]{opacity:.5;cursor:default}
+#delPanel{margin-top:12px}
+#delPanel[hidden],#cuentaOn[hidden],#cuentaOff[hidden]{display:none}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--nav);border-top:1px solid var(--line);border-radius:24px 24px 0 0}
+nav .in{max-width:520px;margin:0 auto;display:flex;justify-content:space-around;padding:10px 8px max(18px,env(safe-area-inset-bottom))}
+nav a{min-width:56px;min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:600;color:var(--mu)}
+nav a.on{color:var(--hi);font-weight:700}
+#sinNet{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:var(--bg)}
+#sinNet[hidden]{display:none}
+#sinNet h2{margin:12px 0 8px;font-size:20px}
+#sinNet p{margin:0 auto 18px;max-width:260px;font-size:15px;line-height:1.45;color:var(--mu)}
+#sinNet button{min-height:48px;padding:0 22px;border-radius:999px;border:0;background:var(--hi);color:var(--on-hi);font-size:15px;font-weight:800;cursor:pointer}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <h1 class="logo">Inglés<span>Gamer</span></h1>
+    <div class="acc"><button type="button" class="circ btnSon" aria-label="Sonido"></button><a class="circ" href="go:inicio" aria-label="Volver al inicio"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></a></div>
+  </div>
+  <div class="card hero" id="hero"></div>
+  <div class="stats" id="stats"></div>
+  <div class="card">
+    <h2 class="lab"><span>ELIGE TU PERSONAJE</span><span id="cuenta"></span></h2>
+    <div class="grid" id="avs"></div>
+    <div class="aviso" id="avisoAv" role="status" aria-live="polite"></div>
+  </div>
+  <div class="card"><h2 class="lab"><span>TU RANGO</span></h2><div class="rks" id="rango"></div></div>
+  <a class="mis" id="misStats" href="go:estadistic" aria-label="Mis estadísticas. Toca para ver tu progreso"></a>
+  <div class="card"><h2 class="lab"><span>MEDALLAS</span><span id="cMed"></span></h2><div class="meds" id="meds"></div></div>
+
+  <div class="card" id="cuentaCard">
+    <h2 class="lab"><span>TU CUENTA</span></h2>
+    <div id="cuentaOn" hidden>
+      <p class="nota" id="cEmail"></p>
+      <p class="nota" id="nubeEst" aria-live="polite"></p>
+      <button type="button" class="cbtn" id="btnNube">Guardar mi progreso ahora</button>
+      <button type="button" class="cbtn" id="btnOut">Cerrar sesión</button>
+      <button type="button" class="cbtn pel" id="btnDel">Eliminar mi cuenta</button>
+      <div id="delPanel" hidden>
+        <p class="nota"><b>Esto es permanente.</b> Se borran tu ficha, tu apodo, tu código de amigo y tus solicitudes. Para confirmar, escribe tu contraseña.</p>
+        <input class="inp" id="delPass" type="password" autocomplete="current-password" placeholder="Tu contraseña" aria-label="Tu contraseña" style="margin-top:10px">
+        <button type="button" class="cbtn ok" id="btnDel2">Sí, eliminar para siempre</button>
+        <button type="button" class="cbtn" id="btnDel0">Cancelar</button>
+      </div>
+    </div>
+    <div class="aviso" id="avisoCta" role="status" aria-live="polite"></div>
+  </div>
+
+  <nav aria-label="Navegación principal"><div class="in" id="navbar"></div></nav>
+</div>
+
+<div id="sinNet" role="alert" hidden>
+  <div><h2>Sin internet</h2><p>Conéctate al wifi o activa tus datos móviles para seguir jugando.</p><button type="button" id="snRe">Reintentar</button></div>
+</div>
+
+<script>
+/* ===== TUS DATOS (mismos ids y orden que el Mapa y el Inicio) ===== */
+const TEMAS = [["esc1","Escucha: Presentaciones"],["saludos","Saludos"],["vocab","Vocabulario"],["infopers","Info personal"],["paises","Países e idiomas"],["numeros","Números"],["colores","Colores"],["familia","Familia"],["hogar","Casa y hogar"],["objetos","Objetos y ropa"],["animales","Animales"],["comidas","Comidas"],["restaurante","Restaurante"],["esc2","Escucha: Números"],["viajes","Viajes"],["verbos","Verbos básicos"],["vocab2","Vocabulario 2"],["fechas","Días y meses"],["esc3","Escucha: Mi día"]];
+const VERBOS = ["verbos"];
+const TIENE_FINAL = true;
+const CREADOR = "tZfZSV8kJ8emISaSpmVwsNzrueD2"; // solo esta cuenta puede usar el personaje InglésGamer (el último)
+let ES_CREADOR = null;      // null = sesión aún sin comprobar
+const RANGOS = [{n:"Novato",m:0,c:"#8C8C96"},{n:"Aprendiz",m:15,c:"#3FD8C8"},{n:"Campeón",m:35,c:"#FF8A3D"},{n:"Leyenda",m:55,c:"#FF4D4D"}];
+const NAV = [
+ ["Inicio","go:inicio",'<path d="m3 11 9-7.5 9 7.5"></path><path d="M5 10v10h5v-6h4v6h5V10"></path>'],
+ ["Mapa","go:MAPA",'<path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2z"></path><path d="M9 4v14M15 6v14"></path>'],
+ ["Tienda","go:tienda",'<path d="M5 8h14l-1 12H6z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path>'],
+ ["Ranking","go:ranking",'<path d="M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M12 14v4m-4 2h8"></path>'],
+ ["Perfil","go:perfil",'<circle cx="12" cy="8" r="4"></circle><path d="M4 20a8 8 0 0 1 16 0"></path>',1]];
+
+/* ===== personajes (iguales a los de tu archivo) ===== */
+const AVATARES = [
+ {n:"Constructor",son:"construccion",p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+ {n:"Arquera",son:"arco",p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+ {n:"Dragoncito",son:"rugido",p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+ {n:"Mago",son:"magia",p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+ {n:"Caballero",son:"espada",p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+ {n:"Princesa",son:"campanita",p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+ {n:"Alien",son:"ovni",p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+ {n:"Sirena",son:"ola",p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+ {n:"Kunoichi",son:"katana",p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+ {n:"InglésGamer",son:"magia",p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]}
+];
+const ESCUDO = ["bbbbbbbb","bffffffb","bffssffb","bfssssfb","bffssffb",".bffffb.","..bffb..","...bb..."];
+const escudo = (c, h) => sprite({ p:{ b:c, f:"#1E1E24", s:"#F2F4F8" }, r:ESCUDO }, h);
+const LLAMA = {p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]};
+
+/* ===== utilidades ===== */
+const $ = id => document.getElementById(id);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"\x26amp;", "<":"\x26lt;", ">":"\x26gt;", '"':"\x26quot;" }[c]));
+function sprite(d, h) {
+  const H = d.r.length, W = d.r[0].length;
+  let o = '<svg width="' + Math.round(h * W / H) + '" height="' + h + '" viewBox="0 0 ' + W + ' ' + H + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+const ico = (p, s, c) => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="' + (c || "currentColor") + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+const I_STAR = '<path d="m12 3 2.7 5.8 6.3.8-4.6 4.4 1.2 6.3L12 17.2 6.4 20.3l1.2-6.3L3 9.6l6.3-.8z"></path>';
+const I_RAYO = '<path d="M13 3 5 14h6l-1 7 8-11h-6z"></path>';
+const I_FLAG = '<path d="M6 21V4"></path><path d="M6 4h11l-2 4 2 4H6"></path>';
+const I_LOCK = '<rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path>';
+const estrellas = n => [0, 1, 2].map(k => '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.5 2.9 6.2 6.6.8-4.9 4.6 1.3 6.7-5.9-3.4-5.9 3.4 1.3-6.7L2.5 9.5l6.6-.8z" style="fill:' + (k < n ? "var(--hi)" : "var(--toff)") + '"></path></svg>').join("");
+
+/* ===== filtro de apodos (versión corta; pega aquí tu FILTRO completo si prefieres las listas largas) ===== */
+const FILTRO = (function () {
+  const SAFE = ["hijueputa","jueputa","gonorrea","malparid","mierd","carajo","pendej","cabron","maricon","joder","culiao","huevon","pirobo","vagina","penis","tetas","masturb","porn","hentai","violador","pedofil","prostitut","sicario","cocaina","marihuana","idiot","imbecil","estupid","suicid","matate","terroris","hitler","nazi","nigg","faggot","fvck","motherfuk","bitch","asshole","dickhead","bastard","whore","slut","stupid","rapist","whatsapp","instagram","tiktok","snapchat","discord","telegram","facebook","gmail","http","www","inglesgamer","moderador","administrador"];
+  const RISKY = ["puta","puto","culo","pene","pija","polla","verga","marica","sex","shit","cunt","fuk","admin"];
+  const WEAK = ["ano","anal","paja","teta","perra","zorra","hdp","hptm","ctm","wtf","stfu","kys","ass","dick","cock","tits","xxx","nude","rape","loser","moron","dumb","wsp","insta","dm","mod","staff","oficial"];
+  const ALLOW = ["computa","computo","disputa","imputa","calculo","espectaculo","vehiculo","articulo","ridiculo","musculo","vinculo","penelope","pijama","vergara","sexto","sexta","essex","fucsia","class","glass","madmin"];
+  const quitar = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const leet = s => s.replace(/0/g,"o").replace(/1/g,"i").replace(/3/g,"e").replace(/4/g,"a").replace(/5/g,"s").replace(/7/g,"t").replace(/8/g,"b");
+  const fon = s => s.replace(/ph/g,"f").replace(/qu/g,"k").replace(/q/g,"k").replace(/c([ei])/g,"s$1").replace(/c/g,"k").replace(/z/g,"s").replace(/v/g,"b");
+  const aRe = (w, full) => { const p = fon(quitar(w)); let src = "", i = 0; while (i < p.length) { let j = i; while (j < p.length && p[j] === p[i]) j++; src += p[i] + "{" + (j - i) + ",}"; i = j; } return new RegExp(full ? "^" + src + "$" : src, "g"); };
+  const cs = SAFE.map(w => aRe(w)), cr = RISKY.map(w => aRe(w)), cw = WEAK.map(w => aRe(w, true)), ca = ALLOW.map(w => aRe(w));
+  const test = (re, s) => { re.lastIndex = 0; return re.test(s); };
+  const tapar = s => { ca.forEach(re => { re.lastIndex = 0; s = s.replace(re, m => "#".repeat(m.length)); }); return s; };
+  function check(x) {
+    const s = String(x == null ? "" : x).trim().replace(/\s+/g, " ");
+    if (s.length < 3) return { ok:false, why:"corto" };
+    if (s.length > 14) return { ok:false, why:"largo" };
+    if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9 ._-]+$/.test(s)) return { ok:false, why:"chars" };
+    if ((s.match(/[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/g) || []).length < 2) return { ok:false, why:"letras" };
+    if ((s.match(/[0-9]/g) || []).length > 4) return { ok:false, why:"digitos" };
+    if (/\.(com|net|org|co|io|me|tv|gg|xyz|app)\b/i.test(s)) return { ok:false, why:"contacto" };
+    const base = quitar(s);
+    for (const v of [leet(base), leet(base).replace(/v/g, "u")]) {
+      const toks = v.split(/[ ._-]+/).filter(Boolean).map(fon), junto = tapar(toks.join(""));
+      if (toks.some(t => cw.some(re => test(re, t)))) return { ok:false, why:"ofensivo" };
+      if (cs.some(re => test(re, junto)) || toks.some(t => cr.some(re => test(re, tapar(t))))) return { ok:false, why:"ofensivo" };
+    }
+    return { ok:true };
+  }
+  const MSG = { corto:"Escribe al menos 3 caracteres.", largo:"Máximo 14 caracteres.", chars:"Solo letras, números, espacios, punto, guion y guion bajo.", letras:"Usa al menos 2 letras.", digitos:"Máximo 4 números. No pongas teléfonos.", contacto:"No pongas teléfonos, redes sociales ni enlaces.", ofensivo:"Ese apodo no está permitido. Elige otro." };
+  return { check:check, ok:s => check(s).ok, mensaje:w => MSG[w] || MSG.ofensivo };
+})();
+
+/* ===== datos guardados (mismas claves que el Mapa y la tienda) ===== */
+const CLAVE_R = "ingles_gamer_a1_repaso", CLAVE_P = "ingles_gamer_perfil", CLAVE_T = "ingles_gamer_tienda", CLAVE_A = "ingles_gamer_aura";
+let P = { n:"", a:0 };
+try { const g = JSON.parse(localStorage.getItem(CLAVE_P) || "null"); if (g) P = Object.assign(P, g); } catch (e) {}
+if (!(P.a >= 0 && P.a < AVATARES.length)) P.a = 0;
+/* El apodo de una cuenta se valida al registrarla; aquí no se vacía. */
+const guardarP = () => { try { localStorage.setItem(CLAVE_P, JSON.stringify(P)); } catch (e) {} };
+const clave = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+function poseidos() { try { const t = JSON.parse(localStorage.getItem(CLAVE_T) || "null"); return t && Array.isArray(t.own) ? t.own : []; } catch (e) { return []; } }
+const tengo = i => i === 9 ? ES_CREADOR !== false : (i < 2 || poseidos().indexOf("av" + i) > -1);
+if (!tengo(P.a)) { P.a = 0; guardarP(); }
+function leerAura() {
+  let a = { t:0, r:0, e:0, l:[] };
+  try { const x = JSON.parse(localStorage.getItem(CLAVE_A) || "null"); if (x && typeof x === "object") a = Object.assign(a, x); } catch (e) {}
+  a.t = Math.max(0, +a.t || 0); a.r = Math.max(0, +a.r || 0); a.e = Math.max(0, +a.e || 0);
+  if (!Array.isArray(a.l)) a.l = [];
+  return a;
+}
+function calc() {
+  let S = null; try { S = JSON.parse(localStorage.getItem(CLAVE_R) || "null"); } catch (e) {}
+  const est = (S && S.est) || {}, dia = (S && S.dia) || { u:"", r:0 };
+  const e = id => Math.min(3, Math.max(0, +est[id] || 0));
+  const hoy = clave(new Date()), ayer = clave(new Date(Date.now() - 864e5));
+  const fin = TIENE_FINAL ? e("final") : 0;
+  let tot = fin, pasados = fin >= 1 ? 1 : 0, tres = fin >= 3 ? 1 : 0;
+  TEMAS.forEach(t => { const s = e(t[0]); tot += s; if (s >= 1) pasados++; if (s >= 3) tres++; });
+  let ri = 0; RANGOS.forEach((r, i) => { if (tot >= r.m) ri = i; });
+  return { e, tot, max:(TEMAS.length + (TIENE_FINAL ? 1 : 0)) * 3, niveles:TEMAS.length + (TIENE_FINAL ? 1 : 0), pasados, tres, fin, ri,
+           racha:(dia.u === hoy || dia.u === ayer) ? dia.r : 0, aura:leerAura() };
+}
+
+/* ===== LOOK: lo que equipó en la Tienda (clave "ingles_gamer_tienda"). Mismo orden que CATS de la Tienda. ===== */
+const LOOK_SK = ["", "hue-rotate(150deg)", "hue-rotate(-40deg) saturate(1.6)", "hue-rotate(80deg) saturate(1.3)", "grayscale(1) brightness(1.5) opacity(.75)", "hue-rotate(280deg) saturate(2.2) brightness(1.15)", "sepia(1) saturate(3.5) brightness(1.1)", ""]; // la última (Arcoíris) usa la clase .arco
+const LOOK_MP = [
+  { bg:"linear-gradient(#0F1A10,#1E3A22)", g:"#5DB33A" }, { bg:"linear-gradient(#070B1F,#1B1F4A)", g:"#2B3A7A" }, { bg:"linear-gradient(#5A3A18,#B8782E)", g:"#D9A04A" },
+  { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" }
+];
+const LOOK_TT = ["Novato", "Gamer", "Cazador de bugs", "Speaker", "Maestro Have/Has", "Rey del A1", "Leyenda"];
+function lookLeer() {
+  let t = null; try { t = JSON.parse(localStorage.getItem("ingles_gamer_tienda") || "null"); } catch (e) {}
+  const own = (t && Array.isArray(t.own)) ? t.own : [], eq = (t && t.eq) || {};
+  const pick = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
+  return { sk:pick("sk", 8), mc:pick("mc", 7), tt:pick("tt", 7), mp:pick("mp", 6) };
+}
+/* sp = dibujo del personaje · d = diámetro del marco · izq = margen izquierdo de la tarjeta · sep = espacio hasta el texto */
+function lookHTML(sp, d, izq, sep) {
+  const L = lookLeer(), mp = LOOK_MP[L.mp], f = LOOK_SK[L.sk];
+    return '<div class="lk-sc" style="background:' + mp.bg + '" aria-hidden="true"><b class="fx f-mp' + L.mp + '"></b><i class="lk-gr" style="background:' + mp.g + '"></i></div>' +
+    '<div class="lk-fade"></div>' +
+    '<span class="fr m' + L.mc + '" style="width:' + d + 'px;height:' + d + 'px"><span class="sk' + (L.sk === 7 ? " arco" : "") + '"' + (f ? ' style="filter:' + f + '"' : '') + '>' + sp + '</span></span>' +
+    '<span class="lk-tt" style="left:' + (izq - 6) + 'px;width:' + (d + 12) + 'px;bottom:var(--tt-b)">' + esc(LOOK_TT[L.tt]) + '</span>';
+}
+
+/* ===== pintar ===== */
+function pintar() {
+  const D = calc(), rk = RANGOS[D.ri], sig = RANGOS[D.ri + 1];
+  const pct = sig ? Math.round((D.tot - rk.m) / Math.max(1, sig.m - rk.m) * 100) : 100;
+  $("hero").innerHTML = lookHTML(sprite(AVATARES[P.a], 62), 96, 18, 16) + '<div style="flex:1;min-width:0;position:relative;z-index:2"><div class="hnm">' + esc(P.n || "Gamer") + '</div><div class="chip">' + escudo(rk.c, 14) + rk.n.toUpperCase() + '</div><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '"><i style="width:' + pct + '%"></i></div><div class="sub">' + (sig ? "Te faltan " + (sig.m - D.tot) + " estrellas para " + sig.n : "¡Rango máximo! Eres una leyenda") + '</div></div>';
+  $("stats").innerHTML = [[ico(I_STAR, 22).replace('fill="none"', 'fill="currentColor"'), D.tot, "Estrellas"], [ico(I_RAYO, 22), D.racha, "Racha"], [ico(I_FLAG, 22), D.pasados, "Niveles"], [sprite(LLAMA, 22), D.aura.t, "Aura"]]
+    .map(s => '<div class="st" aria-label="' + s[2] + ': ' + s[1] + '">' + s[0] + '<span>' + s[1] + '</span></div>').join("");
+  $("cuenta").textContent = (ES_CREADOR ? AVATARES.length : AVATARES.length - 1) + " personajes";
+  $("avs").innerHTML = AVATARES.map((a, i) => { if (i === 9 && ES_CREADOR !== true) return ""; const ok = tengo(i); return '<button type="button" class="av' + (i === P.a ? " on" : "") + (ok ? "" : " lock") + '" data-i="' + i + '" aria-pressed="' + (i === P.a) + '" aria-label="' + a.n + (ok ? "" : " (bloqueado, se compra en la tienda)") + '">' + sprite(a, 56) + '<span>' + a.n + (ok ? "" : ico(I_LOCK, 14)) + '</span></button>'; }).join("");
+  $("rango").innerHTML = RANGOS.map((r, i) => '<div class="' + (i === D.ri ? "yo" : "") + '">' + escudo(r.c, 40) + r.n + '<small>' + r.m + '★</small></div>').join("");
+  $("misStats").innerHTML = '<b>Mis estadísticas</b><span class="t">Toca para ver tu progreso</span><span class="pj">' + sprite(AVATARES[P.a], 96) + '</span>';
+  const verbos = VERBOS.every(id => D.e(id) >= 1);
+  const M = [["Primer paso","Gana tu primera estrella",D.tot >= 1],["Racha de fuego","3 días seguidos jugando",D.racha >= 3],["Mitad del mapa","Pasa 10 niveles",D.pasados >= 10],["Triple estrella","3 estrellas en un nivel",D.tres >= 1],["Cazajefes","3 estrellas en 5 niveles",D.tres >= 5],["Rey de los verbos","Pasa los niveles de verbos",verbos],["Perfeccionista","3 estrellas en 10 niveles",D.tres >= 10],["Rey del A1","Vence al jefe final",D.fin >= 1]];
+  $("cMed").textContent = M.filter(m => m[2]).length + " de " + M.length;
+  $("meds").innerHTML = M.map(m => '<div class="med' + (m[2] ? " ok" : "") + '"><i></i><b>' + m[0] + '</b><span>' + m[1] + '</span></div>').join("");
+}
+$("navbar").innerHTML = NAV.map(n => '<a' + (n[3] ? ' class="on" aria-current="page"' : '') + ' href="' + n[1] + '">' + ico(n[2], 24, "currentColor") + n[0] + '</a>').join("");
+
+/* ===== sonidos ===== */
+const CLAVE_SON = "ingles_gamer_sonido";
+let SON = true, AC = null, MASTER = null;
+try { SON = localStorage.getItem(CLAVE_SON) !== "0"; } catch (e) {}
+function audio() {
+  if (!AC) {
+    const C = window.AudioContext || window.webkitAudioContext; if (!C) return null;
+    AC = new C(); MASTER = AC.createGain(); MASTER.gain.value = 0.9; MASTER.connect(AC.destination);
+    const d = AC.createDelay(); d.delayTime.value = 0.16;
+    const fb = AC.createGain(); fb.gain.value = 0.25; const w = AC.createGain(); w.gain.value = 0.22;
+    MASTER.connect(d); d.connect(fb); fb.connect(d); d.connect(w); w.connect(AC.destination);
+  }
+  if (AC.state === "suspended") AC.resume();
+  return AC;
+}
+function tono(f, t0, d, vol, tipo) {
+  const a = audio(); if (!a) return;
+  const o = a.createOscillator(), g = a.createGain(), t = a.currentTime + t0;
+  o.type = tipo || "sine"; o.frequency.setValueAtTime(f, t);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.12, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+  o.connect(g); g.connect(MASTER); o.start(t); o.stop(t + d + 0.05);
+}
+function pop(f0, f1, d, vol, t0, tipo) {
+  const a = audio(); if (!a) return;
+  const o = a.createOscillator(), g = a.createGain(), t = a.currentTime + (t0 || 0);
+  o.type = tipo || "sine"; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + d * 0.8);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.1, t + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+  o.connect(g); g.connect(MASTER); o.start(t); o.stop(t + d + 0.05);
+}
+function ruido(t0, d, vol, f0, f1, tipo) {
+  const a = audio(); if (!a) return;
+  const n = Math.max(1, Math.floor(a.sampleRate * d)), buf = a.createBuffer(1, n, a.sampleRate), data = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) data[i] = Math.random() * 2 - 1;
+  const s = a.createBufferSource(); s.buffer = buf;
+  const f = a.createBiquadFilter(), g = a.createGain(), t = a.currentTime + t0;
+  f.type = tipo || "bandpass"; f.frequency.setValueAtTime(f0, t); f.frequency.exponentialRampToValueAtTime(f1, t + d);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+  s.connect(f); f.connect(g); g.connect(MASTER); s.start(t); s.stop(t + d + 0.05);
+}
+const SONIDOS = {
+  click: () => pop(450, 650, 0.07, 0.07),
+  mal: () => { tono(330, 0, .16, .09, "triangle"); tono(262, .13, .28, .09, "triangle"); },
+  construccion: () => { [0, 0.16].forEach(t => { pop(220, 70, 0.12, 0.2, t, "square"); ruido(t, 0.06, 0.18, 1800, 600); }); tono(1568, 0.32, 0.35, 0.07, "triangle"); tono(2349, 0.32, 0.25, 0.04, "triangle"); },
+  arco: () => { pop(520, 140, 0.18, 0.14, 0, "sawtooth"); ruido(0.06, 0.28, 0.16, 800, 4500, "bandpass"); pop(180, 90, 0.1, 0.18, 0.36, "triangle"); ruido(0.36, 0.05, 0.12, 900, 400); },
+  rugido: () => { pop(140, 55, 0.35, 0.2, 0, "sawtooth"); ruido(0, 0.35, 0.15, 700, 150); tono(110, 0.05, 0.4, 0.1, "square"); pop(300, 120, 0.15, 0.08, 0.3, "triangle"); },
+  magia: () => { [1046.5, 1318.5, 1568, 2093, 2637, 3136].forEach((f, k) => { tono(f, k * 0.07, 0.5, 0.07); tono(f * 1.005, k * 0.07, 0.4, 0.03, "triangle"); }); pop(300, 1800, 0.35, 0.05, 0, "triangle"); },
+  espada: () => { ruido(0, 0.3, 0.18, 1200, 6000, "highpass"); tono(1760, 0.28, 0.5, 0.09, "triangle"); tono(2637, 0.28, 0.4, 0.05, "square"); pop(160, 80, 0.15, 0.14, 0.28, "triangle"); },
+  campanita: () => { [1318.5, 1568, 1975.5, 2637].forEach((f, k) => { tono(f, k * 0.09, 0.7, 0.08); tono(f * 2, k * 0.09, 0.4, 0.025); }); },
+  ovni: () => { pop(300, 1200, 0.15, 0.1, 0); pop(1200, 200, 0.25, 0.1, 0.15); pop(500, 900, 0.2, 0.08, 0.35); },
+  ola: () => { ruido(0, 0.6, 0.12, 300, 1500, "lowpass"); tono(523, 0.3, 0.4, 0.05); tono(784, 0.38, 0.4, 0.04); },
+  katana: () => { ruido(0, 0.18, 0.15, 2000, 8000, "highpass"); tono(2400, 0.2, 0.3, 0.06, "triangle"); pop(200, 90, 0.1, 0.1, 0.2, "triangle"); }
+};
+function sonido(n) { if (!SON) return; try { (SONIDOS[n] || SONIDOS.click)(); } catch (e) {} }
+const ICO_SON = {
+  on: ico('<path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path>', 22, "currentColor"),
+  off: ico('<path d="M11 5 6 9H3v6h3l5 4z"></path><path d="m16 9 5 6"></path><path d="m21 9-5 6"></path>', 22, "currentColor")
+};
+function pintarSon() { document.querySelectorAll(".btnSon").forEach(b => { b.innerHTML = SON ? ICO_SON.on : ICO_SON.off; b.setAttribute("aria-label", SON ? "Sonido activado. Toca para silenciar" : "Sonido apagado. Toca para activar"); }); }
+document.addEventListener("click", e => {
+  if (e.target.closest(".btnSon")) { SON = !SON; try { localStorage.setItem(CLAVE_SON, SON ? "1" : "0"); } catch (x) {} pintarSon(); sonido("click"); return; }
+  const t = e.target.closest("button,a");
+  if (!t || t.classList.contains("av")) return;
+  sonido("click");
+}, true);
+
+/* ===== interacción ===== */
+let ultimoBloqueado = 0, tAviso = null;
+$("avs").addEventListener("click", e => {
+  const b = e.target.closest(".av"); if (!b) return;
+  const i = Number(b.dataset.i), av = $("avisoAv");
+  if (!tengo(i)) {
+    sonido("mal");
+    if (Date.now() - ultimoBloqueado < 3500) { location.href = igURL("go:tienda"); return; }
+    ultimoBloqueado = Date.now(); av.textContent = "Ese personaje se compra con Aura. Toca otra vez para ir a la tienda.";
+    clearTimeout(tAviso); tAviso = setTimeout(() => { av.textContent = ""; }, 3500); return;
+  }
+  P.a = i; guardarP(); sonido(AVATARES[i].son); pintar();
+});
+pintarSon();
+pintar();
+window.addEventListener("pageshow", pintar);
+window.addEventListener("storage", e => { if ([CLAVE_A, CLAVE_T, CLAVE_P, CLAVE_R].indexOf(e.key) > -1) pintar(); });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) pintar(); });
+</script>
+
+<script type="module">
+/* ===== CUENTA (Firebase): apodo fijo, cerrar sesión y eliminar cuenta ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, deleteDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const CONFIG = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+
+const app = getApps().length ? getApp() : initializeApp(CONFIG);
+const auth = getAuth(app), db = getFirestore(app);
+/* Lo que se borra del celular al cerrar sesión o eliminar la cuenta.
+   "ig:vistos" (lecciones de Refuerza) e "ig_nube_estado" también, para que otra cuenta en este celular no herede nada. */
+const LOCALES = ["ingles_gamer_a1_repaso", "ingles_gamer_perfil", "ingles_gamer_tienda", "ingles_gamer_aura", "ingles_gamer_sesion", "ig_nube_meta", "ig_nube_estado", "ig:vistos"];
+const limpiarTodoJugador = () => { try { const k = []; for (let i = 0; i < localStorage.length; i++) { const n = localStorage.key(i); if (n && n.indexOf("ingles_gamer_") === 0 && !/_(tema|sonido)$/.test(n)) k.push(n); } k.forEach(n => localStorage.removeItem(n)); } catch (e) {} };
+const msg = t => { $("avisoCta").textContent = t; };
+const limpiarLocal = () => { LOCALES.forEach(k => { try { localStorage.removeItem(k); } catch (e) {} }); limpiarTodoJugador(); };
+const irAcceso = () => { location.href = igURL("go:acceso"); };
+
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    /* Inicio de sesión obligatorio: sin sesión se vuelve a la pantalla de acceso */
+    irAcceso();            /* NO se borra nada aquí: solo "Cerrar sesión" (ya con el progreso guardado) o eliminar la cuenta limpian el celular */
+    return;
+  }
+  ES_CREADOR = user.uid === CREADOR;
+  if (!ES_CREADOR && P.a === 9) { P.a = 0; guardarP(); }
+  $("cuentaOn").hidden = false;
+  $("cEmail").textContent = user.email ? "Sesión iniciada con " + user.email : "";
+  try {
+    const s = await getDoc(doc(db, "jugadores", user.uid));
+    const n = s.exists() ? s.data().n : "";
+    if (n) { P.n = n; guardarP(); }
+  } catch (e) { /* sin red: se queda el apodo guardado en el celular */ }
+  pintar();
+});
+
+$("btnOut").addEventListener("click", async () => {
+  $("btnOut").disabled = true; msg("Guardando tu progreso…");
+  try {
+    if (!window.IGNube) throw new Error("nube-no-lista");
+    await window.IGNube.subirYa();           /* si no se puede guardar en la nube, NO se cierra la sesión (así no se pierde nada) */
+  } catch (e) {
+    if (e && e.message === "recargando") return;
+    msg("No se pudo guardar tu progreso en la nube, así que NO cerré tu sesión para que no lo pierdas (" + ((e && (e.code || e.message)) || "error") + "). Revisa tu internet e inténtalo otra vez.");
+    $("btnOut").disabled = false; pintarNube(); return;
+  }
+  msg("Cerrando sesión…");
+  try { await signOut(auth); limpiarLocal(); irAcceso(); }
+  catch (e) { msg("No se pudo cerrar la sesión. Revisa tu internet e intenta otra vez."); $("btnOut").disabled = false; }
+});
+
+function pintarNube() {
+  let e = null; try { e = JSON.parse(localStorage.getItem("ig_nube_estado") || "null"); } catch (x) {}
+  const hace = t => { const m = Math.max(0, Math.round((Date.now() - t) / 60000)); return m < 1 ? "ahora mismo" : m < 60 ? "hace " + m + " min" : "hace " + Math.round(m / 60) + " h"; };
+  $("nubeEst").textContent = !e ? "☁ Progreso: todavía sin comprobar" : e.ok ? "☁ Progreso guardado en tu cuenta (" + hace(e.t) + ")" : "⚠ No se pudo guardar en la nube: " + e.c;
+}
+pintarNube(); setInterval(pintarNube, 1500);
+$("btnNube").addEventListener("click", async () => {
+  msg("Guardando…");
+  try { if (!window.IGNube) throw new Error("nube-no-lista"); await window.IGNube.subirYa(); msg("✓ Progreso guardado en tu cuenta"); }
+  catch (e) { if (e && e.message === "recargando") return; msg("No se pudo guardar: " + ((e && (e.code || e.message)) || "error")); }
+  pintarNube();
+});
+$("btnDel").addEventListener("click", () => { $("delPanel").hidden = false; $("btnDel").hidden = true; $("delPass").focus(); });
+$("btnDel0").addEventListener("click", () => { $("delPanel").hidden = true; $("btnDel").hidden = false; $("delPass").value = ""; msg(""); });
+
+$("btnDel2").addEventListener("click", async () => {
+  const user = auth.currentUser, pass = $("delPass").value;
+  if (!user) { irAcceso(); return; }
+  if (!pass) { msg("Escribe tu contraseña para confirmar."); return; }
+  $("btnDel2").disabled = true; msg("Eliminando…");
+  try {
+    /* 1) Reautenticar primero: si la contraseña falla, no se borra nada */
+    await reauthenticateWithCredential(user, EmailAuthProvider.credential(user.email, pass));
+    const uid = user.uid, refJ = doc(db, "jugadores", uid);
+    const f = (await getDoc(refJ)).data() || {};
+    /* 2) Solicitudes y amistades donde participas */
+    for (const campo of ["de", "para"]) {
+      const q = await getDocs(query(collection(db, "amistades"), where(campo, "==", uid)));
+      for (const d of q.docs) await deleteDoc(d.ref);
+    }
+    /* 3) Código y apodo (liberan el apodo para otras personas) */
+    if (f.cod) await deleteDoc(doc(db, "codigos", f.cod));
+    if (f.nl) await deleteDoc(doc(db, "apodos", f.nl));
+    /* 4) Progreso guardado en la nube (Google Play exige borrar todos los datos de la cuenta).
+          Si las reglas de Firestore aún no permiten borrarlo, NO se detiene la eliminación de la cuenta. */
+    try { await deleteDoc(doc(db, "progreso", uid)); } catch (e) { console.warn("[eliminar] no se pudo borrar progreso/" + uid, e); }
+    /* 5) Ficha y cuenta */
+    await deleteDoc(refJ);
+    await deleteUser(user);
+    limpiarLocal(); irAcceso();
+  } catch (e) {
+    const c = (e && e.code) || "";
+    msg(c === "auth/wrong-password" || c === "auth/invalid-credential" ? "Contraseña incorrecta."
+      : c === "auth/too-many-requests" ? "Demasiados intentos. Espera un momento."
+      : "No se pudo eliminar. Revisa tu internet e intenta otra vez.");
+    $("btnDel2").disabled = false;
+    console.error(e);
+  }
+});
+</script>
+
+<script>
+/* guardia de internet (script aparte) */
+(function () {
+  var caja = document.getElementById("sinNet"), fallos = 0, revisando = false;
+  var SONDAS = ["https://clients3.google.com/generate_204", "https://www.gstatic.com/generate_204"];
+  function probar(u) { return new Promise(function (res) { var c = new AbortController(), t = setTimeout(function () { c.abort(); }, 4000); fetch(u + "?t=" + Date.now(), { mode:"no-cors", cache:"no-store", signal:c.signal }).then(function (r) { clearTimeout(t); res(r.type); }).catch(function () { clearTimeout(t); res("falla"); }); }); }
+  async function hay() { if (!navigator.onLine) return false; for (var i = 0; i < SONDAS.length; i++) { if (await probar(SONDAS[i]) === "opaque") return true; } return false; }
+  async function revisar() { if (revisando) return; revisando = true; var ok = await hay(); fallos = ok ? 0 : fallos + 1; caja.hidden = !(navigator.onLine === false || fallos >= 2); revisando = false; if (!ok && fallos < 2) setTimeout(revisar, 2000); }
+  document.getElementById("snRe").addEventListener("click", revisar);
+  addEventListener("online", revisar); addEventListener("offline", revisar); addEventListener("pageshow", revisar);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) revisar(); });
+  setInterval(revisar, 15000); revisar();
+})();
+</script>
+<script type="module">
+/* ===== NUBE: guarda tu progreso en tu cuenta y lo recupera. Este MISMO bloque va en Acceso, Inicio, Perfil, Mapa, Tienda y Ranking (justo antes de </body>). ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const CONFIG = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+
+(function () {
+  try {
+    const PREF = "ingles_gamer_", META = "ig_nube_meta";
+    const SKIP = /_(sesion|tema|sonido|buzon|buzon_pausa|acceso_modo)$/;
+    const app = getApps().length ? getApp() : initializeApp(CONFIG);
+    const auth = getAuth(app), db = getFirestore(app);
+    let user = null, ocupado = false;
+
+    const dormir = ms => new Promise(r => setTimeout(r, ms));
+    const estado = (ok, e) => { try { localStorage.setItem("ig_nube_estado", JSON.stringify({ ok: !!ok, t: Date.now(), c: ok ? "" : String((e && (e.code || e.message)) || "error") })); } catch (x) {} };
+    const ref = () => doc(db, "progreso", user.uid);
+    const claves = () => { const k = []; try { for (let i = 0; i < localStorage.length; i++) { const n = localStorage.key(i); if (n.indexOf(PREF) === 0 && !SKIP.test(n)) k.push(n); } } catch (e) {} return k; };
+    const snap = () => { const o = {}; claves().forEach(k => { o[k] = localStorage.getItem(k); }); return o; };
+    const ser = o => JSON.stringify(Object.keys(o).sort().map(k => [k, o[k]]));
+    const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return h; };
+    const getMeta = () => { try { return JSON.parse(localStorage.getItem(META)) || {}; } catch (e) { return {}; } };
+    const setMeta = m => { try { localStorage.setItem(META, JSON.stringify(m)); } catch (e) {} };
+    /* CORREGIDO: "vacío" = sin progreso real (solo el apodo/perfil no cuenta) */
+    const vacio = o => !o || !(o.ingles_gamer_a1_repaso || o.ingles_gamer_aura || o.ingles_gamer_tienda);
+    const limpiar = () => claves().forEach(k => localStorage.removeItem(k));
+    const cambios = () => !!user && getMeta().uid === user.uid && hash(ser(snap())) !== getMeta().h;
+    const puntos = d => {
+      try {
+        const a = JSON.parse(d.ingles_gamer_aura || "null") || {}, r = JSON.parse(d.ingles_gamer_a1_repaso || "null") || {};
+        return (+a.t || 0) + Object.values(r.est || {}).reduce((x, y) => x + (+y || 0), 0);
+      } catch (e) { return 0; }
+    };
+
+    async function subir() {
+      const o = snap(), t = Date.now();
+      await setDoc(ref(), { datos: o, t: t, v: 1 });
+      setMeta({ uid: user.uid, t: t, h: hash(ser(o)) });
+      estado(true);
+    }
+    function bajar(c) {
+      limpiar();
+      const d = c.datos || {};
+      for (const k in d) if (k.indexOf(PREF) === 0 && !SKIP.test(k) && typeof d[k] === "string") localStorage.setItem(k, d[k]);
+      setMeta({ uid: user.uid, t: c.t || Date.now(), h: hash(ser(snap())) });
+    }
+
+    async function sync(lanzar) {
+      if (!user || ocupado) return "igual";
+      ocupado = true;
+      let res = "igual";
+      try {
+        const m = getMeta(), o = snap(), h = hash(ser(o)), s = await getDoc(ref()), c = s.exists() ? s.data() : null, cd = (c && c.datos) || {};
+        if (m.uid && m.uid !== user.uid) {
+          limpiar();
+          if (c) bajar(c); else await subir();
+          res = "bajado"; location.reload();
+        } else if (m.uid !== user.uid) {
+          if (c && (vacio(o) || puntos(cd) >= puntos(o))) { bajar(c); res = "bajado"; location.reload(); }
+          else { await subir(); res = "subido"; }
+        } else if (c && vacio(o) && !vacio(cd)) {
+          bajar(c); res = "bajado"; location.reload();
+        } else if (!c || h !== m.h) { await subir(); res = "subido"; }
+        else if (c.t > m.t) { bajar(c); res = "bajado"; location.reload(); }
+        else estado(true);
+      } catch (e) { ocupado = false; estado(false, e); if (lanzar) throw e; return "igual"; }
+      ocupado = false;
+      return res;
+    }
+
+    const guardarYa = () => { if (cambios()) sync(); };
+    onAuthStateChanged(auth, u => { user = u; if (u) sync(); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) guardarYa(); else sync(); });
+    addEventListener("pagehide", guardarYa);
+    setInterval(guardarYa, 45000);
+
+    window.IGNube = {
+      listo: true,
+      sincronizar: () => sync(),
+      usuario: () => user,
+      async subirYa() {
+        for (let i = 0; i < 40 && !user; i++) await dormir(250);
+        if (!user) throw new Error("sin-sesion");
+        while (ocupado) await dormir(200);
+        const r = await sync(true);
+        if (r === "bajado") throw new Error("recargando");
+      }
+    };
+  } catch (e) { console.error("[nube]", e); }
+})();
+</script>
+</body>
+</html>

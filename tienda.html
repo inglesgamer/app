@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tienda · InglésGamer</title>
+<meta name="theme-color" content="#000000">
+<script>
+/* ===== PALETAS: las mismas del Inicio (clave "ingles_gamer_tema"). Si el jugador elige Noche, Día, Rosa o Azul en el Inicio, la Tienda también. ===== */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--tile":"#1E1E22","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--toff":"#3A3A40","--nav":"#0E0E10","--ok":"#7BE3A8" } },
+  dia:   { meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--tile":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--toff":"#D4D4D8","--nav":"#FFFFFF","--ok":"#0F7A44" } },
+  rosa:  { meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--tile":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--toff":"#EEBFD1","--nav":"#FFFFFF","--ok":"#0F7A44" } },
+  azul:  { meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--tile":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--toff":"#BDD6F0","--nav":"#FFFFFF","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+window.addEventListener("pageshow", function () { aplicarTema(temaActual()); });
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--tile:#1E1E22;--gold:#FFD166;--ok:#7BE3A8;--hi:#fff;--on-hi:#000;--toff:#3A3A40;--nav:#0E0E10}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:calc(120px + env(safe-area-inset-bottom));position:relative}
+header{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px;padding:calc(14px + env(safe-area-inset-top)) 16px 12px;background:linear-gradient(var(--bg) 80%,transparent)}
+header h1{flex:1;margin:0;font-size:28px;font-weight:900}
+.rb{display:flex;align-items:center;justify-content:center;width:46px;height:46px;padding:0;cursor:pointer;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--ink)}
+.rb:hover{border-color:var(--hi)}
+main{padding:6px 16px 0;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:28px}
+
+/* ---------- tu look ---------- */
+.look{position:relative;height:230px;overflow:hidden;border-radius:30px;border:1px solid var(--bd)}
+.lb{position:absolute;left:14px;top:14px;z-index:3;padding:5px 12px;border-radius:99px;background:rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:900;letter-spacing:.12em}
+.lg{position:absolute;left:0;right:0;bottom:0;height:34px;z-index:1;opacity:.9}
+.lc{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);z-index:2;animation:flota 2.4s ease-in-out infinite}
+.tchip{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);z-index:3;padding:5px 16px;border-radius:99px;background:#fff;color:#000;font-size:13px;font-weight:900;white-space:nowrap}
+.xpb{position:absolute;right:12px;top:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:99px;background:var(--card);border:1px solid var(--bd);color:var(--gold);font-size:17px;font-weight:900}
+.xpb.pulso{animation:pop .5s ease}
+.fl{display:inline-flex;color:var(--gold)}
+
+/* ---------- personaje, skins y marcos ---------- */
+.sk{display:inline-flex}.sk svg{display:block;filter:drop-shadow(0 4px 0 rgba(0,0,0,.3))}
+.arco{animation:hue 3s linear infinite}@keyframes hue{to{filter:hue-rotate(360deg)}}
+.fr{display:inline-flex;align-items:flex-end;justify-content:center;overflow:hidden;border-radius:50%;border:5px solid var(--b,#9A6A3A);background:#0F0F12;box-shadow:0 0 var(--g,0px) var(--b)}
+.m0{--b:#9A6A3A}.m1{--b:#9A9AA6}.m2{--b:#FFC83D;--g:14px}.m3{--b:#3FD8C8;--g:14px}.m5{--b:#E8F7FF;--g:18px}
+.m4{animation:fuego 1s ease-in-out infinite alternate}.m6{animation:arcoB 3s linear infinite}
+@keyframes fuego{from{border-color:#FF4D4D;box-shadow:0 0 8px #FF4D4D}to{border-color:#FFC83D;box-shadow:0 0 22px #FF8A3D}}
+@keyframes arcoB{0%,100%{border-color:#FF4D4D}20%{border-color:#FFC83D}40%{border-color:#5DB33A}60%{border-color:#3FD8C8}80%{border-color:#8E5BD6}}
+.dor{background:linear-gradient(90deg,#B8860B,#FFE27A,#FFC83D,#FFF6C0,#B8860B);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:oro 2.4s linear infinite}
+@keyframes oro{to{background-position:200% center}}
+@keyframes orob{from{box-shadow:0 0 6px color-mix(in srgb,var(--hi) 20%,transparent)}to{box-shadow:0 0 22px color-mix(in srgb,var(--hi) 55%,transparent)}}
+
+/* ---------- mapas con movimiento ---------- */
+.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none}.fx::before,.fx::after{content:"";position:absolute;inset:0}
+.f-mp0::before{background:radial-gradient(circle,#FFF28A 0 2px,transparent 3px) 0 0/70px 60px,radial-gradient(circle,#B6FF8A 0 1.5px,transparent 2.5px) 30px 25px/90px 70px;animation:luci 6s ease-in-out infinite alternate,parp2 1.8s ease-in-out infinite alternate}
+.f-mp0::after{top:12%;height:14%;background:radial-gradient(ellipse at 20% 50%,rgba(255,255,255,.18) 0 40%,transparent 41%) 0 0/160px 100%;animation:nube 28s linear infinite}
+@keyframes luci{from{background-position:0 0,30px 25px}to{background-position:26px -30px,0 -10px}}
+@keyframes parp2{from{opacity:.25}to{opacity:1}}@keyframes nube{from{background-position:0 0}to{background-position:160px 0}}
+.f-mp1::before{background:radial-gradient(circle,#fff 0 1.5px,transparent 2px) 10px 10px/46px 38px;animation:parp2 1.4s ease-in-out infinite alternate}
+.f-mp1::after{left:-80px;top:10%;width:70px;height:2px;inset:auto;background:linear-gradient(90deg,transparent,#fff);transform:rotate(25deg);animation:fugaz 4s ease-in infinite}
+@keyframes fugaz{0%{transform:translate(0,0) rotate(25deg);opacity:0}8%{opacity:1}30%{transform:translate(520px,240px) rotate(25deg);opacity:0}100%{opacity:0}}
+.f-mp2::before{background:repeating-linear-gradient(0deg,transparent 0 14px,rgba(255,235,170,.16) 14px 16px),radial-gradient(circle,rgba(255,240,190,.7) 0 1px,transparent 1.5px) 0 0/30px 22px;animation:viento 1.6s linear infinite}
+.f-mp2::after{background:linear-gradient(transparent 55%,rgba(255,220,140,.22) 70%,transparent 85%);animation:calor 2.2s ease-in-out infinite alternate}
+@keyframes viento{from{background-position:0 0,0 0}to{background-position:-120px 0,-120px 6px}}@keyframes calor{from{transform:translateY(-3px)}to{transform:translateY(3px)}}
+.f-mp3::before{background:radial-gradient(circle,#fff 0 2px,transparent 2.8px) 0 0/40px 40px;animation:nieva 3s linear infinite}
+.f-mp3::after{background:radial-gradient(circle,rgba(255,255,255,.8) 0 1.2px,transparent 2px) 14px 0/24px 28px;animation:nieva 1.8s linear infinite}
+@keyframes nieva{from{background-position-y:0}to{background-position-y:40px}}
+.f-mp4::before{background:radial-gradient(circle,#FFB347 0 2px,transparent 3px) 0 0/44px 50px,radial-gradient(circle,#FF5A2A 0 1.5px,transparent 2.5px) 20px 20px/62px 60px;animation:brasas 2.6s linear infinite}
+.f-mp4::after{top:auto;height:45%;background:linear-gradient(transparent,rgba(255,90,30,.55));animation:late2 1.2s ease-in-out infinite alternate}
+@keyframes brasas{from{background-position:0 0,20px 20px}to{background-position:14px -50px,6px -40px}}@keyframes late2{from{opacity:.35}to{opacity:1}}
+.f-mp5::before{background:radial-gradient(circle,#fff 0 1px,transparent 1.6px) 0 0/30px 26px,radial-gradient(circle,#9FD8FF 0 1.4px,transparent 2px) 12px 8px/50px 44px;animation:viaja 2.4s linear infinite}
+.f-mp5::after{background:radial-gradient(circle at 25% 70%,rgba(63,216,200,.35),transparent 40%),radial-gradient(circle at 80% 25%,rgba(214,91,214,.35),transparent 45%);animation:respira 4s ease-in-out infinite alternate}
+@keyframes viaja{from{background-position:0 0,12px 8px}to{background-position:-60px 26px,-100px 44px}}@keyframes respira{from{opacity:.4;transform:scale(1)}to{opacity:1;transform:scale(1.15)}}
+
+/* ---------- ofertas ---------- */
+.ofs{display:flex;gap:12px}
+.of{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 10px 12px;text-align:center}
+.of b{font-size:16px;font-weight:900}.of .sb{margin-top:-2px;font-size:12px;font-weight:700;color:var(--mu)}
+.of.dk{background:linear-gradient(135deg,var(--chip),var(--card));border-color:var(--bd)}
+.tag{position:absolute;left:8px;top:8px;z-index:2;padding:3px 10px;border-radius:99px;background:var(--gold);color:var(--bg);font-size:11px;font-weight:900}
+.cf{display:flex;animation:flota 2s ease-in-out infinite}
+
+.ad{position:relative;display:flex;align-items:center;gap:14px;min-height:96px;padding:14px 14px 14px 18px;border-radius:30px;border:2px solid var(--hi);background:linear-gradient(110deg,var(--chip),var(--card));overflow:hidden}
+.ad::after{content:"";position:absolute;top:0;bottom:0;width:60px;left:-80px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-20deg);animation:brillo 3.6s ease-in-out infinite}
+@keyframes brillo{0%,60%{left:-80px}100%{left:120%}}
+.ad:hover{box-shadow:0 0 24px color-mix(in srgb,var(--hi) 30%,transparent)}.ad:active{transform:translateY(2px)}
+.ad .cf{flex:none;animation-duration:1.6s}
+.ad .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;line-height:1.15}
+.ad .tx b{font-size:21px;font-weight:900}.ad .tx span{font-size:13px;font-weight:700;color:var(--mu)}
+.ad .go{flex:none;display:inline-flex;align-items:center;gap:6px;height:46px;padding:0 18px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:16px;font-weight:900;animation:latido 1.8s ease-in-out infinite}
+.ad .go .fl{color:var(--on-hi)}
+@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+/* ---------- pestañas y tarjetas ---------- */
+.tabs{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:2px 16px 4px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;height:42px;padding:0 18px;display:flex;align-items:center;gap:6px;cursor:pointer;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--mu);font:800 14px Nunito,sans-serif}
+.tab span{font-size:12px;opacity:.7}.tab.on{background:var(--hi);color:var(--on-hi);border-color:var(--hi)}.tab:hover:not(.on){border-color:var(--mu)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.it{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 10px 12px;animation:entra .35s ease both}
+.it.eq{border:2px solid var(--hi)}.it.uni{animation:entra .35s ease both,orob 1.6s ease-in-out .4s infinite alternate;border-color:var(--hi)}
+.pv{position:relative;width:100%;height:104px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:20px;background:var(--tile)}
+.pv .tt{padding:0 8px;font-size:16px;font-weight:900;line-height:1.2;text-align:center;color:var(--gold)}
+.strip{position:relative;width:100%;height:100%;overflow:hidden}.strip i{position:absolute;left:0;right:0;bottom:0;height:20px;z-index:1}
+.rar{padding:3px 10px;border-radius:99px;font-size:10px;font-weight:900;letter-spacing:.1em}
+.rar.ru{background:linear-gradient(90deg,#FFC83D,#FFF6C0,#FFC83D)!important;background-size:200% auto!important;animation:oro 2s linear infinite}
+.chk{position:absolute;right:12px;top:12px;z-index:2;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--hi);color:var(--on-hi);font-size:13px;font-weight:900}
+.nm{font-size:17px;font-weight:900;text-align:center}
+.bn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:44px;border:0;border-radius:99px;cursor:pointer;font:900 15px Nunito,sans-serif}
+.bn:active{transform:translateY(2px)}.bn:disabled{cursor:default}
+.bn.buy{background:var(--hi);color:var(--on-hi)}.bn.no{background:var(--chip);color:var(--mu)}
+.bn.use{background:transparent;color:var(--ink);border:2px solid var(--hi)}.bn.on{background:var(--chip);color:var(--ink)}
+.bn.wh{background:var(--hi);color:var(--on-hi)}.bn.buy .fl,.bn.wh .fl{color:var(--on-hi)}.old{text-decoration:line-through;opacity:.6;font-weight:700}
+.it.sac{animation:shake .4s ease}
+.foot{margin-top:6px;text-align:center}
+.foot p{margin:8px 0 0;font-size:12px;color:var(--mu)}
+
+/* ---------- ventanas ---------- */
+.mo{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);animation:fade .2s ease}
+.mb{width:100%;max-width:380px;padding:20px;text-align:center;border-radius:32px;border:2px solid var(--hi);background:var(--card);box-shadow:0 0 40px color-mix(in srgb,var(--hi) 14%,transparent)}
+.mb h3{margin:12px 0 4px;font-size:26px;font-weight:900}.mb p{margin:0;font-size:15px;line-height:1.5;color:var(--mu)}
+.mb .pv{height:136px;margin-top:4px}.mb .rar{display:inline-block;margin-top:10px}
+.mb .bn{margin-top:12px;height:52px}.mb .bn.ghost{background:transparent;color:var(--ink);border:2px solid var(--bd)}.mb .bn.ghost:hover{border-color:var(--hi)}
+.cofreg{display:flex;justify-content:center;padding:14px 0}.cofreg.tiembla{animation:tiembla .25s linear infinite}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:90;max-width:90%;padding:10px 18px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:14px;font-weight:800;text-align:center}
+.conf{position:fixed;inset:0;z-index:95;pointer-events:none;overflow:hidden}.conf i{position:absolute;width:9px;height:9px;border-radius:2px}
+@keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.lc{animation-name:flotaC}@keyframes flotaC{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-6px)}}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes entra{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes tiembla{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+
+nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:var(--nav);border-radius:28px 28px 0 0;border-top:1px solid var(--bd)}
+nav .inner{max-width:520px;margin:0 auto;display:flex;padding:8px 6px max(12px,env(safe-area-inset-bottom))}
+nav a{flex:1;min-width:0;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mu);font-size:11px;font-weight:700;white-space:nowrap}
+nav a:hover{color:var(--ink)}nav a.on,nav a.on:hover{color:var(--hi)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <a class="rb" href="go:inicio" aria-label="Volver al inicio"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
+    <h1>Tienda</h1>
+    <button type="button" class="rb btnSon" aria-label="Sonido"></button>
+  </header>
+  <main>
+    <div class="look" id="look"></div>
+    <div class="ofs" id="ofertas"></div>
+    <a class="ad card" id="anuncio" href="go:cofre"></a>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="grid" id="grid"></div>
+    <div class="foot" id="foot"></div>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <nav aria-label="Navegación principal"><div class="inner" id="navbar"></div></nav>
+</div>
+
+<script>
+/* ================= TUS DATOS: edita solo esta parte ================= */
+const PRECIO_COFRE = 220; // cuánta Aura cuesta el cofre sorpresa
+const CREADOR = "tZfZSV8kJ8emISaSpmVwsNzrueD2"; // cuenta del creador: solo ella puede usar el personaje exclusivo
+const EXCLUSIVO = "av9";   // InglésGamer: no se compra ni sale del cofre
+let ES_CREADOR = null;      // null = la sesión todavía no se ha comprobado
+const SUBE = 100;         // Aura extra que se suma al precio de cada objeto de pago (los gratis siguen gratis)
+/* Descuento de la oferta del día: va rotando por día. El máximo es 30%. */
+const DESCUENTOS = [20, 10, 25, 20, 30, 10, 25];
+/* Probabilidad del cofre sorpresa (%). Entre más raro, menos sale. Si una rareza ya no tiene objetos, se reparte entre las demás. */
+const PROB_COFRE = { comun: 70, raro: 22, epico: 7, legendario: 1 };
+
+/* Rareza automática: <100 común, 100+ raro, 300+ épico, 600+ legendario, 1000+ ÚNICO.
+   El orden de los PERSONAJES debe ser el mismo que en AVATARES del perfil (av0, av1, av2...). */
+const CATS = [
+  { k:"av", t:"Personajes", items:[
+    {n:"Constructor",p:0},{n:"Arquera",p:0},{n:"Dragoncito",p:700},{n:"Mago",p:350},{n:"Caballero",p:90},{n:"Princesa",p:400},
+    {n:"Alien",p:150},{n:"Sirena",p:350},{n:"Kunoichi",p:300},{n:"InglésGamer",p:1000} ] },
+  { k:"sk", t:"Skins", items:[
+    {n:"Original",p:0,f:""},
+    {n:"Hielo",p:120,f:"hue-rotate(150deg)"},
+    {n:"Lava",p:150,f:"hue-rotate(-40deg) saturate(1.6)"},
+    {n:"Bosque",p:150,f:"hue-rotate(80deg) saturate(1.3)"},
+    {n:"Fantasma",p:300,f:"grayscale(1) brightness(1.5) opacity(.75)"},
+    {n:"Neón",p:300,f:"hue-rotate(280deg) saturate(2.2) brightness(1.15)"},
+    {n:"Dorado",p:450,f:"sepia(1) saturate(3.5) brightness(1.1)"},
+    {n:"Arcoíris",p:800,f:"",cls:"arco"} ] },
+  { k:"mc", t:"Marcos", items:[
+    {n:"Madera",p:0},{n:"Hierro",p:100},{n:"Oro",p:250},{n:"Esmeralda",p:250},{n:"Fuego",p:400},{n:"Cristal",p:500},{n:"Arcoíris",p:700} ] },
+  { k:"tt", t:"Títulos", items:[
+    {n:"Novato",p:0},{n:"Gamer",p:80},{n:"Cazador de bugs",p:120},{n:"Speaker",p:200},{n:"Maestro Have/Has",p:250},{n:"Rey del A1",p:300},{n:"Leyenda",p:600} ] },
+  { k:"mp", t:"Mapas", items:[
+    {n:"Pradera",p:0,bg:"linear-gradient(#0F1A10,#1E3A22)",g:"#5DB33A"},
+    {n:"Noche",p:200,bg:"linear-gradient(#070B1F,#1B1F4A)",g:"#2B3A7A"},
+    {n:"Desierto",p:250,bg:"linear-gradient(#5A3A18,#B8782E)",g:"#D9A04A"},
+    {n:"Nieve",p:250,bg:"linear-gradient(#1B2A3A,#5A7C9A)",g:"#E8F2F8"},
+    {n:"Volcán",p:450,bg:"linear-gradient(#1E0B0E,#8A2214)",g:"#FF8A3D"},
+    {n:"Espacio",p:700,bg:"linear-gradient(#05020F,#1A0A3A)",g:"#3A2A6A"} ] }
+];
+
+/* ================= No necesitas tocar lo de abajo ================= */
+const $ = id => document.getElementById(id);
+const K_AURA = "ingles_gamer_aura", K_TIENDA = "ingles_gamer_tienda", K_PERFIL = "ingles_gamer_perfil", K_SON = "ingles_gamer_sonido";
+const RM = window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches;
+function lee(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+function guarda(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+const FLAME = s => '<span class="fl">' + sprite("llama", s) + '</span>';
+
+/* ---------- AURA ---------- */
+function leerAura() {
+  let a = { t:0, r:0, e:0, g:{}, l:[] };
+  const x = lee(K_AURA, null);
+  if (x && typeof x === "object") a = Object.assign(a, x);
+  a.t = Math.max(0, +a.t || 0); a.r = Math.max(0, +a.r || 0); a.e = Math.max(0, +a.e || 0);
+  if (!Array.isArray(a.l)) a.l = [];
+  if (!a.g || typeof a.g !== "object") a.g = {};
+  return a;
+}
+const saldo = () => leerAura().t;
+function moverAura(n, motivo) {
+  const a = leerAura();
+  a.t = Math.max(0, a.t + n);
+  a.l.unshift([n, motivo, Date.now()]); a.l = a.l.slice(0, 30);
+  guarda(K_AURA, a);
+  return a.t;
+}
+
+/* ---------- sonidos ---------- */
+let SON = true, AC = null, MASTER = null;
+try { SON = localStorage.getItem(K_SON) !== "0"; } catch (e) {}
+function audio() {
+  if (!AC) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; AC = new C(); MASTER = AC.createGain(); MASTER.gain.value = .9; MASTER.connect(AC.destination); }
+  if (AC.state === "suspended") AC.resume(); return AC;
+}
+function tono(f, t0, d, vol, tipo) {
+  const a = audio(); if (!a) return; const o = a.createOscillator(), g = a.createGain(), t = a.currentTime + t0;
+  o.type = tipo || "sine"; o.frequency.setValueAtTime(f, t);
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol || .12, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+  o.connect(g); g.connect(MASTER); o.start(t); o.stop(t + d + .05);
+}
+function pop(f0, f1, d, vol) {
+  const a = audio(); if (!a) return; const o = a.createOscillator(), g = a.createGain(), t = a.currentTime;
+  o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + d * .8);
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol || .1, t + .008); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+  o.connect(g); g.connect(MASTER); o.start(t); o.stop(t + d + .05);
+}
+const SONIDOS = {
+  click: () => pop(450, 650, .07, .07),
+  ok: () => { pop(300, 600, .09, .12); tono(783.99, .04, .3, .11); },
+  mal: () => { tono(330, 0, .16, .09, "triangle"); tono(262, .13, .28, .09, "triangle"); },
+  compra: () => { [987.77, 1318.5].forEach((f, k) => tono(f, k * .09, .35, .1)); [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, k) => tono(f, .2 + k * .08, .45, .08)); },
+  cofre: () => { for (let k = 0; k < 8; k++) pop(200 + k * 25, 120, .1, .08); },
+  raro: () => [523.25, 659.25, 783.99, 1046.5, 1318.5, 1568, 2093].forEach((f, k) => { tono(f, k * .1, .5, .09); tono(f / 2, k * .1, .4, .04, "triangle"); })
+};
+function sonido(n) { if (!SON) return; try { SONIDOS[n](); } catch (e) {} }
+const ICO = {
+  on: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>',
+  off: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="m16 9 5 6"></path><path d="m21 9-5 6"></path></svg>'
+};
+function pintarSon() { document.querySelectorAll(".btnSon").forEach(b => { b.innerHTML = SON ? ICO.on : ICO.off; b.setAttribute("aria-label", SON ? "Sonido activado. Toca para silenciar" : "Sonido apagado. Toca para activar"); }); }
+document.addEventListener("click", e => {
+  if (e.target.closest(".btnSon")) { SON = !SON; try { localStorage.setItem(K_SON, SON ? "1" : "0"); } catch (x) {} pintarSon(); sonido("click"); return; }
+  const t = e.target.closest("a,.tab"); if (t) sonido("click");
+}, true);
+
+/* ---------- personajes (pixel art, sin cambios) ---------- */
+const SPR = {
+  cofre:{p:{b:"#8B5A2B",y:"#FFC83D",k:"#5E3E22"},r:["bbbbbbbb","bkkkkkkb","bbbbbbbb","yyyyyyyy","bbbyybbb","bkkyykkb","bkkkkkkb","bbbbbbbb"]},
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},
+    r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},
+    r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},
+    r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},
+    r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},
+    r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},
+    r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},
+    r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},
+    r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},
+    r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+  av9:{p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},
+    r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]}
+};
+function sprite(n, size) {
+  const d = SPR[n]; if (!d) return "";
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg width="' + Math.round(size * w / h) + '" height="' + size + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+
+/* ---------- datos y estado ---------- */
+const ALL = [];
+CATS.forEach(c => c.items.forEach((it, i) => { it.id = c.k + i; it.cat = c.k; it.base = it.p; if (it.p > 0) it.p += SUBE; ALL.push(it); }));
+/* la rareza se calcula con el precio original (base), así subir el precio no cambia la rareza */
+const get = id => ALL.find(x => x.id === id);
+let ST = lee(K_TIENDA, null);
+if (!ST || !Array.isArray(ST.own)) ST = { own: [], eq: {} };
+if (!ST.eq || typeof ST.eq !== "object") ST.eq = {};
+CATS.forEach(c => { if (!ST.eq[c.k] || !get(ST.eq[c.k])) ST.eq[c.k] = c.k + "0"; });
+ALL.forEach(it => { if (it.p === 0 && ST.own.indexOf(it.id) < 0) ST.own.push(it.id); });
+ST.own = ST.own.filter(id => get(id));
+let TAB = "av";
+const owns = id => ST.own.indexOf(id) > -1;
+function guardar() { guarda(K_TIENDA, ST); }
+const esUnico = it => it.base >= 1000;
+/* [nombre, fondo de la etiqueta, color del texto, color del confeti] */
+function rareza(p) {
+  return p >= 1000 ? ["ÚNICO", "#FFC83D", "#0B0B0D", "#FFC83D"]
+    : p >= 600 ? ["LEGENDARIO", "var(--hi)", "var(--on-hi)", "#8E5BD6"]
+    : p >= 300 ? ["ÉPICO", "var(--mu)", "var(--bg)", "#3FD8C8"]
+    : p >= 100 ? ["RARO", "var(--toff)", "var(--ink)", "#FF8A3D"]
+    : ["COMÚN", "var(--chip)", "var(--mu)", "#8C8C96"];
+}
+const etiqueta = p => { const r = rareza(p); return '<span class="rar' + (p >= 1000 ? ' ru' : '') + '" style="background:' + r[1] + ';color:' + r[2] + '">' + r[0] + '</span>'; };
+const nombre = it => esUnico(it) ? '<span class="dor">' + it.n + '</span>' : it.n;
+
+/* oferta del día: la misma para todos y cambia a medianoche (el único no entra en oferta) */
+const DIA = Math.floor((Date.now() - new Date().getTimezoneOffset() * 6e4) / 864e5);
+const POOL_OFERTA = ALL.filter(x => x.base >= 100 && !esUnico(x));
+const OFERTA = POOL_OFERTA[(DIA * 7) % POOL_OFERTA.length];
+const DESCUENTO = DESCUENTOS[DIA % DESCUENTOS.length] / 100;
+function precio(it) { return it === OFERTA ? Math.round(it.p * (1 - DESCUENTO)) : it.p; }
+
+/* ---------- vistas previas ---------- */
+function pj(av, sk, size) {
+  const s = get(sk) || {};
+  return '<span class="sk ' + (s.cls || "") + '"' + (s.f ? ' style="filter:' + s.f + '"' : '') + '>' + sprite(av, size) + '</span>';
+}
+function marco(av, sk, mc, size) {
+  const d = Math.round(size * 1.55);
+  return '<span class="fr m' + mc.slice(2) + '" style="width:' + d + 'px;height:' + d + 'px">' + pj(av, sk, size) + '</span>';
+}
+function strip(mp) { return '<span class="strip" style="background:' + mp.bg + '"><b class="fx f-' + mp.id + '"></b><i style="background:' + mp.g + '"></i></span>'; }
+function prev(it, big) {
+  const e = ST.eq, z = big ? 1.4 : 1;
+  if (it.cat === "av") return pj(it.id, e.sk, Math.round(60 * z));
+  if (it.cat === "sk") return pj(e.av, it.id, Math.round(60 * z));
+  if (it.cat === "mc") return marco(e.av, e.sk, it.id, Math.round(44 * z));
+  if (it.cat === "tt") return '<span class="tt">' + it.n + '</span>';
+  return strip(it);
+}
+function pintarLook() {
+  const e = ST.eq, mp = get(e.mp), tt = get(e.tt), l = $("look");
+  l.style.background = mp.bg;
+  l.innerHTML = '<span class="lb">TU LOOK</span><span class="xpb" id="xpb">' + FLAME(18) + '<b id="xpn">' + saldo() + '</b></span>' +
+    '<b class="fx f-' + mp.id + '"></b><i class="lg" style="background:' + mp.g + '"></i><div class="lc">' + marco(e.av, e.sk, e.mc, 78) + '</div><span class="tchip">' + tt.n + '</span>';
+}
+function pintarSaldo() {
+  const n = $("xpn"); if (n) n.textContent = saldo();
+  const b = $("xpb"); if (b) { b.classList.remove("pulso"); void b.offsetWidth; b.classList.add("pulso"); }
+}
+function pintarOfertas() {
+  let h = "";
+  if (!owns(OFERTA.id)) {
+    h += '<div class="card of"><span class="tag">-' + Math.round(DESCUENTO * 100) + '%</span><span class="pv">' + prev(OFERTA) + '</span><b>' + nombre(OFERTA) + '</b><span class="sb">Oferta del día</span>' +
+      '<button class="bn buy" id="bOferta" type="button"><span class="old">' + OFERTA.p + '</span>' + FLAME(16) + precio(OFERTA) + '</button></div>';
+  }
+  h += '<div class="card of dk"><span class="pv"><span class="cf">' + sprite("cofre", 60) + '</span></span><b>Cofre sorpresa</b><span class="sb">Un objeto al azar</span>' +
+    '<button class="bn wh" id="bCofre" type="button">' + FLAME(16) + PRECIO_COFRE + '</button></div>';
+  $("ofertas").innerHTML = h;
+}
+function pintarTabs() {
+  $("tabs").innerHTML = CATS.map(c => {
+    const n = c.items.filter(i => owns(i.id)).length;
+    return '<button type="button" class="tab' + (c.k === TAB ? ' on' : '') + '" role="tab" aria-selected="' + (c.k === TAB) + '" data-k="' + c.k + '">' + c.t + '<span>' + n + '/' + c.items.length + '</span></button>';
+  }).join("");
+}
+function pintarGrid() {
+  const c = CATS.find(x => x.k === TAB), AU = saldo();
+  $("grid").innerHTML = c.items.map((it, i) => {
+    const mio = owns(it.id), puesto = ST.eq[it.cat] === it.id, pr = precio(it);
+    const btn = puesto ? '<button class="bn on" type="button" disabled>Equipado</button>'
+      : mio ? '<button class="bn use" type="button" data-id="' + it.id + '">Equipar</button>'
+      : it.id === EXCLUSIVO ? '<button class="bn no" type="button" disabled>Solo el creador</button>'
+      : '<button class="bn ' + (AU >= pr ? 'buy' : 'no') + '" type="button" data-id="' + it.id + '">' + (it === OFERTA ? '<span class="old">' + it.p + '</span>' : '') + FLAME(16) + pr + '</button>';
+    return '<div class="card it' + (puesto ? ' eq' : '') + (esUnico(it) ? ' uni' : '') + '" id="c_' + it.id + '" style="animation-delay:' + (i * .04) + 's">' + (puesto ? '<span class="chk">✓</span>' : '') +
+      '<span class="pv">' + prev(it) + '</span>' + etiqueta(it.base) + '<b class="nm">' + nombre(it) + '</b>' + btn + '</div>';
+  }).join("");
+}
+function pintarFoot() {
+  $("foot").innerHTML = '<p>Gana Aura en las evaluaciones y los retos. Lo que gastes aquí se descuenta de tu Aura en el Perfil.</p>';
+}
+function pintarAnuncio() {
+  $("anuncio").setAttribute("aria-label", "Mira un anuncio y gana Aura gratis");
+  $("anuncio").innerHTML = '<span class="cf">' + sprite("cofre", 56) + '</span><span class="tx"><b>Mira un anuncio</b><span>Ayúdanos y gana Aura gratis</span></span><span class="go">' + FLAME(16) + 'Ganar</span>';
+}
+function todo() { pintarLook(); pintarOfertas(); pintarTabs(); pintarGrid(); }
+
+/* El personaje equipado se lee del Perfil ("ingles_gamer_perfil".a): así el Perfil, el Inicio y la Tienda muestran siempre el mismo. */
+function personajeDelPerfil() {
+  const p = lee(K_PERFIL, {}) || {}, id = "av" + (Number(p.a) || 0);
+  if (get(id) && owns(id) && ST.eq.av !== id) { ST.eq.av = id; return true; }
+  return false;
+}
+function refrescar() { /* al volver de otra pantalla se releen las compras, lo equipado y el personaje */
+  const s = lee(K_TIENDA, null);
+  if (s && Array.isArray(s.own)) { ST.own = s.own.filter(id => get(id)); }
+  if (s && s.eq && typeof s.eq === "object") CATS.forEach(c => { if (s.eq[c.k] && get(s.eq[c.k])) ST.eq[c.k] = s.eq[c.k]; });
+  if (personajeDelPerfil()) guardar();
+  todo();
+}
+window.addEventListener("storage", e => { if (e.key === K_AURA || e.key === K_TIENDA) refrescar(); });
+window.addEventListener("pageshow", refrescar);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) refrescar(); });
+
+/* ---------- avisos, ventanas y confeti ---------- */
+let tT = null;
+function aviso(m) { const t = $("toast"); t.textContent = m; t.hidden = false; clearTimeout(tT); tT = setTimeout(() => { t.hidden = true; }, 2400); }
+function ventana(html) {
+  const o = document.createElement("div"); o.className = "mo"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = '<div class="mb">' + html + '</div>';
+  document.body.appendChild(o);
+  const cerrar = () => { o.remove(); document.removeEventListener("keydown", tecla); };
+  function tecla(e) { if (e.key === "Escape") cerrar(); }
+  document.addEventListener("keydown", tecla);
+  o.addEventListener("click", e => { if (e.target === o) cerrar(); });
+  return { el: o, q: s => o.querySelector(s), cerrar: cerrar, set: h => { o.firstChild.innerHTML = h; } };
+}
+function confeti(color) {
+  if (RM) return;
+  const c = document.createElement("div"); c.className = "conf"; document.body.appendChild(c);
+  const cols = [color, "#FFC83D", "#FF4D4D", "#3FD8C8", "#8E5BD6", "#5DB33A"];
+  for (let k = 0; k < 44; k++) {
+    const p = document.createElement("i"); p.style.background = cols[k % cols.length]; p.style.left = "50%"; p.style.top = "45%"; c.appendChild(p);
+    const a = Math.random() * Math.PI * 2, d = 120 + Math.random() * 220;
+    p.animate([{ transform: "translate(0,0) rotate(0)", opacity: 1 }, { transform: "translate(" + Math.cos(a) * d + "px," + (Math.sin(a) * d + 160) + "px) rotate(" + (Math.random() * 720) + "deg)", opacity: 0 }], { duration: 900 + Math.random() * 700, easing: "cubic-bezier(.2,.8,.4,1)", fill: "forwards" });
+  }
+  setTimeout(() => c.remove(), 1800);
+}
+
+/* ---------- comprar y equipar ---------- */
+function equipar(id) {
+  const it = get(id); ST.eq[it.cat] = id;
+  if (it.cat === "av") { const p = lee(K_PERFIL, {}) || {}; p.a = Number(id.slice(2)); guarda(K_PERFIL, p); }
+  guardar(); sonido("ok"); todo(); aviso("Equipado: " + it.n);
+}
+function falta(id) {
+  const it = get(id), card = $("c_" + id);
+  sonido("mal"); aviso("Te faltan " + (precio(it) - saldo()) + " de Aura");
+  if (card) { card.classList.remove("sac"); void card.offsetWidth; card.classList.add("sac"); }
+}
+function comprar(id) {
+  const it = get(id), pr = precio(it), r = rareza(it.base);
+  if (id === EXCLUSIVO) return;
+  if (owns(id)) return;
+  if (saldo() < pr) return falta(id);
+  const v = ventana('<div class="pv">' + prev(it, true) + '</div><h3>' + nombre(it) + '</h3><p>Cuesta ' + pr + ' de Aura. Te quedarían ' + (saldo() - pr) + '.</p>' +
+    '<button class="bn buy" id="vOk" type="button">Comprar por ' + pr + ' Aura</button><button class="bn ghost" id="vNo" type="button">Ahora no</button>');
+  v.q("#vNo").onclick = v.cerrar; v.q("#vOk").focus();
+  v.q("#vOk").onclick = () => {
+    if (owns(id)) { v.cerrar(); return; }
+    if (saldo() < pr) { v.cerrar(); return falta(id); }
+    moverAura(-pr, "Tienda: " + it.n);
+    ST.own.push(id); guardar(); sonido(it.base >= 600 ? "raro" : "compra"); confeti(r[3]); todo(); pintarSaldo();
+    v.set('<div class="pv">' + prev(it, true) + '</div><h3>¡Es tuyo!</h3><p>' + nombre(it) + '</p>' + etiqueta(it.base) +
+      '<button class="bn use" id="vEq" type="button">Equipar ahora</button><button class="bn ghost" id="vSeg" type="button">Seguir comprando</button>');
+    v.q("#vEq").onclick = () => { v.cerrar(); equipar(id); };
+    v.q("#vSeg").onclick = v.cerrar;
+  };
+}
+function nivel(it) { return it.base >= 600 ? "legendario" : it.base >= 300 ? "epico" : it.base >= 100 ? "raro" : "comun"; }
+function elegirCofre(pool) {
+  const g = {}; pool.forEach(x => { (g[nivel(x)] = g[nivel(x)] || []).push(x); });
+  const ks = Object.keys(g), tot = ks.reduce((a, k) => a + (PROB_COFRE[k] || 0), 0);
+  let r = Math.random() * tot;
+  for (const k of ks) { r -= (PROB_COFRE[k] || 0); if (r < 0) return g[k][Math.floor(Math.random() * g[k].length)]; }
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+function cofre() {
+  if (saldo() < PRECIO_COFRE) { sonido("mal"); aviso("Te faltan " + (PRECIO_COFRE - saldo()) + " de Aura para el cofre"); return; }
+  const pool = ALL.filter(x => x.p > 0 && !esUnico(x) && !owns(x.id));
+  if (!pool.length) { aviso("¡Ya tienes todo! Eres leyenda."); return; }
+  const it = elegirCofre(pool), r = rareza(it.base);
+  moverAura(-PRECIO_COFRE, "Tienda: Cofre sorpresa (" + it.n + ")");
+  ST.own.push(it.id); guardar(); pintarSaldo();
+  const v = ventana('<div class="cofreg tiembla">' + sprite("cofre", 110) + '</div><h3>Abriendo...</h3><p>¿Qué habrá dentro?</p>');
+  sonido("cofre");
+  setTimeout(() => {
+    sonido(it.base >= 300 ? "raro" : "compra"); confeti(r[3]); todo();
+    v.set('<div class="pv">' + prev(it, true) + '</div><h3>' + it.n + '</h3>' + etiqueta(it.base) +
+      '<p style="margin-top:8px">' + CATS.find(c => c.k === it.cat).t.slice(0, -1) + ' nuevo en tu colección</p>' +
+      '<button class="bn use" id="vEq" type="button">Equipar ahora</button><button class="bn ghost" id="vSeg" type="button">Genial</button>');
+    v.q("#vEq").onclick = () => { v.cerrar(); equipar(it.id); };
+    v.q("#vSeg").onclick = v.cerrar;
+  }, RM ? 300 : 1400);
+}
+
+/* ---------- eventos ---------- */
+$("tabs").addEventListener("click", e => { const b = e.target.closest(".tab"); if (!b) return; TAB = b.dataset.k; pintarTabs(); pintarGrid(); });
+$("grid").addEventListener("click", e => {
+  const b = e.target.closest(".bn[data-id]"); if (!b) return;
+  const id = b.dataset.id; owns(id) ? equipar(id) : comprar(id);
+});
+$("ofertas").addEventListener("click", e => {
+  if (e.target.closest("#bOferta")) comprar(OFERTA.id);
+  else if (e.target.closest("#bCofre")) cofre();
+});
+
+const NAV = [
+  { nombre:"Inicio", url:"go:inicio", icono:'<path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path>' },
+  { nombre:"Mapa", url:"go:MAPA", icono:'<path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7z"></path><path d="M9 4v13M15 7v12.5"></path>' },
+  { nombre:"Tienda", url:"go:tienda", activo:true, icono:'<path d="M4 9h16l-1 11H5L4 9z"></path><path d="M8 9V7a4 4 0 0 1 8 0v2"></path>' },
+  { nombre:"Ranking", url:"go:ranking", icono:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"></path>' },
+  { nombre:"Perfil", url:"go:perfil", icono:'<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>' }
+];
+$("navbar").innerHTML = NAV.map(x => '<a' + (x.activo ? ' class="on" aria-current="page"' : '') + ' href="' + x.url + '"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + x.icono + '</svg>' + x.nombre + '</a>').join("");
+
+/* personaje exclusivo: se le da a la cuenta del creador y se le quita a cualquier otra */
+function sesionCreador(uid) {
+  ES_CREADOR = uid === CREADOR;
+  let cambio = false;
+  if (ES_CREADOR) { if (ST.own.indexOf(EXCLUSIVO) < 0) { ST.own.push(EXCLUSIVO); cambio = true; } }
+  else if (uid) {
+    if (ST.own.indexOf(EXCLUSIVO) > -1) { ST.own = ST.own.filter(x => x !== EXCLUSIVO); cambio = true; }
+    if (ST.eq.av === EXCLUSIVO) { ST.eq.av = "av0"; cambio = true; }
+    const pf = lee(K_PERFIL, {}) || {}; if (pf.a === 9) { pf.a = 0; guarda(K_PERFIL, pf); }
+  }
+  if (cambio) guardar();
+  todo();
+}
+personajeDelPerfil(); guardar(); pintarSon(); pintarFoot(); pintarAnuncio(); todo();
+</script>
+<script type="module">
+/* ===== SESIÓN: para saber si quien juega es el creador (personaje exclusivo) ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const CONFIG = { apiKey:"AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE", authDomain:"inglesgamer-5a3a9.firebaseapp.com", projectId:"inglesgamer-5a3a9", storageBucket:"inglesgamer-5a3a9.firebasestorage.app", messagingSenderId:"599532765222", appId:"1:599532765222:web:38fe3a7348b3c38e3426e7" };
+const app = getApps().length ? getApp() : initializeApp(CONFIG);
+onAuthStateChanged(getAuth(app), u => { if (u && window.sesionCreador) window.sesionCreador(u.uid); });
+</script>
+<div id="sinNet" role="alert" hidden style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:var(--bg)">
+  <div><h2 style="margin:12px 0 8px;font-size:20px">Sin internet</h2><p style="margin:0 auto 18px;max-width:260px;font-size:15px;line-height:1.45;color:var(--mu)">Conéctate al wifi o activa tus datos móviles para seguir jugando.</p><button type="button" id="snRe" style="min-height:48px;padding:0 22px;border-radius:999px;border:0;background:var(--hi);color:var(--on-hi);font:800 15px Nunito,sans-serif;cursor:pointer">Reintentar</button></div>
+</div>
+<script>
+/* guardia de internet (script aparte) */
+(function () {
+  var caja = document.getElementById("sinNet"), fallos = 0, revisando = false;
+  var SONDAS = ["https://clients3.google.com/generate_204", "https://www.gstatic.com/generate_204"];
+  function probar(u) { return new Promise(function (res) { var c = new AbortController(), t = setTimeout(function () { c.abort(); }, 4000); fetch(u + "?t=" + Date.now(), { mode:"no-cors", cache:"no-store", signal:c.signal }).then(function (r) { clearTimeout(t); res(r.type); }).catch(function () { clearTimeout(t); res("falla"); }); }); }
+  async function hay() { if (!navigator.onLine) return false; for (var i = 0; i < SONDAS.length; i++) { if (await probar(SONDAS[i]) === "opaque") return true; } return false; }
+  async function revisar() { if (revisando) return; revisando = true; var ok = await hay(); fallos = ok ? 0 : fallos + 1; caja.hidden = !(navigator.onLine === false || fallos >= 2); revisando = false; if (!ok && fallos < 2) setTimeout(revisar, 2000); }
+  document.getElementById("snRe").addEventListener("click", revisar);
+  addEventListener("online", revisar); addEventListener("offline", revisar); addEventListener("pageshow", revisar);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) revisar(); });
+  setInterval(revisar, 15000); revisar();
+})();
+</script>
+<script type="module">
+/* ===== SESIÓN: sin cuenta se vuelve a la pantalla de acceso ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const CONFIG = { apiKey:"AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE", authDomain:"inglesgamer-5a3a9.firebaseapp.com", projectId:"inglesgamer-5a3a9", storageBucket:"inglesgamer-5a3a9.firebasestorage.app", messagingSenderId:"599532765222", appId:"1:599532765222:web:38fe3a7348b3c38e3426e7" };
+const app = getApps().length ? getApp() : initializeApp(CONFIG);
+onAuthStateChanged(getAuth(app), u => { if (!u) location.href = igURL("go:acceso"); });
+</script>
+
+<script type="module">
+/* ===== NUBE: guarda tu progreso en tu cuenta y lo recupera. Este MISMO bloque (versión corregida) va en TODAS las pantallas, justo antes de </body>. ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const CONFIG = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+
+(function () {
+  try {
+    const PREF = "ingles_gamer_", META = "ig_nube_meta";
+    const SKIP = /_(sesion|tema|sonido|buzon|buzon_pausa|acceso_modo)$/;
+    const app = getApps().length ? getApp() : initializeApp(CONFIG);
+    const auth = getAuth(app), db = getFirestore(app);
+    let user = null, ocupado = false;
+
+    const dormir = ms => new Promise(r => setTimeout(r, ms));
+    const estado = (ok, e) => { try { localStorage.setItem("ig_nube_estado", JSON.stringify({ ok: !!ok, t: Date.now(), c: ok ? "" : String((e && (e.code || e.message)) || "error") })); } catch (x) {} };
+    const ref = () => doc(db, "progreso", user.uid);
+    const claves = () => { const k = []; try { for (let i = 0; i < localStorage.length; i++) { const n = localStorage.key(i); if (n.indexOf(PREF) === 0 && !SKIP.test(n)) k.push(n); } } catch (e) {} return k; };
+    const snap = () => { const o = {}; claves().forEach(k => { o[k] = localStorage.getItem(k); }); return o; };
+    const ser = o => JSON.stringify(Object.keys(o).sort().map(k => [k, o[k]]));
+    const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return h; };
+    const getMeta = () => { try { return JSON.parse(localStorage.getItem(META)) || {}; } catch (e) { return {}; } };
+    const setMeta = m => { try { localStorage.setItem(META, JSON.stringify(m)); } catch (e) {} };
+    /* CORREGIDO: "vacío" = sin progreso real (solo el apodo/perfil no cuenta) */
+    const vacio = o => !o || !(o.ingles_gamer_a1_repaso || o.ingles_gamer_aura || o.ingles_gamer_tienda);
+    const limpiar = () => claves().forEach(k => localStorage.removeItem(k));
+    const cambios = () => !!user && getMeta().uid === user.uid && hash(ser(snap())) !== getMeta().h;
+    const puntos = d => {
+      try {
+        const a = JSON.parse(d.ingles_gamer_aura || "null") || {}, r = JSON.parse(d.ingles_gamer_a1_repaso || "null") || {};
+        return (+a.t || 0) + Object.values(r.est || {}).reduce((x, y) => x + (+y || 0), 0);
+      } catch (e) { return 0; }
+    };
+
+    async function subir() {
+      const o = snap(), t = Date.now();
+      await setDoc(ref(), { datos: o, t: t, v: 1 });
+      setMeta({ uid: user.uid, t: t, h: hash(ser(o)) });
+      estado(true);
+    }
+    function bajar(c) {
+      limpiar();
+      const d = c.datos || {};
+      for (const k in d) if (k.indexOf(PREF) === 0 && !SKIP.test(k) && typeof d[k] === "string") localStorage.setItem(k, d[k]);
+      setMeta({ uid: user.uid, t: c.t || Date.now(), h: hash(ser(snap())) });
+    }
+
+    async function sync(lanzar) {
+      if (!user || ocupado) return "igual";
+      ocupado = true;
+      let res = "igual";
+      try {
+        const m = getMeta(), o = snap(), h = hash(ser(o)), s = await getDoc(ref()), c = s.exists() ? s.data() : null, cd = (c && c.datos) || {};
+        if (m.uid && m.uid !== user.uid) {
+          limpiar();
+          if (c) bajar(c); else await subir();
+          res = "bajado"; location.reload();
+        } else if (m.uid !== user.uid) {
+          if (c && (vacio(o) || puntos(cd) >= puntos(o))) { bajar(c); res = "bajado"; location.reload(); }
+          else { await subir(); res = "subido"; }
+        } else if (c && vacio(o) && !vacio(cd)) {
+          bajar(c); res = "bajado"; location.reload();
+        } else if (!c || h !== m.h) { await subir(); res = "subido"; }
+        else if (c.t > m.t) { bajar(c); res = "bajado"; location.reload(); }
+        else estado(true);
+      } catch (e) { ocupado = false; estado(false, e); if (lanzar) throw e; return "igual"; }
+      ocupado = false;
+      return res;
+    }
+
+    const guardarYa = () => { if (cambios()) sync(); };
+    onAuthStateChanged(auth, u => { user = u; if (u) sync(); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) guardarYa(); else sync(); });
+    addEventListener("pagehide", guardarYa);
+    setInterval(guardarYa, 45000);
+
+    window.IGNube = {
+      listo: true,
+      sincronizar: () => sync(),
+      usuario: () => user,
+      async subirYa() {
+        for (let i = 0; i < 40 && !user; i++) await dormir(250);
+        if (!user) throw new Error("sin-sesion");
+        while (ocupado) await dormir(200);
+        const r = await sync(true);
+        if (r === "bajado") throw new Error("recargando");
+      }
+    };
+  } catch (e) { console.error("[nube]", e); }
+})();
+</script>
+</body>
+</html>

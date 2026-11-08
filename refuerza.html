@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Refuerza tu inglés | InglésGamer</title>
+<meta name="theme-color" content="#000000">
+<script>
+/* ===== PALETAS: una sola fuente de colores. La elección se guarda en "ingles_gamer_tema". ===== */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+window.addEventListener("pageshow", function () { aplicarTema(temaActual()); });
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--hi:#FFFFFF;--on-hi:#000000;--track:#2A2A2E;--toff:#3A3A40;--nav:#0E0E10;--av1:#3A3A40;--av2:#101012;--ok:#7BE3A8}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:3px solid var(--hi);outline-offset:3px}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+
+header{display:flex;align-items:center;gap:12px;padding:calc(10px + env(safe-area-inset-top)) 16px 0}
+.back{flex:none;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--bd);color:var(--ink)}
+h1{margin:0;font-weight:900;font-size:24px;letter-spacing:-.3px}
+
+.tabs{display:flex;gap:8px;padding:14px 16px 0}
+.tab{flex:1;min-height:40px;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:999px;border:1px solid var(--bd);background:var(--card);color:var(--mu);font:800 15px Nunito,sans-serif}
+.tab.on{background:var(--hi);border-color:var(--hi);color:var(--on-hi)}
+.tab.lock{cursor:not-allowed}
+
+.hero{display:flex;align-items:center;gap:10px;margin:12px 16px 0;padding:10px 16px 10px 10px;border-radius:22px;border:1px solid var(--bd);background:var(--card)}
+.pj{flex:none;width:74px;padding:4px;border-radius:18px;background:radial-gradient(circle at 50% 40%,var(--av1),var(--av2))}
+.pj svg{display:block;width:100%;height:auto;overflow:visible}
+.info{flex:1;min-width:0}
+.lvl{font:800 11px Nunito,sans-serif;letter-spacing:2px;color:var(--mu)}
+.nom{margin-top:1px;font:900 28px/1.05 Nunito,sans-serif;letter-spacing:-.5px}
+.sub{margin-top:2px;font:600 14px Nunito,sans-serif;color:var(--mu)}
+.bar{margin-top:8px;height:9px;border-radius:999px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:var(--hi)}
+.pg{display:flex;justify-content:space-between;margin-top:6px;font:800 12px Nunito,sans-serif}
+
+/* camino */
+.path{position:relative;margin:16px 0 0}
+.path svg.lines{position:absolute;inset:0;pointer-events:none}
+.ln-on{fill:none;stroke:var(--hi);stroke-width:7;stroke-linecap:round}
+.ln-off{fill:none;stroke:var(--toff);stroke-width:5;stroke-linecap:round;stroke-dasharray:0 11}
+.stop{position:absolute;display:flex;flex-direction:column;align-items:center;gap:7px;transform:translate(-50%,-32px)}
+.stop:active .node{transform:scale(.94)}
+.node{position:relative;flex:none;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .12s}
+.done .node{background:var(--hi);color:var(--on-hi)}
+.cur .node{background:var(--hi);color:var(--on-hi);margin-bottom:6px;box-shadow:0 0 0 5px var(--toff),0 0 0 10px var(--chip)}
+.next .node{background:var(--card);border:2px solid var(--bd);color:var(--ink);font:900 23px Nunito,sans-serif}
+.lab{padding:4px 11px;border-radius:999px;background:var(--hi);color:var(--on-hi);font:800 13px Nunito,sans-serif;white-space:nowrap}
+.next .lab{background:var(--chip);color:var(--mu)}
+.aqui{position:absolute;left:64%;top:-10px;padding:3px 9px;border-radius:999px;background:var(--hi);color:var(--on-hi);border:2px solid var(--bg);font:900 12px Nunito,sans-serif;white-space:nowrap;animation:rebota 1.4s ease-in-out infinite}
+@keyframes rebota{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:var(--nav);border-top:1px solid var(--bd);border-radius:28px 28px 0 0}
+nav .inner{max-width:520px;margin:0 auto;display:flex;padding:8px 6px max(12px,env(safe-area-inset-bottom))}
+nav a{flex:1;min-width:0;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mu);font-size:11px;font-weight:700}
+nav a.on{color:var(--hi)}
+
+/* personaje haciendo ejercicio */
+.oc,.r1,.r2,.l1,.l2,.bo{opacity:0}
+.oc{animation:parp 4s infinite}
+@keyframes parp{0%,92%,100%{opacity:0}94%,97%{opacity:1}}
+@keyframes ua{0%{opacity:1}50%{opacity:0}}
+@keyframes ub{0%{opacity:0}50%{opacity:1}}
+@keyframes vibra{from{transform:translateY(0)}to{transform:translateY(.15px)}}
+@keyframes late{from{opacity:.15}to{opacity:.5}}
+.rojo{opacity:.15;animation:late 1s ease-in-out infinite alternate}
+.ejer .mov{animation:vibra .1s linear infinite alternate}
+.ejer .rd,.ejer .ld{opacity:0}
+.ejer .r1,.ejer .l1{animation:ua .8s step-end infinite}
+.ejer .r2,.ejer .l2{animation:ub .8s step-end infinite}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r1,.l1{opacity:1}.rojo{opacity:.3}}
+@media (max-width:360px){h1{font-size:21px}.nom{font-size:24px}.pj{width:64px}.tab{font-size:14px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header><a class="back" href="go:inicio" aria-label="Volver"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg></a><h1>Refuerza tu inglés</h1></header>
+  <div class="tabs" id="tabs"></div>
+  <div class="hero">
+    <div class="pj" id="pj"></div>
+    <div class="info">
+      <div class="lvl" id="lvl"></div>
+      <div class="nom" id="nom"></div>
+      <div class="sub" id="sub"></div>
+      <div class="bar" id="bar" role="progressbar" aria-label="Progreso del nivel"><i id="barfill"></i></div>
+      <div class="pg"><span id="cnt"></span><span id="pct"></span></div>
+    </div>
+  </div>
+  <div class="path" id="path"></div>
+</div>
+<nav aria-label="Navegación principal"><div class="inner" id="navbar"></div></nav>
+
+<script>
+/* ================= TUS DATOS: edita solo esta parte ================= */
+/* El ID que va después de "go:" debe ser igual a la Referencia de la sección en AppCreator24. */
+const NIVEL_ACTUAL = "A1";                       /* nivel activo */
+const NOMBRE_NIVEL = "Principiante";             /* título grande de la tarjeta (igual que en Temas) */
+const NIVELES_BLOQUEADOS = ["A2", "B1", "B2"];   /* se ven con candado */
+
+/* Las lecciones guardan lo que marcas como "vista" en "ig:vistos" (clave vieja).
+   Aquí se copia todo a "ingles_gamer_vistos", que SÍ se guarda en la nube con tu cuenta. No las cambies. */
+const KEY_VIEJA = "ig:vistos";
+const KEY_VISTOS = "ingles_gamer_vistos";
+
+/* El "id" de cada tema debe ser IGUAL al LECCION_ID que tiene esa lección. */
+const NIVELES = [
+  { id:"tobe1",       t:"Verbo To Be",          url:"go:1" },
+  { id:"thisthat1",   t:"This y That",          url:"go:2" },
+  { id:"ordinales1",  t:"Números ordinales",    url:"go:3" },
+  { id:"aan1",        t:"A y An",               url:"go:4" },
+  { id:"thesethose1", t:"These y Those",        url:"go:5" },
+  { id:"havehas1",    t:"Have y Has",           url:"go:6" },
+  { id:"can1",        t:"Can",                  url:"go:7" },
+  { id:"dodoes1",     t:"Do y Does",            url:"go:8" },
+  { id:"thereis1",    t:"There is y There are", url:"go:9" },
+  { id:"continuo1",   t:"Presente continuo",    url:"go:10" },
+  { id:"posesivos1",  t:"Posesivos",            url:"go:11" },
+  { id:"wh1",         t:"Preguntas WH",         url:"go:12" }
+];
+const NAV = [
+  { nombre:"Inicio", url:"go:inicio", icono:'<path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path>' },
+  { nombre:"Mapa", url:"go:MAPA", icono:'<path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7z"></path><path d="M9 4v13M15 7v12.5"></path>' },
+  { nombre:"Tienda", url:"go:tienda", icono:'<path d="M4 9h16l-1 11H5L4 9z"></path><path d="M8 9V7a4 4 0 0 1 8 0v2"></path>' },
+  { nombre:"Ranking", url:"go:ranking", icono:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"></path>' },
+  { nombre:"Perfil", url:"go:perfil", icono:'<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>' }
+];
+
+/* ================= No necesitas tocar lo de abajo ================= */
+const $ = id => document.getElementById(id);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"\x26amp;", "<":"\x26lt;", ">":"\x26gt;", '"':"\x26quot;" }[c]));
+const svg = (p, s) => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+const CANDADO = '<path d="M6 11h12v9H6z"></path><path d="M8 11V8a4 4 0 0 1 8 0v3"></path>';
+const CHECK = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"></path></svg>';
+const PLAY = '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
+
+const PASO = 112, TOP = 40;
+const COLS = [0.5, 0.735, 0.5, 0.265]; /* centro, derecha, centro, izquierda */
+const colX = (i, w) => COLS[i % 4] * w;
+const posY = i => TOP + i * PASO;
+
+/* ---- Lee qué lecciones marcaste como vistas ---- */
+const leerLista = k => { try { const v = JSON.parse(localStorage.getItem(k) || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
+/* junta las dos claves (sin repetir) y deja todo guardado en la nueva */
+function unirVistos() {
+  const nueva = leerLista(KEY_VISTOS), vieja = leerLista(KEY_VIEJA), u = nueva.slice();
+  vieja.forEach(id => { if (u.indexOf(id) < 0) u.push(id); });
+  if (u.length !== nueva.length) { try { localStorage.setItem(KEY_VISTOS, JSON.stringify(u)); } catch (e) {} }
+  return u;
+}
+const leerVistos = () => unirVistos();
+const esVisto = n => leerVistos().indexOf(n.id) !== -1;
+const hechos = () => NIVELES.filter(esVisto).length;
+const actual = () => { for (let i = 0; i < NIVELES.length; i++) if (!esVisto(NIVELES[i])) return i; return NIVELES.length; };
+
+function dibuja() {
+  var total = NIVELES.length, h = hechos();
+  var pct = Math.round(h / total * 100);
+
+  $("tabs").innerHTML = [NIVEL_ACTUAL].concat(NIVELES_BLOQUEADOS).map(function (n, i) {
+    return i === 0
+      ? '<button type="button" class="tab on" aria-current="true">' + esc(n) + '</button>'
+      : '<button type="button" class="tab lock" disabled aria-label="Nivel ' + esc(n) + ' bloqueado">' + svg(CANDADO, 14) + esc(n) + '</button>';
+  }).join("");
+
+  $("lvl").textContent = "NIVEL " + NIVEL_ACTUAL;
+  $("nom").textContent = NOMBRE_NIVEL;
+  $("sub").textContent = total + " temas";
+  $("cnt").textContent = h + " de " + total;
+  $("pct").textContent = pct + "%";
+  $("barfill").style.width = pct + "%";
+  var bar = $("bar");
+  bar.setAttribute("aria-valuemin", "0");
+  bar.setAttribute("aria-valuemax", String(total));
+  bar.setAttribute("aria-valuenow", String(h));
+}
+
+function dibujaCamino() {
+  var cont = $("path"), w = cont.clientWidth || 520, total = NIVELES.length, cur = actual();
+  var alto = TOP + (total - 1) * PASO + 80;
+  cont.style.height = alto + "px";
+
+  var lineas = "";
+  for (var i = 0; i < total - 1; i++) {
+    var x1 = colX(i, w), y1 = posY(i), x2 = colX(i + 1, w), y2 = posY(i + 1), dy = (y2 - y1) * 0.55;
+    var d = "M" + x1 + " " + y1 + " C" + x1 + " " + (y1 + dy) + " " + x2 + " " + (y2 - dy) + " " + x2 + " " + y2;
+    lineas += '<path class="' + (i + 1 <= cur ? "ln-on" : "ln-off") + '" d="' + d + '"></path>';
+  }
+
+  var paradas = NIVELES.map(function (n, i) {
+    var estado = esVisto(n) ? "done" : (i === cur ? "cur" : "next");
+    var contenido = estado === "done" ? CHECK : (estado === "cur" ? PLAY : String(i + 1));
+    var aqui = estado === "cur" ? '<span class="aqui">¡AQUÍ!</span>' : "";
+    return '<a class="stop ' + estado + '" href="' + esc(n.url) + '" style="left:' + colX(i, w) + 'px;top:' + posY(i) + 'px">' +
+      '<span class="node">' + contenido + aqui + '</span><span class="lab">' + esc(n.t) + '</span></a>';
+  }).join("");
+
+  cont.innerHTML = '<svg class="lines" width="' + w + '" height="' + alto + '" viewBox="0 0 ' + w + ' ' + alto + '" aria-hidden="true">' + lineas + '</svg>' + paradas;
+}
+
+/* personaje haciendo ejercicio (pixel art) */
+const BASE = ["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."];
+const PAL = { k:"#151518", w:"#F2F4F8", h:"#8A5A33", e:"#3A2414", s:"#F2B98F", m:"#B8704F", g:"#5A5A5E", l:"#C4C4C8", q:"#A0A0A5", z:"#0B0B0D", p:"#1A1A1E", f:"#F2F4F8", W:"#FFFFFF" };
+const solo = (r1, r2, c1, c2, k) => { const o = []; for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) o.push([r, c, k]); return o; };
+const rects = l => l.map(x => '<rect x="' + x[1] + '" y="' + x[0] + '" width="1" height="1" fill="' + PAL[x[2]] + '"></rect>').join("");
+const arriba = (lado, top) => { const a = lado === "R" ? 10 : 0; return solo(top, top + 1, a, a + 1, "s").concat(solo(top + 2, top + 2, a, a + 1, "l"), solo(top + 3, 8, a, a + 1, "g")); };
+const barra = y => solo(y, y, -1, 12, "q").concat(solo(y - 2, y + 2, -1, -1, "z"), solo(y - 2, y + 2, 12, 12, "z"));
+function personaje() {
+  const g = BASE.map(f => f.split(""));
+  [[3,3,8,"e"],[6,4,7,"W"]].forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [], rd = [], ld = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => {
+    if (k === ".") return;
+    const x = [r, c, k];
+    if (r <= 6) cab.push(x); else if (r <= 13 && c >= 10) rd.push(x); else if (r <= 13 && c <= 1) ld.push(x); else cue.push(x);
+  }));
+  const ojos = [[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]];
+  return '<svg class="ejer" viewBox="-1 -4 14 20.8" shape-rendering="crispEdges" role="img" aria-label="Personaje levantando una pesa">' +
+    '<rect x="2" y="16" width="8" height=".6" fill="#000" opacity=".4"></rect>' +
+    '<g class="mov">' + rects(cue) +
+    '<g class="cab">' + rects(cab) + '<g class="oc">' + rects(ojos) + '</g><rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect></g>' +
+    '<g class="ld">' + rects(ld) + '</g><g class="l1">' + rects(arriba("L", 0)) + '</g><g class="l2">' + rects(arriba("L", 3)) + '</g>' +
+    '<g class="rd">' + rects(rd) + '</g><g class="r1">' + rects(arriba("R", 0).concat(barra(-1))) + '</g><g class="r2">' + rects(arriba("R", 3).concat(barra(2))) + '</g>' +
+    '</g></svg>';
+}
+
+$("pj").innerHTML = personaje();
+$("navbar").innerHTML = NAV.map(n => '<a' + (n.activo ? ' class="on" aria-current="page"' : '') + ' href="' + n.url + '">' + svg(n.icono, 23) + esc(n.nombre) + '</a>').join("");
+
+/* Se redibuja al abrir, al volver de una lección y cuando cambian los "vistos" */
+function refresca() { dibuja(); dibujaCamino(); }
+refresca();
+window.addEventListener("resize", dibujaCamino);
+window.addEventListener("pageshow", refresca);
+document.addEventListener("visibilitychange", function () { if (!document.hidden) refresca(); });
+window.addEventListener("storage", function (e) { if (e.key === KEY_VISTOS || e.key === KEY_VIEJA) refresca(); });
+</script>
+<script type="module">
+/* ===== SESIÓN: sin cuenta se vuelve a la pantalla de acceso ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const CONFIG = { apiKey:"AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE", authDomain:"inglesgamer-5a3a9.firebaseapp.com", projectId:"inglesgamer-5a3a9", storageBucket:"inglesgamer-5a3a9.firebasestorage.app", messagingSenderId:"599532765222", appId:"1:599532765222:web:38fe3a7348b3c38e3426e7" };
+const app = getApps().length ? getApp() : initializeApp(CONFIG);
+onAuthStateChanged(getAuth(app), u => { if (!u) location.href = igURL("go:acceso"); });
+</script>
+
+<script type="module">
+/* ===== NUBE: guarda tu progreso en tu cuenta y lo recupera. Este MISMO bloque (versión corregida) va en TODAS las pantallas, justo antes de </body>. ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const CONFIG = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+
+(function () {
+  try {
+    const PREF = "ingles_gamer_", META = "ig_nube_meta";
+    const SKIP = /_(sesion|tema|sonido|buzon|buzon_pausa|acceso_modo)$/;
+    const app = getApps().length ? getApp() : initializeApp(CONFIG);
+    const auth = getAuth(app), db = getFirestore(app);
+    let user = null, ocupado = false;
+
+    const dormir = ms => new Promise(r => setTimeout(r, ms));
+    const estado = (ok, e) => { try { localStorage.setItem("ig_nube_estado", JSON.stringify({ ok: !!ok, t: Date.now(), c: ok ? "" : String((e && (e.code || e.message)) || "error") })); } catch (x) {} };
+    const ref = () => doc(db, "progreso", user.uid);
+    const claves = () => { const k = []; try { for (let i = 0; i < localStorage.length; i++) { const n = localStorage.key(i); if (n.indexOf(PREF) === 0 && !SKIP.test(n)) k.push(n); } } catch (e) {} return k; };
+    const snap = () => { const o = {}; claves().forEach(k => { o[k] = localStorage.getItem(k); }); return o; };
+    const ser = o => JSON.stringify(Object.keys(o).sort().map(k => [k, o[k]]));
+    const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return h; };
+    const getMeta = () => { try { return JSON.parse(localStorage.getItem(META)) || {}; } catch (e) { return {}; } };
+    const setMeta = m => { try { localStorage.setItem(META, JSON.stringify(m)); } catch (e) {} };
+    /* CORREGIDO: "vacío" = sin progreso real (solo el apodo/perfil no cuenta) */
+    const vacio = o => !o || !(o.ingles_gamer_a1_repaso || o.ingles_gamer_aura || o.ingles_gamer_tienda);
+    const limpiar = () => claves().forEach(k => localStorage.removeItem(k));
+    const cambios = () => !!user && getMeta().uid === user.uid && hash(ser(snap())) !== getMeta().h;
+    const puntos = d => {
+      try {
+        const a = JSON.parse(d.ingles_gamer_aura || "null") || {}, r = JSON.parse(d.ingles_gamer_a1_repaso || "null") || {};
+        return (+a.t || 0) + Object.values(r.est || {}).reduce((x, y) => x + (+y || 0), 0);
+      } catch (e) { return 0; }
+    };
+
+    async function subir() {
+      const o = snap(), t = Date.now();
+      await setDoc(ref(), { datos: o, t: t, v: 1 });
+      setMeta({ uid: user.uid, t: t, h: hash(ser(o)) });
+      estado(true);
+    }
+    function bajar(c) {
+      limpiar();
+      const d = c.datos || {};
+      for (const k in d) if (k.indexOf(PREF) === 0 && !SKIP.test(k) && typeof d[k] === "string") localStorage.setItem(k, d[k]);
+      setMeta({ uid: user.uid, t: c.t || Date.now(), h: hash(ser(snap())) });
+    }
+
+    async function sync(lanzar) {
+      if (!user || ocupado) return "igual";
+      ocupado = true;
+      let res = "igual";
+      try {
+        const m = getMeta(), o = snap(), h = hash(ser(o)), s = await getDoc(ref()), c = s.exists() ? s.data() : null, cd = (c && c.datos) || {};
+        if (m.uid && m.uid !== user.uid) {
+          limpiar();
+          if (c) bajar(c); else await subir();
+          res = "bajado"; location.reload();
+        } else if (m.uid !== user.uid) {
+          if (c && (vacio(o) || puntos(cd) >= puntos(o))) { bajar(c); res = "bajado"; location.reload(); }
+          else { await subir(); res = "subido"; }
+        } else if (c && vacio(o) && !vacio(cd)) {
+          bajar(c); res = "bajado"; location.reload();
+        } else if (!c || h !== m.h) { await subir(); res = "subido"; }
+        else if (c.t > m.t) { bajar(c); res = "bajado"; location.reload(); }
+        else estado(true);
+      } catch (e) { ocupado = false; estado(false, e); if (lanzar) throw e; return "igual"; }
+      ocupado = false;
+      return res;
+    }
+
+    const guardarYa = () => { if (cambios()) sync(); };
+    onAuthStateChanged(auth, u => { user = u; if (u) sync(); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) guardarYa(); else sync(); });
+    addEventListener("pagehide", guardarYa);
+    setInterval(guardarYa, 45000);
+
+    window.IGNube = {
+      listo: true,
+      sincronizar: () => sync(),
+      usuario: () => user,
+      async subirYa() {
+        for (let i = 0; i < 40 && !user; i++) await dormir(250);
+        if (!user) throw new Error("sin-sesion");
+        while (ocupado) await dormir(200);
+        const r = await sync(true);
+        if (r === "bajado") throw new Error("recargando");
+      }
+    };
+  } catch (e) { console.error("[nube]", e); }
+})();
+</script>
+</body>
+</html>
