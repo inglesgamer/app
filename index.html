@@ -311,6 +311,33 @@ main{overflow-x:hidden;touch-action:pan-y}
 .si-pie{justify-content:center;text-align:center;padding:0 18px}
 .si-pie div b{font-size:22px}
 .si-pie div small{margin-top:4px;font-size:14px}
+/* ===== DISEÑO E: Racha en una línea fina ===== */
+/* vocabulario sin caja (del diseño B) */
+.vdia{background:none!important;border:0!important;border-left:4px solid var(--lc)!important;border-radius:0!important;padding:2px 0 2px 16px!important}
+/* retos en cuadritos, 3 en fila */
+.rt-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rt{flex-direction:column;align-items:flex-start;justify-content:space-between;gap:8px;min-height:112px;padding:12px}
+.rt-go{display:none}.rt-tx b{font-size:15px;line-height:1.15}.rt-au{font-size:12px}
+#player{order:1}#racha{order:2}
+#racha{background:none;border:0;padding:0 6px;gap:8px}
+#racha .rc-ic{width:30px;height:30px;background:none}
+#racha .rc-l>div{display:flex;align-items:baseline;gap:8px}
+#racha .rc-n{font-size:19px;white-space:nowrap}#racha .rc-msg{display:none}
+#racha .rc-days{grid-template-columns:repeat(7,16px);gap:6px}
+#racha .rc-d i{width:16px;height:16px;border-radius:50%}#racha .rc-d.hoy i{outline-offset:1px}
+#seguir{order:3}#sopa{order:4}#secVocab{order:5}#secRetos{order:6}#secRef{order:7}#ayuda{order:8}
+
+/* ===== RACHA E2: Meta siguiente ===== */
+.idea .mov{animation:salta .5s ease-in-out infinite alternate}
+.idea .rd{opacity:0}.idea .r1{animation:ua .5s step-end infinite}.idea .r2{animation:ub .5s step-end infinite}
+.idea .b1{animation:ua .5s step-end infinite}.idea .b2{opacity:0;animation:ub .5s step-end infinite}
+
+#racha .rc-meta{flex:1;max-width:190px;display:flex;flex-direction:column;gap:5px}
+#racha .rc-bar{height:10px;border-radius:99px;background:var(--track);overflow:hidden}
+#racha .rc-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#FF8A3D,#FFC83D)}
+#racha .rc-meta small.rc-logro{color:var(--gold)}
+#racha .rc-meta small{white-space:nowrap;display:flex;align-items:center;gap:4px;justify-content:flex-end;font-size:11px;font-weight:800;color:var(--mu)}
+
 </style>
 </head>
 <body>
@@ -550,6 +577,20 @@ const rects = l => l.map(x => '<rect x="' + x[1] + '" y="' + x[0] + '" width="1"
 const arriba = (lado, top) => { const a = lado === "R" ? 10 : 0; return solo(top, top + 1, a, a + 1, "s").concat(solo(top + 2, top + 2, a, a + 1, "l"), solo(top + 3, 8, a, a + 1, "g")); };
 const chispa = (x, y, d) => '<g class="chs" style="animation-delay:' + d + 's"><rect x="' + (x + 1) + '" y="' + y + '" width="1" height="3" fill="#FFC83D"></rect><rect x="' + x + '" y="' + (y + 1) + '" width="3" height="1" fill="#FFC83D"></rect></g>';
 
+/* personaje "¡Una idea!": levanta el dedo y se le prende un foco (para el Vocabulario del día) */
+function idea() {
+  const g = BASE.map(f => f.split(""));
+  [[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"]].forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [], rd = [], ld = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => {
+    if (k === ".") return; const x = [r, c, k];
+    if (r <= 6) cab.push(x); else if (r <= 13 && c >= 10) rd.push(x); else if (r <= 13 && c <= 1) ld.push(x); else cue.push(x);
+  }));
+  const foco = '<g class="b1">' + rects(solo(-3, -2, 4, 6, "y").concat([[-1,5,"q"]])) + '</g><g class="b2">' + rects(solo(-3, -2, 4, 6, "W").concat([[-1,5,"q"],[-3,3,"y"],[-3,7,"y"],[-2,2,"y"],[-2,8,"y"]])) + '</g>';
+  return '<svg class="idea" viewBox="-1 -3 14 19.8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="16" width="8" height=".6" fill="#000" opacity=".4"></rect><g class="mov">' + rects(cue) +
+    '<g class="cab">' + rects(cab) + '<g class="oc">' + rects([[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]]) + '</g></g><g class="ld">' + rects(ld) + '</g><g class="rd">' + rects(rd) + '</g>' +
+    '<g class="r1">' + rects(arriba("R", 1)) + '</g><g class="r2">' + rects(arriba("R", 2)) + '</g></g>' + foco + '</svg>';
+}
 function alegre() {
   const g = BASE.map(f => f.split(""));
   [[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"],[5,2,2,"r"],[5,9,9,"r"]].forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
@@ -963,7 +1004,7 @@ function pintarVocab() {
   caja.style.setProperty("--lc", p.c);
   caja.setAttribute("aria-label", "Palabra del día: " + p.en + ". Toca para escucharla");
   caja.innerHTML = '<div class="v-top"><div class="v-tx"><span class="v-en">' + esc(p.en) + '</span><span class="v-es">' + esc(p.es) + '</span>' +
-    '<span class="listen">' + ICO + 'Escuchar</span></div><div class="pj">' + alegre() + '</div></div>' +
+    '<span class="listen">' + ICO + 'Escuchar</span></div><div class="pj">' + pensativo() + '</div></div>' +
     '<div class="v-ejb"><small class="tag">EJEMPLO</small><div class="ej">' + hl(p.ej) + '</div><div class="ej-es">' + esc(p.ejes) + '</div></div>';
   prepararAudio(p);
 }
@@ -1210,6 +1251,28 @@ const CONFIG = {
     };
   } catch (e) { console.error("[nube]", e); }
 })();
+</script>
+<script>
+
+const _rachaDatos = () => {
+  const rep = leer("ingles_gamer_a1_repaso"), dia = (rep && rep.dia) || { u:"", r:0 };
+  const kHoy = clave(new Date()), kAyer = clave(new Date(Date.now() - 864e5));
+  const vivo = (dia.u === kHoy || dia.u === kAyer) && +dia.r > 0;
+  const racha = vivo ? Math.min(+dia.r, 9999) : 0, marcados = {};
+  if (vivo) { const p = String(dia.u).split("-").map(Number), d0 = new Date(p[0], p[1] - 1, p[2]);
+    for (let i = 0; i < Math.min(racha, 400); i++) { const d = new Date(d0); d.setDate(d0.getDate() - i); marcados[clave(d)] = 1; } }
+  return { racha, marcados, jugoHoy: vivo && dia.u === kHoy };
+};
+const METAS = [3, 7, 14, 30, 60, 100, 200, 365];
+const _meta = r => { const m = METAS.find(x => x > r) || (Math.floor(r / 100) + 1) * 100; const a = METAS.filter(x => x <= r).pop() || 0; return { m, a, pct: Math.round((r - a) / Math.max(1, m - a) * 100) }; };
+const _nivel = r => r >= 100 ? { n:"Leyenda", f:"", cls:" arco" } : r >= 30 ? { n:"Imparable", f:"hue-rotate(250deg) saturate(1.5)" } : r >= 7 ? { n:"En llamas", f:"hue-rotate(185deg) saturate(1.6)" } : r >= 1 ? { n:"Encendida", f:"" } : { n:"Apagada", f:"grayscale(1) brightness(.7)" };
+
+pintarRacha = function () {
+  const D = _rachaDatos(), M = _meta(D.racha);
+  $("racha").innerHTML = '<div class="rc-l"><span class="rc-ic">' + ic("bolt", 24) + '</span><div><div class="rc-n">' + D.racha + ' <small>' + (D.racha === 1 ? "día" : "días") + '</small></div></div></div>' +
+    '<div class="rc-meta"><div class="rc-bar" role="img" aria-label="Faltan ' + (M.m - D.racha) + ' días para la meta de ' + M.m + '"><i style="width:' + (M.a > 0 && M.a === D.racha ? 100 : M.pct) + '%"></i></div>' + (M.a > 0 && M.a === D.racha ? '<small class="rc-logro">¡Lograste ' + M.a + '! Ahora a ' + M.m + ' ' + ic("bolt", 12, 2.6) + '</small>' : '<small>Faltan ' + (M.m - D.racha) + ' para ' + M.m + ' ' + ic("bolt", 12, 2.6) + '</small>') + '</div>';
+};
+pintarRacha();
 </script>
 </body>
 </html>
