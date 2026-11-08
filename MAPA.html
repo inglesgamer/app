@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Pon a prueba tu inglés · InglésGamer</title>
+<script>
+/* ===== PALETAS: la MISMA lista que en el Inicio. La elección se guarda en "ingles_gamer_tema". ===== */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--hi:#FFFFFF;--on-hi:#000000;--track:#2A2A2E;--toff:#3A3A40;--nav:#0E0E10;--av1:#3A3A40;--av2:#101012;--ok:#7BE3A8}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+header{padding:18px 20px 4px}
+.logo{margin:0;font:900 26px Nunito,sans-serif;letter-spacing:-.01em}
+.logo span{opacity:.55}
+section{padding:20px 20px 0}
+h2{margin:0;font:900 26px/1.1 Nunito,sans-serif;letter-spacing:-.01em}
+.lead{margin:10px 0 0;font-size:15px;line-height:1.45;color:var(--mu)}
+.sub-h{margin:0 0 12px;font:700 12px Nunito,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+
+/* ---------- título de pantalla ---------- */
+.hero{display:flex;align-items:center;gap:14px}
+.hero .sp{flex-shrink:0;width:64px;height:64px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:var(--chip);border:1.5px solid var(--bd);animation:flota 2.4s ease-in-out infinite}
+@keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+/* ---------- aura ---------- */
+.aura-box{display:flex;align-items:center;gap:14px;margin-top:16px;padding:14px 16px;border-radius:20px;background:var(--hi);color:var(--on-hi)}
+.aura-sp{display:inline-flex;transform-origin:50% 100%;animation:llamea 1.1s ease-in-out infinite}
+.aura-box small{display:block;font:700 10px Nunito,sans-serif;letter-spacing:.1em;opacity:.8}
+.aura-box b{display:block;margin-top:2px;font:800 34px/1 Nunito,sans-serif}
+.aura-box p{flex:1;min-width:0;margin:0;font-size:13px;line-height:1.4;text-align:right;opacity:.9}
+@keyframes llamea{0%,100%{transform:scale(1,1)}50%{transform:scale(.94,1.08)}}
+
+/* ---------- niveles ---------- */
+.niveles{display:flex;flex-direction:column;gap:14px}
+.nivel{--lc:#5DB33A;position:relative;display:flex;align-items:center;gap:14px;width:100%;padding:14px;text-align:left;font:inherit;color:inherit;border-radius:20px;border:1.5px solid var(--bd);background:var(--card);transition:transform .15s}
+a.nivel{border-color:var(--hi)}
+a.nivel:hover{transform:translateY(-3px)}
+.n-ic{flex-shrink:0;width:72px;height:72px;display:flex;align-items:center;justify-content:center;border-radius:16px;border:1.5px solid color-mix(in srgb,var(--lc) 60%,transparent);background:color-mix(in srgb,var(--lc) 16%,var(--chip))}
+.n-ic svg{animation:flota 2.4s ease-in-out infinite}
+.info{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.titulo{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 10px}
+.codigo{font:800 22px Nunito,sans-serif;color:var(--lc)}
+.nombre{font:700 17px Nunito,sans-serif}
+.desc{font-size:14px;line-height:1.35;color:var(--mu)}
+.dif{display:flex;align-items:center;gap:8px;margin-top:2px;font:700 11px Nunito,sans-serif;letter-spacing:.08em;color:var(--mu)}
+.segs{display:grid;grid-template-columns:repeat(4,18px);gap:4px}
+.segs i{height:8px;border-radius:99px;background:var(--track)}
+.segs i.on{background:var(--lc)}
+.chips{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{display:inline-flex;align-items:center;gap:5px;min-height:30px;padding:0 10px;border-radius:99px;background:var(--chip);font:600 13px Nunito,sans-serif}
+.play{display:inline-flex;align-items:center;min-height:34px;padding:0 14px;border-radius:99px;background:var(--hi);color:var(--on-hi);font:700 13px Nunito,sans-serif}
+.flecha{flex-shrink:0;color:var(--lc)}
+
+/* ---------- próximamente ---------- */
+.prox{--lc:#8C8C96;cursor:pointer;border-color:var(--bd)!important;background:var(--bg)}
+.prox .n-ic{border-color:var(--bd);background:var(--chip)}
+.prox .n-ic svg{animation:none;opacity:.9}
+.prox .codigo{color:var(--mu)}
+.badge{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:var(--hi);color:var(--on-hi);font:700 11px Nunito,sans-serif;letter-spacing:.08em}
+.badge i{width:6px;height:6px;border-radius:50%;background:var(--on-hi);animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.2}}
+.load{display:flex;align-items:center;gap:8px;margin-top:4px;font:700 11px Nunito,sans-serif;letter-spacing:.04em;color:var(--mu)}
+.bar{flex:1;height:8px;border-radius:99px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--hi)}
+.prox.sacudir{animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:30;max-width:calc(100% - 40px);padding:12px 18px;border-radius:16px;background:var(--ink);color:var(--bg);font:700 15px Nunito,sans-serif;text-align:center;transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:var(--nav);border-top:1.5px solid var(--bd)}
+nav .inner{max-width:520px;margin:0 auto;display:flex;padding:8px 8px max(10px,env(safe-area-inset-bottom))}
+nav a{flex:1;min-width:0;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mu);font-size:11px;font-weight:600;white-space:nowrap}
+nav a:hover{color:var(--ink)}
+nav a.on{color:var(--ink);font-weight:800}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header><h1 class="logo">Inglés<span>Gamer</span></h1></header>
+  <main>
+    <section>
+      <div class="hero"><span class="sp" id="heroSp"></span><h2>Pon a prueba tu inglés</h2></div>
+      <p class="lead">Elige un nivel, responde las preguntas y gana Aura.</p>
+      <div class="aura-box" id="aura"></div>
+    </section>
+    <section>
+      <h3 class="sub-h">Elige tu nivel</h3>
+      <div class="niveles" id="niveles"></div>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <nav aria-label="Navegación principal"><div class="inner" id="navbar"></div></nav>
+</div>
+
+<script>
+/* ================= TUS DATOS: edita solo esta parte ================= */
+
+// proximo: true -> el nivel sale como "PRONTO" (sin enlace).
+// progreso: 0 a 100 · spr = dibujo (ver SPR) · c = color del nivel · dificultad = 1 a 4
+const NIVELES = [
+  { codigo:"A1", nombre:"Principiante", desc:"Saludos, números y frases básicas.", url:"go:islaa1", dificultad:1, spr:"planta", c:"#5DB33A" },
+  { codigo:"A2", nombre:"Básico", desc:"Rutinas, gustos y conversaciones simples.", proximo:true, progreso:30, dificultad:2, spr:"libro", c:"#3FD8C8" },
+  { codigo:"B1", nombre:"Intermedio", desc:"Cuenta experiencias y da tu opinión.", proximo:true, progreso:5, dificultad:3, spr:"rayo", c:"#FF8A3D" },
+  { codigo:"B2", nombre:"Intermedio alto", desc:"Entiende textos y habla con fluidez.", proximo:true, progreso:0, dificultad:4, spr:"copa", c:"#8E5BD6" }
+];
+
+// activo:true marca la pestaña actual. Solo una por pantalla.
+const NAV = [
+  { nombre:"Inicio", url:"go:inicio",
+    icono:'<path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path>' },
+  { nombre:"Mapa", url:"go:MAPA", activo:true,
+    icono:'<path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7z"></path><path d="M9 4v13M15 7v12.5"></path>' },
+  { nombre:"Tienda", url:"go:tienda",
+    icono:'<path d="M4 9h16l-1 11H5L4 9z"></path><path d="M8 9V7a4 4 0 0 1 8 0v2"></path>' },
+  { nombre:"Ranking", url:"go:ranking",
+    icono:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"></path>' },
+  { nombre:"Perfil", url:"go:perfil",
+    icono:'<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>' }
+];
+
+/* ================= No necesitas tocar lo de abajo ================= */
+const $ = id => document.getElementById(id);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"\x26amp;", "<":"\x26lt;", ">":"\x26gt;", '"':"\x26quot;" }[c]));
+
+/* ---------- sonidos (usan el ajuste de sonido que ya guarda tu app) ---------- */
+const CLAVE_SON = "ingles_gamer_sonido";
+let SON = true, AC = null, MASTER = null;
+try { SON = localStorage.getItem(CLAVE_SON) !== "0"; } catch (e) {}
+function audio() {
+  if (!AC) {
+    const C = window.AudioContext || window.webkitAudioContext; if (!C) return null;
+    AC = new C(); MASTER = AC.createGain(); MASTER.gain.value = 0.9; MASTER.connect(AC.destination);
+  }
+  if (AC.state === "suspended") AC.resume();
+  return AC;
+}
+function pop(f0, f1, d, vol, t0, tipo) {
+  const a = audio(); if (!a) return;
+  const o = a.createOscillator(), g = a.createGain(), t = a.currentTime + (t0 || 0);
+  o.type = tipo || "sine"; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + d * 0.8);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.1, t + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+  o.connect(g); g.connect(MASTER); o.start(t); o.stop(t + d + 0.05);
+}
+const SONIDOS = {
+  click: () => pop(450, 650, 0.07, 0.07),
+  bloqueado: () => { pop(220, 110, 0.14, 0.14, 0, "square"); pop(180, 90, 0.16, 0.14, 0.12, "square"); }
+};
+function sonido(n) { if (!SON) return; try { (SONIDOS[n] || SONIDOS.click)(); } catch (e) {} }
+document.addEventListener("click", e => {
+  if (e.target.closest(".prox")) return;
+  if (e.target.closest("button,a")) sonido("click");
+}, true);
+
+/* ---------- dibujos pixel art ---------- */
+const SPR = {
+  planta:{p:{g:"#5DB33A",l:"#9BE37A",d:"#7A5230"},r:["...gg...","..glgg.g","g.gggglg","ggggggg.",".ggg.gg.","...dd...","...dd...","..dddd.."]},
+  libro:{p:{b:"#8E5BD6",w:"#EDE7F6",k:"#8E5BD6"},r:[".bbbbbb.","bwwwwwwb","bwkkkkwb","bwwwwwwb","bwkkkkwb","bwwwwwwb","bbbbbbbb",".bbbbbb."]},
+  rayo:{p:{y:"#FFC83D"},r:["....yyy.","...yyy..","..yyy...",".yyyyyy.","...yyy..","..yy....",".yy.....","y......."]},
+  copa:{p:{y:"#FFC83D",d:"#B8860B"},r:["yyyyyyyy","ydyyyydy","ydyyyydy",".yyyyyy.","..yyyy..","...yy...","..yyyy..",".yyyyyy."]},
+  candado:{p:{g:"#8C8C96",d:"#5A5A66"},r:["..gggg..",".g....g.",".g....g.","dddddddd","dddggddd","dddggddd","dddddddd","dddddddd"]},
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},
+    r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},
+    r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},
+    r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},
+    r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},
+    r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},
+    r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},
+    r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},
+    r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},
+    r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+  av9:{p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},
+    r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]}
+};
+function sprite(n, size, pal) {
+  const d = SPR[n]; if (!d) return "";
+  const p = pal ? Object.assign({}, d.p, pal) : d.p;
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg width="' + Math.round(size * w / h) + '" height="' + size + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+
+/* ---------- personaje elegido en el Perfil (0 a 9, igual que en el Inicio) ---------- */
+function miAvatar() {
+  try {
+    const g = JSON.parse(localStorage.getItem("ingles_gamer_perfil") || "null"), a = g ? Number(g.a) : 0;
+    const t = JSON.parse(localStorage.getItem("ingles_gamer_tienda") || "null"), own = (t && Array.isArray(t.own)) ? t.own : [];
+    if (!(a >= 0 && a <= 9)) return 0;
+    if (a > 1 && own.indexOf("av" + a) < 0) return 0;      /* si no lo tiene comprado, se ve el Constructor */
+    return a;
+  } catch (e) { return 0; }
+}
+
+/* ---------- Aura (la misma que se guarda en el Perfil) ---------- */
+function totalAura() {
+  try { const g = JSON.parse(localStorage.getItem("ingles_gamer_aura") || "null"); return Math.max(0, +(g && g.t) || 0); } catch (e) { return 0; }
+}
+function pintarJugador() {
+  $("heroSp").innerHTML = sprite("av" + miAvatar(), 44);
+  $("aura").innerHTML = '<span class="aura-sp">' + sprite("llama", 50) + '</span><div><small>TU AURA</small><b>' + totalAura() + '</b></div><p>Cada nivel que pasas te da Aura.</p>';
+}
+pintarJugador();
+/* al volver de jugar (o al cambiar el tema en otra pantalla) todo se actualiza solo */
+window.addEventListener("pageshow", function () { aplicarTema(temaActual()); pintarJugador(); });
+document.addEventListener("visibilitychange", function () { if (!document.hidden) { aplicarTema(temaActual()); pintarJugador(); } });
+window.addEventListener("storage", function (e) { if (/^ingles_gamer_/.test(e.key || "")) pintarJugador(); });
+
+/* ---------- niveles ---------- */
+const ICON_ARROW = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>';
+$("niveles").innerHTML = NIVELES.map(n => {
+  let dif = ""; for (let i = 0; i < 4; i++) dif += '<i' + (i < n.dificultad ? ' class="on"' : '') + '></i>';
+  const cab = '<div class="titulo"><span class="codigo">' + esc(n.codigo) + '</span><span class="nombre">' + esc(n.nombre) + '</span></div>';
+  if (n.proximo) {
+    const p = n.progreso || 0;
+    return '<button type="button" class="nivel prox" data-nivel="' + esc(n.codigo) + '" aria-label="Nivel ' + esc(n.codigo) + ': próximamente">' +
+      '<div class="n-ic" style="--lc:' + n.c + '">' + sprite("candado", 44) + '</div>' +
+      '<div class="info">' + cab + '<span class="badge"><i></i>PRONTO</span><div class="desc">' + esc(n.desc) + '</div>' +
+      '<div class="load"><span>CARGANDO</span><span class="bar"><i style="width:' + p + '%"></i></span><span>' + p + '%</span></div></div></button>';
+  }
+  return '<a class="nivel" style="--lc:' + n.c + '" href="' + n.url + '" aria-label="Nivel ' + esc(n.codigo) + ': ' + esc(n.nombre) + '">' +
+    '<div class="n-ic">' + sprite(n.spr, 48) + '</div>' +
+    '<div class="info">' + cab + '<div class="desc">' + esc(n.desc) + '</div>' +
+    '<div class="dif"><span>NIVEL</span><span class="segs" aria-hidden="true">' + dif + '</span></div>' +
+    '<div class="chips"><span class="chip">' + sprite("llama", 16) + ' Gana Aura</span><span class="play">JUGAR ▶</span></div></div>' +
+    '<div class="flecha">' + ICON_ARROW + '</div></a>';
+}).join("");
+
+/* Al tocar un nivel próximo: se sacude y sale un aviso */
+const toast = $("toast"); let tt;
+$("niveles").addEventListener("click", e => {
+  const c = e.target.closest(".prox"); if (!c) return;
+  c.classList.remove("sacudir"); void c.offsetWidth; c.classList.add("sacudir");
+  sonido("bloqueado");
+  toast.textContent = "🔒 El nivel " + c.dataset.nivel + " llega muy pronto. ¡Prepárate!";
+  toast.classList.add("show"); clearTimeout(tt);
+  tt = setTimeout(() => toast.classList.remove("show"), 2400);
+});
+
+/* ---------- navegación ---------- */
+$("navbar").innerHTML = NAV.map(n => '<a' + (n.activo ? ' class="on" aria-current="page"' : '') + ' href="' + n.url + '"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + n.icono + '</svg>' + n.nombre + '</a>').join("");
+</script>
+</body>
+</html>

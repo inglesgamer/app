@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="es"><head><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mapa de islas · InglésGamer</title>
+<meta name="theme-color" content="#000000">
+<script>
+/* ===== PALETAS: el mismo bloque de la pantalla de Inicio. La elección se guarda en "ingles_gamer_tema". ===== */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--hi:#FFFFFF;--on-hi:#000000;--track:#2A2A2E;--toff:#3A3A40;--nav:#0E0E10;--ok:#7BE3A8}
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;overscroll-behavior:none;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.app{width:100%;max-width:520px;margin:0 auto;flex:1;min-height:0;display:flex;flex-direction:column}
+
+header{flex-shrink:0;display:flex;align-items:center;gap:10px;padding:calc(14px + env(safe-area-inset-top,0px)) 16px 10px}
+.logo{flex:1;font-size:26px;font-weight:900;letter-spacing:-.01em}
+.ib{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--ink)}
+.ib.off{color:var(--mu)}
+main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:none;padding:6px 16px 18px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
+main::-webkit-scrollbar{display:none}
+main>*{flex-shrink:0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:28px}
+html:not([data-tema="noche"]) .card{box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.06)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 13px;border-radius:99px;background:var(--chip);font-size:14px;font-weight:900;white-space:nowrap}
+.chip.g{background:rgba(10,10,20,.62);color:#fff}
+.h2{font-size:19px;font-weight:900}
+
+/* ruta de estrellas */
+.route{padding:14px 16px 12px;display:flex;flex-direction:column;gap:14px}
+.rt1{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.track{position:relative;height:10px;border-radius:99px;background:var(--track);margin:4px 14px 32px}
+.tf{height:100%;border-radius:99px;background:var(--hi);transition:width .5s}
+.mk{position:absolute;top:-7px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px}
+.mk i{width:24px;height:24px;border-radius:50%;background:var(--card);border:2px solid var(--toff);display:grid;place-items:center;font-size:12px;font-weight:900;font-style:normal;color:var(--mu)}
+.mk i.on{background:var(--hi);border-color:var(--hi);color:var(--on-hi)}
+.mk b{font-size:12px;font-weight:800;color:var(--mu)}
+
+/* isla grande */
+.feat{overflow:hidden}
+.fb{position:relative;height:210px;overflow:hidden}
+.fb .chip{position:absolute;top:12px;left:12px}
+.ill{width:100%;height:100%;display:block}
+.lk .ill{filter:grayscale(.7) brightness(.78)}
+.fbd{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px 16px}
+.ft{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
+.nmr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nm{font-size:24px;font-weight:900;line-height:1.1}
+.nm.s{font-size:18px}
+.ds{color:var(--mu);font-size:14px;font-weight:600;line-height:1.35}
+.pill{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 10px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.08em}
+.pill.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.pill.no{background:var(--chip);color:var(--mu)}
+.pg{display:flex;align-items:center;gap:10px;margin-top:2px}
+.req{display:flex;align-items:center;gap:5px;font-size:14px;font-weight:900;color:var(--gold);white-space:nowrap}
+.bar{height:10px;border-radius:99px;background:var(--track);overflow:hidden;flex:1;min-width:30px}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--hi);transition:width .5s}
+.btn{height:46px;padding:0 20px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:15px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:none;box-shadow:0 4px 0 rgba(128,128,128,.35)}
+.btn.off{background:var(--chip);color:var(--mu);box-shadow:none}
+.btn:active{transform:translateY(2px)}
+
+.lkov{position:absolute;inset:0;background:rgba(0,0,0,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.lkc{width:46px;height:46px;border-radius:50%;background:rgba(20,20,24,.7);border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#fff}
+.lkt{white-space:nowrap;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:900;color:#fff;background:rgba(20,20,24,.7);padding:5px 10px;border-radius:99px}
+
+/* islas pequeñas */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sc{overflow:hidden;min-width:0;text-align:left;display:block;width:100%;padding:0}
+.sc:active{transform:scale(.98)}
+.sb{position:relative;height:116px;overflow:hidden}
+.sbd{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px}
+.fl{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:900;color:var(--mu)}
+.fl.ok{color:var(--ok)}
+
+nav{flex-shrink:0;background:var(--nav);border-radius:28px 28px 0 0;border-top:1px solid var(--bd)}
+nav .inner{max-width:520px;margin:0 auto;display:flex;padding:8px 6px max(12px,env(safe-area-inset-bottom))}
+nav a{flex:1;min-width:0;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mu);font-size:11px;font-weight:700}
+nav a.on{color:var(--hi)}
+
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);max-width:calc(100% - 32px);background:var(--hi);color:var(--on-hi);padding:11px 18px;font-size:14px;font-weight:900;border-radius:99px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:20;text-align:center}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body>
+<div class="app">
+  <header><a class="ib" href="go:inicio" aria-label="Volver"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></a><h1 class="logo">Islas</h1><button id="snd" class="ib" type="button" aria-label="Sonido"></button></header>
+  <main id="main"></main>
+</div>
+<nav aria-label="Navegación principal"><div class="inner" id="navbar"></div></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const P = {
+  back: '<path d="M15 5l-7 7 7 7"></path>',
+  sound: '<path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path>',
+  flame: '<path d="M12 3c.6 3.2 5 5.2 5 10a5 5 0 0 1-10 0c0-2 .9-3.2 2.2-4.2.1 1.9.9 2.9 1.9 3.2C10.3 8.6 10.6 5.4 12 3z"></path>',
+  lock: '<rect x="5" y="11" width="14" height="9" rx="2.5"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path>',
+  chev: '<path d="M9 5l7 7-7 7"></path>',
+  play: '<path d="M8 5v14l11-7z" fill="currentColor"></path>',
+  home: '<path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path>',
+  map: '<path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7z"></path><path d="M9 4v13M15 7v12.5"></path>',
+  shop: '<path d="M4 9h16l-1 11H5L4 9z"></path><path d="M8 9V7a4 4 0 0 1 8 0v2"></path>',
+  cup: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"></path>',
+  user: '<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>'
+};
+const icon = (n, s = 22, sw = 2) =>
+  `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
+const star = (s = 16, c = 'var(--gold)') =>
+  `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 2.8l2.9 6 6.5.9-4.7 4.6 1.1 6.5L12 17.7l-5.8 3.1 1.1-6.5L2.6 9.7l6.5-.9z" style="fill:${c}"></path></svg>`;
+
+
+/* ---------- ilustraciones vectoriales ---------- */
+let _u = 0;
+function rnd(i, k) { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); }
+function cloud(x, y, s, col, op) {
+  return `<g opacity="${op}" fill="${col}"><ellipse cx="${x}" cy="${y}" rx="${26 * s}" ry="${8 * s}"></ellipse><ellipse cx="${x - 12 * s}" cy="${y - 6 * s}" rx="${14 * s}" ry="${9 * s}"></ellipse><ellipse cx="${x + 10 * s}" cy="${y - 8 * s}" rx="${15 * s}" ry="${10 * s}"></ellipse></g>`;
+}
+function palm(x, y, s, lean) {
+  const tx = x + lean * 16 * s, ty = y - 58 * s;
+  const ang = [-160, -125, -90, -55, -20, 15, 165];
+  const leaves = ang.map((a, i) => `<path transform="translate(${tx} ${ty}) rotate(${a}) scale(${s})" d="M0 0 C8 -13 28 -14 40 3 C27 -3 11 -3 0 0Z" fill="${i % 2 ? '#3E9A2A' : '#55B83A'}"></path>`).join('');
+  return `<path d="M${x} ${y} Q${x + lean * 4 * s} ${y - 30 * s} ${tx} ${ty}" stroke="#9A6B3E" stroke-width="${6 * s}" fill="none" stroke-linecap="round"></path>${leaves}<circle cx="${tx - 2 * s}" cy="${ty + 4 * s}" r="${3 * s}" fill="#6B4423"></circle><circle cx="${tx + 3 * s}" cy="${ty + 5 * s}" r="${3 * s}" fill="#6B4423"></circle>`;
+}
+function pine(x, y, s) {
+  return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-3" y="-2" width="6" height="10" fill="#6B4423"></rect><path d="M0 -64 L-16 -36 L16 -36Z" fill="#2F7A57"></path><path d="M0 -52 L-21 -18 L21 -18Z" fill="#2A6F4F"></path><path d="M0 -38 L-26 0 L26 0Z" fill="#256345"></path><path d="M0 -64 L-6.4 -52 L6.4 -52Z" fill="#F4F7FB"></path><path d="M0 -52 L-8.5 -38 L8.5 -38Z" fill="#F4F7FB"></path><path d="M0 -38 L-10.4 -24 L10.4 -24Z" fill="#F4F7FB"></path></g>`;
+}
+function snowman(x, y, s) {
+  return `<g transform="translate(${x} ${y}) scale(${s})"><circle cx="0" cy="-10" r="11" fill="#fff"></circle><circle cx="0" cy="-27" r="8" fill="#fff"></circle><circle cx="0" cy="-39" r="6" fill="#fff"></circle><path d="M-6 -31 Q0 -27 6 -31" stroke="#E5484D" stroke-width="3" fill="none"></path><rect x="-5" y="-49" width="10" height="6" fill="#222"></rect><rect x="-8" y="-44" width="16" height="2.5" fill="#222"></rect><path d="M0 -39 L9 -37.5 L0 -36Z" fill="#FF8A3D"></path><circle cx="-2.2" cy="-41" r=".9" fill="#222"></circle><circle cx="2.2" cy="-41" r=".9" fill="#222"></circle></g>`;
+}
+
+
+
+/* ===== ILUSTRACIÓN DE LAS ISLAS: de NOCHE solo con el tema Noche; Día, Rosa y Azul usan la versión de día ===== */
+const esNoche = () => (document.documentElement.getAttribute("data-tema") || "noche") === "noche";
+function scene(kind, noche) {
+  const id = 's' + (_u++), N = !!noche;
+  const K = {
+    verano: {
+      dia:   { sky: [['0', '#4FB4F2'], ['1', '#C4ECFC']], sea: [['0', '#3FCFC4'], ['1', '#1E9FB0']], grass: '#7BD654', grass2: '#5BB33A', cliff: '#A07C55', cliff2: '#7A5A3A', foam: '#ffffff' },
+      noche: { sky: [['0', '#060A22'], ['.55', '#17285C'], ['1', '#3A5796']], sea: [['0', '#1C5A86'], ['1', '#0A2748']], grass: '#7BD654', grass2: '#5BB33A', cliff: '#A07C55', cliff2: '#7A5A3A', foam: '#BFD6FF' }
+    },
+    fuego: {
+      dia:   { sky: [['0', '#5FB0E6'], ['.55', '#E8C8A4'], ['1', '#F0A36B']], sea: [['0', '#3F7F97'], ['1', '#1F4A5E']], grass: '#5E4750', grass2: '#43323A', cliff: '#4A3A3F', cliff2: '#2E2226', foam: '#ffffff' },
+      noche: { sky: [['0', '#12070A'], ['.55', '#4A1214'], ['1', '#C2401F']], sea: [['0', '#5A1A12'], ['1', '#1E0909']], grass: '#3E2C33', grass2: '#2A1D22', cliff: '#2B1F24', cliff2: '#1B1317', foam: '#FF8A3D' }
+    },
+    nieve: {
+      dia:   { sky: [['0', '#5FB3EA'], ['1', '#DDF1FB']], sea: [['0', '#58AEDB'], ['1', '#2C7FB0']], grass: '#F4F7FB', grass2: '#CFE0EE', cliff: '#8FC3E6', cliff2: '#5C97C4', foam: '#ffffff' },
+      noche: { sky: [['0', '#0A1330'], ['.55', '#244A7C'], ['1', '#86BEE0']], sea: [['0', '#2D6A9A'], ['1', '#16406A']], grass: '#F4F7FB', grass2: '#CFE0EE', cliff: '#8FC3E6', cliff2: '#5C97C4', foam: '#ffffff' }
+    }
+  };
+  const K1 = K[kind][N ? 'noche' : 'dia'];
+  const stops = a => a.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"></stop>`).join('');
+  let o = `<defs><linearGradient id="${id}k" x1="0" y1="0" x2="0" y2="1">${stops(K1.sky)}</linearGradient><linearGradient id="${id}w" x1="0" y1="0" x2="0" y2="1">${stops(K1.sea)}</linearGradient>
+  <radialGradient id="${id}g" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FF6A1F" stop-opacity=".6"></stop><stop offset="1" stop-color="#FF6A1F" stop-opacity="0"></stop></radialGradient>
+  <radialGradient id="${id}f" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFB02E" stop-opacity=".75"></stop><stop offset="1" stop-color="#FFB02E" stop-opacity="0"></stop></radialGradient>
+  <linearGradient id="${id}a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5DFFB0" stop-opacity="0"></stop><stop offset=".5" stop-color="#5DFFB0" stop-opacity=".75"></stop><stop offset="1" stop-color="#8E5BD6" stop-opacity="0"></stop></linearGradient>
+  <filter id="${id}b"><feGaussianBlur stdDeviation="5"></feGaussianBlur></filter>
+  <filter id="${id}n" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.42 0.12 0 0 0.02  0.04 0.5 0.12 0 0.05  0.04 0.1 0.78 0 0.14  0 0 0 1 0"></feColorMatrix></filter></defs>`;
+  o += `<rect x="-400" y="-400" width="1160" height="1100" fill="url(#${id}k)"></rect>`;
+
+  /* cielo */
+  const estrellas = (n, ymax, col) => { let s = ''; for (let i = 0; i < n; i++) s += `<circle cx="${rnd(i, 4) * 360}" cy="${rnd(i, 5) * ymax}" r="${.5 + rnd(i, 6) * .9}" fill="${col}" opacity="${.5 + rnd(i, 7) * .5}"></circle>`; return s; };
+  if (kind === 'verano' && !N) o += `<circle cx="292" cy="52" r="44" fill="#FFE08A" opacity=".28"></circle><circle cx="292" cy="52" r="24" fill="#FFD257"></circle>` + cloud(70, 48, 1, '#fff', .9) + cloud(200, 30, .7, '#fff', .8) + cloud(120, 92, .6, '#fff', .7);
+  if (kind === 'verano' && N) o += estrellas(34, 120, '#fff') + `<circle cx="288" cy="50" r="44" fill="#BFD2FF" opacity=".12"></circle><circle cx="288" cy="50" r="22" fill="#F4F1D0"></circle><circle cx="280" cy="44" r="4" fill="#DAD6AE"></circle><circle cx="296" cy="58" r="3" fill="#DAD6AE"></circle><circle cx="294" cy="40" r="2" fill="#DAD6AE"></circle>` + cloud(80, 56, .9, '#5B77B5', .35);
+  if (kind === 'fuego' && N) { o += `<circle cx="180" cy="96" r="150" fill="url(#${id}g)"></circle>`; for (let i = 0; i < 14; i++) o += `<circle cx="${rnd(i, 1) * 360}" cy="${rnd(i, 2) * 90}" r="${.6 + rnd(i, 3)}" fill="#FFC83D" opacity=".6"></circle>`; }
+  if (kind === 'fuego' && !N) o += `<circle cx="64" cy="48" r="38" fill="#FFF3C4" opacity=".3"></circle><circle cx="64" cy="48" r="20" fill="#FFF0B0"></circle>` + cloud(250, 44, 1, '#fff', .75) + cloud(150, 24, .7, '#fff', .65);
+  if (kind === 'nieve' && N) {
+    o += estrellas(26, 96, '#fff');
+    o += `<g filter="url(#${id}b)"><path d="M-10 70 Q80 20 170 62 T370 50 L370 110 Q270 130 170 100 T-10 118Z" fill="url(#${id}a)" opacity=".8"></path><path d="M-10 100 Q90 70 190 96 T370 84 L370 130 Q270 150 190 128 T-10 140Z" fill="url(#${id}a)" opacity=".45"></path></g>`;
+  }
+  if (kind === 'nieve' && !N) o += `<circle cx="70" cy="50" r="36" fill="#FFF6D0" opacity=".35"></circle><circle cx="70" cy="50" r="19" fill="#FFF3B8"></circle>` + cloud(250, 40, 1, '#fff', .95) + cloud(160, 78, .7, '#fff', .8) + cloud(310, 100, .6, '#fff', .8);
+
+  /* mar */
+  o += `<rect x="-400" y="170" width="1160" height="400" fill="url(#${id}w)"></rect>`;
+  for (let i = 0; i < 5; i++) o += `<path d="M${-10 + rnd(i, 8) * 40} ${186 + i * 10} q14 -5 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0" stroke="#fff" stroke-width="1.2" fill="none" opacity="${N ? .1 : .16}"></path>`;
+
+  /* isla (de noche la isla de Verano se oscurece con un filtro azulado) */
+  o += (kind === 'verano' && N) ? `<g filter="url(#${id}n)">` : '<g>';
+  o += `<ellipse cx="180" cy="186" rx="150" ry="8" fill="#000" opacity=".25"></ellipse>
+  <path d="M40 158 L320 158 L304 180 C250 190 110 190 56 180 Z" fill="${K1.cliff}"></path>
+  <path d="M180 158 L320 158 L304 180 C270 187 220 190 180 190 Z" fill="${K1.cliff2}"></path>
+  <path d="M34 162 C42 136 100 118 180 118 C260 118 318 136 326 162 C300 173 60 173 34 162 Z" fill="${K1.grass}"></path>
+  <path d="M206 119 C266 123 318 138 326 162 C312 168 284 171 252 172 C286 150 256 128 206 119 Z" fill="${K1.grass2}" opacity=".7"></path>`;
+  if (kind === 'verano') {
+    o += `<path d="M76 134 Q74 160 76 186" stroke="#EAFBFF" stroke-width="9" fill="none" stroke-linecap="round" opacity=".95"></path><ellipse cx="76" cy="186" rx="16" ry="4" fill="#fff" opacity=".6"></ellipse>
+    <path d="M112 150 Q92 142 78 136" stroke="#4CC9C0" stroke-width="6" fill="none" stroke-linecap="round"></path>
+    <ellipse cx="282" cy="162" rx="42" ry="7" fill="#F2D68A"></ellipse>` + palm(226, 142, 1.05, -.5) + palm(254, 150, .8, .6) +
+      `<path d="M292 142 L292 162" stroke="#8B5A2B" stroke-width="2"></path><path d="M277 144 Q292 126 307 144Z" fill="#E5484D"></path><path d="M285 136 Q292 128 299 136 L292 144Z" fill="#fff" opacity=".9"></path>
+    <circle cx="150" cy="146" r="2.2" fill="#FF6FB5"></circle><circle cx="160" cy="150" r="2.2" fill="#FFC83D"></circle><circle cx="130" cy="150" r="2.2" fill="#fff"></circle>`;
+  }
+  if (kind === 'fuego') {
+    o += `<path d="M96 160 L156 64 L208 64 L268 160 Z" fill="#3B2A30"></path><path d="M96 160 L156 64 L182 64 L162 160Z" fill="#4C373F"></path>
+    <path d="M156 64 L208 64 L202 75 Q182 82 162 75 Z" fill="#FF8A3D"></path><path d="M164 66 L200 66 L196 70 L168 70Z" fill="#FFC83D"></path>
+    <path d="M176 76 Q170 108 158 150" stroke="#FF6A1F" stroke-width="4" fill="none" stroke-linecap="round"></path><path d="M192 78 Q200 112 214 150" stroke="#FF6A1F" stroke-width="3.5" fill="none" stroke-linecap="round"></path><path d="M184 80 Q184 120 186 156" stroke="#FFA43D" stroke-width="2.6" fill="none" stroke-linecap="round"></path>
+    <path d="M226 160 Q250 168 292 160" stroke="#FF6A1F" stroke-width="3" fill="none"></path><path d="M60 160 Q84 168 110 162" stroke="#FF6A1F" stroke-width="3" fill="none"></path>`;
+    for (let i = 0; i < 4; i++) o += `<circle cx="${182 + (i - 1.5) * 12}" cy="${50 - i * 11}" r="${9 + i * 3}" fill="${N ? '#8A7A7E' : '#6F6468'}" opacity="${.5 - i * .1}"></circle>`;
+    for (let i = 0; i < 12; i++) o += `<circle cx="${150 + rnd(i, 9) * 70}" cy="${36 + rnd(i, 10) * 80}" r="${1 + rnd(i, 11) * 1.4}" fill="${i % 2 ? '#FFC83D' : '#FF8A3D'}"></circle>`;
+  }
+  if (kind === 'nieve') {
+    o += pine(88, 150, 1.25) + pine(120, 156, .9) + pine(280, 150, 1.3) + snowman(208, 158, 1.1) +
+      `<path d="M150 170 l7 -12 l7 12z" fill="#3FD8C8"></path><path d="M150 170 l7 -12 l3 12z" fill="#BFF5EE"></path><path d="M168 170 l5 -9 l5 9z" fill="#3FD8C8" opacity=".9"></path>`;
+    for (let i = 0; i < 14; i++) o += `<circle cx="${rnd(i, 12) * 360}" cy="${rnd(i, 13) * 170}" r="${1 + rnd(i, 14) * 1.2}" fill="#fff" opacity="${N ? .85 : .7}"></circle>`;
+  }
+  o += `<path d="M52 180 C110 192 250 192 308 180" stroke="${K1.foam}" stroke-width="2" fill="none" opacity=".5"></path></g>`;
+
+  /* de noche: fogata y luciérnagas en Verano */
+  if (kind === 'verano' && N) {
+    o += `<circle cx="266" cy="156" r="40" fill="url(#${id}f)"></circle><rect x="256" y="160" width="20" height="4" rx="2" fill="#6B4423"></rect>
+    <path d="M260 161 C258 153 264 149 265 140 C269 146 274 151 272 161 Z" fill="#FF8A3D"></path><path d="M263 161 C262 156 266 154 266 149 C269 153 270 156 269 161 Z" fill="#FFD257"></path>`;
+    for (let i = 0; i < 9; i++) o += `<circle cx="${110 + rnd(i, 20) * 150}" cy="${112 + rnd(i, 21) * 40}" r="1.6" fill="#E8FF8A" opacity="${.5 + rnd(i, 22) * .5}"></circle>`;
+  }
+  return `<svg class="ill" viewBox="0 0 360 230" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Isla de ${kind}">${o}</svg>`;
+}
+
+/* ===== ISLAS =====
+   req = estrellas necesarias (el mapa tiene 20 niveles x 3 estrellas = 60 como máximo).
+   url = a dónde va el botón "Entrar" cuando la isla está abierta. */
+const ISLAS=[   /* en orden de estrellas: así "ISLA 1, 2, 3" y la ruta quedan en orden */
+  {n:"Verano",kind:"verano",req:0,txt:"Playa, palmeras y una cascada. La isla de inicio.",url:"go:veranoa1"},
+  {n:"Nieve",kind:"nieve",req:40,txt:"Pinos nevados, aurora y un muñeco de nieve.",url:"go:mapanieve"},
+  {n:"Fuego",kind:"fuego",req:51,txt:"Un volcán activo con ríos de lava y brasas.",url:"go:mapafuego"}
+];
+const MAXE=60;
+
+/* ===== ESTRELLAS: el MAPA DE NIVELES es la única fuente (igual que antes) ===== */
+const CLAVE_R="ingles_gamer_a1_repaso";
+const CLAVE_TOTAL="ingles_gamer_estrellas_total";
+const TEMAS_TEMPORADA=["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3"];
+const INCLUYE_FINAL=true;
+/* Igual que el Inicio, el Perfil y el Mapa: se suman las estrellas de cada nivel (máximo 3 por nivel).
+   "ingles_gamer_estrellas_total" solo se usa si todavía no hay progreso de niveles. */
+function leerEstrellas(){
+  let S=null;try{S=JSON.parse(localStorage.getItem(CLAVE_R)||"null")}catch(e){}
+  const est=(S&&S.est)||null;
+  if(!est){try{const v=localStorage.getItem(CLAVE_TOTAL);if(v!==null)return Math.min(MAXE,Math.max(0,Number(v)||0));}catch(e){}return 0;}
+  const e=function(id){return Math.min(3,Math.max(0,+est[id]||0))};
+  let t=0;TEMAS_TEMPORADA.forEach(function(id){t+=e(id)});
+  if(INCLUYE_FINAL)t+=e("final");
+  return t;
+}
+
+/* ===== SONIDOS (se generan solos, sin archivos) ===== */
+/* mismo ajuste de sonido que el resto de la app ("ingles_gamer_sonido"); se respeta lo que ya habías elegido aquí antes */
+const CLAVE_SON="ingles_gamer_sonido";
+let sonOn=true,AC=null;
+try{if(localStorage.getItem(CLAVE_SON)===null&&localStorage.getItem("ig_snd")!==null)localStorage.setItem(CLAVE_SON,localStorage.getItem("ig_snd"));localStorage.removeItem("ig_snd");sonOn=localStorage.getItem(CLAVE_SON)!=="0"}catch(e){}
+function ctx(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC}
+function nota(f,t0,d,tipo,vol,f2){const a=ctx();if(!a)return;const t=a.currentTime+t0,o=a.createOscillator(),g=a.createGain();o.type=tipo||"square";o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol||.1,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.03);}
+const SFX={
+  tap:function(){nota(520,0,.07,"square",.08,780)},
+  entrar:function(){[392,523,659,784].forEach(function(f,i){nota(f,i*.07,.15,"square",.08)});nota(196,0,.35,"triangle",.1)},
+  bloq:function(){nota(220,0,.12,"sawtooth",.08,130);nota(160,.11,.2,"sawtooth",.08,90)},
+  unlock:function(){[523,659,784,1047,1319].forEach(function(f,i){nota(f,i*.09,.25,"square",.08)});nota(262,0,.55,"triangle",.1)}
+};
+function snd(n){if(!sonOn)return;try{SFX[n]()}catch(e){}}
+const sbtn=document.getElementById("snd");
+function pintaSb(){
+  sbtn.classList.toggle("off",!sonOn);sbtn.setAttribute("aria-pressed",sonOn);
+  sbtn.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path>'+(sonOn?'<path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path>':'<path d="m16 9 5 6M21 9l-5 6"></path>')+'</svg>';
+}
+sbtn.addEventListener("click",function(){sonOn=!sonOn;try{localStorage.setItem(CLAVE_SON,sonOn?"1":"0")}catch(e){}pintaSb();snd("tap");});
+pintaSb();
+
+/* ===== PANTALLA ===== */
+const main=document.getElementById("main"),toast=document.getElementById("toast");let tt;
+function say(m){toast.textContent=m;toast.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove("on")},2000);}
+let total=leerEstrellas(),sel=null,abiertas={},temaPrev=temaActual();
+const abierta=function(d){return total>=d.req};
+const falta=function(d){return Math.max(0,d.req-total)};
+const pct=function(d){return Math.min(100,d.req?total/d.req*100:100)};
+function actual(){let c=0;ISLAS.forEach(function(d,i){if(abierta(d)&&d.req>=ISLAS[c].req)c=i;});return c;}
+
+function lockOv(d,chico){
+  return '<div class="lkov"><div class="lkc">'+icon("lock",chico?20:22,2)+'</div>'+(chico?'':'<div class="lkt">Faltan '+falta(d)+' '+star(14,"#fff")+'</div>')+'</div>';
+}
+function rutaHTML(){
+  const mk=ISLAS.map(function(d,i){
+    return '<div class="mk" style="left:'+(d.req/MAXE*100)+'%"><i class="'+(abierta(d)?'on':'')+'">'+(i+1)+'</i><b>'+d.req+'</b></div>';
+  }).join("");
+  return '<div class="card route"><div class="rt1"><div class="h2">Ruta de estrellas</div><div class="chip">'+star(15)+' '+Math.min(total,MAXE)+' / '+MAXE+'</div></div>'+
+    '<div class="track"><div class="tf" style="width:'+Math.min(100,total/MAXE*100)+'%"></div>'+mk+'</div></div>';
+}
+function grandeHTML(i,noche){
+  const d=ISLAS[i],op=abierta(d);
+  return '<div class="card feat'+(op?'':' lk')+'"><div class="fb">'+scene(d.kind,noche)+(op?'':lockOv(d))+'<span class="chip g">ISLA '+(i+1)+'</span></div>'+
+    '<div class="fbd"><div class="ft"><div class="nmr"><div class="nm">'+d.n+'</div>'+(op?'<span class="pill ok">ABIERTA</span>':'<span class="pill no">'+icon("lock",12,2.4)+' BLOQUEADA</span>')+'</div><div class="ds">'+d.txt+'</div>'+
+    (op?'':'<div class="pg"><span class="req">'+star(16)+Math.min(total,d.req)+'/'+d.req+'</span><div class="bar"><i style="width:'+pct(d)+'%"></i></div></div>')+'</div>'+
+    '<button type="button" class="btn'+(op?'':' off')+'" data-go="'+i+'">'+(op?'Entrar '+icon("chev",16,2.6):icon("lock",15,2.2)+' Bloqueada')+'</button></div></div>';
+}
+function chicaHTML(i,noche){
+  const d=ISLAS[i],op=abierta(d);
+  return '<button type="button" class="card sc'+(op?'':' lk')+'" data-sel="'+i+'" aria-label="Ver isla '+d.n+'"><div class="sb">'+scene(d.kind,noche)+(op?'':lockOv(d,true))+'</div>'+
+    '<div class="sbd"><div class="nm s">'+d.n+'</div>'+(op?'<div class="fl ok">Abierta</div>':'<div class="fl">'+star(14)+' Faltan '+falta(d)+'</div>')+'</div></button>';
+}
+function render(){
+  const noche=esNoche();
+  if(sel===null||sel>=ISLAS.length)sel=actual();
+  main.innerHTML=rutaHTML()+grandeHTML(sel,noche)+'<div class="two">'+
+    ISLAS.map(function(d,i){return i}).filter(function(i){return i!==sel}).sort(function(a,b){return ISLAS[a].req-ISLAS[b].req}).map(function(i){return chicaHTML(i,noche)}).join("")+'</div>';
+  celebrar();
+}
+/* ===== CELEBRACIÓN: la primera vez que ves una isla abierta (aunque la hayas abierto jugando en otra pantalla) ===== */
+const CLAVE_VISTAS="ingles_gamer_islas_vistas";
+function vistas(){try{const v=JSON.parse(localStorage.getItem(CLAVE_VISTAS)||"null");return Array.isArray(v)?v:[]}catch(e){return[]}}
+function confeti(){
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+  const c=document.createElement("div");c.style.cssText="position:fixed;inset:0;z-index:50;pointer-events:none;overflow:hidden";document.body.appendChild(c);
+  const cols=["#FFC83D","#FF4D4D","#3FD8C8","#8E5BD6","#5DB33A","#FF6FB5"];
+  for(let k=0;k<60;k++){const p=document.createElement("i");p.style.cssText="position:absolute;left:50%;top:40%;width:9px;height:9px;border-radius:2px;background:"+cols[k%cols.length];c.appendChild(p);
+    const a=Math.random()*Math.PI*2,d=120+Math.random()*240;
+    if(p.animate)p.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:"translate("+Math.cos(a)*d+"px,"+(Math.sin(a)*d+200)+"px) rotate("+Math.random()*720+"deg)",opacity:0}],{duration:1000+Math.random()*800,easing:"cubic-bezier(.2,.8,.4,1)",fill:"forwards"});}
+  setTimeout(function(){c.remove()},2000);
+}
+function celebrar(){
+  const v=vistas();let nueva=null;
+  ISLAS.forEach(function(d){if(d.req>0&&abierta(d)&&v.indexOf(d.kind)<0){v.push(d.kind);nueva=d;}});
+  if(!nueva)return;
+  try{localStorage.setItem(CLAVE_VISTAS,JSON.stringify(v))}catch(e){}
+  sel=ISLAS.indexOf(nueva);
+  setTimeout(function(){render();say("¡Isla "+nueva.n+" desbloqueada!");snd("unlock");confeti();},350);
+}
+main.addEventListener("click",function(e){
+  const s=e.target.closest("[data-sel]");
+  if(s){sel=+s.dataset.sel;snd("tap");render();main.scrollTo({top:0,behavior:"smooth"});return;}
+  const g=e.target.closest("[data-go]");
+  if(g){
+    const d=ISLAS[+g.dataset.go];
+    if(abierta(d)){snd("entrar");if(d.url)location.href = igURL(d.url);else say("Aquí se abre el mapa de "+d.n);}
+    else{snd("bloq");say("Te faltan "+falta(d)+" estrellas para abrir "+d.n);}
+  }
+});
+
+/* navegación inferior */
+const NAV=[
+  {n:"Inicio",u:"go:inicio",i:"home"},
+  {n:"Mapa",u:"go:MAPA",i:"map",on:1},
+  {n:"Tienda",u:"go:tienda",i:"shop"},
+  {n:"Ranking",u:"go:ranking",i:"cup"},
+  {n:"Perfil",u:"go:perfil",i:"user"}
+];
+document.getElementById("navbar").innerHTML=NAV.map(function(n){return '<a'+(n.on?' class="on" aria-current="page"':'')+' href="'+n.u+'">'+icon(n.i,24,2.1)+n.n+'</a>';}).join("");
+
+/* si cambias el tema en Inicio o ganas estrellas y vuelves aquí, todo se actualiza solo */
+function refrescar(){
+  const t=leerEstrellas(),tm=temaActual();
+  if(tm!==temaPrev){temaPrev=tm;aplicarTema(tm);total=t;render();return;}
+  if(t!==total){total=t;render();}
+}
+window.addEventListener("pageshow",refrescar);
+window.addEventListener("storage",function(e){if(e.key===CLAVE_R||e.key===CLAVE_TOTAL||e.key===TEMA_KEY)refrescar();});
+document.addEventListener("visibilitychange",function(){if(!document.hidden)refrescar();});
+render();
+</script><script type="module">
+/* ===== SESIÓN: sin cuenta se vuelve a la pantalla de acceso ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const CONFIG = { apiKey:"AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE", authDomain:"inglesgamer-5a3a9.firebaseapp.com", projectId:"inglesgamer-5a3a9", storageBucket:"inglesgamer-5a3a9.firebasestorage.app", messagingSenderId:"599532765222", appId:"1:599532765222:web:38fe3a7348b3c38e3426e7" };
+const app = getApps().length ? getApp() : initializeApp(CONFIG);
+onAuthStateChanged(getAuth(app), u => { if (!u) location.href = igURL("go:acceso"); });
+</script>
+
+<script type="module">
+/* ===== NUBE: guarda tu progreso en tu cuenta y lo recupera. Este MISMO bloque (versión corregida) va en TODAS las pantallas, justo antes de </body>. ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const CONFIG = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+
+(function () {
+  try {
+    const PREF = "ingles_gamer_", META = "ig_nube_meta";
+    const SKIP = /_(sesion|tema|sonido|buzon|buzon_pausa|acceso_modo)$/;
+    const app = getApps().length ? getApp() : initializeApp(CONFIG);
+    const auth = getAuth(app), db = getFirestore(app);
+    let user = null, ocupado = false;
+
+    const dormir = ms => new Promise(r => setTimeout(r, ms));
+    const estado = (ok, e) => { try { localStorage.setItem("ig_nube_estado", JSON.stringify({ ok: !!ok, t: Date.now(), c: ok ? "" : String((e && (e.code || e.message)) || "error") })); } catch (x) {} };
+    const ref = () => doc(db, "progreso", user.uid);
+    const claves = () => { const k = []; try { for (let i = 0; i < localStorage.length; i++) { const n = localStorage.key(i); if (n.indexOf(PREF) === 0 && !SKIP.test(n)) k.push(n); } } catch (e) {} return k; };
+    const snap = () => { const o = {}; claves().forEach(k => { o[k] = localStorage.getItem(k); }); return o; };
+    const ser = o => JSON.stringify(Object.keys(o).sort().map(k => [k, o[k]]));
+    const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return h; };
+    const getMeta = () => { try { return JSON.parse(localStorage.getItem(META)) || {}; } catch (e) { return {}; } };
+    const setMeta = m => { try { localStorage.setItem(META, JSON.stringify(m)); } catch (e) {} };
+    /* CORREGIDO: "vacío" = sin progreso real (solo el apodo/perfil no cuenta) */
+    const vacio = o => !o || !(o.ingles_gamer_a1_repaso || o.ingles_gamer_aura || o.ingles_gamer_tienda);
+    const limpiar = () => claves().forEach(k => localStorage.removeItem(k));
+    const cambios = () => !!user && getMeta().uid === user.uid && hash(ser(snap())) !== getMeta().h;
+    const puntos = d => {
+      try {
+        const a = JSON.parse(d.ingles_gamer_aura || "null") || {}, r = JSON.parse(d.ingles_gamer_a1_repaso || "null") || {};
+        return (+a.t || 0) + Object.values(r.est || {}).reduce((x, y) => x + (+y || 0), 0);
+      } catch (e) { return 0; }
+    };
+
+    async function subir() {
+      const o = snap(), t = Date.now();
+      await setDoc(ref(), { datos: o, t: t, v: 1 });
+      setMeta({ uid: user.uid, t: t, h: hash(ser(o)) });
+      estado(true);
+    }
+    function bajar(c) {
+      limpiar();
+      const d = c.datos || {};
+      for (const k in d) if (k.indexOf(PREF) === 0 && !SKIP.test(k) && typeof d[k] === "string") localStorage.setItem(k, d[k]);
+      setMeta({ uid: user.uid, t: c.t || Date.now(), h: hash(ser(snap())) });
+    }
+
+    async function sync(lanzar) {
+      if (!user || ocupado) return "igual";
+      ocupado = true;
+      let res = "igual";
+      try {
+        const m = getMeta(), o = snap(), h = hash(ser(o)), s = await getDoc(ref()), c = s.exists() ? s.data() : null, cd = (c && c.datos) || {};
+        if (m.uid && m.uid !== user.uid) {
+          limpiar();
+          if (c) bajar(c); else await subir();
+          res = "bajado"; location.reload();
+        } else if (m.uid !== user.uid) {
+          if (c && (vacio(o) || puntos(cd) >= puntos(o))) { bajar(c); res = "bajado"; location.reload(); }
+          else { await subir(); res = "subido"; }
+        } else if (c && vacio(o) && !vacio(cd)) {
+          bajar(c); res = "bajado"; location.reload();
+        } else if (!c || h !== m.h) { await subir(); res = "subido"; }
+        else if (c.t > m.t) { bajar(c); res = "bajado"; location.reload(); }
+        else estado(true);
+      } catch (e) { ocupado = false; estado(false, e); if (lanzar) throw e; return "igual"; }
+      ocupado = false;
+      return res;
+    }
+
+    const guardarYa = () => { if (cambios()) sync(); };
+    onAuthStateChanged(auth, u => { user = u; if (u) sync(); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) guardarYa(); else sync(); });
+    addEventListener("pagehide", guardarYa);
+    setInterval(guardarYa, 45000);
+
+    window.IGNube = {
+      listo: true,
+      sincronizar: () => sync(),
+      usuario: () => user,
+      async subirYa() {
+        for (let i = 0; i < 40 && !user; i++) await dormir(250);
+        if (!user) throw new Error("sin-sesion");
+        while (ocupado) await dormir(200);
+        const r = await sync(true);
+        if (r === "bajado") throw new Error("recargando");
+      }
+    };
+  } catch (e) { console.error("[nube]", e); }
+})();
+</script>
+</body></html>
