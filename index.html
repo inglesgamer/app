@@ -1282,5 +1282,23 @@ pintarRacha = function () {
 };
 pintarRacha();
 </script>
+<script>
+/* RACHA: escuchar el vocabulario del día también cuenta como actividad */
+function rachaPorVocab() {
+  const K = "ingles_gamer_a1_repaso", rep = leer(K) || {}, dia = rep.dia || { u:"", r:0 };
+  const kHoy = clave(new Date()), kAyer = clave(new Date(Date.now() - 864e5));
+  if (dia.u === kHoy && +dia.r > 0) return;
+  rep.dia = { u: kHoy, r: (dia.u === kAyer && +dia.r > 0) ? +dia.r + 1 : 1 };
+  try { localStorage.setItem(K, JSON.stringify(rep)); } catch (e) { return; }
+  try { pintarRacha(); } catch (e) {}
+  const r = $("racha"); if (r) { r.classList.remove("rc-sube"); void r.offsetWidth; r.classList.add("rc-sube"); }
+}
+$("vocab").addEventListener("click", rachaPorVocab);
+$("vocab").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") rachaPorVocab(); });
+</script>
+<style>
+@keyframes rcSube{0%{transform:scale(1)}35%{transform:scale(1.06)}100%{transform:scale(1)}}
+#racha.rc-sube{animation:rcSube .6s ease}
+</style>
 </body>
 </html>
