@@ -338,6 +338,9 @@ main{overflow-x:hidden;touch-action:pan-y}
 #racha .rc-meta small.rc-logro{color:var(--gold)}
 #racha .rc-meta small{white-space:nowrap;display:flex;align-items:center;gap:4px;justify-content:flex-end;font-size:11px;font-weight:800;color:var(--mu)}
 
+/* botón Jugar de la tarjeta de la sopa */
+.si-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;margin-top:14px;padding:0 28px;border-radius:99px;background:var(--hi);color:var(--on-hi);font:900 16px Nunito,sans-serif;box-shadow:0 4px 0 rgba(128,128,128,.35)}
+.sopaI:active .si-btn{transform:translateY(2px);box-shadow:0 2px 0 rgba(128,128,128,.35)}
 </style>
 </head>
 <body>
@@ -820,7 +823,7 @@ function pintarSopa() {
   });
   el.innerHTML = '<div class="si-top"><div><span class="nuevo">NUEVO</span><b>Sopa de letras</b></div><div class="si-pj">' + alegre() + '</div></div>' +
     '<div class="si-cinta" aria-hidden="true"><div class="si-tira">' + tira + tira + '</div></div>' +
-    '<div class="si-pie"><div><b>' + esc(t.tema) + '</b><small>' + t.p.map(x => esc(x[0].toLowerCase()) + ' · ' + esc(x[1])).join(" — ") + '</small></div></div>';
+    '<div class="si-pie"><div><b>' + esc(t.tema) + '</b><small>' + t.p.map(x => esc(x[0].toLowerCase()) + ' · ' + esc(x[1])).join(" — ") + '</small><span class="si-btn">' + ic("play", 18) + 'Jugar</span></div></div>';
 }
 
 function pintarTodo() { pintarJugador(); pintarSeguir(); pintarRacha(); pintarCampana(); pintarSopa(); }
