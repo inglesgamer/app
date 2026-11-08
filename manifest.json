@@ -8,7 +8,7 @@
   "theme_color": "#000000",
   "lang": "es",
   "icons": [
-    { "src": "icono-180.png", "sizes": "180x180", "type": "image/png" },
-    { "src": "icono-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "icono-180.png?v=2", "sizes": "180x180", "type": "image/png" },
+    { "src": "icono-512.png?v=2", "sizes": "512x512", "type": "image/png" }
   ]
 }
