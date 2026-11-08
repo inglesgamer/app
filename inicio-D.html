@@ -312,15 +312,19 @@ main{overflow-x:hidden;touch-action:pan-y}
 .si-pie div b{font-size:22px}
 .si-pie div small{margin-top:4px;font-size:14px}
 /* ===== DISEÑO D: Panel Hoy: racha + seguir juntos ===== */
-#player{order:1}.hoy{order:2}#sopa{order:3}#secVocab{order:4}#secRetos{order:5}#secRef{order:6}#ayuda{order:7}
-.hoy{padding:14px 14px 12px;display:flex;flex-direction:column;gap:12px}
-.hoy-t{display:flex;justify-content:space-between;align-items:baseline;font-size:20px;font-weight:900;padding:0 2px}
-.hoy-t small{font-size:12px;font-weight:800;color:var(--mu)}
-.hoy #racha{background:none;border:0;border-radius:0;padding:0 2px 12px;border-bottom:1px dashed var(--bd)}
-.hoy #seguir{background:none;border:0;padding:0;border-radius:0}
+/* vocabulario sin caja (del diseño B) */
+.vdia{background:none!important;border:0!important;border-left:4px solid var(--lc)!important;border-radius:0!important;padding:2px 0 2px 16px!important}
+/* retos en cuadritos, 3 en fila */
 .rt-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .rt{flex-direction:column;align-items:flex-start;justify-content:space-between;gap:8px;min-height:112px;padding:12px}
 .rt-go{display:none}.rt-tx b{font-size:15px;line-height:1.15}.rt-au{font-size:12px}
+#player{order:1}.hoy{order:2}
+.hoy{padding:14px 14px 12px;display:flex;flex-direction:column;gap:12px}
+.hoy-t{font-size:20px;font-weight:900;padding:0 2px}
+.hoy #racha{background:none;border:0;border-radius:0;padding:0 2px 12px;border-bottom:1px dashed var(--bd)}
+.hoy #seguir{background:none;border:0;padding:0;border-radius:0}
+#sopa{order:4}#secVocab{order:5}#secRetos{order:6}#secRef{order:7}#ayuda{order:8}
+
 </style>
 </head>
 <body>

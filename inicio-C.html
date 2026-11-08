@@ -311,17 +311,20 @@ main{overflow-x:hidden;touch-action:pan-y}
 .si-pie{justify-content:center;text-align:center;padding:0 18px}
 .si-pie div b{font-size:22px}
 .si-pie div small{margin-top:4px;font-size:14px}
-/* ===== DISEÑO C: Sin cajas: racha como la sopa ===== */
-#player{order:1}#racha{order:2}#seguir{order:3}#sopa{order:4}#secVocab{order:5}#secRetos{order:6}#secRef{order:7}#ayuda{order:8}
+/* ===== DISEÑO C: Racha grande y suelta ===== */
+/* vocabulario sin caja (del diseño B) */
+.vdia{background:none!important;border:0!important;border-left:4px solid var(--lc)!important;border-radius:0!important;padding:2px 0 2px 16px!important}
+/* retos en cuadritos, 3 en fila */
+.rt-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rt{flex-direction:column;align-items:flex-start;justify-content:space-between;gap:8px;min-height:112px;padding:12px}
+.rt-go{display:none}.rt-tx b{font-size:15px;line-height:1.15}.rt-au{font-size:12px}
+#player{order:1}#racha{order:2}
 #racha{background:none;border:0;flex-direction:column;align-items:stretch;gap:12px;padding:6px 4px}
 #racha .rc-l{justify-content:center;text-align:center}#racha .rc-l>div{display:flex;align-items:baseline;gap:10px}
 #racha .rc-ic{display:none}#racha .rc-n{font-size:30px}#racha .rc-msg{margin:0;font-size:14px}
 #racha .rc-days{grid-template-columns:repeat(7,1fr);gap:8px;width:100%}
 #racha .rc-d i{width:100%;height:42px;border-radius:14px}#racha .rc-d{font-size:12px}
-.vdia{background:none!important;border:0!important;border-left:4px solid var(--lc)!important;border-radius:0!important;padding:2px 0 2px 16px!important}
-.rt-list{gap:0}.rt{background:none;border:0;border-radius:0;border-bottom:1px solid var(--bd);padding:10px 4px;min-height:60px}
-.rt-list .rt:last-child{border-bottom:0}
-.ay{background:none;border:0;padding:8px 4px}
+#seguir{order:3}#sopa{order:4}#secVocab{order:5}#secRetos{order:6}#secRef{order:7}#ayuda{order:8}
 
 </style>
 </head>

@@ -312,13 +312,17 @@ main{overflow-x:hidden;touch-action:pan-y}
 .si-pie div b{font-size:22px}
 .si-pie div small{margin-top:4px;font-size:14px}
 /* ===== DISEÑO A: Racha pegada a tu tarjeta ===== */
+/* vocabulario sin caja (del diseño B) */
+.vdia{background:none!important;border:0!important;border-left:4px solid var(--lc)!important;border-radius:0!important;padding:2px 0 2px 16px!important}
+/* retos en cuadritos, 3 en fila */
+.rt-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rt{flex-direction:column;align-items:flex-start;justify-content:space-between;gap:8px;min-height:112px;padding:12px}
+.rt-go{display:none}.rt-tx b{font-size:15px;line-height:1.15}.rt-au{font-size:12px}
 #player{order:1;border-bottom-left-radius:0;border-bottom-right-radius:0}
 #racha{order:2;margin-top:-15px;border-top:0;border-radius:0 0 28px 28px;padding:10px 14px 12px}
 #racha .rc-ic{width:36px;height:36px}#racha .rc-n{font-size:21px}
 #seguir{order:3}#sopa{order:4}#secVocab{order:5}#secRetos{order:6}#secRef{order:7}#ayuda{order:8}
-.rt-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.rt{flex-direction:column;align-items:flex-start;justify-content:space-between;gap:8px;min-height:112px;padding:12px}
-.rt-go{display:none}.rt-tx b{font-size:15px;line-height:1.15}.rt-au{font-size:12px}
+
 </style>
 </head>
 <body>
