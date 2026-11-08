@@ -527,7 +527,7 @@ main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bot
   <div class="entre-box" id="entreBox" role="dialog" aria-modal="true" aria-labelledby="entreT">
     <h2 id="entreT">¡Ronda lista!</h2>
     <span class="entre-a" id="entreA"></span>
-    <div class="entre-sig"><small>SIGUIENTE</small><b id="entreN"></b><p id="entreD"></p><div class="flechas" id="entreF"></div><span class="entre-r" id="entreR"></span></div>
+    <div class="entre-sig"><small>SIGUIENTE</small><b id="entreN"></b><p id="entreD"></p><div class="flechas" id="entreF"></div></div>
     <button type="button" class="btn" id="sigue">¡Vamos!</button>
   </div>
 </div>
@@ -539,17 +539,15 @@ main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bot
     <p id="finP"></p>
     <div class="estr" id="estr"></div>
     <div class="fin-dat" id="finDat"></div>
-    <div class="fin-alb" id="finAlb"></div>
-    <a class="btn" href="go:album"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"></path><path d="M4 19V5M9 7h5M9 11h5"></path></svg>Ver álbum de palabras</a>
-    <button type="button" class="btn alt" id="otra">Jugar otra vez</button>
+    <button type="button" class="btn" id="otra">Jugar otra vez</button>
     <a class="btn alt" href="go:inicio">Volver al inicio</a>
   </div>
 </div>
 <script>
 /* ================= TUS DATOS: edita solo esta parte ================= */
-const SOPA = { titulo:"Sopa de letras", url:"go:sopa", total:5, aura:30, clave:"ingles_gamer_sopa" };
+const SOPA = { titulo:"Sopa de letras", url:"go:sopa", total:5, aura:40, clave:"ingles_gamer_sopa" };
 // Un tema por día (mismo orden que en el Inicio). Cada tema tiene 4 rondas de 4 palabras:
-//   p = ronda 1 (el Inicio solo usa esta: [inglés, español]) · mas = rondas 2, 3 y 4.
+//   p = ronda 1 (el Inicio solo usa esta: [inglés, español]) · mas = ronda 2 (solo se usa la PRIMERA lista de "mas").
 // Cada palabra: [INGLÉS EN MAYÚSCULAS, significado, ejemplo con la *palabra* entre asteriscos, traducción del ejemplo]
 // OJO: este MISMO bloque va en la pantalla del Álbum (album). Si cambias palabras aquí, cámbialas allá también.
 const SOPA_TEMAS = [
@@ -584,16 +582,14 @@ const SOPA_TEMAS = [
       [["SEVEN", "siete", "A week has *seven* days.", "Una semana tiene siete días."],["EIGHT", "ocho", "A spider has *eight* legs.", "Una araña tiene ocho patas."],["TWELVE", "doce", "A year has *twelve* months.", "Un año tiene doce meses."],["TWENTY", "veinte", "There are *twenty* kids in my class.", "Hay veinte niños en mi clase."]],
       [["THIRTEEN", "trece", "My sister is *thirteen*.", "Mi hermana tiene trece años."],["FIFTEEN", "quince", "I wait *fifteen* minutes.", "Espero quince minutos."],["HUNDRED", "cien", "I have a *hundred* stickers.", "Tengo cien stickers."],["THOUSAND", "mil", "The castle is a *thousand* years old.", "El castillo tiene mil años."]] ] }
 ];
-// Las 4 rondas: cada una más difícil (lado = tamaño de la sopa · dirs = hacia dónde pueden ir las palabras · aura = premio, máximo 10 por ronda)
+// Las 2 rondas (la 2.ª más difícil). Aura: 20 + 20 = 40 en total, SOLO la primera vez que se juega cada sopa (lado = tamaño de la sopa · dirs = hacia dónde pueden ir las palabras · aura = premio, máximo 10 por ronda)
 const RONDAS = [
-  { n:"Ronda 1", d:"Calentamiento: una palabra va al revés", lado:8,  dirs:[[0,1],[1,0],[1,1],[0,-1]], rev:1, trampa:0,   aura:10, rar:"COMÚN", rc:"#8C8C96" },
-  { n:"Ronda 2", d:"La mitad de las palabras van al revés", lado:9,  dirs:[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1]], rev:2, trampa:.35, aura:10, rar:"RARA", rc:"#3FD8C8" },
-  { n:"Ronda 3", d:"Más largas, al revés y en diagonal", lado:10, dirs:[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,1],[-1,-1],[1,-1]], rev:3, trampa:.6, aura:10, rar:"ÉPICA", rc:"#8E5BD6" },
-  { n:"Ronda 4", d:"Nivel experto: todas al revés y con letras trampa", lado:11, dirs:[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,1],[-1,-1],[1,-1]], rev:4, trampa:.85, aura:10, rar:"LEGENDARIA", rc:"#FFC83D" }
+  { n:"Ronda 1", d:"Calentamiento: una palabra va al revés", lado:8,  dirs:[[0,1],[1,0],[1,1],[0,-1]], rev:1, trampa:0,   aura:20, rar:"COMÚN", rc:"#8C8C96" },
+  { n:"Ronda 2", d:"La mitad de las palabras van al revés", lado:9,  dirs:[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1]], rev:2, trampa:.35, aura:20, rar:"RARA", rc:"#3FD8C8" }
 ];
 // rev = cuántas palabras van al revés (de derecha a izquierda o de abajo hacia arriba) · trampa = qué tanto se rellena con letras de las mismas palabras para confundir
 const VOCAB_DESDE = "2026-10-26";      // el mismo día de inicio del Vocabulario del día (así el tema coincide con el Inicio)
-const AURA_REPETIR = 2;                // Aura por ronda si la vuelve a jugar el mismo día
+const AURA_REPETIR = 0;                // Aura al repetir una sopa ya cobrada (0 = nada)
 const ALBUM_URL = "go:album";
 const VOLVER_URL = "go:inicio";
 
@@ -722,7 +718,7 @@ const J = { t:null, r:0, pal:[], s:null, n:8, hallada:{}, ancla:null, fin:null, 
 function empezar(extra) {
   J.t = sopaHoy(); J.extra = extra || 0; J.errores = 0; J.t0 = Date.now(); J.auraGan = 0; J.nuevas = 0;
   const pr = sopaGuardada().prog || {};
-  J.r = (!extra && pr.dia === clave(new Date()) && pr.tema === J.t.id && pr.r > 0 && pr.r < 4) ? pr.r : 0;
+  J.r = (!extra && pr.dia === clave(new Date()) && pr.tema === J.t.id && pr.r > 0 && pr.r < RONDAS.length) ? pr.r : 0;
   document.documentElement.style.setProperty("--lc", J.t.c);
   $("tema").textContent = J.t.tema;
   $("fin").hidden = true; $("entre").hidden = true;
@@ -793,7 +789,7 @@ function acierto(p, a, b, ls) {
     $("tablero").appendChild(e); setTimeout(() => e.remove(), 1200);
   }
   const t = document.createElement("div"); t.className = "toast";
-  t.innerHTML = esc(p[0].toLowerCase()) + " <small>= " + esc(p[1]) + "</small>" + (nueva ? '<span class="nv">NUEVA</span>' : "");
+  t.innerHTML = esc(p[0].toLowerCase()) + " <small>= " + esc(p[1]) + "</small>" + "";
   $("tablero").appendChild(t); setTimeout(() => t.remove(), 1900);
   voz(p[0].toLowerCase()); vibrar(30);
   cinta(p[0]); pintarPalabras(p[0]); pieAcierto(p);
@@ -804,25 +800,28 @@ function error(ls) {
   ls.forEach(q => { const el = celdas()[q[0] * J.n + q[1]]; el.classList.remove("mal"); void el.offsetWidth; el.classList.add("mal"); setTimeout(() => el.classList.remove("mal"), 500); });
   vibrar([20, 40, 20]); pieError();
 }
-/* premio por ronda: la primera vez del día da el Aura completa; si la repite, AURA_REPETIR */
+/* premio por ronda: SOLO la primera vez que se juega esta sopa (s.pagos[tema] = rondas ya cobradas).
+   Si la repite, AURA_REPETIR. Cuando cambies las sopas cada semana, usa temas con nombre nuevo para que vuelvan a dar Aura. */
 function rondaLista() {
   const R = RONDAS[J.r], s = sopaGuardada(), hoy = clave(new Date());
   const pr = (s.prog && s.prog.dia === hoy && s.prog.tema === J.t.id) ? s.prog : { dia:hoy, tema:J.t.id, r:0, pagadas:0 };
-  const primera = (pr.pagadas || 0) <= J.r;
+  s.pagos = s.pagos || {};
+  const yaPagadas = Math.max(+s.pagos[J.t.id] || 0, (s.prog && s.prog.tema === J.t.id) ? Math.min(+s.prog.pagadas || 0, RONDAS.length) : 0);
+  const primera = yaPagadas <= J.r;
   const gan = primera ? R.aura : AURA_REPETIR;
   pr.r = J.r + 1 >= RONDAS.length ? 0 : J.r + 1;
   pr.pagadas = Math.max(pr.pagadas || 0, J.r + 1);
+  s.pagos[J.t.id] = Math.max(yaPagadas, J.r + 1);
   s.prog = pr; guardarSopa(s);
   sumarAura(gan, "Sopa de letras: " + J.t.tema + " · " + R.n);
   J.auraGan += gan;
   if (J.r + 1 >= RONDAS.length) { terminar(); return; }
   const S = RONDAS[J.r + 1];
   $("entreT").textContent = "¡" + R.n + " lista!";
-  $("entreA").innerHTML = sprite("llama", 18) + "+" + gan + " Aura";
+  $("entreA").innerHTML = gan ? sprite("llama", 18) + "+" + gan + " Aura" : "Aura ya ganada en esta sopa";
   $("entreN").textContent = S.n;
   $("entreD").textContent = S.d;
   $("entreF").innerHTML = flechas(S.dirs);
-  $("entreR").innerHTML = '<i style="background:' + S.rc + '"></i>Palabras ' + S.rar.toLowerCase() + 's para tu álbum';
   $("entre").hidden = false;
   const box = $("entreBox"); box.querySelectorAll(".ok-d").forEach(d => d.remove());
   if (!quieto()) for (let i = 0; i < 12; i++) { const d = document.createElement("i"); d.className = "ok-d"; d.style.cssText = "left:50%;top:60px;--a:" + (i * 30) + "deg;--c:" + COLS[i % COLS.length]; box.appendChild(d); }
@@ -838,8 +837,7 @@ function terminar() {
   $("finP").textContent = "Encontraste las " + total + " palabras de " + J.t.tema + ".";
   $("estr").innerHTML = [0, 1, 2].map(i => '<svg class="' + (i < est ? "on" : "") + '" style="animation-delay:' + (.5 + i * .2) + 's" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg>').join("");
   $("finDat").innerHTML = '<span>Tiempo<b>' + Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, "0") + '</b></span>' +
-    '<span>Errores<b>' + J.errores + '</b></span><span class="au">Aura<b>' + sprite("llama", 18) + '+' + J.auraGan + '</b></span>';
-  $("finAlb").innerHTML = J.nuevas ? '<b>' + J.nuevas + '</b> palabras nuevas en tu álbum' : 'Ya tenías todas estas palabras en tu álbum';
+    '<span>Errores<b>' + J.errores + '</b></span>' + (J.auraGan ? '<span class="au">Aura<b>' + sprite("llama", 18) + '+' + J.auraGan + '</b></span>' : '<span class="au">Aura<b>Ya ganada</b></span>');
   const ic = $("okIc");
   ic.innerHTML = '<svg viewBox="0 0 52 52" width="104" height="104" aria-hidden="true"><circle class="ok-c" cx="26" cy="26" r="23"></circle><path class="ok-t" d="M15 27l8 8 15-17"></path></svg>';
   if (!quieto()) for (let i = 0; i < 12; i++) { const d = document.createElement("i"); d.className = "ok-d"; d.style.setProperty("--a", (i * 30) + "deg"); d.style.setProperty("--c", COLS[i % COLS.length]); ic.appendChild(d); }
