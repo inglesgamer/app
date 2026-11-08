@@ -1198,7 +1198,7 @@ function nota(f, t0, d, tipo, vol, f2) {
   o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + d + .03);
 }
 const SFX = {
-  tap:   () => nota(700, 0, .05, "square", .035, 900),
+  tap:   () => nota(450, 0, .07, "sine", .07, 650),   // "Burbuja": el mismo sonido de toque de toda la app
   ok:    () => { [523, 659, 784, 1047].forEach((f, i) => nota(f, i * .07, .2, "triangle", .1)); nota(1568, .3, .25, "sine", .05); },
   mal:   () => { nota(220, 0, .14, "sawtooth", .05, 150); nota(170, .12, .22, "sawtooth", .05, 110); },
   ronda: () => { [392, 523, 659, 784, 1047].forEach((f, i) => nota(f, i * .09, .26, "square", .05)); nota(196, 0, .55, "triangle", .09); },
