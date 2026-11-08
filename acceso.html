@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="es">
+<head>
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bienvenida · InglésGamer</title>
+<meta name="theme-color" content="#000000">
+<script>
+/* ===== PALETAS: el mismo bloque del Inicio. La elección se guarda en "ingles_gamer_tema". ===== */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--hi:#FFFFFF;--on-hi:#000000;--track:#2A2A2E;--toff:#3A3A40;--nav:#0E0E10;--av1:#3A3A40;--av2:#101012;--ok:#7BE3A8;--mal:#FF6B6B;--rojo:#FF4D4D;--rayo:rgba(255,77,77,.20)}
+html[data-tema="rosa"],html[data-tema="azul"],html[data-tema="dia"]{--mal:#C0262D;--rojo:#E02B2B;--rayo:rgba(224,43,43,.13)}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input{font-family:inherit;color:inherit}
+button{border:0;background:none;padding:0;cursor:pointer;text-align:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+svg{display:block}
+[hidden]{display:none!important}
+.app{position:relative;width:100%;max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;isolation:isolate}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:28px}
+html[data-tema="dia"] .card,html[data-tema="rosa"] .card,html[data-tema="azul"] .card{box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 22px rgba(0,0,0,.05)}
+
+/* fondo con rayos */
+.fx{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.fx::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 36%,color-mix(in srgb,var(--rojo) 16%,var(--bg)),var(--bg) 66%)}
+.rayos{position:absolute;left:50%;top:38%;width:1300px;height:1300px;margin:-650px 0 0 -650px;background:repeating-conic-gradient(var(--rayo) 0 9deg,transparent 9deg 18deg);-webkit-mask-image:radial-gradient(circle,#000 0,transparent 60%);mask-image:radial-gradient(circle,#000 0,transparent 60%);animation:gira 40s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+
+/* personaje y título */
+.zona{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(18px + env(safe-area-inset-top)) 20px 6px}
+.pj{width:min(250px,64vw,31dvh);transition:width .25s}
+.pj svg{display:block;width:100%;height:auto;overflow:visible}
+.ti{display:flex;justify-content:center;margin-top:clamp(14px,3.4dvh,28px);font-weight:900;font-size:clamp(34px,11.6vw,48px);letter-spacing:-.025em;line-height:1}
+.ti span{display:inline-block;animation:pop .55s cubic-bezier(.3,1.4,.5,1) both}
+.ti .g{color:var(--rojo)}
+@keyframes pop{0%{transform:scale(0) rotate(-14deg);opacity:0}70%{transform:scale(1.28) rotate(3deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
+.sl{margin:12px 0 0;font-size:clamp(15px,4.2vw,17px);font-weight:700;line-height:1.4;color:var(--mu)}
+.abajo{padding:0 20px calc(26px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:54px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:17px;font-weight:900;box-shadow:0 4px 0 rgba(128,128,128,.35)}
+.btn:active{transform:translateY(2px)}
+.btn[disabled]{opacity:.55;cursor:default;transform:none}
+.btn.out{background:none;color:var(--ink);border:2px solid var(--bd);box-shadow:none}
+.nota{margin:2px 8px 0;font-size:13px;font-weight:600;line-height:1.45;color:var(--mu);text-align:center}
+
+/* vista de formulario: personaje pequeño arriba */
+body[data-v="form"] .pj,body[data-v="apodo"] .pj{width:min(120px,30vw,16dvh)}
+body[data-v="form"] .zona,body[data-v="apodo"] .zona{flex:none;padding-bottom:0}
+body[data-v="form"] .ti,body[data-v="apodo"] .ti{font-size:clamp(28px,8.4vw,34px);margin-top:10px}
+body[data-v="form"] .sl,body[data-v="apodo"] .sl{display:none}
+/* al entrar: solo se ve el personaje y el título (sin tarjeta de "Conectando…") */
+body[data-v="cargando"] #vCarga{display:none}
+body[data-v="cargando"] .sl{visibility:hidden}
+.panel{padding:12px 16px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px}
+.ib{position:absolute;z-index:3;top:calc(14px + env(safe-area-inset-top));left:16px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--bd);background:var(--card)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tab{height:46px;display:flex;align-items:center;justify-content:center;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--mu);font-size:15px;font-weight:800}
+.tab.on{background:var(--hi);border-color:var(--hi);color:var(--on-hi);font-weight:900}
+form{padding:18px 16px;display:flex;flex-direction:column;gap:14px}
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo>span{margin-left:6px;font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.inp{display:flex;align-items:center;gap:10px;height:54px;padding:0 16px;border-radius:99px;border:2px solid var(--bd);background:var(--bg);color:var(--mu)}
+.inp:focus-within{border-color:var(--hi);color:var(--ink)}
+.inp input{flex:1;min-width:0;height:100%;border:0;outline:0;background:none;color:var(--ink);font:800 17px Nunito,sans-serif}
+.inp input::placeholder{color:var(--mu);font-weight:700}
+.inp input:focus-visible{outline:0}
+.ojo{flex:none;width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:var(--mu)}
+.ayuda{margin:0 6px;font-size:13px;font-weight:600;line-height:1.35;color:var(--mu)}
+.link{align-self:center;padding:6px 10px;font-size:15px;font-weight:800;color:var(--mu);text-decoration:underline;text-underline-offset:3px}
+.msg{margin:0;padding:12px 16px;border-radius:20px;font-size:15px;font-weight:800;line-height:1.35}
+.msg.mal{background:color-mix(in srgb,var(--mal) 14%,var(--card));color:var(--mal)}
+.msg.bien{background:color-mix(in srgb,var(--ok) 14%,var(--card));color:var(--ok)}
+.sesion{padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.cd{font-size:clamp(26px,8vw,34px);font-weight:900;letter-spacing:.04em;overflow-wrap:anywhere}
+.mini{font-size:12px;font-weight:900;letter-spacing:.14em;color:var(--mu)}
+.cargando{padding:30px;text-align:center;font-weight:800;color:var(--mu)}
+@media (prefers-reduced-motion:reduce){.rayos{animation:none}.ti span{animation:none}}
+/* ---------- base ---------- */
+.oc,.bo,.r1,.r2,.l1,.l2{opacity:0}
+.oc{animation:parp 4s infinite}
+@keyframes parp{0%,92%,100%{opacity:0}94%,97%{opacity:1}}
+.sp{transform-box:fill-box;transform-origin:center;animation:brilla 1s ease-in-out infinite}
+@keyframes brilla{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes ua{0%{opacity:1}50%{opacity:0}}
+@keyframes ub{0%{opacity:0}50%{opacity:1}}
+
+/* ---------- SALUDAR (7 s) ---------- */
+.saludo .mov{animation:resp 2.4s ease-in-out infinite}
+@keyframes resp{0%,100%{transform:translateY(0)}50%{transform:translateY(-.25px)}}
+.saludo .rd{animation:sd 7s step-end infinite}
+.saludo .r1{animation:s1 7s step-end infinite}
+.saludo .r2{animation:s2 7s step-end infinite}
+.saludo .bo{animation:sb 7s step-end infinite}
+@keyframes sd{0%{opacity:1}10%{opacity:0}50%{opacity:1}100%{opacity:1}}
+@keyframes s1{0%{opacity:0}10%{opacity:1}15%{opacity:0}20%{opacity:1}25%{opacity:0}30%{opacity:1}35%{opacity:0}40%{opacity:1}45%{opacity:0}100%{opacity:0}}
+@keyframes s2{0%{opacity:0}15%{opacity:1}20%{opacity:0}25%{opacity:1}30%{opacity:0}35%{opacity:1}40%{opacity:0}45%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes sb{0%{opacity:0}10%{opacity:1}13%{opacity:0}15%{opacity:1}18%{opacity:0}20%{opacity:1}23%{opacity:0}25%{opacity:1}28%{opacity:0}30%{opacity:1}33%{opacity:0}35%{opacity:1}38%{opacity:0}40%{opacity:1}43%{opacity:0}45%{opacity:1}48%{opacity:0}100%{opacity:0}}
+
+/* ---------- ALEGRE: salta, aplaude y se ríe ---------- */
+.alegre .mov{animation:salta .6s ease-in-out infinite alternate}
+@keyframes salta{from{transform:translateY(0)}to{transform:translateY(-1px)}}
+.alegre .rd,.alegre .ld{opacity:0}
+.alegre .r1,.alegre .l1{animation:ua .6s step-end infinite}
+.alegre .r2,.alegre .l2{animation:ub .6s step-end infinite}
+.alegre .bo{animation:ua .3s step-end infinite}
+
+/* ---------- TRISTE: llora y se limpia las lágrimas (6 s) ---------- */
+.triste .cab{animation:nod 3s ease-in-out infinite alternate}
+@keyframes nod{from{transform:translateY(.4px)}to{transform:translateY(.8px)}}
+.triste .mov{animation:sollozo 1.4s ease-in-out infinite}
+@keyframes sollozo{0%,60%,100%{transform:translateY(0)}70%{transform:translateY(.25px)}80%{transform:translateY(0)}90%{transform:translateY(.25px)}}
+.triste .rd{animation:wd 6s step-end infinite}
+.triste .r1{animation:w1 6s step-end infinite}
+.triste .r2{animation:w2 6s step-end infinite}
+@keyframes wd{0%{opacity:1}20%{opacity:0}70%{opacity:1}100%{opacity:1}}
+@keyframes w1{0%{opacity:0}20%{opacity:1}30%{opacity:0}40%{opacity:1}50%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes w2{0%{opacity:0}30%{opacity:1}40%{opacity:0}50%{opacity:1}60%{opacity:0}100%{opacity:0}}
+.tA,.tB{opacity:0;animation:tA 1.8s step-end infinite}
+.tB{animation-name:tB}
+@keyframes tA{0%{opacity:1}33%{opacity:0}100%{opacity:0}}
+@keyframes tB{0%{opacity:0}33%{opacity:1}66%{opacity:0}100%{opacity:0}}
+
+/* ---------- BRAVA: tiembla, saca humo y levanta el puño ---------- */
+.brava .mov{animation:tiembla .12s linear infinite alternate}
+@keyframes tiembla{from{transform:translateX(-.1px)}to{transform:translateX(.1px)}}
+.brava .rd{animation:ub 1s step-end infinite}
+.brava .r1{animation:ua 1s step-end infinite}
+.brava .bo{animation:ua .5s step-end infinite}
+.rojo,.vena{animation:late 1s ease-in-out infinite alternate}
+.rojo{opacity:.15}
+@keyframes late{from{opacity:.15}to{opacity:.5}}
+.humo{animation:sube 1.2s linear infinite}
+@keyframes sube{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(-2px);opacity:0}}
+
+/* ================= EVALUACIONES ================= */
+.gu,.gl{opacity:0}
+@keyframes wink{0%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes ladea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+@keyframes flota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+@keyframes sigue{from{transform:translateX(0)}to{transform:translateX(.3px)}}
+@keyframes balanceo{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
+@keyframes sube2{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
+.cor{opacity:0;animation:sube2 2.4s linear infinite}
+.q{animation:flota 1.6s ease-in-out infinite alternate}
+/* pulgar arriba: guiña el ojo y mueve el pulgar */
+.pulgar .mov{animation:salta 1s ease-in-out infinite alternate}
+.pulgar .rd{opacity:0}
+.pulgar .r1{animation:ua .8s step-end infinite}
+.pulgar .r2{animation:ub .8s step-end infinite}
+.pulgar .gu{animation:wink 3s step-end infinite}
+/* ánimo: puño que bombea y grita */
+.animo .mov{animation:salta .5s ease-in-out infinite alternate}
+.animo .rd{animation:ub .5s step-end infinite}
+.animo .r1{animation:ua .5s step-end infinite}
+.animo .bo{animation:ua .25s step-end infinite}
+/* pensando: mano en la barbilla */
+.pienso .cab{animation:ladea 2s ease-in-out infinite alternate}
+.pienso .rd{opacity:0}
+.pienso .r1{animation:ua 1.2s step-end infinite}
+.pienso .r2{animation:ub 1.2s step-end infinite}
+/* copión: mira de lado y pasa el papelito */
+.copion .mov{animation:sigue 1.8s ease-in-out infinite alternate}
+.copion .rd{opacity:0}
+.copion .r1{animation:ua .9s step-end infinite}
+.copion .r2{animation:ub .9s step-end infinite}
+.copion .gl{animation:ua 2.4s step-end infinite}
+/* enamorado: se balancea y le salen corazones */
+.amor .mov{animation:balanceo 1.6s ease-in-out infinite alternate}
+.amor .rd{opacity:0}
+.amor .r1{animation:ua 1.2s step-end infinite}
+.amor .r2{animation:ub 1.2s step-end infinite}
+/* ups: tiembla del susto con las manos arriba */
+.ups .mov{animation:tiembla .1s linear infinite alternate}
+.ups .rd,.ups .ld{opacity:0}
+.ups .r1,.ups .l1{opacity:1}
+
+/* ================= AVENTURAS RANDOM ================= */
+.card.ancha{grid-column:1/-1}
+.card.ancha svg{width:300px}
+@keyframes vibra{from{transform:translateY(0)}to{transform:translateY(.15px)}}
+@keyframes corre{from{transform:translateY(-3px);opacity:0}30%{opacity:.8}to{transform:translateY(5px);opacity:0}}
+@keyframes galopa{from{transform:translateY(0)}to{transform:translateY(-.5px)}}
+@keyframes pez{0%,60%{opacity:0;transform:translate(0,2px)}65%{opacity:1;transform:translate(1px,-1.5px)}75%{transform:translate(2px,-2.5px)}85%{transform:translate(3px,-1px)}90%{opacity:1;transform:translate(3.5px,2px)}100%{opacity:0}}
+.linea{animation:corre .5s linear infinite}
+/* moto */
+.moto .mov{animation:vibra .12s linear infinite alternate}
+.moto .ra{animation:ua .08s step-end infinite}
+.moto .rb{animation:ub .08s step-end infinite}
+/* caballo */
+.caballo .mov,.caballo .atras,.caballo .fuera{animation:galopa .35s ease-in-out infinite alternate}
+.caballo .hA{animation:ua .35s step-end infinite}
+.caballo .hB{animation:ub .35s step-end infinite}
+/* pescando */
+.pesca .rd{opacity:0}
+.pesca .r1{animation:ua 2s step-end infinite}
+.pesca .r2{animation:ub 2s step-end infinite}
+.pesca .wA{animation:ua .8s step-end infinite}
+.pesca .wB{animation:ub .8s step-end infinite}
+.bob{animation:flota 1s ease-in-out infinite alternate}
+.pez{opacity:0;animation:pez 3.5s ease-in-out infinite}
+/* baile */
+.baile .mov{animation:salta .3s ease-in-out infinite alternate}
+.baile .rd{animation:ub .6s step-end infinite}
+.baile .r1{animation:ua .6s step-end infinite}
+.baile .ld{animation:ua .6s step-end infinite}
+.baile .l1{animation:ub .6s step-end infinite}
+/* dormido */
+.dormido .oc{animation:none}
+.dormido .cab{animation:nod 3s ease-in-out infinite alternate}
+.dormido .mov{animation:resp 3s ease-in-out infinite}
+.dormido .bo{animation:ua 2.4s step-end infinite}
+
+/* ================= MÁS EXPRESIONES ================= */
+@keyframes q1{0%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes q2{0%{opacity:0}25%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes q3{0%,25%{opacity:0}50%{opacity:1}75%{opacity:0}100%{opacity:0}}
+@keyframes q4{0%,50%{opacity:0}75%{opacity:1}100%{opacity:0}}
+@keyframes vuela{0%,50%{opacity:0;transform:translate(0,0)}55%{opacity:1}100%{opacity:0;transform:translate(3px,-2px)}}
+@keyframes vuela2{0%,100%{transform:translate(0,0)}25%{transform:translate(2px,-2px)}50%{transform:translate(0,2px)}75%{transform:translate(3px,0)}}
+@keyframes susto{0%,70%,100%{transform:translateY(0)}75%{transform:translateY(-1px)}85%{transform:translateY(0)}}
+@keyframes cj{0%,20%{opacity:0}30%,80%{opacity:1}90%,100%{opacity:0}}
+.t1,.t2,.t3,.t4,.beso,.mari{opacity:0}
+.t1{animation:q1 1s step-end infinite}.t2{animation:q2 1s step-end infinite}.t3{animation:q3 1s step-end infinite}.t4{animation:q4 1s step-end infinite}
+.beso{animation:vuela 1.6s linear infinite}
+.mari{opacity:1;animation:vuela2 6s ease-in-out infinite}
+.m1{animation:ua .2s step-end infinite}.m2{opacity:0;animation:ub .2s step-end infinite}
+/* ceja levantada */
+.ceja .cab{animation:ladea 2s ease-in-out infinite alternate}
+.ceja .gu{animation:cj 3s step-end infinite}
+/* llorón */
+.lloron .oc,.sorpresa .oc,.amoroso .oc,.cool .oc{animation:none}
+.lloron .mov{animation:sollozo .5s ease-in-out infinite}
+.lloron .cab{animation:nod .5s ease-in-out infinite alternate}
+.lloron .rd,.lloron .ld,.sorpresa .rd,.sorpresa .ld{opacity:0}
+.lloron .r1{animation:ua .5s step-end infinite}.lloron .r2{animation:ub .5s step-end infinite}
+.lloron .l1{animation:ub .5s step-end infinite}.lloron .l2{animation:ua .5s step-end infinite}
+.lloron .bo{animation:ua .4s step-end infinite}
+/* amoroso: beso volado */
+.amoroso .mov{animation:balanceo 1.6s ease-in-out infinite alternate}
+.amoroso .rd{opacity:0}
+.amoroso .r1{animation:ua 1.6s step-end infinite}.amoroso .r2{animation:ub 1.6s step-end infinite}
+/* tonto */
+.tonto .cab{animation:ladea .4s ease-in-out infinite alternate}
+.tonto .gl{animation:ua .6s step-end infinite}
+.tonto .bo{animation:ua .4s step-end infinite}
+.tonto .rd{animation:ub .4s step-end infinite}.tonto .r1{animation:ua .4s step-end infinite}
+.tonto .ld{animation:ua .4s step-end infinite}.tonto .l1{animation:ub .4s step-end infinite}
+/* carro */
+.carro .mov,.carro .fuera{animation:vibra .12s linear infinite alternate}
+.carro .ra{animation:ua .08s step-end infinite}.carro .rb{animation:ub .08s step-end infinite}
+/* distraído */
+.distraido .cab{animation:ladea 3s ease-in-out infinite alternate}
+.distraido .gl{animation:ua 4s step-end infinite}
+/* sorprendido */
+.sorpresa .mov{animation:susto 1.6s ease-in-out infinite}
+.sorpresa .r1,.sorpresa .l1{opacity:1}
+/* cool */
+.cool .rd{opacity:0}
+.cool .r1{animation:ua 3s step-end infinite}.cool .r2{animation:ub 3s step-end infinite}
+.cool .gu{animation:wink 3s step-end infinite}
+
+/* ================= REACCIONES ================= */
+@keyframes nono{0%,100%{transform:translateX(0)}25%{transform:translateX(-.5px)}75%{transform:translateX(.5px)}}
+@keyframes sino{0%,100%{transform:translateY(0)}50%{transform:translateY(.55px)}}
+@keyframes cae2{0%{transform:translateY(-1px);opacity:0}15%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+.nieve{opacity:0;animation:cae2 2.2s linear infinite}
+.b1{animation:ua .5s step-end infinite}.b2{opacity:0;animation:ub .5s step-end infinite}
+.neg .cab{animation:nono .6s ease-in-out infinite}
+.neg .rd{opacity:0}.neg .r1{animation:ua .3s step-end infinite}.neg .r2{animation:ub .3s step-end infinite}
+.afirma .cab{animation:sino .5s ease-in-out infinite}
+.miedo .mov{animation:tiembla .08s linear infinite alternate}
+.miedo .bo{animation:ua .1s step-end infinite}
+.miedo .gl{animation:ua .5s step-end infinite}
+.miedo .rd,.miedo .ld{opacity:0}.miedo .r1,.miedo .l1{opacity:1}
+.ansiedad .mov{animation:vibra .1s linear infinite alternate}
+.ansiedad .rd{opacity:0}.ansiedad .r1{animation:ua .15s step-end infinite}.ansiedad .r2{animation:ub .15s step-end infinite}
+.ansiedad .gl{animation:ua .3s step-end infinite}
+.nube{animation:tiembla .1s linear infinite alternate}
+.frio .mov{animation:tiembla .08s linear infinite alternate}
+.frio .rd,.frio .ld{opacity:0}
+.frio .bo{animation:ua .1s step-end infinite}
+.frio .oc{animation:none}
+.enfermo .oc{animation:none}
+.enfermo .mov{animation:susto 2.4s ease-in-out infinite}
+.enfermo .cab{animation:nod 2.4s ease-in-out infinite alternate}
+.enfermo .rd{opacity:0}.enfermo .r1{opacity:1}
+.hambre .mov{animation:sollozo 1s ease-in-out infinite}
+.hambre .rd{opacity:0}.hambre .r1{animation:ua .8s step-end infinite}.hambre .r2{animation:ub .8s step-end infinite}
+.idea .mov{animation:salta .5s ease-in-out infinite alternate}
+.idea .rd{opacity:0}.idea .r1{animation:ua .5s step-end infinite}.idea .r2{animation:ub .5s step-end infinite}
+
+/* ================= HÉROES Y RETOS ================= */
+@keyframes hd{0%{opacity:1}10%{opacity:0}100%{opacity:0}}
+@keyframes h2{0%{opacity:0}10%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes h1{0%{opacity:0}25%{opacity:1}100%{opacity:1}}
+.heroe .rd{animation:hd 5s step-end infinite}
+.heroe .r2{animation:h2 5s step-end infinite}
+.heroe .r1{animation:h1 5s step-end infinite}
+.heroe .gu{animation:h1 5s step-end infinite}
+.ejer .mov{animation:vibra .1s linear infinite alternate}
+.ejer .rd,.ejer .ld{opacity:0}
+.ejer .r1,.ejer .l1{animation:ua .8s step-end infinite}
+.ejer .r2,.ejer .l2{animation:ub .8s step-end infinite}
+.copa .mov{animation:salta .4s ease-in-out infinite alternate}
+.copa .rd,.copa .ld{opacity:0}
+.copa .r1,.copa .l2{animation:ua .4s step-end infinite}
+.copa .r2,.copa .l1{animation:ub .4s step-end infinite}
+.super .mov{animation:salta 1s ease-in-out infinite alternate}
+.super .cab{animation:tiembla .06s linear infinite alternate}
+.super .oc{animation:none}
+.super .bo{animation:ua .3s step-end infinite}
+</style>
+</head>
+<body data-v="cargando">
+<div class="fx" aria-hidden="true"><div class="rayos"></div></div>
+<main class="app">
+  <button type="button" class="ib" id="atras" aria-label="Volver" hidden></button>
+
+  <div class="zona">
+    <div class="pj" id="pj" aria-hidden="true"></div>
+    <h1 class="ti" id="ti" aria-label="InglésGamer" style="margin-bottom:0"></h1>
+    <p class="sl" id="sl">Tu aventura de inglés empieza aquí</p>
+  </div>
+
+  <!-- 1. Bienvenida -->
+  <div class="abajo" id="vBienv" hidden>
+    <p class="msg" id="msg0" hidden role="status" aria-live="polite"></p>
+    <button type="button" class="btn" id="bCrear">Crear cuenta</button>
+    <button type="button" class="btn out" id="bEntrar">Ya tengo cuenta</button>
+    <p class="nota">Al continuar aceptas los Términos y la Política de privacidad.</p>
+  </div>
+
+  <!-- 2. Formulario -->
+  <div class="panel" id="vForm" hidden>
+    <div class="tabs" role="tablist" aria-label="Acceso">
+      <button type="button" class="tab on" role="tab" id="tEntrar" aria-selected="true">Entrar</button>
+      <button type="button" class="tab" role="tab" id="tCrear" aria-selected="false">Crear cuenta</button>
+    </div>
+    <p class="msg" id="msg" hidden role="status" aria-live="polite"></p>
+    <form class="card" id="formAcceso" novalidate>
+      <label class="campo" id="cApodo" hidden><span>APODO</span>
+        <span class="inp"><input id="apodo" type="text" autocomplete="nickname" autocapitalize="off" spellcheck="false" maxlength="14" placeholder="Ej: Luna_X"></span>
+        <small class="ayuda">3 a 14 letras, números o guion bajo. Es público: no uses tu nombre real.</small></label>
+      <label class="campo"><span>CORREO</span>
+        <span class="inp"><input id="correo" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="tucorreo@ejemplo.com"></span></label>
+      <label class="campo"><span>CONTRASEÑA</span>
+        <span class="inp"><input id="clave" type="password" autocomplete="current-password" placeholder="Mínimo 6 caracteres"><button type="button" class="ojo" id="ojo" aria-label="Mostrar contraseña"></button></span></label>
+      <button type="submit" class="btn" id="btnEnviar">Entrar</button>
+      <button type="button" class="link" id="olvide">Olvidé mi contraseña</button>
+    </form>
+    <p class="nota">Solo se muestra tu apodo, personaje y progreso. Tu correo nunca aparece en el ranking. Los apodos son públicos: no compartas teléfonos, correos ni tu nombre real.</p>
+  </div>
+
+  <!-- 3. Falta elegir apodo -->
+  <div class="panel" id="vApodo" hidden>
+    <p class="msg" id="msg2" hidden role="status" aria-live="polite"></p>
+    <form class="card" id="formApodo" novalidate>
+      <label class="campo"><span>ELIGE TU APODO</span>
+        <span class="inp"><input id="apodo2" type="text" autocomplete="nickname" autocapitalize="off" spellcheck="false" maxlength="14" placeholder="Ej: Luna_X"></span>
+        <small class="ayuda">3 a 14 letras, números o guion bajo. Es público: no uses tu nombre real.</small></label>
+      <button type="submit" class="btn" id="btnApodo">Guardar apodo</button>
+    </form>
+  </div>
+
+  <!-- 4. Cuenta (solo se muestra cuando se abre desde Perfil: cerrar sesión / eliminar cuenta) -->
+  <div class="panel" id="vSesion" hidden>
+    <p class="msg" id="msg3" hidden role="status" aria-live="polite"></p>
+    <div class="card sesion">
+      <span class="mini">SESIÓN INICIADA</span>
+      <div class="cd" id="sNombre"></div>
+      <span class="mini" style="margin-top:6px">TU CÓDIGO DE AMIGO</span>
+      <div class="cd" id="sCodigo"></div>
+      <a class="btn" id="aJugar" href="go:inicio" style="margin-top:6px">¡A jugar!</a>
+      <a class="btn out" id="aVolver" href="go:perfil" hidden>Volver al perfil</a>
+      <button type="button" class="btn out" id="salir">Cerrar sesión</button>
+      <button type="button" class="link" id="borrar" style="color:var(--mal)">Eliminar mi cuenta</button>
+    </div>
+  </div>
+
+  <div class="panel" id="vCarga"><div class="card cargando" id="cargaTxt">Conectando…</div></div>
+</main>
+
+<script>
+/* Cuadrícula (12 columnas x 16 filas). Cada letra es un color de la paleta */
+const BASE = [
+"...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..",
+"ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss",
+"..ppp..ppp..","..fff..fff.."
+];
+const PAL = { k:"#151518", w:"#F2F4F8", h:"#8A5A33", e:"#3A2414", s:"#F2B98F", m:"#B8704F", M:"#7A1F1F", g:"#5A5A5E", l:"#C4C4C8", q:"#A0A0A5", z:"#0B0B0D", p:"#1A1A1E", f:"#F2F4F8", W:"#FFFFFF", r:"#FF8FA3", t:"#6EC6FF", v:"#FF2D2D", S:"#E3A67C", H:"#FF4D8D", y:"#FFC83D", R:"#E5322B", N:"#2B1B12", B:"#8B5A2B", b:"#5E3E22", C:"#C98F6B", U:"#2E86DE", O:"#FF8A3D", T:"#FF6B5E", G:"#44444A", c:"#3FD8C8" };
+
+const solo = (r1, r2, c1, c2, k) => { const o = []; for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) o.push([r, c, k]); return o; };
+const rects = l => l.map(x => '<rect x="' + x[1] + '" y="' + x[0] + '" width="1" height="1" fill="' + PAL[x[2]] + '"></rect>').join("");
+// brazo levantado (lado "R" o "L"), top = fila donde empieza la mano
+const arriba = (lado, top) => { const a = lado === "R" ? 10 : 0; return solo(top, top + 1, a, a + 1, "s").concat(solo(top + 2, top + 2, a, a + 1, "l"), solo(top + 3, 8, a, a + 1, "g")); };
+// brazo ladeado (para el saludo)
+const lado = top => solo(top, top + 1, 11, 12, "s").concat(solo(top + 2, top + 2, 11, 12, "l"), solo(top + 3, 8, 10, 11, "g"));
+// mano en la cara (para limpiarse las lágrimas)
+const cara = () => solo(4, 5, 9, 10, "s").concat(solo(6, 6, 10, 11, "l"), solo(7, 8, 10, 11, "g"));
+const chispa = (x, y, d) => '<g class="sp" style="animation-delay:' + d + 's"><rect x="' + (x + 1) + '" y="' + y + '" width="1" height="3" fill="#FFC83D"></rect><rect x="' + x + '" y="' + (y + 1) + '" width="3" height="1" fill="#FFC83D"></rect></g>';
+
+const papel = x => [[3,x,"W"],[3,x+1,"W"],[4,x,"q"],[4,x+1,"W"]];
+const corazon = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"H"],[y,x+2,"H"],[y+1,x,"H"],[y+1,x+1,"H"],[y+1,x+2,"H"],[y+2,x+1,"H"]]) + '</g>';
+const interrog = '<g class="q">' + rects([[-2,10,"y"],[-2,11,"y"],[-2,12,"y"],[-1,12,"y"],[0,11,"y"],[2,11,"y"]]) + '</g>';
+const sudor = (a, b, d) => '<g class="tA" style="animation-delay:' + d + 's">' + rects([[a[0],a[1],"t"]]) + '</g><g class="tB" style="animation-delay:' + d + 's">' + rects([[b[0],b[1],"t"]]) + '</g>';
+const SONRISA = [[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"]];
+
+const nota = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x+1,"y"],[y+1,x+1,"y"],[y+2,x,"y"],[y+2,x+1,"y"]]) + '</g>';
+const zeta = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"W"],[y,x+1,"W"],[y,x+2,"W"],[y+1,x+1,"W"],[y+2,x,"W"],[y+2,x+1,"W"],[y+2,x+2,"W"]]) + '</g>';
+const lineas = x => [0, .17, .34].map((d, i) => '<g class="linea" style="animation-delay:' + d + 's">' + rects([[2 + i * 3, x, "q"], [3 + i * 3, x, "q"]]) + '</g>').join("");
+const SIN_PIERNAS = [[13,2,9,"."],[14,2,9,"."],[15,2,9,"."]];
+
+const caraL = () => solo(4, 5, 1, 2, "s").concat(solo(6, 6, 0, 1, "l"), solo(7, 8, 0, 1, "g"));
+const cara2 = () => solo(5, 6, 9, 10, "s").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g"));
+const caraL2 = () => solo(5, 6, 1, 2, "s").concat(solo(7, 7, 0, 1, "l"), solo(8, 8, 0, 1, "g"));
+const excl = x => '<g class="vena">' + rects([[-2,x,"v"],[-1,x,"v"],[0,x,"v"],[2,x,"v"]]) + '</g>';
+const mariposa = '<g class="mari"><g class="m1">' + rects([[1,10,"H"],[1,12,"H"],[2,11,"z"],[3,10,"H"],[3,12,"H"]]) + '</g><g class="m2">' + rects([[2,10,"H"],[2,12,"H"],[2,11,"z"]]) + '</g></g>';
+const lagrimas = '<g class="t1">' + rects([[5,3,"t"],[5,8,"t"]]) + '</g><g class="t2">' + rects([[6,3,"t"],[6,8,"t"]]) + '</g><g class="t3">' + rects([[7,3,"t"],[7,8,"t"]]) + '</g><g class="t4">' + rects([[8,3,"t"],[8,8,"t"]]) + '</g>';
+const OJOS_CERRADOS = [[4,3,4,"e"],[4,7,8,"e"]];
+
+const MANOBOCA = [[6,7,"S"],[6,8,"S"],[7,7,"S"],[7,8,"S"],[7,9,"l"],[8,9,"l"],[7,10,"g"],[7,11,"g"],[8,10,"g"],[8,11,"g"]];
+const MANOBOCA2 = [[6,8,"S"],[6,9,"S"],[7,8,"S"],[7,9,"S"],[7,10,"l"],[8,10,"l"],[7,11,"g"],[8,11,"g"]];
+const copo = x => '<g class="nieve" style="left:0;animation-delay:' + (-x * .3) + 's">' + rects([[-2,x,"W"]]) + '</g>';
+const fantasma = '<g class="q">' + rects([[0,11,"W"],[0,12,"W"],[0,13,"W"]].concat(solo(1, 1, 10, 14, "W"), [[2,10,"W"],[2,11,"z"],[2,12,"W"],[2,13,"z"],[2,14,"W"]], solo(3, 3, 10, 14, "W"), [[4,10,"W"],[4,12,"W"],[4,14,"W"]])) + '</g>';
+const pizza = '<g class="q">' + rects(solo(1, 1, 11, 15, "B").concat([[2,11,"y"],[2,12,"R"],[2,13,"y"],[2,14,"R"],[2,15,"y"],[3,12,"y"],[3,13,"y"],[3,14,"y"],[4,13,"y"]])) + '</g>';
+const bombilla = '<g class="b1">' + rects(solo(-3, -2, 4, 6, "y").concat([[-1,5,"q"]])) + '</g><g class="b2">' + rects(solo(-3, -2, 4, 6, "W").concat([[-1,5,"q"],[-3,3,"y"],[-3,7,"y"],[-2,2,"y"],[-2,8,"y"]])) + '</g>';
+
+const barra = y => solo(y, y, -1, 12, "q").concat(solo(y - 2, y + 2, -1, -1, "z"), solo(y - 2, y + 2, 12, 12, "z"));
+const copaC = y => solo(y, y, 10, 13, "y").concat([[y+1,10,"y"],[y+1,11,"W"],[y+1,12,"y"],[y+1,13,"y"]], solo(y + 2, y + 3, 11, 12, "y"), [[y,9,"y"],[y+1,9,"y"],[y,14,"y"],[y+1,14,"y"]]);
+const confeti = (x, col, d) => '<g class="nieve" style="animation-delay:' + d + 's"><rect x="' + x + '" y="-3" width=".8" height=".8" fill="' + col + '"></rect></g>';
+const llamas = hs => [-1, 0, 11, 12].reduce((o, x, i) => { for (let k = 0; k < hs[i]; k++) o.push([14 - k, x, k < 2 ? "O" : "y"]); return o; }, []);
+const CAPA_A = solo(13, 16, 1, 10, "R").concat(solo(15, 16, 11, 12, "R"));
+const CAPA_B = solo(13, 16, 1, 10, "R").concat(solo(15, 16, -1, 0, "R"));
+
+const ACCIONES = [
+  { id:"saludo", n:"Saludar", d:"Saluda con la mano y mueve la boca al decir hola.", g:"¡Hola!", mod:[],
+    bo:solo(5, 6, 5, 6, "M"), r1:arriba("R", 3), r2:lado(3), extra:"" },
+  { id:"alegre", n:"Alegre", d:"Salta con los dos brazos arriba, se ríe y le salen destellos.", g:"¡Yupi!",
+    mod:[[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"],[5,2,2,"r"],[5,9,9,"r"]],
+    bo:solo(6, 6, 5, 6, "W"), r1:arriba("R", 3), r2:arriba("R", 4), l1:arriba("L", 3), l2:arriba("L", 4),
+    extra:"", fuera:chispa(-1, 0, 0) + chispa(11, 0, .4) + chispa(5, -2, .8) },
+  { id:"triste", n:"Triste", d:"Cabeza baja, llora y se limpia las lágrimas.", g:"Buaaa...",
+    mod:[[6,5,6,"s"],[5,5,6,"m"],[6,4,4,"m"],[6,7,7,"m"]],
+    bo:[], r1:arriba("R", 4), r2:cara(),
+    extra:'<g class="tA">' + rects([[5,3,"t"],[5,8,"t"]]) + '</g><g class="tB">' + rects([[6,3,"t"],[6,8,"t"]]) + '</g>' +
+          '<g class="tA" style="animation-delay:-.9s">' + rects([[5,8,"t"]]) + '</g>' },
+  { id:"brava", n:"Brava", d:"Se pone roja, tiembla, saca humo y levanta el puño.", g:"¡Grrr!",
+    mod:[[3,3,8,"e"],[6,4,7,"M"],[6,5,6,"W"]],
+    bo:solo(5, 5, 4, 7, "M"), r1:arriba("R", 3),
+    extra:'<rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect>',
+    fuera:'<g class="vena">' + rects([[1,10,"v"],[1,12,"v"],[2,11,"v"],[3,10,"v"],[3,12,"v"]]) + '</g>' +
+          '<g class="humo">' + rects([[1,0,"W"],[0,1,"W"],[1,1,"W"]]).replace(/fill="#FFFFFF"/g, 'fill="#E8E8EE"') + '</g>' },
+  { eval:true, id:"pulgar", n:"Pulgar arriba", d:"Guiña el ojo y sube el pulgar para decir 'vas muy bien'.", g:"¡Muy bien!",
+    mod:SONRISA, bo:[], gu:[[4,7,"e"],[4,8,"e"]],
+    r1:arriba("R", 5).concat(solo(3, 4, 11, 11, "s")), r2:arriba("R", 5).concat(solo(2, 3, 11, 11, "s")),
+    extra:"", fuera:chispa(11, -2, 0) + chispa(-1, 1, .5) },
+  { eval:true, id:"animo", n:"Ánimo", d:"Levanta el puño y grita para darle fuerzas a quien está en el examen.", g:"¡Tú puedes!",
+    mod:SONRISA, bo:solo(6, 6, 5, 6, "W"), r1:arriba("R", 3), extra:"", fuera:chispa(-1, 0, 0) + chispa(11, -1, .5) },
+  { eval:true, id:"pienso", n:"Pensando", d:"Mano en la barbilla, mueve la cabeza y le sale un signo de pregunta.", g:"Hmm...",
+    mod:[[6,5,6,"s"],[6,6,7,"m"]], bo:[],
+    r1:solo(5, 6, 9, 10, "S").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g")),
+    r2:solo(6, 7, 9, 10, "S").concat(solo(8, 8, 10, 11, "l")), extra:"", fuera:interrog },
+  { eval:true, id:"copion", n:"Copión", d:"Mira de lado, susurra y pasa un papelito con la respuesta.", g:"Psst... 🤫",
+    mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,"e"],[4,4,"w"],[4,7,"e"],[4,8,"w"]],
+    r1:arriba("R", 5).concat(papel(10)), r2:lado(5).concat(papel(11)),
+    extra:sudor([3,1], [4,1], 0) },
+  { eval:true, id:"amor", n:"Enamorado", d:"Ojos de corazón, mejillas rosadas y corazones que flotan.", g:"Ay, qué lindo 😍",
+    mod:[[4,3,4,"H"],[4,7,8,"H"],[5,2,3,"r"],[5,8,9,"r"],[6,4,7,"m"]], bo:[],
+    r1:arriba("R", 4), r2:cara(), extra:"", fuera:corazon(10, 2, 0) + corazon(-1, 1, .8) + corazon(10, -2, 1.6) },
+  { eval:true, id:"ups", n:"¡Ups!", d:"Se equivocó: tiembla, suda y levanta las manos del susto.", g:"¡Ups!",
+    mod:[[5,5,6,"M"],[6,5,6,"M"]], bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:sudor([1,1], [2,1], 0),
+    fuera:'<g class="vena">' + rects([[-2,10,"v"],[-1,10,"v"],[0,10,"v"],[2,10,"v"]]) + '</g>' },
+  { rand:true, id:"moto", n:"En moto", d:"Maneja una moto a toda velocidad: la rueda gira y se ven las líneas de velocidad.", g:"¡Brum brum!",
+    vb:"-1 -2 14 21", sy:18, mod:SIN_PIERNAS.concat(SONRISA, [[14,2,3,"p"],[14,8,9,"p"],[15,2,3,"f"],[15,8,9,"f"]]), bo:[],
+    atras:rects(solo(13, 13, -1, 12, "q").concat([[13,-1,"z"],[13,12,"z"],[14,4,"q"],[14,5,"y"],[14,6,"y"],[14,7,"q"]], solo(15, 15, 4, 7, "R"))) +
+          '<g class="ra">' + rects([[16,5,"z"],[16,6,"q"],[17,5,"q"],[17,6,"z"]]) + '</g><g class="rb">' + rects([[16,5,"q"],[16,6,"z"],[17,5,"z"],[17,6,"q"]]) + '</g>',
+    extra:"", fuera:lineas(-1) + lineas(12) },
+  { rand:true, id:"caballo", n:"A caballo", d:"Galopa montado en su caballo: sube y baja y las pezuñas se alternan.", g:"¡Arre!",
+    vb:"-1 -2 14 22", sy:19, mod:SIN_PIERNAS.concat(SONRISA, [[13,2,3,"p"],[13,8,9,"p"],[14,2,2,"p"],[14,9,9,"p"],[15,2,2,"f"],[15,9,9,"f"]]), bo:[],
+    atras:rects(solo(14, 16, 1, 10, "B").concat([[17,2,"B"],[17,3,"B"],[17,8,"B"],[17,9,"B"]])) +
+          '<g class="hA">' + rects([[18,2,"b"],[18,3,"b"]]) + '</g><g class="hB">' + rects([[18,8,"b"],[18,9,"b"]]) + '</g>',
+    extra:"", fuera:rects(solo(14, 16, 4, 7, "B").concat([[13,4,"b"],[13,7,"b"],[13,5,"R"],[13,6,"R"],[14,3,"N"],[14,8,"N"],[15,3,"N"],[15,8,"N"],[15,4,"z"],[15,7,"z"],[15,5,"W"],[15,6,"W"],[16,5,"W"],[16,6,"W"]], solo(17, 17, 4, 7, "C"), [[17,4,"z"],[17,7,"z"]])) },
+  { rand:true, ancha:true, id:"pesca", n:"Pescando", d:"Sostiene la caña, el flotador se mece y de vez en cuando salta un pez.", g:"¡Algo picó!",
+    vb:"-1 -2 19 18.8", mod:SONRISA, bo:[], r1:arriba("R", 5), r2:arriba("R", 6),
+    extra:"", fuera:rects([[4,12,"N"],[3,12,"N"],[2,13,"N"],[1,14,"N"],[0,14,"N"],[-1,15,"N"],[-2,16,"N"]]) +
+          '<rect x="16.4" y="-1.5" width=".2" height="14.5" fill="#F2F4F8"></rect>' +
+          rects(solo(15, 16, 12, 17, "U")) + '<g class="wA">' + rects([[15,12,"t"],[15,14,"t"],[15,16,"t"]]) + '</g><g class="wB">' + rects([[15,13,"t"],[15,15,"t"],[15,17,"t"]]) + '</g>' +
+          '<g class="bob">' + rects([[13,16,"W"],[14,16,"v"]]) + '</g>' +
+          '<g class="pez">' + rects([[14,12,"O"],[14,13,"O"],[14,14,"y"]]) + '</g>' },
+  { rand:true, id:"baile", n:"Bailando", d:"Salta al ritmo, alterna los brazos arriba y sueltan notas musicales.", g:"¡Qué ritmo! 🎵",
+    mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:"", fuera:nota(10, 1, 0) + nota(-1, 0, .8) + nota(10, -2, 1.6) },
+  { rand:true, id:"dormido", n:"Dormido", d:"Se queda dormido: respira lento, ronca y le salen las Zzz.", g:"Zzz...",
+    mod:[[4,3,4,"e"],[4,7,8,"e"]], bo:solo(5, 6, 5, 6, "M"), extra:"", fuera:zeta(10, 2, 0) + zeta(10, -2, 1.2) },
+  { mas:true, id:"ceja", n:"Ceja levantada", d:"Mira de lado con una ceja arriba y media sonrisa, como dudando.", g:"¿En serio? 🤨",
+    mod:[[3,3,8,"e"],[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"m"],[5,7,7,"m"]], bo:[], gu:[[3,6,8,"h"],[2,6,8,"e"]], extra:"", fuera:interrog },
+  { mas:true, id:"lloron", n:"Llorón", d:"Llora a mares con las manos en los ojos, la boca abierta y un charco en el piso.", g:"¡Buaaaa!",
+    vb:"-1 -2 14 19.8", sy:17, mod:OJOS_CERRADOS.concat([[5,4,7,"M"],[6,4,7,"M"]]), bo:[[5,4,"s"],[5,7,"s"],[6,4,"s"],[6,7,"s"]],
+    r1:cara(), r2:cara2(), l1:caraL(), l2:caraL2(), extra:lagrimas, fuera:rects(solo(16, 16, 1, 10, "U")) },
+  { mas:true, id:"amoroso", n:"Amoroso", d:"Cierra los ojos, se sonroja y manda un beso volado con la mano.", g:"Muac 😘",
+    vb:"-1 -2 16 18.8", mod:OJOS_CERRADOS.concat([[5,2,3,"r"],[5,8,9,"r"],[6,5,6,"H"]]), bo:[],
+    r1:[[6,7,"S"],[6,8,"S"],[7,7,"S"],[7,8,"S"],[7,9,"l"],[8,9,"l"],[7,10,"g"],[7,11,"g"],[8,10,"g"],[8,11,"g"]], r2:lado(5),
+    extra:"", fuera:'<g class="beso">' + rects([[2,12,"H"],[2,14,"H"],[3,12,"H"],[3,13,"H"],[3,14,"H"],[4,13,"H"]]) + '</g>' + corazon(-1, 1, .6) },
+  { mas:true, id:"tonto", n:"Tonto", d:"Pone ojos locos, saca la lengua y agita los brazos sin sentido.", g:"¡Bleeeh! 🤪",
+    mod:[[6,4,7,"M"],[7,5,6,"H"]], bo:[[8,5,"H"],[8,6,"H"]], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"w"],[4,8,8,"e"]],
+    r1:arriba("R", 4), l1:arriba("L", 4), extra:"" },
+  { mas:true, id:"carro", n:"En carro", d:"Maneja un carro rojo con volante, faros y llantas que giran.", g:"¡Piii piii!",
+    vb:"-1 -2 14 19.8", sy:17, mod:SIN_PIERNAS.concat(SONRISA), bo:[], extra:"",
+    fuera:rects(solo(-2, -1, -1, 12, "R").concat(solo(0, 10, -1, -1, "R"), solo(0, 10, 12, 12, "R"),
+            [[8,4,"z"],[8,5,"z"],[8,6,"z"],[8,7,"z"],[9,3,"s"],[9,8,"s"],[10,4,"z"],[10,5,"z"],[10,6,"z"],[10,7,"z"]],
+            solo(11, 13, -1, 12, "R"), solo(11, 11, 0, 11, "T"), [[12,0,"y"],[12,1,"y"],[12,10,"y"],[12,11,"y"]],
+            solo(12, 12, 4, 7, "q"), solo(13, 13, 4, 7, "z"), solo(14, 14, -1, 12, "q"),
+            solo(14, 16, -1, 1, "z"), solo(14, 16, 10, 12, "z"))) +
+          '<g class="ra">' + rects([[15,0,"q"],[15,11,"z"]]) + '</g><g class="rb">' + rects([[15,0,"z"],[15,11,"q"]]) + '</g>' },
+  { mas:true, id:"distraido", n:"Distraído", d:"Silba mirando para todos lados, siguiendo una mariposa que pasa.", g:"Mmm... ¿qué?",
+    vb:"-1 -2 16 18.8", mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"e"],[4,8,8,"w"]],
+    extra:"", fuera:mariposa + nota(-1, 1, 0) },
+  { mas:true, id:"sorpresa", n:"Sorprendido", d:"Se asusta: ojos enormes, boca abierta, manos en la cara y signos de exclamación.", g:"¡¿Qué?!",
+    mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,5,6,"M"]], bo:[],
+    r1:cara(), l1:caraL(), extra:"", fuera:excl(10) + excl(0) },
+  { mas:true, id:"cool", n:"Cool", d:"Con lentes oscuros, sonrisa de lado y se acomoda los lentes con la mano.", g:"Qué cool 😎",
+    mod:[[4,3,8,"z"],[6,4,7,"m"],[5,8,8,"m"]], bo:[], gu:[[4,4,"W"],[4,7,"W"]],
+    r1:arriba("R", 4), r2:cara(), extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 0, .7) },
+  { rx:true, id:"neg", n:"Diciendo no", d:"Mueve la cabeza de lado a lado y el dedo, con cara seria.", g:"¡No, no, no!",
+    mod:[[3,3,8,"e"],[6,4,7,"m"]], bo:[], r1:arriba("R", 4), r2:lado(4), extra:"" },
+  { rx:true, id:"afirma", n:"Diciendo sí", d:"Asiente con la cabeza una y otra vez con una gran sonrisa.", g:"¡Sí, sí, sí!",
+    mod:SONRISA, bo:[], extra:"", fuera:chispa(11, -1, 0) },
+  { rx:true, id:"miedo", n:"Con miedo", d:"Tiembla con los dientes castañeando, mira para todos lados y lo asusta un fantasma.", g:"¡Aaah! 😱",
+    vb:"-1 -2 16 18.8", mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,4,4,"M"],[6,5,5,"m"],[6,6,6,"M"],[6,7,7,"m"]],
+    bo:[[6,4,4,"m"],[6,5,5,"M"],[6,6,6,"m"],[6,7,7,"M"]], gl:[[5,3,3,"e"],[5,4,4,"w"],[5,7,7,"e"],[5,8,8,"w"]],
+    r1:cara2(), l1:caraL2(), extra:sudor([3,1], [4,1], 0), fuera:fantasma },
+  { rx:true, id:"ansiedad", n:"Ansiedad", d:"Se come las uñas, mira nervioso a todos lados y una nube lo sigue.", g:"Uy, uy, uy...",
+    mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"e"],[4,8,8,"w"]],
+    r1:MANOBOCA, r2:MANOBOCA2, extra:sudor([3,1], [4,1], 0) + sudor([2,10], [3,10], .5),
+    fuera:'<g class="nube">' + rects(solo(-2, -2, 4, 7, "q").concat(solo(-1, -1, 3, 8, "q"))) + '</g>' },
+  { rx:true, id:"frio", n:"Con frío", d:"Se abraza, le castañean los dientes, tiene la nariz roja y cae nieve.", g:"Brrr... 🥶",
+    mod:OJOS_CERRADOS.concat([[5,5,6,"T"],[6,4,7,"M"],[10,2,9,"G"],[11,2,9,"G"],[10,2,2,"s"],[11,9,9,"s"]]), bo:[[6,4,7,"W"]],
+    extra:"", fuera:copo(-1) + copo(3) + copo(7) + copo(11) },
+  { rx:true, id:"enfermo", n:"Enfermo", d:"Está verde, con termómetro en la boca, la mano en la frente y muy decaído.", g:"Achú... 🤒",
+    mod:OJOS_CERRADOS.concat([[5,5,6,"T"],[6,5,6,"M"]]), bo:[], r1:cara(),
+    extra:'<rect class="rojo" x="2" y="3" width="8" height="4" fill="#7BC96F"></rect>' + rects([[6,7,"W"],[6,8,"W"],[6,9,"W"],[6,10,"v"]]) + sudor([3,1], [4,1], 0) },
+  { rx:true, id:"hambre", n:"Con hambre", d:"Se le hace agua la boca, estira la mano hacia una pizza y le ruge la panza.", g:"¡Tengo hambre! 🍕",
+    vb:"-1 -2 16 18.8", mod:[[6,4,7,"M"]], bo:[], r1:lado(6), r2:lado(5), extra:sudor([7,4], [8,4], 0), fuera:pizza },
+  { rx:true, id:"idea", n:"¡Una idea!", d:"Levanta el dedo y se le prende un foco sobre la cabeza.", g:"¡Ya sé!",
+    vb:"-1 -3 14 19.8", mod:SONRISA, bo:[], r1:arriba("R", 1), r2:arriba("R", 2), extra:"", fuera:bombilla },
+  { her:true, id:"ejer", n:"Haciendo ejercicio", d:"Levanta una pesa con los dos brazos, aprieta los dientes y se pone rojo del esfuerzo.", g:"¡Uno más! 💪",
+    vb:"-1 -4 14 20.8", mod:[[3,3,8,"e"],[6,4,7,"W"]], bo:[],
+    r1:arriba("R", 0).concat(barra(-1)), r2:arriba("R", 3).concat(barra(2)), l1:arriba("L", 0), l2:arriba("L", 3),
+    extra:'<rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect>' },
+  { her:true, id:"copa", n:"Ganando la copa", d:"Levanta un trofeo dorado, salta de alegría y le cae confeti.", g:"¡Campeón! 🏆",
+    vb:"-1 -3 16 19.8", mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[],
+    r1:arriba("R", 3).concat(copaC(-1)), r2:arriba("R", 2).concat(copaC(-2)), l1:arriba("L", 3), l2:arriba("L", 4),
+    extra:"", fuera:confeti(-1, "#FF4D4D", 0) + confeti(2, "#3FD8C8", .5) + confeti(5, "#FFC83D", 1) + confeti(8, "#8E5BD6", 1.5) + confeti(12, "#5DB33A", .3) + confeti(14, "#FF4D8D", 1.1) },
+  { her:true, id:"super", n:"Poder máximo", d:"Se le para el pelo dorado, lo rodea un aura de fuego con rayos y grita levitando.", g:"¡Poder máximo! ⚡",
+    vb:"-1 -4 14 20.8", mod:[[0,3,8,"y"],[1,2,9,"y"],[2,2,9,"y"],[3,2,9,"y"],[4,4,4,"c"],[4,7,7,"c"],[6,4,7,"W"]], bo:solo(5, 6, 5, 6, "M"),
+    atras:'<rect class="rojo" x="-1" y="-4" width="14" height="20.8" fill="#FFC83D"></rect>' +
+          '<g class="m1">' + rects(llamas([7,5,5,7])) + '</g><g class="m2">' + rects(llamas([5,8,8,5])) + '</g>' +
+          '<g class="b1">' + rects([[2,-1,"c"],[3,0,"c"],[4,-1,"c"],[5,0,"c"],[4,12,"c"],[5,11,"c"],[6,12,"c"],[7,11,"c"]]) + '</g>' +
+          '<g class="b2">' + rects([[6,-1,"c"],[7,0,"c"],[8,-1,"c"],[9,0,"c"],[1,12,"c"],[2,11,"c"],[3,12,"c"],[4,11,"c"]]) + '</g>',
+    extra:'<g class="m1">' + rects([[-1,3,"y"],[-1,5,"y"],[-1,6,"y"],[-1,8,"y"],[-2,4,"y"],[-2,7,"y"],[-3,5,"y"]]) + '</g><g class="m2">' + rects([[-1,3,"y"],[-1,4,"y"],[-1,7,"y"],[-1,8,"y"],[-2,3,"y"],[-2,6,"y"],[-2,8,"y"],[-3,4,"y"],[-3,7,"y"]]) + '</g>' },
+  { her:true, id:"heroe", n:"Superhéroe", d:"Se pone el antifaz con la mano y levanta el puño con la capa al viento.", g:"¡Súper Gamer! 🦸",
+    mod:SONRISA.concat([[9,5,6,"y"],[10,5,6,"y"]]), bo:[], gu:[[4,2,"R"],[4,5,"R"],[4,6,"R"],[4,9,"R"]],
+    r1:arriba("R", 3), r2:cara(),
+    atras:'<g class="m1">' + rects(CAPA_A) + '</g><g class="m2">' + rects(CAPA_B) + '</g>', extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 1, .6) }
+];
+function dibujar(a) {
+  const g = BASE.map(f => f.split(""));
+  a.mod.forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [], rd = [], ld = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => {
+    if (k === ".") return;
+    const x = [r, c, k];
+    if (r <= 6) cab.push(x); else if (r <= 13 && c >= 10) rd.push(x); else if (r <= 13 && c <= 1) ld.push(x); else cue.push(x);
+  }));
+  const ojos = [[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]];
+  return '<svg class="' + a.id + '" viewBox="' + (a.vb || "-1 -2 14 18.8") + '" shape-rendering="crispEdges" role="img" aria-label="' + a.n + '">' +
+    '<rect x="2" y="' + (a.sy || 16) + '" width="8" height=".6" fill="#000" opacity=".4"></rect><g class="atras">' + (a.atras || "") + '</g>' +
+    '<g class="mov">' + rects(cue) +
+    '<g class="cab">' + rects(cab) + '<g class="oc">' + rects(ojos) + '</g><g class="bo">' + rects(a.bo) + '</g>' + a.extra + '</g>' +
+    '<g class="ld">' + rects(ld) + '</g><g class="l1">' + rects(a.l1 || []) + '</g><g class="l2">' + rects(a.l2 || []) + '</g>' +
+    '<g class="rd">' + rects(rd) + '</g><g class="r1">' + rects(a.r1 || []) + '</g><g class="r2">' + rects(a.r2 || []) + '</g>' +
+    '</g><g class="fuera">' + (a.fuera || "") + '</g></svg>';
+}
+const A = ACCIONES.find(a => a.id === "heroe");
+/* capa más limpia: se agita a los costados, detrás del personaje */
+A.atras = '<g class="m1">' + rects(solo(8, 15, -1, 0, "R").concat(solo(8, 14, 11, 12, "R"), solo(15, 16, 0, 1, "R"), solo(15, 16, 10, 11, "R"))) + '</g>' +
+          '<g class="m2">' + rects(solo(8, 16, -1, 0, "R").concat(solo(8, 15, 11, 12, "R"), solo(16, 16, 1, 2, "R"), solo(16, 16, 9, 10, "R"))) + '</g>';
+A.vb = "-2 -2 16 19.2";
+document.getElementById("pj").innerHTML = dibujar(A);
+</script>
+
+<script type="module">
+/* ================= TUS DATOS ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+const SDK = "https://www.gstatic.com/firebasejs/10.12.2/";
+const PANTALLA_INICIO = "go:inicio";   // a dónde va quien ya inició sesión
+/* ============================================== */
+
+/* En esta pantalla NO se recarga la página al sincronizar: Inicio leerá el progreso ya guardado.
+   yaFui = ya se redirigió (nunca se redirige dos veces); corriendo = ya hay un inicio de sesión en marcha. */
+window.IG_SIN_RECARGA = true;
+let yaFui = false, corriendo = false;
+
+const $ = id => document.getElementById(id);
+const leer = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
+const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const borrarLocal = k => { try { localStorage.removeItem(k); } catch (e) {} };
+
+/* título que aparece letra por letra */
+$("ti").innerHTML = "Inglés".split("").map((c, i) => '<span style="animation-delay:' + (i * .09) + 's">' + c + '</span>').join("") +
+  "Gamer".split("").map((c, i) => '<span class="g" style="animation-delay:' + ((6 + i) * .09) + 's">' + c + '</span>').join("");
+const FL = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>';
+$("atras").innerHTML = FL;
+const OJO_ON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+const OJO_OFF = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A9.7 9.7 0 0 1 12 5c6 0 10 7 10 7a17 17 0 0 1-3.2 3.9M6.6 6.6A17 17 0 0 0 2 12s4 7 10 7a9.6 9.6 0 0 0 4.3-1"></path><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path></svg>';
+$("ojo").innerHTML = OJO_ON;
+
+let modo = "entrar", F = null, user = null, ocupado = false, vistaAct = "cargando";
+const sesionLocal = leer("ingles_gamer_sesion");
+/* Si Perfil abre esta pantalla para "Cerrar sesión / Eliminar cuenta", no se salta al Inicio */
+let soloCuenta = false; try { soloCuenta = localStorage.getItem("ingles_gamer_acceso_modo") === "cuenta"; localStorage.removeItem("ingles_gamer_acceso_modo"); } catch (e) {}
+
+function msg(t, tipo) {
+  ["msg0", "msg", "msg2", "msg3"].forEach(id => { const m = $(id); if (!t) { m.hidden = true; return; } m.textContent = t; m.className = "msg " + (tipo || "mal"); m.hidden = false; });
+}
+function enProceso(b, si) { if (!b.dataset.t) b.dataset.t = b.textContent; b.disabled = si; b.textContent = si ? "Un momento…" : b.dataset.t; }
+const ERR = {
+  "auth/email-already-in-use": "Ese correo ya tiene cuenta. Toca «Entrar».",
+  "auth/invalid-email": "Revisa el correo: no parece válido.",
+  "auth/weak-password": "La contraseña es muy corta. Usa al menos 6 caracteres.",
+  "auth/invalid-credential": "Correo o contraseña incorrectos.",
+  "auth/wrong-password": "Correo o contraseña incorrectos.",
+  "auth/user-not-found": "Correo o contraseña incorrectos.",
+  "auth/too-many-requests": "Demasiados intentos. Espera unos minutos y vuelve a probar.",
+  "auth/network-request-failed": "Sin internet. Revisa tu conexión e inténtalo de nuevo.",
+  "auth/requires-recent-login": "Por seguridad, cierra sesión, vuelve a entrar y repite esto."
+};
+const errTxt = e => ERR[e && e.code] || (e && e.code === "permission-denied" ? "No tienes permiso para hacer esto." : "Algo salió mal. Inténtalo de nuevo.");
+
+function vista(v) {
+  vistaAct = v; document.body.dataset.v = v;
+  $("vBienv").hidden = v !== "bienv"; $("vForm").hidden = v !== "form"; $("vApodo").hidden = v !== "apodo";
+  $("vSesion").hidden = v !== "sesion"; $("vCarga").hidden = v !== "cargando";
+  $("atras").hidden = v !== "form";
+  $("sl").textContent = v === "sesion" ? "Ya apareces en el ranking y puedes agregar amigos." : v === "apodo" ? "Elige el apodo con el que te verán los demás." : "Tu aventura de inglés empieza aquí";
+  if (v === "form") pintarModo();
+  $("aVolver").hidden = !soloCuenta; $("aJugar").hidden = soloCuenta;
+  window.scrollTo(0, 0);
+}
+function pintarModo() {
+  const crear = modo === "crear";
+  $("tEntrar").classList.toggle("on", !crear); $("tCrear").classList.toggle("on", crear);
+  $("tEntrar").setAttribute("aria-selected", String(!crear)); $("tCrear").setAttribute("aria-selected", String(crear));
+  $("cApodo").hidden = !crear; $("olvide").hidden = crear;
+  $("clave").autocomplete = crear ? "new-password" : "current-password";
+  $("btnEnviar").dataset.t = crear ? "Crear cuenta" : "Entrar"; $("btnEnviar").textContent = $("btnEnviar").dataset.t;
+}
+/* redirige al Inicio UNA sola vez */
+function irAlInicio() {
+  if (yaFui) return; yaFui = true;
+  const a = document.createElement("a"); a.href = PANTALLA_INICIO; document.body.appendChild(a); a.click();
+}
+
+const apodoOk = a => /^[A-Za-z0-9_]{3,14}$/.test(a);
+/* ===== filtro de apodos (versión corta; pega aquí tu FILTRO completo si prefieres las listas largas) ===== */
+const FILTRO = (function () {
+  const SAFE = ["hijueputa","jueputa","gonorrea","malparid","mierd","carajo","pendej","cabron","maricon","joder","culiao","huevon","pirobo","vagina","penis","tetas","masturb","porn","hentai","violador","pedofil","prostitut","sicario","cocaina","marihuana","idiot","imbecil","estupid","suicid","matate","terroris","hitler","nazi","nigg","faggot","fvck","motherfuk","bitch","asshole","dickhead","bastard","whore","slut","stupid","rapist","whatsapp","instagram","tiktok","snapchat","discord","telegram","facebook","gmail","http","www","inglesgamer","moderador","administrador"];
+  const RISKY = ["puta","puto","culo","pene","pija","polla","verga","marica","sex","shit","cunt","fuk","admin"];
+  const WEAK = ["ano","anal","paja","teta","perra","zorra","hdp","hptm","ctm","wtf","stfu","kys","ass","dick","cock","tits","xxx","nude","rape","loser","moron","dumb","wsp","insta","dm","mod","staff","oficial"];
+  const ALLOW = ["computa","computo","disputa","imputa","calculo","espectaculo","vehiculo","articulo","ridiculo","musculo","vinculo","penelope","pijama","vergara","sexto","sexta","essex","fucsia","class","glass","madmin"];
+  const quitar = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const leet = s => s.replace(/0/g,"o").replace(/1/g,"i").replace(/3/g,"e").replace(/4/g,"a").replace(/5/g,"s").replace(/7/g,"t").replace(/8/g,"b");
+  const fon = s => s.replace(/ph/g,"f").replace(/qu/g,"k").replace(/q/g,"k").replace(/c([ei])/g,"s$1").replace(/c/g,"k").replace(/z/g,"s").replace(/v/g,"b");
+  const aRe = (w, full) => { const p = fon(quitar(w)); let src = "", i = 0; while (i < p.length) { let j = i; while (j < p.length && p[j] === p[i]) j++; src += p[i] + "{" + (j - i) + ",}"; i = j; } return new RegExp(full ? "^" + src + "$" : src, "g"); };
+  const cs = SAFE.map(w => aRe(w)), cr = RISKY.map(w => aRe(w)), cw = WEAK.map(w => aRe(w, true)), ca = ALLOW.map(w => aRe(w));
+  const test = (re, s) => { re.lastIndex = 0; return re.test(s); };
+  const tapar = s => { ca.forEach(re => { re.lastIndex = 0; s = s.replace(re, m => "#".repeat(m.length)); }); return s; };
+  function check(x) {
+    const s = String(x == null ? "" : x).trim().replace(/\s+/g, " ");
+    if (s.length < 3) return { ok:false, why:"corto" };
+    if (s.length > 14) return { ok:false, why:"largo" };
+    if (!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9 ._-]+$/.test(s)) return { ok:false, why:"chars" };
+    if ((s.match(/[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/g) || []).length < 2) return { ok:false, why:"letras" };
+    if ((s.match(/[0-9]/g) || []).length > 4) return { ok:false, why:"digitos" };
+    if (/\.(com|net|org|co|io|me|tv|gg|xyz|app)\b/i.test(s)) return { ok:false, why:"contacto" };
+    const base = quitar(s);
+    for (const v of [leet(base), leet(base).replace(/v/g, "u")]) {
+      const toks = v.split(/[ ._-]+/).filter(Boolean).map(fon), junto = tapar(toks.join(""));
+      if (toks.some(t => cw.some(re => test(re, t)))) return { ok:false, why:"ofensivo" };
+      if (cs.some(re => test(re, junto)) || toks.some(t => cr.some(re => test(re, tapar(t))))) return { ok:false, why:"ofensivo" };
+    }
+    return { ok:true };
+  }
+  const MSG = { corto:"Escribe al menos 3 caracteres.", largo:"Máximo 14 caracteres.", chars:"Solo letras, números, espacios, punto, guion y guion bajo.", letras:"Usa al menos 2 letras.", digitos:"Máximo 4 números. No pongas teléfonos.", contacto:"No pongas teléfonos, redes sociales ni enlaces.", ofensivo:"Ese apodo no está permitido. Elige otro." };
+  return { check:check, ok:s => check(s).ok, mensaje:w => MSG[w] || MSG.ofensivo };
+})();
+function apodoValido(a) {
+  if (!apodoOk(a)) return "El apodo debe tener de 3 a 14 letras, números o guion bajo.";
+  const r = FILTRO.check(a); if (!r.ok) return FILTRO.mensaje(r.why);
+  return "";
+}
+function nuevoCodigo(n) {
+  const al = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; let s = "";
+  const b = new Uint32Array(4); (window.crypto || {}).getRandomValues ? crypto.getRandomValues(b) : b.forEach((_, i) => b[i] = Math.floor(Math.random() * 4e9));
+  for (let i = 0; i < 4; i++) s += al[b[i] % al.length];
+  return (n.replace(/[^A-Za-z]/g, "").toUpperCase().slice(0, 6) || "GAMER") + "-" + s;
+}
+function avatarLocal() { const p = leer("ingles_gamer_perfil"); return p && Number(p.a) >= 0 && Number(p.a) < 10 ? Math.min(9, Math.max(0, Number(p.a))) : 0; }
+
+/* crea la ficha pública (3 documentos a la vez; si el apodo o el código ya existen, no se crea nada) */
+async function crearFicha(apodo) {
+  for (let intento = 0; intento < 3; intento++) {
+    const cod = nuevoCodigo(apodo), b = F.writeBatch(F.db);
+    b.set(F.doc(F.db, "jugadores", user.uid), { n: apodo, nl: apodo.toLowerCase(), av: avatarLocal(), aura: 0, sem: 0, mes: 0, est: 0, racha: 0, niv: 0, med: [], cod, ult: F.serverTimestamp(), act: "", vis: true });
+    b.set(F.doc(F.db, "apodos", apodo.toLowerCase()), { uid: user.uid });
+    b.set(F.doc(F.db, "codigos", cod), { uid: user.uid });
+    try { await b.commit(); return { n: apodo, cod }; }
+    catch (e) {
+      if (e.code !== "permission-denied") throw e;
+      const ap = await F.getDoc(F.doc(F.db, "apodos", apodo.toLowerCase()));
+      if (ap.exists()) { const er = new Error("apodo"); er.code = "apodo-ocupado"; throw er; }
+    }
+  }
+  throw new Error("codigo");
+}
+function marcarSesion(f) {
+  guardar("ingles_gamer_sesion", { uid: user.uid, n: f.n, cod: f.cod });
+  const per = leer("ingles_gamer_perfil") || {}; per.n = f.n; if (per.a === undefined) per.a = f.av || 0; guardar("ingles_gamer_perfil", per);   // el apodo de la cuenta es tu nombre en toda la app
+}
+/* esta tarjeta (con el código de amigo) SOLO se usa cuando Perfil abre esta pantalla para cerrar sesión / eliminar cuenta */
+function mostrarSesion(f) { $("sNombre").textContent = f.n; $("sCodigo").textContent = f.cod; vista("sesion"); }
+
+/* Entrada normal al juego: se guarda la sesión, se sincroniza el progreso y se va directo al Inicio.
+   Mientras tanto solo se ve el personaje. */
+async function entrarAlJuego(f) {
+  marcarSesion(f); vista("cargando");
+  try { if (window.IGNube) await window.IGNube.subirYa(); } catch (e) {}
+  irAlInicio();
+}
+
+/* ¿ya hay sesión? */
+async function alIniciar(u) {
+  if (corriendo || yaFui) return;
+  user = u; msg("");
+  if (!u) { borrarLocal("ingles_gamer_sesion"); vista("bienv"); return; }
+  corriendo = true;
+  vista("cargando");
+  try {
+    const s = await F.getDoc(F.doc(F.db, "jugadores", u.uid));
+    if (!s.exists()) { vista("apodo"); return; }
+    const f = s.data();
+    if (soloCuenta) { marcarSesion(f); mostrarSesion(f); return; }
+    await entrarAlJuego(f);
+  } catch (e) {
+    /* sin internet pero ya había entrado antes: se deja pasar */
+    if (sesionLocal && sesionLocal.uid === u.uid && !soloCuenta) { irAlInicio(); return; }
+    msg(errTxt(e)); vista("bienv");
+  } finally { corriendo = false; }
+}
+
+/* ---- eventos ---- */
+$("bCrear").onclick = () => { modo = "crear"; msg(""); vista("form"); };
+$("bEntrar").onclick = () => { modo = "entrar"; msg(""); vista("form"); };
+$("atras").onclick = () => { msg(""); vista("bienv"); };
+$("tEntrar").onclick = () => { modo = "entrar"; msg(""); pintarModo(); };
+$("tCrear").onclick = () => { modo = "crear"; msg(""); pintarModo(); };
+$("ojo").onclick = () => { const i = $("clave"), ver = i.type === "password"; i.type = ver ? "text" : "password"; $("ojo").innerHTML = ver ? OJO_OFF : OJO_ON; $("ojo").setAttribute("aria-label", ver ? "Ocultar contraseña" : "Mostrar contraseña"); };
+
+$("formAcceso").addEventListener("submit", async e => {
+  e.preventDefault(); if (ocupado) return;
+  if (!F) { msg("No pudimos conectar con el servidor. Revisa tu internet e inténtalo de nuevo."); return; }
+  const correo = $("correo").value.trim(), clave = $("clave").value, apodo = $("apodo").value.trim();
+  if (!correo || !clave) { msg("Escribe tu correo y tu contraseña."); return; }
+  if (modo === "crear") { const v = apodoValido(apodo); if (v) { msg(v); return; } if (clave.length < 6) { msg(ERR["auth/weak-password"]); return; } }
+  ocupado = true; enProceso($("btnEnviar"), true); msg("");
+  try {
+    if (modo === "crear") {
+      const r = await F.createUserWithEmailAndPassword(F.auth, correo, clave); user = r.user;
+      try { const f = await crearFicha(apodo); if (soloCuenta) { marcarSesion(f); mostrarSesion(f); } else await entrarAlJuego(f); }
+      catch (er) {
+        vista("apodo");
+        if (er.code === "apodo-ocupado") { $("apodo2").value = apodo; msg("Tu cuenta ya está creada, pero ese apodo ya lo usa otra persona. Elige otro."); }
+        else msg("Tu cuenta está creada. Falta guardar tu apodo; inténtalo otra vez.");
+      }
+    } else { await F.signInWithEmailAndPassword(F.auth, correo, clave); ocupado = false; await alIniciar(F.auth.currentUser); }
+  } catch (er) { msg(errTxt(er)); }
+  ocupado = false; enProceso($("btnEnviar"), false);
+});
+
+$("formApodo").addEventListener("submit", async e => {
+  e.preventDefault(); if (ocupado || !F || !user) return;
+  const apodo = $("apodo2").value.trim(), v = apodoValido(apodo); if (v) { msg(v); return; }
+  ocupado = true; enProceso($("btnApodo"), true); msg("");
+  try { const f = await crearFicha(apodo); if (soloCuenta) { marcarSesion(f); mostrarSesion(f); } else await entrarAlJuego(f); }
+  catch (er) { msg(er.code === "apodo-ocupado" ? "Ese apodo ya lo usa otra persona. Elige otro." : errTxt(er)); }
+  ocupado = false; enProceso($("btnApodo"), false);
+});
+
+$("olvide").onclick = async () => {
+  const c = $("correo").value.trim(); if (!c) { msg("Escribe tu correo arriba y vuelve a tocar «Olvidé mi contraseña»."); $("correo").focus(); return; }
+  if (!F) { msg("No pudimos conectar con el servidor."); return; }
+  try { await F.sendPasswordResetEmail(F.auth, c); msg("Si ese correo tiene cuenta, te enviamos un enlace para cambiar la contraseña. Revisa también el spam.", "bien"); }
+  catch (er) { msg(er.code === "auth/invalid-email" ? ERR["auth/invalid-email"] : errTxt(er)); }
+};
+$("salir").onclick = async () => {
+  try { if (window.IGNube) await window.IGNube.subirYa(); }
+  catch (e) { msg("No se pudo guardar tu progreso en la nube, así que NO cerré tu sesión para que no lo pierdas. Revisa tu internet e inténtalo otra vez."); return; }
+  try { await F.signOut(F.auth); } catch (e) {} borrarLocal("ingles_gamer_sesion"); soloCuenta = false; modo = "entrar"; $("clave").value = ""; vista("bienv"); };
+let confirmaBorrar = false;
+$("borrar").onclick = async () => {
+  if (!confirmaBorrar) { confirmaBorrar = true; $("borrar").textContent = "Toca otra vez para borrar tu cuenta para siempre"; setTimeout(() => { confirmaBorrar = false; $("borrar").textContent = "Eliminar mi cuenta"; }, 4000); return; }
+  confirmaBorrar = false;
+  try {
+    const s = await F.getDoc(F.doc(F.db, "jugadores", user.uid)); const f = s.exists() ? s.data() : null;
+    if (f) { const b = F.writeBatch(F.db); b.delete(F.doc(F.db, "apodos", f.nl)); b.delete(F.doc(F.db, "codigos", f.cod)); b.delete(F.doc(F.db, "jugadores", user.uid)); await b.commit(); }
+    await F.deleteUser(user); borrarLocal("ingles_gamer_sesion"); user = null; soloCuenta = false; modo = "entrar"; vista("bienv");
+  } catch (er) { msg(errTxt(er)); $("borrar").textContent = "Eliminar mi cuenta"; }
+};
+
+/* ---- conectar con Firebase ---- */
+(async () => {
+  try {
+    const [Ap, Au, Fs] = await Promise.all([import(SDK + "firebase-app.js"), import(SDK + "firebase-auth.js"), import(SDK + "firebase-firestore.js")]);
+    const app = Ap.getApps().length ? Ap.getApp() : Ap.initializeApp(firebaseConfig);
+    F = { auth: Au.getAuth(app), db: Fs.getFirestore(app), createUserWithEmailAndPassword: Au.createUserWithEmailAndPassword, signInWithEmailAndPassword: Au.signInWithEmailAndPassword,
+      sendPasswordResetEmail: Au.sendPasswordResetEmail, signOut: Au.signOut, deleteUser: Au.deleteUser, doc: Fs.doc, getDoc: Fs.getDoc, writeBatch: Fs.writeBatch, serverTimestamp: Fs.serverTimestamp };
+    Au.onAuthStateChanged(F.auth, u => { if (ocupado) return; alIniciar(u); });
+  } catch (e) {
+    /* sin conexión con el servidor: si ya había entrado antes, se deja pasar; si no, se muestra la bienvenida */
+    if (sesionLocal && !soloCuenta) { irAlInicio(); return; }
+    vista("bienv"); msg("No pudimos conectar con el servidor. Revisa tu internet e inténtalo de nuevo.");
+  }
+})();
+window.addEventListener("storage", e => { if (e.key === "ingles_gamer_tema") aplicarTema(temaActual()); });
+</script>
+
+<script type="module">
+/* ===== NUBE: guarda tu progreso en tu cuenta y lo recupera. Este bloque va UNA sola vez, justo antes de </body>. ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const CONFIG = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+
+(function () {
+  try {
+    const PREF = "ingles_gamer_", META = "ig_nube_meta";
+    const SKIP = /_(sesion|tema|sonido|buzon|buzon_pausa|acceso_modo)$/;   /* datos del celular que NO se guardan en la cuenta */
+    const app = getApps().length ? getApp() : initializeApp(CONFIG);
+    const auth = getAuth(app), db = getFirestore(app);
+    let user = null, ocupado = false;
+
+    const dormir = ms => new Promise(r => setTimeout(r, ms));
+    /* en la pantalla de acceso (IG_SIN_RECARGA) nunca se recarga la página: Inicio lee el progreso ya guardado */
+    const recargar = () => { if (!window.IG_SIN_RECARGA) location.reload(); };
+    const estado = (ok, e) => { try { localStorage.setItem("ig_nube_estado", JSON.stringify({ ok: !!ok, t: Date.now(), c: ok ? "" : String((e && (e.code || e.message)) || "error") })); } catch (x) {} };
+    const ref = () => doc(db, "progreso", user.uid);
+    const claves = () => { const k = []; try { for (let i = 0; i < localStorage.length; i++) { const n = localStorage.key(i); if (n.indexOf(PREF) === 0 && !SKIP.test(n)) k.push(n); } } catch (e) {} return k; };
+    const snap = () => { const o = {}; claves().forEach(k => { o[k] = localStorage.getItem(k); }); return o; };
+    const ser = o => JSON.stringify(Object.keys(o).sort().map(k => [k, o[k]]));
+    const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return h; };
+    const getMeta = () => { try { return JSON.parse(localStorage.getItem(META)) || {}; } catch (e) { return {}; } };
+    const setMeta = m => { try { localStorage.setItem(META, JSON.stringify(m)); } catch (e) {} };
+    /* "vacío" = sin progreso real (solo el apodo/perfil no cuenta) */
+    const vacio = o => !o || !(o.ingles_gamer_a1_repaso || o.ingles_gamer_aura || o.ingles_gamer_tienda);
+    const limpiar = () => claves().forEach(k => localStorage.removeItem(k));
+    const cambios = () => !!user && getMeta().uid === user.uid && hash(ser(snap())) !== getMeta().h;
+    const puntos = d => {
+      try {
+        const a = JSON.parse(d.ingles_gamer_aura || "null") || {}, r = JSON.parse(d.ingles_gamer_a1_repaso || "null") || {};
+        return (+a.t || 0) + Object.values(r.est || {}).reduce((x, y) => x + (+y || 0), 0);
+      } catch (e) { return 0; }
+    };
+
+    async function subir() {
+      const o = snap(), t = Date.now();
+      await setDoc(ref(), { datos: o, t: t, v: 1 });
+      setMeta({ uid: user.uid, t: t, h: hash(ser(o)) });
+      estado(true);
+    }
+    function bajar(c) {
+      limpiar();
+      const d = c.datos || {};
+      for (const k in d) if (k.indexOf(PREF) === 0 && !SKIP.test(k) && typeof d[k] === "string") localStorage.setItem(k, d[k]);
+      setMeta({ uid: user.uid, t: c.t || Date.now(), h: hash(ser(snap())) });
+    }
+
+    async function sync(lanzar) {
+      if (!user || ocupado) return "igual";
+      ocupado = true;
+      let res = "igual";
+      try {
+        const m = getMeta(), o = snap(), h = hash(ser(o)), s = await getDoc(ref()), c = s.exists() ? s.data() : null, cd = (c && c.datos) || {};
+        if (m.uid && m.uid !== user.uid) {
+          limpiar();
+          if (c) bajar(c); else await subir();
+          res = "bajado"; recargar();
+        } else if (m.uid !== user.uid) {
+          if (c && (vacio(o) || puntos(cd) >= puntos(o))) { bajar(c); res = "bajado"; recargar(); }
+          else { await subir(); res = "subido"; }
+        } else if (c && vacio(o) && !vacio(cd)) {
+          bajar(c); res = "bajado"; recargar();
+        } else if (!c || h !== m.h) { await subir(); res = "subido"; }
+        else if (c.t > m.t) { bajar(c); res = "bajado"; recargar(); }
+        else estado(true);
+      } catch (e) { ocupado = false; estado(false, e); if (lanzar) throw e; return "igual"; }
+      ocupado = false;
+      return res;
+    }
+
+    const guardarYa = () => { if (cambios()) sync(); };
+    onAuthStateChanged(auth, u => { user = u; if (u) sync(); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) guardarYa(); else sync(); });
+    addEventListener("pagehide", guardarYa);
+    setInterval(guardarYa, 45000);
+
+    window.IGNube = {
+      listo: true,
+      sincronizar: () => sync(),
+      usuario: () => user,
+      /* para "Cerrar sesión" y para entrar al juego: guarda/baja ahora mismo y falla si no se pudo (así nunca se pierde progreso) */
+      async subirYa() {
+        for (let i = 0; i < 40 && !user; i++) await dormir(250);
+        if (!user) throw new Error("sin-sesion");
+        while (ocupado) await dormir(200);
+        const r = await sync(true);
+        if (r === "bajado" && !window.IG_SIN_RECARGA) throw new Error("recargando");
+      }
+    };
+  } catch (e) { console.error("[nube]", e); }
+})();
+</script>
+</body>
+</html>
