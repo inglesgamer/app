@@ -285,12 +285,14 @@ nav a.on{color:var(--hi)}
 @keyframes nuevoP{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 @media (prefers-reduced-motion:reduce){.ms-cap.on{animation:none;opacity:1}.ms-g span.hl,.nuevo{animation:none}}
 /* --- variante I: Cinta de letras que pasa --- */
+main{overflow-x:hidden;touch-action:pan-y}
+.sopaI{overflow:hidden;margin:0 -16px;padding-left:16px;padding-right:16px}
 .sopaI{display:block;color:var(--ink);padding:6px 0 4px}
 .sopaI:active{transform:translateY(2px)}
 .si-top{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:0 4px}
 .si-top b{display:block;margin-top:6px;font-size:30px;font-weight:900;line-height:1.05}
 .si-pj{flex:none;width:58px}.si-pj svg{display:block;width:100%;height:auto;overflow:visible}
-.si-cinta{position:relative;margin:16px -24px 0;padding:12px 0;transform:rotate(-3deg);background:var(--lc);color:#0B0B0D;overflow:hidden;box-shadow:0 8px 0 color-mix(in srgb,var(--lc) 45%,#000)}
+.si-cinta{position:relative;margin:16px -16px 0;padding:12px 0;transform:rotate(-3deg);background:var(--lc);color:#0B0B0D;overflow:hidden;box-shadow:0 8px 0 color-mix(in srgb,var(--lc) 45%,#000)}
 .si-tira{display:flex;width:max-content;animation:cinta 22s linear infinite}
 .si-tira>span{flex:none;width:34px;text-align:center;font-size:24px;font-weight:900;opacity:.55}
 .si-tira .pw span{flex:none;width:28px;text-align:center;font-size:24px;font-weight:900}

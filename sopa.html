@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>InglésGamer · Sopa de letras</title>
+<meta name="theme-color" content="#000000">
+<script>
+/* ===== PALETAS: una sola fuente de colores. La elección se guarda en "ingles_gamer_tema". ===== */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--hi:#FFFFFF;--on-hi:#000000;--track:#2A2A2E;--toff:#3A3A40;--nav:#0E0E10;--av1:#3A3A40;--av2:#101012;--ok:#7BE3A8}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;overscroll-behavior:none;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.chip{display:flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--gold);font-size:17px;font-weight:900}
+.menu-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;cursor:pointer;border-radius:50%;border:1px solid var(--bd);background:var(--card)}
+/* personajes animados */
+.oc,.bo,.r1,.r2,.l1,.l2,.rb{opacity:0}
+.oc{animation:parp 4s infinite}@keyframes parp{0%,92%,100%{opacity:0}94%,97%{opacity:1}}
+.chs{transform-box:fill-box;transform-origin:center;animation:chisp 1s ease-in-out infinite}
+@keyframes chisp{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes ua{0%{opacity:1}50%{opacity:0}}@keyframes ub{0%{opacity:0}50%{opacity:1}}
+.alegre .mov{animation:salta .6s ease-in-out infinite alternate}@keyframes salta{from{transform:translateY(0)}to{transform:translateY(-1px)}}
+.alegre .r1,.alegre .l1{animation:ua .6s step-end infinite}.alegre .r2,.alegre .l2{animation:ub .6s step-end infinite}.alegre .bo{animation:ua .3s step-end infinite}
+.pienso .cab{animation:ladea 2s ease-in-out infinite alternate}@keyframes ladea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+.pienso .rd{opacity:0}.pienso .r1{animation:ua 1.2s step-end infinite}.pienso .r2{animation:ub 1.2s step-end infinite}
+.pienso .q{animation:flota 1.6s ease-in-out infinite alternate}@keyframes flota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+.carro .mov,.carro .fuera{animation:vibra .12s linear infinite alternate}@keyframes vibra{from{transform:translateY(0)}to{transform:translateY(.15px)}}
+.carro .ra{animation:ua .08s step-end infinite}.carro .rb{animation:ub .08s step-end infinite}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.alegre .r1,.alegre .l1,.pienso .r1{opacity:1}}
+
+.ok-ic{position:relative;width:104px;height:104px;animation:okpop .5s cubic-bezier(.2,1.4,.4,1) both}
+.ok-ic svg{display:block;overflow:visible}
+.ok-c{fill:color-mix(in srgb,var(--ok) 16%,transparent);stroke:var(--ok);stroke-width:3;stroke-dasharray:145;stroke-dashoffset:145;animation:okdraw .6s .1s ease forwards}
+.ok-t{fill:none;stroke:var(--ok);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:okdraw .4s .55s ease forwards}
+.ok-d{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;border-radius:50%;background:var(--c);opacity:0;animation:okchispa .9s .6s ease-out forwards}
+.fb-done h3{margin:16px 0 4px;font-size:28px;font-weight:900}
+.fb-done p{margin:0;max-width:300px;font-size:15px;font-weight:600;line-height:1.45;color:var(--mu)}
+.fb-done .fb-send{margin-top:18px}
+.spn{width:18px;height:18px;margin-right:8px;border-radius:50%;border:3px solid color-mix(in srgb,var(--on-hi) 30%,transparent);border-top-color:var(--on-hi);animation:giro .7s linear infinite}
+@keyframes okpop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes okdraw{to{stroke-dashoffset:0}}
+@keyframes okchispa{0%{opacity:1;transform:rotate(var(--a)) translateY(-52px) scale(1)}100%{opacity:0;transform:rotate(var(--a)) translateY(-92px) scale(.4)}}
+@media (prefers-reduced-motion:reduce){.ok-c,.ok-t{stroke-dashoffset:0}.ok-d{display:none}}
+
+body{background:var(--bg)}
+.app{width:100%;max-width:520px;margin:0 auto;flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+header{flex-shrink:0;display:flex;align-items:center;gap:10px;padding:calc(14px + env(safe-area-inset-top)) 16px 8px}
+.menu-btn{flex:none;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;cursor:pointer;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--ink)}
+.hd-tx{flex:1;min-width:0}
+.hd-tx small{display:block;font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.hd-tx b{display:block;margin-top:1px;font-size:22px;font-weight:900;line-height:1.1}
+header .chip{padding:0 14px;gap:5px}
+.fl{display:inline-flex}
+main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:none;padding:6px 16px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px}
+main>*{flex-shrink:0}
+
+/* ---- sopa ---- */
+.tablero{position:relative;touch-action:none;user-select:none;-webkit-user-select:none}
+.g{position:relative;z-index:2;display:grid;grid-template-columns:repeat(var(--n),1fr);grid-auto-rows:1fr;aspect-ratio:1/1}
+.g span{display:flex;align-items:center;justify-content:center;font-size:var(--fs,24px);font-weight:900;line-height:1;color:var(--ltr,var(--ink));transition:color .2s}
+.g span.ini{color:var(--on-hi);background:var(--gold);border-radius:50%;animation:late .9s ease-in-out infinite}
+.g span.hit{color:var(--ok)}
+.g span.pop{animation:popL .45s cubic-bezier(.3,1.6,.5,1) both}
+.g span.mal{color:#FF4D4D;animation:tiembla .45s ease}
+.g span.pista{box-shadow:0 0 0 3px var(--gold);border-radius:50%;animation:late .6s ease-in-out infinite}
+@keyframes late{50%{transform:scale(1.15)}}
+@keyframes popL{0%{transform:scale(1)}45%{transform:scale(1.45)}100%{transform:scale(1)}}
+@keyframes tiembla{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+.caps{position:absolute;inset:0;z-index:1;pointer-events:none}
+.cap{position:absolute;border-radius:99px;box-sizing:border-box}
+.cap.ok{border:3px solid var(--cap,var(--ok));background:color-mix(in srgb,var(--cap,var(--ok)) 20%,transparent);box-shadow:0 0 16px color-mix(in srgb,var(--cap,var(--ok)) 45%,transparent);animation:traza .5s cubic-bezier(.2,.9,.3,1.2) both}
+.cap.prev{border:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 22%,transparent)}
+@keyframes traza{from{clip-path:inset(0 100% 0 0 round 99px)}to{clip-path:inset(0 0 0 0 round 99px)}}
+.chs2{position:absolute;z-index:4;width:8px;height:8px;margin:-4px;border-radius:50%;background:var(--c);pointer-events:none;animation:vuela .8s ease-out both}
+@keyframes vuela{from{opacity:1;transform:rotate(var(--a)) translateY(0) scale(1.2)}to{opacity:0;transform:rotate(var(--a)) translateY(-46px) scale(.3)}}
+.toast{position:absolute;left:50%;top:-8px;z-index:6;display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:16px;font-weight:900;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.35);pointer-events:none;animation:toast 1.8s ease both}
+.toast small{font-size:14px;font-weight:700;opacity:.75}
+@keyframes toast{0%{opacity:0;transform:translate(-50%,10px) scale(.7)}14%{opacity:1;transform:translate(-50%,0) scale(1.06)}24%{transform:translate(-50%,0) scale(1)}78%{opacity:1}100%{opacity:0;transform:translate(-50%,-14px)}}
+
+/* ---- palabras: solo texto, con la traducción debajo ---- */
+.pal{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;padding:0 4px}
+.w b{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:22px;font-weight:900;line-height:1.1;transition:color .3s}
+.w b em{position:relative;font-style:normal}
+.w b em::after{content:"";position:absolute;left:-4px;right:-4px;top:55%;height:3px;border-radius:3px;background:var(--ok);transform:scaleX(0);transform-origin:left center}
+.w small{display:block;margin-top:2px;font-size:15px;font-weight:700;color:var(--mu)}
+.w .tk{display:inline-flex;color:var(--ok);transform:scale(0)}
+.w.ok b{color:var(--ok);animation:popL .45s ease}
+.w.ok b em::after{animation:tacha .5s .25s cubic-bezier(.3,1.3,.5,1) both}
+.w.ok .tk{animation:tkin .4s .65s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes tacha{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes tkin{from{transform:scale(0) rotate(-40deg)}to{transform:scale(1) rotate(0)}}
+
+/* ---- final ---- */
+.fin{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.72);animation:aparece .3s ease}
+.fin[hidden]{display:none}
+@keyframes aparece{from{opacity:0}to{opacity:1}}
+.fin-box{width:100%;max-width:520px;padding:22px 18px calc(20px + env(safe-area-inset-bottom));border-radius:32px 32px 0 0;border:1px solid var(--bd);border-bottom:0;background:var(--card);text-align:center;animation:sube .45s cubic-bezier(.2,1.2,.4,1)}
+@keyframes sube{from{transform:translateY(100%)}to{transform:none}}
+.fin-box .ok-ic{margin:0 auto}
+.fin-box h2{margin:12px 0 4px;font-size:30px;font-weight:900}
+.fin-box p{margin:0;font-size:15px;font-weight:700;color:var(--mu)}
+.estr{display:flex;justify-content:center;gap:8px;margin-top:14px}
+.estr svg{width:42px;height:42px;fill:var(--toff);transform:scale(0);animation:estrella .5s cubic-bezier(.3,1.6,.5,1) both}
+.estr svg.on{fill:var(--gold)}
+@keyframes estrella{from{transform:scale(0) rotate(-60deg)}to{transform:scale(1) rotate(0)}}
+.fin-dat{display:flex;justify-content:center;gap:22px;margin-top:14px;font-size:15px;font-weight:800;color:var(--mu)}
+.fin-dat b{display:block;font-size:22px;color:var(--ink)}
+.fin-dat .au b{display:inline-flex;align-items:center;gap:4px;color:var(--gold)}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;height:56px;margin-top:16px;border:0;border-radius:99px;cursor:pointer;background:var(--hi);color:var(--on-hi);font:900 17px Nunito,sans-serif;box-shadow:0 4px 0 rgba(128,128,128,.35)}
+.btn:active{transform:translateY(2px)}
+.btn.alt{margin-top:8px;background:transparent;color:var(--ink);box-shadow:none;border:1px solid var(--bd)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.estr svg,.w.ok .tk{transform:none}.w.ok b em::after{transform:scaleX(1)}}
+/* guardia de internet */
+#sinNet{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center;background:radial-gradient(circle at 50% 35%,#1E1E22,#000)}
+#sinNet[hidden]{display:none}
+.sn-pj{width:110px}.sn-pj svg{display:block;width:100%;height:auto;overflow:visible;filter:grayscale(.6);animation:snNod 2.4s ease-in-out infinite alternate}
+@keyframes snNod{from{transform:translateY(0)}to{transform:translateY(4px)}}
+.sn-t{margin:0;font-size:26px;font-weight:900}
+.sn-p{margin:0;max-width:280px;font-size:16px;font-weight:600;line-height:1.45;color:var(--mu)}
+.sn-btn{height:50px;padding:0 26px;cursor:pointer;border:0;border-radius:99px;background:#fff;color:#000;font:900 15px Nunito,sans-serif}
+.sn-btn:active{transform:translateY(2px)}
+.snA,.snB{opacity:0;animation:snT1 1.2s step-end infinite}.snB{animation-name:snT2}
+@keyframes snT1{0%{opacity:1}50%{opacity:0}}@keyframes snT2{0%{opacity:0}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.snA{opacity:1}}
+
+
+/* ===== diseño C: la cinta ===== */
+main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.zona{flex:1 1 auto;min-height:0;display:flex;align-items:flex-start;justify-content:center}
+.zona .tablero{flex:none;margin:0}
+.pal{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px 8px;padding:0 2px}
+.w b{font-size:15px;gap:3px}
+.w small{font-size:12px;margin-top:0}
+.w .tk svg{width:13px;height:13px}
+.hd-tx small span{color:var(--ink)}
+.rondas{display:flex;gap:6px;padding:0 4px}
+.rondas i{flex:1;height:6px;border-radius:99px;background:var(--track);transition:background .4s}
+.rondas i.hecha{background:var(--lc)}
+.rondas i.ahora{background:color-mix(in srgb,var(--lc) 45%,var(--track));animation:late 1.6s ease-in-out infinite}
+.cinta{position:relative;margin:0 -16px 4px;padding:8px 16px;transform:rotate(-3deg);background:var(--lc);color:#0B0B0D;box-shadow:0 8px 0 color-mix(in srgb,var(--lc) 45%,#000);display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.cinta span{display:inline-flex;align-items:center;height:30px;padding:0 11px;border-radius:99px;background:rgba(0,0,0,.14);font-size:14px;font-weight:900;letter-spacing:.08em;color:rgba(0,0,0,.45)}
+.cinta span.ok{background:#0B0B0D;color:var(--lc);letter-spacing:.06em;animation:popL .5s cubic-bezier(.3,1.6,.5,1)}
+.tablero{--cap:var(--lc)}
+.tablero.entra{animation:entra .5s cubic-bezier(.2,1.2,.4,1)}
+@keyframes entra{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.g span.hit{color:var(--lc)}
+.w.ok b{color:var(--lc)}
+.w b em::after{background:var(--lc)}
+.w .tk{color:var(--lc)}
+.w.viejo b,.w.viejo b em::after,.w.viejo .tk{animation:none!important}.w.viejo b em::after{transform:scaleX(1)}.w.viejo .tk{transform:scale(1)}
+.toast .nv{margin-left:4px;padding:2px 8px;border-radius:99px;background:#FF4D4D;color:#fff;font-size:10px;letter-spacing:.1em}
+.aviso{position:fixed;left:50%;top:calc(80px + env(safe-area-inset-top));z-index:60;transform:translateX(-50%);padding:10px 18px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:15px;font-weight:900;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:okpop .35s cubic-bezier(.2,1.4,.4,1) both}
+.aviso[hidden]{display:none}
+
+/* entre rondas */
+.entre{position:fixed;inset:0;z-index:65;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);animation:aparece .3s ease}
+.entre[hidden]{display:none}
+.entre-box{position:relative;width:100%;max-width:360px;padding:26px 20px 20px;border-radius:32px;background:var(--card);border:1px solid var(--bd);text-align:center;animation:okpop .5s cubic-bezier(.2,1.4,.4,1) both}
+.entre-box .ok-d{animation-delay:.15s}
+.entre-box h2{margin:0;font-size:28px;font-weight:900}
+.entre-a{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 14px;border-radius:99px;background:var(--chip);color:var(--gold);font-size:16px;font-weight:900}
+.entre-sig{margin-top:18px;padding-top:16px;border-top:1px dashed var(--bd)}
+.entre-sig small{display:block;font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.entre-sig b{display:block;margin-top:4px;font-size:24px;font-weight:900;color:var(--lc)}
+.entre-sig p{margin:4px 0 0;font-size:15px;font-weight:700;color:var(--mu)}
+.flechas{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:12px}
+.flechas span{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:var(--chip);font-size:20px;font-weight:900;animation:popL .4s both}
+.flechas span.rv{background:var(--lc);color:#0B0B0D}
+.entre-r{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;font-weight:800;color:var(--mu)}
+.entre-r i{width:10px;height:10px;border-radius:50%}
+.fin-alb{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:15px;font-weight:700;color:var(--mu)}
+.fin-alb b{color:var(--ink)}
+.btn svg{margin-right:8px}
+</style>
+</head>
+<body>
+<!-- guardia de internet: oculta mientras haya conexión -->
+<div id="sinNet" role="alert" aria-live="assertive" hidden>
+  <div class="sn-pj" id="snPj"></div>
+  <h2 class="sn-t">Sin internet</h2>
+  <p class="sn-p">Conéctate al wifi o activa tus datos móviles para seguir jugando.</p>
+  <button type="button" class="sn-btn" id="snRe">Reintentar</button>
+</div>
+
+<div class="app">
+  <header>
+    <a class="menu-btn" href="go:inicio" aria-label="Volver al inicio"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
+    <div class="hd-tx"><small><span id="ronda">RONDA 1 DE 4</span> · <span id="cuenta">0/4</span></small><b id="tema"></b></div>
+    <div class="chip" id="chip"></div>
+  </header>
+  <main>
+    <div class="rondas" id="rondas" aria-hidden="true"></div>
+    <div class="cinta" id="cinta" aria-live="polite"></div>
+    <section class="pal" id="pal" aria-label="Palabras para encontrar"></section>
+    <div class="zona" id="zona"><div class="tablero" id="tablero"></div></div>
+  </main>
+</div>
+<div class="aviso" id="aviso" role="status" hidden></div>
+
+<div class="entre" id="entre" hidden>
+  <div class="entre-box" id="entreBox" role="dialog" aria-modal="true" aria-labelledby="entreT">
+    <h2 id="entreT">¡Ronda lista!</h2>
+    <span class="entre-a" id="entreA"></span>
+    <div class="entre-sig"><small>SIGUIENTE</small><b id="entreN"></b><p id="entreD"></p><div class="flechas" id="entreF"></div><span class="entre-r" id="entreR"></span></div>
+    <button type="button" class="btn" id="sigue">¡Vamos!</button>
+  </div>
+</div>
+
+<div class="fin" id="fin" hidden>
+  <div class="fin-box" role="dialog" aria-modal="true" aria-labelledby="finT">
+    <div class="ok-ic" id="okIc"></div>
+    <h2 id="finT">¡Sopa completa!</h2>
+    <p id="finP"></p>
+    <div class="estr" id="estr"></div>
+    <div class="fin-dat" id="finDat"></div>
+    <div class="fin-alb" id="finAlb"></div>
+    <a class="btn" href="go:album"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"></path><path d="M4 19V5M9 7h5M9 11h5"></path></svg>Ver álbum de palabras</a>
+    <button type="button" class="btn alt" id="otra">Jugar otra vez</button>
+    <a class="btn alt" href="go:inicio">Volver al inicio</a>
+  </div>
+</div>
+<script>
+/* ================= TUS DATOS: edita solo esta parte ================= */
+const SOPA = { titulo:"Sopa de letras", url:"go:sopa", total:5, aura:30, clave:"ingles_gamer_sopa" };
+// Un tema por día (mismo orden que en el Inicio). Cada tema tiene 4 rondas de 4 palabras:
+//   p = ronda 1 (el Inicio solo usa esta: [inglés, español]) · mas = rondas 2, 3 y 4.
+// Cada palabra: [INGLÉS EN MAYÚSCULAS, significado, ejemplo con la *palabra* entre asteriscos, traducción del ejemplo]
+// OJO: este MISMO bloque va en la pantalla del Álbum (album). Si cambias palabras aquí, cámbialas allá también.
+const SOPA_TEMAS = [
+  { tema:"Colores", c:"#3FD8C8",
+    p:[["RED", "rojo", "My cap is *red*.", "Mi gorra es roja."],["BLUE", "azul", "The sky is *blue*.", "El cielo es azul."],["PINK", "rosado", "Her bike is *pink*.", "Su bicicleta es rosada."],["GREEN", "verde", "Frogs are *green*.", "Las ranas son verdes."]],
+    mas:[
+      [["BLACK", "negro", "My cat is *black*.", "Mi gato es negro."],["WHITE", "blanco", "Snow is *white*.", "La nieve es blanca."],["BROWN", "café", "The bear is *brown*.", "El oso es café."],["GRAY", "gris", "The elephant is *gray*.", "El elefante es gris."]],
+      [["YELLOW", "amarillo", "The sun is *yellow*.", "El sol es amarillo."],["ORANGE", "naranja", "I have an *orange* ball.", "Tengo una pelota naranja."],["PURPLE", "morado", "Grapes are *purple*.", "Las uvas son moradas."],["SILVER", "plateado", "The robot is *silver*.", "El robot es plateado."]],
+      [["RAINBOW", "arcoíris", "Look at the *rainbow*!", "¡Mira el arcoíris!"],["COLORFUL", "colorido", "My room is *colorful*.", "Mi cuarto es colorido."],["CRAYONS", "crayolas", "I paint with *crayons*.", "Pinto con crayolas."],["GOLDEN", "dorado", "The king has a *golden* crown.", "El rey tiene una corona dorada."]] ] },
+  { tema:"Animales", c:"#FFC83D",
+    p:[["CAT", "gato", "The *cat* sleeps on my bed.", "El gato duerme en mi cama."],["DOG", "perro", "My *dog* likes to run.", "A mi perro le gusta correr."],["FISH", "pez", "The *fish* swims fast.", "El pez nada rápido."],["BIRD", "pájaro", "A *bird* is singing.", "Un pájaro está cantando."]],
+    mas:[
+      [["HORSE", "caballo", "The *horse* is very big.", "El caballo es muy grande."],["MOUSE", "ratón", "The *mouse* eats cheese.", "El ratón come queso."],["SHEEP", "oveja", "The *sheep* is white.", "La oveja es blanca."],["SNAKE", "serpiente", "The *snake* is long.", "La serpiente es larga."]],
+      [["RABBIT", "conejo", "The *rabbit* can jump.", "El conejo puede saltar."],["MONKEY", "mono", "The *monkey* eats a banana.", "El mono come un banano."],["TURTLE", "tortuga", "The *turtle* is slow.", "La tortuga es lenta."],["PARROT", "loro", "My *parrot* can talk.", "Mi loro puede hablar."]],
+      [["DOLPHIN", "delfín", "The *dolphin* jumps in the sea.", "El delfín salta en el mar."],["GIRAFFE", "jirafa", "The *giraffe* has a long neck.", "La jirafa tiene el cuello largo."],["ELEPHANT", "elefante", "The *elephant* drinks water.", "El elefante toma agua."],["PENGUIN", "pingüino", "The *penguin* lives in the snow.", "El pingüino vive en la nieve."]] ] },
+  { tema:"Frutas", c:"#FF6FB5",
+    p:[["FIG", "higo", "I eat a *fig*.", "Me como un higo."],["PEAR", "pera", "The *pear* is green.", "La pera es verde."],["LIME", "lima", "The *lime* is sour.", "La lima es ácida."],["APPLE", "manzana", "I eat an *apple* every day.", "Me como una manzana todos los días."]],
+    mas:[
+      [["GRAPE", "uva", "This *grape* is sweet.", "Esta uva es dulce."],["MANGO", "mango", "I love *mango* juice.", "Me encanta el jugo de mango."],["LEMON", "limón", "The *lemon* is yellow.", "El limón es amarillo."],["PEACH", "durazno", "The *peach* is soft.", "El durazno es suave."]],
+      [["BANANA", "banano", "Monkeys love *bananas*.", "A los monos les encantan los bananos."],["CHERRY", "cereza", "The *cherry* is red.", "La cereza es roja."],["ORANGE", "naranja", "I drink *orange* juice.", "Tomo jugo de naranja."],["PAPAYA", "papaya", "*Papaya* is my favorite fruit.", "La papaya es mi fruta favorita."]],
+      [["PINEAPPLE", "piña", "The *pineapple* is sweet.", "La piña es dulce."],["COCONUT", "coco", "There is water in the *coconut*.", "Hay agua en el coco."],["AVOCADO", "aguacate", "Mom makes *avocado* salad.", "Mamá hace ensalada de aguacate."],["STRAWBERRY", "fresa", "I like *strawberry* ice cream.", "Me gusta el helado de fresa."]] ] },
+  { tema:"Familia", c:"#8E5BD6",
+    p:[["MOM", "mamá", "My *mom* is kind.", "Mi mamá es amable."],["DAD", "papá", "My *dad* cooks dinner.", "Mi papá cocina la cena."],["SON", "hijo", "He is their *son*.", "Él es su hijo."],["BABY", "bebé", "The *baby* is sleeping.", "El bebé está durmiendo."]],
+    mas:[
+      [["AUNT", "tía", "My *aunt* lives in Cali.", "Mi tía vive en Cali."],["UNCLE", "tío", "My *uncle* plays the guitar.", "Mi tío toca la guitarra."],["WIFE", "esposa", "She is his *wife*.", "Ella es su esposa."],["KIDS", "niños", "The *kids* play in the park.", "Los niños juegan en el parque."]],
+      [["SISTER", "hermana", "My *sister* is ten.", "Mi hermana tiene diez años."],["COUSIN", "primo", "My *cousin* visits me.", "Mi primo me visita."],["FAMILY", "familia", "I love my *family*.", "Amo a mi familia."],["PARENTS", "padres", "My *parents* are at work.", "Mis padres están en el trabajo."]],
+      [["GRANDMA", "abuela", "My *grandma* makes cookies.", "Mi abuela hace galletas."],["GRANDPA", "abuelo", "My *grandpa* tells stories.", "Mi abuelo cuenta historias."],["BROTHER", "hermano", "My *brother* plays soccer.", "Mi hermano juega fútbol."],["DAUGHTER", "hija", "She is their *daughter*.", "Ella es su hija."]] ] },
+  { tema:"Números", c:"#5DB33A",
+    p:[["ONE", "uno", "I have *one* dog.", "Tengo un perro."],["TWO", "dos", "I have *two* hands.", "Tengo dos manos."],["SIX", "seis", "The cat has *six* toys.", "El gato tiene seis juguetes."],["TEN", "diez", "I have *ten* fingers.", "Tengo diez dedos."]],
+    mas:[
+      [["FOUR", "cuatro", "A table has *four* legs.", "Una mesa tiene cuatro patas."],["FIVE", "cinco", "I see *five* birds.", "Veo cinco pájaros."],["NINE", "nueve", "My brother is *nine*.", "Mi hermano tiene nueve años."],["THREE", "tres", "I eat *three* apples.", "Me como tres manzanas."]],
+      [["SEVEN", "siete", "A week has *seven* days.", "Una semana tiene siete días."],["EIGHT", "ocho", "A spider has *eight* legs.", "Una araña tiene ocho patas."],["TWELVE", "doce", "A year has *twelve* months.", "Un año tiene doce meses."],["TWENTY", "veinte", "There are *twenty* kids in my class.", "Hay veinte niños en mi clase."]],
+      [["THIRTEEN", "trece", "My sister is *thirteen*.", "Mi hermana tiene trece años."],["FIFTEEN", "quince", "I wait *fifteen* minutes.", "Espero quince minutos."],["HUNDRED", "cien", "I have a *hundred* stickers.", "Tengo cien stickers."],["THOUSAND", "mil", "The castle is a *thousand* years old.", "El castillo tiene mil años."]] ] }
+];
+// Las 4 rondas: cada una más difícil (lado = tamaño de la sopa · dirs = hacia dónde pueden ir las palabras · aura = premio, máximo 10 por ronda)
+const RONDAS = [
+  { n:"Ronda 1", d:"Calentamiento: una palabra va al revés", lado:8,  dirs:[[0,1],[1,0],[1,1],[0,-1]], rev:1, trampa:0,   aura:10, rar:"COMÚN", rc:"#8C8C96" },
+  { n:"Ronda 2", d:"La mitad de las palabras van al revés", lado:9,  dirs:[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1]], rev:2, trampa:.35, aura:10, rar:"RARA", rc:"#3FD8C8" },
+  { n:"Ronda 3", d:"Más largas, al revés y en diagonal", lado:10, dirs:[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,1],[-1,-1],[1,-1]], rev:3, trampa:.6, aura:10, rar:"ÉPICA", rc:"#8E5BD6" },
+  { n:"Ronda 4", d:"Nivel experto: todas al revés y con letras trampa", lado:11, dirs:[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,1],[-1,-1],[1,-1]], rev:4, trampa:.85, aura:10, rar:"LEGENDARIA", rc:"#FFC83D" }
+];
+// rev = cuántas palabras van al revés (de derecha a izquierda o de abajo hacia arriba) · trampa = qué tanto se rellena con letras de las mismas palabras para confundir
+const VOCAB_DESDE = "2026-10-26";      // el mismo día de inicio del Vocabulario del día (así el tema coincide con el Inicio)
+const AURA_REPETIR = 2;                // Aura por ronda si la vuelve a jugar el mismo día
+const ALBUM_URL = "go:album";
+const VOLVER_URL = "go:inicio";
+
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"\x26amp;", "<":"\x26lt;", ">":"\x26gt;", '"':"\x26quot;" }[c]));
+const leer = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
+
+const SPR = {
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+};
+function sprite(n, s) {
+  const d = SPR[n]; if (!d) return "";
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+
+const BASE = ["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."];
+const PAL = { S:"#E3A67C", k:"#151518", w:"#F2F4F8", h:"#8A5A33", e:"#3A2414", s:"#F2B98F", m:"#B8704F", M:"#7A1F1F", g:"#5A5A5E", l:"#C4C4C8", q:"#A0A0A5", z:"#0B0B0D", p:"#1A1A1E", f:"#F2F4F8", W:"#FFFFFF", r:"#FF8FA3", R:"#E5322B", T:"#FF6B5E", y:"#FFC83D" };
+const solo = (r1, r2, c1, c2, k) => { const o = []; for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) o.push([r, c, k]); return o; };
+const rects = l => l.map(x => '<rect x="' + x[1] + '" y="' + x[0] + '" width="1" height="1" fill="' + PAL[x[2]] + '"></rect>').join("");
+const arriba = (lado, top) => { const a = lado === "R" ? 10 : 0; return solo(top, top + 1, a, a + 1, "s").concat(solo(top + 2, top + 2, a, a + 1, "l"), solo(top + 3, 8, a, a + 1, "g")); };
+const chispa = (x, y, d) => '<g class="chs" style="animation-delay:' + d + 's"><rect x="' + (x + 1) + '" y="' + y + '" width="1" height="3" fill="#FFC83D"></rect><rect x="' + x + '" y="' + (y + 1) + '" width="3" height="1" fill="#FFC83D"></rect></g>';
+
+function alegre() {
+  const g = BASE.map(f => f.split(""));
+  [[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"],[5,2,2,"r"],[5,9,9,"r"]].forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => { if (k === ".") return; if (r <= 6) cab.push([r, c, k]); else if (r <= 13 && (c >= 10 || c <= 1)) return; else cue.push([r, c, k]); }));
+  return '<svg class="alegre" viewBox="-1 -2 14 18.8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="16" width="8" height=".6" fill="#000" opacity=".4"></rect><g class="mov">' + rects(cue) +
+    '<g class="cab">' + rects(cab) + '<g class="oc">' + rects([[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]]) + '</g><g class="bo">' + rects(solo(6, 6, 5, 6, "W")) + '</g></g>' +
+    '<g class="l1">' + rects(arriba("L", 3)) + '</g><g class="l2">' + rects(arriba("L", 4)) + '</g><g class="r1">' + rects(arriba("R", 3)) + '</g><g class="r2">' + rects(arriba("R", 4)) + '</g></g>' +
+    chispa(-1, 0, 0) + chispa(11, 0, .4) + chispa(5, -2, .8) + '</svg>';
+}
+function pensativo() {
+  const g = BASE.map(f => f.split(""));
+  [[6,5,6,"s"],[6,6,7,"m"]].forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [], rd = [], ld = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => {
+    if (k === ".") return; const x = [r, c, k];
+    if (r <= 6) cab.push(x); else if (r <= 13 && c >= 10) rd.push(x); else if (r <= 13 && c <= 1) ld.push(x); else cue.push(x);
+  }));
+  const r1 = solo(5, 6, 9, 10, "S").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g"));
+  const r2 = solo(6, 7, 9, 10, "S").concat(solo(8, 8, 10, 11, "l"));
+  const q = rects([[-2,10,"y"],[-2,11,"y"],[-2,12,"y"],[-1,12,"y"],[0,11,"y"],[2,11,"y"]]);
+  return '<svg class="pienso" viewBox="-1 -2 14 18.8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="16" width="8" height=".6" fill="#000" opacity=".4"></rect><g class="mov">' + rects(cue) +
+    '<g class="cab">' + rects(cab) + '<g class="oc">' + rects([[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]]) + '</g></g><g class="ld">' + rects(ld) + '</g><g class="rd">' + rects(rd) + '</g>' +
+    '<g class="r1">' + rects(r1) + '</g><g class="r2">' + rects(r2) + '</g></g><g class="q">' + q + '</g></svg>';
+}
+const clave = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+
+/* ================= No necesitas tocar lo de abajo ================= */
+const $ = id => document.getElementById(id);
+const svg = (p, s) => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+const TICK = svg('<path d="M5 12.5l4.5 4.5L19 7.5"></path>', 18);
+const ICO_VOZ = svg('<path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path>', 18);
+const COLS = ["#FFC83D", "#3FD8C8", "#FF6FB5", "#8E5BD6", "#5DB33A", "#FF8A3D"];
+const sinTilde = t => t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+function diaDeHoy() {
+  const q = String(VOCAB_DESDE).split("-").map(Number), h = new Date();
+  return Math.floor((Date.UTC(h.getFullYear(), h.getMonth(), h.getDate()) - Date.UTC(q[0], (q[1] || 1) - 1, q[2] || 1)) / 864e5);
+}
+function sopaHoy() {
+  const dias = diaDeHoy(), k = ((dias % SOPA_TEMAS.length) + SOPA_TEMAS.length) % SOPA_TEMAS.length;
+  return Object.assign({ k:k, semilla:Math.abs(dias) + 1, id:sinTilde(SOPA_TEMAS[k].tema) }, SOPA_TEMAS[k]);
+}
+const rondasDe = t => [t.p].concat(t.mas);
+function voz(t) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = "en-US"; u.rate = .85; speechSynthesis.speak(u); } catch (e) {} }
+function vibrar(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
+function quieto() { return window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches; }
+function aura() { const a = leer("ingles_gamer_aura"); return Math.max(0, +(a && a.t) || 0); }
+function pintarAura() { $("chip").innerHTML = '<span class="fl">' + sprite("llama", 20) + '</span>' + aura(); }
+function sopaGuardada() { const s = leer(SOPA.clave); return (s && typeof s === "object") ? s : {}; }
+function guardarSopa(s) { try { localStorage.setItem(SOPA.clave, JSON.stringify(s)); } catch (e) {} }
+
+function azar(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const alReves = d => d[0] < 0 || d[1] < 0;
+function armar(pal, n, semilla, dirs, rev, trampa) {
+  const dirsRev = dirs.filter(alReves);
+  for (let intento = 0; intento < 40; intento++) {
+    const r = azar(semilla * 7919 + intento * 104729), g = [], pos = [];
+    for (let i = 0; i < n; i++) g.push(new Array(n).fill(""));
+    const orden = pal.slice().sort((a, b) => b.length - a.length);
+    orden.forEach((w, wi) => {
+      const usar = (wi < (rev || 0) && dirsRev.length) ? dirsRev : dirs;
+      for (let t = 0; t < 400; t++) {
+        const d = usar[Math.floor(r() * usar.length)];
+        const f0 = d[0] < 0 ? w.length - 1 : 0, f1 = d[0] > 0 ? n - w.length : n - 1;
+        const c0 = d[1] < 0 ? w.length - 1 : 0, c1 = d[1] > 0 ? n - w.length : n - 1;
+        if (f1 < f0 || c1 < c0) continue;
+        const f = f0 + Math.floor(r() * (f1 - f0 + 1)), c = c0 + Math.floor(r() * (c1 - c0 + 1));
+        let ok = true;
+        for (let i = 0; i < w.length; i++) { const x = g[f + d[0] * i][c + d[1] * i]; if (x && x !== w[i]) { ok = false; break; } }
+        if (!ok) continue;
+        for (let i = 0; i < w.length; i++) g[f + d[0] * i][c + d[1] * i] = w[i];
+        pos.push({ w:w, f:f, c:c, d:d }); break;
+      }
+    });
+    if (pos.length < pal.length) continue;
+    const L = "ABCDEFGHIKLMNOPRSTUVWY", T = pal.join("");
+    g.forEach(fila => fila.forEach((x, i) => { if (!x) { const B = r() < (trampa || 0) ? T : L; fila[i] = B[Math.floor(r() * B.length)]; } }));
+    return { g:g, pos:pos };
+  }
+  return null;
+}
+function sumarAura(n, motivo) {
+  if (!n) return;
+  try {
+    const a = leer("ingles_gamer_aura") || {};
+    a.t = Math.max(0, +a.t || 0) + n;
+    a.l = (Array.isArray(a.l) ? a.l : []).concat([[n, motivo, Date.now()]]).slice(-30);
+    localStorage.setItem("ingles_gamer_aura", JSON.stringify(a));
+  } catch (e) {}
+  pintarAura();
+}
+/* guarda la palabra en el álbum (la clave es tema:PALABRA). Devuelve true si es nueva. */
+function alAlbum(w) {
+  const s = sopaGuardada(); s.album = s.album || {};
+  const k = J.t.id + ":" + w, nueva = !s.album[k];
+  if (nueva) s.album[k] = Date.now();
+  guardarSopa(s); return nueva;
+}
+
+/* ---------- el juego ---------- */
+const J = { t:null, r:0, pal:[], s:null, n:8, hallada:{}, ancla:null, fin:null, arrastra:false, errores:0, t0:0, auraGan:0, nuevas:0, extra:0 };
+function empezar(extra) {
+  J.t = sopaHoy(); J.extra = extra || 0; J.errores = 0; J.t0 = Date.now(); J.auraGan = 0; J.nuevas = 0;
+  const pr = sopaGuardada().prog || {};
+  J.r = (!extra && pr.dia === clave(new Date()) && pr.tema === J.t.id && pr.r > 0 && pr.r < 4) ? pr.r : 0;
+  document.documentElement.style.setProperty("--lc", J.t.c);
+  $("tema").textContent = J.t.tema;
+  $("fin").hidden = true; $("entre").hidden = true;
+  iniciarRonda();
+  if (J.r > 0) aviso("Sigues donde ibas: " + RONDAS[J.r].n);
+}
+function iniciarRonda() {
+  const R = RONDAS[J.r];
+  J.pal = rondasDe(J.t)[J.r]; J.n = R.lado; J.hallada = {}; J.ancla = null; J.fin = null;
+  J.s = armar(J.pal.map(x => x[0]), J.n, J.t.semilla * (J.r + 3) + J.extra, R.dirs, R.rev, R.trampa);
+  const caja = $("tablero");
+  caja.style.setProperty("--n", J.n);
+  caja.innerHTML = '<div class="caps" id="caps"></div><div class="g" id="g">' + J.s.g.map(f => f.map(x => '<span>' + x + '</span>').join("")).join("") + '</div>';
+  caja.classList.remove("entra"); void caja.offsetWidth; caja.classList.add("entra");
+  $("ronda").textContent = R.n.toUpperCase() + " DE " + RONDAS.length;
+  medir();
+  $("rondas").innerHTML = RONDAS.map((x, i) => '<i class="' + (i < J.r ? "hecha" : i === J.r ? "ahora" : "") + '"></i>').join("");
+  cinta(); pintarPalabras();
+}
+const celdas = () => $("g").children;
+function geo() { const r = $("g").getBoundingClientRect(); return { r:r, cs:r.width / J.n }; }
+function celdaDe(e) {
+  const k = geo(), c = Math.floor((e.clientX - k.r.left) / k.cs), f = Math.floor((e.clientY - k.r.top) / k.cs);
+  if (c < 0 || f < 0 || c >= J.n || f >= J.n) return null;
+  return [f, c];
+}
+function ajustar(a, b) {
+  const df = b[0] - a[0], dc = b[1] - a[1];
+  if (!df && !dc) return a;
+  const ang = Math.round(Math.atan2(df, dc) / (Math.PI / 4)) * (Math.PI / 4);
+  const sf = Math.round(Math.sin(ang)), sc = Math.round(Math.cos(ang));
+  let L = Math.max(Math.abs(df), Math.abs(dc));
+  while (L > 0 && (a[0] + sf * L < 0 || a[0] + sf * L >= J.n || a[1] + sc * L < 0 || a[1] + sc * L >= J.n)) L--;
+  return [a[0] + sf * L, a[1] + sc * L];
+}
+function capsula(a, b, cls) {
+  const cs = geo().cs, h = cs * .82;
+  const x1 = (a[1] + .5) * cs, y1 = (a[0] + .5) * cs, x2 = (b[1] + .5) * cs, y2 = (b[0] + .5) * cs;
+  const el = document.createElement("i");
+  el.className = "cap " + cls;
+  el.style.cssText = "left:" + (x1 - h / 2) + "px;top:" + (y1 - h / 2) + "px;width:" + (Math.hypot(x2 - x1, y2 - y1) + h) + "px;height:" + h + "px;transform-origin:" + (h / 2) + "px 50%;transform:rotate(" + Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI + "deg)";
+  return el;
+}
+function verPrevia() {
+  const caps = $("caps"), v = caps.querySelector(".prev"); if (v) v.remove();
+  [...celdas()].forEach(x => x.classList.remove("ini"));
+  if (!J.ancla) return;
+  if (!J.fin || (J.fin[0] === J.ancla[0] && J.fin[1] === J.ancla[1])) { celdas()[J.ancla[0] * J.n + J.ancla[1]].classList.add("ini"); return; }
+  caps.appendChild(capsula(J.ancla, J.fin, "prev"));
+}
+function linea(a, b) {
+  const df = Math.sign(b[0] - a[0]), dc = Math.sign(b[1] - a[1]), L = Math.max(Math.abs(b[0] - a[0]), Math.abs(b[1] - a[1]));
+  const out = []; for (let i = 0; i <= L; i++) out.push([a[0] + df * i, a[1] + dc * i]); return out;
+}
+function revisar(a, b) {
+  const ls = linea(a, b), w = ls.map(p => J.s.g[p[0]][p[1]]).join(""), rv = w.split("").reverse().join("");
+  const p = J.pal.find(x => !J.hallada[x[0]] && (x[0] === w || x[0] === rv));
+  if (p) acierto(p, a, b, ls); else if (ls.length > 1) error(ls);
+}
+function acierto(p, a, b, ls) {
+  J.hallada[p[0]] = true;
+  const nueva = alAlbum(p[0]); if (nueva) J.nuevas++;
+  $("caps").appendChild(capsula(a, b, "ok"));
+  ls.forEach((q, i) => { const el = celdas()[q[0] * J.n + q[1]]; el.classList.remove("pop"); void el.offsetWidth; el.style.animationDelay = (i * 60) + "ms"; el.classList.add("hit", "pop"); });
+  const k = geo();
+  if (!quieto()) for (let i = 0; i < 12; i++) {
+    const e = document.createElement("i"); e.className = "chs2";
+    e.style.cssText = "left:" + ((b[1] + .5) * k.cs) + "px;top:" + ((b[0] + .5) * k.cs) + "px;--a:" + (i * 30) + "deg;--c:" + COLS[i % COLS.length] + ";animation-delay:.3s";
+    $("tablero").appendChild(e); setTimeout(() => e.remove(), 1200);
+  }
+  const t = document.createElement("div"); t.className = "toast";
+  t.innerHTML = esc(p[0].toLowerCase()) + " <small>= " + esc(p[1]) + "</small>" + (nueva ? '<span class="nv">NUEVA</span>' : "");
+  $("tablero").appendChild(t); setTimeout(() => t.remove(), 1900);
+  voz(p[0].toLowerCase()); vibrar(30);
+  cinta(p[0]); pintarPalabras(p[0]);
+  if (Object.keys(J.hallada).length === J.pal.length) setTimeout(rondaLista, 1100);
+}
+function error(ls) {
+  J.errores++;
+  ls.forEach(q => { const el = celdas()[q[0] * J.n + q[1]]; el.classList.remove("mal"); void el.offsetWidth; el.classList.add("mal"); setTimeout(() => el.classList.remove("mal"), 500); });
+  vibrar([20, 40, 20]);
+}
+/* premio por ronda: la primera vez del día da el Aura completa; si la repite, AURA_REPETIR */
+function rondaLista() {
+  const R = RONDAS[J.r], s = sopaGuardada(), hoy = clave(new Date());
+  const pr = (s.prog && s.prog.dia === hoy && s.prog.tema === J.t.id) ? s.prog : { dia:hoy, tema:J.t.id, r:0, pagadas:0 };
+  const primera = (pr.pagadas || 0) <= J.r;
+  const gan = primera ? R.aura : AURA_REPETIR;
+  pr.r = J.r + 1 >= RONDAS.length ? 0 : J.r + 1;
+  pr.pagadas = Math.max(pr.pagadas || 0, J.r + 1);
+  s.prog = pr; guardarSopa(s);
+  sumarAura(gan, "Sopa de letras: " + J.t.tema + " · " + R.n);
+  J.auraGan += gan;
+  if (J.r + 1 >= RONDAS.length) { terminar(); return; }
+  const S = RONDAS[J.r + 1];
+  $("entreT").textContent = "¡" + R.n + " lista!";
+  $("entreA").innerHTML = sprite("llama", 18) + "+" + gan + " Aura";
+  $("entreN").textContent = S.n;
+  $("entreD").textContent = S.d;
+  $("entreF").innerHTML = flechas(S.dirs);
+  $("entreR").innerHTML = '<i style="background:' + S.rc + '"></i>Palabras ' + S.rar.toLowerCase() + 's para tu álbum';
+  $("entre").hidden = false;
+  const box = $("entreBox"); box.querySelectorAll(".ok-d").forEach(d => d.remove());
+  if (!quieto()) for (let i = 0; i < 12; i++) { const d = document.createElement("i"); d.className = "ok-d"; d.style.cssText = "left:50%;top:60px;--a:" + (i * 30) + "deg;--c:" + COLS[i % COLS.length]; box.appendChild(d); }
+}
+function flechas(dirs) {
+  const F = { "0,1":"→", "1,0":"↓", "1,1":"↘", "0,-1":"←", "-1,0":"↑", "-1,1":"↗", "-1,-1":"↖", "1,-1":"↙" };
+  return dirs.map(d => '<span' + (alReves(d) ? ' class="rv"' : '') + '>' + F[d.join(",")] + '</span>').join("");
+}
+function terminar() {
+  const seg = Math.round((Date.now() - J.t0) / 1000), est = J.errores <= 2 ? 3 : J.errores <= 5 ? 2 : 1;
+  const s = sopaGuardada(); s.est = s.est || {}; s.est[J.t.id] = Math.max(+s.est[J.t.id] || 0, est); s.hoy = clave(new Date()); guardarSopa(s);
+  const total = RONDAS.length * 4;
+  $("finP").textContent = "Encontraste las " + total + " palabras de " + J.t.tema + ".";
+  $("estr").innerHTML = [0, 1, 2].map(i => '<svg class="' + (i < est ? "on" : "") + '" style="animation-delay:' + (.5 + i * .2) + 's" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg>').join("");
+  $("finDat").innerHTML = '<span>Tiempo<b>' + Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, "0") + '</b></span>' +
+    '<span>Errores<b>' + J.errores + '</b></span><span class="au">Aura<b>' + sprite("llama", 18) + '+' + J.auraGan + '</b></span>';
+  $("finAlb").innerHTML = J.nuevas ? '<b>' + J.nuevas + '</b> palabras nuevas en tu álbum' : 'Ya tenías todas estas palabras en tu álbum';
+  const ic = $("okIc");
+  ic.innerHTML = '<svg viewBox="0 0 52 52" width="104" height="104" aria-hidden="true"><circle class="ok-c" cx="26" cy="26" r="23"></circle><path class="ok-t" d="M15 27l8 8 15-17"></path></svg>';
+  if (!quieto()) for (let i = 0; i < 12; i++) { const d = document.createElement("i"); d.className = "ok-d"; d.style.setProperty("--a", (i * 30) + "deg"); d.style.setProperty("--c", COLS[i % COLS.length]); ic.appendChild(d); }
+  $("fin").hidden = false;
+}
+let avisoT = null;
+function aviso(t) { const a = $("aviso"); a.textContent = t; a.hidden = false; clearTimeout(avisoT); avisoT = setTimeout(() => { a.hidden = true; }, 2200); }
+
+/* la sopa ocupa el espacio que queda, sin que la pantalla tenga que bajar */
+function medir() {
+  const z = $("zona"), lado = Math.max(200, Math.min(z.clientWidth, z.clientHeight));
+  const caja = $("tablero"); caja.style.width = lado + "px";
+  caja.style.setProperty("--fs", Math.round(lado / J.n * .56) + "px");
+}
+window.addEventListener("resize", () => { if (J.t) medir(); });
+
+/* cinta: una píldora por palabra de la ronda (? ? ? hasta que la encuentras) */
+function cinta(nueva) {
+  $("cinta").innerHTML = J.pal.map(x => J.hallada[x[0]] ? '<span class="ok"' + (x[0] === nueva ? '' : ' style="animation:none"') + '>' + esc(x[0]) + '</span>' : '<span>' + x[0].split("").map(() => "?").join(" ") + '</span>').join("");
+}
+/* palabras abajo: solo texto, con su significado */
+function pintarPalabras(nueva) {
+  $("pal").innerHTML = J.pal.map(x => {
+    const ok = !!J.hallada[x[0]], viejo = ok && x[0] !== nueva;
+    return '<div class="w' + (ok ? ' ok' : '') + (viejo ? ' viejo' : '') + '"><b><em>' + esc(x[0].toLowerCase()) + '</em><span class="tk">' + TICK + '</span></b><small>' + esc(x[1]) + '</small></div>';
+  }).join("");
+  $("cuenta").textContent = Object.keys(J.hallada).length + "/" + J.pal.length;
+}
+
+/* toques: arrastrar el dedo, o tocar la primera letra y luego la última */
+function eventos() {
+  const caja = $("tablero");
+  caja.addEventListener("pointerdown", e => {
+    const c = celdaDe(e); if (!c) return;
+    e.preventDefault();
+    try { caja.setPointerCapture(e.pointerId); } catch (x) {}
+    J.arrastra = true;
+    if (!J.ancla) { J.ancla = c; J.fin = c; J.nuevo = true; } else { J.fin = ajustar(J.ancla, c); J.nuevo = false; }
+    verPrevia();
+  });
+  caja.addEventListener("pointermove", e => {
+    if (!J.arrastra || !J.ancla) return;
+    const c = celdaDe(e); if (!c) return;
+    J.fin = ajustar(J.ancla, c); verPrevia();
+  });
+  const soltar = () => {
+    if (!J.arrastra) return; J.arrastra = false;
+    if (!J.ancla) return;
+    const mismo = J.fin[0] === J.ancla[0] && J.fin[1] === J.ancla[1];
+    if (mismo && J.nuevo) { verPrevia(); return; }
+    if (mismo) { J.ancla = null; J.fin = null; verPrevia(); return; }
+    const a = J.ancla, b = J.fin; J.ancla = null; J.fin = null; verPrevia(); revisar(a, b);
+  };
+  caja.addEventListener("pointerup", soltar);
+  caja.addEventListener("pointercancel", soltar);
+  $("sigue").addEventListener("click", () => { $("entre").hidden = true; J.r++; iniciarRonda(); });
+  $("otra").addEventListener("click", () => empezar(Math.floor(Math.random() * 999) + 1));
+}
+
+eventos();
+empezar(0);
+pintarAura();
+window.addEventListener("pageshow", pintarAura);
+
+</script>
+<!-- ===== GUARDIA DE INTERNET (script aparte: si algo falla arriba, esta guardia sigue funcionando) ===== -->
+<script>
+(function () {
+  var caja = document.getElementById("sinNet");
+  if (!caja) return;
+
+  /* personaje triste, llorando bajo una nube (si falla el dibujo, la guardia funciona igual) */
+  try {
+    PAL.t = "#6EC6FF"; PAL.q = "#A0A0A5";
+    var g = BASE.map(function (f) { return f.split(""); });
+    [[6,5,6,"s"],[5,5,6,"m"],[6,4,4,"m"],[6,7,7,"m"]].forEach(function (m) { for (var c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+    var l = []; g.forEach(function (f, r) { f.forEach(function (k, c) { if (k !== ".") l.push([r, c, k]); }); });
+    document.getElementById("snPj").innerHTML = '<svg viewBox="-1 -3 14 19.8" shape-rendering="crispEdges" aria-hidden="true">' + rects(l) +
+      '<g class="snA">' + rects([[5,3,"t"],[5,8,"t"],[7,3,"t"]]) + '</g>' +
+      '<g class="snB">' + rects([[6,3,"t"],[6,8,"t"],[8,8,"t"]]) + '</g>' +
+      rects(solo(-2,-2,3,8,"q").concat(solo(-1,-1,2,9,"q"))) + '</svg>';
+  } catch (e) {}
+
+  /* MODO PRUEBA: muestra una franja verde arriba con el estado de la conexión. Cuando termines de probar, déjalo en false. */
+  var DEBUG = false;
+  var panel = null;
+  if (DEBUG) {
+    panel = document.createElement("div");
+    panel.style.cssText = "position:fixed;left:0;right:0;top:0;z-index:99999;background:#000;color:#0f0;font:11px monospace;padding:4px 6px;pointer-events:none";
+    panel.textContent = "guardia v2 cargada...";
+    document.body.appendChild(panel);
+  }
+
+  /* sondas de conexión: si una está bloqueada en la red del usuario, se prueba la otra.
+     Solo cuenta como "hay internet" una respuesta de tipo opaque (la que da una petición real a otro sitio). */
+  var SONDAS = ["https://clients3.google.com/generate_204", "https://www.gstatic.com/generate_204"];
+  var fallos = 0, revisando = false, info = "";
+
+  function probar(url) {
+    return new Promise(function (res) {
+      var c = new AbortController(), t = setTimeout(function () { c.abort(); }, 4000);
+      fetch(url + "?t=" + Date.now(), { mode: "no-cors", cache: "no-store", signal: c.signal })
+        .then(function (r) { clearTimeout(t); res(r.type); })
+        .catch(function () { clearTimeout(t); res("falla"); });
+    });
+  }
+  async function hayInternet() {
+    var partes = ["onLine=" + navigator.onLine], ok = false;
+    if (navigator.onLine) {
+      for (var i = 0; i < SONDAS.length; i++) {
+        var tipo = await probar(SONDAS[i]);
+        partes.push("sonda" + (i + 1) + "=" + tipo);
+        if (tipo === "opaque") { ok = true; break; }
+      }
+    }
+    info = partes.join(" · ");
+    return ok;
+  }
+  async function revisar() {
+    if (revisando) return; revisando = true;
+    var ok = await hayInternet();
+    fallos = ok ? 0 : fallos + 1;
+    /* sin conexión (modo avión) bloquea al instante; con wifi sin internet espera 2 fallos seguidos */
+    caja.hidden = !(navigator.onLine === false || fallos >= 2);
+    if (panel) panel.textContent = "guardia v2 · " + info + " · fallos=" + fallos + " · pantalla=" + (caja.hidden ? "oculta" : "VISIBLE");
+    revisando = false;
+    if (!ok && fallos < 2) setTimeout(revisar, 2000);
+  }
+
+  document.getElementById("snRe").addEventListener("click", revisar);
+  addEventListener("online", revisar);
+  addEventListener("offline", revisar);
+  addEventListener("pageshow", revisar);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) revisar(); });
+  setInterval(revisar, 15000);
+  revisar();
+})();
+</script>
+<script type="module">
+/* ===== SESIÓN: sin cuenta se vuelve a la pantalla de acceso ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const CONFIG = { apiKey:"AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE", authDomain:"inglesgamer-5a3a9.firebaseapp.com", projectId:"inglesgamer-5a3a9", storageBucket:"inglesgamer-5a3a9.firebasestorage.app", messagingSenderId:"599532765222", appId:"1:599532765222:web:38fe3a7348b3c38e3426e7" };
+const app = getApps().length ? getApp() : initializeApp(CONFIG);
+onAuthStateChanged(getAuth(app), u => { if (!u) location.href = igURL("go:acceso"); });
+</script>
+
+<script type="module">
+/* ===== NUBE: guarda tu progreso en tu cuenta y lo recupera. Este MISMO bloque (versión corregida) va en TODAS las pantallas, justo antes de </body>. ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const CONFIG = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+
+(function () {
+  try {
+    const PREF = "ingles_gamer_", META = "ig_nube_meta";
+    const SKIP = /_(sesion|tema|sonido|buzon|buzon_pausa|acceso_modo)$/;
+    const app = getApps().length ? getApp() : initializeApp(CONFIG);
+    const auth = getAuth(app), db = getFirestore(app);
+    let user = null, ocupado = false;
+
+    const dormir = ms => new Promise(r => setTimeout(r, ms));
+    const estado = (ok, e) => { try { localStorage.setItem("ig_nube_estado", JSON.stringify({ ok: !!ok, t: Date.now(), c: ok ? "" : String((e && (e.code || e.message)) || "error") })); } catch (x) {} };
+    const ref = () => doc(db, "progreso", user.uid);
+    const claves = () => { const k = []; try { for (let i = 0; i < localStorage.length; i++) { const n = localStorage.key(i); if (n.indexOf(PREF) === 0 && !SKIP.test(n)) k.push(n); } } catch (e) {} return k; };
+    const snap = () => { const o = {}; claves().forEach(k => { o[k] = localStorage.getItem(k); }); return o; };
+    const ser = o => JSON.stringify(Object.keys(o).sort().map(k => [k, o[k]]));
+    const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return h; };
+    const getMeta = () => { try { return JSON.parse(localStorage.getItem(META)) || {}; } catch (e) { return {}; } };
+    const setMeta = m => { try { localStorage.setItem(META, JSON.stringify(m)); } catch (e) {} };
+    /* CORREGIDO: "vacío" = sin progreso real (solo el apodo/perfil no cuenta) */
+    const vacio = o => !o || !(o.ingles_gamer_a1_repaso || o.ingles_gamer_aura || o.ingles_gamer_tienda);
+    const limpiar = () => claves().forEach(k => localStorage.removeItem(k));
+    const cambios = () => !!user && getMeta().uid === user.uid && hash(ser(snap())) !== getMeta().h;
+    const puntos = d => {
+      try {
+        const a = JSON.parse(d.ingles_gamer_aura || "null") || {}, r = JSON.parse(d.ingles_gamer_a1_repaso || "null") || {};
+        return (+a.t || 0) + Object.values(r.est || {}).reduce((x, y) => x + (+y || 0), 0);
+      } catch (e) { return 0; }
+    };
+
+    async function subir() {
+      const o = snap(), t = Date.now();
+      await setDoc(ref(), { datos: o, t: t, v: 1 });
+      setMeta({ uid: user.uid, t: t, h: hash(ser(o)) });
+      estado(true);
+    }
+    function bajar(c) {
+      limpiar();
+      const d = c.datos || {};
+      for (const k in d) if (k.indexOf(PREF) === 0 && !SKIP.test(k) && typeof d[k] === "string") localStorage.setItem(k, d[k]);
+      setMeta({ uid: user.uid, t: c.t || Date.now(), h: hash(ser(snap())) });
+    }
+
+    async function sync(lanzar) {
+      if (!user || ocupado) return "igual";
+      ocupado = true;
+      let res = "igual";
+      try {
+        const m = getMeta(), o = snap(), h = hash(ser(o)), s = await getDoc(ref()), c = s.exists() ? s.data() : null, cd = (c && c.datos) || {};
+        if (m.uid && m.uid !== user.uid) {
+          limpiar();
+          if (c) bajar(c); else await subir();
+          res = "bajado"; location.reload();
+        } else if (m.uid !== user.uid) {
+          if (c && (vacio(o) || puntos(cd) >= puntos(o))) { bajar(c); res = "bajado"; location.reload(); }
+          else { await subir(); res = "subido"; }
+        } else if (c && vacio(o) && !vacio(cd)) {
+          bajar(c); res = "bajado"; location.reload();
+        } else if (!c || h !== m.h) { await subir(); res = "subido"; }
+        else if (c.t > m.t) { bajar(c); res = "bajado"; location.reload(); }
+        else estado(true);
+      } catch (e) { ocupado = false; estado(false, e); if (lanzar) throw e; return "igual"; }
+      ocupado = false;
+      return res;
+    }
+
+    const guardarYa = () => { if (cambios()) sync(); };
+    onAuthStateChanged(auth, u => { user = u; if (u) sync(); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) guardarYa(); else sync(); });
+    addEventListener("pagehide", guardarYa);
+    setInterval(guardarYa, 45000);
+
+    window.IGNube = {
+      listo: true,
+      sincronizar: () => sync(),
+      usuario: () => user,
+      async subirYa() {
+        for (let i = 0; i < 40 && !user; i++) await dormir(250);
+        if (!user) throw new Error("sin-sesion");
+        while (ocupado) await dormir(200);
+        const r = await sync(true);
+        if (r === "bajado") throw new Error("recargando");
+      }
+    };
+  } catch (e) { console.error("[nube]", e); }
+})();
+</script>
+</body>
+</html>
