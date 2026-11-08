@@ -496,6 +496,13 @@ main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bot
 .pie.C .pj-fig{position:absolute;bottom:6px;left:50%;width:46px;transform:translateX(-50%);transition:left 1.1s cubic-bezier(.4,0,.3,1)}
 .pie.C .pj-fig.izq svg{transform:scaleX(-1)}
 @container (min-height:190px){.pie.A .pj-fig,.pie.B .pj-fig{width:96px}.pie.C .pj-fig{width:84px}.pj-en{font-size:19px}.pj-es{font-size:15px}}
+
+/* ===== ajustes: sin botón de voz, aviso de Aura aparte y botón de sonido ===== */
+.pj-voz{display:none!important}
+.pie.A .pj-tx.ej{padding-right:14px}
+.fin-ya{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:8px 16px;border-radius:99px;background:var(--chip);color:var(--mu);font-size:14px;font-weight:800}
+.fin-ya[hidden]{display:none}
+.son{color:var(--ink)}.son.off{color:var(--mu)}
 </style>
 </head>
 <body>
@@ -511,6 +518,7 @@ main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bot
   <header>
     <a class="menu-btn" href="go:inicio" aria-label="Volver al inicio"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
     <div class="hd-tx"><small><span id="ronda">RONDA 1 DE 4</span> · <span id="cuenta">0/4</span></small><b id="tema"></b></div>
+    <button type="button" class="menu-btn son" id="btnSon" aria-label="Sonido"></button>
     <div class="chip" id="chip"></div>
   </header>
   <main>
@@ -518,7 +526,7 @@ main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bot
     <div class="cinta" id="cinta" aria-live="polite"></div>
     <section class="pal" id="pal" aria-label="Palabras para encontrar"></section>
     <div class="zona" id="zona"><div class="tablero" id="tablero"></div></div>
-    <div class="pie A" id="pie" aria-live="polite"><div class="pj-fig" id="pjFig"></div><div class="pj-tx" id="pjTx"></div><button type="button" class="pj-voz" id="pjVoz" aria-label="Escuchar el ejemplo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"></path></svg></button></div>
+    <div class="pie A pjx" id="pie" aria-live="polite"><div class="pj-fig" id="pjFig"></div><div class="pj-tx" id="pjTx"></div><button type="button" class="pj-voz" id="pjVoz" aria-label="Escuchar el ejemplo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"></path></svg></button></div>
   </main>
 </div>
 <div class="aviso" id="aviso" role="status" hidden></div>
@@ -539,6 +547,7 @@ main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bot
     <p id="finP"></p>
     <div class="estr" id="estr"></div>
     <div class="fin-dat" id="finDat"></div>
+    <div><span class="fin-ya" id="finYa" hidden>Ya ganaste el Aura de esta sopa</span></div>
     <button type="button" class="btn" id="otra">Jugar otra vez</button>
     <a class="btn alt" href="go:inicio">Volver al inicio</a>
   </div>
@@ -791,14 +800,14 @@ function acierto(p, a, b, ls) {
   const t = document.createElement("div"); t.className = "toast";
   t.innerHTML = esc(p[0].toLowerCase()) + " <small>= " + esc(p[1]) + "</small>" + "";
   $("tablero").appendChild(t); setTimeout(() => t.remove(), 1900);
-  voz(p[0].toLowerCase()); vibrar(30);
+  sfx("ok"); vibrar(30);
   cinta(p[0]); pintarPalabras(p[0]); pieAcierto(p);
   if (Object.keys(J.hallada).length === J.pal.length) setTimeout(rondaLista, 1100);
 }
 function error(ls) {
   J.errores++;
   ls.forEach(q => { const el = celdas()[q[0] * J.n + q[1]]; el.classList.remove("mal"); void el.offsetWidth; el.classList.add("mal"); setTimeout(() => el.classList.remove("mal"), 500); });
-  vibrar([20, 40, 20]); pieError();
+  sfx("mal"); vibrar([20, 40, 20]); pieError();
 }
 /* premio por ronda: SOLO la primera vez que se juega esta sopa (s.pagos[tema] = rondas ya cobradas).
    Si la repite, AURA_REPETIR. Cuando cambies las sopas cada semana, usa temas con nombre nuevo para que vuelvan a dar Aura. */
@@ -813,6 +822,7 @@ function rondaLista() {
   pr.pagadas = Math.max(pr.pagadas || 0, J.r + 1);
   s.pagos[J.t.id] = Math.max(yaPagadas, J.r + 1);
   s.prog = pr; guardarSopa(s);
+  if (J.r + 1 < RONDAS.length) sfx("ronda");
   sumarAura(gan, "Sopa de letras: " + J.t.tema + " · " + R.n);
   J.auraGan += gan;
   if (J.r + 1 >= RONDAS.length) { terminar(); return; }
@@ -837,11 +847,12 @@ function terminar() {
   $("finP").textContent = "Encontraste las " + total + " palabras de " + J.t.tema + ".";
   $("estr").innerHTML = [0, 1, 2].map(i => '<svg class="' + (i < est ? "on" : "") + '" style="animation-delay:' + (.5 + i * .2) + 's" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg>').join("");
   $("finDat").innerHTML = '<span>Tiempo<b>' + Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, "0") + '</b></span>' +
-    '<span>Errores<b>' + J.errores + '</b></span>' + (J.auraGan ? '<span class="au">Aura<b>' + sprite("llama", 18) + '+' + J.auraGan + '</b></span>' : '<span class="au">Aura<b>Ya ganada</b></span>');
+    '<span>Errores<b>' + J.errores + '</b></span>' + (J.auraGan ? '<span class="au">Aura<b>' + sprite("llama", 18) + '+' + J.auraGan + '</b></span>' : '');
+  $("finYa").hidden = !!J.auraGan;
   const ic = $("okIc");
   ic.innerHTML = '<svg viewBox="0 0 52 52" width="104" height="104" aria-hidden="true"><circle class="ok-c" cx="26" cy="26" r="23"></circle><path class="ok-t" d="M15 27l8 8 15-17"></path></svg>';
   if (!quieto()) for (let i = 0; i < 12; i++) { const d = document.createElement("i"); d.className = "ok-d"; d.style.setProperty("--a", (i * 30) + "deg"); d.style.setProperty("--c", COLS[i % COLS.length]); ic.appendChild(d); }
-  $("fin").hidden = false;
+  $("fin").hidden = false; sfx("fin");
 }
 let avisoT = null;
 function aviso(t) { const a = $("aviso"); a.textContent = t; a.hidden = false; clearTimeout(avisoT); avisoT = setTimeout(() => { a.hidden = true; }, 2200); }
@@ -877,7 +888,7 @@ function eventos() {
     e.preventDefault();
     try { caja.setPointerCapture(e.pointerId); } catch (x) {}
     J.arrastra = true;
-    if (!J.ancla) { J.ancla = c; J.fin = c; J.nuevo = true; } else { J.fin = ajustar(J.ancla, c); J.nuevo = false; }
+    if (!J.ancla) { J.ancla = c; J.fin = c; J.nuevo = true; sfx("tap"); } else { J.fin = ajustar(J.ancla, c); J.nuevo = false; }
     verPrevia();
   });
   caja.addEventListener("pointermove", e => {
@@ -1121,10 +1132,17 @@ function decir(html, tipo) {
   d.classList.remove("in"); void d.offsetWidth; d.classList.add("in");
   $("pjVoz").style.visibility = tipo === "ej" ? "" : "hidden";
 }
+/* el personaje se mueve solo: cambia de pose cada pocos segundos; si pasa mucho rato sin jugar, se duerme */
+const PIE_SOLO = ["saludo", "alegre", "baile", "cool", "idea", "pulgar", "distraido", "afirma", "pienso", "animo"];
 function pieReposo(id) {
-  clearTimeout(P.quieto);
-  P.quieto = setTimeout(() => { pj("dormido"); if (PIE === "C") decir('<span class="pj-es">Zzz… ¿seguimos? Busca las que faltan.</span>'); }, 14000);
+  clearTimeout(P.quieto); clearInterval(P.ciclo);
   if (id) pj(id);
+  P.ciclo = setInterval(() => {
+    if (document.hidden) return;
+    const actual = $("pjFig").dataset.id, otras = PIE_SOLO.filter(x => x !== actual);
+    pj(otras[Math.floor(Math.random() * otras.length)]);
+  }, 4500);
+  P.quieto = setTimeout(() => { clearInterval(P.ciclo); pj("dormido"); }, 45000);
 }
 function pieRonda() {
   P.ej = []; P.ver = -1;
@@ -1147,7 +1165,6 @@ function verEjemplo(p, nuevo) {
   decir((PIE === "B" ? '<small class="pj-tag">EJEMPLO · ' + esc(p[0].toLowerCase()) + '</small>' : '') +
         '<span class="pj-en">' + en + '</span><span class="pj-es">' + esc(p[3]) + '</span>', "ej");
   puntos();
-  if (nuevo) setTimeout(() => voz(p[2].replace(/\*/g, "")), 700);
 }
 function pieError() {
   pj(PIE_NO[J.errores % PIE_NO.length]);
@@ -1163,6 +1180,40 @@ function caminar(x) { if (PIE !== "C") return; const f = $("pjFig"); f.classList
 $("pjVoz").addEventListener("click", () => { const p = P.ej[P.ver]; if (p) voz(p[2].replace(/\*/g, "")); });
 if ($("pjDots")) $("pjDots").addEventListener("click", e => { const b = e.target.closest("button[data-i]"); if (b && P.ej[+b.dataset.i]) { P.ver = +b.dataset.i; verEjemplo(P.ej[P.ver], false); } });
 $("pjFig").addEventListener("click", () => { pj(PIE_SI[Math.floor(Math.random() * PIE_SI.length)]); pieReposo(); });
+
+/* ===== SONIDOS (se generan solos, sin archivos). Usa el mismo ajuste de sonido de toda la app: "ingles_gamer_sonido" ===== */
+const CLAVE_SON = "ingles_gamer_sonido";
+let SON = true, ACX = null;
+try { SON = localStorage.getItem(CLAVE_SON) !== "0"; } catch (e) {}
+function ctxSon() {
+  if (!ACX) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; ACX = new C(); }
+  if (ACX.state === "suspended") ACX.resume();
+  return ACX;
+}
+function nota(f, t0, d, tipo, vol, f2) {
+  const a = ctxSon(); if (!a) return;
+  const t = a.currentTime + t0, o = a.createOscillator(), g = a.createGain();
+  o.type = tipo || "square"; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + d);
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol || .08, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+  o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + d + .03);
+}
+const SFX = {
+  tap:   () => nota(700, 0, .05, "square", .035, 900),
+  ok:    () => { [523, 659, 784, 1047].forEach((f, i) => nota(f, i * .07, .2, "triangle", .1)); nota(1568, .3, .25, "sine", .05); },
+  mal:   () => { nota(220, 0, .14, "sawtooth", .05, 150); nota(170, .12, .22, "sawtooth", .05, 110); },
+  ronda: () => { [392, 523, 659, 784, 1047].forEach((f, i) => nota(f, i * .09, .26, "square", .05)); nota(196, 0, .55, "triangle", .09); },
+  fin:   () => { [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => nota(f, i * .11, .3, "square", .05)); nota(262, 0, .9, "triangle", .1); nota(2093, .8, .5, "sine", .04); }
+};
+function sfx(n) { if (!SON) return; try { SFX[n](); } catch (e) {} }
+function pintarSon() {
+  const b = $("btnSon"); if (!b) return;
+  b.classList.toggle("off", !SON); b.setAttribute("aria-pressed", SON);
+  b.setAttribute("aria-label", SON ? "Sonido activado. Toca para silenciar" : "Sonido apagado. Toca para activar");
+  b.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path>' +
+    (SON ? '<path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path>' : '<path d="m16 9 5 6M21 9l-5 6"></path>') + '</svg>';
+}
+$("btnSon").addEventListener("click", () => { SON = !SON; try { localStorage.setItem(CLAVE_SON, SON ? "1" : "0"); } catch (e) {} pintarSon(); sfx("tap"); });
+pintarSon();
 
 eventos();
 empezar(0);

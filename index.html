@@ -304,6 +304,13 @@ main{overflow-x:hidden;touch-action:pan-y}
 .si-pie div b{display:block;font-size:17px;font-weight:900}
 .si-pie div small{display:block;margin-top:2px;font-size:13px;font-weight:700;color:var(--mu)}
 @media (prefers-reduced-motion:reduce){.si-tira{animation:none}}
+/* ajuste: tarjeta de la sopa más centrada y con letra más grande */
+.si-top{padding:0 14px 0 22px}
+.si-top b{font-size:36px}
+.si-top .nuevo{margin-left:3px}
+.si-pie{justify-content:center;text-align:center;padding:0 18px}
+.si-pie div b{font-size:22px}
+.si-pie div small{margin-top:4px;font-size:14px}
 </style>
 </head>
 <body>
@@ -772,7 +779,7 @@ function pintarSopa() {
   });
   el.innerHTML = '<div class="si-top"><div><span class="nuevo">NUEVO</span><b>Sopa de letras</b></div><div class="si-pj">' + alegre() + '</div></div>' +
     '<div class="si-cinta" aria-hidden="true"><div class="si-tira">' + tira + tira + '</div></div>' +
-    '<div class="si-pie"><div><b>Hoy: ' + esc(t.tema) + '</b><small>' + t.p.map(x => esc(x[0].toLowerCase()) + ' · ' + esc(x[1])).join(" — ") + '</small></div></div>';
+    '<div class="si-pie"><div><b>' + esc(t.tema) + '</b><small>' + t.p.map(x => esc(x[0].toLowerCase()) + ' · ' + esc(x[1])).join(" — ") + '</small></div></div>';
 }
 
 function pintarTodo() { pintarJugador(); pintarSeguir(); pintarRacha(); pintarCampana(); pintarSopa(); }
