@@ -1,0 +1,344 @@
+<!doctype html><html lang="es"><head><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Escena viva · diseños</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--ok:#7BE3A8;--mal:#FF6B6B;--cc:#8FD8FF;--hot:#FF8A3D}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,sans-serif;padding:18px 14px 60px;max-width:440px;margin:auto}
+h1{font-size:24px;margin:4px 0;font-weight:900}.intro{color:var(--mu);font-size:14px;margin:0 0 8px;line-height:1.45}
+.op{margin:30px 0 10px;display:flex;gap:10px}.op>b{flex:none;display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:12px;background:#fff;color:#000;font-size:18px;font-weight:900}.op span{display:block;font-size:18px;font-weight:900}.op small{display:block;color:var(--mu);font-size:12.5px;font-weight:700;line-height:1.35}
+.ph{border:1px solid var(--bd);border-radius:28px;background:#07080A;padding:14px;overflow:hidden;position:relative}
+.chip{display:inline-block;padding:5px 11px;border-radius:99px;font-size:10.5px;font-weight:900;letter-spacing:.1em;border:1px solid #2F5A75;background:#0E2433;color:#BDE8FF}
+.row{display:flex;align-items:center;justify-content:space-between}
+svg{display:block}
+.again{display:block;margin:12px auto 0;padding:8px 16px;border-radius:99px;border:1px solid var(--bd);background:var(--chip);color:var(--ink);font:800 13px Nunito,sans-serif;cursor:pointer}
+/* personaje */
+.pj svg{image-rendering:pixelated;overflow:visible}
+.pj.tiembla svg{animation:tiem .12s linear infinite}
+.pj.salta svg{animation:salta .5s ease 2}
+.pj.cae svg{animation:cae .6s ease}
+@keyframes tiem{0%{transform:translateX(-1.5px)}50%{transform:translateX(1.5px)}100%{transform:translateX(-1.5px)}}
+@keyframes salta{50%{transform:translateY(-14px)}}
+@keyframes cae{30%{transform:rotate(-6deg)}60%{transform:rotate(4deg)}}
+@keyframes vapor{0%{opacity:0;transform:translateY(4px)}40%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}
+@keyframes aliento{0%{opacity:0;transform:translate(0,0) scale(.5)}40%{opacity:.9}100%{opacity:0;transform:translate(10px,-6px) scale(1.4)}}
+@keyframes gota{0%{opacity:0;transform:translateY(-2px)}30%{opacity:1}100%{opacity:0;transform:translateY(5px)}}
+@keyframes brilla{50%{opacity:.2}}
+@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:none;opacity:1}}
+@keyframes shk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes nieva{to{background-position:-10px 160px,8px 120px}}
+.vap{animation:vapor 1.6s ease-in-out infinite}.ali{animation:aliento 1.8s ease-out infinite}.got{animation:gota 1.2s ease-in infinite}.bri{animation:brilla 1s ease-in-out infinite}
+/* frase con hueco */
+.fra{margin-top:12px;padding:14px;border-radius:20px;background:var(--card);border:1px solid var(--bd);text-align:center}
+.fra .es{font-size:14px;font-weight:800;color:var(--mu)}
+.fra .en{margin-top:6px;font-size:24px;font-weight:900;line-height:1.3}
+.slot{display:inline-flex;align-items:center;justify-content:center;min-width:92px;height:40px;margin:0 4px;padding:0 10px;border-radius:12px;border:2px dashed var(--cc);vertical-align:middle;color:var(--cc);font-size:22px}
+.slot.ok{border-style:solid;border-color:var(--ok);color:var(--ok);background:rgba(123,227,168,.12);animation:pop .3s}
+.slot.mal{border-color:var(--mal);color:var(--mal);animation:shk .35s}
+.ops{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.o{height:56px;border-radius:16px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:900 18px Nunito,sans-serif;cursor:pointer;box-shadow:0 4px 0 var(--bd);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05}
+.o small{font-size:10.5px;color:var(--mu);font-weight:800}
+.o:active{transform:translateY(2px);box-shadow:0 2px 0 var(--bd)}
+.o.ok{border-color:var(--ok);background:#0F2A1C;box-shadow:0 4px 0 #2E7A55}.o.no{opacity:.3}.o.mal{border-color:var(--mal);animation:shk .35s}
+.sab{display:none;margin-top:12px;padding:12px 14px;border-radius:18px;background:linear-gradient(160deg,#103A2A,#08160F);border:1px solid #2E7A55;animation:pop .35s}
+.sab.on{display:block}.sab b{font-size:18px}.sab b em{font-style:normal;color:var(--gold)}.sab span{display:block;margin-top:3px;font-size:13px;color:var(--mu);font-weight:700}
+/* A escena */
+.esc{position:relative;height:220px;border-radius:22px;overflow:hidden;background:linear-gradient(#061230,#163C6A 70%,#DCEBF7 70%,#B9D3E8)}
+.esc:before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle,#fff 0 1.6px,transparent 2.4px) 0 0/40px 40px,radial-gradient(circle,rgba(255,255,255,.7) 0 1.1px,transparent 1.8px) 18px 10px/26px 30px;animation:nieva 5s linear infinite}
+.esc .pj{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);z-index:2}
+.esc .bub{position:absolute;left:58%;top:12%;z-index:4;padding:8px 12px;border-radius:16px 16px 16px 4px;background:#fff;color:#000;font-weight:900;font-size:16px;animation:pop .3s}
+.esc .obj{position:absolute;right:12%;bottom:12%;z-index:2}
+.esc.calor{background:linear-gradient(#5A1E0A,#B5481A 70%,#E8B48A 70%,#D99A6A)}.esc.calor:before{display:none}
+/* B chat */
+.chat{display:flex;flex-direction:column;gap:8px;margin-top:10px;max-height:none}
+.msg{max-width:80%;padding:9px 12px;border-radius:18px;font-size:15px;font-weight:800;line-height:1.3;animation:pop .3s}
+.msg.el{align-self:flex-start;background:#1E2A3A;border-bottom-left-radius:4px}.msg.yo{align-self:flex-end;background:#0F5A3A;border-bottom-right-radius:4px}
+.msg small{display:block;margin-top:3px;font-size:12px;color:var(--mu);font-weight:700}
+.msg .tr{display:none}.msg.vt .tr{display:block}
+.chead{display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.chead .av{width:44px;height:44px;border-radius:50%;background:#163C6A;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.chead b{display:block;font-size:15px}.chead span{font-size:12px;color:var(--ok);font-weight:800}
+.stk{align-self:flex-start;animation:pop .3s}
+.comp{margin-top:10px;padding:10px;border-radius:18px;background:var(--card);border:1px solid var(--bd)}
+.comp .q{font-size:13px;font-weight:800;color:var(--mu)}.comp .en{font-size:19px;font-weight:900;margin-top:4px}
+/* C prueba y mira */
+.lab{position:relative;height:200px;border-radius:22px;overflow:hidden;background:#101820;display:flex;align-items:flex-end;justify-content:center;gap:24px;padding-bottom:18px;transition:background .4s}
+.lab .tag{position:absolute;left:10px;top:10px;padding:4px 10px;border-radius:99px;background:rgba(0,0,0,.45);font-size:11px;font-weight:900;color:#BDE8FF}
+.lab.cold{background:linear-gradient(#0B2C4A,#1E5A85)}.lab.hot{background:linear-gradient(#4A1606,#A8441A)}.lab.happy{background:linear-gradient(#3A2A06,#9A7A1A)}
+.lab .res{position:absolute;right:10px;top:10px;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:900}
+/* D letras de hielo */
+.cart{position:relative;margin:10px auto 0;width:max-content;padding:10px 16px;border-radius:12px;background:#C68A4A;border:4px solid #5E3A16;color:#2A1408;font-size:20px;font-weight:900}
+.cart:after{content:"";position:absolute;left:50%;bottom:-24px;width:6px;height:20px;margin-left:-3px;background:#5E3A16}
+.hue{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.hue i{width:48px;height:56px;border-radius:12px;border:2px dashed #9CC8E8;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:28px;font-weight:900;color:#0B2140;background:rgba(255,255,255,.04)}
+.hue i.f{border-style:solid;background:linear-gradient(#FFFFFF,#D6ECFA)}.hue.ok i{border-color:var(--ok);background:#BFF3D6}
+.let{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.let button{width:52px;height:52px;border-radius:14px;border:1px solid #9CC8E8;background:linear-gradient(#FFFFFF,#D6ECFA);color:#0B2140;font:900 24px Nunito,sans-serif;box-shadow:0 4px 0 #7FA9C9;cursor:pointer}
+.let button:disabled{visibility:hidden}
+/* E cocina */
+.coc{position:relative;height:230px;border-radius:22px;overflow:hidden;background:linear-gradient(#2A1A10,#4A2E1C 66%,#7A4E22 66%,#5E3A16)}
+.coc .pj{position:absolute;left:6%;bottom:8%}
+.coc .it{position:absolute;bottom:36%;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;border:0;background:none;color:inherit;font:inherit;padding:4px;border-radius:14px}
+.coc .it .et{min-width:70px;height:28px;padding:0 8px;border-radius:8px;border:2px dashed rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;background:rgba(0,0,0,.3)}
+.coc .it.ok .et{border:2px solid var(--ok);background:#0F2A1C;color:var(--ok)}.coc .it.mal{animation:shk .35s}
+.coc .it.sel .et{border-color:var(--gold)}
+.palos{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.palo{padding:10px 16px;border-radius:12px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:900 17px Nunito,sans-serif;cursor:pointer}
+.palo.sel{border-color:var(--gold);background:#2A2208}.palo.usado{opacity:.25;pointer-events:none}
+/* F diario */
+.diario{margin-top:10px;border-radius:20px;background:#F3E6C8;color:#3A2A14;padding:14px;position:relative;box-shadow:inset 0 0 0 2px #C9B07A}
+.diario:before{content:"";position:absolute;left:28px;top:0;bottom:0;width:2px;background:#E07A6A;opacity:.5}
+.diario .hd{display:flex;align-items:center;gap:10px;padding-left:24px}
+.diario .hd b{font-size:15px}.diario .hd span{font-size:12px;font-weight:800;color:#8A6A3A}
+.lin{padding:8px 0 8px 24px;border-bottom:1px solid #D9C69A;display:flex;gap:10px;align-items:center}
+.lin .t{flex:1;font-size:15.5px;font-weight:800;line-height:1.35}.lin .t small{display:block;font-size:12px;color:#8A6A3A}
+.lin .ic{flex:none;opacity:.25}.lin.hecha .ic{opacity:1}.lin.bloq{opacity:.35}
+.lin .sl{display:inline-block;min-width:64px;border-bottom:2px solid #3A2A14;text-align:center;color:#0B6A3A}
+.lin.act{background:rgba(255,209,102,.35);border-radius:10px}
+
+.sab .ex2{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px 10px;border-radius:12px;background:rgba(0,0,0,.25);border:0;color:inherit;font:inherit;cursor:pointer;width:100%;text-align:left}
+.sab .ex2 b{font-size:15px}.sab .ex2 span{margin:0}
+.lista{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.lista span{padding:5px 10px;border-radius:99px;background:var(--chip);font-size:12.5px;font-weight:800}.lista b{color:var(--cc)}
+/* 2 · cabaña con fogata (escena grande, frase dentro) */
+.cab{position:relative;height:300px;border-radius:22px;overflow:hidden;background:linear-gradient(#3A1E10,#5A2E16 72%,#7A4E22 72%,#5E3A16)}
+.cab .pared{position:absolute;inset:0;background:repeating-linear-gradient(#4A2812 0 22px,#3A1E10 22px 24px);opacity:.6}
+.cab .fog{position:absolute;left:8%;bottom:20%}
+.cab .pj{position:absolute;right:14%;bottom:10%}
+.cab .cart2{position:absolute;left:50%;top:14px;transform:translateX(-50%);width:88%;padding:10px 12px;border-radius:16px;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);text-align:center;border:1px solid rgba(255,255,255,.15)}
+.cab .cart2 .es{font-size:13px;font-weight:800;color:#FFD6B0}.cab .cart2 .en{font-size:21px;font-weight:900;margin-top:4px}
+.cab .bub{position:absolute;right:36%;bottom:56%;padding:6px 10px;border-radius:14px 14px 4px 14px;background:#fff;color:#000;font-weight:900;font-size:14px;animation:pop .3s}
+.llama{animation:fuego .25s steps(2) infinite}
+@keyframes fuego{50%{transform:scaleY(1.08) translateY(-1px)}}
+.hielo-ops{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.hielo-ops .o{background:linear-gradient(#FFFFFF,#D6ECFA);color:#0B2140;border:1px solid #9CC8E8;box-shadow:0 4px 0 #7FA9C9}.hielo-ops .o small{color:#3A5A7A}
+.hielo-ops .o.ok{background:linear-gradient(#DFFBEA,#9FE8C0);border-color:#2E7A55}
+/* 3 · antes / después */
+.ad{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.vi{position:relative;height:190px;border-radius:18px;overflow:hidden;background:linear-gradient(#061230,#163C6A 72%,#DCEBF7 72%,#B9D3E8);display:flex;align-items:flex-end;justify-content:center;gap:2px;padding-bottom:10px}
+.vi .t{position:absolute;left:8px;top:8px;padding:3px 8px;border-radius:99px;background:rgba(0,0,0,.5);font-size:10px;font-weight:900;letter-spacing:.08em}
+.vi.desp{filter:grayscale(1) brightness(.4)}.vi.desp.on{filter:none;transition:filter .5s}
+.vi .q{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:900;color:rgba(255,255,255,.5)}
+.vi.on .q{display:none}
+/* 4 · pensamiento */
+.pen{position:relative;height:250px;border-radius:22px;overflow:hidden;background:linear-gradient(#1A1030,#2A1A4A)}
+.pen .pj{position:absolute;left:10%;bottom:8%}
+.pen .sofa{position:absolute;left:4%;bottom:6%;width:46%;height:22%;border-radius:14px 14px 6px 6px;background:#6A3A8A;box-shadow:inset 0 8px 0 #8A5AAA}
+.pen .nube{position:absolute;right:6%;top:10%;width:52%;padding:12px;border-radius:26px;background:#fff;color:#1A1030;text-align:center;font-weight:900;animation:pop .4s}
+.pen .nube:before,.pen .nube:after{content:"";position:absolute;border-radius:50%;background:#fff}
+.pen .nube:before{width:16px;height:16px;left:6px;bottom:-18px}.pen .nube:after{width:9px;height:9px;left:-6px;bottom:-30px}
+.pen .nube .es{font-size:17px}.pen .nube .en{margin-top:6px;font-size:13px;color:#6A5A8A}
+.zz{position:absolute;font:900 16px Nunito,sans-serif;color:#BDE8FF;animation:zz 2.4s ease-in infinite}
+@keyframes zz{0%{opacity:0;transform:translate(0,0) scale(.6)}30%{opacity:1}100%{opacity:0;transform:translate(16px,-40px) scale(1.2)}}
+.ico-ops .o{height:76px}.ico-ops .o svg{margin-bottom:2px}
+/* 5 · tira de palabras + confeti */
+.tira{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:10px -14px 0;padding:0 14px}.tira::-webkit-scrollbar{display:none}
+.tira span{flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;width:52px;padding:6px 0;border-radius:12px;background:var(--chip);font-size:10px;font-weight:900;color:var(--mu)}
+.tira span.on{background:#fff;color:#000}.tira span.ya{background:#0F2A1C;color:var(--ok)}
+.fiesta{position:relative;height:230px;border-radius:22px;overflow:hidden;background:radial-gradient(circle at 50% 120%,#5A2A6A,#140A1E 70%)}
+.fiesta .pj{position:absolute;left:28%;bottom:8%}.fiesta .reg{position:absolute;right:16%;bottom:10%}
+.conf{position:absolute;top:-10px;width:7px;height:10px;border-radius:2px;animation:cae2 1.8s linear forwards}
+@keyframes cae2{to{transform:translateY(260px) rotate(540deg)}}
+.fiesta .bub{position:absolute;left:52%;top:12%;padding:8px 12px;border-radius:16px 16px 16px 4px;background:#fff;color:#000;font-weight:900;font-size:15px}
+/* 6 · RPG */
+.rpg{position:relative;height:210px;border-radius:14px;overflow:hidden;background:linear-gradient(#1A2230,#2A3445 66%,#7A8A9A 66%,#5A6A7A);image-rendering:pixelated;border:4px solid #fff;box-shadow:0 0 0 4px #000}
+.rpg .lluvia{position:absolute;inset:0;background:repeating-linear-gradient(105deg,transparent 0 14px,rgba(150,190,230,.35) 14px 15px);animation:llu .5s linear infinite}
+@keyframes llu{to{background-position:-8px 30px}}
+.rpg .pj{position:absolute;left:22%;bottom:10%}.rpg .der{position:absolute;right:16%;bottom:10%}
+.dlg{margin-top:12px;padding:12px 14px;border:4px solid #fff;border-radius:6px;background:#0A0A12;box-shadow:0 0 0 4px #000;font-family:"Press Start 2P",monospace;font-size:11px;line-height:1.9;color:#fff;min-height:96px}
+.dlg .nm{display:inline-block;margin-bottom:6px;padding:3px 8px;background:#FFD166;color:#000;font-size:9px}
+.dlg .es{color:#9FD8FF}
+.dlg .cur{display:inline-block;width:8px;height:12px;background:#fff;vertical-align:middle;animation:brilla .8s steps(1) infinite}
+.menu{margin-top:14px;border:4px solid #fff;border-radius:6px;background:#0A0A12;box-shadow:0 0 0 4px #000;padding:6px}
+.menu button{display:flex;align-items:center;gap:10px;width:100%;padding:10px 8px;border:0;background:none;color:#fff;font-family:"Press Start 2P",monospace;font-size:12px;cursor:pointer;text-align:left}
+.menu button i{width:12px;font-style:normal;color:#FFD166;visibility:hidden}.menu button:hover i,.menu button:focus i{visibility:visible}
+.menu button small{margin-left:auto;font-size:9px;color:#8A8AA0}
+.menu button.ok{color:#7BE3A8}.menu button.ok i{visibility:visible}.menu button.mal{color:#FF6B6B;animation:shk .35s}
+</style></head><body>
+<h1>Escena viva · 6 diseños</h1>
+<p class="intro">Todos siguen la idea que te gustó: <b>el personaje en una escena</b>, la <b>frase en español</b>, el <b>hueco en inglés</b> y las <b>opciones abajo</b>. Cada uno con un estilo distinto y un adjetivo distinto.</p>
+<p class="intro"><b>Los 7 adjetivos del nivel:</b></p>
+<div class="lista"><span><b>cold</b> frío</span><span><b>hot</b> caliente</span><span><b>big</b> grande</span><span><b>small</b> pequeño</span><span><b>happy</b> feliz</span><span><b>sad</b> triste</span><span><b>tired</b> cansado</span></div>
+
+<div class="op"><b>1</b><div><span>Clásico (el que te gustó) · cold</span><small>Nieve, el personaje tiembla con gorro y bufanda. Al acertar salta feliz y sale la tarjeta con la palabra, la traducción y el ejemplo con audio.</small></div></div>
+<div class="ph" id="E1"></div>
+
+<div class="op"><b>2</b><div><span>Escena grande con la frase adentro · hot</span><small>Cabaña con fogata. El personaje suda. La frase va en un cartel dentro de la escena y las opciones son bloques de hielo.</small></div></div>
+<div class="ph" id="E2"></div>
+
+<div class="op"><b>3</b><div><span>Antes y después · big / small</span><small>Dos viñetas: a la izquierda la situación, a la derecha se revela lo que pasa cuando aciertas. Enseña la pareja de opuestos junta.</small></div></div>
+<div class="ph" id="E3"></div>
+
+<div class="op"><b>4</b><div><span>Lo que piensa · tired</span><small>El personaje en el sofá bostezando, con "Zzz". Piensa la frase en español en una nube y tú eliges la palabra (con dibujito en cada opción).</small></div></div>
+<div class="ph" id="E4"></div>
+
+<div class="op"><b>5</b><div><span>Con tira de palabras · happy</span><small>Arriba ves las 7 palabras del nivel y en cuál vas. El personaje abre un regalo; al acertar cae confeti.</small></div></div>
+<div class="ph" id="E5"></div>
+
+<div class="op"><b>6</b><div><span>Modo videojuego (RPG) · sad</span><small>Como un juego retro: el personaje bajo la lluvia junto a su muñeco derretido. El texto sale letra por letra en una caja de diálogo y eliges en un menú con flecha.</small></div></div>
+<div class="ph" id="E6"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+function voz(t,r){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=r||.9;speechSynthesis.speak(u);}catch(e){}}
+function mezcla(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const ICO='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>';
+/* ===== personaje InglésGamer (12x16) con estados ===== */
+const BASE=["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."];
+const PAL={k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",M:"#7A1F1F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8",r:"#FF6B6B",t:"#6EC6FF",b:"#3FA9F5",R:"#E5483C",W:"#FFFFFF",y:"#FFC83D",c:"#BDE8FF",o:"#FF8A3D",n:"#8A5A2A"};
+function pj(estado,size){
+  const g=BASE.map(r=>r.split(""));const set=(r,c,k)=>{if(g[r]&&c>=0&&c<12)g[r][c]=k;};
+  let extra="";
+  if(estado==="frio"){ for(let c=2;c<10;c++){set(0,c,c%2?"R":"W");set(1,c,"R");set(2,c,"R");} for(let c=2;c<10;c++)set(7,c,"b"); set(8,2,"b");set(9,2,"b"); set(5,2,"c");set(5,9,"c"); set(6,5,"M");set(6,6,"M");set(6,4,"s");set(6,7,"s");
+    extra='<g class="ali"><rect x="12.5" y="5" width="1" height="1" fill="#fff" opacity=".8"/><rect x="13.6" y="4.3" width="1" height="1" fill="#fff" opacity=".6"/></g>'; }
+  if(estado==="calor"){ set(5,2,"r");set(5,9,"r"); set(6,4,"M");set(6,5,"M");set(6,6,"M");set(6,7,"M");
+    extra='<g class="got"><rect x="10.3" y="3" width=".9" height="1.3" fill="#6EC6FF"/></g><g class="got" style="animation-delay:.5s"><rect x=".8" y="4" width=".9" height="1.3" fill="#6EC6FF"/></g>'; }
+  if(estado==="feliz"){ set(5,3,"M");set(5,8,"M");set(6,4,"M");set(6,5,"M");set(6,6,"M");set(6,7,"M"); set(5,2,"r");set(5,9,"r");
+    extra='<g class="bri"><rect x="-1" y="1" width="1" height="1" fill="#FFC83D"/><rect x="12.5" y="2" width="1" height="1" fill="#FFC83D"/><rect x="13" y="8" width="1" height="1" fill="#FFC83D"/></g>'; }
+  if(estado==="triste"){ set(6,4,"M");set(6,7,"M");set(6,5,"s");set(6,6,"s");set(5,5,"M");set(5,6,"M");
+    extra='<g class="got"><rect x="3" y="5.2" width=".8" height="1.2" fill="#6EC6FF"/></g>'; }
+  if(estado==="duda"){ set(6,5,"M");set(6,6,"M");set(6,7,"M");
+    extra='<text x="12.4" y="2.6" font-size="3.4" font-weight="900" fill="#FFD166" font-family="Nunito">?</text>'; }
+  let o="";g.forEach((r,y)=>r.forEach((k,x)=>{if(k!=="."&&PAL[k])o+='<rect x="'+x+'" y="'+y+'" width="1.02" height="1.02" fill="'+PAL[k]+'"/>';}));
+  return '<svg width="'+size*12/16+'" height="'+size+'" viewBox="0 0 12 16" shape-rendering="crispEdges">'+o+extra+'</svg>';
+}
+/* objetos */
+function pix(g,p,ox,oy){let o="";g.forEach((r,y)=>r.split("").forEach((c,x)=>{if(c!=="."&&p[c])o+='<rect x="'+(x+(ox||0))+'" y="'+(y+(oy||0))+'" width="1.02" height="1.02" fill="'+p[c]+'"/>';}));return o;}
+const OB={
+ taza:{p:{w:"#F4F6FA",b:"#8A5A2A",g:"#C9D3E0"},r:["............","............","............","............",".wwwwwww....",".wbbbbbwww..",".wbbbbbw.w..",".wbbbbbw.w..",".wwwwwwwww..",".gwwwwwg....","..ggggg.....","............"]},
+ tazaF:{p:{w:"#DDF2FF",b:"#9CC8E8",g:"#C9D3E0",c:"#FFFFFF"},r:["............","............","............","............",".wwwwwww....",".wbcbcbwww..",".wcbcbcw.w..",".wbcbcbw.w..",".wwwwwwwww..",".gwwwwwg....","..ggggg.....","............"]},
+ hielo:{p:{c:"#BDE8FF",w:"#FFFFFF",d:"#6FB0DF"},r:["............","............","...cccccc...","..cwwccccc..","..cwcccccd..","..cccccccd..","..cccccccd..","..ccccwccd..","..cccccccd..","...ddddddd..","............","............"]},
+ sol:{p:{y:"#FFC83D",o:"#FF8A3D"},r:[".....y......","..y..y..y...","...yyyyy....","..yyoooyy...","yyyoooooyyy.","..yyoooyy...","...yyyyy....","..y..y..y...",".....y......","............","............","............"]}
+};
+const obj=(n,s,vapor)=>'<svg width="'+s+'" height="'+s+'" viewBox="0 0 12 12" shape-rendering="crispEdges" style="overflow:visible">'+pix(OB[n].r,OB[n].p)+(vapor?'<g class="vap"><rect x="3" y="1" width="1" height="2" fill="#FF8A3D"/><rect x="5" y="0" width="1" height="2" fill="#FF8A3D"/></g><g class="vap" style="animation-delay:.6s"><rect x="4" y="1" width="1" height="2" fill="#FFB27A"/></g>':'')+'</svg>';
+
+
+/* estados extra del personaje */
+const _pj=pj;
+pj=function(estado,size){
+  if(estado==="cansado"){let s=_pj("base",size);return s.replace('</svg>','<rect x="3" y="4" width="2" height="1" fill="#F2B98F"/><rect x="7" y="4" width="2" height="1" fill="#F2B98F"/><rect x="3" y="4.6" width="2" height=".5" fill="#3A2414"/><rect x="7" y="4.6" width="2" height=".5" fill="#3A2414"/><rect x="5" y="6" width="2" height="1" fill="#7A1F1F"/></svg>');}
+  if(estado==="asombro"){let s=_pj("base",size);return s.replace('</svg>','<rect x="5" y="6" width="2" height="1" fill="#7A1F1F"/><rect x="4" y="3" width="1" height=".5" fill="#3A2414"/><rect x="7" y="3" width="1" height=".5" fill="#3A2414"/><text x="12.3" y="3" font-size="3.4" font-weight="900" fill="#FFD166" font-family="Nunito">!</text></svg>');}
+  return _pj(estado,size);
+};
+Object.assign(OB,{
+ fogata:{p:{o:"#FF8A3D",y:"#FFC83D",r:"#E5483C",n:"#8A5A2A",d:"#5E3A16"},r:["......o.....",".....oo.....","....oyo.o...","...oyyoo....","...oyyyoo...","..ryyyyyor..","..royyyyor..","...rooooo...","..nndnndnn..",".nnddnnddnn.","............","............"]},
+ muneco:{p:{w:"#FFFFFF",k:"#2B2B33",o:"#FF8A3D",r:"#E5483C"},r:["....kkkk....","...kkkkkk...","...wwwwww...","..wwkwwkww..","..wwwoowww..","..rrrrrrrr..","...wwwwwrr..","..wwwkwwww..",".wwwwwwwwww.",".wwwwkwwwww.",".wwwwwwwwww.","..wwwwwwww.."]},
+ derretido:{p:{w:"#E8F4FF",k:"#2B2B33",o:"#FF8A3D",r:"#E5483C",b:"#9CC8E8"},r:["............","............","............","............","............","............","....kkk.....","...wkwkw....","..rrwowrr...",".wwwwwwwww..","bwwwwwwwwwwb","bbbbbbbbbbbb"]},
+ regalo:{p:{b:"#3FA9F5",d:"#2A78C0",y:"#FFD166"},r:["...yy..yy...","....yyyy....","bbbbbyybbbbb","bbbbbyybbbbb","............",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".ddddyydddd.","............","............"]},
+ regaloA:{p:{b:"#3FA9F5",d:"#2A78C0",y:"#FFD166",s:"#FF4D6D"},r:["..s.....s...",".....s......","..s.y..s....","....yy......","............",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".ddddyydddd.","............","............"]}
+});
+const SVGI=p=>'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';
+const OPS={
+ cold:["cold","frío",'<path d="M12 2.5v19M3.8 7.2l16.4 9.6M3.8 16.8l16.4-9.6"/>'],hot:["hot","caliente",'<path d="M12 21a6 6 0 0 1-6-6c0-3.5 2.5-5 3.5-8 1.5 1.5 2 3 2 4.5 1-1 1.5-2.5 1.5-4.5 3 2 5 5 5 8a6 6 0 0 1-6 6z"/>'],
+ big:["big","grande",'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>'],small:["small","pequeño",'<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>'],
+ happy:["happy","feliz",'<circle cx="12" cy="12" r="9"/><path d="M8 14a4 4 0 0 0 8 0M9 9.5h.01M15 9.5h.01"/>'],sad:["sad","triste",'<circle cx="12" cy="12" r="9"/><path d="M8 16.5a4 4 0 0 1 8 0M9 9.5h.01M15 9.5h.01"/>'],
+ tired:["tired","cansado",'<path d="M4 12h6l-6 6h6M14 4h6l-6 6h6"/>']
+};
+const opBtn=(k,cls,ico)=>'<button class="o" data-k="'+k+'">'+(ico?SVGI(OPS[k][2]):'')+OPS[k][0]+'<small>'+OPS[k][1]+'</small></button>';
+function tarjeta(k,en,es){return '<div class="sab" id="S_'+k+'"><b>'+OPS[k][0]+' = <em>'+OPS[k][1]+'</em></b><button class="ex2" data-f="'+en+'">'+ICO+'<span><b>'+en+'</b><span>'+es+'</span></span></button></div>';}
+function conectar(el,k,ok,mal){
+  el.querySelectorAll(".sab .ex2").forEach(b=>b.onclick=()=>voz(b.dataset.f));
+  el.querySelectorAll(".o,[data-k]").forEach(b=>{if(!b.dataset.k||b.classList.contains("sab"))return;b.onclick=()=>{if(el.dataset.fin)return;const x=b.dataset.k,s=el.querySelector(".slot");if(s)s.textContent=x;voz(x);
+    if(x===k){el.dataset.fin=1;if(s)s.className="slot ok";b.classList.add("ok");el.querySelectorAll(".o").forEach(y=>y!==b&&y.classList.add("no"));setTimeout(()=>{el.querySelector(".sab").classList.add("on");},500);ok(b);}
+    else{if(s)s.className="slot mal";b.classList.add("mal");setTimeout(()=>{b.classList.remove("mal");if(s){s.className="slot";s.textContent="?";}},1200);mal(x,b);}};});
+}
+const otra=f=>'<button class="again" data-again>Ver otra vez</button>';
+function again(el,f){el.querySelector("[data-again]").onclick=()=>{delete el.dataset.fin;f();};}
+
+/* 1 · clásico cold */
+function E1(){const el=$("E1");
+ el.innerHTML='<div class="row"><span class="chip">APRENDE · COLD</span><span style="font-size:13px;font-weight:900;color:var(--mu)">1 / 7</span></div>'+
+ '<div class="esc" style="margin-top:10px"><span class="pj tiembla" id="p1">'+pj("frio",130)+'</span><span class="bub" id="b1">¡Brrr!</span></div>'+
+ '<div class="fra"><div class="es">Hace mucho frío.</div><div class="en">It is very <span class="slot">?</span>.</div></div>'+
+ '<div class="ops">'+mezcla(["cold","hot","sad"]).map(k=>opBtn(k)).join("")+'</div>'+tarjeta("cold","It is very cold.","Hace mucho frío.")+otra();
+ conectar(el,"cold",()=>{voz("It is very cold.");setTimeout(()=>{$("p1").className="pj salta";$("p1").innerHTML=pj("feliz",130);$("b1").textContent="¡Sí! Cold!";},500);},
+  x=>{$("p1").className="pj";$("p1").innerHTML=pj("duda",130);$("b1").textContent=x==="hot"?"¿Hot? ¡Me congelo!":"No... ¡tengo frío!";setTimeout(()=>{$("p1").className="pj tiembla";$("p1").innerHTML=pj("frio",130);$("b1").textContent="¡Brrr!";},1300);});
+ again(el,E1);}
+E1();
+
+/* 2 · cabaña hot */
+function E2(){const el=$("E2");
+ el.innerHTML='<div class="row"><span class="chip" style="background:#3A1A08;border-color:#7A3A12;color:#FFB27A">APRENDE · HOT</span><span style="font-size:13px;font-weight:900;color:var(--mu)">2 / 7</span></div>'+
+ '<div class="cab" style="margin-top:10px"><span class="pared"></span><div class="cart2"><div class="es">El fuego está muy caliente.</div><div class="en">The fire is very <span class="slot">?</span></div></div>'+
+ '<span class="fog"><span class="llama" style="display:block">'+obj("fogata",110)+'</span></span><span class="pj" id="p2">'+pj("calor",120)+'</span><span class="bub" id="b2">¡Uf!</span></div>'+
+ '<div class="hielo-ops ops">'+mezcla(["hot","cold","small"]).map(k=>opBtn(k)).join("")+'</div>'+tarjeta("hot","The fire is very hot.","El fuego está muy caliente.")+otra();
+ conectar(el,"hot",()=>{voz("The fire is very hot.");setTimeout(()=>{$("b2").textContent="¡Sí! ¡Qué calor!";$("p2").className="pj salta";},500);},
+  x=>{$("b2").textContent=x==="cold"?"¿Cold? ¡Estoy sudando!":"Mmm… no";});
+ again(el,E2);}
+E2();
+
+/* 3 · antes / después big-small */
+function E3(){const el=$("E3");let fase=0;
+ function pint(){const k=fase?"small":"big";
+  el.innerHTML='<div class="row"><span class="chip">LA PAREJA · BIG / SMALL</span><span style="font-size:13px;font-weight:900;color:var(--mu)">'+(fase+1)+' / 2</span></div>'+
+  '<div class="ad"><div class="vi"><span class="t">ANTES</span>'+pj("base",76)+'</div><div class="vi desp" id="v3"><span class="t">DESPUÉS</span><span class="pj" id="p3">'+pj("asombro",76)+'</span>'+obj("muneco",k==="big"?112:40)+'<span class="q">?</span></div></div>'+
+  '<div class="fra"><div class="es">'+(k==="big"?"El muñeco es muy grande.":"El muñeco es muy pequeño.")+'</div><div class="en">The snowman is <span class="slot">?</span></div></div>'+
+  '<div class="ops">'+mezcla(["big","small","happy"]).map(x=>opBtn(x)).join("")+'</div>'+tarjeta(k,"The snowman is "+k+".",k==="big"?"El muñeco es grande.":"El muñeco es pequeño.")+
+  (fase===0?'<button class="again" id="sig3">Siguiente: small</button>':otra());
+  conectar(el,k,()=>{$("v3").classList.add("on");voz("The snowman is "+k+".");},x=>{});
+  if(fase===0)$("sig3").onclick=()=>{fase=1;delete el.dataset.fin;pint();};else again(el,()=>{fase=0;pint();});
+ }
+ pint();}
+E3();
+
+/* 4 · pensamiento tired */
+function E4(){const el=$("E4");
+ el.innerHTML='<div class="row"><span class="chip" style="background:#2A1A4A;border-color:#6A3A8A;color:#D9B8FF">APRENDE · TIRED</span><span style="font-size:13px;font-weight:900;color:var(--mu)">7 / 7</span></div>'+
+ '<div class="pen" style="margin-top:10px"><span class="sofa"></span><span class="pj" id="p4">'+pj("cansado",120)+'</span><span class="zz" style="left:34%;top:34%">Z</span><span class="zz" style="left:38%;top:30%;animation-delay:.8s">z</span><span class="zz" style="left:36%;top:32%;animation-delay:1.6s">Z</span>'+
+ '<div class="nube"><div class="es">"Estoy muy cansado."</div><div class="en">I am very <span class="slot" style="height:32px;min-width:80px;font-size:18px">?</span></div></div></div>'+
+ '<div class="ops ico-ops">'+mezcla(["tired","happy","small"]).map(k=>opBtn(k,"",1)).join("")+'</div>'+tarjeta("tired","I am very tired.","Estoy muy cansado.")+otra();
+ conectar(el,"tired",()=>{voz("I am very tired.");},x=>{voz(x==="happy"?"No, I am not happy":"No");});
+ again(el,E4);}
+E4();
+
+/* 5 · tira + happy */
+const T7=["cold","hot","big","small","happy","sad","tired"];
+function E5(){const el=$("E5");
+ el.innerHTML='<div class="row"><span class="chip" style="background:#3A1A4A;border-color:#8A4AAA;color:#F0C8FF">APRENDE · HAPPY</span><span style="font-size:13px;font-weight:900;color:var(--mu)">5 / 7</span></div>'+
+ '<div class="tira">'+T7.map((k,i)=>'<span class="'+(i<4?"ya":i===4?"on":"")+'">'+SVGI(OPS[k][2]).replace(/26/g,"18")+(i<=4?k:"· · ·")+'</span>').join("")+'</div>'+
+ '<div class="fiesta" id="f5" style="margin-top:10px"><span class="pj" id="p5">'+pj("base",120)+'</span><span class="reg" id="r5">'+obj("regalo",80)+'</span><span class="bub" id="b5">¡Un regalo!</span></div>'+
+ '<div class="fra"><div class="es">¡Estoy muy feliz!</div><div class="en">I am very <span class="slot">?</span>!</div></div>'+
+ '<div class="ops">'+mezcla(["happy","sad","cold"]).map(k=>opBtn(k)).join("")+'</div>'+tarjeta("happy","I am very happy!","¡Estoy muy feliz!")+otra();
+ conectar(el,"happy",()=>{voz("I am very happy!");$("r5").innerHTML=obj("regaloA",80);$("p5").className="pj salta";$("p5").innerHTML=pj("feliz",120);$("b5").textContent="Yes! Happy!";
+   const f=$("f5");for(let i=0;i<30;i++){const c=document.createElement("i");c.className="conf";c.style.left=Math.random()*100+"%";c.style.background=["#FFD166","#FF4D6D","#7BE3A8","#8FD8FF"][i%4];c.style.animationDelay=Math.random()*.6+"s";f.appendChild(c);}},
+  x=>{$("b5").textContent=x==="sad"?"¿Sad? ¡Es un regalo!":"¿Cold? No...";});
+ again(el,E5);}
+E5();
+
+/* 6 · RPG sad */
+function E6(){const el=$("E6");
+ el.innerHTML='<div class="rpg"><span class="lluvia"></span><span class="pj" id="p6">'+pj("triste",110)+'</span><span class="der">'+obj("derretido",90)+'</span></div>'+
+ '<div class="dlg" id="d6"></div>'+
+ '<div class="menu" id="m6">'+mezcla(["sad","happy","hot"]).map(k=>'<button data-k="'+k+'"><i>▶</i>'+k.toUpperCase()+'<small>'+OPS[k][1]+'</small></button>').join("")+'</div>'+
+ tarjeta("sad","I am very sad.","Estoy muy triste.")+otra();
+ const txt='<span class="nm">INGLÉSGAMER</span><br><span class="es">Mi muñeco se derritió... Estoy muy triste.</span><br>I am very ',d=$("d6");
+ let plain="Mi muñeco se derritió... Estoy muy triste.",i=0;
+ d.innerHTML='<span class="nm">INGLÉSGAMER</span><br><span class="es" id="t6"></span>';
+ const tick=setInterval(()=>{i++;const t=$("t6");if(!t){clearInterval(tick);return;}t.textContent=plain.slice(0,i);if(i>=plain.length){clearInterval(tick);d.insertAdjacentHTML("beforeend",'<br>I am very <span id="h6">___</span>. <span class="cur"></span>');}},40);
+ el.querySelectorAll("#m6 button").forEach(b=>b.onclick=()=>{if(el.dataset.fin)return;const k=b.dataset.k;voz(k);const h=$("h6");
+  if(k==="sad"){el.dataset.fin=1;b.classList.add("ok");if(h){h.textContent="SAD";h.style.color="#7BE3A8";}voz("I am very sad.");setTimeout(()=>el.querySelector(".sab").classList.add("on"),500);}
+  else{b.classList.add("mal");setTimeout(()=>b.classList.remove("mal"),400);}});
+ el.querySelectorAll(".sab .ex2").forEach(b=>b.onclick=()=>voz(b.dataset.f));
+ again(el,E6);}
+E6();
+</script></body></html>
