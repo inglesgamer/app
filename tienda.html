@@ -258,6 +258,69 @@ nav a:hover{color:var(--ink)}nav a.on,nav a.on:hover{color:var(--hi)}
 .lkt{display:inline-block;margin:4px 0 8px;padding:3px 10px;border-radius:99px;background:#fff;color:#000;font-size:11.5px;font-weight:900}
 .lkr{display:flex;flex-wrap:wrap;gap:5px}.lkr span{padding:4px 9px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff;font-size:11px;font-weight:800}
 .look .xpb{top:12px;right:12px;height:34px;font-size:15px;padding:0 12px}
+/* ===== INTRO DE TEMPORADA (Estampida) ===== */
+#intro svg.px{display:block;overflow:visible}
+#intro .sp{position:fixed;inset:0;overflow:hidden;z-index:500;max-width:none}
+#intro .sp.out{animation:igsalir .6s cubic-bezier(.6,0,.8,.4) forwards}
+@keyframes igsalir{to{transform:scale(1.25);opacity:0;filter:blur(6px)}}
+#intro .cnt{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:12vh;z-index:5;text-align:center}
+#intro .tag{padding:6px 14px;border-radius:99px;background:#2A1408;color:#FFC977;font-size:12px;font-weight:900;letter-spacing:.18em;border:2px solid #FFC97755;opacity:0}
+#intro .tit{font-size:68px;font-weight:900;line-height:.95;letter-spacing:-1px;color:#FFC83D;-webkit-text-stroke:3px #2A1408;paint-order:stroke fill;filter:drop-shadow(0 6px 0 #2A1408) drop-shadow(0 0 18px rgba(255,140,40,.55));opacity:0;margin-top:8px;background:linear-gradient(#FFE07A,#FF8A3D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#intro .cd{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:8px 14px;border-radius:99px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);font-size:14px;font-weight:900;opacity:0}
+#intro .cd i{width:9px;height:9px;border-radius:50%;background:#FF4B4B;box-shadow:0 0 8px #FF4B4B;animation:igtit .8s infinite alternate}
+@keyframes igtit{from{opacity:.3}}
+#intro .des{margin-top:auto;margin-bottom:96px;width:100%;padding:0 16px}
+#intro .des h4{font-size:12px;font-weight:900;letter-spacing:.2em;color:#FFC977;margin-bottom:10px;opacity:0}
+#intro .its{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#intro .it{position:relative;padding:8px 4px 8px;border-radius:18px;background:rgba(20,12,6,.85);border:2px solid #FFC97744;opacity:0;transform:translateY(30px) scale(.7)}
+#intro .it .pv{height:56px;display:flex;align-items:center;justify-content:center}
+#intro .it b{display:block;font-size:11.5px;font-weight:900;line-height:1.1;margin-top:4px}
+#intro .it .pr{display:inline-flex;align-items:center;gap:3px;margin-top:5px;padding:3px 8px;border-radius:99px;background:#FFC83D;color:#2A1408;font-size:12px;font-weight:900}
+#intro .it .lg{position:absolute;top:-8px;left:50%;transform:translateX(-50%);padding:2px 7px;border-radius:99px;background:#fff;color:#000;font-size:8.5px;font-weight:900;letter-spacing:.06em;white-space:nowrap}
+#intro .it.leg{border-color:#FFC83D;box-shadow:0 0 18px rgba(255,200,61,.45)}
+#intro .toca{position:absolute;left:0;right:0;bottom:30px;text-align:center;font-size:14px;font-weight:900;color:rgba(255,255,255,.85);opacity:0}
+#intro .toca .bar{display:block;width:120px;height:4px;margin:8px auto 0;border-radius:9px;background:rgba(255,255,255,.2);overflow:hidden}
+#intro .toca .bar i{display:block;height:100%;width:0;background:#FFC83D}
+#intro .saltar{position:absolute;top:14px;right:14px;z-index:20;padding:7px 12px;border-radius:99px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.25);font-size:12px;font-weight:900;color:#fff}
+@keyframes iginF{to{opacity:1}}
+@keyframes igpopIn{0%{opacity:0;transform:translateY(30px) scale(.7)}70%{opacity:1;transform:translateY(-6px) scale(1.06)}100%{opacity:1;transform:none}}
+@keyframes igslam{0%{opacity:0;transform:scale(3.2)}60%{opacity:1;transform:scale(.92)}80%{transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
+@keyframes igsubeT{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:none}}
+@keyframes igllena{to{width:100%}}
+@keyframes igpulso{50%{opacity:.5}}
+@keyframes igshake{0%,100%{transform:translate(0,0)}10%{transform:translate(-10px,6px)}20%{transform:translate(9px,-8px)}30%{transform:translate(-8px,-4px)}40%{transform:translate(7px,8px)}50%{transform:translate(-5px,3px)}60%{transform:translate(4px,-5px)}70%{transform:translate(-3px,2px)}80%{transform:translate(2px,-1px)}}
+#intro .brillo{position:relative;overflow:hidden}
+#intro .v2{background:linear-gradient(#E8692A,#FFB35C 55%,#FFD99A 70%)}
+#intro .v2 .sol{position:absolute;left:50%;top:44%;width:220px;height:220px;margin-left:-110px;border-radius:50%;background:radial-gradient(#FFF1B0,#FFC83D 60%,transparent 62%);opacity:.9}
+#intro .v2 .mont{position:absolute;left:0;right:0;bottom:26%;height:34%;background:#8A3A1C;clip-path:polygon(0 100%,0 60%,14% 30%,26% 55%,40% 10%,46% 18%,52% 6%,66% 50%,80% 26%,100% 58%,100% 100%)}
+#intro .v2 .mont2{position:absolute;left:0;right:0;bottom:26%;height:20%;background:#5E2410;clip-path:polygon(0 100%,0 50%,20% 20%,35% 60%,55% 25%,75% 55%,90% 30%,100% 45%,100% 100%)}
+#intro .v2 .suelo{position:absolute;left:0;right:0;bottom:0;height:26%;background:linear-gradient(#5E8F35,#3E6B22)}
+#intro .v2 .dn{position:absolute;z-index:4;animation:igcorre linear forwards}
+#intro .v2 .dn .b{animation:igtrote .25s ease-in-out infinite alternate}
+@keyframes igcorre{from{transform:translateX(0)}to{transform:translateX(-760px)}}
+@keyframes igtrote{to{transform:translateY(-6px) rotate(-3deg)}}
+#intro .v2 .polvo{position:absolute;z-index:3;width:30px;height:30px;border-radius:50%;background:rgba(200,160,110,.7);animation:igpolvo 1s ease-out infinite}
+@keyframes igpolvo{0%{transform:scale(.3);opacity:.9}100%{transform:scale(2) translate(20px,-10px);opacity:0}}
+#intro .v2 .shk{position:absolute;inset:0;animation:igshake .5s .4s 4}
+#intro .v2 .let{display:inline-block;background:linear-gradient(#FFE07A,#FF8A3D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:0;transform:translateY(-200px);animation:igcae2 .5s cubic-bezier(.3,1.5,.5,1) forwards}
+@keyframes igcae2{to{opacity:1;transform:none}}
+#intro .v2 .tit{opacity:1}
+#intro .v2 .tag{animation:iginF .3s 1.5s forwards}
+#intro .v2 .cd{animation:igsubeT .4s 2.9s forwards}
+#intro .v2 .des h4{animation:iginF .3s 3.1s forwards}
+#intro .v2 .it:nth-child(1){animation:igpopIn .45s 3.2s forwards}
+#intro .v2 .it:nth-child(2){animation:igpopIn .45s 3.35s forwards}
+#intro .v2 .it:nth-child(3){animation:igpopIn .45s 3.5s forwards}
+#intro .v2 .it:nth-child(4){animation:igpopIn .45s 3.65s forwards}
+#intro .v2 .toca{animation:iginF .3s 3.9s forwards,igpulso 1s 4.2s infinite}
+#intro .v2 .toca .bar i{animation:igllena 1.4s linear 4s forwards}
+#intro .v2 .cnt{padding-top:8vh}
+#intro .v2 .wipe{position:absolute;left:100%;bottom:0;z-index:30;height:100%;display:flex;align-items:flex-end}
+#intro .v2.out2 .wipe{animation:igwipe .9s cubic-bezier(.5,0,.5,1) forwards}
+@keyframes igwipe{to{transform:translateX(-1400px)}}
+#intro .v2 .wipe .cuerpo{width:900px;height:100%;background:#E8692A;}
+#intro .tag{position:static;left:auto;top:auto;transform:none}#intro .lg{right:auto;bottom:auto;height:auto;z-index:2}#intro .pv{width:auto;background:none;border-radius:0;overflow:visible}#intro .it{gap:0}
+#intro .it .pase{display:inline-flex;margin-top:5px;padding:3px 8px;border-radius:99px;background:#FFC83D;color:#2A1408;font-size:10.5px;font-weight:900;letter-spacing:.06em}
 </style>
 </head>
 <body>
@@ -521,6 +584,7 @@ function pintarGrid() {
     const btn = puesto ? '<button class="bn on" type="button" disabled>Equipado</button>'
       : mio ? '<button class="bn use" type="button" data-id="' + it.id + '">Equipar</button>'
       : it.id === EXCLUSIVO ? '<button class="bn no" type="button" disabled>Solo el creador</button>'
+      : it.tmp ? '<button class="bn no" type="button" disabled>Con el Pase</button>'
       : '<button class="bn ' + (AU >= pr ? 'buy' : 'no') + '" type="button" data-id="' + it.id + '">' + (it === OFERTA ? '<span class="old">' + it.p + '</span>' : '') + FLAME(16) + pr + '</button>';
     return '<div class="card it' + (puesto ? ' eq' : '') + (esUnico(it) ? ' uni' : '') + '" id="c_' + it.id + '" style="animation-delay:' + (i * .04) + 's">' + (puesto ? '<span class="chk">✓</span>' : '') +
       (it.tmp && tempActiva() ? '<span class="solo">SOLO TEMPORADA</span>' : '') + '<span class="pv">' + prev(it) + '</span>' + etiqueta(it.base) + '<b class="nm">' + nombre(it) + '</b>' + btn + '</div>';
@@ -574,10 +638,10 @@ function pintarTemporada() {
   const its = ALL.filter(x => x.tmp), AU = saldo();
   el.innerHTML = '<div class="ssn" style="margin-top:14px;padding:18px 16px 16px;height:178px"><i class="vol"></i><i class="chis"></i><i class="suelo"></i><span class="dino dw" style="bottom:20px">' + sprite("av19", 70) + '</span>' +
     '<div class="in"><span class="tg">TEMPORADA ' + TEMPORADA.num + ' · ' + TEMPORADA.nombre.toUpperCase() + '</span><h3>Llegaron<br>los dinos</h3><span class="cd"><i></i>Termina en ' + (d > 0 ? d + (d === 1 ? " día" : " días") + ' · ' : '') + h + ' h</span></div></div>' +
-    '<div class="ssh">Solo esta temporada <small>Se van en ' + Math.max(1, d) + (d === 1 ? " día" : " días") + '</small></div><div class="grid">' + its.map(it => {
+    '<div class="ssh">Con el Pase Jurásico <small>Se van en ' + Math.max(1, d) + (d === 1 ? " día" : " días") + '</small></div><div class="grid">' + its.map(it => {
       const mio = owns(it.id), puesto = ST.eq[it.cat] === it.id, pr = precio(it);
       const btn = puesto ? '<button class="bn on" type="button" disabled>Equipado</button>' : mio ? '<button class="bn use" type="button" data-id="' + it.id + '">Equipar</button>'
-        : '<button class="bn ' + (AU >= pr ? 'buy' : 'no') + '" type="button" data-id="' + it.id + '">' + FLAME(16) + pr + '</button>';
+        : '<button class="bn no" type="button" disabled>Con el Pase</button>';
       return '<div class="card it' + (puesto ? ' eq' : '') + '" id="t_' + it.id + '"><span class="solo">SOLO TEMPORADA</span><span class="pv">' + (it.cat === "av" ? '<span class="dw" style="display:inline-block">' + prev(it) + '</span>' : prev(it)) + '</span>' + etiqueta(it.base) + '<b class="nm">' + it.n + '</b>' + btn + '</div>';
     }).join("") + '</div>';
 }
@@ -640,7 +704,7 @@ function comprar(id) {
   const it = get(id), pr = precio(it), r = rareza(it.base);
   if (id === EXCLUSIVO) return;
   if (owns(id)) return;
-  if (it.tmp && !tempActiva()) { aviso("La temporada ya terminó"); return; }
+  if (it.tmp) { sonido("mal"); aviso("Se consigue con el Pase Jurásico"); return; }
   if (saldo() < pr) return falta(id);
   const v = ventana('<div class="pv">' + prev(it, true) + '</div><h3>' + nombre(it) + '</h3><p>Cuesta ' + pr + ' de Aura. Te quedarían ' + (saldo() - pr) + '.</p>' +
     '<button class="bn buy" id="vOk" type="button">Comprar por ' + pr + ' Aura</button><button class="bn ghost" id="vNo" type="button">Ahora no</button>');
@@ -695,6 +759,34 @@ $("ofertas").addEventListener("click", e => {
   if (e.target.closest("#bOferta")) comprar(OFERTA.id);
   else if (e.target.closest("#bCofre")) cofre();
 });
+
+
+/* ---------- INTRO DE TEMPORADA: sale la primera vez del día que entras a la Tienda (5,5 s, o toca para entrar) ---------- */
+(function () {
+  if (!tempActiva()) return;
+  const K = "ig_intro_t" + TEMPORADA.num, hoy = new Date().toDateString();
+  try { if (localStorage.getItem(K) === hoy) return; localStorage.setItem(K, hoy); } catch (e) { return; }
+  const flip = (n, s) => '<span style="display:block;transform:scaleX(-1)">' + sprite(n, s) + '</span>';
+  const ms = finT() - Date.now(), dias = Math.max(1, Math.ceil(ms / 864e5));
+  const amb = ALL.find(x => x.cat === "sk" && x.tmp), e = ST.eq;
+  const ITEMS = [["Raptor", sprite("av18", 46), 1], ["Triceratops", sprite("av19", 44), 0], ["Skin Ámbar", pj(e.av, amb ? amb.id : "sk0", 44), 0], ["Marco Fósil", marco(e.av, "sk0", "mc7", 24), 0]];
+  const DN = [["av15", 130, 2.2, 0, 1], ["av18", 70, 1.7, .15, 1], ["av19", 90, 2.4, .35, 0], ["av18", 56, 1.6, .6, 1], ["av15", 100, 2.0, .8, 1], ["av19", 70, 1.9, 1.0, 0], ["av18", 80, 1.5, 1.2, 1]];
+  const ds = DN.map(x => '<div class="dn" style="left:110%;bottom:calc(26% - ' + (x[1] * .08) + 'px);animation-duration:' + x[2] + 's;animation-delay:' + x[3] + 's"><div class="b">' + (x[4] ? flip(x[0], x[1]) : sprite(x[0], x[1])) + '</div></div>').join("");
+  const pv = Array.from({ length: 8 }, (_, i) => '<i class="polvo" style="left:' + (i * 13) + '%;bottom:calc(26% - 10px);animation-delay:' + (i * .13) + 's"></i>').join("");
+  const tit = TEMPORADA.nombre.toUpperCase().split("").map((c, i) => '<span class="let" style="animation-delay:' + (1.6 + i * .09) + 's">' + c + '</span>').join("");
+  const d = document.createElement("div"); d.id = "intro";
+  d.innerHTML = '<div class="sp v2"><div class="shk"><i class="sol"></i><i class="mont"></i><i class="mont2"></i><i class="suelo"></i>' + pv + ds + '</div>' +
+    '<div class="cnt"><span class="tag">TEMPORADA ' + TEMPORADA.num + '</span><div class="tit">' + tit + '</div><span class="cd"><i></i>Termina en ' + dias + (dias === 1 ? ' día' : ' días') + '</span>' +
+    '<div class="des"><h4>DESBLOQUÉALOS CON EL PASE JURÁSICO</h4><div class="its">' + ITEMS.map(x => '<div class="it' + (x[2] ? ' leg' : '') + '">' + (x[2] ? '<span class="lg">LEGENDARIO</span>' : '') + '<div class="pv">' + x[1] + '</div><b>' + x[0] + '</b><span class="pase">PASE</span></div>').join("") + '</div></div></div>' +
+    '<div class="toca">Toca para entrar<span class="bar"><i></i></span></div><span class="saltar">Saltar ›</span>' +
+    '<div class="wipe">' + flip("av15", 900) + '</div></div>';
+  document.body.appendChild(d);
+  document.documentElement.style.overflow = "hidden";
+  const sp = d.firstChild, t0 = Date.now(); let ya = false;
+  const fin = () => { if (ya) return; ya = true; sp.classList.add("out2"); setTimeout(() => { d.remove(); document.documentElement.style.overflow = ""; }, 900); };
+  setTimeout(fin, 5500);
+  sp.addEventListener("click", ev => { if (ev.target.closest(".saltar") || Date.now() - t0 > 800) fin(); });
+})();
 
 const NAV = [
   { nombre:"Inicio", url:"go:inicio", icono:'<path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path>' },
