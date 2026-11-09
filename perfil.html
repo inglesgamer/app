@@ -216,6 +216,33 @@ nav a.on{color:var(--hi);font-weight:700}
 .a-gir{animation:agir 2s ease-in-out infinite}@keyframes agir{0%,40%{transform:rotateY(0)}80%,100%{transform:rotateY(360deg)}}
 .a-sup{animation:aflt 2s ease-in-out infinite,asup 1.4s ease-in-out infinite alternate}@keyframes asup{from{filter:drop-shadow(0 0 2px #FFC83D)}to{filter:drop-shadow(0 0 14px #FFC83D) brightness(1.15)}}
 .a-sup .sym{color:#FFC83D;animation:parp2 .6s infinite alternate}
+
+.colh{display:flex;justify-content:space-between;align-items:baseline}.colh small{font-size:13px;font-weight:800;color:var(--mu)}
+.tkt{position:relative;display:flex;align-items:stretch;margin:12px 0 4px;border-radius:20px;overflow:hidden;background:linear-gradient(120deg,#3A1A08,#7A3A14 60%,#E8692A);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.tkt .tk-l{flex:1;padding:12px 14px}.tkt small{display:block;font-size:10px;font-weight:900;letter-spacing:.14em;color:#FFC977}.tkt b{display:block;font-size:19px;font-weight:900}
+.tkt span{display:block;font-size:12px;font-weight:700;color:#FFE0B0}.tkt .tk-bar{height:7px;margin-top:8px;border-radius:9px;background:rgba(0,0,0,.35);overflow:hidden}.tkt .tk-bar i{display:block;height:100%;background:#FFC83D}
+.tkt .tk-p{margin-top:4px;font-size:11px}
+.tkt .tk-r{position:relative;flex:none;width:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:3px dashed rgba(255,224,176,.6);background:rgba(0,0,0,.18)}
+.tkt .tk-r em{font-style:normal;margin-top:2px;padding:2px 8px;border-radius:99px;background:#FFC83D;color:#2A1408;font-size:11px;font-weight:900}
+.tkt:before,.tkt:after{content:"";position:absolute;right:83px;width:18px;height:18px;border-radius:50%;background:var(--card)}.tkt:before{top:-9px}.tkt:after{bottom:-9px}
+.bdg{position:absolute;top:6px;left:6px;z-index:3;padding:2px 7px;border-radius:99px;font-size:9px;font-weight:900;letter-spacing:.06em}
+.bdg.pase{background:#FF8A3D;color:#2A1408}.bdg.reg{background:#FF6FB5;color:#2A0A1A}
+.puesto{position:absolute;top:6px;right:6px;z-index:3;width:22px;height:22px;border-radius:50%;background:var(--hi);color:var(--on-hi);font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
+
+.rw{margin-top:14px}.rwh{display:flex;justify-content:space-between;align-items:baseline;margin:0 2px 8px}.rwh b{font-size:15px;font-weight:900}.rwh small{font-size:12px;font-weight:800;color:var(--mu)}
+.rws{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px 4px;scrollbar-width:none}.rws::-webkit-scrollbar{display:none}
+.it2{position:relative;flex:none;width:96px;height:112px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;padding:8px 4px;border-radius:18px;border:1px solid var(--bd);background:var(--chip)}
+.it2 .pv{flex:1;display:flex;align-items:center;justify-content:center}.it2 b{font-size:11.5px;font-weight:900;text-align:center;line-height:1.1}
+.it2.eq{border:2px solid var(--hi)}
+.it2.no{opacity:.55}.it2.no .pv{filter:brightness(0) opacity(.55)}.it2.no b{color:var(--mu)}
+.it2 .q{position:absolute;top:30px;left:50%;transform:translateX(-50%);font-size:26px;font-weight:900;color:var(--mu)}
+.tsec{margin-top:16px;padding:12px;border-radius:22px;background:linear-gradient(160deg,#3A1A08,#1A0A04);border:1px solid #7A3A14}
+.tsec .rwh b{color:#FFC977}.tsec .it2{background:#2A1A10;border-color:#4A3218}
+
+.tkt.off{background:linear-gradient(120deg,#2A2A2E,#3A3A40);filter:grayscale(1);color:#C8C8CE;text-decoration:none}
+.tkt.off small,.tkt.off span{color:#A8A8B0}.tkt.off .tk-r em{background:#5A5A60;color:#E0E0E4}
+.tkt.off .tk-go{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:99px;background:#5A5A60;color:#fff;font-size:12px;font-weight:900}
+.it2{cursor:pointer;font:inherit;color:inherit}.it2:active{transform:scale(.97)}.it2.no{cursor:default}
 </style>
 </head>
 <body>
@@ -226,7 +253,8 @@ nav a.on{color:var(--hi);font-weight:700}
   </div>
   <div class="card hero" id="hero"></div>
   <div class="stats" id="stats"></div>
-  <div class="card">
+  <div class="card" id="coleccion"></div>
+  <div class="card" id="cardAvs" hidden>
     <h2 class="lab"><span>ELIGE TU PERSONAJE</span><span id="cuenta"></span></h2>
     <div class="grid" id="avs"></div>
     <div class="aviso" id="avisoAv" role="status" aria-live="polite"></div>
@@ -424,6 +452,72 @@ function pintar() {
   $("cMed").textContent = M.filter(m => m[2]).length + " de " + M.length;
   $("meds").innerHTML = M.map(m => '<div class="med' + (m[2] ? " ok" : "") + '"><i></i><b>' + m[0] + '</b><span>' + m[1] + '</span></div>').join("");
 }
+
+/* ===================== MI COLECCIÓN =====================
+   Muestra todo lo que tienes (comprado, del cofre, de un pase o regalado) y te deja ponértelo.
+   - Lo de la temporada lleva la etiqueta T1. Lo regalado lleva REGALO: para regalar algo, agrega su id a "own" en
+     ingles_gamer_tienda y escribe ingles_gamer_origen = { "id": "regalo" }.
+   - "Mis pases" lee ingles_gamer_pase (si no lo compraste, el boleto sale en gris). */
+const COL = {
+  av:{ t:"Personajes", n:AVATARES.map(a => a.n) },
+  sk:{ t:"Skins", n:["Original","Hielo","Lava","Bosque","Fantasma","Neón","Dorado","Arcoíris","Ámbar"] },
+  mc:{ t:"Marcos", n:["Madera","Hierro","Oro","Esmeralda","Fuego","Cristal","Arcoíris","Fósil"] },
+  mp:{ t:"Fondos", n:["Pradera","Noche","Desierto","Nieve","Volcán","Espacio","Ciudad","Jurásico","OVNI","Mar","Castillo","Selva","Tormenta","Dulces","Aurora"] },
+  tt:{ t:"Títulos", n:LOOK_TT },
+  an:{ t:"Animaciones", n:["Flotar","Saltar","Alegre","Pensar","Dormir","Bailar","Emocionado","Girar","Superestrella"] }
+};
+const PASES = [ { k:"t1", nombre:"Pase Jurásico", tema:"Jurásica", temp:"Temporada 1", items:["av18","av19","sk8","mc7","tt7"], premios:10, sprite:18 } ];
+const GRATIS = ["av0","av1","sk0","mc0","tt0","mp0","an0"];
+const MESES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+function colDatos() {
+  let t = null, o = null, pa = null;
+  try { t = JSON.parse(localStorage.getItem(CLAVE_T) || "null"); } catch (e) {}
+  try { o = JSON.parse(localStorage.getItem("ingles_gamer_origen") || "null"); } catch (e) {}
+  try { pa = JSON.parse(localStorage.getItem("ingles_gamer_pase") || "null"); } catch (e) {}
+  const own = new Set(((t && Array.isArray(t.own)) ? t.own : []).concat(GRATIS));
+  if (ES_CREADOR === true) own.add("av9");
+  const eq = Object.assign({ sk:"sk0", mc:"mc0", tt:"tt0", mp:"mp0", an:"an0" }, (t && t.eq) || {}); eq.av = "av" + P.a;
+  return { t: t || {}, own, eq, orig: o || {}, pase: pa || {} };
+}
+function colVista(id, z, D) {
+  const k = id.slice(0, 2), i = +id.slice(2), av = AVATARES[P.a];
+  if (k === "av") return sprite(AVATARES[i], z);
+  if (k === "sk") return '<span style="display:inline-flex;' + (LOOK_SK[i] ? 'filter:' + LOOK_SK[i] : '') + '"' + (i === 7 ? ' class="arco"' : '') + '>' + sprite(av, z) + '</span>';
+  if (k === "mc") return '<span class="fr m' + i + '" style="width:' + Math.round(z * 1.15) + 'px;height:' + Math.round(z * 1.15) + 'px">' + sprite(av, Math.round(z * .62)) + '</span>';
+  if (k === "mp") { const m = LOOK_MP[i]; return '<span style="position:relative;display:block;width:' + Math.round(z * 1.5) + 'px;height:' + z + 'px;border-radius:14px;overflow:hidden;background:' + m.bg + '"><b class="fx f-mp' + i + '"></b><i style="position:absolute;left:0;right:0;bottom:0;height:22%;background:' + m.g + '"></i></span>'; }
+  if (k === "tt") return '<b style="display:inline-block;padding:6px 10px;border-radius:99px;background:#fff;color:#000;font-size:' + Math.round(z / 5.2) + 'px;font-weight:900;line-height:1.1;text-align:center;max-width:' + Math.round(z * 1.7) + 'px">' + esc(COL.tt.n[i]) + '</b>';
+  if (k === "an") { const a = LOOK_AN[i]; return '<span class="anw a-' + a + '">' + sprite(av, z) + (LOOK_SYM[a] ? '<span class="sym">' + LOOK_SYM[a] + '</span>' : '') + '</span>'; }
+  return "";
+}
+function pintarColeccion() {
+  const D = colDatos(), TEMP = PASES.reduce((a, p) => a.concat(p.items), []);
+  const badge = id => TEMP.indexOf(id) > -1 ? '<span class="bdg pase">' + PASES.find(p => p.items.indexOf(id) > -1).k.toUpperCase() + '</span>' : D.orig[id] === "regalo" ? '<span class="bdg reg">REGALO</span>' : '';
+  const card = (id, nom, ok) => { const k = id.slice(0, 2), puesto = ok && D.eq[k] === id;
+    return '<button type="button" class="it2' + (ok ? '' : ' no') + (puesto ? ' eq' : '') + '"' + (ok ? ' data-eq="' + id + '"' : ' disabled') + ' aria-label="' + esc(ok ? nom : "Bloqueado") + (puesto ? ', puesto' : '') + '">' +
+      (ok ? badge(id) : '') + (puesto ? '<span class="puesto" aria-hidden="true">✓</span>' : '') + '<span class="pv">' + colVista(id, 46, D) + '</span>' + (ok ? '' : '<span class="q">?</span>') + '<b>' + esc(ok ? nom : "Bloqueado") + '</b></button>'; };
+  const tickets = PASES.map(p => { const x = D.pase[p.k], cob = x && Array.isArray(x.cob) ? x.cob.length : 0, f = x && x.c ? new Date(x.c) : null;
+    return x ? '<div class="tkt"><span class="tk-l"><small>MIS PASES</small><b>' + p.nombre + '</b><span>' + p.temp + (f ? ' · comprado el ' + f.getDate() + ' ' + MESES[f.getMonth()] : '') + '</span><span class="tk-bar"><i style="width:' + Math.round(cob / p.premios * 100) + '%"></i></span><span class="tk-p">' + cob + ' de ' + p.premios + ' premios ganados</span></span><span class="tk-r">' + sprite(AVATARES[p.sprite], 54) + '<em>' + p.k.toUpperCase() + '</em></span></div>'
+      : '<a class="tkt off" href="go:pase"><span class="tk-l"><small>MIS PASES</small><b>' + p.nombre + '</b><span>' + p.temp + ' · No lo tienes</span><span class="tk-go">Ver el pase ›</span></span><span class="tk-r">' + sprite(AVATARES[p.sprite], 54) + '<em>' + p.k.toUpperCase() + '</em></span></a>'; }).join("");
+  const temp = PASES.map(p => '<div class="tsec"><div class="rwh"><b>' + p.temp.toUpperCase() + ' · ' + p.tema.toUpperCase() + '</b><small>' + p.items.filter(i => D.own.has(i)).length + ' de ' + p.items.length + '</small></div><div class="rws" style="margin:0 -12px;padding:0 12px 4px">' +
+    p.items.map(id => card(id, COL[id.slice(0, 2)].n[+id.slice(2)], D.own.has(id))).join("") + '</div></div>').join("");
+  const fila = k => { const todos = COL[k].n.map((n, i) => [k + i, n]).filter(x => TEMP.indexOf(x[0]) < 0 && !(x[0] === "av9" && ES_CREADOR !== true)), mios = todos.filter(x => D.own.has(x[0]));
+    return '<div class="rw"><div class="rwh"><b>' + COL[k].t + '</b><small>' + mios.length + ' de ' + todos.length + '</small></div><div class="rws">' + mios.map(x => card(x[0], x[1], true)).join("") + '</div></div>'; };
+  $("coleccion").innerHTML = '<h2 class="lab colh"><span>MI COLECCIÓN</span><small>' + D.own.size + ' objetos</small></h2>' + tickets + temp + ["av", "sk", "mc", "mp", "tt", "an"].map(fila).join("");
+}
+$("coleccion").addEventListener("click", e => {
+  const b = e.target.closest("[data-eq]"); if (!b) return;
+  const id = b.dataset.eq, k = id.slice(0, 2), D = colDatos(); if (!D.own.has(id)) return;
+  const t = D.t; if (!Array.isArray(t.own)) t.own = []; t.eq = Object.assign({}, t.eq || {});
+  t.eq[k] = id;
+  if (k === "av") { P.a = +id.slice(2); guardarP(); }
+  try { localStorage.setItem(CLAVE_T, JSON.stringify(t)); } catch (er) {}
+  try { sonido("click"); } catch (er) {}
+  const filas = [...$("coleccion").querySelectorAll(".rws")], fi = filas.indexOf(b.parentElement), sx = b.parentElement.scrollLeft;
+  pintar(); const r = $("coleccion").querySelectorAll(".rws")[fi]; if (r) r.scrollLeft = sx;
+});
+const _pintarBaseCol = pintar;
+pintar = function () { _pintarBaseCol(); try { pintarColeccion(); } catch (e) { console.error(e); } };
+pintar();
 $("navbar").innerHTML = NAV.map(n => '<a' + (n[3] ? ' class="on" aria-current="page"' : '') + ' href="' + n[1] + '">' + ico(n[2], 24, "currentColor") + n[0] + '</a>').join("");
 
 /* ===== sonidos ===== */
