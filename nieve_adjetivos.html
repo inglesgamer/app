@@ -256,6 +256,40 @@ svg{display:block}
 .card2{margin-top:6px;animation:entra .35s ease}.card2.sale{animation:sale .25s ease forwards}
 .par{display:flex;align-items:flex-end;justify-content:center;gap:10px;line-height:0}
 .f2 .rep .it .par svg{height:auto}
+
+/* ===== EJERCICIOS TIPO DUOLINGO ===== */
+.tipo{display:flex;align-items:center;gap:8px;margin:2px 0 0;font-size:22px;font-weight:900;line-height:1.2}
+.sub{margin:4px 0 0;font-size:14px;font-weight:700;color:var(--mu)}
+.unir{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.unir .col{display:flex;flex-direction:column;gap:10px}
+.u{height:56px;border-radius:16px;border:2px solid var(--bd);background:var(--card);font:900 18px Nunito,sans-serif;cursor:pointer;box-shadow:0 4px 0 var(--bd);touch-action:manipulation;transition:opacity .3s}
+.u:active:not(:disabled){transform:translateY(2px);box-shadow:0 2px 0 var(--bd)}
+.u.sel{border-color:var(--cc);background:color-mix(in srgb,var(--cc) 18%,var(--card));box-shadow:0 4px 0 color-mix(in srgb,var(--cc) 60%,#000)}
+.u.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--card));opacity:.35;box-shadow:none;cursor:default}
+.u.mal{border-color:var(--mal);animation:shk .35s}
+.esc{display:flex;align-items:center;gap:14px;margin-top:14px;padding:14px;border-radius:22px;border:1px solid #2F5A75;background:linear-gradient(160deg,#0E2433,var(--card))}
+.esc .fg{flex:none;line-height:0}
+.esc .t{flex:1;min-width:0}.esc .t small{display:block;font-size:13px;font-weight:700;color:var(--mu)}
+.esc .fr{display:block;margin-top:4px;font-size:22px;font-weight:900;line-height:1.3}
+.hueco{display:inline-block;min-width:80px;padding:0 6px;border-bottom:3px solid var(--cc);color:var(--cc);text-align:center}
+.hueco.ok{color:var(--ok);border-color:var(--ok)}.hueco.mal{color:var(--mal);border-color:var(--mal)}
+.ops3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+.ops3 .u{height:58px}
+.ops3 .u.ok{opacity:1}
+.inp{width:100%;height:58px;margin-top:14px;padding:0 18px;border-radius:18px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:900 22px Nunito,sans-serif;outline:none}
+.inp:focus{border-color:var(--cc)}.inp.ok{border-color:var(--ok)}.inp.mal{border-color:var(--mal);animation:shk .35s}
+.res{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;min-height:62px;margin-top:14px;padding:8px;border-radius:18px;border:2px dashed #2F5A75}
+.res.ok{border:2px solid var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}.res.mal{border-color:var(--mal);animation:shk .35s}
+.res .vac{font-size:13px;font-weight:800;color:var(--mu)}
+.bloques{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.bl{min-width:54px;height:48px;padding:0 14px;border-radius:12px;border:1px solid #9CC8E8;background:linear-gradient(#FFFFFF,#D6ECFA);color:#0B2140;font:900 19px Nunito,sans-serif;cursor:pointer;touch-action:manipulation;box-shadow:0 4px 0 #7FA9C9}
+.bl:active:not(:disabled){transform:translateY(2px);box-shadow:0 2px 0 #7FA9C9}.bl.usado{visibility:hidden}
+.pie{position:sticky;bottom:0;margin:18px -16px 0;padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--bd);transition:background .25s}
+.pie.ok{background:color-mix(in srgb,var(--ok) 16%,var(--bg));border-color:var(--ok)}.pie.mal{background:color-mix(in srgb,var(--mal) 14%,var(--bg));border-color:var(--mal)}
+.pie .fb{min-height:0;margin:0 0 10px;font-size:16px;font-weight:900}.pie .fb:empty{display:none}.pie.ok .fb{color:var(--ok)}.pie.mal .fb{color:var(--mal)}
+.pie .fb small{display:block;font-size:14px;font-weight:700;color:var(--ink)}
+.pie .lase{margin-top:0}.lase:disabled{opacity:.4;cursor:default}
+.lase.mal{background:var(--mal);color:#2A0606;box-shadow:0 4px 0 color-mix(in srgb,var(--mal) 55%,#000)}
 @keyframes deI{from{transform:translateX(60px) scale(.3);opacity:0}}
 @keyframes deD{from{transform:translateX(-60px) scale(.3);opacity:0}}
 @keyframes late{from{opacity:.5}to{opacity:1}}
@@ -273,7 +307,7 @@ svg{display:block}
 </div>
 <script>
 /* =====================================================================
-   TUS DATOS · Nivel 4 de la Isla de Nieve: Adjetivos (Espejo de hielo)
+   TUS DATOS · Nivel 4 de la Isla de Nieve: Adjetivos (ejercicios tipo Duolingo: unir, completar, escribir, opuestos y ordenar)
    8 adjetivos en 4 parejas de opuestos.
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
@@ -593,73 +627,144 @@ function dibAprende(w) {
 const W_ = k => PALABRAS.find(w => w.k === k);
 
 /* =====================================================================
-   Espejo de hielo: a cada lado sale un opuesto
-   modo "ver": oyes la palabra en inglés y tocas el dibujo
-   modo "dec": un dibujo brilla y eliges la palabra en inglés
+   Ejercicios tipo Duolingo (para memorizar):
+   unir = parejas inglés-español · completa = la frase con 3 opciones
+   escribe = escribe la palabra que falta · opuesto = el contrario · ordena = arma la frase
    ===================================================================== */
-let cola, pos, hechas, dudas, racha, vidas, bloq, R;
+const PLAN = [
+  { t:"unir",     ks:["big", "small", "hot", "cold"] },
+  { t:"completa", k:"cold" },
+  { t:"opuesto",  k:"happy" },
+  { t:"escribe",  k:"big" },
+  { t:"unir",     ks:["happy", "sad", "fast", "slow"] },
+  { t:"completa", k:"fast" },
+  { t:"ordena",   k:"slow" },
+  { t:"escribe",  k:"hot" },
+  { t:"opuesto",  k:"small" },
+  { t:"ordena",   k:"happy" },
+  { t:"escribe",  k:"sad" },
+  { t:"completa", k:"slow" }
+];
+const SUJ = { ping:["penguin", "El pingüino"], taza:["chocolate", "El chocolate"], hielo:["ice", "El hielo"], feliz:["snowman", "El muñeco"], triste:["snowman", "El muñeco"], conejo:["rabbit", "El conejo"], caracol:["snail", "El caracol"] };
+const fraseEn = w => "The " + SUJ[w.d][0] + " is " + w.en;
+let pos, hechas, dudas, racha, vidas, bloq, E, fallo, revisar;
 function pintarVidas() { const e = $("vidas"); if (e) e.setAttribute("aria-label", vidas + " de 3 corazones"); }
-function empezar() {
-  cola = mezcla(PALABRAS.map(w => w.k)).map((k, i) => ({ k, modo:i % 2 ? "dec" : "ver", izq:Math.random() < .5 }));
-  pos = 0; hechas = 0; dudas = {}; racha = 0; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar();
+function empezar() { pos = 0; hechas = 0; dudas = {}; racha = 0; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
+function perderVida() { vidas = Math.max(0, vidas - 1); Racha.error(); pintarVidas(); }
+function marco(chip, titulo, sub, cuerpo, conBoton) {
+  setBarra(hechas / PLAN.length * 100);
+  $("v").innerHTML = '<div class="hdr"><span class="chip">' + chip + '</span><span class="rc">' + (pos + 1) + ' / ' + PLAN.length + '</span></div>' +
+    '<div class="combo" aria-live="polite">' + (racha >= 2 ? sprite("llama", 18) + " Racha x" + racha : "") + '</div>' +
+    '<section class="card2" id="card"><p class="tipo">' + titulo + '</p>' + (sub ? '<p class="sub">' + sub + '</p>' : '') + cuerpo + '</section>' +
+    '<div class="pie" id="pie"><p class="fb" id="fb" aria-live="polite"></p>' + (conBoton ? '<button type="button" class="lase" id="bOk" disabled>Comprobar</button>' : '') + '</div>';
+  pintarVidas(); window.scrollTo(0, 0);
 }
 function pintar() {
-  bloq = false; R = cola[pos]; const w = W_(R.k), o = W_(w.op), total = cola.length;
-  const [a, b] = R.izq ? [w, o] : [o, w];
-  const tam = x => x.k === "big" ? 150 : x.k === "small" ? 64 : 120;
-  const lado = (x, c) => '<button type="button" class="lado ' + c + (R.modo === "dec" ? (x === w ? " marco" : " apag") : "") + '" data-k="' + x.k + '"' + (R.modo === "dec" ? " disabled" : "") + ' aria-label="' + esc(x.es) + '"><span class="fig">' + fig(x, tam(x)) + '</span><span class="lb">' + esc(x.en) + '</span></button>';
-  setBarra(hechas / total * 100);
-  const pide = R.modo === "ver"
-    ? '<div class="pide"><button type="button" class="play" id="bAud" aria-label="Escuchar">' + ICO_ON + '</button><span class="t"><b><u>' + esc(w.en) + '</u></b><span>Toca el dibujo que es <i>' + esc(w.en) + '</i></span></span></div>'
-    : '<div class="pide"><button type="button" class="play" id="bAud" aria-label="Escuchar la frase">' + ICO_ON + '</button><span class="t"><b>¿Cómo es?</b><span>Mira el dibujo que brilla y elige la palabra</span></span></div>';
-  const ops = R.modo === "dec" ? '<div class="ops2">' + mezcla([w, o]).map(x => '<button type="button" class="op2" data-k="' + x.k + '">' + esc(x.en) + '</button>').join("") + '</div>' : "";
-  $("v").innerHTML =
-    '<div class="hdr"><span class="chip">ESPEJO DE HIELO</span><span class="rc">' + (pos + 1) + ' / ' + total + '</span></div>' +
-    '<div class="combo" aria-live="polite">' + (racha >= 2 ? sprite("llama", 18) + " Racha x" + racha : "") + '</div>' +
-    '<section class="card2" id="card">' + pide + '<div class="esp">' + lado(a, "izq") + lado(b, "der") + '</div>' + ops +
-    '<p class="msg" id="msg" aria-live="polite"></p></section>';
-  pintarVidas();
-  on("bAud", () => R.modo === "ver" ? oir(w.audio, w.en) : voz("The " + nombreDe(w) + " is…", .9));
-  document.querySelectorAll(R.modo === "ver" ? ".lado" : ".op2").forEach(bt => bt.addEventListener("click", () => elige(bt)));
-  window.scrollTo(0, 0);
-  if (R.modo === "ver") setTimeout(() => oir(w.audio, w.en), 450);
+  bloq = false; fallo = false; E = PLAN[pos]; revisar = null;
+  ({ unir:exUnir, completa:exCompleta, escribe:exEscribe, opuesto:exOpuesto, ordena:exOrdena })[E.t]();
 }
-function nombreDe(w) { return { ping:"penguin", taza:"chocolate", hielo:"ice", feliz:"snowman", triste:"snowman", conejo:"rabbit", caracol:"snail" }[w.d]; }
-function perderVida() { vidas = Math.max(0, vidas - 1); Racha.error(); pintarVidas(); }
-function elige(bt) {
-  if (bloq) return; const k = bt.dataset.k, w = W_(R.k), m = $("msg");
-  const ladoBien = document.querySelector('.lado[data-k="' + R.k + '"]');
-  if (k === R.k) {
-    bloq = true; hechas++; racha = Racha.acierto(); sonido("ok", racha - 1);
-    bt.classList.add("ok"); if (ladoBien) { ladoBien.classList.add("ok"); ladoBien.classList.remove("marco", "apag"); }
-    document.querySelectorAll(".lado,.op2").forEach(x => x.disabled = true);
-    setBarra(hechas / cola.length * 100);
-    m.className = "msg ok"; m.textContent = "¡Bien! " + w.en + " = " + w.es;
-    setTimeout(() => oir(w.audio, w.en), 300);
-    setTimeout(siguiente, 1900); return;
-  }
-  dudas[R.k] = true; racha = 0; sonido("mal"); perderVida();
-  bt.classList.add("mal"); bt.disabled = true;
-  const x = W_(k);
-  m.className = "msg mal"; m.textContent = x.en + " es «" + x.es + "». Busca: " + w.es + ".";
-  if (vidas <= 0) { bloq = true; setTimeout(perdido, 1400); }
+/* ---- pie: correcto / incorrecto y botón Continuar ---- */
+function bien(txt, sub) {
+  bloq = true; hechas++; if (!fallo) racha = Racha.acierto(); sonido("ok", Math.max(0, racha - 1)); setBarra(hechas / PLAN.length * 100);
+  const p = $("pie"); p.className = "pie ok"; $("fb").innerHTML = esc(txt) + (sub ? '<small>' + esc(sub) + '</small>' : '');
+  let b = $("bOk"); if (!b) { p.insertAdjacentHTML("beforeend", '<button type="button" class="lase" id="bOk">Continuar</button>'); b = $("bOk"); }
+  b.disabled = false; b.className = "lase"; b.textContent = "Continuar"; b.onclick = siguiente; b.focus();
+}
+function malo(txt, k, sigue) {
+  fallo = true; if (k) dudas[k] = true; racha = 0; sonido("mal"); perderVida();
+  const p = $("pie"); p.className = "pie mal"; $("fb").innerHTML = txt;
+  if (vidas <= 0) { bloq = true; setTimeout(perdido, 1500); return; }
+  if (sigue) { bloq = true; const b = $("bOk"); b.disabled = false; b.className = "lase mal"; b.textContent = "Entendido"; b.onclick = () => { hechas++; siguiente(); }; }
+}
+/* 1 · UNIR PAREJAS */
+function exUnir() {
+  const ws = E.ks.map(W_), izq = mezcla(ws), der = mezcla(ws);
+  marco("UNE LAS PAREJAS", "Toca las parejas", "Inglés con español", '<div class="unir"><div class="col">' + izq.map(w => '<button type="button" class="u" data-l="en" data-k="' + w.k + '">' + esc(w.en) + '</button>').join("") + '</div><div class="col">' + der.map(w => '<button type="button" class="u" data-l="es" data-k="' + w.k + '">' + esc(w.es) + '</button>').join("") + '</div></div>', false);
+  let sel = null, listos = 0;
+  document.querySelectorAll(".u").forEach(b => b.addEventListener("click", () => {
+    if (bloq || b.classList.contains("ok")) return;
+    if (b.dataset.l === "en") oir(W_(b.dataset.k).audio, W_(b.dataset.k).en);
+    if (!sel || sel.dataset.l === b.dataset.l) { if (sel) sel.classList.remove("sel"); sel = b; b.classList.add("sel"); sonido("click"); return; }
+    if (sel.dataset.k === b.dataset.k) { [sel, b].forEach(x => { x.classList.remove("sel"); x.classList.add("ok"); x.disabled = true; }); sel = null; listos++; sonido("ok", listos - 1);
+      if (listos === ws.length) { bien("¡Todas unidas!"); } return; }
+    const a = sel; [a, b].forEach(x => { x.classList.remove("sel"); x.classList.remove("mal"); void x.offsetWidth; x.classList.add("mal"); }); sel = null;
+    malo("«" + esc((a.dataset.l === "en" ? W_(a.dataset.k) : W_(b.dataset.k)).en) + "» no es «" + esc((a.dataset.l === "es" ? W_(a.dataset.k) : W_(b.dataset.k)).es) + "».", a.dataset.k);
+    if (vidas > 0) setTimeout(() => { $("pie").className = "pie"; $("fb").textContent = ""; }, 1200);
+  }));
+}
+/* 2 · COMPLETA LA FRASE (3 opciones) */
+function exCompleta() {
+  const w = W_(E.k), ops = mezcla([w, W_(w.op)].concat(mezcla(PALABRAS.filter(x => x.k !== w.k && x.k !== w.op)).slice(0, 1)));
+  marco("COMPLETA", "Completa la frase", "", '<div class="esc"><span class="fg">' + fig(w, 80) + '</span><span class="t"><small>' + esc(w.ejEs) + '</small><span class="fr">The ' + SUJ[w.d][0] + ' is <span class="hueco" id="hu">?</span>.</span></span></div>' +
+    '<div class="ops3">' + ops.map(x => '<button type="button" class="u" data-k="' + x.k + '">' + esc(x.en) + '</button>').join("") + '</div>', false);
+  document.querySelectorAll(".ops3 .u").forEach(b => b.addEventListener("click", () => {
+    if (bloq) return; const x = W_(b.dataset.k), h = $("hu"); h.textContent = x.en;
+    if (x.k === w.k) { b.classList.add("ok"); h.className = "hueco ok"; voz(fraseEn(w), .9); bien("¡Correcto!", fraseEn(w) + ". = " + w.ejEs); }
+    else { b.classList.add("mal"); b.disabled = true; h.className = "hueco mal"; malo("«" + esc(x.en) + "» es «" + esc(x.es) + "». Mira el dibujo.", w.k); }
+  }));
+}
+/* 3 · ESCRIBE LA PALABRA */
+function exEscribe() {
+  const w = W_(E.k);
+  marco("ESCRIBE", "Escribe en inglés", "", '<div class="esc"><span class="fg">' + fig(w, 80) + '</span><span class="t"><small>' + esc(w.ejEs) + '</small><span class="fr">The ' + SUJ[w.d][0] + ' is ____.</span></span></div>' +
+    '<input class="inp" id="inp" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Empieza con «' + w.en[0] + '»" aria-label="Escribe la palabra en inglés">', true);
+  const i = $("inp"), b = $("bOk");
+  i.addEventListener("input", () => { b.disabled = !i.value.trim(); i.classList.remove("mal"); });
+  i.addEventListener("keydown", e => { if (e.key === "Enter" && !b.disabled && !bloq) b.click(); });
+  b.onclick = () => {
+    if (bloq) return; const v = i.value.trim().toLowerCase().replace(/[.!]/g, "");
+    if (v === w.en) { i.className = "inp ok"; i.disabled = true; oir(w.audio, w.en); bien("¡Correcto!", fraseEn(w) + "."); }
+    else { i.classList.remove("mal"); void i.offsetWidth; i.classList.add("mal"); malo("Se escribe: <b>" + esc(w.en) + "</b>", w.k, true); i.disabled = true; }
+  };
+  setTimeout(() => i.focus(), 300);
+}
+/* 4 · EL OPUESTO */
+function exOpuesto() {
+  const w = W_(E.k), o = W_(w.op), ops = mezcla([o, w].concat(mezcla(PALABRAS.filter(x => x.k !== w.k && x.k !== o.k)).slice(0, 1)));
+  marco("OPUESTOS", "¿Cuál es el opuesto?", "", '<div class="esc"><span class="fg">' + fig(w, 80) + '</span><span class="t"><small>' + esc(w.en) + ' = ' + esc(w.es) + '</small><span class="fr">' + esc(w.en) + ' ↔ <span class="hueco" id="hu">?</span></span></span></div>' +
+    '<div class="ops3">' + ops.map(x => '<button type="button" class="u" data-k="' + x.k + '">' + esc(x.en) + '</button>').join("") + '</div>', false);
+  oir(w.audio, w.en);
+  document.querySelectorAll(".ops3 .u").forEach(b => b.addEventListener("click", () => {
+    if (bloq) return; const x = W_(b.dataset.k), h = $("hu"); h.textContent = x.en;
+    if (x.k === o.k) { b.classList.add("ok"); h.className = "hueco ok"; oir(o.audio, o.en); bien("¡Correcto!", w.en + " (" + w.es + ") ↔ " + o.en + " (" + o.es + ")"); }
+    else { b.classList.add("mal"); b.disabled = true; h.className = "hueco mal"; malo(x.k === w.k ? "Esa es la misma palabra. Busca la contraria." : "«" + esc(x.en) + "» es «" + esc(x.es) + "».", o.k); }
+  }));
+}
+/* 5 · ORDENA LA FRASE */
+function exOrdena() {
+  const w = W_(E.k), ps = fraseEn(w).split(" "), extra = W_(w.op).en, bl = mezcla(ps.concat([extra])).map((t, i) => ({ t, i }));
+  let puestos = [];
+  marco("ORDENA", "Arma la frase en inglés", esc(w.ejEs), '<div class="esc" style="justify-content:center"><span class="fg">' + fig(w, 90) + '</span></div><div class="res" id="res"></div><div class="bloques" id="bls">' + bl.map(b => '<button type="button" class="bl" data-i="' + b.i + '">' + esc(b.t) + '</button>').join("") + '</div>', true);
+  const pintarRes = () => {
+    const r = $("res"); r.innerHTML = puestos.length ? puestos.map((i, k) => '<button type="button" class="bl" data-k="' + k + '">' + esc(bl[i].t) + '</button>').join("") : '<span class="vac">Toca las palabras en orden</span>';
+    r.querySelectorAll(".bl").forEach(b => b.addEventListener("click", () => { if (bloq) return; puestos.splice(+b.dataset.k, 1); sonido("click"); pintarRes(); }));
+    document.querySelectorAll("#bls .bl").forEach(b => b.classList.toggle("usado", puestos.indexOf(+b.dataset.i) > -1));
+    $("bOk").disabled = puestos.length < ps.length;
+  };
+  document.querySelectorAll("#bls .bl").forEach(b => b.addEventListener("click", () => { if (bloq || puestos.indexOf(+b.dataset.i) > -1) return; puestos.push(+b.dataset.i); sonido("click"); pintarRes(); }));
+  pintarRes();
+  $("bOk").onclick = () => {
+    if (bloq) return; const r = $("res"), dicho = puestos.map(i => bl[i].t).join(" ");
+    if (dicho === ps.join(" ")) { r.classList.add("ok"); voz(fraseEn(w), .9); bien("¡Correcto!", fraseEn(w) + "."); }
+    else { r.classList.remove("mal"); void r.offsetWidth; r.classList.add("mal"); malo("Era: <b>" + esc(fraseEn(w)) + ".</b>", w.k, true); }
+  };
 }
 function siguiente() {
   const c = $("card"); if (c && !RM) c.classList.add("sale");
-  setTimeout(() => { pos++; if (pos >= cola.length) terminar(); else pintar(); }, RM ? 0 : 260);
+  setTimeout(() => { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }, RM ? 0 : 220);
 }
 const repaso = () => Object.keys(dudas).map(k => { const w = W_(k), o = W_(w.op); return '<div class="it"><span class="par" style="flex:none;width:72px">' + fig(w, 34) + fig(o, 34) + '</span><span><b>' + esc(w.en) + '</b> = ' + esc(w.es) + ' · <b>' + esc(o.en) + '</b> = ' + esc(o.es) + '</span></div>'; }).join("");
-function perdido() { perder(hechas + "/" + cola.length, "aciertos", "Repasa las parejas de opuestos y vuelve a intentarlo.", repaso(), empezar); }
+function perdido() { perder(hechas + "/" + PLAN.length, "ejercicios", "Repasa las parejas de opuestos y vuelve a intentarlo.", repaso(), empezar); }
 function terminar() {
   const nd = Object.keys(dudas).length;
-  ganar(nd, cola.length, nd === 0 ? "¡Espejo perfecto!" : "¡Espejo superado!", "Ya sabes describir las cosas en inglés.", "Repasa las parejas difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+  ganar(nd, PLAN.length, nd === 0 ? "¡Adjetivos perfectos!" : "¡Adjetivos aprendidos!", "Ya sabes describir las cosas en inglés.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
 }
 
-/* ===== arranque: aprende las 8 (por parejas), después el espejo ===== */
+/* ===== arranque: aprende las 8, después los ejercicios ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
 function irPractica() {
-  pantallaIntro("¡Espejo de hielo!", "En el espejo salen dos opuestos. Escucha la palabra y toca el dibujo, o mira el que brilla y elige la palabra.", "Empezar",
+  pantallaIntro("¡A practicar!", "12 ejercicios cortos: unir parejas, completar frases, escribir, buscar el opuesto y ordenar frases.", "Empezar",
     '<span class="par">' + fig(W_("happy"), 70) + fig(W_("sad"), 70) + '</span>', empezar);
 }
 pantallaAprende(0, PALABRAS, dibAprende, irPractica);
