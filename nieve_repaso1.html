@@ -62,7 +62,7 @@ svg{display:block}
 .hdr{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 4px 0}
 .chip{padding:6px 12px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.1em;border:1px solid color-mix(in srgb,var(--cc) 55%,var(--bd));background:color-mix(in srgb,var(--cc) 20%,var(--card))}
 .rc{font-size:13px;font-weight:900;color:var(--mu)}
-.combo{height:22px;margin:8px 4px 0;text-align:center;font-size:15px;font-weight:900;color:var(--gold)}
+.combo{height:22px;margin:8px 4px 0;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:15px;font-weight:900;color:var(--gold)}
 .msg{min-height:26px;margin:12px 0 0;text-align:center;font-size:16px;font-weight:800}.msg.ok{color:var(--ok)}.msg.mal{color:var(--mal)}
 .inst{margin:12px 0 0;text-align:center;font-size:14px;font-weight:800;color:var(--mu)}
 /* ===== APRENDE (una palabra por pantalla) ===== */
@@ -261,7 +261,6 @@ svg{display:block}
 .huecos i.pista{color:var(--gold)}.huecos.ok i{color:var(--ok);border-color:var(--ok)}.huecos.mal{animation:shk .35s}
 .copos{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px;max-width:340px}
 .copo{width:54px;height:54px;border-radius:16px;border:1px solid #2F5A75;background:linear-gradient(160deg,#16405F,#0E2433);color:#E8F7FF;font:900 24px Nunito,sans-serif;cursor:pointer;position:relative;touch-action:manipulation;box-shadow:0 4px 0 #0A1A26}
-.copo:before{content:"❄";position:absolute;right:4px;top:1px;font-size:10px;opacity:.6}
 .copo:active:not(:disabled){transform:translateY(2px);box-shadow:0 2px 0 #0A1A26}.copo:disabled{opacity:.25;cursor:default}
 .dbts{display:flex;gap:10px;margin-top:20px}
 @keyframes popP{0%{transform:scale(0)}100%{transform:scale(1)}}
@@ -358,6 +357,7 @@ function mandarNube(cb) { try { if (window.IGNube && IGNube.subirYa) IGNube.subi
 function nubeDiag(ok, e) { const p = $("diag"); if (p) p.textContent = p.dataset.base + (ok ? "nube: subido ✓" : "nube: NO subió (" + String((e && (e.message || e.code)) || "error") + ")"); }
 
 /* ===== pantalla de APRENDE: una palabra por pantalla ===== */
+const ICO_LENTO = SV('<circle cx="12" cy="13" r="8"></circle><path d="M12 13V9M12 13l3 2M9 2h6"></path>', 18);
 const ICO_EJ = SV('<path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path>', 22);
 function pantallaAprende(i, lista, dibujo, alTerminar) {
   const w = lista[i], n = lista.length;
@@ -365,7 +365,7 @@ function pantallaAprende(i, lista, dibujo, alTerminar) {
   const ej = w.ej.replace(/\*(.+?)\*/, "<u>$1</u>");
   $("v").innerHTML = '<div class="hdr"><span class="chip">APRENDE · ' + esc(TEMA) + '</span><span class="rc">' + (i + 1) + ' / ' + n + '</span></div>' +
     '<section class="apr"><div class="dib">' + dibujo(w) + '</div><p class="pal">' + esc(w.en) + '</p><p class="tra">' + esc(w.es) + '</p>' +
-    '<div class="bts"><button type="button" class="btnB" id="bOir">' + ICO_ON + 'Escuchar</button><button type="button" class="btnG" id="bLen">🐢 Lento</button></div>' +
+    '<div class="bts"><button type="button" class="btnB" id="bOir">' + ICO_ON + 'Escuchar</button><button type="button" class="btnG" id="bLen">' + ICO_LENTO + 'Lento</button></div>' +
     '<button type="button" class="ej" id="bEj"><span class="t"><b>' + ej + '</b><span>' + esc(w.ejEs) + '</span></span>' + ICO_EJ + '</button>' +
     '<button type="button" class="lase" id="bSe">¡LA SÉ!</button>' +
     '<div class="puntos">' + lista.map((_, k) => '<i class="' + (k <= i ? "on" : "") + '"></i>').join("") + '</div>' +
@@ -613,10 +613,10 @@ function pintarMz() {
   bloq = false; Q = nuevaPregunta(); setBarra(partes / TOTAL() * 100);
   $("v").innerHTML =
     '<div class="hdr"><span class="chip">EL MUÑECO CRECE</span><span class="rc">' + partes + ' / ' + PARTES + '</span></div>' +
-    '<div class="combo" aria-live="polite">' + (racha >= 2 ? "🔥 Racha x" + racha : "") + '</div>' +
+    '<div class="combo" aria-live="polite">' + (racha >= 2 ? sprite("llama", 18) + " Racha x" + racha : "") + '</div>' +
     '<div class="mz" id="mz"><span class="luna"></span><span class="pino" style="left:4%"></span><span class="pino" style="right:5%;transform:scale(.8);transform-origin:bottom"></span>' + munecoSVG() +
     '<span class="cont">Muñeco ' + partes + '/' + PARTES + '</span><span class="bub" id="bub">' + (partes ? "¡Me falta " + PZ[partes] + "!" : "¡Ayúdame a armar el muñeco!") + '</span></div>' +
-    '<div class="radio"><button type="button" class="play" id="bAud" aria-label="Escuchar">' + ICO_ON + '</button><span class="t">¿Qué escuchaste?<span>Escucha y toca la palabra en inglés</span></span><button type="button" class="len" id="bLen">🐢 Lento</button></div>' +
+    '<div class="radio"><button type="button" class="play" id="bAud" aria-label="Escuchar">' + ICO_ON + '</button><span class="t">¿Qué escuchaste?<span>Escucha y toca la palabra en inglés</span></span><button type="button" class="len" id="bLen">Lento</button></div>' +
     '<div class="ops2">' + Q.ops.map(w => '<button type="button" class="op2" data-k="' + esc(w.k) + '">' + esc(w.en) + '</button>').join("") + '</div>' +
     '<p class="msg" id="msg" aria-live="polite"></p>';
   document.querySelectorAll(".mu .pz").forEach(g => { if (+g.dataset.i < partes) g.classList.add("on"); });
@@ -651,7 +651,7 @@ function eligeMz(b) {
    ===================================================================== */
 function irDictado() {
   fase = 2; dic = mezcla(PAL_DICTADO).slice(0, DICTADOS).map(k => PALABRAS.find(w => w.k === k)); dpos = 0;
-  pantallaIntro("¡Dictado de copos!", "Escucha la palabra y escríbela tocando los copos de nieve. Las letras amarillas son pistas.", "Empezar", '<span style="display:block;font-size:110px;line-height:1">❄️</span>', pintarDic);
+  pantallaIntro("¡Dictado de copos!", "Escucha la palabra y escríbela tocando los copos de nieve. Las letras amarillas son pistas.", "Empezar", '<svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#BDE8FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5v19M3.8 7.2l16.4 9.6M3.8 16.8l16.4-9.6"></path><path d="M9.5 3.8L12 6.3l2.5-2.5M9.5 20.2L12 17.7l2.5 2.5M3.4 10.4l3.4-.9-.9-3.4M20.6 13.6l-3.4.9.9 3.4M5.9 17.9l.9-3.4-3.4-.9M18.1 6.1l-.9 3.4 3.4.9"></path></svg>', pintarDic);
 }
 function pistas(w) { const n = w.k.length; return n >= 5 ? [0, n - 1] : n >= 4 ? [0] : []; }
 function pintarDic() {
@@ -662,7 +662,7 @@ function pintarDic() {
   $("v").innerHTML =
     '<div class="hdr"><span class="chip">DICTADO DE COPOS</span><span class="rc">' + (dpos + 1) + ' / ' + dic.length + '</span></div>' +
     '<section class="dic"><button type="button" class="play" id="bAud" aria-label="Escuchar">' + ICO_ON + '</button>' +
-    '<div class="bts" style="display:flex;gap:10px;margin-top:22px"><button type="button" class="btnG" id="bLen">🐢 Lento</button></div>' +
+    '<div class="bts" style="display:flex;gap:10px;margin-top:22px"><button type="button" class="btnG" id="bLen">' + ICO_LENTO + 'Lento</button></div>' +
     '<div class="huecos" id="hue"></div>' +
     '<div class="copos">' + tiles.map((c, i) => '<button type="button" class="copo" data-i="' + i + '" data-c="' + c + '">' + c + '</button>').join("") + '</div>' +
     '<div class="dbts"><button type="button" class="btnG" id="bBor">Borrar</button></div>' +

@@ -62,7 +62,7 @@ svg{display:block}
 .hdr{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 4px 0}
 .chip{padding:6px 12px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.1em;border:1px solid color-mix(in srgb,var(--cc) 55%,var(--bd));background:color-mix(in srgb,var(--cc) 20%,var(--card))}
 .rc{font-size:13px;font-weight:900;color:var(--mu)}
-.combo{height:22px;margin:8px 4px 0;text-align:center;font-size:15px;font-weight:900;color:var(--gold)}
+.combo{height:22px;margin:8px 4px 0;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:15px;font-weight:900;color:var(--gold)}
 .msg{min-height:26px;margin:12px 0 0;text-align:center;font-size:16px;font-weight:800}.msg.ok{color:var(--ok)}.msg.mal{color:var(--mal)}
 .inst{margin:12px 0 0;text-align:center;font-size:14px;font-weight:800;color:var(--mu)}
 /* ===== APRENDE (una palabra por pantalla) ===== */
@@ -350,6 +350,7 @@ function mandarNube(cb) { try { if (window.IGNube && IGNube.subirYa) IGNube.subi
 function nubeDiag(ok, e) { const p = $("diag"); if (p) p.textContent = p.dataset.base + (ok ? "nube: subido ✓" : "nube: NO subió (" + String((e && (e.message || e.code)) || "error") + ")"); }
 
 /* ===== pantalla de APRENDE: una palabra por pantalla ===== */
+const ICO_LENTO = SV('<circle cx="12" cy="13" r="8"></circle><path d="M12 13V9M12 13l3 2M9 2h6"></path>', 18);
 const ICO_EJ = SV('<path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path>', 22);
 function pantallaAprende(i, lista, dibujo, alTerminar) {
   const w = lista[i], n = lista.length;
@@ -357,7 +358,7 @@ function pantallaAprende(i, lista, dibujo, alTerminar) {
   const ej = w.ej.replace(/\*(.+?)\*/, "<u>$1</u>");
   $("v").innerHTML = '<div class="hdr"><span class="chip">APRENDE · ' + esc(TEMA) + '</span><span class="rc">' + (i + 1) + ' / ' + n + '</span></div>' +
     '<section class="apr"><div class="dib">' + dibujo(w) + '</div><p class="pal">' + esc(w.en) + '</p><p class="tra">' + esc(w.es) + '</p>' +
-    '<div class="bts"><button type="button" class="btnB" id="bOir">' + ICO_ON + 'Escuchar</button><button type="button" class="btnG" id="bLen">🐢 Lento</button></div>' +
+    '<div class="bts"><button type="button" class="btnB" id="bOir">' + ICO_ON + 'Escuchar</button><button type="button" class="btnG" id="bLen">' + ICO_LENTO + 'Lento</button></div>' +
     '<button type="button" class="ej" id="bEj"><span class="t"><b>' + ej + '</b><span>' + esc(w.ejEs) + '</span></span>' + ICO_EJ + '</button>' +
     '<button type="button" class="lase" id="bSe">¡LA SÉ!</button>' +
     '<div class="puntos">' + lista.map((_, k) => '<i class="' + (k <= i ? "on" : "") + '"></i>').join("") + '</div>' +
@@ -612,7 +613,7 @@ function pintar() {
   const yo = '<span class="pg yo" id="yo" style="left:12%;bottom:6%;z-index:7">' + PING() + '</span>';
   $("v").innerHTML =
     '<div class="hdr"><span class="chip">ESCONDE AL PINGÜINO</span><span class="rc">' + (pos + 1) + ' / ' + total + '</span></div>' +
-    '<div class="combo" aria-live="polite">' + (racha >= 2 ? "🔥 Racha x" + racha : "") + '</div>' +
+    '<div class="combo" aria-live="polite">' + (racha >= 2 ? sprite("llama", 18) + " Racha x" + racha : "") + '</div>' +
     '<section class="card2" id="card">' +
     '<div class="orden"><button type="button" class="play" id="bAud" aria-label="Escuchar la palabra">' + ICO_ON + '</button><span class="t"><b>Pon al pingüino <u>' + esc(w.es) + '</u> ' + NOMBRE_OBJ[R.obj][1] + '</b><span class="ejo">En inglés: <em>' + esc(w.en) + '</em></span></span></div>' +
     '<div style="margin-top:10px">' + escena(R.obj, fant + yo, "Toca dónde va") + '</div>' +
