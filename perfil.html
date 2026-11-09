@@ -229,16 +229,18 @@ nav a.on{color:var(--hi);font-weight:700}
 .bdg.pase{background:#FF8A3D;color:#2A1408}.bdg.reg{background:#FF6FB5;color:#2A0A1A}
 .puesto{position:absolute;top:6px;right:6px;z-index:3;width:22px;height:22px;border-radius:50%;background:var(--hi);color:var(--on-hi);font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
 
-.rw{margin-top:14px}.rwh{display:flex;justify-content:space-between;align-items:baseline;margin:0 2px 8px}.rwh b{font-size:15px;font-weight:900}.rwh small{font-size:12px;font-weight:800;color:var(--mu)}
-.rws{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:0 16px 4px;scrollbar-width:none}.rws::-webkit-scrollbar{display:none}
-.it2{position:relative;flex:none;width:96px;height:112px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;padding:8px 4px;border-radius:18px;border:1px solid var(--bd);background:var(--chip)}
-.it2 .pv{flex:1;display:flex;align-items:center;justify-content:center}.it2 b{font-size:11.5px;font-weight:900;text-align:center;line-height:1.1}
-.it2.eq{border:2px solid var(--hi)}
-.it2.no{opacity:.55}.it2.no .pv{filter:brightness(0) opacity(.55)}.it2.no b{color:var(--mu)}
-.it2 .q{position:absolute;top:30px;left:50%;transform:translateX(-50%);font-size:26px;font-weight:900;color:var(--mu)}
-.tsec{margin-top:16px;padding:12px;border-radius:22px;background:linear-gradient(160deg,#3A1A08,#1A0A04);border:1px solid #7A3A14}
-.tsec .rwh b{color:#FFC977}.tsec .it2{background:#2A1A10;border-color:#4A3218}
+.ctabs{display:flex;gap:6px;overflow-x:auto;margin:12px -4px 12px;padding:0 4px 2px;scrollbar-width:none}.ctabs::-webkit-scrollbar{display:none}
+.ctab{flex:none;height:36px;padding:0 12px;border-radius:99px;border:1px solid var(--bd);background:var(--chip);color:var(--mu);font:800 13px inherit;display:flex;align-items:center;gap:6px}
+.ctab b{font-size:11px;padding:1px 6px;border-radius:99px;background:var(--bg);color:var(--mu)}.ctab.on{background:var(--hi);color:var(--on-hi);border-color:var(--hi)}.ctab.on b{background:var(--on-hi);color:var(--hi)}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ci{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;height:128px;padding:10px 4px;border-radius:20px;border:1px solid var(--bd);background:var(--chip)}
+.ci .pv{flex:1;display:flex;align-items:center;justify-content:center}
+.ci b{font-size:12.5px;font-weight:900;text-align:center;line-height:1.1}
+.ci.eq{border:2px solid var(--hi);background:color-mix(in srgb,var(--hi) 8%,var(--chip))}
+.ci.mas{border-style:dashed;color:var(--mu);font-weight:900;font-size:13px;justify-content:center;text-align:center}
 
+.ci{cursor:pointer;font:inherit;color:inherit}.ci:active{transform:scale(.97)}
+.ci.mas{text-decoration:none}
 .tkt.off{background:linear-gradient(120deg,#2A2A2E,#3A3A40);filter:grayscale(1);color:#C8C8CE;text-decoration:none}
 .tkt.off small,.tkt.off span{color:#A8A8B0}.tkt.off .tk-r em{background:#5A5A60;color:#E0E0E4}
 .tkt.off .tk-go{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:99px;background:#5A5A60;color:#fff;font-size:12px;font-weight:900}
@@ -498,13 +500,16 @@ function pintarColeccion() {
   const tickets = PASES.map(p => { const x = D.pase[p.k], cob = x && Array.isArray(x.cob) ? x.cob.length : 0, f = x && x.c ? new Date(x.c) : null;
     return x ? '<div class="tkt"><span class="tk-l"><small>MIS PASES</small><b>' + p.nombre + '</b><span>' + p.temp + (f ? ' · comprado el ' + f.getDate() + ' ' + MESES[f.getMonth()] : '') + '</span><span class="tk-bar"><i style="width:' + Math.round(cob / p.premios * 100) + '%"></i></span><span class="tk-p">' + cob + ' de ' + p.premios + ' premios ganados</span></span><span class="tk-r">' + sprite(AVATARES[p.sprite], 54) + '<em>' + p.k.toUpperCase() + '</em></span></div>'
       : '<a class="tkt off" href="go:pase"><span class="tk-l"><small>MIS PASES</small><b>' + p.nombre + '</b><span>' + p.temp + ' · No lo tienes</span><span class="tk-go">Ver el pase ›</span></span><span class="tk-r">' + sprite(AVATARES[p.sprite], 54) + '<em>' + p.k.toUpperCase() + '</em></span></a>'; }).join("");
-  const temp = PASES.map(p => '<div class="tsec"><div class="rwh"><b>' + p.temp.toUpperCase() + ' · ' + p.tema.toUpperCase() + '</b><small>' + p.items.filter(i => D.own.has(i)).length + ' de ' + p.items.length + '</small></div><div class="rws" style="margin:0 -12px;padding:0 12px 4px">' +
-    p.items.map(id => card(id, COL[id.slice(0, 2)].n[+id.slice(2)], D.own.has(id))).join("") + '</div></div>').join("");
-  const fila = k => { const todos = COL[k].n.map((n, i) => [k + i, n]).filter(x => TEMP.indexOf(x[0]) < 0 && !(x[0] === "av9" && ES_CREADOR !== true)), mios = todos.filter(x => D.own.has(x[0]));
-    return '<div class="rw"><div class="rwh"><b>' + COL[k].t + '</b><small>' + mios.length + ' de ' + todos.length + '</small></div><div class="rws">' + mios.map(x => card(x[0], x[1], true)).join("") + '</div></div>'; };
-  $("coleccion").innerHTML = '<h2 class="lab colh"><span>MI COLECCIÓN</span><small>' + D.own.size + ' objetos</small></h2>' + tickets + temp + ["av", "sk", "mc", "mp", "tt", "an"].map(fila).join("");
+  const TAB = window.COL_TAB || "av";
+  const lista = k => COL[k].n.map((n, i) => [k + i, n]).filter(x => D.own.has(x[0]) && !(x[0] === "av9" && ES_CREADOR !== true));
+  const tabs = Object.keys(COL).map(k => '<button type="button" class="ctab' + (k === TAB ? ' on' : '') + '" data-tab="' + k + '">' + COL[k].t + ' <b>' + lista(k).length + '</b></button>').join("");
+  const celda = x => { const k = x[0].slice(0, 2), puesto = D.eq[k] === x[0];
+    return '<button type="button" class="ci' + (puesto ? ' eq' : '') + '" data-eq="' + x[0] + '" aria-label="' + esc(x[1]) + (puesto ? ', puesto' : '') + '">' + badge(x[0]) + (puesto ? '<span class="puesto" aria-hidden="true">✓</span>' : '') + '<span class="pv">' + colVista(x[0], 56, D) + '</span><b>' + esc(x[1]) + '</b></button>'; };
+  $("coleccion").innerHTML = '<h2 class="lab colh"><span>MI COLECCIÓN</span><small>' + D.own.size + ' objetos</small></h2>' + tickets +
+    '<div class="ctabs" role="tablist">' + tabs + '</div><div class="cg">' + lista(TAB).map(celda).join("") + '<a class="ci mas" href="go:tienda">+ Consigue más<br>en la Tienda</a></div>';
 }
 $("coleccion").addEventListener("click", e => {
+  const tb = e.target.closest("[data-tab]"); if (tb) { window.COL_TAB = tb.dataset.tab; try { sonido("click"); } catch (er) {} const sx = $("coleccion").querySelector(".ctabs").scrollLeft; pintarColeccion(); $("coleccion").querySelector(".ctabs").scrollLeft = sx; return; }
   const b = e.target.closest("[data-eq]"); if (!b) return;
   const id = b.dataset.eq, k = id.slice(0, 2), D = colDatos(); if (!D.own.has(id)) return;
   const t = D.t; if (!Array.isArray(t.own)) t.own = []; t.eq = Object.assign({}, t.eq || {});
@@ -512,8 +517,7 @@ $("coleccion").addEventListener("click", e => {
   if (k === "av") { P.a = +id.slice(2); guardarP(); }
   try { localStorage.setItem(CLAVE_T, JSON.stringify(t)); } catch (er) {}
   try { sonido("click"); } catch (er) {}
-  const filas = [...$("coleccion").querySelectorAll(".rws")], fi = filas.indexOf(b.parentElement), sx = b.parentElement.scrollLeft;
-  pintar(); const r = $("coleccion").querySelectorAll(".rws")[fi]; if (r) r.scrollLeft = sx;
+  const sx = $("coleccion").querySelector(".ctabs").scrollLeft; pintar(); $("coleccion").querySelector(".ctabs").scrollLeft = sx;
 });
 const _pintarBaseCol = pintar;
 pintar = function () { _pintarBaseCol(); try { pintarColeccion(); } catch (e) { console.error(e); } };
