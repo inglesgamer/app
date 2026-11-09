@@ -283,7 +283,7 @@ svg{display:block}
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";            // ej. "go:nieve_repaso1"
 const AURA_NIVEL = 20;
-const RONDAS = 8;                    // cuántas órdenes por partida (cada palabra sale 2 veces)
+const RONDAS = 6;                    // cuántas órdenes por partida (las 4 palabras + 2 que se repiten)
 const DIAGNOSTICO = true;
 /* Carpeta de tus mp3 (con "/" al final). Cada mp3 dice SOLO la palabra: in.mp3, on.mp3, under.mp3, next-to.mp3 */
 const AUDIO_CARPETA = "";
@@ -614,12 +614,11 @@ function pintar() {
     '<div class="hdr"><span class="chip">ESCONDE AL PINGÜINO</span><span class="rc">' + (pos + 1) + ' / ' + total + '</span></div>' +
     '<div class="combo" aria-live="polite">' + (racha >= 2 ? "🔥 Racha x" + racha : "") + '</div>' +
     '<section class="card2" id="card">' +
-    '<div class="orden"><button type="button" class="play" id="bAud" aria-label="Escuchar la palabra">' + ICO_ON + '</button><span class="t"><b>Pon al pingüino <u>' + esc(w.es) + '</u> ' + NOMBRE_OBJ[R.obj][1] + '</b><span class="ejo"><em>' + esc(w.en) + '</em> · Put the penguin ' + esc(R.p) + ' ' + NOMBRE_OBJ[R.obj][0] + '.</span></span><button type="button" class="fr" id="bFr">Frase</button></div>' +
+    '<div class="orden"><button type="button" class="play" id="bAud" aria-label="Escuchar la palabra">' + ICO_ON + '</button><span class="t"><b>Pon al pingüino <u>' + esc(w.es) + '</u> ' + NOMBRE_OBJ[R.obj][1] + '</b><span class="ejo">En inglés: <em>' + esc(w.en) + '</em></span></span></div>' +
     '<div style="margin-top:10px">' + escena(R.obj, fant + yo, "Toca dónde va") + '</div>' +
     '<p class="msg" id="msg" aria-live="polite"></p></section>';
   pintarVidas();
   on("bAud", () => oir(w.audio, w.en));
-  on("bFr", () => voz(frase(R), .85));
   document.querySelectorAll(".pg.fan").forEach(b => b.addEventListener("click", () => elige(b)));
   window.scrollTo(0, 0);
   setTimeout(() => oir(w.audio, w.en), 450);
@@ -635,7 +634,7 @@ function elige(b) {
     const y = $("yo"); setTimeout(() => { if (y && !RM) { y.classList.remove("hop"); void y.offsetWidth; y.classList.add("hop"); } }, 420);
     setBarra(hechas / cola.length * 100);
     m.className = "msg ok"; m.textContent = "¡Bien! " + w.en + " = " + w.es;
-    setTimeout(() => voz("The penguin is " + R.p + " " + NOMBRE_OBJ[R.obj][0] + ".", .9), 500);
+    setTimeout(() => oir(w.audio, w.en), 450);
     setTimeout(siguiente, 2200); return;
   }
   dudas[R.p] = true; racha = 0; sonido("mal"); perderVida();
