@@ -247,6 +247,17 @@ nav a:hover{color:var(--ink)}nav a.on,nav a.on:hover{color:var(--hi)}
 .hb .go{flex:none;display:inline-flex;align-items:center;height:38px;padding:0 14px;border-radius:99px;background:#FFC977;color:#2A1408;font-weight:900;font-size:14px}
 .ssh{display:flex;justify-content:space-between;align-items:baseline;margin:22px 4px 10px;font-size:20px;font-weight:900}.ssh small{font-size:12px;color:var(--mu)}
 .solo{position:absolute;left:12px;top:12px;z-index:3;padding:3px 8px;border-radius:99px;background:#E8692A;color:#fff;font-size:9.5px;font-weight:900;letter-spacing:.06em}
+
+/* TU LOOK (diseño D: tarjeta compacta) */
+.look{display:flex;align-items:center;gap:14px;height:auto;min-height:130px;padding:14px;border-radius:30px;border:1px solid var(--bd)}
+.lkbg{position:absolute;inset:0;z-index:0}.lkbg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 30%,rgba(0,0,0,.75) 70%)}
+.lkav{position:relative;z-index:2;flex:none;animation:flota 2.4s ease-in-out infinite}
+.lkin{position:relative;z-index:2;flex:1;min-width:0}
+.lkin small{font-size:10.5px;font-weight:900;letter-spacing:.12em;color:rgba(255,255,255,.7)}
+.lkn{display:block;font-size:22px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:70px}
+.lkt{display:inline-block;margin:4px 0 8px;padding:3px 10px;border-radius:99px;background:#fff;color:#000;font-size:11.5px;font-weight:900}
+.lkr{display:flex;flex-wrap:wrap;gap:5px}.lkr span{padding:4px 9px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff;font-size:11px;font-weight:800}
+.look .xpb{top:12px;right:12px;height:34px;font-size:15px;padding:0 12px}
 </style>
 </head>
 <body>
@@ -473,11 +484,15 @@ function prev(it, big) {
   if (it.cat === "tt") return '<span class="tt">' + it.n + '</span>';
   return strip(it);
 }
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
 function pintarLook() {
-  const e = ST.eq, mp = get(e.mp), tt = get(e.tt), l = $("look");
-  l.style.background = mp.bg;
-  l.innerHTML = '<span class="lb">TU LOOK</span><span class="xpb" id="xpb">' + FLAME(18) + '<b id="xpn">' + saldo() + '</b></span>' +
-    '<b class="fx f-' + mp.id + '"></b><i class="lg" style="background:' + mp.g + '"></i><div class="lc">' + marco2(e.av, e.sk, e.mc, 78, get(e.an)) + '</div><span class="tchip">' + tt.n + '</span>';
+  const e = ST.eq, mp = get(e.mp), tt = get(e.tt), an = get(e.an), pf = lee(K_PERFIL, {}) || {};
+  const nom = String(pf.n || "").trim().slice(0, 14) || "Gamer";
+  const tags = [get(e.sk), mp, an].filter(x => x && x.p > 0).map(x => '<span>' + x.n + '</span>').join("");
+  $("look").innerHTML = '<span class="lkbg" style="background:' + mp.bg + '"><b class="fx f-' + mp.id + '"></b></span>' +
+    '<span class="xpb" id="xpb">' + FLAME(16) + '<b id="xpn">' + saldo() + '</b></span>' +
+    '<span class="lkav">' + marco2(e.av, e.sk, e.mc, 62, e.an !== "an0" ? an : null) + '</span>' +
+    '<div class="lkin"><small>TU LOOK</small><b class="lkn">' + esc(nom) + '</b><span class="lkt">' + tt.n + '</span>' + (tags ? '<div class="lkr">' + tags + '</div>' : '') + '</div>';
 }
 function pintarSaldo() {
   const n = $("xpn"); if (n) n.textContent = saldo();
