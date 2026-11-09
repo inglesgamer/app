@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Isla de Nieve · ideas para los niveles 1, 2 y 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#121214;--bd:#2A2A30;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--ok:#7BE3A5;--mal:#FF4D5E;--hielo:#8FD8FF}
+*{box-sizing:border-box}body{margin:0;background:#000;color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-weight:700}
+.top{max-width:840px;margin:auto;padding:22px 18px 4px}.top h1{margin:0;font-size:30px;font-weight:900}.top p{margin:6px 0 0;color:var(--mu)}
+.tabs{position:sticky;top:0;z-index:20;display:flex;gap:8px;overflow:auto;padding:12px 18px;background:#000;max-width:840px;margin:auto}
+.tabs button{flex:none;height:42px;padding:0 16px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--mu);font:800 15px Nunito,system-ui,sans-serif;cursor:pointer}
+.tabs button.on{background:#fff;color:#000}
+.sec{display:none;max-width:840px;margin:auto;padding:4px 18px 50px}.sec.on{display:block}
+.lbl{font-size:11px;font-weight:900;letter-spacing:.16em;color:var(--mu)}
+.sec>h2{margin:4px 0 4px;font-size:26px;font-weight:900}.sec>p{margin:0 0 6px;color:var(--mu)}
+.words{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 18px}.words span{padding:5px 11px;border-radius:99px;background:var(--chip);font-size:13px;font-weight:800}.words b{color:var(--hielo)}
+.op{margin-bottom:26px}.op h3{margin:2px 0 2px;font-size:21px;font-weight:900}.op>p{margin:0 0 12px;color:var(--mu);font-size:14px;max-width:640px}
+.phones{display:flex;gap:14px;overflow:auto;padding-bottom:6px}
+.ph{flex:none;width:300px;height:600px;border-radius:36px;border:1px solid var(--bd);background:#000;padding:14px 12px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px}
+.ph>*{flex-shrink:0}.cap{font-size:12px;color:var(--mu);text-align:center;margin-top:auto!important}
+/* barra superior de los niveles */
+.tb{display:flex;align-items:center;gap:8px}.xb{width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);background:var(--card);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.pg{flex:1;height:10px;border-radius:99px;background:#2A2A30;overflow:hidden}.pg i{display:block;height:100%;background:var(--hielo);border-radius:99px}
+.hs{display:flex;gap:2px}.ct{font-size:12px;font-weight:900;color:var(--mu)}
+.pill{align-self:flex-start;padding:5px 12px;border-radius:99px;border:1px solid #2F5A75;background:#0E2433;color:#BDE8FF;font-size:10.5px;font-weight:900;letter-spacing:.12em}
+.rowp{display:flex;justify-content:space-between;align-items:center}
+.cardL{background:var(--card);border:1px solid var(--bd);border-radius:24px;padding:14px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:99px;background:#fff;color:#000;font-weight:900;font-size:16px}
+.btn.ok{background:var(--ok);color:#06210F}.btn.sm{height:40px;font-size:14px;padding:0 16px}.btn.g{background:var(--chip);color:var(--ink)}
+.big{font-size:38px;font-weight:900;text-align:center;line-height:1}.tr{text-align:center;color:#FFD166;font-size:18px;font-weight:900}
+.ej{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:10px 12px}.ej b{display:block;font-size:15px}.ej span{font-size:13px;color:var(--mu)}
+.ej b em{font-style:normal;color:var(--hielo)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.it{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:13px;font-weight:900}
+.it.si{border-color:var(--ok);box-shadow:inset 0 0 0 2px var(--ok);background:#0E2418}.it.no{border-color:var(--mal);box-shadow:inset 0 0 0 2px var(--mal);background:#2A0E12}
+.opt{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;text-align:center;font-weight:900;font-size:16px}
+.opt.si{border-color:var(--ok);box-shadow:inset 0 0 0 2px var(--ok);background:#0E2418}
+/* escena de nieve */
+.esc{position:relative;height:200px;border-radius:22px;overflow:hidden;background:linear-gradient(#061230,#163C6A 60%,#DCEBF7 60%,#B9D3E8);border:1px solid #2F5A75}
+.esc.alta{height:250px}
+.esc:before{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(circle,#fff 0 1.6px,transparent 2.4px) 0 0/40px 40px,radial-gradient(circle,rgba(255,255,255,.7) 0 1.1px,transparent 1.8px) 18px 10px/26px 30px;animation:nieva 4s linear infinite}
+@keyframes nieva{to{background-position:-10px 120px,8px 90px}}
+.esc .luna{position:absolute;right:22px;top:14px;width:26px;height:26px;border-radius:50%;box-shadow:-7px 4px 0 0 #F4F4F5}
+.esc .pino{position:absolute;bottom:34%;width:0;height:0;border-left:22px solid transparent;border-right:22px solid transparent;border-bottom:60px solid #1A6B5E}
+.esc .pino:after{content:"";position:absolute;left:-12px;top:6px;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:16px solid #fff}
+.ab{position:absolute;display:block}
+.bob{animation:bob 2.4s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-5px)}}
+.tirita{animation:tir .18s linear infinite}@keyframes tir{25%{transform:translateX(-1.5px)}75%{transform:translateX(1.5px)}}
+.bub{position:absolute;padding:4px 10px;border-radius:14px;background:#fff;color:#000;font-size:12px;font-weight:900;white-space:nowrap}
+.caja{position:absolute;width:74px;height:58px;border-radius:6px;background:linear-gradient(#C68A4A,#8A5A2A);border:3px solid #5E3A16}
+.caja:before{content:"";position:absolute;left:-3px;right:-3px;top:-3px;height:14px;background:#A8703A;border:3px solid #5E3A16;border-radius:6px 6px 0 0}
+.flecha{position:absolute;font-size:22px;color:#FFD166;font-weight:900}
+.zona{position:absolute;border:2px dashed rgba(255,255,255,.75);border-radius:14px;background:rgba(143,216,255,.14)}
+.zona.on{border-style:solid;border-color:var(--ok);background:rgba(123,227,165,.25)}
+.term{position:absolute;left:10px;top:10px;padding:4px 9px;border-radius:99px;background:rgba(0,0,0,.45);font-size:11px;font-weight:900;color:#BDE8FF;z-index:5}
+.copos{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}.copo{width:40px;height:40px;border-radius:12px;background:#0E2433;border:1px solid #2F5A75;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#BDE8FF}
+.huecos{display:flex;gap:6px;justify-content:center}.huecos i{width:34px;height:42px;border-bottom:3px solid #BDE8FF;font-style:normal;font-size:24px;font-weight:900;text-align:center;line-height:42px}
+.radio{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px;border-radius:24px;background:linear-gradient(160deg,#2A1A10,#141416);border:1px solid #4A2E1C}
+.onda{display:flex;gap:4px;align-items:center;height:34px}.onda i{width:5px;border-radius:3px;background:#FFB27A;animation:ond 1s ease-in-out infinite}
+@keyframes ond{50%{transform:scaleY(.35)}}
+.play{width:84px;height:84px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(255,255,255,.08)}
+.flip{perspective:600px}.flip .c{height:92px;border-radius:16px;background:linear-gradient(160deg,#BFE6FF,#6FB4E0);border:2px solid #E8F7FF;display:flex;align-items:center;justify-content:center;color:#0E2433;font-weight:900;font-size:15px}
+.flip .c.v{background:var(--card);border-color:var(--bd);color:var(--ink);flex-direction:column;gap:2px}.flip .c.par{border-color:var(--ok);box-shadow:0 0 12px rgba(123,227,165,.5)}
+.flip .c.hielo{position:relative;overflow:hidden}.flip .c.hielo:after{content:"❄";font-size:26px;color:#fff}
+.met{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:900;color:var(--mu)}.met .bar{flex:1;height:10px;border-radius:99px;background:#2A2A30;overflow:hidden}.met .bar i{display:block;height:100%;background:linear-gradient(90deg,#FF6B6B,#FFD166,#7BE3A5)}
+.pros{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;max-width:640px}
+.pros div{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:10px 12px;font-size:13px}.pros h4{margin:0 0 4px;font-size:12px;letter-spacing:.08em}.pros ul{margin:0;padding-left:16px;color:var(--mu)}
+.w{color:var(--ok)}.l{color:var(--mal)}
+.rec{display:inline-block;margin-left:6px;padding:2px 9px;border-radius:99px;background:#FFD166;color:#2A1A00;font-size:11px;font-weight:900;vertical-align:middle}
+</style></head><body>
+<div class="top"><h1>Isla de Nieve · niveles 1, 2 y 3</h1><p>Ideas para los 3 primeros niveles, con el mismo estilo de tus niveles (X, barra, corazones, sonido, escena pixel y botones grandes). Todo A1: primero <b>aprende</b> (palabra, traducción, audio y ejemplo) y después <b>practica</b> para memorizar.</p></div>
+<div class="tabs" id="tabs"><button class="on" data-s="0">1 · Vocabulario 1</button><button data-s="1">2 · Preposiciones</button><button data-s="2">3 · Repaso 1 (escucha)</button></div>
+<section class="sec on" id="s0"></section>
+<section class="sec" id="s1"></section>
+<section class="sec" id="s2"></section>
+<script>
+/* ===== pixel art ===== */
+const P={
+ ping:{p:{k:"#1E2433",w:"#F4F6FA",o:"#FF9F2E",r:"#E5483C"},r:["....kkkk....","...kkkkkk...","..kkwwwwkk..","..kwkwwkwk..","..kwwoowwk..",".kkwwwwwwkk.","kkkwwwwwwkkk","k.kwwwwwwk.k","..kwwwwwwk..","..kkwwwwkk..","...kkkkkk...","..oo....oo.."]},
+ pingV:{p:{k:"#1E2433",w:"#F4F6FA",o:"#FF9F2E",r:"#E5483C",y:"#FFD166",b:"#3FA9F5"},r:["....yrry....","...rrrrrr...","..rrrrrrrr..","..kwkwwkwk..","..kwwoowwk..",".kbbbbbbbbk.","kkkwbwwwwkkk","k.kwbwwwwk.k","..kwbwwwwk..","..kkwwwwkk..","...kkkkkk...","..oo....oo.."]},
+ muneco:{p:{w:"#FFFFFF",k:"#2B2B33",o:"#FF8A3D",r:"#E5483C"},r:["....kkkk....","...kkkkkk...","...wwwwww...","..wwkwwkww..","..wwwoowww..","..rrrrrrrr..","...wwwwwrr..","..wwwkwwww..",".wwwwwwwwww.",".wwwwkwwwww.",".wwwwwwwwww.","..wwwwwwww.."]},
+ gorro:{p:{y:"#FFD166",r:"#E5483C",w:"#F4F6FA"},r:["............",".....yy.....","....yyyy....","...rrrrrr...","..rrrrrrrr..","..rrwrrwrr..",".rrrrrrrrrr.",".rrrrrrrrrr.",".wwwwwwwwww.",".wwwwwwwwww.","............","............"]},
+ bufanda:{p:{b:"#3FA9F5",w:"#F4F6FA"},r:["............","..bbbbbbbb..",".bbwbbwbbwb.",".bb......bb.",".bbwbbwbbbb.","..bbbbbbbb..",".......bb...",".......bwb..",".......bbb..",".......bwb..",".......bbb..",".......w.w.."]},
+ guantes:{p:{g:"#5DB33A",w:"#F4F6FA"},r:["............","....gggg....","...gggggg...","gg.gggggg...","ggggggggg...","ggggggggg...",".gggggggg...","..gggggg....","..wwwwww....","..wwwwww....","............","............"]},
+ abrigo:{p:{c:"#8E5BD6",d:"#5E3AA0",y:"#FFD166",w:"#F4F6FA"},r:["...cc..cc...","..cccwwccc..",".ccccwwcccc.",".cccccccccc.","cccccyccccc.","cc.ccccc.cc.","cc.ccyccc.cc","cc.ccccc.cc.","...cccccc...","...ccyccc...","...cccccc...","...dd..dd..."]},
+ botas:{p:{b:"#8A5A2A",d:"#5E3A16",w:"#F4F6FA"},r:["............","..ww....ww..","..bb....bb..","..bb....bb..","..bb....bb..","..bb....bb..","..bbbb..bbbb","..bbbb..bbbb","..dddd..dddd","............","............","............"]},
+ yo:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]}
+};
+function px(n,s){const d=P[n],N=12;let o='<svg width="'+s+'" height="'+s+'" viewBox="0 0 12 12" shape-rendering="crispEdges">';d.r.forEach((row,y)=>row.split("").forEach((c,x)=>{if(c!=="."&&d.p[c])o+='<rect x="'+x+'" y="'+y+'" width="1.02" height="1.02" fill="'+d.p[c]+'"/>'}));return o+"</svg>";}
+const ab=(n,s,css,cls)=>'<span class="ab '+(cls||"")+'" style="'+css+'">'+px(n,s)+'</span>';
+const X='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+const SON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>';
+const SONb=s=>SON.replace(/18/g,s);
+const HEART='<svg width="16" height="16" viewBox="0 0 8 8" shape-rendering="crispEdges"><path fill="#FF6B6B" d="M1 1h2v1h2V1h2v1h1v2H7v1H6v1H5v1H3V6H2V5H1V4H0V2h1z"/></svg>';
+const tb=(pct,ct)=>'<div class="tb"><span class="xb">'+X+'</span><span class="pg"><i style="width:'+pct+'%"></i></span>'+(ct?'<span class="ct">'+ct+'</span>':'<span class="hs">'+HEART+HEART+HEART+'</span>')+'<span class="xb">'+SON+'</span></div>';
+const PH=(body,cap)=>'<div class="ph">'+body+'<div class="cap">'+cap+'</div></div>';
+const esc=(h,cls)=>'<div class="esc '+(cls||"")+'"><span class="luna"></span><span class="pino" style="left:12px"></span><span class="pino" style="right:16px;transform:scale(.8);transform-origin:bottom"></span>'+h+'</div>';
+const PROS=(p,c)=>'<div class="pros"><div><h4 class="w">A FAVOR</h4><ul>'+p.map(x=>'<li>'+x+'</li>').join("")+'</ul></div><div><h4 class="l">EN CONTRA</h4><ul>'+c.map(x=>'<li>'+x+'</li>').join("")+'</ul></div></div>';
+const OP=(k,t,d,screens,p,c,rec)=>'<div class="op"><div class="lbl">OPCIÓN '+k+'</div><h3>'+t+(rec?'<span class="rec">RECOMENDADA</span>':'')+'</h3><p>'+d+'</p><div class="phones">'+screens.join("")+'</div>'+PROS(p,c)+'</div>';
+const ROPA=[["gorro","hat","gorro"],["bufanda","scarf","bufanda"],["guantes","gloves","guantes"],["abrigo","coat","abrigo"],["botas","boots","botas"]];
+
+/* ============ NIVEL 1 · VOCABULARIO 1 ============ */
+const aprendeRopa=PH(tb(20,"1/5")+'<div class="rowp"><span class="pill">APRENDE · ROPA PARA EL FRÍO</span></div>'+
+ '<div style="display:flex;justify-content:center" class="bob">'+px("bufanda",120)+'</div><div class="big">Scarf</div><div class="tr">bufanda</div>'+
+ '<div style="display:flex;gap:8px;justify-content:center"><span class="btn sm">'+SON+' Escuchar</span><span class="btn sm g">Lento</span></div>'+
+ '<div class="ej"><b>I wear a <em>scarf</em>.</b><span>Uso una bufanda.</span></div><span class="btn ok">¡LA SÉ!</span>',"Aprende: 1 palabra por pantalla");
+document.getElementById("s0").innerHTML='<div class="lbl">NIVEL 1</div><h2>Vocabulario 1 · Ropa para el frío</h2><p>5 palabras para empezar la isla. Todas con dibujo, traducción, audio y una frase de ejemplo.</p>'+
+ '<div class="words">'+ROPA.map(r=>'<span><b>'+r[1]+'</b> = '+r[2]+'</span>').join("")+'<span><b>cold</b> = frío</span></div>'+
+ OP("A","Viste al pingüino","El pingüino está temblando de frío. Escuchas «Put on the hat!» y tocas la prenda correcta: se la pone y tiembla menos. Cuando está completo, baila. Si fallas, estornuda y pierdes un corazón.",[
+   aprendeRopa,
+   PH(tb(60)+'<div class="rowp"><span class="pill">VISTE AL PINGÜINO</span><span class="ct">3/5</span></div>'+
+    esc(ab("pingV",108,"left:50%;bottom:16px;margin-left:-54px","tirita")+'<span class="bub" style="left:50%;top:20px;transform:translateX(-50%)">Brrr… Put on the gloves!</span>','alta')+
+    '<div class="met">FRÍO <span class="bar"><i style="width:60%"></i></span> CALIENTE</div>'+
+    '<div class="grid3">'+[["gorro","hat",""],["guantes","gloves","si"],["botas","boots",""]].map(x=>'<div class="it '+x[2]+'">'+px(x[0],46)+x[1]+'</div>').join("")+'</div>',"Practica: escucha y viste al pingüino")
+ ],["Muy visual y divertido: se ve el resultado","Escuchar + tocar = memoriza mejor","Usa el pingüino de la isla"],["Más dibujos que hacer (pingüino con cada prenda)"],1)+
+ OP("B","La tienda de la nieve","Como tu Frutería, pero en una cabaña de invierno: los clientes entran con frío y piden «I need a coat». Tocas la prenda en el mostrador. Cada cliente feliz suma una moneda.",[
+   aprendeRopa,
+   PH(tb(40)+'<div class="rowp"><span class="pill">LA TIENDA DE LA NIEVE</span><span class="ct">2/8</span></div>'+
+    esc(ab("muneco",92,"left:30px;bottom:14px","bob")+'<span class="bub" style="left:120px;top:40px">I need a coat!</span>')+
+    '<div style="text-align:center"><div class="lbl">EL CLIENTE PIDE</div><div style="font-size:22px;font-weight:900">Necesito un <span style="color:#FFB27A;border-bottom:3px solid #FFB27A">abrigo</span></div></div>'+
+    '<div class="grid3">'+ROPA.slice(0,3).concat([ROPA[3]]).slice(1).concat([ROPA[0]]).map((x,i)=>'<div class="it '+(x[1]==="coat"?"si":"")+'">'+px(x[0],40)+x[1]+'</div>').join("")+'</div>',"Practica: atiende a los clientes")
+ ],["Se parece a un nivel que ya te gustó","Fácil de entender"],["Muy parecido a la Frutería (menos sorpresa)"])+
+ OP("C","Memoria helada","Cartas de hielo boca abajo. Volteas dos: si juntas el dibujo con su palabra en inglés, se derriten y suena la palabra. Al final, una ronda rápida de «¿Cómo se dice…?».",[
+   aprendeRopa,
+   PH(tb(50,"Pares 3/5")+'<div class="rowp"><span class="pill">MEMORIA HELADA</span><span class="ct">⏱ 0:42</span></div>'+
+    '<div class="grid3 flip">'+['<div class="c v par">'+px("gorro",40)+'</div>','<div class="c hielo"></div>','<div class="c v par">hat</div>','<div class="c hielo"></div>','<div class="c v">'+px("botas",40)+'</div>','<div class="c hielo"></div>','<div class="c hielo"></div>','<div class="c v">scarf</div>','<div class="c hielo"></div>','<div class="c hielo"></div>','<div class="c v par">coat</div>','<div class="c v par">'+px("abrigo",40)+'</div>'].join("")+'</div>'+
+    '<div class="ej" style="text-align:center"><b>hat = gorro</b><span>¡Par encontrado! +1</span></div>',"Practica: encuentra los pares")
+ ],["Clásico para memorizar","Rápido de jugar y repetir"],["Menos práctica de escuchar","Puede ser más de suerte que de inglés"])+
+ OP("D","Bola de nieve","Te lanzan bolas de nieve con una palabra en español. Para esquivarlas tocas la palabra correcta en inglés antes de que llegue. Cada acierto la convierte en un copo y suma a tu muñeco de nieve.",[
+   aprendeRopa,
+   PH(tb(70)+'<div class="rowp"><span class="pill">BOLA DE NIEVE</span><span class="ct">Combo x3</span></div>'+
+    esc(ab("yo",80,"left:20px;bottom:12px","bob")+'<span class="ab" style="right:40px;top:60px;width:66px;height:66px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,#CFE4F2);display:flex;align-items:center;justify-content:center;color:#0E2433;font-weight:900;font-size:13px">botas</span><span class="flecha" style="right:110px;top:78px">←</span>')+
+    '<div class="grid2">'+["boots","gloves","coat","hat"].map(w=>'<div class="opt '+(w==="boots"?"si":"")+'">'+w+'</div>').join("")+'</div>',"Practica: rápido, contra el tiempo")
+ ],["Emocionante, tiene velocidad y combos"],["Para principiantes puede ser estresante","No practica el audio"]);
+
+/* ============ NIVEL 2 · PREPOSICIONES ============ */
+const PREP=[["in","dentro de","The penguin is in the box."],["on","encima de","The penguin is on the box."],["under","debajo de","The penguin is under the table."],["next to","al lado de","The penguin is next to the box."],["behind","detrás de","The penguin is behind the box."],["in front of","delante de","The penguin is in front of the box."]];
+const aprendePrep=PH(tb(34,"2/6")+'<div class="rowp"><span class="pill">APRENDE · ¿DÓNDE ESTÁ?</span></div>'+
+ esc('<span class="caja" style="left:50%;bottom:22px;margin-left:-37px"></span>'+ab("ping",56,"left:50%;bottom:78px;margin-left:-28px","bob")+'<span class="flecha" style="left:50%;bottom:136px;margin-left:-6px">↓</span>')+
+ '<div class="big">on</div><div class="tr">encima de</div><div style="display:flex;justify-content:center"><span class="btn sm">'+SON+' Escuchar</span></div>'+
+ '<div class="ej"><b>The penguin is <em>on</em> the box.</b><span>El pingüino está encima de la caja.</span></div>',"Aprende: el pingüino se mueve en cada palabra");
+document.getElementById("s1").innerHTML='<div class="lbl">NIVEL 2</div><h2>Preposiciones de lugar</h2><p>Las 6 básicas, con el pingüino y una caja de regalo en la nieve. Primero se aprenden una por una y después se practican.</p>'+
+ '<div class="words">'+PREP.map(r=>'<span><b>'+r[0]+'</b> = '+r[1]+'</span>').join("")+'</div>'+
+ OP("A","Esconde al pingüino","Escuchas «Put the penguin behind the box». Arrastras (o tocas) una de las zonas alrededor de la caja y el pingüino salta ahí. Con el muñeco de nieve y el iglú como otros objetos.",[
+   aprendePrep,
+   PH(tb(50)+'<div class="rowp"><span class="pill">ESCONDE AL PINGÜINO</span><span class="ct">3/6</span></div>'+
+    '<div class="radio" style="padding:10px;flex-direction:row;justify-content:center"><span class="play" style="width:44px;height:44px">'+SON+'</span><b>Put the penguin <span style="color:#FFB27A">behind</span> the box.</b></div>'+
+    esc('<span class="caja" style="left:50%;bottom:30px;margin-left:-37px"></span><span class="zona" style="left:50%;bottom:92px;margin-left:-30px;width:60px;height:40px"></span><span class="zona" style="left:28px;bottom:26px;width:54px;height:56px"></span><span class="zona" style="right:28px;bottom:26px;width:54px;height:56px"></span><span class="zona on" style="left:50%;bottom:62px;margin-left:-22px;width:44px;height:26px;z-index:0"></span>'+ab("ping",40,"left:50%;bottom:66px;margin-left:-20px;z-index:0;opacity:.95")+'<span class="term">Toca dónde va</span>','alta')+
+    '<div class="btn ok">¡Bien! Behind = detrás</div>',"Practica: escucha y pon al pingüino")
+ ],["Las preposiciones se entienden con el cuerpo, no traduciendo","Se escucha y se hace","Muy fácil para A1"],["Detrás/delante se ven parecidos: hay que dibujarlos claros"],1)+
+ OP("B","¿Dónde está el pingüino?","Ves una escena y eliges la frase correcta entre dos o tres. Después, al revés: lees la frase y tocas la escena que corresponde.",[
+   aprendePrep,
+   PH(tb(66)+'<div class="rowp"><span class="pill">¿DÓNDE ESTÁ?</span><span class="ct">4/6</span></div>'+
+    esc('<span class="caja" style="left:50%;bottom:22px;margin-left:-60px"></span>'+ab("ping",56,"left:50%;bottom:22px;margin-left:24px","bob"))+
+    '<div style="display:flex;flex-direction:column;gap:8px">'+["The penguin is in the box.","The penguin is next to the box.","The penguin is under the box."].map((t,i)=>'<div class="opt '+(i===1?"si":"")+'" style="text-align:left;font-size:15px">'+t+'</div>').join("")+'</div>',"Practica: mira y elige la frase")
+ ],["Muy claro y rápido","Practica leer frases completas"],["Menos interactivo que la A"])+
+ OP("C","Linterna en la tormenta","Es de noche y hay tormenta de nieve. Escuchas «The gloves are under the bed» y mueves la linterna para encontrarlos: si iluminas el lugar correcto, aparecen.",[
+   aprendePrep,
+   PH(tb(50)+'<div class="rowp"><span class="pill">LINTERNA EN LA TORMENTA</span><span class="ct">3/6</span></div>'+
+    '<div class="esc alta" style="background:#05070F"><span class="ab" style="left:90px;top:70px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,240,190,.55),transparent 70%)"></span><span class="ab" style="left:110px;bottom:40px;width:96px;height:30px;border-radius:6px;background:#5E3A16"></span><span class="ab" style="left:120px;bottom:70px;width:76px;height:20px;border-radius:4px;background:#E8E0D0"></span>'+ab("guantes",34,"left:142px;bottom:14px")+'<span class="term">🔦 Mueve la luz</span></div>'+
+    '<div class="ej"><b>The gloves are <em>under</em> the bed.</b><span>Los guantes están debajo de la cama.</span></div>',"Practica: busca con la linterna")
+ ],["Muy original, da curiosidad","Repasa también la ropa del nivel 1"],["Más difícil de programar","Puede costar en pantallas pequeñas"]);
+
+/* ============ NIVEL 3 · REPASO 1 (ESCUCHA) ============ */
+const ondas='<div class="onda">'+Array.from({length:14},(_,i)=>'<i style="height:'+(10+((i*37)%24))+'px;animation-delay:-'+(i*.07).toFixed(2)+'s"></i>').join("")+'</div>';
+document.getElementById("s2").innerHTML='<div class="lbl">NIVEL 3 · ESCUCHA</div><h2>Repaso 1 · Escucha</h2><p>Repasa todo lo de los niveles 1 y 2 solo escuchando: la ropa y dónde está. No enseña nada nuevo, sirve para fijar lo aprendido.</p>'+
+ '<div class="words"><span>Ropa: <b>hat, scarf, gloves, coat, boots</b></span><span>Lugar: <b>in, on, under, next to, behind, in front of</b></span></div>'+
+ OP("A","La radio de la cabaña","Una radio vieja en la cabaña: escuchas una frase («The hat is on the snowman») y eliges la escena correcta entre 3 dibujos. Puedes repetirla lento.",[
+   PH(tb(30)+'<div class="rowp"><span class="pill">LA RADIO DE LA CABAÑA</span><span class="ct">3/10</span></div>'+
+    '<div class="radio"><span class="play">'+SONb(34)+'</span>'+ondas+'<div style="display:flex;gap:8px"><span class="btn sm">Otra vez</span><span class="btn sm g">🐢 Lento</span></div></div>'+
+    '<div class="grid3">'+[0,1,2].map(i=>'<div class="it '+(i===0?"si":"")+'" style="padding:6px"><div class="esc" style="height:84px;width:100%;border-radius:12px">'+ab("muneco",46,"left:50%;bottom:4px;margin-left:-23px")+(i===0?ab("gorro",28,"left:50%;bottom:40px;margin-left:-14px"):i===1?ab("gorro",24,"left:4px;bottom:4px"):ab("gorro",24,"right:2px;bottom:4px"))+'</div></div>').join("")+'</div>',"Escucha y elige la escena")
+ ],["Se parece a un examen de escucha real","Junta ropa + preposiciones"],["Hay que dibujar muchas escenas"],1)+
+ OP("B","Dictado de copos","Escuchas una palabra y la armas tocando copos de nieve con letras. Con 2 letras de pista en las palabras largas.",[
+   PH(tb(50)+'<div class="rowp"><span class="pill">DICTADO DE COPOS</span><span class="ct">5/10</span></div>'+
+    '<div style="display:flex;justify-content:center;padding-top:6px"><span class="play">'+SONb(34)+'</span></div>'+
+    '<div class="huecos"><i>b</i><i>o</i><i>o</i><i></i><i></i></div>'+
+    '<div class="copos">'+["s","t","k","o","b","e","a","s"].map(l=>'<span class="copo">'+l+'</span>').join("")+'</div><span class="btn g">Borrar</span>',"Escucha y escribe con copos")
+ ],["Aprenden a escribir las palabras","Muy bueno para memorizar"],["Más difícil para principiantes","Solo palabras sueltas"])+
+ OP("C","El muñeco crece","Cada respuesta correcta (escuchando) le agrega una parte al muñeco de nieve: cuerpo, cabeza, gorro, bufanda… Si llegas a 10 aciertos, el muñeco cobra vida y te saluda.",[
+   PH(tb(70)+'<div class="rowp"><span class="pill">EL MUÑECO CRECE</span><span class="ct">7/10</span></div>'+
+    esc(ab("muneco",100,"left:50%;bottom:10px;margin-left:-50px","bob")+'<span class="bub" style="right:12px;top:20px">¡Me falta la bufanda!</span>','alta')+
+    '<div class="radio" style="padding:10px;flex-direction:row;justify-content:center;gap:12px"><span class="play" style="width:46px;height:46px">'+SON+'</span><b>¿Qué escuchaste?</b></div>'+
+    '<div class="grid2">'+["scarf","gloves","next to","under"].map(w=>'<div class="opt '+(w==="scarf"?"si":"")+'">'+w+'</div>').join("")+'</div>',"Cada acierto arma el muñeco")
+ ],["Da una meta visible (terminar el muñeco)","Simple y muy de la isla"],["Las preguntas son más sencillas (una palabra)"]);
+document.getElementById("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;document.querySelectorAll(".tabs button,.sec").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.getElementById("s"+b.dataset.s).classList.add("on");scrollTo(0,0)};
+</script></body></html>
