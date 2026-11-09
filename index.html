@@ -270,6 +270,13 @@ nav a.on{color:var(--hi)}
 .tema-op{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .tm{flex:1;height:48px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;border-radius:16px;border:1px solid var(--bd);background:var(--chip);color:var(--ink);font:800 14px Nunito,sans-serif}
 .tm.on{background:var(--hi);border-color:var(--hi);color:var(--on-hi)}
+.tm.bloq:not(.on){color:var(--mu)}.tm-p{display:inline-flex;align-items:center;gap:3px;margin-left:2px;padding:2px 7px;border-radius:99px;background:var(--bd);color:var(--ink);font-size:11.5px;font-weight:900}
+.tm.on .tm-p{background:var(--on-hi);color:var(--hi)}
+.tm-buy{margin-top:10px;padding:12px;border-radius:16px;background:var(--chip);display:flex;flex-direction:column;gap:4px}
+.tm-buy b{font-size:16px;font-weight:900}.tm-buy span{font-size:13px;font-weight:700;color:var(--mu)}
+.tm-bt{display:grid;grid-template-columns:1fr 1.4fr;gap:8px;margin-top:8px}
+.tm-bt button{height:44px;border-radius:99px;font:900 14px Nunito,sans-serif;cursor:pointer;border:1px solid var(--bd);background:none;color:var(--ink)}
+.tm-bt .tm-ok{background:var(--hi);color:var(--on-hi);border-color:var(--hi)}.tm-bt .tm-ok[disabled]{opacity:.45;cursor:default}
 
 /* ===== SOPA DE LETRAS (nuevo): mini sopa animada que se usa en la tarjeta ===== */
 .ms{position:relative;width:100%;aspect-ratio:1/1}
@@ -1096,10 +1103,39 @@ $("refuerza").innerHTML = '<div class="rf-tx"><small>PRÁCTICA</small><b>' + esc
 
 /* menú y navegación */
 const ICO_TEMA = { noche:'<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"></path>', rosa:'<path d="M12 21s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.65-9.5 9-9.5 9z"></path>', azul:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"></path>', dia:'<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>' };
+/* ===== PALETAS DE PAGO: Noche y Día gratis; las demás se compran con Aura (se guardan en la Tienda como "tm…") ===== */
+const PALETAS_PRECIO = { rosa:{ id:"tm2", p:100 }, azul:{ id:"tm3", p:100 } };
+let temaPrueba = "";   // paleta que se está probando antes de comprarla
+function tiendaLeer() { const t = leer("ingles_gamer_tienda") || {}; if (!Array.isArray(t.own)) t.own = []; if (!t.eq || typeof t.eq !== "object") t.eq = {}; return t; }
+const temaMio = id => !PALETAS_PRECIO[id] || tiendaLeer().own.indexOf(PALETAS_PRECIO[id].id) > -1;
+const auraSaldo = () => Math.max(0, +((leer("ingles_gamer_aura") || {}).t) || 0);
+(function revisarPaletas() {
+  const t = tiendaLeer(), act = temaActual();
+  if (!t.tmMig) {   /* una sola vez: quien ya usaba Rosa o Azul se la queda gratis */
+    t.tmMig = 1; if (PALETAS_PRECIO[act] && t.own.indexOf(PALETAS_PRECIO[act].id) < 0) t.own.push(PALETAS_PRECIO[act].id);
+    try { localStorage.setItem("ingles_gamer_tienda", JSON.stringify(t)); } catch (e) {}
+  } else if (!temaMio(act)) { try { localStorage.setItem(TEMA_KEY, "noche"); } catch (e) {} aplicarTema("noche"); }
+})();
+function cancelarPrueba() { if (!temaPrueba) return; temaPrueba = ""; aplicarTema(temaActual()); }
+function comprarTema(id) {
+  const P = PALETAS_PRECIO[id]; if (!P || temaMio(id)) return;
+  let a = {}; try { a = JSON.parse(localStorage.getItem("ingles_gamer_aura") || "null") || {}; } catch (e) {}
+  if ((+a.t || 0) < P.p) return;
+  a.t = (+a.t || 0) - P.p; a.l = [[-P.p, "Paleta " + PALETAS[id].n, Date.now()]].concat(Array.isArray(a.l) ? a.l : []).slice(0, 20);
+  const t = tiendaLeer(); t.own.push(P.id);
+  try { localStorage.setItem("ingles_gamer_aura", JSON.stringify(a)); localStorage.setItem("ingles_gamer_tienda", JSON.stringify(t)); localStorage.setItem(TEMA_KEY, id); } catch (e) {}
+  temaPrueba = ""; aplicarTema(id); pintarTodo(); pintarMenu();
+  try { if (window.IGNube && IGNube.subirYa) IGNube.subirYa(); } catch (e) {}
+}
 function pintarMenu() {
   const act = temaActual();
   $("menu").innerHTML = '<div class="tema"><small>APARIENCIA</small><div class="tema-op">' +
-    Object.keys(PALETAS).map(id => '<button type="button" class="tm' + (id === act ? ' on' : '') + '" data-tema="' + id + '" aria-pressed="' + (id === act) + '">' + svg(ICO_TEMA[id] || "", 20) + PALETAS[id].n + '</button>').join("") + '</div></div>' +
+    Object.keys(PALETAS).map(id => { const mio = temaMio(id), on = id === (temaPrueba || act);
+      return '<button type="button" class="tm' + (on ? ' on' : '') + (mio ? '' : ' bloq') + '" data-tema="' + id + '" aria-pressed="' + on + '">' + svg(ICO_TEMA[id] || "", 20) + PALETAS[id].n +
+        (mio ? '' : '<span class="tm-p">' + svg('<rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path>', 13) + PALETAS_PRECIO[id].p + '</span>') + '</button>'; }).join("") + '</div>' +
+    (temaPrueba ? (() => { const P = PALETAS_PRECIO[temaPrueba], s = auraSaldo(), ok = s >= P.p;
+      return '<div class="tm-buy"><b>Paleta ' + esc(PALETAS[temaPrueba].n) + '</b><span>Así se ve. Cuesta ' + P.p + ' de Aura · tienes ' + s + '</span>' +
+        '<div class="tm-bt"><button type="button" class="tm-c" data-tmacc="no">Cancelar</button><button type="button" class="tm-ok" data-tmacc="si"' + (ok ? '' : ' disabled') + '>' + (ok ? 'Comprar · ' + P.p : 'Te faltan ' + (P.p - s)) + '</button></div></div>'; })() : '') + '</div>' +
     CATEGORIAS.filter(c => !(c.accion === "calificar" && !enlaceTienda())).map(c => c.accion
       ? '<a href="#" data-accion="' + c.accion + '">' + esc(c.texto) + '</a>'
       : '<a href="' + esc(c.url) + '">' + esc(c.texto) + '</a>').join("");
@@ -1124,16 +1160,21 @@ $("menu").addEventListener("click", e => {
     else if (ac.dataset.accion === "calificar") { const u = enlaceTienda(); if (u) window.open(u, "_blank"); }
     return;
   }
+  const ta = e.target.closest("[data-tmacc]");
+  if (ta) { e.stopPropagation(); if (ta.dataset.tmacc === "si") comprarTema(temaPrueba); else { cancelarPrueba(); pintarMenu(); } return; }
   const b = e.target.closest(".tm"); if (!b) return;
   e.stopPropagation();
-  try { localStorage.setItem(TEMA_KEY, b.dataset.tema); } catch (x) {}
-  aplicarTema(b.dataset.tema); pintarMenu();
+  const id = b.dataset.tema;
+  if (!temaMio(id)) { temaPrueba = id; aplicarTema(id); pintarMenu(); return; }   /* vista previa antes de comprar */
+  temaPrueba = "";
+  try { localStorage.setItem(TEMA_KEY, id); } catch (x) {}
+  aplicarTema(id); pintarMenu();
 });
 window.addEventListener("storage", e => { if (e.key === TEMA_KEY) pintarMenu(); });
 $("navbar").innerHTML = NAV.map(n => '<a' + (n.activo ? ' class="on" aria-current="page"' : '') + ' href="' + n.url + '">' + svg(n.icono, 26) + esc(n.nombre) + '</a>').join("");
 const btn = $("menuBtn"), menu = $("menu");
-btn.addEventListener("click", e => { e.stopPropagation(); const o = menu.classList.toggle("open"); btn.setAttribute("aria-expanded", o); });
-document.addEventListener("click", () => { menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); });
+btn.addEventListener("click", e => { e.stopPropagation(); const o = menu.classList.toggle("open"); btn.setAttribute("aria-expanded", o); if (!o && temaPrueba) { cancelarPrueba(); pintarMenu(); } });
+document.addEventListener("click", () => { menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); if (temaPrueba) { cancelarPrueba(); pintarMenu(); } });
 </script>
 
 <!-- ===== GUARDIA DE INTERNET (script aparte: si algo falla arriba, esta guardia sigue funcionando) ===== -->
