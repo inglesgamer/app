@@ -1,0 +1,187 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Niveles jurásicos · diseños</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--hi:#fff;--on-hi:#000;--track:#2A2A2E;--toff:#3A3A40;--ok:#7BE3A8;--mal:#FF6B6B;--cc:#FF8A3D}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;overscroll-behavior:none}
+button{font-family:inherit;color:inherit}svg{display:block}svg.px{overflow:visible}
+.app{max-width:520px;margin:0 auto;min-height:100dvh;padding:0 16px calc(90px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:5;padding:calc(14px + env(safe-area-inset-top)) 0 10px;background:var(--bg)}
+.cir{flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--bd);background:var(--card)}
+.prog{flex:1;height:14px;border-radius:99px;background:var(--track);overflow:hidden}.prog i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#FF8A3D,#FFC83D);transition:width .4s}
+.hearts{display:flex;gap:4px}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin:8px 4px 0}
+.chip{padding:6px 12px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.1em;border:1px solid color-mix(in srgb,var(--cc) 55%,var(--bd));background:color-mix(in srgb,var(--cc) 20%,var(--card))}
+.rc{font-size:13px;font-weight:900;color:var(--mu)}
+.preg{margin:12px 4px 0;text-align:center;font-size:22px;font-weight:900;line-height:1.25}.preg small{display:block;font-size:13px;color:var(--mu);font-weight:800;margin-top:4px}
+.listen{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 18px;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font:900 15px Nunito,sans-serif;box-shadow:0 4px 0 rgba(128,128,128,.35);cursor:pointer}
+.listen:active{transform:translateY(2px)}
+.cen{display:flex;justify-content:center;gap:10px;margin-top:12px}
+.msg{min-height:26px;margin:10px 0 0;text-align:center;font-size:17px;font-weight:900}.msg.ok{color:var(--ok)}.msg.mal{color:var(--mal)}
+.word{display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;border-radius:22px;border:2px solid var(--bd);background:var(--card);font:900 22px Nunito,sans-serif;cursor:pointer}
+.word:active{transform:translateY(2px)}.word.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--card))}.word.mal{border-color:var(--mal);background:color-mix(in srgb,var(--mal) 16%,var(--card));animation:shk .35s}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+/* ---------- A · EXCAVACIÓN ---------- */
+.dig{position:relative;margin-top:12px;height:300px;border-radius:28px;overflow:hidden;border:3px solid #6B4A2A;background:repeating-linear-gradient(0deg,#C99A5B 0 18px,#B8864A 18px 36px)}
+.dig .item{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.dig .item.sale{animation:brilla .9s ease}
+.dig canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.dig .pala{position:absolute;right:12px;bottom:10px;padding:6px 12px;border-radius:99px;background:rgba(42,20,8,.85);color:#FFC977;font-size:12px;font-weight:900;pointer-events:none}
+.dig .pct{position:absolute;left:12px;bottom:10px;height:8px;width:90px;border-radius:9px;background:rgba(0,0,0,.35);overflow:hidden;pointer-events:none}.dig .pct i{display:block;height:100%;width:0;background:#FFC83D}
+/* ---------- B · ALIMENTA AL DINO ---------- */
+.feed{position:relative;margin-top:12px;height:300px;border-radius:28px;overflow:hidden;background:linear-gradient(#7EC4F0,#CFEFFF 60%,#6FA03E 60%,#4E8A2A)}
+.feed .palm{position:absolute;left:10px;bottom:110px;opacity:.9}
+.feed .dn{position:absolute;right:14px;bottom:40px;transform-origin:70% 100%}
+.feed .dn.chomp{animation:chomp .5s ease 2}.feed .dn.no{animation:nono .5s ease}
+.feed .bub{position:absolute;right:120px;top:22px;max-width:190px;padding:10px 14px;border-radius:20px 20px 6px 20px;background:#fff;color:#000;font-weight:900;font-size:18px;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+.feed .bub small{display:block;font-size:11px;color:#666;font-weight:800}
+.feed .bub b{color:#E8692A}
+.foods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.food{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px 10px;border-radius:22px;border:2px solid var(--bd);background:var(--card);font:900 17px Nunito,sans-serif;cursor:grab;touch-action:none;user-select:none;transition:transform .15s}
+.food.drag{z-index:50;cursor:grabbing;transition:none;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+.food.ok{border-color:var(--ok)}.food.mal{border-color:var(--mal);animation:shk .35s}.food.gone{opacity:0;transform:scale(.3)!important;transition:all .35s}
+.hint{text-align:center;color:var(--mu);font-size:13px;font-weight:800;margin-top:8px}
+/* ---------- C · HUEVOS SORPRESA ---------- */
+.nest{position:relative;margin-top:12px;height:300px;border-radius:28px;overflow:hidden;background:radial-gradient(ellipse at 50% 110%,#5E3A1A,transparent 60%),linear-gradient(#123A1C,#0B2A14)}
+.nest .luc{position:absolute;inset:0;background:radial-gradient(circle,#EFFF8A 0 2px,transparent 3px) 0 0/70px 60px;opacity:.6;animation:luci 6s ease-in-out infinite alternate}
+.nest .paja{position:absolute;left:6%;right:6%;bottom:26px;height:70px;border-radius:50%;background:repeating-linear-gradient(110deg,#C9A050 0 6px,#8B6A2A 6px 10px);box-shadow:inset 0 10px 20px rgba(0,0,0,.4)}
+.eggs{position:absolute;left:0;right:0;bottom:56px;display:flex;justify-content:center;align-items:flex-end;gap:14px}
+.eg{position:relative;border:0;background:none;padding:0;cursor:pointer;animation:wob 2.4s ease-in-out infinite;transform-origin:50% 100%}
+.eg:nth-child(2){animation-delay:-.8s}.eg:nth-child(3){animation-delay:-1.6s}
+.eg.mal{animation:shk .4s}.eg.open{animation:none}
+.eg .baby{position:absolute;left:50%;bottom:30%;transform:translate(-50%,0) scale(0);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.eg.open .baby{transform:translate(-50%,-30%) scale(1)}
+.eg.open .shell{animation:crack .5s forwards}
+@keyframes crack{0%{transform:none}30%{transform:rotate(-8deg)}60%{transform:rotate(8deg)}100%{transform:translateY(20px) scale(.9);opacity:.35}}
+/* ---------- D · LLUVIA DEL VOLCÁN ---------- */
+.volc{position:relative;margin-top:12px;height:380px;border-radius:28px;overflow:hidden;background:linear-gradient(#2A0E08,#7A2A10 55%,#E8692A)}
+.volc .mt{position:absolute;left:50%;bottom:-10px;width:300px;height:170px;margin-left:-150px;background:#3A1A0C;clip-path:polygon(0 100%,38% 8%,46% 16%,54% 4%,62% 14%,100% 100%)}
+.volc .lava{position:absolute;left:50%;bottom:150px;width:60px;height:20px;margin-left:-30px;border-radius:50%;background:#FFB13D;box-shadow:0 0 30px 10px #FF6A00;animation:late 1s infinite alternate}
+.volc .gr{position:absolute;left:0;right:0;bottom:0;height:16px;background:#2A1408}
+.rk{position:absolute;top:-70px;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;padding:4px;cursor:pointer;animation:cae linear forwards}
+.rk span{padding:4px 10px;border-radius:99px;background:#2A1408;border:2px solid #FFC977;color:#fff;font-size:15px;font-weight:900}
+.rk.ok span{background:#2F7A1F;border-color:var(--ok)}.rk.mal span{background:#7A1F1F;border-color:var(--mal)}
+.rk.boom{animation:boom .4s forwards}
+@keyframes cae{to{transform:translateY(460px)}}
+@keyframes boom{to{transform:translateY(var(--y)) scale(1.6);opacity:0}}
+.target{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px;padding:10px;border-radius:22px;background:var(--card);border:1px solid var(--bd)}
+.target b{font-size:20px}.target small{display:block;font-size:12px;color:var(--mu);font-weight:800}
+.score{position:absolute;left:12px;top:12px;padding:5px 10px;border-radius:99px;background:rgba(0,0,0,.5);font-weight:900;font-size:13px;z-index:3}
+/* comunes */
+.fin{text-align:center;padding-top:30px}.fin h2{font-size:28px;margin:12px 0 6px}.fin p{color:var(--mu);font-weight:800}
+.gran{display:flex;align-items:center;justify-content:center;width:100%;height:56px;margin-top:14px;border-radius:99px;border:0;background:var(--hi);color:var(--on-hi);font:900 16px Nunito,sans-serif;box-shadow:0 4px 0 rgba(128,128,128,.35);cursor:pointer}
+.pv{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;display:flex;gap:2px;padding:5px;border-radius:99px;border:1px solid var(--bd);background:var(--card);box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.pv button{height:42px;padding:0 10px;border:0;border-radius:99px;background:transparent;font:800 12px Nunito,sans-serif;color:var(--mu);white-space:nowrap;cursor:pointer}.pv button.on{background:var(--hi);color:var(--on-hi)}
+.conf{position:fixed;inset:0;pointer-events:none;z-index:80}.conf i{position:absolute;width:8px;height:12px}
+@keyframes shk{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+@keyframes brilla{0%{filter:brightness(1)}40%{filter:brightness(2) drop-shadow(0 0 20px #FFE07A)}100%{filter:none}}
+@keyframes chomp{50%{transform:scale(1.1,.9) rotate(-4deg)}}
+@keyframes nono{25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+@keyframes wob{0%,100%{transform:rotate(0)}10%{transform:rotate(-5deg)}20%{transform:rotate(5deg)}30%{transform:rotate(0)}}
+@keyframes luci{to{background-position:30px -40px}}
+@keyframes late{to{opacity:.6;transform:scale(1.2)}}
+@keyframes bob{50%{transform:translateY(-5px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div class="app">
+ <div class="top"><span class="cir"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span><div class="prog"><i id="barra"></i></div><span class="hearts" id="vidas"></span></div>
+ <main id="v"></main>
+</div>
+<div class="pv" id="pv"><button data-d="A" class="on">A · Excavar</button><button data-d="B">B · Alimentar</button><button data-d="C">C · Huevos</button><button data-d="D">D · Volcán</button></div>
+<script>
+const SPR={"rex": {"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]}, "raptor": {"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]}, "trice": {"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]}, "egg": {"p": {"w": "#F5EFD8", "g": "#5DB33A"}, "r": ["...ww...", "..wwww..", ".wgwwgw.", ".wwwwww.", "wwwwgwww", "wgwwwwgw", ".wwwgww.", "..wwww.."]}, "bone": {"p": {"w": "#F5EFD8", "s": "#C9BFA0"}, "r": ["ww....ww", "wws..wws", ".wwsswws", "..wwwws.", "..swwww.", "swwsswww", "wws..wws", "ww....ww"]}, "leaf": {"p": {"g": "#5DB33A", "d": "#2F7A1F", "l": "#9BE36A"}, "r": ["......gg", ".....ggg", "...gglgg", "..glggg.", ".gdlgg..", ".gdgg...", "d.dg....", "d......."]}, "meat": {"p": {"r": "#C0392B", "p": "#E8705A", "w": "#F5EFD8"}, "r": ["..rrrr..", ".rpppprr", "rpprrprr", "rpprrrrr", "rrrrrrr.", ".rrrrw..", "....ww..", "...www.."]}, "fish": {"p": {"b": "#3FA9F5", "d": "#1E6FB0", "w": "#fff", "k": "#0B0B0D"}, "r": ["........", "..bbbb..", ".bbbbbb.", "bwkbbbbd", "bbbbbbbd", ".bbbbbb.", "..bbbb..", "........"]}, "rock": {"p": {"r": "#6B4A3A", "d": "#4A3228", "o": "#FF8A3D"}, "r": ["..rrrr..", ".rrrrrr.", "rrorrrrr", "rrrrrdrr", "rrrrrrrr", "rdrrrorr", ".rrrrrr.", "..dddd.."]}};
+const $=id=>document.getElementById(id);
+function sp(n,s,st){const d=SPR[n];const h=d.r.length,w=d.r[0].length;let o='<svg class="px" width="'+Math.round(s*w/h)+'" height="'+s+'" viewBox="0 0 '+w+' '+h+'" shape-rendering="crispEdges"'+(st?' style="'+st+'"':'')+'>';d.r.forEach((r,y)=>r.split("").forEach((c,x)=>{if(c!==".")o+='<rect x="'+x+'" y="'+y+'" width="1.02" height="1.02" fill="'+d.p[c]+'"/>'}));return o+"</svg>"}
+const FLIP="transform:scaleX(-1)";
+const ICO='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>';
+const HEART=(on)=>'<svg width="24" height="22" viewBox="0 0 9 8" shape-rendering="crispEdges">'+[".XX...XX.","XXXXXXXXX","XXXXXXXXX",".XXXXXXX.","..XXXXX..","...XXX..."].map((f,y)=>[...f].map((c,x)=>c==="X"?'<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+(on?"#FF6B6B":"#3A3A40")+'"/>':"").join("")).join("")+'</svg>';
+let vidas=3;const pintarVidas=()=>{$("vidas").innerHTML=[0,1,2].map(i=>HEART(i<vidas)).join("")};
+const barra=p=>{$("barra").style.width=p+"%"};
+/* audio: voz del celular en inglés */
+function oir(t,r){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=r||.9;speechSynthesis.speak(u)}catch(e){}}
+let AC=null;function tono(f,t0,d,v,tp){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+t0;o.type=tp||"sine";o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v||.1,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.05)}catch(e){}}
+const S={ok:()=>{tono(1318.5,0,.09,.1,"square");tono(1760,.08,.25,.09,"square")},mal:()=>{tono(330,0,.14,.08,"triangle");tono(262,.1,.22,.08,"triangle")},rawr:()=>{tono(140,0,.35,.15,"sawtooth");tono(110,.1,.35,.12,"sawtooth")},crack:()=>{for(let k=0;k<5;k++)tono(900-k*120,k*.04,.06,.06,"square")},gano:()=>[523.25,659.25,783.99,1046.5,1318.5].forEach((f,k)=>tono(f,k*.11,.5,.1))};
+function confeti(){const c=document.createElement("div");c.className="conf";document.body.appendChild(c);const cols=["#FFC83D","#FF8A3D","#5DB33A","#3FB58A","#B58CFF"];for(let k=0;k<36;k++){const p=document.createElement("i");p.style.background=cols[k%5];p.style.left="50%";p.style.top="40%";c.appendChild(p);const a=Math.random()*6.283,d=100+Math.random()*180;p.animate([{transform:"translate(0,0)",opacity:1},{transform:"translate("+Math.cos(a)*d+"px,"+(Math.sin(a)*d+140)+"px) rotate(540deg)",opacity:0}],{duration:1000+Math.random()*500,easing:"cubic-bezier(.2,.8,.4,1)",fill:"forwards"})}setTimeout(()=>c.remove(),1600)}
+const mezcla=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const hdr=(t,i,n)=>'<div class="hdr"><span class="chip">'+t+'</span><span class="rc">'+(i+1)+' / '+n+'</span></div>';
+function fin(t,re){barra(100);S.gano();confeti();$("v").innerHTML='<div class="fin">'+sp("rex",110,FLIP)+'<h2>'+t+'</h2><p>Así terminaría el nivel (con estrellas y Aura).</p><button class="gran" id="otra">Jugar otra vez</button></div>';$("otra").onclick=re}
+function falla(){vidas=Math.max(0,vidas-1);pintarVidas();S.mal()}
+
+/* ============ A · EXCAVACIÓN: frota la arena y descubre el fósil ============ */
+function A(){
+ const R=[{k:"egg",en:"Egg",es:"huevo",o:["Egg","Bone"]},{k:"bone",en:"Bone",es:"hueso",o:["Leaf","Bone"]},{k:"trice",en:"Dinosaur",es:"dinosaurio",o:["Dinosaur","Egg"]}];
+ let i=0;vidas=3;pintarVidas();
+ function ronda(){const r=R[i];barra(i/R.length*100);
+  $("v").innerHTML=hdr("EXCAVACIÓN",i,R.length)+'<p class="preg">¡Frota la arena con el dedo!<small>Hay algo enterrado…</small></p><div class="dig" id="dig"><div class="item" id="it">'+sp(r.k,r.k==="trice"?120:110)+'</div><canvas id="cv"></canvas><span class="pct"><i id="pc"></i></span><span class="pala">⛏ Excava</span></div><div id="q"></div>';
+  const cv=$("cv"),box=$("dig"),W=box.clientWidth,H=box.clientHeight,dpr=devicePixelRatio||1;cv.width=W*dpr;cv.height=H*dpr;const x=cv.getContext("2d");x.scale(dpr,dpr);
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,"#D8AE6C");g.addColorStop(1,"#B88648");x.fillStyle=g;x.fillRect(0,0,W,H);
+  for(let k=0;k<260;k++){x.fillStyle=["#C99A5B","#E6C18A","#A87A40"][k%3];x.fillRect(Math.random()*W,Math.random()*H,3,3)}
+  x.globalCompositeOperation="destination-out";let down=false,listo=false,last=null;
+  const pt=e=>{const b=cv.getBoundingClientRect();return[e.clientX-b.left,e.clientY-b.top]};
+  const raspa=e=>{if(!down||listo)return;const p=pt(e);x.lineWidth=46;x.lineCap="round";x.beginPath();x.moveTo(...(last||p));x.lineTo(...p);x.stroke();last=p;if(Math.random()<.25)tono(200+Math.random()*80,0,.03,.03,"triangle");medir()};
+  let mt=0;function medir(){if(Date.now()-mt<120)return;mt=Date.now();const d=x.getImageData(0,0,cv.width,cv.height).data;let c=0,n=0;for(let k=3;k<d.length;k+=64){n++;if(d[k]<10)c++}const pc=c/n;$("pc").style.width=Math.min(100,pc/.45*100)+"%";if(pc>.45&&!listo){listo=true;cv.style.transition="opacity .5s";cv.style.opacity=0;$("it").classList.add("sale");S.ok();setTimeout(preguntar,500)}}
+  cv.addEventListener("pointerdown",e=>{down=true;last=null;cv.setPointerCapture(e.pointerId);raspa(e)});cv.addEventListener("pointermove",raspa);["pointerup","pointercancel"].forEach(t=>cv.addEventListener(t,()=>{down=false;last=null}));
+  function preguntar(){oir(r.en);$("q").innerHTML='<p class="preg">¿Qué encontraste?</p><div class="cen"><button class="listen" id="bo">'+ICO+'Escuchar</button></div><div class="g2">'+mezcla(r.o).map(o=>'<button class="word" data-o="'+o+'">'+o+'</button>').join("")+'</div><p class="msg" id="m"></p>';
+   $("bo").onclick=()=>oir(r.en);
+   document.querySelectorAll(".word").forEach(b=>b.onclick=()=>{if(b.dataset.o===r.en){b.classList.add("ok");$("m").className="msg ok";$("m").textContent="¡Sí! "+r.en+" = "+r.es;S.ok();confeti();oir(r.en);setTimeout(()=>{i++;i<R.length?ronda():fin("¡Excavación completa!",A)},1500)}else{b.classList.add("mal");$("m").className="msg mal";$("m").textContent="Escucha otra vez 👂";falla();oir(r.en)}})}
+ }ronda()}
+
+/* ============ B · ALIMENTA AL DINO: arrastra la comida a su boca ============ */
+function B(){
+ const R=[{d:"trice",f:"leaf",en:"Leaf",es:"hoja",t:"I eat leaves"},{d:"rex",f:"meat",en:"Meat",es:"carne",t:"I eat meat"},{d:"raptor",f:"fish",en:"Fish",es:"pescado",t:"I eat fish"}];
+ const FO={leaf:"Leaf",meat:"Meat",fish:"Fish"};let i=0;vidas=3;pintarVidas();
+ function ronda(){const r=R[i];barra(i/R.length*100);
+  $("v").innerHTML=hdr("HORA DE COMER",i,R.length)+'<p class="preg">El dino tiene hambre<small>Escucha y arrástrale su comida</small></p>'+
+   '<div class="feed" id="feed"><span class="palm">'+sp("leaf",60)+'</span><div class="bub" id="bub"><small>DINO DICE:</small>'+r.t.replace(r.en.toLowerCase()==="leaf"?"leaves":r.en.toLowerCase(),'<b>$&</b>')+' 🔊</div><div class="dn" id="dn">'+sp(r.d,r.d==="rex"?150:r.d==="trice"?120:130,r.d==="trice"?"":FLIP)+'</div></div>'+
+   '<div class="foods" id="foods">'+mezcla(Object.keys(FO)).map(k=>'<div class="food" data-k="'+k+'">'+sp(k,48)+FO[k]+'</div>').join("")+'</div><p class="hint">Arrastra la comida hasta el dino (o tócala)</p><p class="msg" id="m"></p>';
+  setTimeout(()=>oir(r.t),300);$("bub").onclick=()=>oir(r.t);
+  const dn=$("dn");let ya=false;
+  document.querySelectorAll(".food").forEach(f=>{let sx,sy,mov=false;
+   f.addEventListener("pointerdown",e=>{if(ya)return;sx=e.clientX;sy=e.clientY;mov=false;f.setPointerCapture(e.pointerId);f.classList.add("drag")});
+   f.addEventListener("pointermove",e=>{if(sx==null)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>8)mov=true;f.style.transform="translate("+dx+"px,"+dy+"px) scale(1.08)"});
+   f.addEventListener("pointerup",e=>{if(sx==null)return;sx=null;f.classList.remove("drag");const b=dn.getBoundingClientRect(),hit=!mov||(e.clientX>b.left-20&&e.clientX<b.right+20&&e.clientY>b.top-20&&e.clientY<b.bottom+20);
+    if(!hit){f.style.transform="";return}
+    if(!mov){const fb=f.getBoundingClientRect();f.style.transition="transform .4s";f.style.transform="translate("+(b.left+b.width*.3-fb.left)+"px,"+(b.top+b.height*.3-fb.top)+"px) scale(.6)";}
+    setTimeout(()=>{if(f.dataset.k===r.f){ya=true;f.classList.add("ok","gone");dn.classList.add("chomp");S.rawr();setTimeout(S.ok,300);$("m").className="msg ok";$("m").textContent="¡Ñam! "+r.en+" = "+r.es;oir(r.en);confeti();setTimeout(()=>{i++;i<R.length?ronda():fin("¡Todos comieron!",B)},1700)}
+     else{f.style.transition="transform .3s";f.style.transform="";f.classList.add("mal");setTimeout(()=>f.classList.remove("mal"),400);dn.classList.remove("no");void dn.offsetWidth;dn.classList.add("no");$("m").className="msg mal";$("m").textContent="¡No! Eso es "+FO[f.dataset.k];falla();oir("No! "+r.t)}},mov?0:420)});
+  })}ronda()}
+
+/* ============ C · HUEVOS SORPRESA: toca el huevo correcto y ¡nace un dino! ============ */
+function C(){
+ const R=[{q:"Tap the BIG egg",es:"Toca el huevo GRANDE",ok:0,eggs:[["#F5EFD8",110],["#F5EFD8",64],["#F5EFD8",80]],b:"rex",w:"Big",wes:"grande"},
+  {q:"Tap the SMALL egg",es:"Toca el huevo PEQUEÑO",ok:1,eggs:[["#F5EFD8",96],["#F5EFD8",58],["#F5EFD8",110]],b:"raptor",w:"Small",wes:"pequeño"},
+  {q:"Tap the GREEN egg",es:"Toca el huevo VERDE",ok:2,eggs:[["#7CC8FF",86],["#FF8FC7",86],["#7ED957",86]],b:"trice",w:"Green",wes:"verde"}];
+ let i=0;vidas=3;pintarVidas();
+ const egg=(c,s)=>{const d=JSON.parse(JSON.stringify(SPR.egg));d.p.w=c;SPR._e=d;return sp("_e",s)};
+ function ronda(){const r=R[i];barra(i/R.length*100);
+  $("v").innerHTML=hdr("NIDO DE DINOS",i,R.length)+'<p class="preg">'+r.q+'<small>'+r.es+'</small></p><div class="cen"><button class="listen" id="bo">'+ICO+'Escuchar</button></div>'+
+   '<div class="nest"><i class="luc"></i><i class="paja"></i><div class="eggs">'+r.eggs.map((e,k)=>'<button class="eg" data-k="'+k+'"><span class="shell">'+egg(e[0],e[1])+'</span><span class="baby">'+sp(r.b,Math.round(e[1]*.8),r.b==="trice"?"":FLIP)+'</span></button>').join("")+'</div></div><p class="msg" id="m"></p>';
+  setTimeout(()=>oir(r.q),300);$("bo").onclick=()=>oir(r.q);let ya=false;
+  document.querySelectorAll(".eg").forEach(b=>b.onclick=()=>{if(ya)return;if(+b.dataset.k===r.ok){ya=true;S.crack();setTimeout(()=>{b.classList.add("open");S.ok();confeti()},250);$("m").className="msg ok";$("m").textContent="¡Nació un dino! "+r.w+" = "+r.wes;setTimeout(()=>oir(r.w),400);setTimeout(()=>{i++;i<R.length?ronda():fin("¡Todos nacieron!",C)},1900)}
+   else{b.classList.remove("mal");void b.offsetWidth;b.classList.add("mal");$("m").className="msg mal";$("m").textContent="Ese no… "+r.w+" = "+r.wes;falla();oir(r.q)}})}
+ ronda()}
+
+/* ============ D · LLUVIA DEL VOLCÁN: toca la roca con la palabra correcta ============ */
+function D(){
+ const R=[{k:"egg",en:"Egg",es:"huevo"},{k:"bone",en:"Bone",es:"hueso"},{k:"leaf",en:"Leaf",es:"hoja"},{k:"meat",en:"Meat",es:"carne"}];
+ const PAL=["Egg","Bone","Leaf","Meat","Fish","Rock"];let i=0,tm=[];vidas=3;pintarVidas();
+ function limpiar(){tm.forEach(clearTimeout);tm=[]}
+ function ronda(){limpiar();const r=R[i];barra(i/R.length*100);
+  $("v").innerHTML=hdr("LLUVIA DEL VOLCÁN",i,R.length)+'<div class="target">'+sp(r.k,52)+'<div><small>ATRAPA LA PALABRA</small><b>'+r.es+'</b></div><button class="listen" id="bo" style="height:40px;padding:0 14px">'+ICO+'</button></div>'+
+   '<div class="volc" id="vol"><i class="mt"></i><i class="lava"></i><i class="gr"></i></div><p class="msg" id="m">Toca la roca correcta antes de que caiga</p>';
+  $("bo").onclick=()=>oir(r.en);const vol=$("vol");let ya=false,n=0;
+  const lanzar=()=>{if(ya)return;const ok=n%3===1,w=ok?r.en:mezcla(PAL.filter(p=>p!==r.en))[0],b=document.createElement("button");b.className="rk";b.style.left=(8+Math.random()*62)+"%";const dur=3.6+Math.random()*1.2;b.style.animationDuration=dur+"s";b.innerHTML=sp("rock",44)+'<span>'+w+'</span>';
+   b.onclick=()=>{if(ya||b.classList.contains("mal"))return;const y=getComputedStyle(b).transform;b.style.setProperty("--y",(new DOMMatrix(y)).m42+"px");
+    if(w===r.en){ya=true;b.classList.add("ok","boom");S.ok();confeti();$("m").className="msg ok";$("m").textContent="¡Atrapada! "+r.en+" = "+r.es;oir(r.en);tm.push(setTimeout(()=>{i++;i<R.length?ronda():(limpiar(),fin("¡Sobreviviste al volcán!",D))},1500))}
+    else{b.classList.add("mal");$("m").className="msg mal";$("m").textContent="Esa dice "+w;falla();oir(w)}};
+   vol.appendChild(b);n++;tm.push(setTimeout(()=>b.remove(),dur*1000+100));tm.push(setTimeout(lanzar,1100))};
+  tm.push(setTimeout(lanzar,400));
+ }ronda()}
+
+const G={A,B,C,D};
+function jugar(d){document.querySelectorAll("#pv button").forEach(b=>b.classList.toggle("on",b.dataset.d===d));try{speechSynthesis.cancel()}catch(e){}G[d]()}
+$("pv").addEventListener("click",e=>{const b=e.target.closest("button");if(b)jugar(b.dataset.d)});
+const q=new URLSearchParams(location.search);if(q.get("rec"))$("pv").hidden=true;
+jugar(q.get("d")||"A");
+</script></body></html>
