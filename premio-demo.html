@@ -1,0 +1,91 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Demo · premio del pase</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>body{margin:0;min-height:100vh;background:#000;color:#fff;font-family:Nunito,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;text-align:center}
+h1{font-size:24px;margin:0}p{color:#B8B8C0;font-weight:700;margin:0 0 8px}select,button{width:100%;max-width:320px;height:54px;border-radius:99px;border:1px solid #2A2A2E;background:#141416;color:#fff;font:900 16px Nunito,sans-serif}button.a{background:#fff;color:#000}</style></head><body>
+<h1>Demo: premio al ganar un nivel</h1><p>Elige el premio y simula que ganaste el nivel</p>
+<select id="it"><option value="av18">Raptor</option><option value="av19">Triceratops</option><option value="sk8">Skin Ámbar</option><option value="mc7">Marco Fósil</option><option value="tt7">Título</option><option value="mp7">Fondo Jurásico</option></select>
+<button class="a" id="b0">Gané el nivel · SIN pase</button><button id="b1">Gané el nivel · CON pase</button>
+<script>const q=new URLSearchParams(location.search);document.getElementById("it").value=q.get("it")||"av18";
+const go=p=>{location.href=location.pathname+"?it="+document.getElementById("it").value+"&p="+p+"&run=1"};
+document.getElementById("b0").onclick=()=>go(0);document.getElementById("b1").onclick=()=>go(1);
+window.IG_DEMO_PASE=q.get("p")==="1";</script>
+<script>
+/* ===== PREMIO DEL PASE (teaser): al GANAR este nivel sale "¡DESBLOQUEADO!" con un premio del Pase Jurásico.
+   Si no tiene el pase, al tocar "Obtener" le dice que necesita el pase (y lo manda a verlo).
+   Cambia solo PREMIO_NIVEL: "av18" Raptor · "av19" Triceratops · "sk8" Skin Ámbar · "mc7" Marco Fósil · "tt7" Título · "mp7" Fondo Jurásico ===== */
+const PREMIO_NIVEL = new URLSearchParams(location.search).get("it") || "av18";
+(function () {
+  const PASE_URL = "go:pase", TEMP = "t1", FIN = new Date(2026, 11, 1);      /* la temporada termina el 1 de diciembre */
+  const SPRX = {"av18": {"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]}, "av19": {"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]}, "av0": {"p": {"o": "#FF8A3D", "s": "#F2C9A0", "k": "#0B0B0D", "b": "#3FD8C8", "d": "#1E8F84", "m": "#B5574A", "l": "#3A3A42"}, "r": ["....oooo....", "..oooooooo..", ".oooooooooo.", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..bbbbbbbb..", ".sbbbbbbbbs.", "..dddddddd..", "..lll..lll..", "..kkk..kkk.."]}, "cofre": {"p": {"b": "#8B5A2B", "y": "#FFC83D", "k": "#5E3E22"}, "r": ["bbbbbbbb", "bkkkkkkb", "bbbbbbbb", "yyyyyyyy", "bbbyybbb", "bkkyykkb", "bkkkkkkb", "bbbbbbbb"]}};
+  const ITEMS = {
+    av18:{ n:"Raptor", r:"LEGENDARIO", c:"#FFC83D" }, av19:{ n:"Triceratops", r:"ÉPICO", c:"#B58CFF" }, sk8:{ n:"Skin Ámbar", r:"ÉPICO", c:"#B58CFF" },
+    mc7:{ n:"Marco Fósil", r:"RARO", c:"#7CC8FF" }, tt7:{ n:"Título «Cazador de dinos»", r:"ESPECIAL", c:"#FF8A3D" }, mp7:{ n:"Fondo Jurásico", r:"FONDO", c:"#7CC8FF" } };
+  const it = ITEMS[PREMIO_NIVEL]; if (!it || Date.now() >= FIN.getTime()) return;
+  const px = (n, s, st) => { const d = SPRX[n], h = d.r.length, w = d.r[0].length; let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" style="display:block;overflow:visible;' + (st || '') + '">'; d.r.forEach((r, y) => r.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + d.p[c] + '"/>'; })); return o + "</svg>"; };
+  const ver = s => PREMIO_NIVEL === "av18" || PREMIO_NIVEL === "av19" ? px(PREMIO_NIVEL, s)
+    : PREMIO_NIVEL === "sk8" ? px("av0", s, "filter:sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05)")
+    : PREMIO_NIVEL === "mc7" ? '<span style="display:flex;align-items:flex-end;justify-content:center;width:' + s + 'px;height:' + s + 'px;border-radius:50%;border:' + Math.round(s / 14) + 'px dashed #C9BFA0;background:#2A2018;overflow:hidden">' + px("av0", Math.round(s * .55)) + '</span>'
+    : PREMIO_NIVEL === "mp7" ? '<span style="position:relative;display:block;width:' + Math.round(s * 1.4) + 'px;height:' + s + 'px;border-radius:16px;overflow:hidden;background:linear-gradient(#E8692A,#FFC977);border-bottom:' + Math.round(s / 6) + 'px solid #5E8F35"><span style="position:absolute;left:8%;bottom:0;width:60%;height:70%;background:#7A3A20;clip-path:polygon(4% 100%,26% 22%,32% 30%,38% 20%,62% 100%)"></span></span>'
+    : '<b style="display:block;padding:14px 18px;border-radius:18px;background:#2A1408;border:3px solid #FFC83D;color:#FFC83D;font:900 ' + Math.round(s / 5) + 'px Nunito,sans-serif;text-align:center;line-height:1.1">Cazador<br>de dinos</b>';
+  const tienePase = () => { if (window.IG_DEMO_PASE !== undefined) return window.IG_DEMO_PASE; try { const p = JSON.parse(localStorage.getItem("ingles_gamer_pase") || "null"); return !!(p && p[TEMP]); } catch (e) { return false; } };
+  const son = () => { try { return localStorage.getItem("ingles_gamer_sonido") !== "0"; } catch (e) { return true; } };
+  let AC = null; const tn = (f, t0, d, v, tp) => { if (!son()) return; try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + t0; o.type = tp || "sine"; o.frequency.setValueAtTime(f, t); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(v || .1, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + .05); } catch (e) {} };
+  const SND = { tiembla:() => { for (let k = 0; k < 8; k++) tn(180 + k * 20, k * .12, .08, .07, "square"); }, boom:() => { tn(90, 0, .5, .2, "sawtooth"); [523.25, 659.25, 783.99, 1046.5, 1318.5, 1568].forEach((f, k) => tn(f, .15 + k * .08, .5, .09)); }, no:() => { tn(330, 0, .16, .09, "triangle"); tn(220, .15, .35, .09, "triangle"); } };
+  const css = document.createElement("style");
+  css.textContent = `
+#igTz{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:Nunito,system-ui,sans-serif;color:#fff;background:radial-gradient(circle at 50% 42%,#4A1E0A,#120804 70%);animation:tzIn .3s ease}
+#igTz .ray{position:absolute;left:50%;top:42%;width:900px;height:900px;margin:-450px 0 0 -450px;border-radius:50%;background:repeating-conic-gradient(rgba(255,200,80,.18) 0 9deg,transparent 9deg 20deg);-webkit-mask:radial-gradient(circle,#000 8%,transparent 55%);mask:radial-gradient(circle,#000 8%,transparent 55%);opacity:0;animation:tzF .4s 1.4s forwards,tzG 14s linear 1.4s infinite}
+#igTz .caja{position:relative;height:190px;display:flex;align-items:flex-end;justify-content:center}
+#igTz .cof{animation:tzT 1.3s ease-in forwards}
+#igTz .cof.fue{display:none}
+#igTz .pw{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center}
+#igTz .pr{position:relative;transform:scale(0);animation:tzP .7s cubic-bezier(.3,1.6,.5,1) 1.45s forwards}
+#igTz .pr .gl{position:absolute;left:50%;top:50%;width:220px;height:220px;margin:-110px 0 0 -110px;border-radius:50%;background:radial-gradient(var(--c),transparent 65%);opacity:.55;z-index:-1}
+#igTz .pr .lk{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+#igTz .pr .lk i{width:66px;height:66px;border-radius:50%;background:rgba(18,8,4,.9);border:3px solid #FFC977;display:flex;align-items:center;justify-content:center}
+#igTz.no .pr .lk{opacity:1}#igTz.no .pr svg,#igTz.no .pr>span:not(.lk){filter:grayscale(.8) brightness(.55)}
+#igTz.no .pw{animation:tzS .45s}
+#igTz h2{margin:22px 0 4px;font-size:clamp(28px,9vw,40px);font-weight:900;letter-spacing:.02em;line-height:1;background:linear-gradient(#FFE07A,#FF8A3D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:2px #2A1408;paint-order:stroke fill;filter:drop-shadow(0 5px 0 #2A1408);opacity:0;animation:tzSl .5s cubic-bezier(.3,1.4,.5,1) 1.7s forwards}
+#igTz .nm{font-size:22px;font-weight:900;opacity:0;animation:tzF .3s 2s forwards}
+#igTz .rr{display:inline-block;margin-top:6px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.1em;color:#2A1408;background:var(--c);opacity:0;animation:tzF .3s 2.1s forwards}
+#igTz .tx{max-width:300px;margin:14px auto 0;font-size:15px;font-weight:800;color:#E8C9A0;line-height:1.4;min-height:42px;opacity:0;animation:tzF .3s 2.2s forwards}
+#igTz .bts{position:relative;width:100%;max-width:320px;margin-top:16px;opacity:0;animation:tzF .3s 2.3s forwards}
+#igTz .bt{display:flex;align-items:center;justify-content:center;width:100%;height:56px;border:0;border-radius:99px;background:linear-gradient(#FFE07A,#FFB13D);color:#2A1408;font:900 18px Nunito,sans-serif;box-shadow:0 5px 0 #A0661A;text-decoration:none;cursor:pointer}
+#igTz .bt:active{transform:translateY(2px);box-shadow:0 3px 0 #A0661A}
+#igTz .bt2{display:block;width:100%;height:46px;margin-top:6px;border:0;background:none;color:#C9A57A;font:800 15px Nunito,sans-serif;cursor:pointer}
+#igTz .tg{position:absolute;top:calc(18px + env(safe-area-inset-top));padding:5px 12px;border-radius:99px;background:#2A1408;color:#FFC977;font-size:11px;font-weight:900;letter-spacing:.16em;border:1px solid #FFC97755}
+#igTz .cf{position:absolute;width:8px;height:12px;left:50%;top:40%}
+@keyframes tzIn{from{opacity:0}}@keyframes tzF{to{opacity:1}}@keyframes tzG{to{transform:rotate(360deg)}}
+@keyframes tzT{0%{transform:rotate(0) scale(1)}15%{transform:rotate(-6deg)}30%{transform:rotate(6deg)}45%{transform:rotate(-9deg)}60%{transform:rotate(9deg) scale(1.08)}75%{transform:rotate(-12deg) scale(1.12)}90%{transform:rotate(12deg) scale(1.2)}100%{transform:scale(1.4);opacity:0}}
+@keyframes tzP{to{transform:scale(1)}}@keyframes tzSl{0%{opacity:0;transform:scale(2.4)}60%{opacity:1;transform:scale(.94)}100%{opacity:1;transform:scale(1)}}
+@keyframes tzS{25%{transform:translateX(-10px) rotate(-3deg)}75%{transform:translateX(10px) rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){#igTz *{animation-duration:.01s!important;animation-delay:0s!important}}`;
+  function mostrar() {
+    if (document.getElementById("igTz")) return;
+    document.head.appendChild(css);
+    const d = document.createElement("div"); d.id = "igTz"; d.style.setProperty("--c", it.c);
+    const CAND = '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFC977" stroke-width="2.6" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+    d.innerHTML = '<i class="ray"></i><span class="tg">PASE JURÁSICO · TEMPORADA 1</span><div class="caja"><span class="cof" id="tzC">' + px("cofre", 130) + '</span><span class="pw"><span class="pr"><i class="gl"></i>' + ver(150) + '<span class="lk"><i>' + CAND + '</i></span></span></span></div>' +
+      '<h2>¡DESBLOQUEADO!</h2><div class="nm">' + it.n + '</div><span class="rr">' + it.r + '</span><p class="tx" id="tzT">Lo ganaste al pasar este nivel. ¡Es tuyo!</p>' +
+      '<div class="bts" id="tzB"><button class="bt" type="button" id="tzO">Obtener</button><button class="bt2" type="button" id="tzX">Cerrar</button></div>';
+    document.body.appendChild(d);
+    SND.tiembla(); setTimeout(() => { const c = document.getElementById("tzC"); if (c) c.classList.add("fue"); SND.boom(); confeti(d); }, 1350);
+    const cerrar = () => d.remove();
+    d.querySelector("#tzX").onclick = cerrar;
+    d.querySelector("#tzO").onclick = () => {
+      if (tienePase()) { d.querySelector("#tzT").textContent = "¡Ya es parte de tu Pase! Juega los niveles jurásicos del mapa para reclamarlo."; d.querySelector("#tzB").innerHTML = '<a class="bt" href="' + PASE_URL + '">Ir a mi Pase</a><button class="bt2" type="button" id="tzX">Cerrar</button>'; }
+      else {
+        d.classList.remove("no"); void d.offsetWidth; d.classList.add("no"); SND.no();
+        d.querySelector("#tzT").innerHTML = '<b style="color:#FF8A6B">No puedes obtenerlo todavía.</b><br>Este premio es del <b style="color:#FFC83D">Pase Jurásico</b>. Consíguelo antes de que termine la temporada.';
+        d.querySelector("#tzB").innerHTML = '<a class="bt" href="' + PASE_URL + '">Ver el Pase Jurásico</a><button class="bt2" type="button" id="tzX">Ahora no</button>';
+      }
+      d.querySelector("#tzX").onclick = cerrar;
+    };
+  }
+  function confeti(p) { const cols = ["#FFC83D", "#FF8A3D", "#5DB33A", "#B58CFF", "#FFE07A"]; for (let k = 0; k < 40; k++) { const e = document.createElement("i"); e.className = "cf"; e.style.background = cols[k % 5]; p.appendChild(e); const a = Math.random() * 6.283, r = 120 + Math.random() * 200; e.animate([{ transform:"translate(0,0)", opacity:1 }, { transform:"translate(" + Math.cos(a) * r + "px," + (Math.sin(a) * r + 160) + "px) rotate(600deg)", opacity:0 }], { duration:1100 + Math.random() * 600, easing:"cubic-bezier(.2,.8,.4,1)", fill:"forwards" }); setTimeout(() => e.remove(), 1800); } }
+  window.IGTeaser = { mostrar };
+  /* se engancha solo: los niveles llaman a mandarNube() cuando el jugador GANA */
+  if (typeof window.mandarNube === "function") { const base = window.mandarNube; window.mandarNube = function () { const r = base.apply(this, arguments); setTimeout(mostrar, 1800); return r; }; }
+})();
+</script>
+<script>if(q.get("run"))setTimeout(()=>IGTeaser.mostrar(),300);</script></body></html>
