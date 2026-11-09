@@ -1,0 +1,212 @@
+<!doctype html><html lang="es"><head><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aprender adjetivos · diseños</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--ok:#7BE3A8;--mal:#FF6B6B;--cc:#8FD8FF;--hot:#FF8A3D}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,sans-serif;padding:18px 14px 60px;max-width:440px;margin:auto}
+h1{font-size:24px;margin:4px 0;font-weight:900}.intro{color:var(--mu);font-size:14px;margin:0 0 8px;line-height:1.45}
+.op{margin:30px 0 10px;display:flex;gap:10px}.op>b{flex:none;display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:12px;background:#fff;color:#000;font-size:18px;font-weight:900}.op span{display:block;font-size:18px;font-weight:900}.op small{display:block;color:var(--mu);font-size:12.5px;font-weight:700;line-height:1.35}
+.ph{border:1px solid var(--bd);border-radius:28px;background:#07080A;padding:16px;overflow:hidden}
+.chip{display:inline-block;padding:5px 11px;border-radius:99px;font-size:10.5px;font-weight:900;letter-spacing:.1em;border:1px solid #2F5A75;background:#0E2433;color:#BDE8FF}
+.row{display:flex;align-items:center;justify-content:space-between}
+.mu{color:var(--mu)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 18px;border:0;border-radius:99px;background:#fff;color:#000;font:900 15px Nunito,sans-serif;cursor:pointer}
+.btn.g{background:var(--chip);color:var(--ink);border:1px solid var(--bd)}
+.lase{width:100%;height:54px;margin-top:14px;border:0;border-radius:99px;background:var(--ok);color:#06210F;font:900 17px Nunito,sans-serif;box-shadow:0 4px 0 #3E9A68;cursor:pointer}
+.lase:disabled{opacity:.35;cursor:default}
+.inp{width:100%;height:54px;padding:0 16px;border-radius:16px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:900 22px Nunito,sans-serif;outline:none;text-align:center;letter-spacing:.06em}
+.inp:focus{border-color:var(--cc)}.inp.ok{border-color:var(--ok);color:var(--ok)}.inp.mal{border-color:var(--mal);animation:shk .35s}
+.lbl{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu);margin:16px 0 8px}
+.ex{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:18px;background:var(--card);border:1px solid var(--bd);cursor:pointer;text-align:left;width:100%;color:inherit;font:inherit}
+.ex b{display:block;font-size:16px}.ex b u{text-decoration:none;color:var(--cc)}.ex span{display:block;font-size:13px;color:var(--mu);font-weight:700}
+svg{display:block}
+@keyframes shk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:none;opacity:1}}
+@keyframes bob{50%{transform:translateY(-5px)}}
+
+/* A flip */
+.flip{perspective:900px;height:300px;margin-top:12px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.3,1.3,.5,1);transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;border-radius:24px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px}
+.flip .f{background:linear-gradient(160deg,#0E2433,#07131D);border:2px solid #2F5A75}
+.flip .b{background:linear-gradient(160deg,#103A2A,#08160F);border:2px solid #2E7A55;transform:rotateY(180deg)}
+.flip .w{font-size:46px;font-weight:900;line-height:1}.flip .tap{margin-top:10px;font-size:12px;font-weight:800;color:var(--mu)}
+.flip .tr{font-size:36px;font-weight:900;color:var(--gold)}.flip .pr{margin-top:4px;font-size:14px;font-weight:800;color:var(--mu)}
+.flip .opz{margin-top:12px;display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.07);font-size:13px;font-weight:800}
+
+/* B slider */
+.sld{position:relative;margin-top:12px;height:230px;border-radius:24px;overflow:hidden;transition:background .2s}
+.sld .scn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.sld .scn>span{position:absolute;transition:opacity .15s}
+.sld .lab{position:absolute;left:0;right:0;bottom:14px;text-align:center}
+.sld .lab b{display:block;font-size:40px;font-weight:900;line-height:1;text-shadow:0 2px 0 rgba(0,0,0,.4)}.sld .lab span{font-size:16px;font-weight:900;color:#fff;opacity:.85}
+.term{display:flex;align-items:center;gap:10px;margin-top:14px}
+.term input{flex:1;accent-color:#fff;height:30px}
+.term b{font-size:13px;font-weight:900}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.duo .ex{flex-direction:column;align-items:flex-start;gap:2px}
+
+/* C descubre */
+.dsc{text-align:center;margin-top:14px}
+.big{width:110px;height:110px;margin:0 auto;border-radius:50%;border:0;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.big:after{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid var(--cc);animation:ring 2s ease-out infinite}
+@keyframes ring{from{transform:scale(.92);opacity:.8}to{transform:scale(1.25);opacity:0}}
+.q{margin-top:22px;font-size:18px;font-weight:900}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.two button{height:110px;border-radius:20px;border:2px solid var(--bd);background:var(--card);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--ink);font:900 16px Nunito,sans-serif}
+.two button.ok{border-color:var(--ok);background:#0F2A1C}.two button.no{opacity:.3}
+.rev{display:none;margin-top:14px;padding:14px;border-radius:20px;background:linear-gradient(160deg,#0E2433,#07131D);border:1px solid #2F5A75;animation:pop .4s ease}
+.rev.on{display:block}.rev .w{font-size:40px;font-weight:900;line-height:1}.rev .w small{font-size:18px;color:var(--gold)}
+
+/* D comic */
+.cm{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.pn{position:relative;border-radius:16px;border:3px solid #fff;background:#163C6A;padding:8px;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;cursor:pointer}
+.pn .n{position:absolute;left:6px;top:4px;font-size:11px;font-weight:900;color:#BDE8FF}
+.pn p{margin:4px 0 0;font-size:13.5px;font-weight:800;line-height:1.25;text-align:center}
+.pn u{text-decoration:none;padding:0 4px;border-radius:6px;background:var(--gold);color:#2A1A00;cursor:pointer}
+.pn .tt{position:absolute;left:50%;top:-14px;transform:translateX(-50%);padding:4px 10px;border-radius:10px;background:#fff;color:#000;font-size:12px;font-weight:900;white-space:nowrap;display:none;z-index:2}
+.pn .tt.on{display:block;animation:pop .25s}
+.gap{margin-top:12px;padding:12px;border-radius:18px;background:var(--card);border:1px solid var(--bd);font-size:17px;font-weight:900;text-align:center}
+
+/* E desvanecer */
+.slots{display:flex;gap:8px;justify-content:center;margin-top:16px}
+.slots i{width:52px;height:64px;border-radius:14px;background:var(--card);border:2px solid #2F5A75;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:34px;font-weight:900;transition:all .3s}
+.slots i.v{color:transparent;border-style:dashed}.slots i.lit{background:#163C6A;border-color:var(--cc);transform:translateY(-6px)}
+.slots i.ok{border-color:var(--ok);color:var(--ok)}
+.pasos{display:flex;gap:6px;justify-content:center;margin-top:14px}.pasos span{padding:4px 10px;border-radius:99px;background:var(--chip);font-size:11px;font-weight:900;color:var(--mu)}.pasos span.on{background:#fff;color:#000}.pasos span.hecho{background:var(--ok);color:#06210F}
+
+/* F truco */
+.tk{margin-top:12px;border-radius:24px;padding:16px;background:linear-gradient(160deg,#3A1A08,#140A04);border:1px solid #7A3A12}
+.tk .w{display:flex;align-items:center;gap:14px}.tk .w b{font-size:44px;font-weight:900;line-height:1}.tk .w span{display:block;font-size:20px;font-weight:900;color:var(--gold)}
+.tk .son{display:inline-flex;gap:6px;margin-top:10px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.08);font-size:13px;font-weight:800}
+.tk .idea{margin-top:12px;padding:12px;border-radius:16px;background:rgba(255,209,102,.1);border:1px dashed var(--gold);font-size:14.5px;font-weight:800;line-height:1.4}
+.tk .idea small{display:block;font-size:10.5px;letter-spacing:.12em;color:var(--gold);font-weight:900;margin-bottom:2px}
+.fam{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.fam button{padding:8px 12px;border-radius:99px;border:1px solid #7A3A12;background:rgba(255,138,61,.12);color:var(--ink);font:800 13.5px Nunito,sans-serif;cursor:pointer}
+.fam button b{color:var(--hot)}
+.fam button em{display:block;font-style:normal;font-size:11px;color:var(--mu)}
+</style></head><body>
+<h1>Aprender · 6 diseños</h1>
+<p class="intro">Solo la parte de <b>aprender</b> (antes de practicar). En todos se <b>escucha, se escribe, se ve el significado y ejemplos</b>. Todo se puede tocar. Ejemplo con <b>cold / hot / happy</b>.</p>
+
+<div class="op"><b>A</b><div><span>Tarjeta que se voltea</span><small>Ves el dibujo y la palabra; adivinas qué significa y volteas. Atrás: traducción, cómo suena, ejemplo y su opuesto. Para terminar: escúchala y escríbela.</small></div></div>
+<div class="ph" id="A"></div>
+
+<div class="op"><b>B</b><div><span>Termómetro de opuestos</span><small>Aprendes la pareja junta. Mueves el deslizador y el dibujo cambia de frío a caliente; la palabra cambia sola. Escuchas una de las dos y la escribes.</small></div></div>
+<div class="ph" id="B"></div>
+
+<div class="op"><b>C</b><div><span>Descúbrela tú</span><small>Primero solo la oyes. Adivinas el dibujo, y ahí se revela la palabra, la traducción y un ejemplo. Al final la escribes de memoria.</small></div></div>
+<div class="ph" id="C"></div>
+
+<div class="op"><b>D</b><div><span>Cómic que conecta</span><small>Una mini historia del pingüino con los adjetivos marcados. Tocas la palabra y sale la traducción. Al final completas la frase escribiendo.</small></div></div>
+<div class="ph" id="D"></div>
+
+<div class="op"><b>E</b><div><span>Letra por letra que se borra</span><small>Escuchas y la ves deletreada. Después se van borrando letras y tú la escribes cada vez con menos ayuda (c o l d → c _ l d → _ _ _ _).</small></div></div>
+<div class="ph" id="E"></div>
+
+<div class="op"><b>F</b><div><span>Truco para recordar</span><small>Cómo suena en español, un truco de memoria y la "familia" de la palabra (hot chocolate, hot day…), cada una con audio. Cierra escribiéndola.</small></div></div>
+<div class="ph" id="F"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+function voz(t,r){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=r||.9;speechSynthesis.speak(u);}catch(e){}}
+const ICO='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+function pix(g,p){let o="";g.forEach((r,y)=>r.split("").forEach((c,x)=>{if(c!=="."&&p[c])o+='<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+p[c]+'"/>';}));return o;}
+const DIB={
+ taza:{p:{r:"#FF8A3D",w:"#F4F6FA",b:"#8A5A2A",g:"#C9D3E0"},r:["...r..r.....","..r..r......","...r..r.....","............",".wwwwwww....",".wbbbbbwww..",".wbbbbbw.w..",".wbbbbbw.w..",".wwwwwwwww..",".gwwwwwg....","..ggggg.....","............"]},
+ hielo:{p:{c:"#BDE8FF",w:"#FFFFFF",d:"#6FB0DF",b:"#3F86C4"},r:["............","..b.......b.","...cccccc...","..cwwccccc..","..cwcccccd..","..cccccccd..","..cccccccd..","..ccccwccd..","..cccccccd..","...ddddddd..",".b........b.","............"]},
+ feliz:{p:{w:"#FFFFFF",k:"#2B2B33",o:"#FF8A3D",p:"#FFB3C1"},r:["....wwww....","..wwwwwwww..",".wwwwwwwwww.",".wwkwwwwkww.",".wwkwwwwkww.",".wpwwoowwpw.",".wkwwwwwwkw.",".wwkkkkkkww.",".wwwwwwwwww.","..wwwwwwww..","....wwww....","............"]},
+ triste:{p:{w:"#FFFFFF",k:"#2B2B33",o:"#FF8A3D",b:"#5FB8FF"},r:["....wwww....","..wwwwwwww..",".wwwwwwwwww.",".wkkwwwwkkw.",".wwkwwwwkww.",".wbwwoowwww.",".wbwwwwwwww.",".wwwkkkkwww.",".wwkwwwwkww.","..wwwwwwww..","....wwww....","............"]},
+ ping:{p:{k:"#1E2433",w:"#F4F6FA",o:"#FF9F2E"},r:["....kkkk....","...kkkkkk...","..kkwwwwkk..","..kwkwwkwk..","..kwwoowwk..",".kkwwwwwwkk.","kkkwwwwwwkkk","k.kwwwwwwk.k","..kwwwwwwk..","..kkwwwwkk..","...kkkkkk...","..oo....oo.."]}
+};
+const D=(n,s)=>'<svg width="'+s+'" height="'+s+'" viewBox="0 0 12 12" shape-rendering="crispEdges">'+pix(DIB[n].r,DIB[n].p)+'</svg>';
+function escribe(el,palabra,cb){
+  el.innerHTML='<div class="row" style="gap:8px"><input class="inp" placeholder="escribe aquí" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="btn" type="button" aria-label="Oír otra vez">'+ICO+'</button></div><p class="mu" style="margin:8px 0 0;font-size:13px;font-weight:700;text-align:center">Escúchala y escríbela</p>';
+  const i=el.querySelector("input"),b=el.querySelector("button");b.onclick=()=>voz(palabra);
+  i.oninput=()=>{const v=i.value.trim().toLowerCase();i.classList.remove("mal");if(v===palabra){i.classList.add("ok");i.disabled=true;voz(palabra);cb&&cb();}else if(v.length>=palabra.length){i.classList.add("mal");}};
+}
+
+/* A */
+$("A").innerHTML='<div class="row"><span class="chip">APRENDE · 2 / 8</span><span class="mu" style="font-weight:900;font-size:13px">ADJETIVOS</span></div>'+
+ '<div class="flip" id="fA"><div class="in"><div class="f">'+D("hielo",120)+'<div class="w">cold</div><button class="btn" style="margin-top:10px" id="aO">'+ICO+'Escuchar</button><div class="tap">¿Qué crees que significa? Toca para voltear</div></div>'+
+ '<div class="b"><div class="tr">frío</div><div class="pr">Suena: «kould»</div><button class="ex" style="margin-top:12px" id="aE"><span style="flex:1"><b>The ice is <u>cold</u>.</b><span>El hielo está frío.</span></span>'+ICO+'</button><div class="opz">Su opuesto: '+D("taza",22)+' <b>hot</b> = caliente</div></div></div></div>'+
+ '<div class="lbl">PARA TERMINAR</div><div id="aW"></div><button class="lase" id="aL" disabled>¡LA SÉ!</button>';
+$("fA").onclick=e=>{if(e.target.closest("button"))return;$("fA").classList.toggle("on");};
+$("aO").onclick=()=>voz("cold");$("aE").onclick=()=>voz("The ice is cold.");
+escribe($("aW"),"cold",()=>$("aL").disabled=false);
+
+/* B */
+$("B").innerHTML='<div class="row"><span class="chip">APRENDE LA PAREJA</span><span class="mu" style="font-weight:900;font-size:13px">cold ↔ hot</span></div>'+
+ '<div class="sld" id="bS"><div class="scn"><span id="b1">'+D("hielo",130)+'</span><span id="b2" style="opacity:0">'+D("taza",130)+'</span></div><div class="lab"><b id="bW">cold</b><span id="bT">frío</span></div></div>'+
+ '<div class="term"><b style="color:#8FD8FF">FRÍO</b><input type="range" min="0" max="100" value="0" id="bR" aria-label="De frío a caliente"><b style="color:#FF8A3D">CALIENTE</b></div>'+
+ '<div class="duo"><button class="ex" id="bE1"><b>The ice is <u>cold</u>.</b><span>El hielo está frío.</span></button><button class="ex" id="bE2"><b>The tea is <u style="color:#FF8A3D">hot</u>.</b><span>El té está caliente.</span></button></div>'+
+ '<div class="lbl">¿CUÁL OÍSTE? ESCRÍBELA</div><div id="bW2"></div><button class="lase" id="bL" disabled>¡LAS SÉ!</button>';
+let bLast="";
+$("bR").oninput=e=>{const v=+e.target.value/100;$("bS").style.background="linear-gradient(160deg,"+mix("#163C6A","#7A2A0A",v)+",#07080A)";$("b1").style.opacity=1-v;$("b2").style.opacity=v;const w=v<.5?["cold","frío"]:["hot","caliente"];$("bW").textContent=w[0];$("bT").textContent=w[1];$("bW").style.color=v<.5?"#BDE8FF":"#FFB27A";if(w[0]!==bLast){bLast=w[0];voz(w[0]);}};
+function mix(a,b,t){const h=x=>parseInt(x,16),c=(i)=>Math.round(h(a.substr(i,2))*(1-t)+h(b.substr(i,2))*t).toString(16).padStart(2,"0");return "#"+c(1)+c(3)+c(5);}
+$("bS").style.background="linear-gradient(160deg,#163C6A,#07080A)";$("bW").style.color="#BDE8FF";
+$("bE1").onclick=()=>voz("The ice is cold.");$("bE2").onclick=()=>voz("The tea is hot.");
+escribe($("bW2"),"hot",()=>$("bL").disabled=false);
+
+/* C */
+$("C").innerHTML='<div class="row"><span class="chip">DESCÚBRELA</span><span class="mu" style="font-weight:900;font-size:13px">3 / 8</span></div>'+
+ '<div class="dsc"><button class="big" id="cP" aria-label="Escuchar">'+ICO.replace(/22/g,"44")+'</button><div class="q">Oíste una palabra. ¿Cuál dibujo es?</div>'+
+ '<div class="two"><button id="cA">'+D("triste",64)+'</button><button id="cB">'+D("feliz",64)+'</button></div>'+
+ '<div class="rev" id="cR"><div class="w">happy <small>= feliz</small></div><button class="ex" style="margin-top:10px" id="cE"><span style="flex:1"><b>The snowman is <u>happy</u>.</b><span>El muñeco está feliz.</span></span>'+ICO+'</button><div class="lbl">AHORA, DE MEMORIA</div><div id="cW"></div></div></div>';
+$("cP").onclick=()=>voz("happy");$("cE").onclick=()=>voz("The snowman is happy.");
+$("cB").onclick=()=>{$("cB").classList.add("ok");$("cA").classList.add("no");$("cR").classList.add("on");voz("happy");};
+$("cA").onclick=()=>{$("cA").style.animation="shk .35s";setTimeout(()=>$("cA").style.animation="",400);voz("happy");};
+escribe($("cW"),"happy");
+
+/* D */
+const P=[["hielo","It is <u data-t='frío'>cold</u>."],["triste","The penguin is <u data-t='triste'>sad</u>."],["taza","The chocolate is <u data-t='caliente'>hot</u>!"],["feliz","Now he is <u data-t='feliz'>happy</u>!"]];
+$("D").innerHTML='<div class="row"><span class="chip">MINI HISTORIA</span><span class="mu" style="font-weight:900;font-size:13px">Toca lo amarillo</span></div><div class="cm">'+
+ P.map((p,i)=>'<div class="pn" data-i="'+i+'"><span class="n">'+(i+1)+'</span>'+D(p[0],70)+'<p>'+p[1]+'</p><span class="tt"></span></div>').join("")+'</div>'+
+ '<button class="btn g" style="width:100%;margin-top:10px" id="dAll">'+ICO+'Escuchar la historia</button>'+
+ '<div class="gap">The penguin was <span style="color:#8FD8FF">sad</span>, now he is ____.</div><div style="margin-top:10px" id="dW"></div>';
+document.querySelectorAll("#D .pn").forEach(pn=>pn.onclick=e=>{const u=e.target.closest("u");const t=pn.querySelector(".tt");if(u){t.textContent=u.textContent+" = "+u.dataset.t;t.classList.add("on");voz(u.textContent);setTimeout(()=>t.classList.remove("on"),1800);}else voz(pn.querySelector("p").textContent);});
+$("dAll").onclick=()=>voz(P.map(p=>p[1].replace(/<[^>]+>/g,"")).join(" "),.85);
+escribe($("dW"),"happy");
+
+/* E */
+const PAL="cold",PASOS=[[],[1],[0,2],[0,1,2,3]];let eP=0;
+function pintaE(){const h=PASOS[eP];$("eS").innerHTML=PAL.split("").map((c,i)=>'<i class="'+(h.indexOf(i)>-1?"v":"")+'">'+c+'</i>').join("");$("ePa").innerHTML=PASOS.map((_,i)=>'<span class="'+(i<eP?"hecho":i===eP?"on":"")+'">'+["Mira","1 letra menos","2 menos","Sin ayuda"][i]+'</span>').join("");$("eI").value="";$("eI").className="inp";$("eI").disabled=false;}
+$("E").innerHTML='<div class="row"><span class="chip">LETRA POR LETRA</span><span class="mu" style="font-weight:900;font-size:13px">cold = frío</span></div>'+
+ '<div style="display:flex;justify-content:center;margin-top:12px">'+D("hielo",90)+'</div><div class="slots" id="eS"></div><div class="pasos" id="ePa"></div>'+
+ '<div class="row" style="gap:8px;margin-top:14px"><button class="btn g" id="eD">Deletrear</button><input class="inp" id="eI" placeholder="escríbela" autocomplete="off" autocapitalize="off" spellcheck="false"></div>';
+pintaE();
+$("eD").onclick=()=>{const s=[...document.querySelectorAll("#eS i")];s.forEach((x,i)=>setTimeout(()=>{x.classList.add("lit");x.classList.remove("v");voz(PAL[i],1);setTimeout(()=>{x.classList.remove("lit");pintaE();},500);},i*650));setTimeout(()=>voz(PAL),PAL.length*650+200);};
+$("eI").oninput=()=>{const v=$("eI").value.trim().toLowerCase();if(v===PAL){$("eI").classList.add("ok");$("eI").disabled=true;voz(PAL);document.querySelectorAll("#eS i").forEach(x=>{x.classList.remove("v");x.classList.add("ok");});setTimeout(()=>{if(eP<PASOS.length-1){eP++;pintaE();}else{$("ePa").innerHTML='<span class="hecho">¡Ya la sabes de memoria!</span>';}},900);}else if(v.length>=PAL.length)$("eI").classList.add("mal");};
+
+/* F */
+const FAM=[["hot","chocolate","chocolate caliente"],["hot","day","día caluroso"],["hot","water","agua caliente"],["hot","dog","perro caliente"]];
+$("F").innerHTML='<div class="row"><span class="chip" style="background:#3A1A08;border-color:#7A3A12;color:#FFB27A">TRUCO PARA RECORDAR</span><span class="mu" style="font-weight:900;font-size:13px">5 / 8</span></div>'+
+ '<div class="tk"><div class="w">'+D("taza",84)+'<div><b>hot</b><span>caliente</span></div></div><button class="son" id="fS" style="border:0;color:inherit;cursor:pointer">'+ICO.replace(/22/g,"16")+' Suena: «jot»</button>'+
+ '<div class="idea"><small>TRUCO</small>Piensa en un <b>hot dog</b>: ¡recién hecho y <b>caliente</b>!</div>'+
+ '<div class="lbl" style="color:#FFB27A">SU FAMILIA · TOCA Y ESCUCHA</div><div class="fam">'+FAM.map(f=>'<button><b>'+f[0]+'</b> '+f[1]+'<em>'+f[2]+'</em></button>').join("")+'</div></div>'+
+ '<div class="lbl">CIÉRRALA ESCRIBIENDO</div><div id="fW"></div>';
+$("fS").onclick=()=>voz("hot");document.querySelectorAll("#F .fam button").forEach((b,i)=>b.onclick=()=>voz(FAM[i][0]+" "+FAM[i][1]));
+escribe($("fW"),"hot");
+</script></body></html>
