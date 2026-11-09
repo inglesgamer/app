@@ -202,6 +202,26 @@ nav a.on{color:var(--ink)}
 .hero .ch{color:#fff}
 .hero .ch .f{fill:#FFD166}
 @media (prefers-reduced-motion:reduce){.ond,.barco,.nb,.est,.nA.act,.nodo.esc.act,.fx .sprw{animation:none!important}}
+
+/* ===== NIVELES JURÁSICOS DEL PASE (a los lados del camino, sin estrellas) ===== */
+.jn{position:absolute;z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;transform:translate(-50%,-38px);padding:0;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;text-decoration:none}
+.jc{position:relative;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#FFB347;border:3px solid #2A1408;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.jc svg{width:38px;height:38px}
+.jn.ok .jc{background:#FFE0B0}.jn.ok .jc:after{content:"✓";position:absolute;bottom:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:#3E9A2A;color:#fff;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.jn.ya .jc{background:#fff;border:4px solid #2A1408;box-shadow:0 0 0 4px #FF8A3D,0 0 0 12px rgba(255,138,61,.25);animation:glow 1.8s ease-in-out infinite}
+.jn.lk .jc{background:#3A2A1A;border:3px solid #FFB347;color:#FFB347}
+.jn .jl{white-space:nowrap;padding:3px 10px;border-radius:99px;background:var(--card);border:2px solid #FFB347;font-weight:800;font-size:12px;box-shadow:0 3px 0 rgba(0,0,0,.12)}
+.jn.lk .jl{color:var(--mu)}
+.jn .jt{position:absolute;top:-26px;left:50%;transform:translateX(-50%);padding:3px 10px;border-radius:99px;background:#FF8A3D;color:#000;font-weight:900;font-size:10px;letter-spacing:.08em;white-space:nowrap}
+.mpase{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.65)}
+.mpase .mb{max-width:330px;width:100%;padding:22px 18px 14px;border-radius:28px;background:var(--card);border:1px solid var(--bd);text-align:center}
+.mpase .mb svg{margin:0 auto}
+.mpase h3{margin:10px 0 4px;font-size:21px}.mpase p{margin:0 0 14px;color:var(--mu);font-weight:700;line-height:1.4}
+.mpase .si{display:flex;align-items:center;justify-content:center;height:50px;border-radius:99px;background:#FFB347;color:#000;font-weight:900;font-size:16px;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.mpase .no{display:block;width:100%;margin-top:6px;height:44px;border:0;background:none;color:var(--mu);font:800 15px inherit;cursor:pointer}
+.dbar{position:fixed;left:50%;top:calc(8px + env(safe-area-inset-top));transform:translateX(-50%);z-index:95;display:flex;gap:4px;padding:6px;border-radius:20px;background:var(--card);border:1px solid var(--bd);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.dbar button{height:34px;padding:0 10px;border-radius:99px;border:1px solid var(--bd);background:var(--bg);color:var(--ink);font:900 12px Nunito,sans-serif;cursor:pointer}
+.dbar button.on{background:#FFB347;color:#000;border-color:#FFB347}
 </style>
 </head>
 <body>
@@ -637,6 +657,79 @@ function refrescar() {
 window.addEventListener("pageshow", refrescar);
 window.addEventListener("storage", function (e) { refrescar(); });
 document.addEventListener("visibilitychange", function () { if (!document.hidden) refrescar(); });
+</script>
+<script>
+/* ===== NIVELES JURÁSICOS DEL PASE =====
+   - Solo los juegan quienes compraron el Pase Jurásico ("ingles_gamer_pase").
+   - NO dependen del mapa de verano: se abren en orden entre ellos (J1, luego J2...).
+   - No dan estrellas: solo se marcan como hechos (el nivel guarda est[id] = 1).
+   - "junto" = al lado de qué nivel del mapa aparece (posición en NODOS, empezando en 0). */
+const JUR = [
+  { id:"jur1",  t:"Huevos",      s:"j_huevo",  url:"go:jur1",  junto:1 },
+  { id:"jur2",  t:"Big & small", s:"j_trice",  url:"go:jur2",  junto:3 },
+  { id:"jur3",  t:"Colores",     s:"j_raptor", url:"go:jur3",  junto:5 },
+  { id:"jur4",  t:"Run, fly",    s:"j_rex",    url:"go:jur4",  junto:7 },
+  { id:"jur5",  t:"El volcán",   s:"j_hueso",  url:"go:jur5",  junto:9 },
+  { id:"jur6",  t:"It has…",     s:"j_trice",  url:"go:jur6",  junto:10 },
+  { id:"jur7",  t:"La selva",    s:"j_huevo",  url:"go:jur7",  junto:12 },
+  { id:"jur8",  t:"Three horns", s:"j_trice",  url:"go:jur8",  junto:14 },
+  { id:"jur9",  t:"Extinct",     s:"j_rex",    url:"go:jur9",  junto:15 },
+  { id:"jur10", t:"Jefe Raptor", s:"j_raptor", url:"go:jur10", junto:17 }
+];
+const PASE_URL = "go:pase", TEMPORADA_PASE = "t1";
+Object.assign(SPR, {"j_rex": {"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]}, "j_raptor": {"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]}, "j_trice": {"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]}, "j_huevo": {"p": {"w": "#F5EFD8", "g": "#5DB33A"}, "r": ["...ww...", "..wwww..", ".wgwwgw.", ".wwwwww.", "wwwwgwww", "wgwwwwgw", ".wwwgww.", "..wwww.."]}, "j_hueso": {"p": {"w": "#F5EFD8", "s": "#C9BFA0"}, "r": ["........", "ww....ww", "wwwwwwww", ".wwwwww.", "wwwwwwws", "ww....ww", "........", "........"]}});
+const DEMO = /[?&]demo=1/.test(location.search) ? { pase:false, h:0 } : null;   /* ?demo=1 = modo de prueba (no toca tus datos) */
+function tienePase() {
+  if (DEMO) return DEMO.pase;
+  try { const p = JSON.parse(localStorage.getItem("ingles_gamer_pase") || "null"); return !!(p && p[TEMPORADA_PASE]); } catch (e) { return false; }
+}
+const jHecho = k => DEMO ? k < DEMO.h : (+(S.est && S.est[JUR[k].id]) || 0) > 0;
+const jAbierto = k => tienePase() && (k === 0 || jHecho(k - 1));
+function jurHTML(H, P) {
+  let h = "", sigue = -1;
+  if (tienePase()) sigue = JUR.findIndex((j, k) => !jHecho(k));
+  JUR.forEach((j, k) => {
+    const p = P[j.junto]; if (!p) return;
+    const x = p.x <= XC ? 322 : 68, ok = jHecho(k), lk = !ok && !jAbierto(k), ya = k === sigue;
+    const ic = lk ? icono("candado", 30) : sprite(j.s, 38);
+    h += '<a class="jn ' + (ok ? "ok" : ya ? "ya" : lk ? "lk" : "") + '" href="' + (lk ? "#" : j.url) + '" data-j="' + k + '" style="left:' + pctX(x) + ';top:' + (p.y / H * 100).toFixed(3) + '%" aria-label="Nivel jurásico ' + (k + 1) + ': ' + j.t + (lk ? ", bloqueado" : "") + '">' +
+      (ya ? '<span class="jt">¡DINO!</span>' : '') + '<span class="jc">' + ic + '</span><span class="jl">J' + (k + 1) + ' · ' + j.t + '</span></a>';
+  });
+  return h;
+}
+const _pintarMapaBase = pintarMapa;
+pintarMapa = function () {
+  _pintarMapaBase();
+  const n = NODOS.length, H = Y0 + (n - 1) * PASO + 150;
+  let c = 0;
+  const P = NODOS.map(function (t, i) { let x; if (t.tipo === "escucha" || t.tipo === "final") x = XC; else { x = (c % 2 === 0) ? XL : XR; c++; } return { x: x, y: Y0 + i * PASO }; });
+  $("mapa").insertAdjacentHTML("beforeend", jurHTML(H, P));
+};
+function ventanaPase() {
+  const o = document.createElement("div"); o.className = "mpase";
+  o.innerHTML = '<div class="mb">' + sprite("j_raptor", 84) + '<h3>Nivel del Pase Jurásico</h3><p>Los niveles de dinosaurios son solo para quienes tienen el pase. ¡Juégalos cuando quieras!</p><a class="si" href="' + PASE_URL + '">Ver el Pase</a><button class="no" type="button">Ahora no</button></div>';
+  document.body.appendChild(o);
+  o.addEventListener("click", e => { if (e.target === o || e.target.closest(".no")) o.remove(); });
+}
+document.addEventListener("click", function (e) {
+  const a = e.target.closest(".jn"); if (!a) return;
+  const k = +a.dataset.j;
+  if (!tienePase()) { e.preventDefault(); ventanaPase(); return; }
+  if (!jAbierto(k) && !jHecho(k)) { e.preventDefault(); aviso("Primero pasa el nivel jurásico J" + k + "."); return; }
+  if (DEMO) { e.preventDefault(); aviso("Aquí se abriría " + JUR[k].url + " · " + JUR[k].t); }
+}, true);
+if (DEMO) {
+  const bar = document.createElement("div"); bar.className = "dbar";
+  const pb = () => { bar.innerHTML = '<button data-p class="' + (DEMO.pase ? "on" : "") + '">' + (DEMO.pase ? "Con pase ✓" : "Sin pase") + '</button><button data-m>+1 nivel jurásico</button><button data-r>Reiniciar</button>'; };
+  bar.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+    if (b.hasAttribute("data-p")) DEMO.pase = !DEMO.pase;
+    if (b.hasAttribute("data-m")) { if (!DEMO.pase) { aviso("Primero activa el pase"); return; } DEMO.h = Math.min(10, DEMO.h + 1); }
+    if (b.hasAttribute("data-r")) { DEMO.pase = false; DEMO.h = 0; }
+    pb(); pintarMapa(); });
+  const q = new URLSearchParams(location.search); if (q.get("pase") === "1") DEMO.pase = true; if (q.get("h")) DEMO.h = +q.get("h");
+  pb(); if (!q.get("rec")) document.body.appendChild(bar);
+}
+pintarMapa();
 </script>
 <script type="module">
 /* ===== SESIÓN: sin cuenta se vuelve a la pantalla de acceso ===== */
