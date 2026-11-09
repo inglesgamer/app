@@ -906,6 +906,13 @@ const CONFIG = {
               const tp = Math.max(0, ag - bt.tp1);
               if (tp !== (+ficha.tp1 || 0)) { await updateDoc(ref, { tp1: tp }); ficha.tp1 = tp; }
             }
+            /* LIGA SEMANAL: Aura ganada esta semana (ls) + grupo "semana|liga" (lgw). Al cambiar de semana se guarda la anterior en lsa/lgwa */
+            const sk0 = aSemana(new Date()); let bs = leer("ingles_gamer_aura_sem") || {};
+            if (bs.k !== sk0) { bs = { k:sk0, e:ag }; try { localStorage.setItem("ingles_gamer_aura_sem", JSON.stringify(bs)); } catch (x) {} }
+            const Lg = leer("ingles_gamer_liga") || { lg:0 }, lgw = sk0 + "|" + (+Lg.lg || 0), ls = Math.max(0, ag - (+bs.e || 0)), up = {};
+            if (ficha.lgw && String(ficha.lgw).indexOf(sk0 + "|") !== 0 && ficha.lgwa !== ficha.lgw) { up.lsa = +ficha.ls || 0; up.lgwa = String(ficha.lgw); }
+            if (ls !== ficha.ls || lgw !== ficha.lgw) { up.ls = ls; up.lgw = lgw; }
+            if (Object.keys(up).length) { await updateDoc(ref, up); Object.assign(ficha, up); }
           } catch (e2) { try { localStorage.setItem("ig_ficha_temp", String((e2 && e2.code) || e2)); } catch (x) {} }
       } catch (e) { estado(false, e); } finally { ocupado = false; }
     }
