@@ -797,17 +797,24 @@ const CONFIG = {
         /* con el estado activo apagado NO se actualiza ni "ult" ni "act" (los amigos no ven cuándo juegas) */
         await updateDoc(ref, activo() ? Object.assign({}, datos, { ult: serverTimestamp(), act: "Jugando" }) : datos);
         ficha.aura = aura; ultHash = hs; ultT = Date.now(); estado(true);
+          try {   /* AURA GANADA para el ranking "Siempre" (campo ag). Sube como máximo TOPE_DIA por día; si ganaste más, se completa los días siguientes */
+            const TOPE_DIA = 5000, meta = Math.max(0, +((leer("ingles_gamer_aura") || {}).e) || 0), dd = Math.max(Math.floor(Date.now() / 864e5), +ficha.dd || 0);
+            let nAg, dg;
+            if (ficha.ag == null) { nAg = Math.min(meta, (+ficha.aura || 0) + TOPE_DIA); dg = 0; }
+            else { const dgHoy = ficha.dd === dd ? (+ficha.dg || 0) : 0; nAg = Math.max(+ficha.ag, Math.min(meta, +ficha.ag + TOPE_DIA - dgHoy)); dg = dgHoy + (nAg - ficha.ag); }
+            if (ficha.ag == null || nAg !== ficha.ag) { const u = { ag:nAg, dd, dg }; if (+ficha.tp1 > nAg) u.tp1 = nAg; if (+ficha.ls > nAg) u.ls = nAg; await updateDoc(ref, u); Object.assign(ficha, u); }
+          } catch (e3) { try { localStorage.setItem("ig_ficha_ag", String((e3 && e3.code) || e3)); } catch (x) {} }
           try {   /* TEMPORADA 1: Aura ganada desde que empezó (campo aparte) */
             const FIN_T = new Date(2026, 11, 1).getTime(), ag = Math.max(0, +((leer("ingles_gamer_aura") || {}).e) || 0), bt = leer("ingles_gamer_aura_temp") || {};
             if (Date.now() < FIN_T) {
               if (bt.tp1 == null) { bt.tp1 = ag; try { localStorage.setItem("ingles_gamer_aura_temp", JSON.stringify(bt)); } catch (x) {} }
-              const tp = Math.max(0, ag - bt.tp1);
+              const tp = Math.min(Math.max(0, ag - bt.tp1), ficha.ag == null ? 1e9 : +ficha.ag);
               if (tp !== (+ficha.tp1 || 0)) { await updateDoc(ref, { tp1: tp }); ficha.tp1 = tp; }
             }
             /* LIGA SEMANAL: Aura ganada esta semana (ls) + grupo "semana|liga" (lgw). Al cambiar de semana se guarda la anterior en lsa/lgwa */
             const sk0 = aSemana(new Date()); let bs = leer("ingles_gamer_aura_sem") || {};
             if (bs.k !== sk0) { bs = { k:sk0, e:ag }; try { localStorage.setItem("ingles_gamer_aura_sem", JSON.stringify(bs)); } catch (x) {} }
-            const Lg = leer("ingles_gamer_liga") || { lg:0 }, lgw = sk0 + "|" + (+Lg.lg || 0), ls = Math.max(0, ag - (+bs.e || 0)), up = {};
+            const Lg = leer("ingles_gamer_liga") || { lg:0 }, lgw = sk0 + "|" + (+Lg.lg || 0), ls = Math.min(Math.max(0, ag - (+bs.e || 0)), ficha.ag == null ? 1e9 : +ficha.ag), up = {};
             if (ficha.lgw && String(ficha.lgw).indexOf(sk0 + "|") !== 0 && ficha.lgwa !== ficha.lgw) { up.lsa = +ficha.ls || 0; up.lgwa = String(ficha.lgw); }
             if (ls !== ficha.ls || lgw !== ficha.lgw) { up.ls = ls; up.lgw = lgw; }
             if (Object.keys(up).length) { await updateDoc(ref, up); Object.assign(ficha, up); }
