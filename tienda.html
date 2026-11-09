@@ -79,6 +79,7 @@ main{padding:6px 16px 0;display:flex;flex-direction:column;gap:14px}
 .arco{animation:hue 3s linear infinite}@keyframes hue{to{filter:hue-rotate(360deg)}}
 .fr{display:inline-flex;align-items:flex-end;justify-content:center;overflow:hidden;border-radius:50%;border:5px solid var(--b,#9A6A3A);background:#0F0F12;box-shadow:0 0 var(--g,0px) var(--b)}
 .m0{--b:#9A6A3A}.m1{--b:#9A9AA6}.m2{--b:#FFC83D;--g:14px}.m3{--b:#3FD8C8;--g:14px}.m5{--b:#E8F7FF;--g:18px}
+.m7{--b:#C9BFA0;border-style:dashed!important}
 .m4{animation:fuego 1s ease-in-out infinite alternate}.m6{animation:arcoB 3s linear infinite}
 @keyframes fuego{from{border-color:#FF4D4D;box-shadow:0 0 8px #FF4D4D}to{border-color:#FFC83D;box-shadow:0 0 22px #FF8A3D}}
 @keyframes arcoB{0%,100%{border-color:#FF4D4D}20%{border-color:#FFC83D}40%{border-color:#5DB33A}60%{border-color:#3FD8C8}80%{border-color:#8E5BD6}}
@@ -226,6 +227,26 @@ nav a:hover{color:var(--ink)}nav a.on,nav a.on:hover{color:var(--hi)}
 .pk .ls{display:flex;gap:6px;margin:10px 0 12px}.pk .ls span{flex:1;padding:7px 4px;border-radius:12px;background:var(--chip);font-size:11.5px;font-weight:900;text-align:center}
 .pk.sac{animation:shake .4s ease}
 .pkt{display:flex;justify-content:space-between;align-items:baseline;margin:22px 4px 0;font-size:20px;font-weight:900}.pkt small{font-size:12px;color:var(--mu)}
+
+.ssn{position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(#E8692A,#FFC977);color:#2A1408}
+.ssn .vol{position:absolute;right:-14%;bottom:22px;width:62%;height:78%;background:linear-gradient(#7A3A20,#4A2414);clip-path:polygon(4% 100%,26% 22%,32% 30%,38% 20%,62% 100%);opacity:.85}
+.ssn .chis{position:absolute;inset:0;background:radial-gradient(circle,#FFB347 0 1.8px,transparent 2.6px) 0 0/34px 40px,radial-gradient(circle,#FF6A2B 0 1.4px,transparent 2.2px) 16px 20px/46px 52px;animation:ssch 2.6s linear infinite}
+@keyframes ssch{from{background-position:0 0,16px 20px}to{background-position:10px -40px,4px -32px}}
+.ssn .suelo{position:absolute;left:0;right:0;bottom:0;height:22px;background:#5E8F35}
+.ssn .in{position:relative;z-index:2}
+.ssn .tg{display:inline-block;padding:4px 10px;border-radius:99px;background:#2A1408;color:#FFC977;font-size:10.5px;font-weight:900;letter-spacing:.12em}
+.ssn h3{margin:6px 0 0;font-size:30px;font-weight:900;line-height:1;color:#2A1408}
+.ssn .cd{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-weight:900;font-size:13px}
+.ssn .cd i{width:8px;height:8px;border-radius:50%;background:#FF4B4B;animation:ssp 1s infinite alternate}@keyframes ssp{from{opacity:.3}}
+.ssn .dino{position:absolute;right:14px;z-index:2}
+.ssn .dino svg{display:block;filter:drop-shadow(0 4px 0 rgba(0,0,0,.25))}
+.ssn .dw{animation:ssdw 1.2s ease-in-out infinite}@keyframes ssdw{50%{transform:translateY(-4px)}}
+.hb{position:relative;z-index:2;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:18px;background:rgba(42,20,8,.82);color:#F5EFD8}
+.hb .ic svg{display:block}.hb .tx{flex:1;min-width:0}.hb b{display:block;font-size:14px}.hb small{display:block;font-size:11.5px;font-weight:800;color:#E8C9A0}
+.hb .bar{height:8px;margin-top:6px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}.hb .bar i{display:block;height:100%;width:40%;border-radius:99px;background:#FFC977}
+.hb .go{flex:none;display:inline-flex;align-items:center;height:38px;padding:0 14px;border-radius:99px;background:#FFC977;color:#2A1408;font-weight:900;font-size:14px}
+.ssh{display:flex;justify-content:space-between;align-items:baseline;margin:22px 4px 10px;font-size:20px;font-weight:900}.ssh small{font-size:12px;color:var(--mu)}
+.solo{position:absolute;left:12px;top:12px;z-index:3;padding:3px 8px;border-radius:99px;background:#E8692A;color:#fff;font-size:9.5px;font-weight:900;letter-spacing:.06em}
 </style>
 </head>
 <body>
@@ -237,6 +258,7 @@ nav a:hover{color:var(--ink)}nav a.on,nav a.on:hover{color:var(--hi)}
   </header>
   <main>
     <div class="look" id="look"></div>
+    <div id="temporada"></div>
     <div class="ofs" id="ofertas"></div>
     <div id="packs"></div>
     <a class="ad card" id="anuncio" href="go:cofre"></a>
@@ -265,7 +287,7 @@ const PROB_COFRE = { comun: 70, raro: 22, epico: 7, legendario: 1 };
 const CATS = [
   { k:"av", t:"Personajes", items:[
     {n:"Constructor",p:0},{n:"Arquera",p:0},{n:"Dragoncito",p:700},{n:"Mago",p:350},{n:"Caballero",p:90},{n:"Princesa",p:400},
-    {n:"Alien",p:150},{n:"Sirena",p:350},{n:"Kunoichi",p:300},{n:"InglésGamer",p:1000},{n:"Pirata",p:350},{n:"Astronauta",p:700},{n:"Robot",p:450},{n:"Vaquero",p:150},{n:"Chef",p:100},{n:"T-Rex",p:800},{n:"Vampiro",p:300},{n:"Súper Héroe",p:700} ] },
+    {n:"Alien",p:150},{n:"Sirena",p:350},{n:"Kunoichi",p:300},{n:"InglésGamer",p:1000},{n:"Pirata",p:350},{n:"Astronauta",p:700},{n:"Robot",p:450},{n:"Vaquero",p:150},{n:"Chef",p:100},{n:"T-Rex",p:800},{n:"Vampiro",p:300},{n:"Súper Héroe",p:700},{n:"Raptor",p:700,tmp:1},{n:"Triceratops",p:500,tmp:1} ] },
   { k:"sk", t:"Skins", items:[
     {n:"Original",p:0,f:""},
     {n:"Hielo",p:120,f:"hue-rotate(150deg)"},
@@ -274,9 +296,10 @@ const CATS = [
     {n:"Fantasma",p:300,f:"grayscale(1) brightness(1.5) opacity(.75)"},
     {n:"Neón",p:300,f:"hue-rotate(280deg) saturate(2.2) brightness(1.15)"},
     {n:"Dorado",p:450,f:"sepia(1) saturate(3.5) brightness(1.1)"},
-    {n:"Arcoíris",p:800,f:"",cls:"arco"} ] },
+    {n:"Arcoíris",p:800,f:"",cls:"arco"},
+    {n:"Ámbar",p:300,f:"sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05)",tmp:1} ] },
   { k:"mc", t:"Marcos", items:[
-    {n:"Madera",p:0},{n:"Hierro",p:100},{n:"Oro",p:250},{n:"Esmeralda",p:250},{n:"Fuego",p:400},{n:"Cristal",p:500},{n:"Arcoíris",p:700} ] },
+    {n:"Madera",p:0},{n:"Hierro",p:100},{n:"Oro",p:250},{n:"Esmeralda",p:250},{n:"Fuego",p:400},{n:"Cristal",p:500},{n:"Arcoíris",p:700},{n:"Fósil",p:250,tmp:1} ] },
   { k:"tt", t:"Títulos", items:[
     {n:"Novato",p:0},{n:"Gamer",p:80},{n:"Cazador de bugs",p:120},{n:"Speaker",p:200},{n:"Maestro Have/Has",p:250},{n:"Rey del A1",p:300},{n:"Leyenda",p:600} ] },
   { k:"mp", t:"Mapas", items:[
@@ -356,6 +379,8 @@ document.addEventListener("click", e => {
 
 /* ---------- personajes (pixel art, sin cambios) ---------- */
 const SPR = {
+av18:{"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
+av19:{"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]},
 av10:{"p": {"r": "#E8343B", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#6B3A1E", "m": "#B5574A", "w": "#F2F4F8", "b": "#2F5BD6", "l": "#3A3A42", "y": "#FFC83D"}, "r": ["....rrrr....", "..rrrrrrrr.r", "..rrrrrrrrr.", "..ssssssss..", "..skssskkk..", "..ssssssss..", "..hhsmmshh..", "...hhhhhh...", "..wbwbwbwb..", ".swbwbwbwbs.", "..lll..lll..", "..kkk..kkk.."]},av11:{"p": {"w": "#F2F4F8", "c": "#3FA9F5", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#FF4D4D", "b": "#2F5BD6", "g": "#8C8C96"}, "r": ["...wwwwww...", "..wwwwwwww..", ".wwccccccww.", ".wcskssksccw", ".wcssmmsscw.", ".wwccccccww.", "..wwwwwwww..", ".wwwrwwbwww.", "w.wwwwwwww.w", "..wwwwwwww..", "..ww....ww..", "..gg....gg.."]},av12:{"p": {"y": "#FFC83D", "g": "#A0AAB8", "d": "#5A6270", "r": "#FF4D4D", "b": "#3F7FD8", "c": "#3FD8C8"}, "r": [".....yy.....", ".....gg.....", "..gggggggg..", "..gddddddg..", "..gdyddydg..", "..gddddddg..", "..gdrrrrdg..", "...gggggg...", ".bbbbbbbbbb.", "g.bbbccbbb.g", "..bbbbbbbb..", "..gg....gg.."]},av13:{"p": {"h": "#8B5A2B", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#E8343B", "p": "#E07A3A", "j": "#3F6FB5", "b": "#5E3E22"}, "r": ["...hhhhhh...", "...hhhhhh...", "hhhhhhhhhhhh", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..rrrrrrrr..", ".spppppppps.", "..jjjjjjjj..", "..jjj..jjj..", "..bbb..bbb.."]},av14:{"p": {"w": "#F2F4F8", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#3A2414", "m": "#B5574A", "r": "#E8343B", "l": "#3A3A42"}, "r": ["...wwwwww...", "..wwwwwwww..", "..wwwwwwww..", "...wwwwww...", "..ssssssss..", "..skssssks..", "..sshhhhss..", "...ssmmss...", ".swwwwwwwws.", "..wwrrwwww..", "..lll..lll..", "..kkk..kkk.."]},av15:{"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},av16:{"p": {"k": "#1A1A22", "p": "#E6E1F0", "r": "#E8343B", "w": "#FFFFFF", "c": "#8E1B2B"}, "r": ["...kkkkkk...", "..kkkkkkkk..", "..kppppppk..", "..prpppprp..", "..pppppppp..", "...pwppwp...", "cc.kkkkkk.cc", "cckkwwwwkkcc", "cckkkkkkkkcc", "c.kkkkkkkk.c", "..kk....kk..", "..kk....kk.."]},av17:{"p": {"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"}, "r": ["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]},
   cofre:{p:{b:"#8B5A2B",y:"#FFC83D",k:"#5E3E22"},r:["bbbbbbbb","bkkkkkkb","bbbbbbbb","yyyyyyyy","bbbyybbb","bkkyykkb","bkkkkkkb","bbbbbbbb"]},
   llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
@@ -416,7 +441,12 @@ const nombre = it => esUnico(it) ? '<span class="dor">' + it.n + '</span>' : it.
 
 /* oferta del día: la misma para todos y cambia a medianoche (el único no entra en oferta) */
 const DIA = Math.floor((Date.now() - new Date().getTimezoneOffset() * 6e4) / 864e5);
-const POOL_OFERTA = ALL.filter(x => x.base >= 100 && !esUnico(x));
+/* ---------- TEMPORADA: los objetos con tmp:1 solo se venden hasta FIN (año-mes-día). Después solo los ve quien los compró. ---------- */
+const TEMPORADA = { nombre:"Jurásica", num:1, fin:"2026-12-01" };
+const finT = () => { const q = TEMPORADA.fin.split("-").map(Number); return new Date(q[0], q[1] - 1, q[2]).getTime(); };
+const tempActiva = () => Date.now() < finT();
+const visible = it => !it.tmp || tempActiva() || owns(it.id);
+const POOL_OFERTA = ALL.filter(x => x.base >= 100 && !esUnico(x) && !x.tmp);
 const OFERTA = POOL_OFERTA[(DIA * 7) % POOL_OFERTA.length];
 const DESCUENTO = DESCUENTOS[DIA % DESCUENTOS.length] / 100;
 function precio(it) { return it === OFERTA ? Math.round(it.p * (1 - DESCUENTO)) : it.p; }
@@ -465,20 +495,20 @@ function pintarOfertas() {
 }
 function pintarTabs() {
   $("tabs").innerHTML = CATS.map(c => {
-    const n = c.items.filter(i => owns(i.id)).length;
-    return '<button type="button" class="tab' + (c.k === TAB ? ' on' : '') + '" role="tab" aria-selected="' + (c.k === TAB) + '" data-k="' + c.k + '">' + c.t + '<span>' + n + '/' + c.items.length + '</span></button>';
+    const vis = c.items.filter(visible), n = vis.filter(i => owns(i.id)).length;
+    return '<button type="button" class="tab' + (c.k === TAB ? ' on' : '') + '" role="tab" aria-selected="' + (c.k === TAB) + '" data-k="' + c.k + '">' + c.t + '<span>' + n + '/' + vis.length + '</span></button>';
   }).join("");
 }
 function pintarGrid() {
   const c = CATS.find(x => x.k === TAB), AU = saldo();
-  $("grid").innerHTML = c.items.map((it, i) => {
+  $("grid").innerHTML = c.items.filter(visible).map((it, i) => {
     const mio = owns(it.id), puesto = ST.eq[it.cat] === it.id, pr = precio(it);
     const btn = puesto ? '<button class="bn on" type="button" disabled>Equipado</button>'
       : mio ? '<button class="bn use" type="button" data-id="' + it.id + '">Equipar</button>'
       : it.id === EXCLUSIVO ? '<button class="bn no" type="button" disabled>Solo el creador</button>'
       : '<button class="bn ' + (AU >= pr ? 'buy' : 'no') + '" type="button" data-id="' + it.id + '">' + (it === OFERTA ? '<span class="old">' + it.p + '</span>' : '') + FLAME(16) + pr + '</button>';
     return '<div class="card it' + (puesto ? ' eq' : '') + (esUnico(it) ? ' uni' : '') + '" id="c_' + it.id + '" style="animation-delay:' + (i * .04) + 's">' + (puesto ? '<span class="chk">✓</span>' : '') +
-      '<span class="pv">' + prev(it) + '</span>' + etiqueta(it.base) + '<b class="nm">' + nombre(it) + '</b>' + btn + '</div>';
+      (it.tmp && tempActiva() ? '<span class="solo">SOLO TEMPORADA</span>' : '') + '<span class="pv">' + prev(it) + '</span>' + etiqueta(it.base) + '<b class="nm">' + nombre(it) + '</b>' + btn + '</div>';
   }).join("");
 }
 function pintarFoot() {
@@ -523,7 +553,20 @@ function comprarPack(k) {
     v.q("#vSeg").onclick = v.cerrar;
   };
 }
-function todo() { pintarLook(); pintarOfertas(); pintarPacks(); pintarTabs(); pintarGrid(); }
+function pintarTemporada() {
+  const el = $("temporada"); if (!tempActiva()) { el.innerHTML = ""; return; }
+  const ms = finT() - Date.now(), d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5);
+  const its = ALL.filter(x => x.tmp), AU = saldo();
+  el.innerHTML = '<div class="ssn" style="margin-top:14px;padding:18px 16px 16px;height:178px"><i class="vol"></i><i class="chis"></i><i class="suelo"></i><span class="dino dw" style="bottom:20px">' + sprite("av19", 70) + '</span>' +
+    '<div class="in"><span class="tg">TEMPORADA ' + TEMPORADA.num + ' · ' + TEMPORADA.nombre.toUpperCase() + '</span><h3>Llegaron<br>los dinos</h3><span class="cd"><i></i>Termina en ' + (d > 0 ? d + (d === 1 ? " día" : " días") + ' · ' : '') + h + ' h</span></div></div>' +
+    '<div class="ssh">Solo esta temporada <small>Se van en ' + Math.max(1, d) + (d === 1 ? " día" : " días") + '</small></div><div class="grid">' + its.map(it => {
+      const mio = owns(it.id), puesto = ST.eq[it.cat] === it.id, pr = precio(it);
+      const btn = puesto ? '<button class="bn on" type="button" disabled>Equipado</button>' : mio ? '<button class="bn use" type="button" data-id="' + it.id + '">Equipar</button>'
+        : '<button class="bn ' + (AU >= pr ? 'buy' : 'no') + '" type="button" data-id="' + it.id + '">' + FLAME(16) + pr + '</button>';
+      return '<div class="card it' + (puesto ? ' eq' : '') + '" id="t_' + it.id + '"><span class="solo">SOLO TEMPORADA</span><span class="pv">' + (it.cat === "av" ? '<span class="dw" style="display:inline-block">' + prev(it) + '</span>' : prev(it)) + '</span>' + etiqueta(it.base) + '<b class="nm">' + it.n + '</b>' + btn + '</div>';
+    }).join("") + '</div>';
+}
+function todo() { pintarLook(); pintarTemporada(); pintarOfertas(); pintarPacks(); pintarTabs(); pintarGrid(); }
 
 /* El personaje equipado se lee del Perfil ("ingles_gamer_perfil".a): así el Perfil, el Inicio y la Tienda muestran siempre el mismo. */
 function personajeDelPerfil() {
@@ -582,6 +625,7 @@ function comprar(id) {
   const it = get(id), pr = precio(it), r = rareza(it.base);
   if (id === EXCLUSIVO) return;
   if (owns(id)) return;
+  if (it.tmp && !tempActiva()) { aviso("La temporada ya terminó"); return; }
   if (saldo() < pr) return falta(id);
   const v = ventana('<div class="pv">' + prev(it, true) + '</div><h3>' + nombre(it) + '</h3><p>Cuesta ' + pr + ' de Aura. Te quedarían ' + (saldo() - pr) + '.</p>' +
     '<button class="bn buy" id="vOk" type="button">Comprar por ' + pr + ' Aura</button><button class="bn ghost" id="vNo" type="button">Ahora no</button>');
@@ -607,7 +651,7 @@ function elegirCofre(pool) {
 }
 function cofre() {
   if (saldo() < PRECIO_COFRE) { sonido("mal"); aviso("Te faltan " + (PRECIO_COFRE - saldo()) + " de Aura para el cofre"); return; }
-  const pool = ALL.filter(x => x.p > 0 && !esUnico(x) && !owns(x.id));
+  const pool = ALL.filter(x => x.p > 0 && !esUnico(x) && !x.tmp && !owns(x.id));
   if (!pool.length) { aviso("¡Ya tienes todo! Eres leyenda."); return; }
   const it = elegirCofre(pool), r = rareza(it.base);
   moverAura(-PRECIO_COFRE, "Tienda: Cofre sorpresa (" + it.n + ")");
@@ -630,6 +674,7 @@ $("grid").addEventListener("click", e => {
   const b = e.target.closest(".bn[data-id]"); if (!b) return;
   const id = b.dataset.id; owns(id) ? equipar(id) : comprar(id);
 });
+$("temporada").addEventListener("click", e => { const b = e.target.closest(".bn[data-id]"); if (!b) return; const id = b.dataset.id; owns(id) ? equipar(id) : comprar(id); });
 $("packs").addEventListener("click", e => { const b = e.target.closest("[data-pk]"); if (b) comprarPack(+b.dataset.pk); });
 $("ofertas").addEventListener("click", e => {
   if (e.target.closest("#bOferta")) comprar(OFERTA.id);

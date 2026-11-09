@@ -123,6 +123,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .arco{animation:hue 3s linear infinite}@keyframes hue{to{filter:hue-rotate(360deg)}}
 .fr{display:inline-flex;align-items:flex-end;justify-content:center;overflow:hidden;border-radius:50%;border:5px solid var(--b,#9A6A3A);background:#0F0F12;box-shadow:0 0 var(--g,0px) var(--b)}
 .m0{--b:#9A6A3A}.m1{--b:#9A9AA6}.m2{--b:#FFC83D;--g:14px}.m3{--b:#3FD8C8;--g:14px}.m5{--b:#E8F7FF;--g:18px}
+.m7{--b:#C9BFA0;border-style:dashed!important}
 .m4{animation:fuego 1s ease-in-out infinite alternate}.m6{animation:arcoB 3s linear infinite}
 @keyframes fuego{from{border-color:#FF4D4D;box-shadow:0 0 8px #FF4D4D}to{border-color:#FFC83D;box-shadow:0 0 22px #FF8A3D}}
 @keyframes arcoB{0%,100%{border-color:#FF4D4D}20%{border-color:#FFC83D}40%{border-color:#5DB33A}60%{border-color:#3FD8C8}80%{border-color:#8E5BD6}}
@@ -293,7 +294,9 @@ const AVATARES = [
  {n:"Chef",son:"campanita",p:{"w": "#F2F4F8", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#3A2414", "m": "#B5574A", "r": "#E8343B", "l": "#3A3A42"},r:["...wwwwww...", "..wwwwwwww..", "..wwwwwwww..", "...wwwwww...", "..ssssssss..", "..skssssks..", "..sshhhhss..", "...ssmmss...", ".swwwwwwwws.", "..wwrrwwww..", "..lll..lll..", "..kkk..kkk.."]},
  {n:"T-Rex",son:"rugido",p:{"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"},r:["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},
  {n:"Vampiro",son:"magia",p:{"k": "#1A1A22", "p": "#E6E1F0", "r": "#E8343B", "w": "#FFFFFF", "c": "#8E1B2B"},r:["...kkkkkk...", "..kkkkkkkk..", "..kppppppk..", "..prpppprp..", "..pppppppp..", "...pwppwp...", "cc.kkkkkk.cc", "cckkwwwwkkcc", "cckkkkkkkkcc", "c.kkkkkkkk.c", "..kk....kk..", "..kk....kk.."]},
- {n:"Súper Héroe",son:"espada",p:{"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"},r:["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]}
+ {n:"Súper Héroe",son:"espada",p:{"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"},r:["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]},
+ {n:"Raptor",son:"rugido",p:{"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"},r:["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
+ {n:"Triceratops",son:"rugido",p:{"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"},r:["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]}
 ];
 const ESCUDO = ["bbbbbbbb","bffffffb","bffssffb","bfssssfb","bffssffb",".bffffb.","..bffb..","...bb..."];
 const escudo = (c, h) => sprite({ p:{ b:c, f:"#1E1E24", s:"#F2F4F8" }, r:ESCUDO }, h);
@@ -380,7 +383,7 @@ function calc() {
 }
 
 /* ===== LOOK: lo que equipó en la Tienda (clave "ingles_gamer_tienda"). Mismo orden que CATS de la Tienda. ===== */
-const LOOK_SK = ["", "hue-rotate(150deg)", "hue-rotate(-40deg) saturate(1.6)", "hue-rotate(80deg) saturate(1.3)", "grayscale(1) brightness(1.5) opacity(.75)", "hue-rotate(280deg) saturate(2.2) brightness(1.15)", "sepia(1) saturate(3.5) brightness(1.1)", ""]; // la última (Arcoíris) usa la clase .arco
+const LOOK_SK = ["", "hue-rotate(150deg)", "hue-rotate(-40deg) saturate(1.6)", "hue-rotate(80deg) saturate(1.3)", "grayscale(1) brightness(1.5) opacity(.75)", "hue-rotate(280deg) saturate(2.2) brightness(1.15)", "sepia(1) saturate(3.5) brightness(1.1)", "", "sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05)"]; // la última (Arcoíris) usa la clase .arco
 const LOOK_MP = [
   { bg:"linear-gradient(#0F1A10,#1E3A22)", g:"#5DB33A" }, { bg:"linear-gradient(#070B1F,#1B1F4A)", g:"#2B3A7A" }, { bg:"linear-gradient(#5A3A18,#B8782E)", g:"#D9A04A" },
   { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" },
@@ -394,7 +397,7 @@ function lookLeer() {
   let t = null; try { t = JSON.parse(localStorage.getItem("ingles_gamer_tienda") || "null"); } catch (e) {}
   const own = (t && Array.isArray(t.own)) ? t.own : [], eq = (t && t.eq) || {};
   const pick = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
-  return { sk:pick("sk", 8), mc:pick("mc", 7), tt:pick("tt", 7), mp:pick("mp", 15), an:pick("an", 9) };
+  return { sk:pick("sk", 9), mc:pick("mc", 8), tt:pick("tt", 7), mp:pick("mp", 15), an:pick("an", 9) };
 }
 /* sp = dibujo del personaje · d = diámetro del marco · izq = margen izquierdo de la tarjeta · sep = espacio hasta el texto */
 function lookHTML(sp, d, izq, sep) {
@@ -413,7 +416,7 @@ function pintar() {
   $("stats").innerHTML = [[ico(I_STAR, 22).replace('fill="none"', 'fill="currentColor"'), D.tot, "Estrellas"], [ico(I_RAYO, 22), D.racha, "Racha"], [ico(I_FLAG, 22), D.pasados, "Niveles"], [sprite(LLAMA, 22), D.aura.t, "Aura"]]
     .map(s => '<div class="st" aria-label="' + s[2] + ': ' + s[1] + '">' + s[0] + '<span>' + s[1] + '</span></div>').join("");
   $("cuenta").textContent = (ES_CREADOR ? AVATARES.length : AVATARES.length - 1) + " personajes";
-  $("avs").innerHTML = AVATARES.map((a, i) => { if (i === 9 && ES_CREADOR !== true) return ""; const ok = tengo(i); return '<button type="button" class="av' + (i === P.a ? " on" : "") + (ok ? "" : " lock") + '" data-i="' + i + '" aria-pressed="' + (i === P.a) + '" aria-label="' + a.n + (ok ? "" : " (bloqueado, se compra en la tienda)") + '">' + sprite(a, 56) + '<span>' + a.n + (ok ? "" : ico(I_LOCK, 14)) + '</span></button>'; }).join("");
+  $("avs").innerHTML = AVATARES.map((a, i) => { if (i === 9 && ES_CREADOR !== true) return ""; if (i >= 18 && i <= 19 && !tengo(i) && Date.now() >= new Date(2026, 11, 1).getTime()) return ""; const ok = tengo(i); return '<button type="button" class="av' + (i === P.a ? " on" : "") + (ok ? "" : " lock") + '" data-i="' + i + '" aria-pressed="' + (i === P.a) + '" aria-label="' + a.n + (ok ? "" : " (bloqueado, se compra en la tienda)") + '">' + sprite(a, 56) + '<span>' + a.n + (ok ? "" : ico(I_LOCK, 14)) + '</span></button>'; }).join("");
   $("rango").innerHTML = RANGOS.map((r, i) => '<div class="' + (i === D.ri ? "yo" : "") + '">' + escudo(r.c, 40) + r.n + '<small>' + r.m + '★</small></div>').join("");
   $("misStats").innerHTML = '<b>Mis estadísticas</b><span class="t">Toca para ver tu progreso</span><span class="pj">' + sprite(AVATARES[P.a], 96) + '</span>';
   const verbos = VERBOS.every(id => D.e(id) >= 1);
