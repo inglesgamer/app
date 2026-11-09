@@ -1,0 +1,232 @@
+<!doctype html><html lang="es"><head><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Logros · diseños</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--line:rgba(255,255,255,.18);--hi:#fff;--on-hi:#000}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,sans-serif;padding:18px 14px 60px;max-width:440px;margin:auto}
+h1{font-size:24px;margin:4px 0 4px;font-weight:900}.intro{color:var(--mu);font-size:14px;margin:0 0 18px;line-height:1.4}
+.op{margin:26px 0 8px;display:flex;align-items:baseline;gap:10px}.op b{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:12px;background:#fff;color:#000;font-size:18px;font-weight:900}.op span{font-size:18px;font-weight:900}.op small{display:block;color:var(--mu);font-size:12.5px;font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px;overflow:hidden}
+.lab{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px;font-size:11px;font-weight:800;letter-spacing:1.4px;color:var(--mu)}
+.more{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:46px;margin-top:14px;border:0;border-radius:99px;background:var(--chip);color:var(--ink);font:900 14.5px Nunito,sans-serif;cursor:pointer}
+.more svg{transition:transform .3s}.open .more svg{transform:rotate(180deg)}
+.fold{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.9,.3,1)}.fold>div{overflow:hidden}.open .fold{grid-template-rows:1fr}
+.gr{margin:14px 0 8px;font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--mu);text-transform:uppercase}
+svg.i{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* A · VITRINA */
+.A .top{display:flex;align-items:center;gap:14px}
+.A .ring{position:relative;width:78px;height:78px;flex:none}.A .ring b{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:22px;font-weight:900;line-height:1}.A .ring b small{font-size:10px;color:var(--mu);font-weight:800;margin-top:2px}
+.A .next{flex:1;min-width:0;padding:12px;border-radius:18px;background:linear-gradient(135deg,#2A2140,#17131F);border:1px solid #4B3D72}
+.A .next small{font-size:9.5px;font-weight:900;letter-spacing:.12em;color:#B9A6FF}.A .next b{display:block;font-size:15px;margin:2px 0 6px}.A .bar{height:7px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden}.A .bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#8E5BD6,#B9A6FF)}.A .next em{display:block;font-style:normal;font-size:11px;color:var(--mu);margin-top:4px;font-weight:700}
+.A .shelf{display:flex;justify-content:space-between;margin-top:16px;padding:12px 6px 0;border-top:1px solid var(--line)}
+.A .md{display:flex;flex-direction:column;align-items:center;gap:5px;width:23%;text-align:center;font-size:10px;font-weight:800;line-height:1.15}
+.A .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 4px}
+
+/* B · HEXÁGONOS */
+.B .row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:4px 18px 6px}.B .row::-webkit-scrollbar{display:none}
+.B .hx{flex:none;width:74px;text-align:center;font-size:10px;font-weight:800;line-height:1.15}
+.B .hx .h{position:relative;width:64px;height:72px;margin:0 auto 5px}
+.B .hx .h svg{position:absolute;inset:0}
+.B .hx.no{color:var(--mu)}
+.B .tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-top:6px}.B .tabs button{flex:none;height:32px;padding:0 12px;border-radius:99px;border:1px solid var(--line);background:none;color:var(--mu);font:800 12px Nunito,sans-serif}.B .tabs button.on{background:#fff;color:#000;border-color:#fff}
+.B .hgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 0;margin-top:12px}
+.sheet{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
+.sheet>div{width:100%;max-width:440px;max-height:86vh;overflow:auto;background:var(--card);border-radius:28px 28px 0 0;padding:16px 18px 26px;animation:up .35s cubic-bezier(.2,1.2,.4,1)}@keyframes up{from{transform:translateY(100%)}}
+.sheet .grab{width:44px;height:5px;border-radius:9px;background:var(--line);margin:0 auto 12px}
+
+/* C · MISIONES */
+.C .q{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}.C .q:last-child{border:0}
+.C .ic{flex:none;width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center}
+.C .tx{flex:1;min-width:0}.C .tx b{display:block;font-size:14.5px}.C .tx small{display:block;font-size:11.5px;color:var(--mu);font-weight:700}
+.C .pb{height:6px;border-radius:9px;background:rgba(255,255,255,.1);margin-top:6px;overflow:hidden}.C .pb i{display:block;height:100%;border-radius:9px}
+.C .n{flex:none;font-size:12px;font-weight:900;color:var(--mu);min-width:44px;text-align:right}
+.C .q.ok .n{color:#7BE3A8}
+.C .seg{display:flex;padding:4px;border-radius:99px;background:var(--chip);margin-bottom:6px}.C .seg button{flex:1;height:34px;border:0;border-radius:99px;background:none;color:var(--mu);font:900 12.5px Nunito,sans-serif}.C .seg button.on{background:#fff;color:#000}
+
+/* D · TROFEOS PIXEL EN REPISA */
+.D{background:linear-gradient(#1A120B,#0F0A06);border-color:#4A3220}
+.D .lab{color:#E8C9A0}
+.D .px{font-family:"Press Start 2P",monospace;font-size:9px;color:#FFC977}
+.D .rep{position:relative;display:flex;justify-content:space-around;align-items:flex-end;padding:0 4px;height:92px}
+.D .rep:after{content:"";position:absolute;left:-6px;right:-6px;bottom:-10px;height:12px;border-radius:3px;background:linear-gradient(#8A5A2E,#5A3418);box-shadow:0 6px 0 #2E1A0A}
+.D .tr{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.D .tr.no{filter:grayscale(1) brightness(.35)}
+.D .nm{display:flex;justify-content:space-around;margin-top:18px;margin-bottom:6px;text-align:center}.D .nm span{width:24%;font-size:10px;font-weight:800;color:#E8C9A0;line-height:1.15}
+.D .more{background:#FFC977;color:#2A1408}
+
+/* E · ESTANDARTES DEL REINO */
+.E{background:radial-gradient(circle at 50% -20%,#3A1E5A,#141416 60%)}
+.E .rod{height:6px;border-radius:9px;background:linear-gradient(#E8C46A,#9A6A10);margin:0 -4px;position:relative}
+.E .bans{display:flex;justify-content:space-around;margin-top:-1px}
+.E .bn{position:relative;width:62px;text-align:center;transform-origin:top center;animation:sway 3.2s ease-in-out infinite}
+.E .bn:nth-child(2){animation-delay:-.8s}.E .bn:nth-child(3){animation-delay:-1.6s}.E .bn:nth-child(4){animation-delay:-2.4s}
+@keyframes sway{50%{transform:rotate(2.5deg)}}
+.E .bn .cl{width:58px;height:84px;margin:0 auto;display:flex;align-items:flex-start;justify-content:center;padding-top:14px;clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%)}
+.E .bn.no .cl{background:#2A2A30!important}
+.E .bn b{display:block;font-size:10px;font-weight:800;line-height:1.15;margin-top:6px}.E .bn.no b{color:var(--mu)}
+.E .crest{display:flex;align-items:center;gap:10px;margin-bottom:14px}.E .crest .k{font-size:28px;font-weight:900;color:#FFD45C}.E .crest small{font-size:12px;color:var(--mu);font-weight:700;line-height:1.3}
+.E .more{background:linear-gradient(90deg,#E8C46A,#FFE9A8,#E8C46A);color:#2A1A00}
+.E .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 4px}
+
+/* F · CARTAS COLECCIONABLES */
+.F .deck{position:relative;height:150px;margin:6px 0 4px}
+.F .cd{position:absolute;top:0;left:50%;width:104px;height:144px;margin-left:-52px;border-radius:16px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.25);transition:transform .4s}
+.F .cd b{font-size:11.5px;font-weight:900;line-height:1.1;color:#15121C}.F .cd small{font-size:9px;font-weight:900;letter-spacing:.1em;color:rgba(0,0,0,.6)}
+.F .cd .em{width:56px;height:56px;border-radius:50%;background:#15121C;display:flex;align-items:center;justify-content:center}
+.F .cg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.F .cg .cd{position:relative;left:auto;margin:0;width:auto;height:128px;transform:none!important;box-shadow:none}
+.F .cg .cd.no{background:var(--chip)!important;border:2px dashed var(--line)}.F .cg .cd.no b{color:var(--mu)}.F .cg .cd.no .em{background:transparent;border:2px solid var(--line)}
+.F .cnt{text-align:center;font-size:12.5px;font-weight:800;color:var(--mu)}
+</style></head><body>
+<h1>Logros · 6 diseños</h1>
+<p class="intro">Todos empiezan <b>cerrados</b> (se ven pocos) y tienen un botón para ver todos. Toca los botones para probar. Datos de ejemplo: 15 de 25 ganados.</p>
+
+<div class="op"><b>A</b><div><span>Vitrina + próximo logro</span><small>Tu total en un anillo, el logro que tienes más cerca y tus 4 últimos. Al abrir, todas las medallas.</small></div></div>
+<div class="card A" id="A"></div>
+
+<div class="op"><b>B</b><div><span>Hexágonos con hoja</span><small>Fila que se desliza con el dedo. "Ver todos" abre una hoja desde abajo con pestañas por grupo.</small></div></div>
+<div class="card B" id="B"></div>
+
+<div class="op"><b>C</b><div><span>Misiones</span><small>Como una lista de misiones: los 3 que tienes más cerca con su barra. Al abrir, todos en lista.</small></div></div>
+<div class="card C" id="C"></div>
+
+<div class="op"><b>D</b><div><span>Repisa de trofeos pixel</span><small>Trofeos de píxeles como tus personajes, sobre una repisa de madera. Al abrir, más repisas.</small></div></div>
+<div class="card D" id="D"></div>
+
+<div class="op"><b>E</b><div><span>Estandartes del Reino</span><small>Banderas que se mecen, del mismo estilo que los Rangos del Reino.</small></div></div>
+<div class="card E" id="E"></div>
+
+<div class="op"><b>F</b><div><span>Cartas coleccionables</span><small>Tus logros como cartas en abanico. Al abrir, el álbum completo; las que faltan salen punteadas.</small></div></div>
+<div class="card F" id="F"></div>
+
+<script>
+const LG_TIER = { b:["Bronce","#E3A06A","#8A4F22"], p:["Plata","#D9E2EC","#6A7888"], o:["Oro","#FFD45C","#A86B00"], d:["Diamante","#8DF0FF","#1A7FA0"] };
+const LG_ICO = {
+  star:'<path d="M12 3l2.8 5.8 6.2.8-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.8z"/>',
+  stars:'<path d="M12 2.5l1.9 3.9 4.2.6-3 3 .7 4.2-3.8-2-3.8 2 .7-4.2-3-3 4.2-.6z"/><path d="M5 15.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2L1.8 17.8 4 17.5zM19 15.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z"/>',
+  map:'<path d="M3 6.5l6-3 6 3 6-3v14l-6 3-6-3-6 3z"/><path d="M9 3.5v14M15 6.5v14"/>',
+  flag:'<path d="M5 21V4"/><path d="M5 4h12l-2.5 4.5L17 13H5"/>',
+  book:'<path d="M12 6.5C10 5 7 4.5 3.5 5v13.5c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5V20"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
+  crown:'<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/><path d="M5 19h14"/>',
+  trophy:'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4.5a3.5 3.5 0 0 0 3.8 4M16 6h3.5a3.5 3.5 0 0 1-3.8 4"/><path d="M12 13v4M8.5 20.5h7M10 17h4v3.5h-4z"/>',
+  flame:'<path d="M12 21a6 6 0 0 1-6-6c0-3.5 2.5-5 3.5-8 1.5 1.5 2 3 2 4.5 1-1 1.5-2.5 1.5-4.5 3 2 5 5 5 8a6 6 0 0 1-6 6z"/><path d="M12 21a2.5 2.5 0 0 1-2.5-2.5c0-1.5 1.5-2.5 2.5-4 1 1.5 2.5 2.5 2.5 4A2.5 2.5 0 0 1 12 21z"/>',
+  cal:'<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8.5 15l2.3 2.3 4.7-4.6"/>',
+  bolt:'<path d="M13.5 2.5L4.5 14H11l-1 7.5L19.5 10H13z"/>',
+  gem:'<path d="M6.5 3.5h11l4 5.5L12 21 2.5 9z"/><path d="M2.5 9h19M12 21L8.5 9l3.5-5.5L15.5 9z"/>',
+  swords:'<path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M14.5 6.5L18 3h3v3l-3.5 3.5"/><path d="M5 14l4 4M7 17l-3 3M3 19l2 2"/>',
+  shield:'<path d="M12 3l8 3v6c0 4.8-3.4 8-8 9-4.6-1-8-4.2-8-9V6z"/><path d="M12 7.5l1.3 2.6 2.9.4-2.1 2 .5 2.9-2.6-1.4-2.6 1.4.5-2.9-2.1-2 2.9-.4z"/>',
+  helm:'<path d="M5 20v-8a7 7 0 0 1 14 0v8z"/><path d="M5 13h14M12 13v7M9 16.5h-1M16 16.5h-1"/>',
+  snow:'<path d="M12 2.5v19M3.8 7.2l16.4 9.6M3.8 16.8l16.4-9.6"/><path d="M9.5 3.8L12 6.3l2.5-2.5M9.5 20.2L12 17.7l2.5 2.5M3.4 10.4l3.4-.9-.9-3.4M20.6 13.6l-3.4.9.9 3.4M5.9 17.9l.9-3.4-3.4-.9M18.1 6.1l-.9 3.4 3.4.9"/>',
+  hanger:'<path d="M12 7.5a2.2 2.2 0 1 1 2.2-2.2c0 1.2-2.2 1.6-2.2 3.2"/><path d="M12 8.5l9 6.5a1.2 1.2 0 0 1-.7 2.2H3.7A1.2 1.2 0 0 1 3 15z"/>',
+  chest:'<path d="M3.5 10a5 5 0 0 1 5-5h7a5 5 0 0 1 5 5v9.5h-17z"/><path d="M3.5 12h17M10.5 10.5h3v3.5h-3z"/>',
+  lock:'<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>'
+};const LOGROS = [
+  { id:"p1",  c:"Aprendizaje", i:"star",   t:"b", n:"Primer paso",          d:"Gana tu primera estrella",                 m:1,    v:D => D.tot, tt:1 },
+  { id:"e3",  c:"Aprendizaje", i:"stars",  t:"b", n:"Triple estrella",      d:"Saca 3 estrellas en un nivel",             m:1,    v:D => D.tres, tt:2 },
+  { id:"m10", c:"Aprendizaje", i:"map",    t:"p", n:"Mitad del mapa",       d:"Pasa 10 niveles del A1",                   m:10,   v:D => D.pasados, tt:3 },
+  { id:"c5",  c:"Aprendizaje", i:"flag",   t:"p", n:"Cazajefes",            d:"3 estrellas en 5 niveles",                 m:5,    v:D => D.tres },
+  { id:"vb",  c:"Aprendizaje", i:"book",   t:"p", n:"Rey de los verbos",    d:"Pasa el nivel Verbos básicos",             m:1,    v:D => D.verbos, tt:4 },
+  { id:"s30", c:"Aprendizaje", i:"star",   t:"o", n:"Cazador de estrellas", d:"Junta 30 estrellas",                       m:30,   v:D => D.tot },
+  { id:"pf",  c:"Aprendizaje", i:"target", t:"o", n:"Perfeccionista",       d:"3 estrellas en 10 niveles",                m:10,   v:D => D.tres, tt:8 },
+  { id:"a1",  c:"Aprendizaje", i:"crown",  t:"o", n:"Rey del A1",           d:"Vence al jefe final del A1",               m:1,    v:D => D.fin, tt:5 },
+  { id:"s60", c:"Aprendizaje", i:"trophy", t:"d", n:"Mapa completo",        d:"Las 60 estrellas del A1",                  m:60,   v:D => D.tot, tt:6 },
+  { id:"r3",  c:"Constancia",  i:"flame",  t:"b", n:"Racha de fuego",       d:"Juega 3 días seguidos",                    m:3,    v:D => D.rm },
+  { id:"r7",  c:"Constancia",  i:"cal",    t:"p", n:"Semana perfecta",      d:"Juega 7 días seguidos",                    m:7,    v:D => D.rm, tt:9 },
+  { id:"r30", c:"Constancia",  i:"flame",  t:"d", n:"Imparable",            d:"Juega 30 días seguidos",                   m:30,   v:D => D.rm, tt:10 },
+  { id:"au1", c:"Aura",        i:"bolt",   t:"b", n:"Primera chispa",       d:"Gana 100 de Aura en total",                m:100,  v:D => D.ag },
+  { id:"au2", c:"Aura",        i:"bolt",   t:"p", n:"Aura brillante",       d:"Gana 1000 de Aura en total",               m:1000, v:D => D.ag },
+  { id:"au3", c:"Aura",        i:"gem",    t:"o", n:"Aura dorada",          d:"Gana 5000 de Aura en total",               m:5000, v:D => D.ag },
+  { id:"d1",  c:"Duelos",      i:"swords", t:"b", n:"Primer duelo",         d:"Termina tu primer duelo",                  m:1,    v:D => D.dj },
+  { id:"d5",  c:"Duelos",      i:"swords", t:"p", n:"Duelista",             d:"Gana 5 duelos",                            m:5,    v:D => D.dg, tt:11 },
+  { id:"d20", c:"Duelos",      i:"trophy", t:"o", n:"Gladiador",            d:"Gana 20 duelos",                           m:20,   v:D => D.dg, tt:12 },
+  { id:"k1",  c:"Reino",       i:"shield", t:"b", n:"Soldado",              d:"Llega al rango Soldado en el Ranking",     m:1,    v:D => +(D.st >= 3) },
+  { id:"k2",  c:"Reino",       i:"helm",   t:"p", n:"Caballero",            d:"Llega al rango Caballero en el Ranking",   m:1,    v:D => +(D.st >= 6), tt:13 },
+  { id:"k4",  c:"Reino",       i:"crown",  t:"d", n:"Coronado",             d:"Llega a Rey en el Ranking",                m:1,    v:D => +(D.st >= 12), tt:14 },
+  { id:"n1",  c:"Isla de Nieve", i:"snow", t:"b", n:"Explorador del hielo", d:"Pasa un nivel de la Isla de Nieve",        m:1,    v:D => D.nPas },
+  { id:"n3",  c:"Isla de Nieve", i:"snow", t:"o", n:"Rey del hielo",        d:"3 estrellas en los 3 primeros niveles de Nieve", m:3, v:D => D.nTres, tt:15 },
+  { id:"c10", c:"Colección",   i:"hanger", t:"b", n:"Con estilo",           d:"Ten 10 cosas en tu colección",             m:10,   v:D => D.col },
+  { id:"c30", c:"Colección",   i:"chest",  t:"o", n:"Coleccionista",        d:"Ten 30 cosas en tu colección",             m:30,   v:D => D.col, tt:16 }
+];const LG_TT = ["Novato","Gamer","Cazador de bugs","Speaker","Maestro Have/Has","Rey del A1","Leyenda","Cazador de dinos","Perfeccionista","Constante","Imparable","Duelista","Gladiador","Caballero del Reino","Su Majestad","Rey del Hielo","Coleccionista"];
+
+/* datos de ejemplo */
+const D={tot:27,tres:5,pasados:12,verbos:1,fin:0,rm:8,ag:1350,dj:10,dg:6,st:6,nPas:1,nTres:1,col:12};
+const L=LOGROS.map(x=>{const cur=x.v(D),ok=cur>=x.m;return Object.assign({},x,{cur,ok,pct:ok?100:Math.floor(cur/x.m*100)})});
+const OK=L.filter(x=>x.ok),NO=L.filter(x=>!x.ok).sort((a,b)=>b.pct-a.pct);
+const GR=[...new Set(L.map(x=>x.c))];
+const T=x=>LG_TIER[x.t];
+const I=(x,s,c)=>'<svg class="i" width="'+s+'" height="'+s+'" viewBox="0 0 24 24" stroke="'+c+'">'+LG_ICO[x.i]+'</svg>';
+const prog=x=>x.ok?"¡Listo!":x.cur.toLocaleString("es")+"/"+x.m.toLocaleString("es");
+const CHEV='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+const moreBtn=n=>'<button class="more" type="button" data-t>'+'<span>Ver todos ('+L.length+')</span>'+CHEV+'</button>';
+function toggle(el){el.addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(!b)return;el.classList.toggle("open");b.querySelector("span").textContent=el.classList.contains("open")?"Ver menos":"Ver todos ("+L.length+")";});}
+
+/* ---------- A ---------- */
+function medA(x,s){const t=T(x);if(x.ok)return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 64 64"><defs><linearGradient id="ga'+x.t+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+t[1]+'"/><stop offset="1" stop-color="'+t[2]+'"/></linearGradient></defs><circle cx="32" cy="32" r="30" fill="url(#ga'+x.t+')"/><circle cx="32" cy="32" r="24" fill="#15121C"/><g transform="translate(20 20)" class="i" fill="none" stroke="'+t[1]+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+LG_ICO[x.i]+'</g></svg>';
+ const C=175.9;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="var(--line)" stroke-width="4"/><circle cx="32" cy="32" r="28" fill="none" stroke="'+t[1]+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+(C*x.pct/100)+' '+C+'" transform="rotate(-90 32 32)"/><circle cx="32" cy="32" r="23" fill="var(--chip)"/><g transform="translate(20 20)" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+LG_ICO[x.i]+'</g></svg>';}
+(function(){const el=document.getElementById("A"),n=NO[0],p=OK.length/L.length,C=2*Math.PI*33;
+ el.innerHTML='<div class="lab"><span>LOGROS</span><span>'+OK.length+' de '+L.length+'</span></div><div class="top"><div class="ring"><svg width="78" height="78" viewBox="0 0 78 78"><circle cx="39" cy="39" r="33" fill="none" stroke="var(--line)" stroke-width="7"/><circle cx="39" cy="39" r="33" fill="none" stroke="url(#gr)" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+C*p+' '+C+'" transform="rotate(-90 39 39)"/><defs><linearGradient id="gr"><stop offset="0" stop-color="#E3A06A"/><stop offset=".5" stop-color="#FFD45C"/><stop offset="1" stop-color="#8DF0FF"/></linearGradient></defs></svg><b>'+Math.round(p*100)+'%<small>COMPLETO</small></b></div>'+
+ '<div class="next"><small>TU PRÓXIMO LOGRO</small><b>'+n.n+'</b><div class="bar"><i style="width:'+n.pct+'%"></i></div><em>'+n.d+' · '+prog(n)+'</em></div></div>'+
+ '<div class="shelf">'+OK.slice(-4).reverse().map(x=>'<div class="md">'+medA(x,54)+x.n+'</div>').join("")+'</div>'+
+ '<div class="fold"><div>'+GR.map(g=>'<div class="gr">'+g+'</div><div class="grid">'+L.filter(x=>x.c===g).map(x=>'<div class="md" style="width:auto;'+(x.ok?'':'color:var(--mu)')+'">'+medA(x,54)+x.n+'</div>').join("")+'</div>').join("")+'</div></div>'+moreBtn();toggle(el);})();
+
+/* ---------- B ---------- */
+function hexB(x){const t=T(x),pts="32,2 61,18 61,54 32,70 3,54 3,18";
+ return '<div class="hx'+(x.ok?'':' no')+'"><div class="h"><svg width="64" height="72" viewBox="0 0 64 72"><defs><linearGradient id="gb'+x.t+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+t[1]+'"/><stop offset="1" stop-color="'+t[2]+'"/></linearGradient></defs>'+
+ (x.ok?'<polygon points="'+pts+'" fill="url(#gb'+x.t+')"/><polygon points="32,10 54,22 54,50 32,62 10,50 10,22" fill="rgba(0,0,0,.25)"/><g transform="translate(17 21) scale(1.25)" fill="'+t[1]+'" fill-opacity=".25" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+LG_ICO[x.i]+'</g>'
+ :'<polygon points="'+pts+'" fill="#1C1C20" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"/><g transform="translate(17 21) scale(1.25)" fill="none" stroke="#55555C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+LG_ICO[x.i]+'</g><text x="32" y="64" text-anchor="middle" font-size="9" font-weight="900" fill="#8A8A92" font-family="Nunito">'+x.pct+'%</text>')+
+ '</svg></div>'+x.n+'</div>';}
+(function(){const el=document.getElementById("B");
+ el.innerHTML='<div class="lab"><span>LOGROS · '+OK.length+'/'+L.length+'</span><span>Desliza →</span></div><div class="row">'+OK.slice().reverse().concat(NO.slice(0,3)).map(hexB).join("")+'</div><button class="more" type="button" id="bB"><span>Ver todos ('+L.length+')</span>'+CHEV+'</button>';
+ document.getElementById("bB").onclick=()=>{const s=document.createElement("div");s.className="sheet B";let tab=GR[0];
+  const pint=()=>{s.innerHTML='<div><div class="grab"></div><div class="lab"><span>TODOS LOS LOGROS</span><span>'+OK.length+'/'+L.length+'</span></div><div class="tabs">'+GR.map(g=>'<button class="'+(g===tab?'on':'')+'" data-g="'+g+'">'+g+'</button>').join("")+'</div><div class="hgrid">'+L.filter(x=>x.c===tab).map(hexB).join("")+'</div></div>';};
+  pint();document.body.appendChild(s);s.onclick=e=>{const b=e.target.closest("[data-g]");if(b){tab=b.dataset.g;pint();return;}if(e.target===s)s.remove();};};})();
+
+/* ---------- C ---------- */
+function rowC(x){const t=T(x);return '<div class="q'+(x.ok?' ok':'')+'"><span class="ic" style="background:'+(x.ok?'linear-gradient(135deg,'+t[1]+','+t[2]+')':'var(--chip)')+'">'+I(x,24,x.ok?'#15121C':'#8A8A92')+'</span><span class="tx"><b>'+x.n+'</b><small>'+x.d+'</small>'+(x.ok?'':'<span class="pb" style="display:block"><i style="width:'+x.pct+'%;background:'+t[1]+'"></i></span>')+'</span><span class="n">'+(x.ok?'✓':prog(x))+'</span></div>';}
+(function(){const el=document.getElementById("C");let f="no";
+ const pint=()=>{const lista=f==="no"?NO:OK;el.querySelector(".fold>div").innerHTML='<div class="seg"><button data-f="no" class="'+(f==="no"?'on':'')+'">Por lograr ('+NO.length+')</button><button data-f="ok" class="'+(f==="ok"?'on':'')+'">Ganados ('+OK.length+')</button></div>'+lista.slice(f==="no"?3:0).map(rowC).join("");};
+ el.innerHTML='<div class="lab"><span>MISIONES</span><span>'+OK.length+' de '+L.length+' cumplidas</span></div>'+NO.slice(0,3).map(rowC).join("")+'<div class="fold"><div></div></div>'+moreBtn();
+ pint();toggle(el);el.addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(b){f=b.dataset.f;pint();}});})();
+
+/* ---------- D ---------- */
+const TROF=["..aaaaaaaa..","aaabbbbbbaaa","a.abbbbbba.a","a.abbbbbba.a",".aabbbbbbaa.","...abbbbba..","....abbba...",".....aba....",".....aba....","....cccc....","...cccccc...","...dddddd..."];
+function trofeo(x,px){const t=T(x),col={a:t[2],b:t[1],c:"#6A4A2A",d:"#3A2410"};let r="";TROF.forEach((f,y)=>[...f].forEach((ch,i)=>{if(col[ch])r+='<rect x="'+i+'" y="'+y+'" width="1.02" height="1.02" fill="'+col[ch]+'"/>';}));
+ return '<svg width="'+12*px+'" height="'+12*px+'" viewBox="0 0 12 12" shape-rendering="crispEdges">'+r+'<rect x="4" y="1" width="1" height="2" fill="#fff" opacity=".6"/><g transform="translate(3.6 1.4) scale(.2)" fill="none" stroke="'+t[2]+'" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'+LG_ICO[x.i]+'</g></svg>';}
+function repisa(lista){return '<div class="rep">'+lista.map(x=>'<div class="tr'+(x.ok?'':' no')+'">'+trofeo(x,6)+'</div>').join("")+'</div><div class="nm">'+lista.map(x=>'<span>'+x.n+'</span>').join("")+'</div>';}
+(function(){const el=document.getElementById("D"),todos=OK.slice().reverse().concat(NO);const rep=[];for(let i=4;i<todos.length;i+=4)rep.push(todos.slice(i,i+4));
+ el.innerHTML='<div class="lab"><span class="px">TROFEOS</span><span class="px">'+OK.length+'/'+L.length+'</span></div>'+repisa(todos.slice(0,4))+'<div class="fold"><div>'+rep.map(repisa).join("")+'</div></div>'+moreBtn();toggle(el);})();
+
+/* ---------- E ---------- */
+function banE(x){const t=T(x);return '<div class="bn'+(x.ok?'':' no')+'"><div class="cl" style="background:linear-gradient('+t[1]+','+t[2]+')">'+I(x,28,x.ok?'#15121C':'#55555C')+'</div><b>'+x.n+'</b></div>';}
+(function(){const el=document.getElementById("E");const fila=l=>'<div class="rod"></div><div class="bans">'+l.map(banE).join("")+'</div>';const todos=OK.slice().reverse().concat(NO);const rest=[];for(let i=4;i<todos.length;i+=4)rest.push(todos.slice(i,i+4));
+ el.innerHTML='<div class="crest"><span class="k">'+OK.length+'</span><small>estandartes ganados<br>de '+L.length+' del Reino</small></div>'+fila(todos.slice(0,4))+'<div class="fold"><div>'+rest.map(l=>'<div style="margin-top:18px">'+fila(l)+'</div>').join("")+'</div></div>'+moreBtn();toggle(el);})();
+
+/* ---------- F ---------- */
+function carta(x,st){const t=T(x);return '<div class="cd'+(x.ok?'':' no')+'" style="background:linear-gradient(160deg,'+t[1]+','+t[2]+');'+(st||'')+'"><small>'+t[0].toUpperCase()+'</small><span class="em">'+I(x,28,x.ok?t[1]:'#55555C')+'</span><b>'+x.n+'</b></div>';}
+(function(){const el=document.getElementById("F"),u=OK.slice(-5).reverse();
+ el.innerHTML='<div class="lab"><span>MI ÁLBUM</span><span>'+OK.length+'/'+L.length+' cartas</span></div><div class="deck">'+u.map((x,i)=>carta(x,'transform:translateX('+((i-2)*46)+'px) rotate('+((i-2)*9)+'deg) translateY('+(Math.abs(i-2)*8)+'px);z-index:'+(5-Math.abs(i-2)))).join("")+'</div><div class="cnt">Tus últimas 5 cartas</div><div class="fold"><div>'+GR.map(g=>'<div class="gr">'+g+'</div><div class="cg">'+L.filter(x=>x.c===g).map(x=>carta(x)).join("")+'</div>').join("")+'</div></div>'+moreBtn();toggle(el);})();
+</script></body></html>
