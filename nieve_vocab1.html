@@ -660,13 +660,20 @@ function terminar() {
   ganar(nd, cola.length, nd === 0 ? "¡Tienda perfecta!" : "¡Tienda atendida!", "Ya sabes la ropa para el frío.", "Repasa las prendas difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
 }
 
-/* ===== arranque: primero aprende las 8 prendas, después atiende la tienda ===== */
+/* ===== arranque: solo aprender las 8 prendas. Al terminar: 3 estrellas y el Aura del nivel =====
+   (La tienda de la nieve queda guardada arriba para usarla después en otro nivel) */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-function irTienda() {
-  pantallaIntro("¡Abre la tienda!", "Llegan clientes con frío. Escucha lo que piden y toca la prenda correcta antes de que se acabe su paciencia.", "Empezar", dib("ping", 12).replace('width="12" height="12"', 'width="130" height="130"'), empezar);
+function aprender() { setCC(COLOR); pantallaAprende(0, PALABRAS, w => dib(w.k, 150), terminarAprende); }
+function terminarAprende() {
+  const e = subirEstrellas(3); marcarDia();
+  const dar = darAura(Math.round(AURA_NIVEL * e / 3));
+  setBarra(100); mandarNube(DIAGNOSTICO ? nubeDiag : null); setCC("#5FA8E8");
+  const lista = PALABRAS.map(w => '<div class="it">' + dib(w.k, 36) + '<span><b>' + esc(w.en) + '</b> = ' + esc(w.es) + '</span></div>').join("");
+  mostrarFinal({ gano:true, est:3, titulo:"¡Vocabulario aprendido!", n1:PALABRAS.length + "", t1:"palabras nuevas", aura:dar, ya:dar === 0,
+    msg:"Ya conoces la ropa para el frío. Repásala cuando quieras.", rep:lista, repT:"LO QUE APRENDISTE" }, aprender);
 }
-pantallaAprende(0, PALABRAS, w => dib(w.k, 150), irTienda);
+aprender();
 
 </script>
 <script type="module">
