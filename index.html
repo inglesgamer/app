@@ -397,6 +397,18 @@ main{overflow-x:hidden;touch-action:pan-y}
 .a-gir{animation:agir 2s ease-in-out infinite}@keyframes agir{0%,40%{transform:rotateY(0)}80%,100%{transform:rotateY(360deg)}}
 .a-sup{animation:aflt 2s ease-in-out infinite,asup 1.4s ease-in-out infinite alternate}@keyframes asup{from{filter:drop-shadow(0 0 2px #FFC83D)}to{filter:drop-shadow(0 0 14px #FFC83D) brightness(1.15)}}
 .a-sup .sym{color:#FFC83D;animation:parp2 .6s infinite alternate}
+/* ===== DUELOS: franja pegada debajo de tu tarjeta ===== */
+#duelos{order:1}
+.dtira{position:relative;z-index:1;display:flex;align-items:center;gap:10px;margin-top:-30px;padding:30px 12px 12px 14px;border-radius:0 0 26px 26px;
+  background:linear-gradient(180deg,color-mix(in srgb,#FF8A3D 14%,var(--card)),color-mix(in srgb,#FF8A3D 7%,var(--card)));border:1px solid color-mix(in srgb,#FF8A3D 35%,var(--bd));border-top:0;color:var(--ink);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.dtira[hidden]{display:none}
+#player{z-index:2}
+.dt-st{display:flex;flex:none}.dt-av{display:inline-flex;align-items:flex-end;justify-content:center;width:32px;height:32px;border-radius:50%;overflow:hidden;border:2px solid var(--card);position:relative}
+.dt-st .dt-av+.dt-av{margin-left:-11px}.dt-ic{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:color-mix(in srgb,#FF8A3D 22%,transparent);color:#FF8A3D;flex:none}
+.dt-tx{flex:1;min-width:0;font-size:14px;font-weight:800;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dt-tx b{color:#FF8A3D;font-weight:900}
+.dt-btn{flex:none;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:99px;background:#FF8A3D;color:#1A0B02;font-size:14px;font-weight:900}
+.dtira.reto .dt-btn{animation:dtLate 1.6s ease-in-out infinite}@keyframes dtLate{50%{transform:scale(1.06);box-shadow:0 0 0 6px rgba(255,138,61,.2)}}
+@media (prefers-reduced-motion:reduce){.dtira.reto .dt-btn{animation:none}}
 </style>
 </head>
 <body>
@@ -425,6 +437,7 @@ main{overflow-x:hidden;touch-action:pan-y}
 
   <main>
     <div class="card player" id="player"></div>
+    <a class="dtira" id="duelos" href="go:duelo" hidden></a>
     <a class="seguir" id="seguir" href="go:MAPA"></a>
     <a class="sopaI" id="sopa" href="go:sopa"></a>
     <section class="card racha" id="racha" aria-label="Tu racha"></section>
@@ -1442,6 +1455,66 @@ function pintarRefuerza() {
 }
 pintarRefuerza();
 window.addEventListener("pageshow", pintarRefuerza);
+</script>
+
+<script type="module">
+/* ===== DUELOS (Inicio): franja debajo de tu tarjeta. Muestra quién te retó, a quién esperas o invita a retar. ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, query, where, limit, getDocs, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const CONFIG = { apiKey:"AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE", authDomain:"inglesgamer-5a3a9.firebaseapp.com", projectId:"inglesgamer-5a3a9", storageBucket:"inglesgamer-5a3a9.firebasestorage.app", messagingSenderId:"599532765222", appId:"1:599532765222:web:38fe3a7348b3c38e3426e7" };
+const app = getApps().length ? getApp() : initializeApp(CONFIG), db = getFirestore(app);
+const CACHE = "ig_duelos_inicio", CADA_MS = 3 * 60 * 1000;
+const el = document.getElementById("duelos");
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const SW = s => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L14 2h3v3l-4.5 4.5"/><path d="M5 14l4 4M7 17l-3 3M3 19l2 2"/></svg>';
+function cara(j) {
+  let bg = "var(--chip)"; try { const m = LOOK_MP[+j.mp || 0]; if (m && m.bg) bg = m.bg; } catch (e) {}
+  let sp = ""; try { sp = sprite("av" + (+j.av || 0), 21); } catch (e) {}
+  return '<span class="dt-av" style="background:' + bg + '">' + sp + '</span>';
+}
+function pintar(D) {
+  if (!D) { el.hidden = true; return; }
+  let caras = (D.caras || []).slice(0, 3).map(cara).join(""), tx, btn, reto = false, url = "go:duelo";
+  if (D.retos && D.retos.length) {
+    reto = true; caras = D.retos.slice(0, 2).map(cara).join("");
+    tx = '<b>' + esc(D.retos[0].n) + '</b> te retó' + (D.retos.length > 1 ? ' y ' + (D.retos.length - 1) + ' más' : '');
+    btn = SW(15) + 'Jugar';
+  } else if (D.espera) {
+    tx = 'Esperando a <b>' + esc(D.espera) + '</b>' + (D.nEspera > 1 ? ' · ' + D.nEspera + ' duelos' : ''); btn = SW(15) + 'Retar';
+  } else if (D.amigos) {
+    tx = 'Reta a un amigo · <b>' + D.amigos + (D.amigos === 1 ? ' amigo' : ' amigos') + '</b>'; btn = SW(15) + 'Retar';
+  } else {
+    tx = 'Agrega amigos para retarlos'; btn = 'Agregar'; url = "go:ranking"; caras = "";
+  }
+  el.href = url; el.classList.toggle("reto", reto);
+  el.innerHTML = (caras ? '<span class="dt-st">' + caras + '</span>' : '<span class="dt-ic">' + SW(18) + '</span>') + '<span class="dt-tx">' + tx + '</span><span class="dt-btn">' + btn + '</span>';
+  el.hidden = false;
+}
+let cache = null; try { cache = JSON.parse(localStorage.getItem(CACHE) || "null"); } catch (e) {}
+let uid = "", t0 = 0;
+if (cache && cache.d) pintar(cache.d);
+async function cargar(forzar) {
+  if (!uid || (!forzar && Date.now() - t0 < CADA_MS)) return; t0 = Date.now();
+  try {
+    const col = collection(db, "duelos"), ahora = Date.now();
+    const [rb, ra, am1, am2] = await Promise.all([
+      getDocs(query(col, where("b", "==", uid), limit(40))), getDocs(query(col, where("a", "==", uid), limit(40))),
+      getDocs(query(collection(db, "amistades"), where("de", "==", uid))), getDocs(query(collection(db, "amistades"), where("para", "==", uid)))]);
+    const retos = [], esp = [];
+    rb.forEach(d => { const v = d.data(); if (!v.rb && v.est !== "rech" && +v.vence > ahora) retos.push({ n:v.an || "Amigo", av:v.aav, mp:v.al && v.al[2], t:+v.t || 0 }); });
+    ra.forEach(d => { const v = d.data(); if (!v.rb && v.est !== "rech" && +v.vence > ahora) esp.push({ n:v.bn || "Amigo", t:+v.t || 0 }); });
+    retos.sort((x, y) => y.t - x.t); esp.sort((x, y) => y.t - x.t);
+    const ids = []; am1.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().para); }); am2.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().de); });
+    const caras = (await Promise.all(ids.slice(0, 3).map(async u => { try { const s = await getDoc(doc(db, "jugadores", u)); if (!s.exists()) return null; const x = s.data(); return { av:x.av, mp:x.lmp }; } catch (e) { return null; } }))).filter(Boolean);
+    const D = { retos, espera:esp.length ? esp[0].n : "", nEspera:esp.length, amigos:ids.length, caras };
+    try { localStorage.setItem(CACHE, JSON.stringify({ t:Date.now(), d:D })); } catch (e) {}
+    pintar(D);
+  } catch (e) { if (!cache) el.hidden = true; }
+}
+onAuthStateChanged(getAuth(app), u => { if (u) { uid = u.uid; cargar(true); } });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) cargar(false); });
+window.addEventListener("pageshow", e => { if (e.persisted) cargar(true); });
 </script>
 </body>
 </html>
