@@ -426,7 +426,7 @@ main{overflow-x:hidden;touch-action:pan-y}
 .dfin.empate .df-fin{top:auto;bottom:130px;animation-delay:1.4s}
 .df-tt{font-size:42px;font-weight:900;font-style:italic;letter-spacing:.01em;text-shadow:0 4px 0 rgba(0,0,0,.4),0 0 26px rgba(255,200,120,.6)}
 .df-sub{font-size:15px;font-weight:800;opacity:.92}
-.df-aura{padding:8px 18px;border-radius:99px;border:2px solid #FFD166;background:rgba(0,0,0,.3);color:#FFD166;font-size:19px;font-weight:900}
+.df-aura{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:99px;border:2px solid #FFD166;background:rgba(0,0,0,.3);color:#FFD166;font-size:19px;font-weight:900}
 .df-bts{position:absolute;left:20px;right:20px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:5;max-width:480px;margin:auto;display:flex;flex-direction:column;gap:4px;opacity:0;animation:dfSube .4s 3.2s forwards}
 .dfin.empate .df-bts{animation-delay:1.8s}
 .df-go{height:56px;border-radius:99px;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;text-decoration:none}
@@ -1577,14 +1577,15 @@ function finDuelo(lista) {
   const mpYo = (T.eq && String(T.eq.mp || "").indexOf("mp") === 0) ? +String(T.eq.mp).slice(2) : 0;
   const rN = d.yoA ? (d.bn || "Amigo") : (d.an || "Amigo"), rAv = d.yoA ? d.bav : d.aav, rL = (d.yoA ? d.bl : d.al) || [];
   const temas = ["Colores", "Animales", "Frutas", "Familia", "Números"], tema = d.tema >= 0 && temas[d.tema] ? temas[d.tema] : "Al azar";
-  const premio = res === "gana" ? '+' + (ap * (d.rb ? 1 : 0) + 30) + ' 🔥 Aura' : res === "empate" ? '+15 🔥 Aura' : ap ? '−' + ap + ' 🔥 · ¡Recupéralo!' : '';
+  const fl = (() => { try { return sprite("llama", 18); } catch (e) { return ""; } })();
+  const premio = res === "gana" ? '+' + (ap * (d.rb ? 1 : 0) + 30) + ' ' + fl + ' Aura' : res === "empate" ? '+15 ' + fl + ' Aura' : ap ? '−' + ap + ' ' + fl + ' · ¡Recupéralo!' : '';
   const tit = { gana:"¡GANASTE!", pierde:"PERDISTE", empate:"¡EMPATE!" }[res];
   const sub = res === "gana" && !elr ? esc(rN) + " no jugó a tiempo" : "Duelo de " + tema + " contra " + esc(rN);
   const o = document.createElement("div"); o.className = "dfin " + res;
   o.innerHTML = '<div class="df-h df-h1">' + caraG(P.a, mpYo, 86) + '<span class="df-n">' + (yo ? yo.p : 0) + '</span><span class="df-nm">TÚ</span></div>' +
     '<div class="df-h df-h2">' + caraG(rAv, rL[2], 86) + '<span class="df-n">' + (elr ? elr.p : "–") + '</span><span class="df-nm">' + esc(rN.toUpperCase()) + '</span></div>' +
     '<div class="df-vs">VS</div><div class="df-fin"><div class="df-tt">' + tit + '</div><div class="df-sub">' + sub + '</div>' + (premio ? '<div class="df-aura">' + premio + '</div>' : '') + '</div>' +
-    '<div class="df-bts"><a class="df-go" href="go:duelo">' + (res === "pierde" ? "⚔ Pedir revancha" : "Cobrar premio") + '</a><button type="button" class="df-x">Cerrar</button></div>';
+    '<div class="df-bts"><a class="df-go" href="go:duelo">' + (res === "pierde" ? "Pedir revancha" : "Cobrar premio") + '</a><button type="button" class="df-x">Cerrar</button></div>';
   document.body.appendChild(o);
   setTimeout(SN.swoosh, 150); setTimeout(SN.vs, 620);
   setTimeout(() => { if (res === "pierde") SN.perdio(); else { SN.gano(); confetiDF(60); } }, res === "empate" ? 1400 : 2700);
