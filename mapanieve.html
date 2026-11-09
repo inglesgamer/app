@@ -447,12 +447,12 @@ const LOOK_MP = [
   { bg:"linear-gradient(#0F1A10,#1E3A22)", g:"#5DB33A" }, { bg:"linear-gradient(#070B1F,#1B1F4A)", g:"#2B3A7A" }, { bg:"linear-gradient(#5A3A18,#B8782E)", g:"#D9A04A" },
   { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" }
 ];
-const LOOK_TT = ["Novato", "Gamer", "Cazador de bugs", "Speaker", "Maestro Have/Has", "Rey del A1", "Leyenda"];
+const LOOK_TT = ["Novato", "Gamer", "Cazador de bugs", "Speaker", "Maestro Have/Has", "Rey del A1", "Leyenda", "Cazador de dinos", "Perfeccionista", "Constante", "Imparable", "Duelista", "Gladiador", "Caballero del Reino", "Su Majestad", "Rey del Hielo", "Coleccionista"];
 function lookLeer() {
   let t = null; try { t = JSON.parse(localStorage.getItem("ingles_gamer_tienda") || "null"); } catch (e) {}
   const own = (t && Array.isArray(t.own)) ? t.own : [], eq = (t && t.eq) || {};
   const pick = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
-  return { sk:pick("sk", 8), mc:pick("mc", 7), tt:pick("tt", 7), mp:pick("mp", 6) };
+  return { sk:pick("sk", 8), mc:pick("mc", 7), tt:pick("tt", 17), mp:pick("mp", 6) };
 }
 function lookHTML(sp, d, izq, sep, pos) {
   const L = lookLeer(), mp = LOOK_MP[L.mp], f = LOOK_SK[L.sk];

@@ -752,7 +752,7 @@ const LOOK_MP = [
   { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" },
   { bg:"linear-gradient(#0B1640,#2A3470)", g:"#141A36" }, { bg:"linear-gradient(#E8692A,#FFC977)", g:"#5E8F35" }, { bg:"radial-gradient(circle at 70% 15%,#4A2290,#0A0620 70%)", g:"#2A1458" }, { bg:"linear-gradient(#1B8BD2,#0B3A73)", g:"#E8D49A" }, { bg:"linear-gradient(#4A2E8E,#E58FC7)", g:"#2E1A55" }, { bg:"linear-gradient(#0B3A22,#1E7A3E)", g:"#0A2E1A" }, { bg:"linear-gradient(#1E222E,#4A5266)", g:"#2A3040" }, { bg:"linear-gradient(#FF9FD2,#FFE7F3)", g:"#FF6FB5" }, { bg:"linear-gradient(#030B16,#0B2A3A)", g:"#DDEFF5" }
 ];
-const LOOK_TT = ["Novato", "Gamer", "Cazador de bugs", "Speaker", "Maestro Have/Has", "Rey del A1", "Leyenda", "Cazador de dinos"];
+const LOOK_TT = ["Novato", "Gamer", "Cazador de bugs", "Speaker", "Maestro Have/Has", "Rey del A1", "Leyenda", "Cazador de dinos", "Perfeccionista", "Constante", "Imparable", "Duelista", "Gladiador", "Caballero del Reino", "Su Majestad", "Rey del Hielo", "Coleccionista"];
 /* Animaciones de la Tienda (mismo orden que la pestaña Animaciones) */
 const LOOK_AN = ["flt", "jmp", "ale", "pen", "dor", "bai", "emo", "gir", "sup"];
 const LOOK_SYM = { ale:"✦", pen:"?", dor:"z", bai:"♪", emo:"!", sup:"★" };
@@ -760,7 +760,7 @@ function lookLeer() {
   let t = null; try { t = JSON.parse(localStorage.getItem("ingles_gamer_tienda") || "null"); } catch (e) {}
   const own = (t && Array.isArray(t.own)) ? t.own : [], eq = (t && t.eq) || {};
   const pick = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
-  return { sk:pick("sk", 9), mc:pick("mc", 8), tt:pick("tt", 8), mp:pick("mp", 15), an:pick("an", 9) };
+  return { sk:pick("sk", 9), mc:pick("mc", 8), tt:pick("tt", 17), mp:pick("mp", 15), an:pick("an", 9) };
 }
 /* sp = dibujo del personaje · d = diámetro del marco · izq = margen izquierdo de la tarjeta · sep = espacio hasta el texto */
 function lookHTML(sp, d, izq, sep) {

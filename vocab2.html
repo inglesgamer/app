@@ -508,7 +508,7 @@ const CONFIG = {
       const eq = (tienda && tienda.eq) || {};
       const pick = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
       return { av, aura, est: estrellas, niv, racha, med, sem: Math.max(0, aura - (b.sem.v || 0)), mes: Math.max(0, aura - (b.mes.v || 0)),
-               lsk: pick("sk", 9), lmc: pick("mc", 8), ltt: pick("tt", 8), lmp: pick("mp", 15) };
+               lsk: pick("sk", 9), lmc: pick("mc", 8), ltt: pick("tt", 17), lmp: pick("mp", 15) };
     }
 
     let user = null, ficha = null, ocupado = false, ultHash = "", ultT = 0;
