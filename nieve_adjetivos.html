@@ -290,6 +290,48 @@ svg{display:block}
 .pie .fb small{display:block;font-size:14px;font-weight:700;color:var(--ink)}
 .pie .lase{margin-top:0}.lase:disabled{opacity:.4;cursor:default}
 .lase.mal{background:var(--mal);color:#2A0606;box-shadow:0 4px 0 color-mix(in srgb,var(--mal) 55%,#000)}
+
+/* ===== APRENDE · ESCENA VIVA (personaje que reacciona) ===== */
+.escv{position:relative;height:220px;margin-top:10px;border-radius:22px;overflow:hidden;background:linear-gradient(#061230,#163C6A 70%,#DCEBF7 70%,#B9D3E8)}
+.escv.f-nieve:before,.escv.f-nieve2:before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle,#fff 0 1.6px,transparent 2.4px) 0 0/40px 40px,radial-gradient(circle,rgba(255,255,255,.7) 0 1.1px,transparent 1.8px) 18px 10px/26px 30px;animation:nieva 5s linear infinite}
+.escv.f-cabana{background:linear-gradient(#3A1E10,#5A2E16 72%,#7A4E22 72%,#5E3A16)}
+.escv.f-cabana:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(#4A2812 0 22px,#3A1E10 22px 24px);opacity:.5}
+.escv.f-fiesta{background:radial-gradient(circle at 50% 120%,#5A2A6A,#140A1E 70%)}
+.escv.f-lluvia{background:linear-gradient(#1A2230,#2A3445 66%,#7A8A9A 66%,#5A6A7A)}
+.escv.f-lluvia:before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:repeating-linear-gradient(105deg,transparent 0 14px,rgba(150,190,230,.35) 14px 15px);animation:llu .5s linear infinite}
+.escv.f-sofa{background:linear-gradient(#1A1030,#2A1A4A)}
+.escv .sofaM{position:absolute;left:24%;bottom:6%;width:52%;height:22%;border-radius:14px 14px 6px 6px;background:#6A3A8A;box-shadow:inset 0 8px 0 #8A5AAA;z-index:1}
+.escv .pjw{position:absolute;bottom:8%;z-index:2;line-height:0}
+.escv .obw{position:absolute;bottom:8%;z-index:2;line-height:0}
+.escv .bub{position:absolute;top:10%;z-index:4;padding:8px 12px;border-radius:16px 16px 16px 4px;background:#fff;color:#000;font-weight:900;font-size:15px;animation:pop .3s;max-width:46%}
+.escv .zz{position:absolute;z-index:4;font:900 16px Nunito,sans-serif;color:#BDE8FF;animation:zz 2.4s ease-in infinite}
+.escv .conf{position:absolute;top:-10px;z-index:4;width:7px;height:10px;border-radius:2px;animation:cae2 1.8s linear forwards}
+.pjw.tiembla svg{animation:tiem .12s linear infinite}.pjw.salta svg{animation:salta .5s ease 2}
+.vap{animation:vapor 1.6s ease-in-out infinite}.ali{animation:aliento 1.8s ease-out infinite}.got{animation:gota 1.2s ease-in infinite}.bri{animation:brilla 1s ease-in-out infinite}.llama{animation:fuego .25s steps(2) infinite}
+.fra{margin-top:12px;padding:14px;border-radius:20px;background:var(--card);border:1px solid var(--bd);text-align:center}
+.fra .es{font-size:15px;font-weight:800;color:var(--mu)}
+.fra .en{margin-top:6px;font-size:24px;font-weight:900;line-height:1.35}
+.slot{display:inline-flex;align-items:center;justify-content:center;min-width:92px;height:40px;margin:0 4px;padding:0 10px;border-radius:12px;border:2px dashed var(--cc);vertical-align:middle;color:var(--cc);font-size:22px}
+.slot.ok{border-style:solid;border-color:var(--ok);color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent);animation:pop .3s}
+.slot.mal{border-color:var(--mal);color:var(--mal);animation:shk .35s}
+.ops3 .u small{display:block;font-size:11px;color:var(--mu);font-weight:800;margin-top:1px}
+.ops3 .u.no{opacity:.3}
+.sab{margin-top:12px;padding:12px 14px;border-radius:18px;background:linear-gradient(160deg,#103A2A,#08160F);border:1px solid #2E7A55;animation:pop .35s}
+.sab>b{font-size:20px;font-weight:900}.sab>b em{font-style:normal;color:var(--gold)}
+.sab .ex2{display:flex;align-items:center;gap:10px;margin-top:8px;padding:10px 12px;border-radius:14px;background:rgba(0,0,0,.25);border:0;color:inherit;font:inherit;cursor:pointer;width:100%;text-align:left}
+.sab .ex2 b{display:block;font-size:16px;font-weight:900}.sab .ex2 span{display:block;font-size:13px;color:var(--mu);font-weight:700}
+.sab .bts{display:flex;gap:8px;margin-top:8px}
+@keyframes tiem{0%{transform:translateX(-1.5px)}50%{transform:translateX(1.5px)}100%{transform:translateX(-1.5px)}}
+@keyframes salta{50%{transform:translateY(-14px)}}
+@keyframes vapor{0%{opacity:0;transform:translateY(4px)}40%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}
+@keyframes aliento{0%{opacity:0;transform:translate(0,0) scale(.5)}40%{opacity:.9}100%{opacity:0;transform:translate(10px,-6px) scale(1.4)}}
+@keyframes gota{0%{opacity:0;transform:translateY(-2px)}30%{opacity:1}100%{opacity:0;transform:translateY(5px)}}
+@keyframes brilla{50%{opacity:.2}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:none;opacity:1}}
+@keyframes fuego{50%{transform:scaleY(1.08) translateY(-1px)}}
+@keyframes zz{0%{opacity:0;transform:translate(0,0) scale(.6)}30%{opacity:1}100%{opacity:0;transform:translate(16px,-40px) scale(1.2)}}
+@keyframes cae2{to{transform:translateY(260px) rotate(540deg)}}
+@keyframes llu{to{background-position:-8px 30px}}
 @keyframes deI{from{transform:translateX(60px) scale(.3);opacity:0}}
 @keyframes deD{from{transform:translateX(-60px) scale(.3);opacity:0}}
 @keyframes late{from{opacity:.5}to{opacity:1}}
@@ -308,28 +350,36 @@ svg{display:block}
 <script>
 /* =====================================================================
    TUS DATOS · Nivel 4 de la Isla de Nieve: Adjetivos (ejercicios tipo Duolingo: unir, completar, escribir, opuestos y ordenar)
-   8 adjetivos en 4 parejas de opuestos.
+   7 adjetivos: cold, hot, big, small, happy, sad, tired.
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";            // ej. "go:nieve_gustos"
 const AURA_NIVEL = 20;
 const DIAGNOSTICO = true;
 /* Carpeta de tus mp3 (con "/" al final). Cada mp3 dice SOLO la palabra:
-   big.mp3, small.mp3, hot.mp3, cold.mp3, happy.mp3, sad.mp3, fast.mp3, slow.mp3 */
+   cold.mp3, hot.mp3, big.mp3, small.mp3, happy.mp3, sad.mp3, tired.mp3 */
 const AUDIO_CARPETA = "";
 const AUDIO_DATA = {};
 const NIVEL = { id:"adjetivos", nombre:"Adjetivos" };
 const TEMA = "ADJETIVOS", COLOR = "#8FD8FF";
 /* op = su opuesto · d = dibujo · t = tamaño del dibujo */
+/* op = su opuesto · d = dibujo para la práctica
+   ESCENA (aprende): fondo, cómo está el personaje, qué dice, la frase en español y en inglés (___ = la palabra) y 2 opciones falsas */
 const PALABRAS = [
-  { k:"big",   en:"big",   es:"grande",    op:"small", d:"ping",   t:150, ej:"The penguin is *big*.",       ejEs:"El pingüino es grande." },
-  { k:"small", en:"small", es:"pequeño",   op:"big",   d:"ping",   t:62,  ej:"The penguin is *small*.",     ejEs:"El pingüino es pequeño." },
-  { k:"hot",   en:"hot",   es:"caliente",  op:"cold",  d:"taza",   t:130, ej:"The chocolate is *hot*.",     ejEs:"El chocolate está caliente." },
-  { k:"cold",  en:"cold",  es:"frío",      op:"hot",   d:"hielo",  t:130, ej:"The ice is *cold*.",          ejEs:"El hielo está frío." },
-  { k:"happy", en:"happy", es:"feliz",     op:"sad",   d:"feliz",  t:130, ej:"The snowman is *happy*.",     ejEs:"El muñeco de nieve está feliz." },
-  { k:"sad",   en:"sad",   es:"triste",    op:"happy", d:"triste", t:130, ej:"The snowman is *sad*.",       ejEs:"El muñeco de nieve está triste." },
-  { k:"fast",  en:"fast",  es:"rápido",    op:"slow",  d:"conejo", t:130, ej:"The rabbit is *fast*.",       ejEs:"El conejo es rápido." },
-  { k:"slow",  en:"slow",  es:"lento",     op:"fast",  d:"caracol",t:130, ej:"The snail is *slow*.",        ejEs:"El caracol es lento." }
+  { k:"cold",  en:"cold",  es:"frío",     op:"hot",   d:"hielo",  ej:"The ice is *cold*.",           ejEs:"El hielo está frío.",
+    E:{ fondo:"nieve", pj:"frio",    pjOk:"feliz", obj:"",          bub:"¡Brrr!",        bubOk:"¡Sí! Cold!",     es:"Hace mucho frío.",           en:"It is very ___.",        mal:["hot", "sad"] } },
+  { k:"hot",   en:"hot",   es:"caliente", op:"cold",  d:"taza",   ej:"The chocolate is *hot*.",      ejEs:"El chocolate está caliente.",
+    E:{ fondo:"cabana", pj:"calor",   pjOk:"feliz", obj:"fogata",    bub:"¡Uf!",          bubOk:"¡Qué calor!",    es:"El fuego está muy caliente.", en:"The fire is very ___.",  mal:["cold", "small"] } },
+  { k:"big",   en:"big",   es:"grande",   op:"small", d:"ping",   ej:"The penguin is *big*.",        ejEs:"El pingüino es grande.",
+    E:{ fondo:"nieve2", pj:"asombro", pjOk:"feliz", obj:"munecoG",   bub:"¡Wow!",         bubOk:"¡Sí! Big!",      es:"El muñeco es grande.",    en:"The snowman is ___.", mal:["small", "tired"] } },
+  { k:"small", en:"small", es:"pequeño",  op:"big",   d:"ping",   ej:"The penguin is *small*.",      ejEs:"El pingüino es pequeño.",
+    E:{ fondo:"nieve2", pj:"base",    pjOk:"feliz", obj:"munecoP",   bub:"¡Qué lindo!",   bubOk:"¡Sí! Small!",    es:"El muñeco es pequeño.",   en:"The snowman is ___.", mal:["big", "hot"] } },
+  { k:"happy", en:"happy", es:"feliz",    op:"sad",   d:"feliz",  ej:"The snowman is *happy*.",      ejEs:"El muñeco de nieve está feliz.",
+    E:{ fondo:"fiesta", pj:"base",    pjOk:"feliz", obj:"regalo",    bub:"¡Un regalo!",   bubOk:"Yes! Happy!",    es:"¡Estoy muy feliz!",           en:"I am very ___!",         mal:["sad", "cold"] } },
+  { k:"sad",   en:"sad",   es:"triste",   op:"happy", d:"triste", ej:"The snowman is *sad*.",        ejEs:"El muñeco de nieve está triste.",
+    E:{ fondo:"lluvia", pj:"triste",  pjOk:"triste", obj:"derretido", bub:"Mi muñeco...",  bubOk:"Sí... sad.",     es:"Estoy muy triste.",           en:"I am very ___.",         mal:["happy", "big"] } },
+  { k:"tired", en:"tired", es:"cansado",  op:"happy", d:"pingZ",  ej:"The penguin is *tired*.",      ejEs:"El pingüino está cansado.",
+    E:{ fondo:"sofa",   pj:"cansado", pjOk:"cansado", obj:"",        bub:"Zzz...",        bubOk:"Sí... tired.",   es:"Estoy muy cansado.",          en:"I am very ___.",         mal:["happy", "small"] } }
 ];
 PALABRAS.forEach(w => w.audio = w.k + ".mp3");
 
@@ -615,6 +665,7 @@ Object.assign(DIB, {
   hielo:{p:{c:"#BDE8FF",w:"#FFFFFF",d:"#6FB0DF",b:"#3F86C4"},r:["............","..b.......b.","...cccccc...","..cwwccccc..","..cwcccccd..","..cccccccd..","..cccccccd..","..ccccwccd..","..cccccccd..","...ddddddd..",".b........b.","............"]},
   feliz:{p:{w:"#FFFFFF",k:"#2B2B33",o:"#FF8A3D",p:"#FFB3C1"},r:["....wwww....","..wwwwwwww..",".wwwwwwwwww.",".wwkwwwwkww.",".wwkwwwwkww.",".wpwwoowwpw.",".wkwwwwwwkw.",".wwkkkkkkww.",".wwwwwwwwww.","..wwwwwwww..","....wwww....","............"]},
   triste:{p:{w:"#FFFFFF",k:"#2B2B33",o:"#FF8A3D",b:"#5FB8FF"},r:["....wwww....","..wwwwwwww..",".wwwwwwwwww.",".wkkwwwwkkw.",".wwkwwwwkww.",".wbwwoowwww.",".wbwwwwwwww.",".wwwkkkkwww.",".wwkwwwwkww.","..wwwwwwww..","....wwww....","............"]},
+  pingZ:{p:{k:"#1E2433",w:"#F4F6FA",o:"#FF9F2E",z:"#BDE8FF"},r:["....kkkk..z.","...kkkkkkz..","..kkwwwwkzz.","..kwwwwwwk..","..kkkoowkk..",".kkwwwwwwkk.","kkkwwwwwwkkk","k.kwwwwwwk.k","..kwwwwwwk..","..kkwwwwkk..","...kkkkkk...","..oo....oo.."]},
   conejo:{p:{w:"#FFFFFF",p:"#FF9FB2",k:"#2B2B33",b:"#8FD8FF"},r:["....w.w.....","....wpwp....","....wpwp....","....wwww....","...wwkwwk...","...wwwpww...","b...wwwww...",".bb.wwwwwww.","b...wwwwwww.",".bb.wwwwwww.","....ww...ww.","............"]},
   caracol:{p:{o:"#8A5A2A",y:"#E8B04A",g:"#8BC34A",k:"#2B2B33"},r:["............","............","....oooo....","...oyyyyo...","..oyoooyyo..","..oyoyoyyo..","k.oyooyyo...",".g.oyyyo....","gg..ooo.....","gggggggggg..","............","............"]}
 });
@@ -626,6 +677,86 @@ function dibAprende(w) {
 }
 const W_ = k => PALABRAS.find(w => w.k === k);
 
+
+/* =====================================================================
+   APRENDE · ESCENA VIVA: el personaje de InglésGamer reacciona a cada palabra
+   ===================================================================== */
+const PJB = ["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."];
+const PJP = { k:"#151518", w:"#F2F4F8", h:"#8A5A33", e:"#3A2414", s:"#F2B98F", m:"#B8704F", M:"#7A1F1F", g:"#5A5A5E", l:"#C4C4C8", q:"#A0A0A5", z:"#0B0B0D", p:"#1A1A1E", f:"#F2F4F8", r:"#FF6B6B", b:"#3FA9F5", R:"#E5483C", W:"#FFFFFF", c:"#BDE8FF" };
+function pjE(estado, size) {
+  const g = PJB.map(r => r.split("")), set = (r, c, k) => { if (g[r] && c >= 0 && c < 12) g[r][c] = k; };
+  let extra = "";
+  if (estado === "frio") { for (let c = 2; c < 10; c++) { set(0, c, c % 2 ? "R" : "W"); set(1, c, "R"); set(2, c, "R"); set(7, c, "b"); } set(8, 2, "b"); set(9, 2, "b"); set(5, 2, "c"); set(5, 9, "c"); set(6, 4, "s"); set(6, 7, "s");
+    extra = '<g class="ali"><rect x="12.5" y="5" width="1" height="1" fill="#fff" opacity=".8"></rect><rect x="13.6" y="4.3" width="1" height="1" fill="#fff" opacity=".6"></rect></g>'; }
+  if (estado === "calor") { set(5, 2, "r"); set(5, 9, "r"); set(6, 4, "M"); set(6, 7, "M");
+    extra = '<g class="got"><rect x="10.3" y="3" width=".9" height="1.3" fill="#6EC6FF"></rect></g><g class="got" style="animation-delay:.5s"><rect x=".8" y="4" width=".9" height="1.3" fill="#6EC6FF"></rect></g>'; }
+  if (estado === "feliz") { set(5, 3, "M"); set(5, 8, "M"); set(6, 4, "M"); set(6, 7, "M"); set(5, 2, "r"); set(5, 9, "r");
+    extra = '<g class="bri"><rect x="-1" y="1" width="1" height="1" fill="#FFC83D"></rect><rect x="12.5" y="2" width="1" height="1" fill="#FFC83D"></rect><rect x="13" y="8" width="1" height="1" fill="#FFC83D"></rect></g>'; }
+  if (estado === "triste") { set(6, 4, "M"); set(6, 7, "M"); set(6, 5, "s"); set(6, 6, "s"); set(5, 5, "M"); set(5, 6, "M");
+    extra = '<g class="got"><rect x="3" y="5.2" width=".8" height="1.2" fill="#6EC6FF"></rect></g>'; }
+  if (estado === "duda") { set(6, 7, "M"); extra = '<text x="12.4" y="2.6" font-size="3.4" font-weight="900" fill="#FFD166" font-family="Nunito">?</text>'; }
+  if (estado === "asombro") extra = '<text x="12.3" y="3" font-size="3.4" font-weight="900" fill="#FFD166" font-family="Nunito">!</text>';
+  if (estado === "cansado") { set(4, 3, "s"); set(4, 4, "e"); set(4, 7, "e"); set(4, 8, "s"); set(6, 5, "M"); set(6, 6, "M"); }
+  let o = ""; g.forEach((r, y) => r.forEach((k, x) => { if (k !== "." && PJP[k]) o += '<rect x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + PJP[k] + '"></rect>'; }));
+  return '<svg width="' + Math.round(size * 12 / 16) + '" height="' + size + '" viewBox="0 0 12 16" shape-rendering="crispEdges" style="overflow:visible" aria-hidden="true">' + o + extra + '</svg>';
+}
+Object.assign(DIB, {
+  fogata:{p:{o:"#FF8A3D",y:"#FFC83D",r:"#E5483C",n:"#8A5A2A",d:"#5E3A16"},r:["......o.....",".....oo.....","....oyo.o...","...oyyoo....","...oyyyoo...","..ryyyyyor..","..royyyyor..","...rooooo...","..nndnndnn..",".nnddnnddnn.","............","............"]},
+  derretido:{p:{w:"#E8F4FF",k:"#2B2B33",o:"#FF8A3D",r:"#E5483C",b:"#9CC8E8"},r:["............","............","............","............","............","............","....kkk.....","...wkwkw....","..rrwowrr...",".wwwwwwwww..","bwwwwwwwwwwb","bbbbbbbbbbbb"]},
+  regalo:{p:{b:"#3FA9F5",d:"#2A78C0",y:"#FFD166"},r:["...yy..yy...","....yyyy....","bbbbbyybbbbb","bbbbbyybbbbb","............",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".ddddyydddd.","............","............"]},
+  regaloA:{p:{b:"#3FA9F5",d:"#2A78C0",y:"#FFD166",s:"#FF4D6D"},r:["..s.....s...",".....s......","..s.y..s....","....yy......","............",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".ddddyydddd.","............","............"]}
+});
+const D_ = (n, s) => dib(n, 12).replace('width="12" height="12"', 'width="' + s + '" height="' + s + '"');
+function objE(n) {
+  if (!n) return "";
+  if (n === "fogata") return '<span class="llama" style="display:block">' + D_("fogata", 110) + '</span>';
+  if (n === "munecoG") return D_("muneco", 150);
+  if (n === "munecoP") return D_("muneco", 44);
+  return D_(n, n === "derretido" ? 90 : 80);
+}
+function pintaEscena(w, estado, objeto, bub) {
+  const E = w.E, izq = E.obj ? "18%" : "50%";
+  return '<div class="escv f-' + E.fondo + '">' + (E.fondo === "sofa" ? '<span class="sofaM"></span><span class="zz" style="left:56%;top:30%">Z</span><span class="zz" style="left:60%;top:26%;animation-delay:.8s">z</span>' : '') +
+    '<span class="pjw' + (estado === "frio" ? " tiembla" : "") + '" id="pjE" style="left:' + izq + ';transform:translateX(' + (E.obj ? "0" : "-50%") + ')">' + pjE(estado, 130) + '</span>' +
+    (objeto ? '<span class="obw" id="obE" style="right:' + (E.obj === "munecoG" ? "6%" : "14%") + '">' + objE(objeto) + '</span>' : '') +
+    '<span class="bub" id="bubE" style="' + (E.obj ? "left:48%" : "left:58%") + '">' + esc(bub) + '</span></div>';
+}
+function aprendeEscena(i, alTerminar) {
+  const w = PALABRAS[i], E = w.E, n = PALABRAS.length; let listo = false;
+  setBarra(i / n * 100); setCC(COLOR);
+  const ops = mezcla([w.k].concat(E.mal));
+  $("v").innerHTML = '<div class="hdr"><span class="chip">APRENDE · ' + w.en.toUpperCase() + '</span><span class="rc">' + (i + 1) + ' / ' + n + '</span></div>' +
+    '<section class="card2" id="card">' + pintaEscena(w, E.pj, E.obj, E.bub) +
+    '<div class="fra"><div class="es">' + esc(E.es) + '</div><div class="en">' + esc(E.en).replace("___", '<span class="slot" id="slE">?</span>') + '</div></div>' +
+    '<div class="ops3">' + ops.map(k => { const x = W_(k); return '<button type="button" class="u" data-k="' + k + '">' + esc(x.en) + '<small>' + esc(x.es) + '</small></button>'; }).join("") + '</div>' +
+    '<div id="sabE"></div><div class="puntos">' + PALABRAS.map((_, k) => '<i class="' + (k <= i ? "on" : "") + '"></i>').join("") + '</div></section>';
+  window.scrollTo(0, 0);
+  document.querySelectorAll(".ops3 .u").forEach(b => b.addEventListener("click", () => {
+    if (listo) return; const k = b.dataset.k, x = W_(k), sl = $("slE"); sl.textContent = x.en; oir(x.audio, x.en);
+    if (k === w.k) {
+      listo = true; sl.className = "slot ok"; b.classList.add("ok"); document.querySelectorAll(".ops3 .u").forEach(y => y !== b && y.classList.add("no")); sonido("ok", i);
+      const frase = E.en.replace("___", w.en);
+      setTimeout(() => voz(frase, .9), 700);
+      setTimeout(() => {
+        const p = $("pjE"); if (p) { p.className = "pjw salta"; p.innerHTML = pjE(E.pjOk, 130); }
+        $("bubE").textContent = E.bubOk;
+        if (E.obj === "regalo") { $("obE").innerHTML = D_("regaloA", 80); const sc = document.querySelector(".escv"); if (!RM) for (let c = 0; c < 26; c++) { const f = document.createElement("i"); f.className = "conf"; f.style.left = Math.random() * 100 + "%"; f.style.background = ["#FFD166", "#FF4D6D", "#7BE3A8", "#8FD8FF"][c % 4]; f.style.animationDelay = Math.random() * .5 + "s"; sc.appendChild(f); } }
+      }, 350);
+      $("sabE").innerHTML = '<div class="sab"><b>' + esc(w.en) + ' = <em>' + esc(w.es) + '</em></b>' +
+        '<button type="button" class="ex2" id="exF">' + ICO_EJ + '<span><b>' + esc(frase) + '</b><span>' + esc(E.es) + '</span></span></button>' +
+        '<button type="button" class="ex2" id="exE">' + ICO_EJ + '<span><b>' + esc(w.ej.replace(/\*/g, "")) + '</b><span>' + esc(w.ejEs) + '</span></span></button>' +
+        '<div class="bts"><button type="button" class="btnG" id="bLen">' + ICO_LENTO + 'Lento</button><button type="button" class="lase" id="bSe" style="margin-top:0;flex:1">¡LA SÉ!</button></div></div>';
+      on("exF", () => voz(frase, .9)); on("exE", () => voz(w.ej.replace(/\*/g, ""), .9)); on("bLen", () => oir(w.audio, w.en, .6));
+      on("bSe", () => { if (i + 1 < n) aprendeEscena(i + 1, alTerminar); else alTerminar(); });
+      setTimeout(() => { const s2 = $("sabE"); if (s2) s2.scrollIntoView({ behavior:RM ? "auto" : "smooth", block:"nearest" }); }, 400);
+    } else {
+      sl.className = "slot mal"; b.classList.add("mal"); sonido("mal");
+      const p = $("pjE"); if (p) { p.className = "pjw"; p.innerHTML = pjE("duda", 130); }
+      $("bubE").textContent = "¿" + x.en.charAt(0).toUpperCase() + x.en.slice(1) + "? No...";
+      setTimeout(() => { if (listo) return; b.classList.remove("mal"); sl.className = "slot"; sl.textContent = "?"; const q = $("pjE"); if (q) { q.className = "pjw" + (E.pj === "frio" ? " tiembla" : ""); q.innerHTML = pjE(E.pj, 130); } $("bubE").textContent = E.bub; }, 1300);
+    }
+  }));
+}
 /* =====================================================================
    Ejercicios tipo Duolingo (para memorizar):
    unir = parejas inglés-español · completa = la frase con 3 opciones
@@ -636,16 +767,16 @@ const PLAN = [
   { t:"completa", k:"cold" },
   { t:"opuesto",  k:"happy" },
   { t:"escribe",  k:"big" },
-  { t:"unir",     ks:["happy", "sad", "fast", "slow"] },
-  { t:"completa", k:"fast" },
-  { t:"ordena",   k:"slow" },
+  { t:"unir",     ks:["happy", "sad", "tired", "hot"] },
+  { t:"completa", k:"tired" },
+  { t:"ordena",   k:"sad" },
   { t:"escribe",  k:"hot" },
   { t:"opuesto",  k:"small" },
   { t:"ordena",   k:"happy" },
-  { t:"escribe",  k:"sad" },
-  { t:"completa", k:"slow" }
+  { t:"escribe",  k:"tired" },
+  { t:"completa", k:"small" }
 ];
-const SUJ = { ping:["penguin", "El pingüino"], taza:["chocolate", "El chocolate"], hielo:["ice", "El hielo"], feliz:["snowman", "El muñeco"], triste:["snowman", "El muñeco"], conejo:["rabbit", "El conejo"], caracol:["snail", "El caracol"] };
+const SUJ = { ping:["penguin", "El pingüino"], pingZ:["penguin", "El pingüino"], taza:["chocolate", "El chocolate"], hielo:["ice", "El hielo"], feliz:["snowman", "El muñeco"], triste:["snowman", "El muñeco"], conejo:["rabbit", "El conejo"], caracol:["snail", "El caracol"] };
 const fraseEn = w => "The " + SUJ[w.d][0] + " is " + w.en;
 let pos, hechas, dudas, racha, vidas, bloq, E, fallo, revisar;
 function pintarVidas() { const e = $("vidas"); if (e) e.setAttribute("aria-label", vidas + " de 3 corazones"); }
@@ -764,10 +895,10 @@ function terminar() {
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
 function irPractica() {
-  pantallaIntro("¡A practicar!", "12 ejercicios cortos: unir parejas, completar frases, escribir, buscar el opuesto y ordenar frases.", "Empezar",
+  pantallaIntro("¡A practicar!", "Ahora 12 ejercicios cortos: unir parejas, completar frases, escribir, buscar el opuesto y ordenar frases.", "Empezar",
     '<span class="par">' + fig(W_("happy"), 70) + fig(W_("sad"), 70) + '</span>', empezar);
 }
-pantallaAprende(0, PALABRAS, dibAprende, irPractica);
+aprendeEscena(0, irPractica);
 
 </script>
 <script type="module">
