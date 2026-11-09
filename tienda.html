@@ -757,11 +757,12 @@ $("ofertas").addEventListener("click", e => {
 });
 
 
-/* ---------- INTRO DE TEMPORADA: sale la primera vez del día que entras a la Tienda (5,5 s, o toca para entrar) ---------- */
+/* ---------- INTRO DE TEMPORADA: sale cada 2 veces que entras a la Tienda (5,5 s, o toca para entrar) ---------- */
 (function () {
   if (!tempActiva()) return;
-  const K = "ig_intro_t" + TEMPORADA.num, hoy = new Date().toDateString();
-  try { if (localStorage.getItem(K) === hoy) return; localStorage.setItem(K, hoy); } catch (e) { return; }
+  /* cada CADA veces que entras a la Tienda (la 1.ª, la 3.ª, la 5.ª…) */
+  const CADA = 2, K = "ig_intro_n" + TEMPORADA.num;
+  try { const n = (+localStorage.getItem(K) || 0) + 1; localStorage.setItem(K, String(n)); if ((n - 1) % CADA !== 0) return; } catch (e) { return; }
   const flip = (n, s) => '<span style="display:block;transform:scaleX(-1)">' + sprite(n, s) + '</span>';
   const ms = finT() - Date.now(), dias = Math.max(1, Math.ceil(ms / 864e5));
   const amb = ALL.find(x => x.cat === "sk" && x.tmp), e = ST.eq;
