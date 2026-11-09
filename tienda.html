@@ -246,6 +246,8 @@ nav a:hover{color:var(--ink)}nav a.on,nav a.on:hover{color:var(--hi)}
 .hb .bar{height:8px;margin-top:6px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}.hb .bar i{display:block;height:100%;width:40%;border-radius:99px;background:#FFC977}
 .hb .go{flex:none;display:inline-flex;align-items:center;height:38px;padding:0 14px;border-radius:99px;background:#FFC977;color:#2A1408;font-weight:900;font-size:14px}
 .ssh{display:flex;justify-content:space-between;align-items:baseline;margin:22px 4px 10px;font-size:20px;font-weight:900}.ssh small{font-size:12px;color:var(--mu)}
+.pbtn{position:absolute;left:16px;bottom:32px;z-index:3;display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:99px;background:#2A1408;color:#FFC977;font-weight:900;font-size:14px;box-shadow:0 3px 0 rgba(0,0,0,.35)}
+.ssn:active{transform:translateY(2px)}
 .solo{position:absolute;left:12px;top:12px;z-index:3;padding:3px 8px;border-radius:99px;background:#E8692A;color:#fff;font-size:9.5px;font-weight:900;letter-spacing:.06em}
 
 /* TU LOOK (diseño D: tarjeta compacta) */
@@ -375,7 +377,7 @@ const CATS = [
   { k:"mc", t:"Marcos", items:[
     {n:"Madera",p:0},{n:"Hierro",p:100},{n:"Oro",p:250},{n:"Esmeralda",p:250},{n:"Fuego",p:400},{n:"Cristal",p:500},{n:"Arcoíris",p:700},{n:"Fósil",p:250,tmp:1} ] },
   { k:"tt", t:"Títulos", items:[
-    {n:"Novato",p:0},{n:"Gamer",p:80},{n:"Cazador de bugs",p:120},{n:"Speaker",p:200},{n:"Maestro Have/Has",p:250},{n:"Rey del A1",p:300},{n:"Leyenda",p:600} ] },
+    {n:"Novato",p:0},{n:"Gamer",p:80},{n:"Cazador de bugs",p:120},{n:"Speaker",p:200},{n:"Maestro Have/Has",p:250},{n:"Rey del A1",p:300},{n:"Leyenda",p:600},{n:"Cazador de dinos",p:300,tmp:1} ] },
   { k:"mp", t:"Mapas", items:[
     {n:"Pradera",p:0,bg:"linear-gradient(#0F1A10,#1E3A22)",g:"#5DB33A"},
     {n:"Noche",p:200,bg:"linear-gradient(#070B1F,#1B1F4A)",g:"#2B3A7A"},
@@ -519,7 +521,7 @@ const DIA = Math.floor((Date.now() - new Date().getTimezoneOffset() * 6e4) / 864
 const TEMPORADA = { nombre:"Jurásica", num:1, fin:"2026-12-01" };
 const finT = () => { const q = TEMPORADA.fin.split("-").map(Number); return new Date(q[0], q[1] - 1, q[2]).getTime(); };
 const tempActiva = () => Date.now() < finT();
-const visible = it => !it.tmp || tempActiva() || owns(it.id);
+const visible = it => !it.tmp || owns(it.id);   /* lo de temporada solo sale en la Tienda si ya lo tienes (se consigue en el Pase) */
 const POOL_OFERTA = ALL.filter(x => x.base >= 100 && !esUnico(x) && !x.tmp);
 const OFERTA = POOL_OFERTA[(DIA * 7) % POOL_OFERTA.length];
 const DESCUENTO = DESCUENTOS[DIA % DESCUENTOS.length] / 100;
@@ -635,15 +637,9 @@ function comprarPack(k) {
 function pintarTemporada() {
   const el = $("temporada"); if (!tempActiva()) { el.innerHTML = ""; return; }
   const ms = finT() - Date.now(), d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5);
-  const its = ALL.filter(x => x.tmp), AU = saldo();
-  el.innerHTML = '<div class="ssn" style="margin-top:14px;padding:18px 16px 16px;height:178px"><i class="vol"></i><i class="chis"></i><i class="suelo"></i><span class="dino dw" style="bottom:20px">' + sprite("av19", 70) + '</span>' +
-    '<div class="in"><span class="tg">TEMPORADA ' + TEMPORADA.num + ' · ' + TEMPORADA.nombre.toUpperCase() + '</span><h3>Llegaron<br>los dinos</h3><span class="cd"><i></i>Termina en ' + (d > 0 ? d + (d === 1 ? " día" : " días") + ' · ' : '') + h + ' h</span></div></div>' +
-    '<div class="ssh">Con el Pase Jurásico <small>Se van en ' + Math.max(1, d) + (d === 1 ? " día" : " días") + '</small></div><div class="grid">' + its.map(it => {
-      const mio = owns(it.id), puesto = ST.eq[it.cat] === it.id, pr = precio(it);
-      const btn = puesto ? '<button class="bn on" type="button" disabled>Equipado</button>' : mio ? '<button class="bn use" type="button" data-id="' + it.id + '">Equipar</button>'
-        : '<button class="bn no" type="button" disabled>Con el Pase</button>';
-      return '<div class="card it' + (puesto ? ' eq' : '') + '" id="t_' + it.id + '"><span class="solo">SOLO TEMPORADA</span><span class="pv">' + (it.cat === "av" ? '<span class="dw" style="display:inline-block">' + prev(it) + '</span>' : prev(it)) + '</span>' + etiqueta(it.base) + '<b class="nm">' + it.n + '</b>' + btn + '</div>';
-    }).join("") + '</div>';
+    el.innerHTML = '<div class="ssn" role="link" tabindex="0" style="margin-top:14px;padding:18px 16px 16px;height:222px;cursor:pointer"><i class="vol"></i><i class="chis"></i><i class="suelo"></i><span class="dino dw" style="bottom:20px">' + sprite("av19", 70) + '</span>' +
+    '<div class="in"><span class="tg">TEMPORADA ' + TEMPORADA.num + ' · ' + TEMPORADA.nombre.toUpperCase() + '</span><h3>Llegaron<br>los dinos</h3><span class="cd"><i></i>Termina en ' + (d > 0 ? d + (d === 1 ? " día" : " días") + ' · ' : '') + h + ' h</span></div>' +
+    '<span class="pbtn">Ver el Pase ›</span></div>';
 }
 function todo() { pintarLook(); pintarTemporada(); pintarOfertas(); pintarPacks(); pintarTabs(); pintarGrid(); }
 
@@ -753,7 +749,7 @@ $("grid").addEventListener("click", e => {
   const b = e.target.closest(".bn[data-id]"); if (!b) return;
   const id = b.dataset.id; owns(id) ? equipar(id) : comprar(id);
 });
-$("temporada").addEventListener("click", e => { const b = e.target.closest(".bn[data-id]"); if (!b) return; const id = b.dataset.id; owns(id) ? equipar(id) : comprar(id); });
+$("temporada").addEventListener("click", e => { if (e.target.closest(".ssn")) { sonido("click"); location.href = igURL("go:pase"); } });
 $("packs").addEventListener("click", e => { const b = e.target.closest("[data-pk]"); if (b) comprarPack(+b.dataset.pk); });
 $("ofertas").addEventListener("click", e => {
   if (e.target.closest("#bOferta")) comprar(OFERTA.id);

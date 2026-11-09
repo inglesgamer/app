@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pase Jurásico · InglésGamer</title>
+<meta name="theme-color" content="#1A0A04">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:#1A0A04;color:#fff;font-family:Nunito,ui-rounded,system-ui,sans-serif}
+body{overflow-x:hidden}
+.app{position:relative;max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;overflow:hidden}
+svg.px{display:block;overflow:visible}
+.hd{position:fixed;left:0;right:0;top:0;z-index:50;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;background:linear-gradient(#1A0A04,rgba(26,10,4,0))}
+.bk{width:42px;height:42px;flex:none;border-radius:50%;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:#fff}
+.hd b{flex:1;font-size:13px;font-weight:900;letter-spacing:.14em;color:#FFC977}
+.au{display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 12px;border-radius:99px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);color:#FFC83D;font-weight:900}
+.au.pulso{animation:pop .5s ease}@keyframes pop{40%{transform:scale(1.18)}}
+.tit{font-size:34px;font-weight:900;line-height:.98;background:linear-gradient(#FFE07A,#FF8A3D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:2px #2A1408;paint-order:stroke fill;filter:drop-shadow(0 5px 0 #2A1408)}
+.cd{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:99px;background:rgba(0,0,0,.5);font-size:12.5px;font-weight:900}.cd i{width:8px;height:8px;border-radius:50%;background:#FF4B4B;box-shadow:0 0 8px #FF4B4B;animation:tit .8s infinite alternate}@keyframes tit{from{opacity:.35}}
+.rar{display:inline-block;padding:2px 8px;border-radius:99px;font-size:9.5px;font-weight:900;letter-spacing:.1em}
+.leg{background:#FFC83D;color:#2A1408}.epi{background:#B58CFF;color:#1A0A33}.rr{background:#7CC8FF;color:#06223A}.esp{background:#FF8A3D;color:#2A1408}.aur{background:#FFE07A;color:#2A1408}
+/* ===== CARTAS ===== */
+#vCartas{position:relative;min-height:100vh;min-height:100dvh;background:radial-gradient(ellipse at 50% 38%,#4A1E0A,#1A0A04 70%)}
+.ray{position:absolute;left:50%;top:44%;width:900px;height:900px;margin:-450px 0 0 -450px;background:repeating-conic-gradient(rgba(255,180,80,.12) 0 8deg,transparent 8deg 20deg);-webkit-mask:radial-gradient(circle,#000 10%,transparent 55%);mask:radial-gradient(circle,#000 10%,transparent 55%);animation:gira 40s linear infinite;pointer-events:none}@keyframes gira{to{transform:rotate(360deg)}}
+.tt{position:relative;z-index:5;padding:calc(76px + env(safe-area-inset-top)) 16px 0;text-align:center}
+.tt .cd{margin-top:10px}
+.fan{position:relative;z-index:5;height:370px;margin-top:18px;touch-action:pan-y;user-select:none}
+.cardx{position:absolute;left:50%;top:6px;width:214px;height:318px;margin-left:-107px;border-radius:24px;padding:12px;background:linear-gradient(#2A1A10,#120804);border:3px solid #6B4A2A;box-shadow:0 14px 30px rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;transform-origin:50% 140%;transition:transform .45s cubic-bezier(.3,1.3,.5,1),opacity .3s,box-shadow .3s,border-color .3s;cursor:pointer}
+.cardx .art{position:relative;width:100%;height:178px;border-radius:16px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px;overflow:hidden;background:linear-gradient(#E8692A,#FFC977 70%,#5E8F35 70%)}
+.cardx .art .shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 60%);transform:translateX(-120%)}
+.cardx.on .art .shine{animation:brillo 2.6s ease-in-out 1s infinite}@keyframes brillo{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.cardx b{font-size:22px;font-weight:900;margin-top:10px;text-align:center;line-height:1.05}
+.cardx .ds{font-size:12px;color:#C9A57A;font-weight:800;text-align:center;margin-top:6px}
+.cardx .nv{position:absolute;top:-10px;right:-8px;padding:4px 9px;border-radius:99px;background:#2A1408;border:2px solid #FFC977;color:#FFC977;font-size:11px;font-weight:900}
+.cardx.on{border-color:#FFC83D;box-shadow:0 0 0 3px rgba(255,200,61,.3),0 0 50px rgba(255,200,61,.45),0 20px 40px rgba(0,0,0,.6)}
+.cardx.on.L{border-color:#FFC83D}
+.dots{position:relative;z-index:5;display:flex;justify-content:center;gap:6px}.dots i{width:8px;height:8px;border-radius:9px;background:rgba(255,255,255,.3);transition:width .3s}.dots i.on{width:22px;background:#FFC83D}
+.mini{position:relative;z-index:5;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:14px 16px 0}
+.mini button{width:46px;height:46px;border-radius:14px;background:#1E1208;border:2px solid #3A2A1A;display:flex;align-items:center;justify-content:center;padding:0;color:#FFC83D;font:900 9px Nunito,sans-serif}.mini button.on{border-color:#FFC83D}
+.cmo{position:relative;z-index:5;margin:18px 16px 0;padding:12px 14px;border-radius:18px;background:rgba(0,0,0,.35);border:1px solid rgba(255,201,119,.25);font-size:13px;font-weight:800;color:#E8C9A0;line-height:1.4}
+.cmo b{color:#FFC83D}
+.esp_{height:130px}
+.buy{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));z-index:60;width:calc(100% - 28px);max-width:492px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;padding:10px 10px 10px 16px;border-radius:24px;background:#140A04;border:2px solid #FFC83D;box-shadow:0 0 30px rgba(255,200,61,.35);cursor:pointer}
+.buy .t{flex:1;min-width:0}.buy small{display:block;font-size:11px;font-weight:800;color:#C9A57A}.buy small s{opacity:.7}.buy b{display:block;font-size:17px;font-weight:900}
+.buy .bt{flex:none;display:inline-flex;align-items:center;gap:6px;height:50px;padding:0 18px;border-radius:99px;background:linear-gradient(#FFE07A,#FFB13D);color:#2A1408;font-weight:900;font-size:17px;box-shadow:0 4px 0 #A0661A}
+.buy:active .bt{transform:translateY(2px);box-shadow:0 2px 0 #A0661A}
+.buy.no .bt{background:#3A2A1A;color:#C9A57A;box-shadow:none}
+.buy.sac{animation:sac .4s}@keyframes sac{20%,60%{transform:translateX(calc(-50% - 6px))}40%,80%{transform:translateX(calc(-50% + 6px))}}
+/* ===== MAPA ===== */
+#vMapa{position:relative;min-height:100vh}
+.mhero{position:relative;height:250px;padding:calc(72px + env(safe-area-inset-top)) 18px 0;background:linear-gradient(#E8692A,#FFB35C 75%);overflow:hidden}
+.mhero .mont{position:absolute;left:0;right:0;bottom:24px;height:90px;background:#8A3A1C;clip-path:polygon(0 100%,0 60%,14% 30%,26% 55%,40% 10%,46% 18%,52% 6%,66% 50%,80% 26%,100% 58%,100% 100%)}
+.mhero .gr{position:absolute;left:0;right:0;bottom:0;height:26px;background:#5E8F35}
+.mhero .in{position:relative;z-index:3}.mhero .tg{display:inline-block;padding:4px 10px;border-radius:99px;background:#2A1408;color:#FFC977;font-size:10.5px;font-weight:900;letter-spacing:.14em}
+.mhero .tit{margin:6px 0 8px;font-size:30px;background:none;-webkit-text-fill-color:#2A1408;-webkit-text-stroke:0;filter:none}
+.mhero .rx{position:absolute;right:12px;bottom:20px;z-index:3;animation:trote 1.2s ease-in-out infinite}@keyframes trote{50%{transform:translateY(-4px)}}
+.prog{display:flex;align-items:center;gap:12px;margin:14px 16px 0;padding:12px 14px;border-radius:18px;background:#24140A;border:1px solid #4A3218}
+.prog .tx{flex:1}.prog b{font-size:15px}.prog small{display:block;font-size:12px;color:#C9A57A;font-weight:800}
+.prog .bar{height:10px;margin-top:7px;border-radius:99px;background:#3A2A1A;overflow:hidden}.prog .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#FFB13D,#FFE07A);transition:width .6s}
+.mapa{position:relative;margin-top:8px;padding-bottom:120px;background:linear-gradient(#1A0A04,#0E2A14 18%,#123A1C 60%,#1E1206)}
+.mapa svg.ln{position:absolute;left:0;top:0;width:100%;pointer-events:none}
+.st{position:absolute;width:118px;margin-left:-59px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;color:#fff;text-decoration:none}
+.st .nd{position:relative;width:84px;height:84px;border-radius:26px;background:#1E1208;border:3px solid #4A3218;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 0 #0A0502}
+.st .n{position:absolute;top:-11px;left:-10px;width:28px;height:28px;border-radius:50%;background:#2A1408;border:2px solid #FFC977;color:#FFC977;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.st small{font-size:12px;font-weight:900;line-height:1.15}.st em{font-style:normal;font-size:10.5px;font-weight:800;color:#C9A57A}
+.st.ok .nd{border-color:#5DB33A}.st.ok .nd:after{content:"✓";position:absolute;bottom:-9px;right:-9px;width:26px;height:26px;border-radius:50%;background:#5DB33A;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.st.ya .nd{border-color:#FFC83D;box-shadow:0 6px 0 #0A0502,0 0 0 6px rgba(255,200,61,.18),0 0 30px rgba(255,200,61,.5);animation:lat 1.4s ease-in-out infinite}@keyframes lat{50%{transform:scale(1.06)}}
+.st.ya .aqui{position:absolute;top:-34px;padding:4px 10px;border-radius:99px;background:#FFC83D;color:#2A1408;font-size:11px;font-weight:900;white-space:nowrap}
+.st.lk{opacity:.55}.st.lk .nd:before{content:"";position:absolute;inset:0;border-radius:23px;background:rgba(0,0,0,.35)}
+.st.boss .nd{width:112px;height:112px;border-radius:32px}
+.deco{position:absolute;opacity:.9;pointer-events:none}
+.fin{position:absolute;left:0;right:0;text-align:center;font-size:13px;font-weight:800;color:#C9A57A}
+/* ventanas */
+.mo{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.7);animation:fade .2s}@keyframes fade{from{opacity:0}}
+.mb{width:100%;max-width:340px;padding:22px 18px 16px;border-radius:28px;background:#24140A;border:2px solid #FFC83D;text-align:center;animation:sube .35s cubic-bezier(.3,1.4,.5,1)}@keyframes sube{from{transform:translateY(30px) scale(.9);opacity:0}}
+.mb .pv{height:110px;display:flex;align-items:center;justify-content:center}
+.mb h3{font-size:24px;font-weight:900;margin-top:6px}.mb p{color:#E8C9A0;font-weight:800;font-size:14px;margin-top:6px;line-height:1.4}
+.mb .bn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:50px;margin-top:12px;border:0;border-radius:99px;font:900 16px Nunito,sans-serif;cursor:pointer}
+.mb .si{background:linear-gradient(#FFE07A,#FFB13D);color:#2A1408;box-shadow:0 4px 0 #A0661A}.mb .no{background:transparent;color:#C9A57A}
+.conf{position:fixed;inset:0;z-index:120;pointer-events:none}.conf i{position:absolute;width:9px;height:13px}
+.toast{position:fixed;left:50%;bottom:110px;z-index:130;transform:translateX(-50%);padding:10px 16px;border-radius:99px;background:#fff;color:#000;font-weight:900;font-size:14px;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hd"><a class="bk" href="go:tienda" aria-label="Volver a la Tienda"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></a><b>PASE JURÁSICO</b><span class="au" id="au"></span></header>
+  <section id="vCartas" hidden></section>
+  <section id="vMapa" hidden></section>
+</div>
+<div class="toast" id="toast" hidden></div>
+<script>
+/* ================== DATOS QUE PUEDES CAMBIAR ================== */
+const TEMPORADA = { num:1, nombre:"Jurásica", fin:"2026-12-01" };   // mismo dato que en la Tienda
+const PRECIO_PASE = 800;
+/* Los 10 niveles del camino. url = la sección del nivel en App Creator. id = el id con que el nivel guarda sus estrellas.
+   premio: {aura:n} o {item:"id de la Tienda"} */
+const CAMINO = [
+  { id:"jur1",  t:"Huevos y huesos",     url:"go:jur1",  premio:{ aura:100 } },
+  { id:"jur2",  t:"Big and small",       url:"go:jur2",  premio:{ item:"mc7" } },
+  { id:"jur3",  t:"Colores de dinos",    url:"go:jur3",  premio:{ aura:100 } },
+  { id:"jur4",  t:"Run, fly, swim",      url:"go:jur4",  premio:{ item:"sk8" } },
+  { id:"jur5",  t:"El volcán",           url:"go:jur5",  premio:{ item:"tt7" } },
+  { id:"jur6",  t:"It has…",             url:"go:jur6",  premio:{ aura:150 } },
+  { id:"jur7",  t:"La selva",            url:"go:jur7",  premio:{ item:"mp7" } },
+  { id:"jur8",  t:"Three horns",         url:"go:jur8",  premio:{ item:"av19" } },
+  { id:"jur9",  t:"Extinct",             url:"go:jur9",  premio:{ aura:200 } },
+  { id:"jur10", t:"Jefe: el Raptor",     url:"go:jur10", premio:{ item:"av18" } }
+];
+/* ============================================================== */
+const K_PASE = "ingles_gamer_pase", K_AURA = "ingles_gamer_aura", K_TIENDA = "ingles_gamer_tienda", K_REP = "ingles_gamer_a1_repaso", K_SON = "ingles_gamer_sonido";
+const $ = id => document.getElementById(id);
+const lee = (k, d) => { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } };
+const guarda = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const SPR = {
+av18:{"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
+av19:{"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]},
+av10:{"p": {"r": "#E8343B", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#6B3A1E", "m": "#B5574A", "w": "#F2F4F8", "b": "#2F5BD6", "l": "#3A3A42", "y": "#FFC83D"}, "r": ["....rrrr....", "..rrrrrrrr.r", "..rrrrrrrrr.", "..ssssssss..", "..skssskkk..", "..ssssssss..", "..hhsmmshh..", "...hhhhhh...", "..wbwbwbwb..", ".swbwbwbwbs.", "..lll..lll..", "..kkk..kkk.."]},av11:{"p": {"w": "#F2F4F8", "c": "#3FA9F5", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#FF4D4D", "b": "#2F5BD6", "g": "#8C8C96"}, "r": ["...wwwwww...", "..wwwwwwww..", ".wwccccccww.", ".wcskssksccw", ".wcssmmsscw.", ".wwccccccww.", "..wwwwwwww..", ".wwwrwwbwww.", "w.wwwwwwww.w", "..wwwwwwww..", "..ww....ww..", "..gg....gg.."]},av12:{"p": {"y": "#FFC83D", "g": "#A0AAB8", "d": "#5A6270", "r": "#FF4D4D", "b": "#3F7FD8", "c": "#3FD8C8"}, "r": [".....yy.....", ".....gg.....", "..gggggggg..", "..gddddddg..", "..gdyddydg..", "..gddddddg..", "..gdrrrrdg..", "...gggggg...", ".bbbbbbbbbb.", "g.bbbccbbb.g", "..bbbbbbbb..", "..gg....gg.."]},av13:{"p": {"h": "#8B5A2B", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#E8343B", "p": "#E07A3A", "j": "#3F6FB5", "b": "#5E3E22"}, "r": ["...hhhhhh...", "...hhhhhh...", "hhhhhhhhhhhh", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..rrrrrrrr..", ".spppppppps.", "..jjjjjjjj..", "..jjj..jjj..", "..bbb..bbb.."]},av14:{"p": {"w": "#F2F4F8", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#3A2414", "m": "#B5574A", "r": "#E8343B", "l": "#3A3A42"}, "r": ["...wwwwww...", "..wwwwwwww..", "..wwwwwwww..", "...wwwwww...", "..ssssssss..", "..skssssks..", "..sshhhhss..", "...ssmmss...", ".swwwwwwwws.", "..wwrrwwww..", "..lll..lll..", "..kkk..kkk.."]},av15:{"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},av16:{"p": {"k": "#1A1A22", "p": "#E6E1F0", "r": "#E8343B", "w": "#FFFFFF", "c": "#8E1B2B"}, "r": ["...kkkkkk...", "..kkkkkkkk..", "..kppppppk..", "..prpppprp..", "..pppppppp..", "...pwppwp...", "cc.kkkkkk.cc", "cckkwwwwkkcc", "cckkkkkkkkcc", "c.kkkkkkkk.c", "..kk....kk..", "..kk....kk.."]},av17:{"p": {"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"}, "r": ["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]},
+  cofre:{p:{b:"#8B5A2B",y:"#FFC83D",k:"#5E3E22"},r:["bbbbbbbb","bkkkkkkb","bbbbbbbb","yyyyyyyy","bbbyybbb","bkkyykkb","bkkkkkkb","bbbbbbbb"]},
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},
+    r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},
+    r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},
+    r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},
+    r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},
+    r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},
+    r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},
+    r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},
+    r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},
+    r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+  av9:{p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},
+    r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]}
+};
+function sprite(n, size, st) {
+  const d = SPR[n]; if (!d) return "";
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg class="px" width="' + Math.round(size * w / h) + '" height="' + size + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true"' + (st ? ' style="' + st + '"' : '') + '>';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + d.p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+const LLAMA = s => sprite("llama", s);
+const AMBAR = "sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05)";
+const miAv = () => { const t = lee(K_TIENDA, {}) || {}; return (t.eq && SPR[t.eq.av]) ? t.eq.av : "av0"; };
+const FOSIL = (s, av) => '<span style="display:inline-flex;align-items:flex-end;justify-content:center;width:' + s + 'px;height:' + s + 'px;border-radius:50%;border:' + Math.max(3, Math.round(s / 14)) + 'px dashed #C9BFA0;background:#2A2018;overflow:hidden">' + sprite(av || miAv(), Math.round(s * .55)) + '</span>';
+const FONDO = (w, h) => '<span style="display:block;width:' + w + 'px;height:' + h + 'px;border-radius:12px;background:linear-gradient(#E8692A,#FFC977);border-bottom:' + Math.round(h / 5) + 'px solid #5E8F35;position:relative;overflow:hidden"><span style="position:absolute;left:8%;bottom:0;width:60%;height:70%;background:#7A3A20;clip-path:polygon(4% 100%,26% 22%,32% 30%,38% 20%,62% 100%)"></span></span>';
+/* cómo se ve cada premio */
+const ITEM = {
+  av18:{ n:"Raptor", r:["LEGENDARIO","leg"], v:s => sprite("av18", s) },
+  av19:{ n:"Triceratops", r:["ÉPICO","epi"], v:s => sprite("av19", s) },
+  sk8: { n:"Skin Ámbar", r:["ÉPICO","epi"], v:s => sprite(miAv(), s, "filter:" + AMBAR) },
+  mc7: { n:"Marco Fósil", r:["RARO","rr"], v:s => FOSIL(s) },
+  tt7: { n:"Cazador de dinos", r:["TÍTULO","esp"], v:s => '<b style="display:block;font-size:' + Math.round(s / 4.4) + 'px;line-height:1.05;color:#FFC83D;text-align:center">Cazador<br>de dinos</b>' },
+  mp7: { n:"Fondo Jurásico", r:["FONDO","rr"], v:s => FONDO(Math.round(s * 1.3), Math.round(s * .85)) }
+};
+const premioVer = (p, s) => p.aura ? '<span style="display:flex;flex-direction:column;align-items:center">' + LLAMA(Math.round(s * .55)) + '<b style="color:#FFC83D;font-size:' + Math.round(s / 4.2) + 'px">+' + p.aura + '</b></span>' : ITEM[p.item].v(s);
+const premioNom = p => p.aura ? p.aura + " de Aura" : ITEM[p.item].n;
+
+/* ---------- Aura (igual que la Tienda) ---------- */
+function leerAura() { const a = Object.assign({ t:0, r:0, e:0, g:{}, l:[] }, lee(K_AURA, {}) || {}); a.t = Math.max(0, +a.t || 0); if (!Array.isArray(a.l)) a.l = []; return a; }
+function moverAura(n, motivo) { const a = leerAura(); a.t = Math.max(0, a.t + n); if (n > 0) a.e = (+a.e || 0) + n; a.l.unshift([n, motivo, Date.now()]); a.l = a.l.slice(0, 30); guarda(K_AURA, a); return a.t; }
+const saldo = () => leerAura().t;
+function pintarAura(p) { $("au").innerHTML = LLAMA(16) + saldo(); if (p) { $("au").classList.remove("pulso"); void $("au").offsetWidth; $("au").classList.add("pulso"); } }
+
+/* ---------- sonidos (WebAudio, se apagan con el botón de sonido de la app) ---------- */
+let AC = null; const SON = () => { try { return localStorage.getItem(K_SON) !== "0"; } catch (e) { return true; } };
+function tono(f, t0, d, vol, tipo) { if (!SON()) return; try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + t0; o.type = tipo || "sine"; o.frequency.setValueAtTime(f, t); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol || .1, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + .05); } catch (e) {} }
+const S = { tap:() => tono(520, 0, .07, .06), mal:() => { tono(330, 0, .16, .08, "triangle"); tono(262, .13, .28, .08, "triangle"); }, premio:() => [523.25, 659.25, 783.99, 1046.5, 1318.5, 1568].forEach((f, k) => tono(f, k * .09, .45, .08)) };
+
+/* ---------- estado del pase ---------- */
+const finT = () => { const q = TEMPORADA.fin.split("-").map(Number); return new Date(q[0], q[1] - 1, q[2]).getTime(); };
+const activa = () => Date.now() < finT();
+const pase = () => { const p = lee(K_PASE, {}) || {}; const t = p["t" + TEMPORADA.num] || null; if (t && !Array.isArray(t.cob)) t.cob = []; return t; };
+function guardarPase(t) { const p = lee(K_PASE, {}) || {}; p["t" + TEMPORADA.num] = t; guarda(K_PASE, p); }
+const hecho = id => { const r = lee(K_REP, {}) || {}; return (+((r.est || {})[id]) || 0) > 0; };
+function darItem(id) { const t = lee(K_TIENDA, {}) || {}; if (!Array.isArray(t.own)) t.own = []; if (t.own.indexOf(id) < 0) t.own.push(id); if (!t.eq) t.eq = {}; guarda(K_TIENDA, t); }
+
+/* ---------- ventanas, aviso y confeti ---------- */
+function ventana(h) { const o = document.createElement("div"); o.className = "mo"; o.innerHTML = '<div class="mb">' + h + '</div>'; document.body.appendChild(o); const c = () => o.remove(); o.addEventListener("click", e => { if (e.target === o) c(); }); return { q:s => o.querySelector(s), cerrar:c, set:h2 => { o.firstChild.innerHTML = h2; } }; }
+let tT; function aviso(m) { const t = $("toast"); t.textContent = m; t.hidden = false; clearTimeout(tT); tT = setTimeout(() => { t.hidden = true; }, 2400); }
+function confeti() { if (matchMedia("(prefers-reduced-motion:reduce)").matches) return; const c = document.createElement("div"); c.className = "conf"; document.body.appendChild(c); const cols = ["#FFC83D", "#FF8A3D", "#5DB33A", "#3FB58A", "#B58CFF", "#FFE07A"];
+  for (let k = 0; k < 50; k++) { const p = document.createElement("i"); p.style.background = cols[k % 6]; p.style.left = "50%"; p.style.top = "45%"; c.appendChild(p); const a = Math.random() * 6.283, d = 120 + Math.random() * 220; p.animate([{ transform:"translate(0,0) rotate(0)", opacity:1 }, { transform:"translate(" + Math.cos(a) * d + "px," + (Math.sin(a) * d + 160) + "px) rotate(" + Math.random() * 720 + "deg)", opacity:0 }], { duration:900 + Math.random() * 700, easing:"cubic-bezier(.2,.8,.4,1)", fill:"forwards" }); }
+  setTimeout(() => c.remove(), 1800); }
+const diasQuedan = () => Math.max(0, Math.ceil((finT() - Date.now()) / 864e5));
+
+/* =================== VISTA 1: CARTAS (antes de comprar) =================== */
+const CARTAS = [
+  { p:{ item:"sk8" }, nv:4, ds:"Tu personaje color ámbar" },
+  { p:{ item:"av19" }, nv:8, ds:"Personaje de temporada" },
+  { p:{ item:"av18" }, nv:10, ds:"El premio del jefe final", L:1 },
+  { p:{ item:"mc7" }, nv:2, ds:"Marco de piedra antigua" },
+  { p:{ item:"tt7" }, nv:5, ds:"Título para tu perfil" },
+  { p:{ item:"mp7" }, nv:7, ds:"Volcanes y chispas" },
+  { p:{ aura:550 }, nv:"1·3·6·9", ds:"Recuperas Aura jugando" }
+];
+let ci = 2;
+function pintarCartas() {
+  const v = $("vCartas"), d = diasQuedan(), AU = saldo(), puede = AU >= PRECIO_PASE;
+  if (!v.dataset.ok) {
+    v.dataset.ok = 1;
+    v.innerHTML = '<i class="ray"></i><div class="tt"><div class="tit">TU COLECCIÓN<br>JURÁSICA</div><span class="cd"><i></i>' + (d ? 'Termina en ' + d + (d === 1 ? ' día' : ' días') : 'Temporada terminada') + '</span></div>' +
+      '<div class="fan" id="fan">' + CARTAS.map((c, i) => { const it = c.p.item ? ITEM[c.p.item] : null, r = it ? it.r : ["AURA", "aur"];
+        return '<div class="cardx' + (c.L ? ' L' : '') + '" data-i="' + i + '"><span class="nv">Nivel ' + c.nv + '</span><div class="art"' + (c.L ? ' style="background:linear-gradient(#5A2A8A,#C58CFF 70%,#3E6B22 70%)"' : '') + '>' + premioVer(c.p, c.L ? 130 : 96) + '<i class="shine"></i></div><b>' + (it ? it.n : "550 de Aura") + '</b><span class="rar ' + r[1] + '" style="margin-top:6px">' + r[0] + '</span><span class="ds">' + c.ds + '</span></div>'; }).join("") + '</div>' +
+      '<div class="dots" id="dots">' + CARTAS.map(() => '<i></i>').join("") + '</div>' +
+      '<div class="mini" id="mini">' + CARTAS.map((c, i) => '<button type="button" data-i="' + i + '" aria-label="Ver carta ' + (i + 1) + '">' + (c.p.item === "tt7" ? 'TÍTULO' : c.p.aura ? LLAMA(22) : premioVer(c.p, c.p.item === "mp7" ? 24 : 30)) + '</button>').join("") + '</div>' +
+      '<div class="cmo">Con el pase se abre el <b>Camino Jurásico</b>: 10 niveles de inglés con dinosaurios. Cada nivel que pasas te da uno de estos premios, y el <b>Raptor</b> es el jefe final.</div><div class="esp_"></div>' +
+      '<div class="buy" id="buy"><div class="t"><small>Todo esto vale <s>2450</s></small><b>Comprar el pase</b></div><span class="bt">' + LLAMA(18) + PRECIO_PASE + '</span></div>';
+    const fan = $("fan"); let x0 = null, mov = false;
+    fan.addEventListener("pointerdown", e => { x0 = e.clientX; mov = false; });
+    fan.addEventListener("pointermove", e => { if (x0 != null && Math.abs(e.clientX - x0) > 12) mov = true; });
+    fan.addEventListener("pointerup", e => { if (x0 == null) return; const dx = e.clientX - x0; x0 = null;
+      if (mov && Math.abs(dx) > 40) { ir(ci + (dx < 0 ? 1 : -1)); return; }
+      const c = e.target.closest(".cardx"); if (c) ir(+c.dataset.i); });
+    fan.addEventListener("pointercancel", () => { x0 = null; });
+    $("mini").addEventListener("click", e => { const b = e.target.closest("button"); if (b) ir(+b.dataset.i); });
+    $("buy").addEventListener("click", comprar);
+  }
+  $("buy").classList.toggle("no", !puede || !activa());
+  if (!activa()) $("buy").querySelector("b").textContent = "La temporada terminó";
+  colocar();
+}
+function ir(i) { const n = Math.max(0, Math.min(CARTAS.length - 1, i)); if (n !== ci) S.tap(); ci = n; colocar(); }
+function colocar() {
+  document.querySelectorAll("#fan .cardx").forEach(c => { const o = +c.dataset.i - ci, a = Math.abs(o);
+    c.classList.toggle("on", o === 0); c.style.zIndex = 10 - a; c.style.opacity = a > 2 ? 0 : a === 2 ? .7 : a === 1 ? .9 : 1; c.style.pointerEvents = a > 2 ? "none" : "auto";
+    c.style.transform = 'rotate(' + o * 11 + 'deg) translateX(' + o * 30 + 'px) scale(' + (1 - a * .09) + ')'; });
+  document.querySelectorAll("#dots i").forEach((d, i) => d.classList.toggle("on", i === ci));
+  document.querySelectorAll("#mini button").forEach((b, i) => b.classList.toggle("on", i === ci));
+}
+function comprar() {
+  if (pase()) return mostrar();
+  if (!activa()) { S.mal(); aviso("La temporada ya terminó"); return; }
+  if (saldo() < PRECIO_PASE) { S.mal(); aviso("Te faltan " + (PRECIO_PASE - saldo()) + " de Aura"); const b = $("buy"); b.classList.remove("sac"); void b.offsetWidth; b.classList.add("sac"); return; }
+  S.tap();
+  const v = ventana('<div class="pv">' + sprite("av18", 96) + '</div><h3>Pase Jurásico</h3><p>Cuesta ' + PRECIO_PASE + ' de Aura. Te quedarían ' + (saldo() - PRECIO_PASE) + '.<br>Se abre el Camino Jurásico con 10 niveles y sus premios.</p><button class="bn si" id="vOk" type="button">' + LLAMA(18) + 'Comprar por ' + PRECIO_PASE + '</button><button class="bn no" id="vNo" type="button">Ahora no</button>');
+  v.q("#vNo").onclick = v.cerrar;
+  v.q("#vOk").onclick = () => {
+    if (pase() || saldo() < PRECIO_PASE) { v.cerrar(); return; }
+    moverAura(-PRECIO_PASE, "Pase Jurásico");
+    guardarPase({ c:Date.now(), cob:[] }); S.premio(); confeti(); pintarAura(true);
+    v.set('<div class="pv">' + sprite("av15", 100, "transform:scaleX(-1)") + '</div><h3>¡Pase activado!</h3><p>El Camino Jurásico ya está abierto. Pasa los niveles para ganar tus premios.</p><button class="bn si" id="vGo" type="button">Ir al camino</button>');
+    v.q("#vGo").onclick = () => { v.cerrar(); mostrar(); };
+  };
+}
+
+/* =================== VISTA 2: MAPA (con el pase) =================== */
+const XS = [50, 74, 50, 26, 50, 74, 50, 26, 50, 50];
+function pintarMapa() {
+  const t = pase(), v = $("vMapa"), d = diasQuedan();
+  const hechos = CAMINO.filter(c => hecho(c.id)).length, sig = CAMINO.findIndex(c => !hecho(c.id));
+  const W = Math.min(innerWidth, 520), GAP = 150, TOP = 40, H = TOP + CAMINO.length * GAP + 40;
+  const pts = CAMINO.map((c, i) => [W * XS[i] / 100, TOP + i * GAP + 42]);
+  let path = "M" + pts[0].join(" "); for (let i = 1; i < pts.length; i++) { const a = pts[i - 1], b = pts[i], my = (a[1] + b[1]) / 2; path += " C" + a[0] + " " + my + " " + b[0] + " " + my + " " + b[0] + " " + b[1]; }
+  const hastaY = sig < 0 ? H : pts[sig][1];
+  const deco = [["av15", 60, 8, 260, 1], ["av19", 46, 80, 560, 0], ["av18", 44, 6, 860, 1], ["av15", 52, 82, 1160, 0]].map(x => '<span class="deco" style="left:' + x[2] + '%;top:' + x[3] + 'px;opacity:.35">' + sprite(x[0], x[1], x[4] ? "transform:scaleX(-1)" : "") + '</span>').join("");
+  v.innerHTML = '<div class="mhero"><i class="mont"></i><i class="gr"></i><div class="in"><span class="tg">TEMPORADA ' + TEMPORADA.num + ' · PASE ACTIVO</span><div class="tit">CAMINO<br>JURÁSICO</div><span class="cd"><i></i>' + (d ? 'Quedan ' + d + (d === 1 ? ' día' : ' días') : 'Temporada terminada') + '</span></div><span class="rx">' + sprite("av15", 96, "transform:scaleX(-1)") + '</span></div>' +
+    '<div class="prog"><span>' + sprite("av18", 40) + '</span><div class="tx"><b>' + hechos + ' de ' + CAMINO.length + ' niveles</b><small>' + (sig < 0 ? '¡Completaste el camino!' : 'Siguiente premio: ' + premioNom(CAMINO[sig].premio)) + '</small><div class="bar"><i style="width:' + Math.round(hechos / CAMINO.length * 100) + '%"></i></div></div></div>' +
+    '<div class="mapa" style="height:' + (H + 120) + 'px">' + deco +
+    '<svg class="ln" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '"><path d="' + path + '" stroke="#3A2A1A" stroke-width="10" stroke-linecap="round" fill="none"/><path d="' + path + '" stroke="#FFC83D" stroke-width="10" stroke-linecap="round" fill="none" style="clip-path:inset(0 0 ' + Math.max(0, H - hastaY) + 'px 0)"/><path d="' + path + '" stroke="#5A3A1A" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round" fill="none"/></svg>' +
+    CAMINO.map((c, i) => { const ok = hecho(c.id), ya = i === sig, boss = i === CAMINO.length - 1, cls = ok ? "ok" : ya ? "ya" : "lk";
+      return '<a class="st ' + cls + (boss ? ' boss' : '') + '" href="' + (ok || ya ? c.url : '#') + '" data-i="' + i + '" style="left:' + XS[i] + '%;top:' + (TOP + i * GAP) + 'px">' + (ya ? '<span class="aqui">¡AQUÍ!</span>' : '') +
+        '<div class="nd"><span class="n">' + (i + 1) + '</span>' + premioVer(c.premio, boss ? 80 : 50) + '</div><small>' + c.t + '</small><em>' + premioNom(c.premio) + '</em></a>'; }).join("") +
+    '<p class="fin" style="top:' + (H + 10) + 'px">Cada nivel solo se abre cuando pasas el anterior.</p></div>';
+  v.querySelectorAll(".st.lk").forEach(a => a.addEventListener("click", e => { e.preventDefault(); S.mal(); aviso("Primero pasa el nivel " + (+a.dataset.i)); }));
+  reclamar(t);
+}
+/* entrega los premios de los niveles que ya pasaste y aún no cobraste (uno por uno) */
+function reclamar(t) {
+  const i = CAMINO.findIndex(c => hecho(c.id) && t.cob.indexOf(c.id) < 0); if (i < 0) return;
+  const c = CAMINO[i], p = c.premio;
+  t.cob.push(c.id); guardarPase(t);
+  if (p.aura) { moverAura(p.aura, "Pase Jurásico: nivel " + (i + 1)); pintarAura(true); } else darItem(p.item);
+  S.premio(); confeti();
+  const v = ventana('<span class="rar ' + (p.aura ? 'aur' : ITEM[p.item].r[1]) + '">NIVEL ' + (i + 1) + ' COMPLETADO</span><div class="pv">' + premioVer(p, 96) + '</div><h3>¡' + premioNom(p) + '!</h3><p>' + (p.aura ? 'Se sumó a tu Aura.' : 'Ya es tuyo. Equípalo en la Tienda o en tu Perfil.') + '</p><button class="bn si" id="vOk" type="button">¡Genial!</button>');
+  v.q("#vOk").onclick = () => { v.cerrar(); reclamar(pase()); };
+}
+
+/* =================== cuál vista se muestra =================== */
+function mostrar() {
+  pintarAura();
+  const t = pase();
+  $("vCartas").hidden = !!t; $("vMapa").hidden = !t;
+  if (t) pintarMapa(); else pintarCartas();
+  scrollTo(0, 0);
+}
+mostrar();
+window.addEventListener("pageshow", e => { if (e.persisted) mostrar(); });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) mostrar(); });
+window.addEventListener("storage", e => { if ([K_PASE, K_AURA, K_REP].indexOf(e.key) > -1) mostrar(); });
+</script>
+<div id="sinNet" role="alert" hidden style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:var(--bg)">
+  <div><h2 style="margin:12px 0 8px;font-size:20px">Sin internet</h2><p style="margin:0 auto 18px;max-width:260px;font-size:15px;line-height:1.45;color:var(--mu)">Conéctate al wifi o activa tus datos móviles para seguir jugando.</p><button type="button" id="snRe" style="min-height:48px;padding:0 22px;border-radius:999px;border:0;background:var(--hi);color:var(--on-hi);font:800 15px Nunito,sans-serif;cursor:pointer">Reintentar</button></div>
+</div>
+<script>
+/* guardia de internet (script aparte) */
+(function () {
+  var caja = document.getElementById("sinNet"), fallos = 0, revisando = false;
+  var SONDAS = ["https://clients3.google.com/generate_204", "https://www.gstatic.com/generate_204"];
+  function probar(u) { return new Promise(function (res) { var c = new AbortController(), t = setTimeout(function () { c.abort(); }, 4000); fetch(u + "?t=" + Date.now(), { mode:"no-cors", cache:"no-store", signal:c.signal }).then(function (r) { clearTimeout(t); res(r.type); }).catch(function () { clearTimeout(t); res("falla"); }); }); }
+  async function hay() { if (!navigator.onLine) return false; for (var i = 0; i < SONDAS.length; i++) { if (await probar(SONDAS[i]) === "opaque") return true; } return false; }
+  async function revisar() { if (revisando) return; revisando = true; var ok = await hay(); fallos = ok ? 0 : fallos + 1; caja.hidden = !(navigator.onLine === false || fallos >= 2); revisando = false; if (!ok && fallos < 2) setTimeout(revisar, 2000); }
+  document.getElementById("snRe").addEventListener("click", revisar);
+  addEventListener("online", revisar); addEventListener("offline", revisar); addEventListener("pageshow", revisar);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) revisar(); });
+  setInterval(revisar, 15000); revisar();
+})();
+</script>
+<script type="module">
+/* ===== SESIÓN: sin cuenta se vuelve a la pantalla de acceso ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const CONFIG = { apiKey:"AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE", authDomain:"inglesgamer-5a3a9.firebaseapp.com", projectId:"inglesgamer-5a3a9", storageBucket:"inglesgamer-5a3a9.firebasestorage.app", messagingSenderId:"599532765222", appId:"1:599532765222:web:38fe3a7348b3c38e3426e7" };
+const app = getApps().length ? getApp() : initializeApp(CONFIG);
+onAuthStateChanged(getAuth(app), u => { if (!u) location.href = igURL("go:acceso"); });
+</script>
+
+<script type="module">
+/* ===== NUBE: guarda tu progreso en tu cuenta y lo recupera. Este MISMO bloque (versión corregida) va en TODAS las pantallas, justo antes de </body>. ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const CONFIG = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+
+(function () {
+  try {
+    const PREF = "ingles_gamer_", META = "ig_nube_meta";
+    const SKIP = /_(sesion|tema|sonido|buzon|buzon_pausa|acceso_modo)$/;
+    const app = getApps().length ? getApp() : initializeApp(CONFIG);
+    const auth = getAuth(app), db = getFirestore(app);
+    let user = null, ocupado = false;
+
+    const dormir = ms => new Promise(r => setTimeout(r, ms));
+    const estado = (ok, e) => { try { localStorage.setItem("ig_nube_estado", JSON.stringify({ ok: !!ok, t: Date.now(), c: ok ? "" : String((e && (e.code || e.message)) || "error") })); } catch (x) {} };
+    const ref = () => doc(db, "progreso", user.uid);
+    const claves = () => { const k = []; try { for (let i = 0; i < localStorage.length; i++) { const n = localStorage.key(i); if (n.indexOf(PREF) === 0 && !SKIP.test(n)) k.push(n); } } catch (e) {} return k; };
+    const snap = () => { const o = {}; claves().forEach(k => { o[k] = localStorage.getItem(k); }); return o; };
+    const ser = o => JSON.stringify(Object.keys(o).sort().map(k => [k, o[k]]));
+    const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return h; };
+    const getMeta = () => { try { return JSON.parse(localStorage.getItem(META)) || {}; } catch (e) { return {}; } };
+    const setMeta = m => { try { localStorage.setItem(META, JSON.stringify(m)); } catch (e) {} };
+    /* CORREGIDO: "vacío" = sin progreso real (solo el apodo/perfil no cuenta) */
+    const vacio = o => !o || !(o.ingles_gamer_a1_repaso || o.ingles_gamer_aura || o.ingles_gamer_tienda);
+    const limpiar = () => claves().forEach(k => localStorage.removeItem(k));
+    const cambios = () => !!user && getMeta().uid === user.uid && hash(ser(snap())) !== getMeta().h;
+    const puntos = d => {
+      try {
+        const a = JSON.parse(d.ingles_gamer_aura || "null") || {}, r = JSON.parse(d.ingles_gamer_a1_repaso || "null") || {};
+        return (+a.t || 0) + Object.values(r.est || {}).reduce((x, y) => x + (+y || 0), 0);
+      } catch (e) { return 0; }
+    };
+
+    async function subir() {
+      const o = snap(), t = Date.now();
+      await setDoc(ref(), { datos: o, t: t, v: 1 });
+      setMeta({ uid: user.uid, t: t, h: hash(ser(o)) });
+      estado(true);
+    }
+    function bajar(c) {
+      limpiar();
+      const d = c.datos || {};
+      for (const k in d) if (k.indexOf(PREF) === 0 && !SKIP.test(k) && typeof d[k] === "string") localStorage.setItem(k, d[k]);
+      setMeta({ uid: user.uid, t: c.t || Date.now(), h: hash(ser(snap())) });
+    }
+
+    async function sync(lanzar) {
+      if (!user || ocupado) return "igual";
+      ocupado = true;
+      let res = "igual";
+      try {
+        const m = getMeta(), o = snap(), h = hash(ser(o)), s = await getDoc(ref()), c = s.exists() ? s.data() : null, cd = (c && c.datos) || {};
+        if (m.uid && m.uid !== user.uid) {
+          limpiar();
+          if (c) bajar(c); else await subir();
+          res = "bajado"; location.reload();
+        } else if (m.uid !== user.uid) {
+          if (c && (vacio(o) || puntos(cd) >= puntos(o))) { bajar(c); res = "bajado"; location.reload(); }
+          else { await subir(); res = "subido"; }
+        } else if (c && vacio(o) && !vacio(cd)) {
+          bajar(c); res = "bajado"; location.reload();
+        } else if (!c || h !== m.h) { await subir(); res = "subido"; }
+        else if (c.t > m.t) { bajar(c); res = "bajado"; location.reload(); }
+        else estado(true);
+      } catch (e) { ocupado = false; estado(false, e); if (lanzar) throw e; return "igual"; }
+      ocupado = false;
+      return res;
+    }
+
+    const guardarYa = () => { if (cambios()) sync(); };
+    onAuthStateChanged(auth, u => { user = u; if (u) sync(); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) guardarYa(); else sync(); });
+    addEventListener("pagehide", guardarYa);
+    setInterval(guardarYa, 45000);
+
+    window.IGNube = {
+      listo: true,
+      sincronizar: () => sync(),
+      usuario: () => user,
+      async subirYa() {
+        for (let i = 0; i < 40 && !user; i++) await dormir(250);
+        if (!user) throw new Error("sin-sesion");
+        while (ocupado) await dormir(200);
+        const r = await sync(true);
+        if (r === "bajado") throw new Error("recargando");
+      }
+    };
+  } catch (e) { console.error("[nube]", e); }
+})();
+</script>
+
+</body>
+</html>
