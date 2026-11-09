@@ -797,6 +797,14 @@ const CONFIG = {
         /* con el estado activo apagado NO se actualiza ni "ult" ni "act" (los amigos no ven cuándo juegas) */
         await updateDoc(ref, activo() ? Object.assign({}, datos, { ult: serverTimestamp(), act: "Jugando" }) : datos);
         ficha.aura = aura; ultHash = hs; ultT = Date.now(); estado(true);
+          try {   /* TEMPORADA 1: Aura ganada desde que empezó (campo aparte) */
+            const FIN_T = new Date(2026, 11, 1).getTime(), ag = Math.max(0, +((leer("ingles_gamer_aura") || {}).e) || 0), bt = leer("ingles_gamer_aura_temp") || {};
+            if (Date.now() < FIN_T) {
+              if (bt.tp1 == null) { bt.tp1 = ag; try { localStorage.setItem("ingles_gamer_aura_temp", JSON.stringify(bt)); } catch (x) {} }
+              const tp = Math.max(0, ag - bt.tp1);
+              if (tp !== (+ficha.tp1 || 0)) { await updateDoc(ref, { tp1: tp }); ficha.tp1 = tp; }
+            }
+          } catch (e2) { try { localStorage.setItem("ig_ficha_temp", String((e2 && e2.code) || e2)); } catch (x) {} }
       } catch (e) { estado(false, e); } finally { ocupado = false; }
     }
     onAuthStateChanged(auth, u => { user = u; ficha = null; if (u) setTimeout(() => publicar(), 4000); });
