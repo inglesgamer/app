@@ -301,11 +301,11 @@ const PALABRAS = [
   { k:"coat", en:"coat", es:"abrigo", g:"ropa" }, { k:"boots", en:"boots", es:"botas", g:"ropa" }, { k:"sweater", en:"sweater", es:"suéter", g:"ropa" },
   { k:"socks", en:"socks", es:"medias", g:"ropa" }, { k:"pants", en:"pants", es:"pantalón", g:"ropa" },
   { k:"in", en:"in", es:"dentro de", g:"lugar" }, { k:"on", en:"on", es:"encima de", g:"lugar" }, { k:"under", en:"under", es:"debajo de", g:"lugar" },
-  { k:"next to", en:"next to", es:"al lado de", g:"lugar" }, { k:"behind", en:"behind", es:"detrás de", g:"lugar" }, { k:"in front of", en:"in front of", es:"delante de", g:"lugar" }
+  { k:"next to", en:"next to", es:"al lado de", g:"lugar" }
 ];
 PALABRAS.forEach(w => w.audio = w.k.replace(/ /g, "-") + ".mp3");
 /* palabras que pueden salir en el dictado (cortas, una sola palabra) */
-const PAL_DICTADO = ["hat", "coat", "boots", "socks", "scarf", "pants", "under", "behind"];
+const PAL_DICTADO = ["hat", "coat", "boots", "socks", "scarf", "pants", "under"];
 
 /* =====================================================================
    No necesitas tocar lo de abajo
