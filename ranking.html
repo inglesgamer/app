@@ -343,6 +343,12 @@ nav a.on{color:var(--hi)}
 @keyframes corFin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@keyframes corSello{0%{opacity:0;transform:scale(2.4)}100%{opacity:1;transform:none}}
 .cor.cor-shake{animation:corTiembla .35s}@keyframes corTiembla{20%{transform:translate(-6px,3px)}40%{transform:translate(5px,-4px)}60%{transform:translate(-4px,2px)}80%{transform:translate(3px,-2px)}}
 @media (prefers-reduced-motion:reduce){.cor *{animation-duration:.01s!important;animation-delay:0s!important}}
+.rb-fal{margin-top:14px;padding:12px;border-radius:18px;background:rgba(0,0,0,.32);border:1px solid rgba(255,255,255,.12);color:#FFF3D6}
+.rb-fal>span{display:block;margin-top:6px;font-size:12.5px;font-weight:700;color:#E9DCC0;line-height:1.35}.rb-fal>span b{color:#FFD166}
+.rb-ft{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}.rb-ft b{font-size:17px;font-weight:900}.rb-ft span{font-size:13px;font-weight:800;color:#FFD166}
+.rb-bar{height:10px;margin-top:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}.rb-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#FFB627,#FFE08A);transition:width .6s}
+.rb-fal.ok .rb-bar i{background:linear-gradient(90deg,#3FC46A,#B8F5C8)}.rb-fal.ok .rb-ft b{color:#B8F5C8}
+.rb-fal.top b{display:block;font-size:17px;color:#FFD166}
 </style>
 </head>
 <body>
@@ -610,6 +616,23 @@ async function actualizarSilencioso() {
 }
 
 /* ---- RANGOS DEL REINO ---- */
+/* cuánto te falta para entrar en la zona de ascenso (los SUBEN primeros de tu rango) */
+function cuantoFalta(L, m) {
+  const mio = Math.max(0, +m.liga || 0), sig = L.st < PASO_MAX ? nombreRango(L.st + 1) : "";
+  if (!sig) return '<div class="rb-fal top"><b>¡Eres Rey!</b><span>Estás en el rango más alto. Quédate fuera de los 5 últimos para mantener la corona.</span></div>';
+  const otros = LISTA.filter(j => j.uid !== ME.uid).map(j => +j.liga || 0).sort((a, b) => b - a);
+  const puesto = 1 + otros.filter(v => v > mio).length;
+  const corte = otros.length >= SUBEN ? otros[SUBEN - 1] : 0;   // puntos del 5.º (sin contarte a ti)
+  const meta = Math.max(1, corte + 1), falta = Math.max(0, meta - mio), pct = Math.min(100, Math.round(mio / meta * 100));
+  if (mio > 0 && puesto <= SUBEN) {
+    const ventaja = otros.length >= SUBEN ? mio - corte : null;
+    return '<div class="rb-fal ok"><div class="rb-ft"><b>¡Vas subiendo a ' + sig + '!</b><span>Puesto ' + puesto + '</span></div><div class="rb-bar"><i style="width:100%"></i></div>' +
+      '<span>' + (ventaja !== null ? 'Le llevas <b>' + ventaja + ' de Aura</b> al ' + (SUBEN + 1) + '.º. ' : '') + 'Sigue jugando para no perder tu lugar hasta el domingo.</span></div>';
+  }
+  return '<div class="rb-fal"><div class="rb-ft"><b>Te faltan ' + falta + ' de Aura</b><span>para subir a ' + sig + '</span></div><div class="rb-bar"><i style="width:' + pct + '%"></i></div>' +
+    '<span>' + (otros.length >= SUBEN ? 'Así entras en los ' + SUBEN + ' primeros (el ' + SUBEN + '.º tiene ' + corte + '). ' : 'Gana Aura esta semana y entras en los ' + SUBEN + ' primeros. ') + 'Juega niveles, retos o duelos.</span></div>';
+}
+
 const reinoDe = st => Math.min(RANGOS_REINO.length - 1, Math.floor(st / 3));
 const divDe = st => st >= PASO_MAX ? "" : ["III", "II", "I"][st % 3];
 const nombreRango = st => RANGOS_REINO[reinoDe(st)].n + (divDe(st) ? " " + divDe(st) : "");
@@ -739,7 +762,7 @@ function vistaGlobal() {
   if (per === "liga") {
     const L = miLiga(), n = LISTA.length, tope = L.st >= PASO_MAX;
     const esc_ = '<div class="card rban r' + reinoDe(L.st) + '"><div class="rb-row">' + escudoRango(L.st, 78) + '<div class="rb-tx"><small>TU RANGO ESTA SEMANA</small><b>' + nombreRango(L.st) + '</b>' + pipsDiv(L.st) +
-      '<span class="tb-cd"><i></i>Termina en ' + finSemana() + '</span></div></div></div>';
+      '<span class="tb-cd"><i></i>Termina en ' + finSemana() + '</span></div></div>' + cuantoFalta(L, m) + '</div>';
     let filas = "";
     LISTA.forEach((j, i) => {
       if (i === SUBEN && !tope) filas += '<div class="zsep up">▲ ZONA DE ASCENSO</div>';
