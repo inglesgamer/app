@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Repaso de Nieve · diseños</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--ok:#5DD879;--mal:#FF6B6B;--hielo:#8FD8FF;--gold:#FFD166}
+*{box-sizing:border-box}body{margin:0;background:#000;color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-weight:700}
+.top{max-width:900px;margin:auto;padding:22px 18px 4px}.top h1{margin:0;font-size:30px;font-weight:900}.top p{margin:6px 0 0;color:var(--mu)}
+.ops{max-width:1300px;margin:auto;display:flex;gap:18px;overflow:auto;padding:16px 18px 40px}
+.op{flex:none;width:310px}.op h3{margin:6px 0 2px;font-size:19px;font-weight:900}.op p{margin:0 0 10px;color:var(--mu);font-size:13.5px;min-height:92px}
+.lbl{font-size:11px;font-weight:900;letter-spacing:.16em;color:var(--mu)}
+.rec{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:99px;background:var(--gold);color:#2A1A00;font-size:10.5px;font-weight:900;vertical-align:middle}
+.ph{position:relative;width:310px;height:640px;border-radius:38px;border:1px solid var(--bd);background:#000;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:14px 12px}
+.ph>*{flex-shrink:0}
+.rep{display:block;width:100%;height:42px;margin-top:10px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--ink);font:900 14px Nunito,sans-serif;cursor:pointer}
+/* barra del nivel */
+.tb{display:flex;align-items:center;gap:8px}.xb{width:38px;height:38px;border-radius:50%;border:1px solid var(--bd);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:16px}
+.pg{flex:1;height:12px;border-radius:99px;background:#2A2A2E;overflow:hidden}.pg i{display:block;height:100%;width:55%;background:var(--hielo);border-radius:99px}
+.hs{color:#FF6B6B;font-size:15px;letter-spacing:1px}
+.pill{align-self:flex-start;padding:5px 12px;border-radius:99px;border:1px solid #2F5A75;background:#0E2433;color:#BDE8FF;font-size:10.5px;font-weight:900;letter-spacing:.12em}
+.rowp{display:flex;justify-content:space-between;align-items:center}.ct{font-size:12px;font-weight:900;color:var(--mu)}
+.nieve:before{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;background:radial-gradient(circle,#fff 0 1.5px,transparent 2.3px) 0 0/38px 38px,radial-gradient(circle,rgba(255,255,255,.7) 0 1px,transparent 1.7px) 18px 10px/24px 28px;animation:nieva 5s linear infinite}
+@keyframes nieva{to{background-position:-10px 140px,8px 110px}}
+.play{width:62px;height:62px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 0 0 8px rgba(255,255,255,.08)}
+.dice{text-align:center;font-size:13px;font-weight:900;color:var(--mu)}.dice b{display:block;font-size:20px;color:var(--ink)}
+/* ===== A · Radio de la cabaña ===== */
+.radio{position:relative;border-radius:26px;padding:16px 14px 14px;background:linear-gradient(#7A4E22,#4A2C10);border:4px solid #3A2410;box-shadow:inset 0 0 0 3px #9A6A3A,0 10px 24px rgba(0,0,0,.5)}
+.radio .rej{height:70px;border-radius:14px;background:repeating-linear-gradient(90deg,#2A1A0A 0 3px,#5A3A1A 3px 7px);display:flex;align-items:center;justify-content:center;gap:4px}
+.radio .rej i{width:5px;border-radius:3px;background:#FFB27A;box-shadow:0 0 8px #FF8A3D;animation:ond 1s ease-in-out infinite}
+@keyframes ond{50%{transform:scaleY(.3)}}
+.radio .pan{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.radio .perilla{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#E8C9A0,#8A5A2A);border:3px solid #3A2410;position:relative}.radio .perilla:after{content:"";position:absolute;left:50%;top:4px;width:3px;height:12px;margin-left:-1.5px;background:#3A2410;border-radius:2px}
+.radio .dial{flex:1;margin:0 10px;height:20px;border-radius:6px;background:#1A1008;border:2px solid #9A6A3A;position:relative;overflow:hidden}.radio .dial i{position:absolute;top:2px;bottom:2px;width:3px;background:#FF5A2A;left:30%;animation:dial 3s ease-in-out infinite alternate}
+@keyframes dial{to{left:70%}}
+.radio .luz{width:12px;height:12px;border-radius:50%;background:#5DD879;box-shadow:0 0 10px #5DD879;animation:late .8s ease-in-out infinite alternate}
+@keyframes late{to{opacity:.4}}
+.cartas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cA{position:relative;height:96px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:linear-gradient(160deg,#16405F,#0E2433);border:2px solid #2F5A75;font-size:17px;font-weight:900;box-shadow:0 5px 0 #0A1A26;opacity:0;transform:translateY(20px);animation:sube .4s forwards}
+.cA small{font-size:11px;color:#9FC6E0;font-weight:800}
+.cA:nth-child(2){animation-delay:.08s}.cA:nth-child(3){animation-delay:.16s}.cA:nth-child(4){animation-delay:.24s}
+.go .cA.ok{animation:sube .4s .08s forwards,okA .5s 1.6s forwards}
+@keyframes okA{50%{transform:scale(1.08)}100%{transform:none;border-color:var(--ok);background:linear-gradient(160deg,#1E5A33,#0E2A18);box-shadow:0 5px 0 #0A2A14,0 0 22px rgba(93,216,121,.5)}}
+@keyframes sube{to{opacity:1;transform:none}}
+/* ===== B · Bolas de nieve ===== */
+.cielo{position:relative;height:300px;border-radius:24px;overflow:hidden;background:linear-gradient(#0B1A3A,#1E4A7A 65%,#DCEBF7 65%)}
+.cielo .pino{position:absolute;bottom:35%;width:40px;height:56px;background:#1A6B5E;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.bola{position:absolute;width:86px;height:86px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px;font-weight:900;color:#0E2433;background:radial-gradient(circle at 35% 30%,#fff,#DCEBF7 55%,#9EC2DA);box-shadow:0 8px 16px rgba(0,0,0,.35),inset -6px -8px 0 rgba(120,160,200,.35);animation:flota 3s ease-in-out infinite}
+.bola:nth-of-type(2){animation-delay:-.8s}.bola:nth-of-type(3){animation-delay:-1.6s}.bola:nth-of-type(4){animation-delay:-2.2s}
+@keyframes flota{50%{transform:translateY(-12px) rotate(4deg)}}
+.go .bola.ok{animation:explota .6s 1.4s forwards}
+@keyframes explota{0%{transform:scale(1)}40%{transform:scale(1.3)}100%{transform:scale(2.2);opacity:0}}
+.muneco{position:absolute;left:50%;bottom:6px;margin-left:-28px}
+.bur{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:22px;background:linear-gradient(160deg,#2A1A40,var(--card));border:1px solid #4A3A70}
+.bur .t{flex:1}.bur b{display:block;font-size:17px}.bur span{font-size:12.5px;color:var(--mu);font-weight:800}
+.meter{display:flex;gap:4px}.meter i{flex:1;height:8px;border-radius:4px;background:#2A2A2E}.meter i.on{background:linear-gradient(90deg,#8FD8FF,#fff)}
+/* ===== C · Pesca en el hielo ===== */
+.lago{position:relative;height:330px;border-radius:24px;overflow:hidden;background:linear-gradient(#DCEBF7,#B9D3E8 30%)}
+.lago .hoyo{position:absolute;left:12px;right:12px;top:110px;bottom:14px;border-radius:50%/36%;background:radial-gradient(ellipse at 50% 40%,#2E7ABF,#0A2A52 75%);box-shadow:inset 0 10px 20px rgba(0,0,0,.4),0 0 0 6px #EAF4FB}
+.pez{position:absolute;display:flex;align-items:center;gap:6px;padding:7px 12px 7px 14px;border-radius:40px 14px 14px 40px;font-size:14px;font-weight:900;color:#2A1408;background:linear-gradient(#FFC977,#FF8A3D);box-shadow:0 4px 0 #A0561A}
+.pez:after{content:"";position:absolute;right:-14px;top:50%;margin-top:-10px;border:10px solid transparent;border-left:14px solid #FF8A3D}
+.pez i{width:6px;height:6px;border-radius:50%;background:#1A0A00;font-style:normal}
+.pez.p1{top:150px;animation:nada 5s linear infinite}.pez.p2{top:195px;animation:nada 6.5s -2s linear infinite reverse}.pez.p3{top:240px;animation:nada 5.8s -4s linear infinite}.pez.p4{top:285px;animation:nada 7s -1s linear infinite reverse}
+@keyframes nada{0%{left:-40%}100%{left:110%}}
+.pingC{position:absolute;left:50%;top:30px;margin-left:-30px;animation:bobb 2s ease-in-out infinite}@keyframes bobb{50%{transform:translateY(-4px)}}
+.cana{position:absolute;left:50%;top:70px;width:2px;height:90px;background:#3A2410;transform:rotate(18deg);transform-origin:top;margin-left:14px}
+/* ===== D · Aurora boreal ===== */
+.aur{position:relative;height:250px;border-radius:24px;overflow:hidden;background:linear-gradient(#030818,#0A1E3A)}
+.aur .banda{position:absolute;left:-20%;right:-20%;height:60px;border-radius:50%;filter:blur(14px);opacity:.2;transition:opacity .6s}
+.aur .banda.on{opacity:.75;animation:baila 4s ease-in-out infinite alternate}
+@keyframes baila{to{transform:translateX(20px) skewX(-10deg)}}
+.aur .estr{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;opacity:.6}
+.aur .mont{position:absolute;left:0;right:0;bottom:0;height:70px;background:#0E2433;clip-path:polygon(0 100%,0 60%,18% 20%,32% 55%,50% 10%,66% 50%,82% 25%,100% 60%,100% 100%)}
+.aur .cnt{position:absolute;left:10px;top:10px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.1);font-size:11px;font-weight:900;color:#BDE8FF}
+.cris{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cr{position:relative;height:74px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#E8F7FF;background:linear-gradient(160deg,rgba(143,216,255,.25),rgba(143,216,255,.06));border:2px solid rgba(143,216,255,.5);clip-path:polygon(12% 0,88% 0,100% 50%,88% 100%,12% 100%,0 50%);box-shadow:inset 0 0 18px rgba(143,216,255,.25)}
+.go .cr.ok{animation:brilla .6s 1.6s forwards}
+@keyframes brilla{to{background:linear-gradient(160deg,rgba(93,216,121,.6),rgba(93,216,121,.15));border-color:#5DD879;color:#fff}}
+</style></head><body>
+<div class="top"><h1>Repaso de Nieve · nuevos diseños</h1><p>En todos: escuchas la palabra en inglés y abajo tocas su significado en <b>español</b>. Toca «Ver otra vez» para repetir la animación.</p></div>
+<div class="ops" id="ops"></div>
+<script>
+const P={ping:{p:{k:"#1E2433",w:"#F4F6FA",o:"#FF9F2E"},r:["....kkkk....","...kkkkkk...","..kkwwwwkk..","..kwkwwkwk..","..kwwoowwk..",".kkwwwwwwkk.","kkkwwwwwwkkk","k.kwwwwwwk.k","..kwwwwwwk..","..kkwwwwkk..","...kkkkkk...","..oo....oo.."]},
+muneco:{p:{w:"#FFFFFF",k:"#2B2B33",o:"#FF8A3D",r:"#E5483C"},r:["....kkkk....","...kkkkkk...","...wwwwww...","..wwkwwkww..","..wwwoowww..","..rrrrrrrr..","...wwwwwrr..","..wwwkwwww..",".wwwwwwwwww.",".wwwwkwwwww.",".wwwwwwwwww.","..wwwwwwww.."]}};
+const px=(n,s)=>{const d=P[n];let o='<svg width="'+s+'" height="'+s+'" viewBox="0 0 12 12" shape-rendering="crispEdges">';d.r.forEach((r,y)=>r.split("").forEach((c,x)=>{if(c!==".")o+='<rect x="'+x+'" y="'+y+'" width="1.02" height="1.02" fill="'+d.p[c]+'"/>'}));return o+"</svg>"};
+const SON='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+const H='<svg width="16" height="15" viewBox="0 0 9 8" shape-rendering="crispEdges"><path fill="#FF6B6B" d="M1 0h2v1h1V0h1v0h2v1h1v3H8v1H7v1H6v1H5v1H4V7H3V6H2V5H1V4H0V1h1z"/></svg>';
+const TB='<div class="tb"><span class="xb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span><span class="pg"><i></i></span><span class="hs" style="display:flex;gap:2px">'+H+H+H+'</span><span class="xb">'+SON.replace(/26/g,"16")+'</span></div>';
+const op=(k,t,d,h,rec)=>'<div class="op"><div class="lbl">OPCIÓN '+k+'</div><h3>'+t+(rec?'<span class="rec">RECOMENDADA</span>':'')+'</h3><p>'+d+'</p><div class="ph"><div id="m'+k+'" class="go" style="display:contents">'+h+'</div></div><button class="rep" data-r="'+k+'">▶ Ver otra vez</button></div>';
+const ondas=Array.from({length:18},(_,i)=>'<i style="height:'+(10+(i*37)%40)+'px;animation-delay:-'+(i*.07).toFixed(2)+'s"></i>').join("");
+document.getElementById("ops").innerHTML=
+op("A","La radio de la cabaña","Una radio de madera con ondas que se mueven al sonar la palabra. Abajo 4 tarjetas de hielo con la palabra en español (y su dibujito). Al acertar, la tarjeta brilla en verde y la radio se enciende.",
+ TB+'<div class="rowp"><span class="pill">LA RADIO DE LA CABAÑA</span><span class="ct">5 / 10</span></div>'+
+ '<div class="radio"><div class="rej">'+ondas+'</div><div class="pan"><span class="perilla"></span><span class="dial"><i></i></span><span class="luz"></span></div></div>'+
+ '<div style="display:flex;align-items:center;gap:12px"><span class="play">'+SON+'</span><div class="dice" style="text-align:left">¿Qué escuchaste?<b>Toca el significado</b></div></div>'+
+ '<div class="cartas"><div class="cA">bufanda</div><div class="cA ok">guantes</div><div class="cA">abrigo</div><div class="cA">medias</div></div>',1)+
+op("B","Bolas de nieve","Escuchas la palabra y caen 4 bolas de nieve flotando con palabras en español. Tocas la correcta y explota en copos. Cada acierto llena la barra de nieve y el muñeco crece.",
+ TB+'<div class="rowp"><span class="pill">BOLAS DE NIEVE</span><span class="ct">5 / 10</span></div>'+
+ '<div class="cielo nieve"><span class="pino" style="left:8px"></span><span class="pino" style="right:8px"></span>'+
+ '<span class="bola" style="left:18px;top:24px">encima<br>de</span><span class="bola ok" style="left:150px;top:14px">debajo<br>de</span><span class="bola" style="left:30px;top:120px">al lado<br>de</span><span class="bola" style="left:170px;top:112px">dentro<br>de</span>'+
+ '<span class="muneco">'+px("muneco",56)+'</span></div>'+
+ '<div class="bur"><span class="play" style="width:50px;height:50px">'+SON+'</span><span class="t"><b>«under»</b><span>Toca la bola correcta</span></span></div>'+
+ '<div class="meter">'+Array.from({length:10},(_,i)=>'<i class="'+(i<5?"on":"")+'"></i>').join("")+'</div>')+
+op("C","Pesca en el hielo","Un hoyo en el hielo con peces que nadan llevando palabras en español. El pingüino tiene su caña: escuchas la palabra y tocas el pez correcto para pescarlo.",
+ TB+'<div class="rowp"><span class="pill">PESCA EN EL HIELO</span><span class="ct">5 / 10</span></div>'+
+ '<div class="lago nieve"><span class="pingC">'+px("ping",60)+'</span><span class="cana"></span><div class="hoyo"></div>'+
+ '<span class="pez p1"><i></i>pantalón</span><span class="pez p2"><i></i>gorro</span><span class="pez p3"><i></i>botas</span><span class="pez p4"><i></i>suéter</span></div>'+
+ '<div style="display:flex;align-items:center;gap:12px"><span class="play">'+SON+'</span><div class="dice" style="text-align:left">Escucha y pesca<b>el significado</b></div></div>')+
+op("D","Aurora boreal","Una noche en la montaña. Cada acierto enciende una banda de luz de la aurora (verde, azul, morada…). Las respuestas en español son cristales de hielo. Al final el cielo queda iluminado.",
+ TB+'<div class="rowp"><span class="pill">AURORA BOREAL</span><span class="ct">5 / 10</span></div>'+
+ '<div class="aur">'+Array.from({length:22},(_,i)=>'<span class="estr" style="left:'+((i*47)%100)+'%;top:'+((i*31)%60)+'%"></span>').join("")+
+ '<span class="banda on" style="top:30px;background:#5DFFB0"></span><span class="banda on" style="top:70px;background:#3FA9F5;animation-delay:-1s"></span><span class="banda" style="top:110px;background:#B58CFF"></span><span class="banda" style="top:20px;background:#FF8AD8"></span>'+
+ '<span class="mont"></span><span class="cnt">Luces 5/10</span></div>'+
+ '<div style="display:flex;align-items:center;gap:12px"><span class="play">'+SON+'</span><div class="dice" style="text-align:left">¿Qué significa?<b>Enciende la aurora</b></div></div>'+
+ '<div class="cris"><div class="cr">dentro de</div><div class="cr ok">al lado de</div><div class="cr">encima de</div><div class="cr">debajo de</div></div>');
+document.addEventListener("click",e=>{const b=e.target.closest("[data-r]");if(!b)return;const m=document.getElementById("m"+b.dataset.r);m.classList.remove("go");m.querySelectorAll("*").forEach(x=>{x.style.animation="none";void x.offsetWidth;x.style.animation=""});void m.offsetWidth;m.classList.add("go")});
+</script></body></html>
