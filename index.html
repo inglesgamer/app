@@ -1303,5 +1303,46 @@ $("vocab").addEventListener("keydown", e => { if (e.key === "Enter" || e.key ===
 <style>
 #secVocab{margin-top:28px}
 .vdia{background:linear-gradient(155deg,color-mix(in srgb,var(--lc) 22%,var(--bg)),var(--card) 75%)!important;border:1px solid color-mix(in srgb,var(--lc) 50%,var(--bd))!important;border-left:1px solid color-mix(in srgb,var(--lc) 50%,var(--bd))!important;border-radius:28px!important;padding:18px 18px 18px!important;box-shadow:0 6px 0 color-mix(in srgb,var(--lc) 30%,#000)}
-</style></body>
+</style><style>
+/* REFUERZA A: sin contenedor, con progreso y siguiente lección */
+#ayuda{display:none!important}
+.refuerza.rfA{display:block;min-height:0;padding:4px 4px 0;border-radius:0;background:none;color:var(--ink)}
+.refuerza.rfA::after{display:none}
+.rfA .rw{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.rfA small{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.rfA b{display:block;font-size:30px;font-weight:900;line-height:1.05;margin-top:6px}
+.rfA em{display:block;font-style:normal;font-weight:800;font-size:14px;color:var(--mu);margin-top:6px}
+.rfA .pjr{width:64px;flex:none}.rfA .pjr svg{width:100%;height:auto;display:block;overflow:visible}
+.rfA .seg{display:flex;gap:4px;margin:16px 0}.rfA .seg i{flex:1;height:10px;border-radius:99px;background:var(--chip)}.rfA .seg i.on{background:var(--ink)}.rfA .seg i.sg{background:#58CC02}
+.rfA .btn{display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-weight:900;font-size:16px;box-shadow:0 4px 0 rgba(128,128,128,.35)}
+.rfA:active .btn{transform:translateY(2px);box-shadow:0 2px 0 rgba(128,128,128,.35)}
+</style>
+<script>
+/* REFUERZA A. Mismos temas que la página Refuerza: el id debe ser igual al LECCION_ID de cada lección. */
+const LECCIONES = [
+  { id:"tobe1", t:"Verbo To Be", url:"go:1" }, { id:"thisthat1", t:"This y That", url:"go:2" },
+  { id:"ordinales1", t:"Números ordinales", url:"go:3" }, { id:"aan1", t:"A y An", url:"go:4" },
+  { id:"thesethose1", t:"These y Those", url:"go:5" }, { id:"havehas1", t:"Have y Has", url:"go:6" },
+  { id:"can1", t:"Can", url:"go:7" }, { id:"dodoes1", t:"Do y Does", url:"go:8" },
+  { id:"thereis1", t:"There is y There are", url:"go:9" }, { id:"continuo1", t:"Presente continuo", url:"go:10" },
+  { id:"posesivos1", t:"Posesivos", url:"go:11" }, { id:"wh1", t:"Preguntas WH", url:"go:12" }
+];
+function pintarRefuerza() {
+  const lista = k => { try { const v = JSON.parse(localStorage.getItem(k) || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
+  const vis = lista("ingles_gamer_vistos").concat(lista("ig:vistos"));
+  const hechas = LECCIONES.filter(l => vis.indexOf(l.id) >= 0).length;
+  const sig = LECCIONES.find(l => vis.indexOf(l.id) < 0);
+  const el = $("refuerza");
+  el.className = "refuerza rfA";
+  el.href = sig ? sig.url : REFUERZA.url;
+  el.innerHTML = '<div class="rw"><div><small>PRÁCTICA · ' + hechas + ' DE ' + LECCIONES.length + '</small>' +
+    (sig ? '<b>Siguiente:<br>' + esc(sig.t) + '</b><em>Lección corta · 3 min</em>' : '<b>¡Las viste todas!</b><em>Repasa la que quieras</em>') +
+    '</div><div class="pjr">' + carro() + '</div></div>' +
+    '<div class="seg">' + LECCIONES.map(l => '<i class="' + (vis.indexOf(l.id) >= 0 ? "on" : l === sig ? "sg" : "") + '"></i>').join("") + '</div>' +
+    '<span class="btn">' + ic("play", 16) + (sig ? (hechas ? "Continuar" : "Empezar") : "Ver lecciones") + '</span>';
+}
+pintarRefuerza();
+window.addEventListener("pageshow", pintarRefuerza);
+</script>
+</body>
 </html>
