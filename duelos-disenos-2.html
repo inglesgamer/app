@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Duelos · Nuevo reto y Final</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--ok:#5DD879;--mal:#FF6B6B;--or:#FF8A3D;--gold:#FFD166;--azul:#4DA3FF}
+*{box-sizing:border-box}body{margin:0;background:#000;color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-weight:700}
+.top{max-width:860px;margin:auto;padding:22px 18px 4px}.top h1{margin:0;font-size:30px;font-weight:900}.top p{margin:6px 0 0;color:var(--mu)}
+.tabs{position:sticky;top:0;z-index:50;display:flex;gap:8px;overflow:auto;padding:12px 18px;background:#000;max-width:860px;margin:auto}
+.tabs button{flex:none;height:42px;padding:0 16px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--mu);font:800 15px Nunito,system-ui,sans-serif;cursor:pointer}
+.tabs button.on{background:#fff;color:#000}
+.sec{display:none;max-width:860px;margin:auto;padding:4px 18px 50px}.sec.on{display:block}
+.sec>h2{margin:4px 0 4px;font-size:26px;font-weight:900}.sec>p{margin:0 0 16px;color:var(--mu)}
+.lbl{font-size:11px;font-weight:900;letter-spacing:.16em;color:var(--mu)}
+.ops{display:flex;gap:18px;overflow:auto;padding-bottom:10px}
+.op{flex:none;width:300px}.op h3{margin:6px 0 2px;font-size:19px;font-weight:900}.op p{margin:0 0 10px;color:var(--mu);font-size:13.5px;min-height:56px}
+.rec{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:99px;background:var(--gold);color:#2A1A00;font-size:10.5px;font-weight:900;vertical-align:middle}
+.ph{position:relative;width:300px;height:620px;border-radius:36px;border:1px solid var(--bd);background:#000;overflow:hidden;padding:14px 12px;display:flex;flex-direction:column;gap:10px}
+.ph>*{flex-shrink:0}
+.hd{display:flex;align-items:center;gap:10px}.hd .bk{width:38px;height:38px;border-radius:50%;border:1px solid var(--bd);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:18px}.hd b{font-size:22px;font-weight:900}
+.av{display:inline-flex;align-items:flex-end;justify-content:center;border-radius:50%;overflow:hidden;flex:none;border:3px solid var(--c,#fff);position:relative}
+.yo{--c:var(--or);background:linear-gradient(#FF9A4D,#C9441A)}.e1{--c:var(--azul);background:linear-gradient(#2C6DD6,#123A7A)}.e2{--c:#5DD879;background:linear-gradient(#1F4D2C,#0D2615)}.e3{--c:#B58CFF;background:linear-gradient(#5B3FB0,#22164A)}
+.st{font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--mu)}
+.btnR{height:56px;border-radius:99px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:19px;font-weight:900;background:linear-gradient(#FFE07A,#FF9A2E);color:#2A1408;box-shadow:0 5px 0 #A0561A}
+.btnO{height:46px;border-radius:99px;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);background:var(--card);font-weight:900}
+/* ===== NUEVO RETO A · Paso a paso ===== */
+.pasos{display:flex;gap:6px}.pasos i{flex:1;height:6px;border-radius:3px;background:#2A2A2E}.pasos i.on{background:var(--or)}
+.rivales{display:flex;gap:10px;overflow:hidden;padding:4px 2px}
+.rv{flex:none;width:110px;border-radius:20px;overflow:hidden;border:2px solid var(--bd);background:var(--card);text-align:center}
+.rv .bg{height:86px;display:flex;align-items:flex-end;justify-content:center;position:relative}.rv b{display:block;padding:6px 4px 2px;font-size:15px}.rv small{display:block;padding-bottom:8px;font-size:11px;color:var(--mu);font-weight:800}
+.rv.sel{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,138,61,.35);transform:translateY(-4px)}
+.rv .chk{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:var(--or);color:#2A1408;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900}
+.rv .on{position:absolute;top:6px;left:6px;width:12px;height:12px;border-radius:50%;background:var(--ok);border:2px solid #000}
+.temas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tm{border-radius:18px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:13px;font-weight:900;background:var(--c);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.35);border:3px solid transparent}
+.tm span{font-size:26px;line-height:1}.tm.sel{border-color:#fff;transform:translateY(-3px)}
+.fichas{display:flex;gap:8px}
+.fi{flex:1;border-radius:18px;padding:10px 6px;text-align:center;background:var(--card);border:2px solid var(--bd)}
+.fi .mon{display:flex;justify-content:center;height:36px;align-items:flex-end}.fi .mon i{width:26px;height:8px;margin-top:-3px;border-radius:50%;background:radial-gradient(#FFE07A,#E0A21C);border:1px solid #8A5A00;display:block}
+.fi .pila{display:flex;flex-direction:column-reverse;align-items:center}
+.fi b{display:block;margin-top:4px;font-size:16px}.fi small{font-size:11px;color:var(--mu);font-weight:800}
+.fi.sel{border-color:var(--gold);background:rgba(255,209,102,.1)}
+.resum{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:18px;background:linear-gradient(90deg,rgba(255,138,61,.18),rgba(77,163,255,.18));border:1px solid #3A3A44;font-size:13px;font-weight:900}
+.resum .vs{color:var(--or);font-style:italic}
+/* ===== NUEVO RETO B · VS en vivo ===== */
+.vivo{position:relative;height:170px;border-radius:24px;overflow:hidden;background:linear-gradient(115deg,#C2410C 0 50%,#123A7A 50%)}
+.vivo .l,.vivo .r{position:absolute;top:24px;display:flex;flex-direction:column;align-items:center;gap:4px;width:50%}.vivo .l{left:0}.vivo .r{right:0}
+.vivo b{font-size:15px}.vivo .x{position:absolute;left:50%;top:50px;width:60px;margin-left:-30px;text-align:center;font-size:34px;font-weight:900;font-style:italic;color:#fff;text-shadow:0 0 14px #FFD166,0 3px 0 #000}
+.vivo .tags{position:absolute;left:10px;right:10px;bottom:10px;display:flex;gap:6px;justify-content:center}.vivo .tags span{padding:4px 10px;border-radius:99px;background:rgba(0,0,0,.45);font-size:12px;font-weight:900}
+.burb{display:flex;gap:12px;overflow:hidden;padding:4px 2px}
+.bu{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:900;color:var(--mu)}.bu.sel{color:#fff}.bu.sel .av{box-shadow:0 0 0 3px #000,0 0 0 6px var(--or)}
+.seg{display:flex;padding:4px;border-radius:99px;background:var(--card);border:1px solid var(--bd)}
+.seg span{flex:1;height:40px;border-radius:99px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:14px;font-weight:900;color:var(--mu)}.seg span.on{background:linear-gradient(#FFE07A,#FF9A2E);color:#2A1408}
+.tm2{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.tm2 span{height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:12.5px;font-weight:900;background:var(--chip);border:2px solid transparent}.tm2 span.on{border-color:var(--or);background:rgba(255,138,61,.15)}
+/* ===== NUEVO RETO C · Ruleta ===== */
+.rul{position:relative;width:200px;height:200px;margin:4px auto 0}
+.rul .rueda{width:100%;height:100%;border-radius:50%;border:6px solid #FFD166;box-shadow:0 0 0 4px #7A4300,0 0 30px rgba(255,209,102,.35);background:conic-gradient(#E5483C 0 60deg,#2F6FD6 60deg 120deg,#3FA34D 120deg 180deg,#D99417 180deg 240deg,#8E5BD6 240deg 300deg,#E85D9A 300deg 360deg);position:relative;animation:giraR 3s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes giraR{from{transform:rotate(0)}to{transform:rotate(1290deg)}}
+.rul .rueda span{position:absolute;left:50%;top:50%;font-size:22px;transform-origin:0 0}
+.rul .flecha{position:absolute;left:50%;top:-14px;margin-left:-12px;width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid #fff;filter:drop-shadow(0 2px 0 #000);z-index:2}
+.rul .cen{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px;border-radius:50%;background:#141416;border:4px solid #FFD166;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;z-index:2}
+.res-t{text-align:center;font-size:20px;font-weight:900;opacity:0;animation:aparece .4s 3s forwards}.res-t em{font-style:normal;color:var(--gold)}
+.mini{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:18px;background:var(--card);border:1px solid var(--bd)}
+.mini b{flex:1}.mini span{font-size:13px;color:var(--or);font-weight:900}
+@keyframes aparece{to{opacity:1}}
+/* ===== FINAL A · Estadísticas ===== */
+.ban{position:relative;overflow:hidden;border-radius:24px;padding:14px;display:flex;align-items:center;gap:12px;background:radial-gradient(circle at 20% 30%,#5A3008,#1A0E04 75%);border:1px solid #6B4300}
+.ban .tt{font-size:28px;font-weight:900;font-style:italic;color:var(--gold);text-shadow:0 3px 0 #7A4300}.ban small{display:block;font-size:12px;color:#E9DCC0;font-weight:800}
+.ban .cor{position:absolute;left:38px;top:4px;font-size:20px}
+.marc{display:flex;align-items:center;justify-content:center;gap:12px;font-size:40px;font-weight:900}.marc span{font-size:22px;color:var(--mu)}.marc .w{color:var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stt{border-radius:18px;padding:10px 6px;text-align:center;background:var(--card);border:1px solid var(--bd)}
+.stt i{display:block;font-style:normal;font-size:20px}.stt b{display:block;font-size:20px;font-weight:900;margin-top:2px}.stt small{font-size:10.5px;color:var(--mu);font-weight:900;letter-spacing:.06em}
+.lista{border-radius:20px;background:var(--card);border:1px solid var(--bd);overflow:hidden}
+.lista .h{display:flex;justify-content:space-between;padding:8px 12px;font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu);border-bottom:1px solid var(--bd)}
+.fq{display:flex;align-items:center;gap:8px;padding:7px 12px;font-size:13.5px;border-bottom:1px solid #1E1E22}.fq:last-child{border:0}
+.fq .n{width:18px;color:var(--mu);font-size:12px}.fq .w{flex:1;font-weight:900}.fq .w small{color:var(--mu);font-weight:700}
+.ck{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900}.ck.s{background:rgba(93,216,121,.2);color:var(--ok)}.ck.n{background:rgba(255,107,107,.2);color:var(--mal)}
+.anim .fq{opacity:0;animation:filaIn .3s forwards}
+@keyframes filaIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+/* ===== FINAL B · Pelea ronda por ronda ===== */
+.pel{border-radius:24px;padding:12px;background:linear-gradient(#1A1030,#0A0A0C);border:1px solid #3A2A60}
+.pel .cab{display:flex;align-items:center;justify-content:space-between}.pel .cab .sc{font-size:34px;font-weight:900}.pel .cab .sc span{color:var(--mu);font-size:20px}
+.rd{display:grid;grid-template-columns:28px 1fr 28px;align-items:center;gap:6px;margin-top:6px;opacity:0;animation:filaIn .3s forwards}
+.rd .bar{height:22px;border-radius:8px;background:#1C1C22;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--mu)}
+.rd .bar:before,.rd .bar:after{content:"";position:absolute;top:0;bottom:0;width:50%}
+.rd .bar:before{left:0;background:var(--a,transparent)}.rd .bar:after{right:0;background:var(--b,transparent)}.rd .bar em{position:relative;z-index:1;font-style:normal;color:#fff}
+.rd .ck{width:28px;height:28px}
+.ganB{text-align:center;font-size:30px;font-weight:900;font-style:italic;color:var(--gold);text-shadow:0 3px 0 #7A4300;opacity:0;animation:sello .5s 2.6s cubic-bezier(.3,1.7,.5,1) forwards}
+@keyframes sello{0%{opacity:0;transform:scale(2.2)}100%{opacity:1;transform:none}}
+/* ===== FINAL C · Tarjeta trofeo ===== */
+.tro{position:relative;border-radius:26px;overflow:hidden;padding:16px;text-align:center;background:linear-gradient(160deg,#FFE9A8,#E8A21C 45%,#8A4A0A);color:#2A1408;border:3px solid #FFF0B8;box-shadow:0 12px 30px rgba(255,170,40,.25)}
+.tro:before{content:"";position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 40%,rgba(255,255,255,.18) 0 8deg,transparent 8deg 20deg);animation:gira 18s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+.tro>*{position:relative}.tro .k{font-size:11px;font-weight:900;letter-spacing:.16em}.tro .tt{margin-top:2px;font-size:30px;font-weight:900;font-style:italic}
+.tro .duo{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px}.tro .duo .x{font-size:26px;font-weight:900}.tro .duo .v{font-size:12px;font-weight:900}
+.tro .chips{display:flex;justify-content:center;gap:6px;margin-top:10px}.tro .chips span{padding:5px 10px;border-radius:99px;background:rgba(42,20,8,.18);font-size:12px;font-weight:900}
+.repa{border-radius:20px;background:var(--card);border:1px solid var(--bd);padding:10px 12px}
+.repa .ws{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.repa .ws span{padding:6px 10px;border-radius:12px;background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.4);font-size:13px;font-weight:900}.repa .ws small{color:var(--mu);font-weight:700}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* esperando */
+.esp{border-radius:24px;padding:16px;text-align:center;background:linear-gradient(160deg,#14304A,#0A0A0C);border:1px solid #2F5A75}
+.esp .reloj{font-size:40px;display:inline-block;animation:vuelta 2s ease-in-out infinite}@keyframes vuelta{50%{transform:rotate(180deg)}}
+.esp .tt{font-size:22px;font-weight:900;margin-top:4px}.esp small{color:var(--mu);font-weight:800}
+.cd{display:flex;justify-content:center;gap:6px;margin-top:10px}.cd span{width:52px;padding:6px 0;border-radius:12px;background:#0A1A26;border:1px solid #2F5A75}.cd b{display:block;font-size:20px}.cd small{font-size:9px;letter-spacing:.1em}
+</style></head><body>
+<div class="top"><h1>Duelos · Nuevo reto y Final</h1><p>Opciones para las dos pantallas. Dime una letra de cada una (por ejemplo: <b>Nuevo B</b> y <b>Final A</b>).</p></div>
+<div class="tabs" id="tabs"><button class="on" data-s="0">1 · Nuevo reto</button><button data-s="1">2 · Al terminar</button></div>
+<section class="sec on" id="s0"><div class="lbl">PANTALLA 1</div><h2>Nuevo reto</h2><p>Donde eliges a quién retar, el tema y la apuesta.</p><div class="ops" id="o0"></div></section>
+<section class="sec" id="s1"><div class="lbl">PANTALLA 2</div><h2>Al terminar de jugar</h2><p>Después del ¡GANASTE! (o mientras esperas a tu amigo): tus aciertos, tiempo y qué preguntas fallaste.</p><div class="ops" id="o1"></div></section>
+<script>
+const SPR = {
+  huevo:{"p": {"w": "#F5EFD8", "g": "#5DB33A"}, "r": ["...ww...", "..wwww..", ".wgwwgw.", ".wwwwww.", "wwwwgwww", "wgwwwwgw", ".wwwgww.", "..wwww.."]},
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+  av9:{p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]},
+  av10:{"p": {"r": "#E8343B", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#6B3A1E", "m": "#B5574A", "w": "#F2F4F8", "b": "#2F5BD6", "l": "#3A3A42", "y": "#FFC83D"}, "r": ["....rrrr....", "..rrrrrrrr.r", "..rrrrrrrrr.", "..ssssssss..", "..skssskkk..", "..ssssssss..", "..hhsmmshh..", "...hhhhhh...", "..wbwbwbwb..", ".swbwbwbwbs.", "..lll..lll..", "..kkk..kkk.."]},
+  av11:{"p": {"w": "#F2F4F8", "c": "#3FA9F5", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#FF4D4D", "b": "#2F5BD6", "g": "#8C8C96"}, "r": ["...wwwwww...", "..wwwwwwww..", ".wwccccccww.", ".wcskssksccw", ".wcssmmsscw.", ".wwccccccww.", "..wwwwwwww..", ".wwwrwwbwww.", "w.wwwwwwww.w", "..wwwwwwww..", "..ww....ww..", "..gg....gg.."]},
+  av12:{"p": {"y": "#FFC83D", "g": "#A0AAB8", "d": "#5A6270", "r": "#FF4D4D", "b": "#3F7FD8", "c": "#3FD8C8"}, "r": [".....yy.....", ".....gg.....", "..gggggggg..", "..gddddddg..", "..gdyddydg..", "..gddddddg..", "..gdrrrrdg..", "...gggggg...", ".bbbbbbbbbb.", "g.bbbccbbb.g", "..bbbbbbbb..", "..gg....gg.."]},
+  av13:{"p": {"h": "#8B5A2B", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#E8343B", "p": "#E07A3A", "j": "#3F6FB5", "b": "#5E3E22"}, "r": ["...hhhhhh...", "...hhhhhh...", "hhhhhhhhhhhh", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..rrrrrrrr..", ".spppppppps.", "..jjjjjjjj..", "..jjj..jjj..", "..bbb..bbb.."]},
+  av14:{"p": {"w": "#F2F4F8", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#3A2414", "m": "#B5574A", "r": "#E8343B", "l": "#3A3A42"}, "r": ["...wwwwww...", "..wwwwwwww..", "..wwwwwwww..", "...wwwwww...", "..ssssssss..", "..skssssks..", "..sshhhhss..", "...ssmmss...", ".swwwwwwwws.", "..wwrrwwww..", "..lll..lll..", "..kkk..kkk.."]},
+  av15:{"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},
+  av16:{"p": {"k": "#1A1A22", "p": "#E6E1F0", "r": "#E8343B", "w": "#FFFFFF", "c": "#8E1B2B"}, "r": ["...kkkkkk...", "..kkkkkkkk..", "..kppppppk..", "..prpppprp..", "..pppppppp..", "...pwppwp...", "cc.kkkkkk.cc", "cckkwwwwkkcc", "cckkkkkkkkcc", "c.kkkkkkkk.c", "..kk....kk..", "..kk....kk.."]},
+  av17:{"p": {"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"}, "r": ["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]},
+  av18:{"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
+  av19:{"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]}
+};
+function sprite(n, s) {
+  const d = SPR[n]; if (!d) return "";
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+
+const AVS={yo:["av18","yo"],sofi:["av10","e1"],leo:["av15","e2"],vale:["av19","e3"]};
+const A=(k,s)=>'<span class="av '+AVS[k][1]+'" style="width:'+s+'px;height:'+s+'px">'+sprite(AVS[k][0],Math.round(s*.66))+'</span>';
+const HD=t=>'<div class="hd"><span class="bk">‹</span><b>'+t+'</b></div>';
+const op=(k,t,d,html,rec)=>'<div class="op"><div class="lbl">OPCIÓN '+k+'</div><h3>'+t+(rec?'<span class="rec">RECOMENDADA</span>':'')+'</h3><p>'+d+'</p><div class="ph">'+html+'</div></div>';
+const TEMAS=[["🎨","Colores","#E5483C"],["🐾","Animales","#2F6FD6"],["🍓","Frutas","#3FA34D"],["👨‍👩‍👧","Familia","#D99417"],["🔢","Números","#8E5BD6"],["🎲","Al azar","#3A3A44"]];
+const pila=n=>'<div class="mon"><div class="pila">'+Array.from({length:n},()=>'<i></i>').join("")+'</div></div>';
+/* ===== NUEVO RETO ===== */
+document.getElementById("o0").innerHTML=
+ op("A","Paso a paso (rival, tema, apuesta)","Tarjetas grandes de tus amigos con su fondo, temas como fichas de colores con dibujo y la apuesta como montoncitos de monedas. Abajo, un resumen «Tú VS Sofi» antes del botón ¡RETAR!",
+  HD("Nuevo reto")+'<div class="pasos"><i class="on"></i><i class="on"></i><i class="on"></i></div>'+
+  '<div class="st">1 · ¿A QUIÉN RETAS?</div><div class="rivales">'+[["sofi","Sofi","Activa ahora",1,1],["leo","Leo","Le ganaste 2-1",0,0],["vale","Vale","Hace 3 h",0,0]].map(x=>'<div class="rv'+(x[3]?" sel":"")+'"><div class="bg" style="background:'+(x[0]==="sofi"?"linear-gradient(#2C6DD6,#123A7A)":x[0]==="leo"?"linear-gradient(#1F4D2C,#0D2615)":"linear-gradient(#5B3FB0,#22164A)")+'">'+sprite(AVS[x[0]][0],62)+(x[3]?'<span class="chk">✓</span>':'')+(x[4]?'<span class="on"></span>':'')+'</div><b>'+x[1]+'</b><small>'+x[2]+'</small></div>').join("")+'</div>'+
+  '<div class="st">2 · TEMA</div><div class="temas">'+TEMAS.map((t,i)=>'<div class="tm'+(i===1?" sel":"")+'" style="--c:'+t[2]+'"><span>'+t[0]+'</span>'+t[1]+'</div>').join("")+'</div>'+
+  '<div class="st">3 · APUESTA</div><div class="fichas">'+[[0,"Sin apuesta","Solo honor"],[3,"🔥 50","Gana 100"],[6,"🔥 100","Gana 200"]].map((f,i)=>'<div class="fi'+(i===1?" sel":"")+'">'+(f[0]?pila(f[0]):'<div class="mon" style="font-size:26px">🤝</div>')+'<b>'+f[1]+'</b><small>'+f[2]+'</small></div>').join("")+'</div>'+
+  '<div class="resum">'+A("yo",28)+'<span class="vs">VS</span>'+A("sofi",28)+'<span style="flex:1">Animales · 🔥 50</span></div><div class="btnR">⚔ ¡RETAR!</div>',1)+
+ op("B","VS en vivo","Arriba un mini choque de rayos que cambia en vivo: al tocar un amigo aparece en el lado azul, y el tema y la apuesta se ven en el cartel. Todo en una sola pantalla.",
+  HD("Nuevo reto")+'<div class="vivo"><div class="l">'+A("yo",70)+'<b>Tú</b></div><div class="r">'+A("sofi",70)+'<b>Sofi</b></div><div class="x">VS</div><div class="tags"><span>🐾 Animales</span><span>🔥 50</span></div></div>'+
+  '<div class="st">ELIGE RIVAL</div><div class="burb">'+[["sofi","Sofi",1],["leo","Leo"],["vale","Vale"]].map(x=>'<div class="bu'+(x[2]?" sel":"")+'">'+A(x[0],52)+x[1]+'</div>').join("")+'<div class="bu"><span class="av" style="width:52px;height:52px;background:#222226;border-color:#3A3A44;align-items:center;font-size:24px;color:#B8B8C0">+</span>Agregar</div></div>'+
+  '<div class="st">TEMA</div><div class="tm2">'+TEMAS.map((t,i)=>'<span class="'+(i===1?"on":"")+'">'+t[0]+' '+t[1]+'</span>').join("")+'</div>'+
+  '<div class="st">APUESTA</div><div class="seg"><span>🤝 Nada</span><span class="on">🔥 50</span><span>🔥 100</span></div>'+
+  '<div style="margin-top:auto" class="btnR">⚔ ¡RETAR A SOFI!</div>')+
+ op("C","Ruleta de tema","Eliges al amigo y la apuesta, y el tema lo decide una ruleta que gira (o la paras tú). Más suerte y emoción; también puedes elegir el tema a mano.",
+  HD("Nuevo reto")+'<div class="mini">'+A("sofi",40)+'<b>Sofi</b><span>Cambiar ›</span></div>'+
+  '<div class="rul"><span class="flecha"></span><div class="rueda">'+TEMAS.slice(0,6).map((t,i)=>{const a=(i*60+30)*Math.PI/180,r=62;return '<span style="transform:translate('+(Math.sin(a)*r-12).toFixed(0)+'px,'+(-Math.cos(a)*r-14).toFixed(0)+'px)">'+t[0]+'</span>'}).join("")+'</div><div class="cen">GIRA</div></div>'+
+  '<div class="res-t">¡Salió <em>Animales</em>!</div>'+
+  '<div class="seg"><span>🤝 Nada</span><span class="on">🔥 50</span><span>🔥 100</span></div><div class="dos"><div class="btnO">Elegir tema</div><div class="btnO">🎲 Girar otra vez</div></div><div class="btnR">⚔ ¡RETAR!</div>');
+
+/* ===== AL TERMINAR ===== */
+const PRE=[["caballo","horse",1,1],["snake","serpiente",1,0],["The ___ sleeps…","cat",0,1],["delfín","dolphin",1,1],["mouse","ratón",1,1],["The ___ swims","fish",1,0],["jirafa","giraffe",0,0],["parrot","loro",1,1],["The ___ flies","bird",1,1],["tortuga","turtle",1,0]];
+const lista=(anim)=>'<div class="lista'+(anim?" anim":"")+'"><div class="h"><span>PREGUNTA</span><span>TÚ · SOFI</span></div>'+PRE.map((q,i)=>'<div class="fq" style="animation-delay:'+(.2+i*.12)+'s"><span class="n">'+(i+1)+'</span><span class="w">'+q[0]+' <small>→ '+q[1]+'</small></span><span class="ck '+(q[2]?"s":"n")+'">'+(q[2]?"✓":"✗")+'</span><span class="ck '+(q[3]?"s":"n")+'">'+(q[3]?"✓":"✗")+'</span></div>').join("")+'</div>';
+document.getElementById("o1").innerHTML=
+ op("A","Estadísticas + todas las preguntas","Arriba el resultado con tu corona y el marcador, luego 3 fichas (aciertos, tiempo, mejor racha) y la lista de las 10 preguntas con la respuesta correcta y quién acertó cada una.",
+  '<div class="ban">'+A("yo",56)+'<span class="cor">👑</span><div><div class="tt">¡GANASTE!</div><small>Duelo de Animales contra Sofi</small></div></div>'+
+  '<div class="marc"><b class="w">8</b><span>–</span><b>7</b></div>'+
+  '<div class="stats"><div class="stt"><i>🎯</i><b>8/10</b><small>ACIERTOS</small></div><div class="stt"><i>⏱️</i><b>1:24</b><small>TIEMPO</small></div><div class="stt"><i>🔥</i><b>x5</b><small>MEJOR RACHA</small></div></div>'+
+  lista(1)+'<div class="dos"><div class="btnO">Mis duelos</div><div class="btnR" style="height:46px;font-size:16px">⚔ Revancha</div></div>',1)+
+ op("B","La pelea ronda por ronda","Las 10 preguntas aparecen como rondas de una pelea: el color de quien acertó llena su lado de la barra, el marcador sube en vivo y al final aparece quién ganó.",
+  '<div class="pel"><div class="cab">'+A("yo",44)+'<span class="sc">8 <span>–</span> 7</span>'+A("sofi",44)+'</div>'+
+  PRE.map((q,i)=>'<div class="rd" style="animation-delay:'+(.2+i*.2)+'s"><span class="ck '+(q[2]?"s":"n")+'">'+(q[2]?"✓":"✗")+'</span><span class="bar" style="--a:'+(q[2]?"rgba(255,138,61,.75)":"transparent")+';--b:'+(q[3]?"rgba(77,163,255,.75)":"transparent")+'"><em>R'+(i+1)+' · '+q[1]+'</em></span><span class="ck '+(q[3]?"s":"n")+'">'+(q[3]?"✓":"✗")+'</span></div>').join("")+'</div>'+
+  '<div class="ganB">¡GANASTE 8 – 7!</div><div class="dos"><div class="btnO">Mis duelos</div><div class="btnR" style="height:46px;font-size:16px">⚔ Revancha</div></div>')+
+ op("C","Tarjeta de trofeo + repaso","Una tarjeta dorada tipo trofeo (para presumir o compartir) con los dos personajes y tus datos. Debajo, solo las palabras que fallaste para repasarlas.",
+  '<div class="tro"><div class="k">DUELO · ANIMALES</div><div class="tt">¡GANASTE!</div><div class="duo">'+A("yo",64)+'<span class="x">8–7</span>'+A("sofi",50)+'</div><div class="chips"><span>🎯 8/10</span><span>⏱️ 1:24</span><span>🔥 +130</span></div></div>'+
+  '<div class="repa"><div class="st">PARA REPASAR</div><div class="ws"><span>cat <small>gato</small></span><span>giraffe <small>jirafa</small></span></div></div>'+
+  '<div class="dos"><div class="btnO">📤 Compartir</div><div class="btnO">Mis duelos</div></div><div class="btnR">⚔ Revancha</div>')+
+ op("D","Mientras esperas a tu amigo (para cualquiera)","Si tú retaste y tu amigo aún no juega: tu puntaje, una cuenta regresiva de las horas que le quedan y tus respuestas.",
+  '<div class="esp"><span class="reloj">⏳</span><div class="tt">Esperando a Sofi</div><small>Tú hiciste 8/10 en 1:24</small><div class="cd"><span><b>18</b><small>HORAS</small></span><span><b>42</b><small>MIN</small></span></div></div>'+
+  '<div class="stats"><div class="stt"><i>🎯</i><b>8/10</b><small>ACIERTOS</small></div><div class="stt"><i>⏱️</i><b>1:24</b><small>TIEMPO</small></div><div class="stt"><i>🔥</i><b>x5</b><small>MEJOR RACHA</small></div></div>'+
+  '<div class="lista"><div class="h"><span>TUS RESPUESTAS</span><span>8/10</span></div>'+PRE.slice(0,6).map((q,i)=>'<div class="fq"><span class="n">'+(i+1)+'</span><span class="w">'+q[0]+' <small>→ '+q[1]+'</small></span><span class="ck '+(q[2]?"s":"n")+'">'+(q[2]?"✓":"✗")+'</span></div>').join("")+'</div><div class="btnO">Mis duelos</div>');
+function reAnim(sec){sec.querySelectorAll(".rueda,.res-t,.fq,.rd,.ganB").forEach(e=>{e.style.animation="none";void e.offsetWidth;e.style.animation=""})}
+document.getElementById("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;document.querySelectorAll(".tabs button,.sec").forEach(x=>x.classList.remove("on"));b.classList.add("on");const s=document.getElementById("s"+b.dataset.s);s.classList.add("on");reAnim(s)};
+</script></body></html>
