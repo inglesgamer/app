@@ -303,6 +303,11 @@ nav a.on{color:var(--hi)}
 .lmod{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.7)}
 .lmb{width:100%;max-width:330px;padding:22px 18px 16px;border-radius:28px;background:var(--card);border:1px solid var(--bd);text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
 .lmb small{font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--mu)}.lmb h3{margin:4px 0 0;font-size:24px}.lmb p{margin:0 0 6px;color:var(--mu);font-weight:700}.lmb .btn{width:100%}
+.btn.duel{background:#FF8A3D;color:#1A0F05}
+.dcard{display:flex;align-items:center;gap:12px;padding:14px;text-align:left;color:var(--ink);background:linear-gradient(150deg,color-mix(in srgb,#FF8A3D 26%,var(--card)),var(--card) 75%);border-color:color-mix(in srgb,#FF8A3D 45%,var(--bd));cursor:pointer;font-family:inherit}
+.dcard .info{flex:1;min-width:0;display:flex;flex-direction:column}.dcard b{font-size:18px;font-weight:900}.dcard .info span{font-size:14px;font-weight:700;color:var(--mu)}
+.dico{flex:none;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#FF8A3D;color:#1A0F05}
+.dnum{flex:none;min-width:30px;height:30px;padding:0 8px;border-radius:99px;background:#FF6B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900}
 </style>
 </head>
 <body>
@@ -543,7 +548,12 @@ async function cargarAmigos() {
   FR.recibidas = items.filter(x => x.estado === "pendiente" && !x.mia).map(con).filter(Boolean);
   FR.enviadas = items.filter(x => x.estado === "pendiente" && x.mia).map(con).filter(Boolean);
   tAmigos = Date.now();
+  try {   /* DUELOS: retos que te mandaron y aún no juegas */
+    const d = await getDocs(query(collection(db, "duelos"), where("b", "==", ME.uid), limit(40)));
+    let n = 0; d.forEach(x => { const v = x.data(); if (!v.rb && v.est !== "rech" && +v.vence > Date.now()) n++; }); DPEND = n;
+  } catch (e) { DPEND = 0; }
 }
+let DPEND = 0;
 async function iniciar() {
   cargando = true; error = ""; pintar();
   try {
@@ -670,11 +680,12 @@ function interruptor() {
 }
 function vistaAmigos() {
   const am = FR.amigos.map(x => x.j);
+  const duel = am.length ? '<button type="button" class="card dcard" data-duelo=""><span class="dico">' + ic("bolt", 26) + '</span><span class="info"><b>Duelos</b><span>' + (DPEND ? DPEND + (DPEND === 1 ? " amigo te retó" : " amigos te retaron") : "Reta a un amigo con 10 preguntas") + '</span></span>' + (DPEND ? '<span class="dnum">' + DPEND + '</span>' : '<span class="gt">' + ic("chev", 22, 2.4) + '</span>') + '</button>' : "";
   if (!am.length) return '<div class="card vacio"><b>Aún no tienes amigos</b>Agrega a alguien con su código y compara tu avance con el suyo.<div style="margin-top:14px"><button type="button" class="btn" data-abrir="agregar">' + ic("add", 20) + ' Agregar amigo</button></div></div>' + interruptor();
   const on = am.filter(j => j.on), off = am.filter(j => !j.on);
   const fila = (j, act) => '<button type="button" class="fila card" data-ver="' + esc(j.uid) + '">' + conPunto(j, 56, 16) + '<span class="info"><span class="nombre" style="display:block">' + esc(j.n) + marca + '</span>' +
     '<span class="est' + (act ? "" : " gris") + '" style="display:block">' + esc(act ? j.act : (j.vis ? "Visto " + j.visto : "Estado oculto")) + '</span></span><span class="gt">' + ic("chev", 22, 2.4) + '</span></button>';
-  return '<div class="card resumen"><span class="pila">' + am.slice(0, 3).map(j => avatar(j.av, 42)).join("") + '</span><span class="res-tx"><b>' + am.length + (am.length === 1 ? " amigo" : " amigos") + '</b><span><i class="dot"></i>' + on.length + (on.length === 1 ? " activo ahora" : " activos ahora") + '</span></span>' +
+  return duel + '<div class="card resumen"><span class="pila">' + am.slice(0, 3).map(j => avatar(j.av, 42)).join("") + '</span><span class="res-tx"><b>' + am.length + (am.length === 1 ? " amigo" : " amigos") + '</b><span><i class="dot"></i>' + on.length + (on.length === 1 ? " activo ahora" : " activos ahora") + '</span></span>' +
     '<button type="button" class="btn sm" data-abrir="agregar">Invitar</button></div>' +
     (on.length ? '<div class="sec"><span>ACTIVOS AHORA</span><b>' + on.length + '</b></div>' + on.map(j => fila(j, true)).join("") : "") +
     (off.length ? '<div class="sec"><span>DESCONECTADOS</span><b>' + off.length + '</b></div>' + off.map(j => fila(j, false)).join("") : "") + interruptor();
@@ -761,7 +772,7 @@ function pintarPerfil() {
   const med = MEDALLAS.map((x, i) => '<div class="card med' + (j.med.indexOf(i) >= 0 ? "" : " no") + '">' + ic(x.i, 30, 2) + '<span>' + esc(x.t) + '</span></div>').join("");
   let botones;
   if (j.uid === ME.uid) botones = "";
-  else if (amigo) botones = '<div class="btnrow" style="grid-template-columns:1fr"><button type="button" class="btn out mal" data-acc="quitar" data-u="' + esc(j.uid) + '">' + (confirmaQuitar === j.uid ? "¿Seguro? Toca otra vez" : "Quitar amigo") + '</button></div>';
+  else if (amigo) botones = '<div class="btnrow" style="grid-template-columns:1fr"><button type="button" class="btn duel" data-duelo="' + esc(j.uid) + '">' + ic("bolt", 20) + ' Retar a duelo</button><button type="button" class="btn out mal" data-acc="quitar" data-u="' + esc(j.uid) + '">' + (confirmaQuitar === j.uid ? "¿Seguro? Toca otra vez" : "Quitar amigo") + '</button></div>';
   else if (r === "recibida") botones = '<div class="btnrow" style="grid-template-columns:1fr 1fr"><button type="button" class="btn" data-acc="aceptar" data-u="' + esc(j.uid) + '">' + ic("check", 20, 3) + ' Aceptar</button><button type="button" class="btn out" data-acc="rechazar" data-u="' + esc(j.uid) + '">Rechazar</button></div>';
   else if (r === "enviada") botones = '<div class="btnrow" style="grid-template-columns:1fr"><span class="btn off">Solicitud enviada</span></div>';
   else botones = '<div class="btnrow" style="grid-template-columns:1fr"><button type="button" class="btn" data-acc="agregar" data-u="' + esc(j.uid) + '">' + ic("add", 20) + ' Agregar amigo</button></div>';
@@ -839,6 +850,7 @@ document.addEventListener("click", async e => {
   const t = e.target;
   if (!t.closest("#menuMas") && !t.closest("#btnMas")) $("menuMas").hidden = true;
   let el;
+  if ((el = t.closest("[data-duelo]"))) { if (el.dataset.duelo) guardar("ig_duelo_con", { u:el.dataset.duelo }); location.href = igURL("go:duelo"); return; }
   if ((el = t.closest("[data-acc]"))) { accion(el.dataset.acc, el.dataset.u); return; }
   if ((el = t.closest("[data-ver]"))) { verJugador(el.dataset.ver); return; }
   if ((el = t.closest("[data-tab]"))) { tab = el.dataset.tab; pintar(); $("cont").scrollTop = 0; actualizarSilencioso(); return; }
