@@ -492,7 +492,7 @@ const GLOS = { "my":"mi", "name":"nombre", "is":"es", "age":"edad", "fifteen":"q
 
 /* El nivel, paso por paso (3 corazones, sin botón Comprobar).
    nueva = enseña una tarjeta: dibujo, palabra con su mp3, tip y el ejemplo de siempre (no se evalúa)
-   habla = qué significa · completa = palabra que falta · oye = toca lo que oyes (nuevo) · parejas · sopa · relampago
+   habla = qué significa · completa = palabra que falta · oye = toca lo que oyes (nuevo) · parejas · sopa
    REGLA: ~30 % repasa lo de niveles anteriores (Presentaciones y Saludos: hello, good morning, nice to meet you). */
 const T = n => NIVEL.tarjetas.find(t => t.en === n);
 const NUEVA = (n, pj, tip) => { const t = T(n); return { t:"nueva", pj, ob:t.ob, en:t.en, es:t.es, tip, ej:t.ex, ejEs:t.exes, cat:t.cat }; };
@@ -521,8 +521,7 @@ const PLAN = [
   { t:"completa", pj:"saludo",  ob:"mundo",   en:"Nice to meet you. My ___ is Colombia.", es:"Encantado de conocerte. Mi país es Colombia.", ok:"country", ops:["country", "name", "mother"], nota:"Repaso de Presentaciones: nice to meet you = encantado de conocerte" },
   { t:"sopa",     pal:[["NAME", "nombre"], ["AGE", "edad"], ["FIVE", "cinco"], ["SISTER", "hermana"]] },
   { t:"oye",      en:"Twenty", ops:["Twenty", "Brother", "Five", "Colombian"] },
-  { t:"parejas",  pares:[["five", "cinco"], ["fifteen", "quince"], ["twenty", "veinte"], ["sister", "hermana"], ["Colombian", "colombiano"]] },
-  { t:"relampago", rondas:[["n5", "Five", 1], ["hermano", "Hello, mother!", 0], ["nombre", "My name is Ana.", 1], ["bandera", "I am Colombian.", 1], ["pastel", "My country is Colombia.", 0]] }
+  { t:"parejas",  pares:[["five", "cinco"], ["fifteen", "quince"], ["twenty", "veinte"], ["sister", "hermana"], ["Colombian", "colombiano"]] }
 ];
 
 /* =====================================================================
