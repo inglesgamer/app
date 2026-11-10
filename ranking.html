@@ -368,6 +368,10 @@ nav a.on{color:var(--hi)}
 .sal .ped{background:linear-gradient(#2A2008,#14100A);border-color:#5A4410}.sal .p1 .ped{background:linear-gradient(#5A4410,#2A1E06)}
 .sal .nombre{color:#FFF3D6}.sl-tt{margin-top:3px}
 @media (prefers-reduced-motion:reduce){.sal-ray{animation:none}}
+.rban .mt{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:14px;color:#FFF3D6}.rban .mt b{display:flex;align-items:center;gap:6px;font-size:19px;font-weight:900}.rban .mt span{font-size:13px;font-weight:900;color:#FFD166}
+.rban .mb{height:14px;margin-top:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}.rban .mb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#FFB627,#FFE08A);transition:width .8s}
+.rban .dsc{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 10px;border-radius:14px;background:rgba(0,0,0,.35);font-size:12.5px;font-weight:800;color:#E9DCC0}.rban .dsc svg{flex:none;color:#FF8A8A}.rban .dsc b{color:#FFD166}
+.lun-men{font-size:34px;font-weight:900;color:#FF6B6B;line-height:1}
 .rdots{display:flex;justify-content:center;gap:6px;margin-top:-4px}.rdots i{width:7px;height:7px;border-radius:99px;background:var(--bd);transition:width .25s}.rdots i.on{width:20px;background:var(--hi)}.rdots i.mio:not(.on){background:var(--mu)}
 </style>
 </head>
@@ -434,13 +438,15 @@ const REPORTE_URL = "";
 const TEMPORADA = { num:1, nombre:"Jurásica", campo:"tp1", fin:new Date(2026, 11, 1) };
 /* RANGOS DEL REINO (liga semanal): cada semana compites con los de tu mismo rango.
    Cada rango tiene 3 escalones (III → II → I), menos el Rey. Al empezar la semana nueva:
-   los primeros de cada rango suben un escalón (Campesino: los 10 primeros; los demás: los 5 primeros)
-   y los BAJAN últimos (o quien no ganó Aura) bajan uno. */
+   sube y baja por METAS de Aura (ver abajo); la lista semanal es para competir. */
 const RANGOS_REINO = [
   { n:"Campesino", m:"madera", g:"horca" }, { n:"Soldado", m:"cobre", g:"escudo" }, { n:"Caballero", m:"hierro", g:"espada" },
   { n:"Noble", m:"oro", g:"leon" }, { n:"Rey", m:"real", g:"corona", rey:true } ];
-const SUBEN_RANGO = [10, 5, 5, 5, 5], BAJAN = 5;
-const subenDe = lg => SUBEN_RANGO[lg] || 5;
+/* LIGA POR METAS (desde 2026-11-10): cada escalón pide una meta de Aura ganada; al llegar subes en ese momento
+   (lo que sobra pasa al siguiente). Cada lunes se descuentan puntos; si quedas en menos de 0, bajas un escalón
+   y quedas a la mitad de esa meta (en Campesino III no se baja). */
+const METAS = [150, 250, 400, 600], DESC_LUNES = [30, 50, 80, 120, 150];
+const metaDe = st => METAS[reinoDe(st)] || 0, descDe = st => DESC_LUNES[reinoDe(st)] || 0;
 const PASO_MAX = (RANGOS_REINO.length - 1) * 3;   // 12 = Rey
 const PREMIOS_TEMP = [["1.º", "Marco «Rey Jurásico»"], ["Top 3", "Título «Leyenda T1»"], ["Top 10", "Insignia «Top 10 · T1»"]];
 const NAV = [
@@ -644,22 +650,13 @@ async function actualizarSilencioso() {
 }
 
 /* ---- RANGOS DEL REINO ---- */
-/* cuánto te falta para entrar en la zona de ascenso (los SUBEN primeros de tu rango) */
-function cuantoFalta(L, m) {
-  const SUBEN = subenDe(L.lg);
-  const mio = Math.max(0, +m.liga || 0), sig = L.st < PASO_MAX ? nombreRango(L.st + 1) : "";
-  if (!sig) return '<div class="rb-fal top"><b>¡Eres Rey!</b><span>Estás en el rango más alto. Quédate fuera de los 5 últimos para mantener la corona.</span></div>';
-  const otros = LISTA.filter(j => j.uid !== ME.uid).map(j => +j.liga || 0).sort((a, b) => b - a);
-  const puesto = 1 + otros.filter(v => v > mio).length;
-  const corte = otros.length >= SUBEN ? otros[SUBEN - 1] : 0;   // puntos del último que sube (sin contarte a ti)
-  const meta = Math.max(1, corte + 1), falta = Math.max(0, meta - mio), pct = Math.min(100, Math.round(mio / meta * 100));
-  if (mio > 0 && puesto <= SUBEN) {
-    const ventaja = otros.length >= SUBEN ? mio - corte : null;
-    return '<div class="rb-fal ok"><div class="rb-ft"><b>¡Vas subiendo a ' + sig + '!</b><span>Puesto ' + puesto + '</span></div><div class="rb-bar"><i style="width:100%"></i></div>' +
-      '<span>' + (ventaja !== null ? 'Le llevas <b>' + ventaja + ' de Aura</b> al ' + (SUBEN + 1) + '.º. ' : '') + 'Sigue jugando para no perder tu lugar hasta el domingo.</span></div>';
-  }
-  return '<div class="rb-fal"><div class="rb-ft"><b>Te faltan ' + falta + ' de Aura</b><span>para subir a ' + sig + '</span></div><div class="rb-bar"><i style="width:' + pct + '%"></i></div>' +
-    '<span>' + (otros.length >= SUBEN ? 'Así entras en los ' + SUBEN + ' primeros (el ' + SUBEN + '.º tiene ' + corte + '). ' : 'Gana Aura esta semana y entras en los ' + SUBEN + ' primeros. ') + 'Juega niveles, retos o duelos.</span></div>';
+/* barra del escalón: puntos / meta y el descuento del lunes */
+function barraMeta(L) {
+  const pt = Math.max(0, Math.floor(+L.pt || 0)), reloj = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+  const dsc = '<div class="dsc">' + reloj + '<span>El lunes se descuentan <b>' + descDe(L.st) + ' puntos</b> (en ' + finSemana() + ')</span></div>';
+  if (L.st >= PASO_MAX) return '<div class="mt"><b>' + llama(18) + pt + '</b><span>puntos de Rey</span></div>' + dsc;
+  const meta = metaDe(L.st), pct = Math.min(100, Math.round(pt / meta * 100));
+  return '<div class="mt"><b>' + llama(18) + pt + ' / ' + meta + '</b><span>para ' + nombreRango(L.st + 1) + '</span></div><div class="mb"><i style="width:' + pct + '%"></i></div>' + dsc;
 }
 
 const reinoDe = st => Math.min(RANGOS_REINO.length - 1, Math.floor(st / 3));
@@ -668,25 +665,23 @@ const nombreRango = st => RANGOS_REINO[reinoDe(st)].n + (divDe(st) ? " " + divDe
 function miLiga() {   /* {v:2, st: escalón 0..12, lg: rango (grupo), k: semana, ant} — las ligas viejas (lg 0..4) pasan a "rango III" */
   const L = leer("ingles_gamer_liga");
   if (!L) return { v:2, st:0, lg:0, k:SEM() };
-  if (L.v !== 2) { L.v = 2; L.st = Math.min(PASO_MAX, Math.max(0, (+L.lg || 0) * 3)); if (L.ant) L.ant.st = Math.max(0, (+L.ant.lg || 0) * 3); }
+  if (L.v !== 2 && L.v !== 3) { L.v = 2; L.st = Math.min(PASO_MAX, Math.max(0, (+L.lg || 0) * 3)); if (L.ant) L.ant.st = Math.max(0, (+L.ant.lg || 0) * 3); }
   L.st = Math.min(PASO_MAX, Math.max(0, +L.st || 0)); L.lg = reinoDe(L.st); return L;
 }
-async function revisarLiga() {
-  if (!leer("ingles_gamer_liga")) { guardar("ingles_gamer_liga", miLiga()); return; }
-  const L = miLiga();
-  if (L.k === SEM()) { guardar("ingles_gamer_liga", L); return; }
-  /* grupo de la semana pasada en tu rango: los que aún no cambian de semana (lgw/ls) y los que ya cambiaron (lgwa/lsa) */
-  const ant = aSemana(new Date(Date.now() - 7 * 864e5)) + "|" + L.lg, col = collection(db, "jugadores"), m = {};
-  try {
-    const [a, b] = await Promise.all([getDocs(query(col, where("lgw", "==", ant), limit(60))), getDocs(query(col, where("lgwa", "==", ant), limit(60)))]);
-    a.forEach(d => { m[d.id] = +d.data().ls || 0; }); b.forEach(d => { m[d.id] = +d.data().lsa || 0; });
-  } catch (e) { return; }
-  const arr = Object.keys(m).map(u => ({ uid:u, ls:m[u] })).sort((x, y) => y.ls - x.ls);
-  const i = arr.findIndex(x => x.uid === ME.uid), n = arr.length, mi = arr[i], SUBEN = subenDe(L.lg);
-  let st = L.st, res = "igual";
-  if (mi && mi.ls > 0 && i < SUBEN && st < PASO_MAX) { st++; res = "sube"; }
-  else if (st > 0 && (!mi || mi.ls <= 0 || (n >= SUBEN + BAJAN && i >= n - BAJAN))) { st--; res = "baja"; }
-  guardar("ingles_gamer_liga", { v:2, st, lg:reinoDe(st), k:SEM(), ant:{ st:L.st, pos:mi && mi.ls > 0 ? i + 1 : 0, res, visto:false } });
+const semanasEntre = (a, b) => { const f = k => { const p = String(k).split("-").map(Number); return new Date(p[0], (p[1] || 1) - 1, p[2] || 1); }; const d = Math.round((f(b) - f(a)) / 6048e5); return isNaN(d) ? 1 : Math.max(0, d); };
+async function revisarLiga() {   /* suma el Aura ganada desde la última vez, sube si llega a la meta y descuenta cada lunes */
+  const L = miLiga(), ag = Math.max(0, +yo().tot || 0);
+  if (L.v !== 3) { guardar("ingles_gamer_liga", { v:3, st:L.st, lg:reinoDe(L.st), pt:0, e:ag, k:SEM(), ant:L.ant }); return; }
+  const st0 = L.st; let st = L.st, pt = Math.max(0, +L.pt || 0) + Math.max(0, ag - (+L.e || 0)), desc = 0, bajo = false;
+  while (st < PASO_MAX && pt >= metaDe(st)) { pt -= metaDe(st); st++; }
+  const subio = st > st0;
+  if (L.k !== SEM()) for (let w = Math.min(8, Math.max(1, semanasEntre(L.k, SEM()))); w > 0; w--) {
+    const d = descDe(st); desc += d; pt -= d;
+    if (pt < 0) { if (st > 0) { st--; pt = Math.floor(metaDe(st) / 2); bajo = true; } else pt = 0; }
+  }
+  const N = { v:3, st, lg:reinoDe(st), pt, e:ag, k:SEM(), ant:L.ant };
+  if (subio || desc) N.ant = { st:st0, res:subio && st > st0 ? "sube" : bajo ? "baja" : "igual", desc, pt, visto:false };
+  guardar("ingles_gamer_liga", N);
 }
 /* escudo del rango (SVG): madera, cobre, hierro, oro y el del Rey con corona */
 const MATERIAL = { madera:["#C99A5B","#7A4E22","#4A2C10"], cobre:["#F2A36B","#B4582A","#5E2A10"], hierro:["#C7CDD6","#6E7783","#2E343C"], oro:["#FFF0A8","#F2B526","#8A5A00"], real:["#FFF6C8","#FFC83D","#9A5B00"] };
@@ -711,13 +706,13 @@ function carruselRangos(L, m) {
   const mio = L.lg, vista = ligaVista();
   const cards = RANGOS_REINO.map((r, lg) => {
     const sel = lg === vista ? " sel" : "";
-    if (lg === mio) return '<div class="card rban rc r' + lg + sel + '" data-lg="' + lg + '" role="button" tabindex="0"><div class="rb-row">' + escudoRango(L.st, 78) + '<div class="rb-tx"><small>TU RANGO ESTA SEMANA</small><b>' + nombreRango(L.st) + '</b>' + pipsDiv(L.st) +
-      '<span class="tb-cd"><i></i>Termina en ' + finSemana() + '</span></div></div>' + cuantoFalta(L, m) + (lg !== vista ? '<span class="rc-ver">Ver mi liga ›</span>' : '') + '</div>';
+    if (lg === mio) return '<div class="card rban rc r' + lg + sel + '" data-lg="' + lg + '" role="button" tabindex="0"><div class="rb-row">' + escudoRango(L.st, 78) + '<div class="rb-tx"><small>TU RANGO</small><b>' + nombreRango(L.st) + '</b>' + pipsDiv(L.st) +
+      '</div></div>' + barraMeta(L) + (lg !== vista ? '<span class="rc-ver">Ver mi liga ›</span>' : '') + '</div>';
     const st = lg * 3, arriba = lg > mio;
     const estado = arriba ? (lg === mio + 1 ? "EL SIGUIENTE RANGO" : "MÁS ARRIBA") : "YA LO PASASTE";
     return '<div class="card rban rc r' + lg + sel + (arriba ? " lejos" : "") + '" data-lg="' + lg + '" role="button" tabindex="0"><div class="rb-row">' + escudoRango(r.rey ? PASO_MAX : st, 78) + '<div class="rb-tx"><small>' + estado + '</small><b>' + r.n + '</b>' +
       (r.rey ? '<span class="rpips rey">RANGO MÁXIMO</span>' : '<span class="rc-div">III · II · I</span>') + '</div></div>' +
-      '<div class="rb-fal"><b class="rc-t">' + (r.rey ? "La corona" : "Suben los " + subenDe(lg) + " primeros") + '</b><span>' + (r.rey ? "Solo los mejores llegan aquí. Los 5 últimos de la semana bajan a Noble." : "Cada semana los " + subenDe(lg) + " primeros suben un escalón" + (lg ? " y los 5 últimos bajan uno" : "") + ".") + '</span></div>' +
+      '<div class="rb-fal"><b class="rc-t">' + (r.rey ? "La corona" : "Meta: " + METAS[lg] + " de Aura por escalón") + '</b><span>' + (r.rey ? "El rango más alto. Cada lunes se descuentan " + DESC_LUNES[lg] + " puntos." : "Llegas a la meta y subes. Cada lunes se descuentan " + DESC_LUNES[lg] + " puntos.") + '</span></div>' +
       '<span class="rc-ver">' + (lg === vista ? "Viendo esta liga" : "Ver jugadores ›") + '</span></div>';
   }).join("");
   return '<div class="rcar" id="rcar">' + cards + '</div><div class="rdots">' + RANGOS_REINO.map((r, lg) => '<i class="' + (lg === vista ? "on" : "") + (lg === mio ? " mio" : "") + '"></i>').join("") + '</div>';
@@ -730,11 +725,12 @@ function centrarRango(suave) {
 function avisoLiga() {
   const L = miLiga(); if (!L.ant || L.ant.visto) return;
   const cerrar = () => { L.ant.visto = true; guardar("ingles_gamer_liga", L); };
-  const r = L.ant.res, pos = L.ant.pos ? "Quedaste en el puesto " + L.ant.pos + " la semana pasada." : "La semana pasada no ganaste Aura.";
-  if (r === "sube") return coronacion(L.ant.st, L.st, pos, cerrar);
+  const r = L.ant.res, d = +L.ant.desc || 0;
+  if (r === "sube") return coronacion(L.ant.st, L.st, "Llegaste a la meta de Aura.", cerrar);
+  if (!d) return cerrar();
   const o = document.createElement("div"); o.className = "lmod";
-  o.innerHTML = '<div class="lmb"><small>RESULTADO DE LA SEMANA</small>' + escudoRango(L.st, 90) + '<h3>' + (r === "baja" ? "Bajaste a " : "Sigues en ") + nombreRango(L.st) + '</h3>' +
-    '<p>' + pos + (r === "baja" ? " ¡Esta semana puedes recuperarlo!" : "") + '</p><button type="button" class="btn">¡A jugar!</button></div>';
+  o.innerHTML = '<div class="lmb"><small>NUEVA SEMANA</small>' + escudoRango(L.st, 90) + '<h3>' + (r === "baja" ? "Bajaste a " : "") + nombreRango(L.st) + '</h3><div class="lun-men">−' + d + '</div>' +
+    '<p>puntos de rango por la semana. ' + (r === "baja" ? "No te alcanzaron los puntos, pero puedes recuperarlo jugando." : "Ahora tienes " + Math.floor(L.pt) + (L.st < PASO_MAX ? " de " + metaDe(L.st) : "") + ". ¡Juega para recuperarlos!") + '</p><button type="button" class="btn">¡A jugar!</button></div>';
   document.body.appendChild(o);
   o.addEventListener("click", e => { if (e.target === o || e.target.closest(".btn")) { o.remove(); cerrar(); } });
 }
@@ -778,7 +774,7 @@ function avatar(av, s, extra) {
 }
 const rangoHTML = (r, s) => '<span class="rg">' + escudo(rangoDe(r).c, s || 16) + esc(r) + '</span>';
 const auraHTML = v => '<span class="au">' + llama(16) + v + '</span>';
-const valHTML = (v, k) => k === "est" ? '<span class="au" style="color:#FFD166">' + ic("star", 16, 2.6) + v + '</span>' : k === "racha" ? '<span class="au" style="color:#FF8A3D">' + ic("flame", 16, 2.6) + v + '</span>' : auraHTML(v);
+const valHTML = (v, k) => k === "est" ? '<span class="au" style="color:#FFD166">' + ic("star", 16, 2.6) + v + '</span>' : k === "racha" ? '<span class="au" style="color:#FF8A3D">' + ic("bolt", 16, 2.6) + v + '</span>' : auraHTML(v);
 const marca = '<span class="ok" title="Amigo">' + ic("check", 16, 3) + '</span>';
 const conPunto = (j, s, d) => lookMini(j.av, j, s, { punto: esAmigo(j.uid) ? j.on : undefined, d });
 
@@ -810,16 +806,11 @@ function vistaGlobal() {
     '<div class="tb-pr">' + PREMIOS_TEMP.map(x => '<span><b>' + x[0] + '</b>' + x[1] + '</span>').join("") + '</div><p class="tb-n">Cuenta el Aura que ganas jugando desde que empezó la temporada.</p></div>';
   const perBtns = '<div class="per" role="group" aria-label="Periodo">' + PER.map(p => '<button type="button" class="pc' + (per === p[0] ? " on" : "") + '" data-per="' + p[0] + '" aria-pressed="' + (per === p[0]) + '">' + p[1] + '</button>').join("") + '</div>';
   if (per === "liga") {
-    const L = miLiga(), mia = ligaVista() === L.lg, lg = ligaVista(), stV = mia ? L.st : lg * 3, n = LISTA.length, tope = stV >= PASO_MAX, SUBEN = subenDe(lg);
+    const L = miLiga(), mia = ligaVista() === L.lg, lg = ligaVista(), n = LISTA.length;
     let filas = "";
-    LISTA.forEach((j, i) => {
-      if (i === SUBEN && !tope) filas += '<div class="zsep up">▲ ZONA DE ASCENSO</div>';
-      if (stV > 0 && n >= SUBEN + BAJAN && i === n - BAJAN) filas += '<div class="zsep dn">▼ ZONA DE DESCENSO</div>';
-      const z = i < SUBEN && !tope ? "up" : (stV > 0 && n >= SUBEN + BAJAN && i >= n - BAJAN ? "dn" : "");
-      filas += filaJugador(j, i + 1, j.liga, z);
-    });
+    LISTA.forEach((j, i) => { filas += filaJugador(j, i + 1, j.liga); });
     const vac = n ? "" : '<div class="card vacio" style="margin:0"><b>' + (mia ? "Nadie más de tu rango ha jugado esta semana" : "Nadie de " + RANGOS_REINO[lg].n + " ha jugado esta semana") + '</b>' + (mia ? "Gana Aura jugando y serás el primero." : "Cuando alguien de este rango gane Aura, aparecerá aquí.") + '</div>';
-    const titulo = '<div class="sec"><span>' + (mia ? "TU LIGA" : "LIGA " + RANGOS_REINO[lg].n.toUpperCase()) + '</span><b>' + (n ? n + (n === 1 ? " jugador" : " jugadores") : "") + '</b></div>';
+    const titulo = '<div class="sec"><span>' + (mia ? "TU LIGA · ESTA SEMANA" : "LIGA " + RANGOS_REINO[lg].n.toUpperCase() + " · ESTA SEMANA") + '</span><b>' + (n ? n + (n === 1 ? " jugador" : " jugadores") : "") + '</b></div>';
     return carruselRangos(L, m) + perBtns + titulo + filas + vac + (mia ?
       '<div class="fila card yo"><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>' : "");
   }
