@@ -1,0 +1,648 @@
+<!doctype html><html lang="es"><head><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gustos · diseños minimalistas</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0D;--ink:#F2F4F8;--mu:#9A9AA6;--line:#2A2A30;--chip:#1A1A1F;--ok:#58CC02;--okd:#46A302;--okbg:#0E2208;--mal:#FF4B4B;--mald:#D63B3B;--malbg:#2A0E0E;--blue:#1CB0F6}
+*{box-sizing:border-box}body{margin:0;background:#000;color:var(--ink);font-family:Nunito,sans-serif;padding:18px 14px 60px;max-width:440px;margin:auto}
+h1{font-size:24px;margin:4px 0;font-weight:900}.intro{color:var(--mu);font-size:14px;margin:0 0 8px;line-height:1.45;font-weight:700}
+.u-op{margin:30px 0 10px;display:flex;gap:10px}.u-op>b{flex:none;display:inline-flex;width:32px;height:32px;align-items:center;justify-content:center;border-radius:10px;background:#fff;color:#000;font-size:17px;font-weight:900}.u-op span{display:block;font-size:17px;font-weight:900}.u-op small{display:block;color:var(--mu);font-size:12.5px;font-weight:700;line-height:1.35}
+/* pantalla */
+.u-ph{position:relative;display:flex;flex-direction:column;min-height:600px;border:1px solid var(--line);border-radius:28px;background:var(--bg);overflow:hidden}
+.u-top{display:flex;align-items:center;gap:12px;padding:16px 18px 0}
+.u-x{width:22px;height:22px;color:#5A5A64}
+.u-bar{flex:1;height:14px;border-radius:99px;background:#26262C;overflow:hidden}.u-bar i{display:block;height:100%;border-radius:99px;background:var(--ok);box-shadow:inset 0 -4px 0 rgba(0,0,0,.12),inset 0 3px 0 rgba(255,255,255,.25)}
+.u-vid{display:flex;align-items:center;gap:4px;color:var(--mal);font-weight:900}
+.u-body{flex:1;padding:22px 18px 10px}
+.u-t{margin:0 0 18px;font-size:21px;font-weight:900;line-height:1.25}
+.u-nuevo{display:inline-block;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:#CE82FF}
+/* personaje + globo */
+.u-hab{display:flex;align-items:flex-end;gap:6px}
+.u-hab>svg{width:118px;height:auto;flex:none;overflow:visible}
+.u-glo{position:relative;margin-bottom:46px;padding:12px 14px;border:2px solid var(--line);border-radius:16px;font-size:18px;font-weight:800;line-height:1.35}
+.u-glo:before{content:"";position:absolute;left:-10px;bottom:16px;width:16px;height:16px;background:var(--bg);border-left:2px solid var(--line);border-bottom:2px solid var(--line);transform:rotate(45deg)}
+.u-glo .u-au{display:inline-flex;vertical-align:middle;margin-right:6px;color:var(--blue);cursor:pointer;border:0;background:none;padding:0}
+.u-glo u{text-decoration:none;border-bottom:2px dashed #4A4A54}
+/* opciones */
+.u-ops{display:grid;gap:10px;margin-top:22px}
+.u-o{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:2px solid var(--line);border-bottom-width:4px;border-radius:16px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;text-align:left;cursor:pointer;touch-action:manipulation}
+.u-o:active{transform:translateY(2px);border-bottom-width:2px}
+.u-o.sel{border-color:#1899D6;background:#0E2230;color:#84D8FF}
+.u-o kbd{flex:none;width:28px;height:28px;border:2px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;font:800 13px Nunito;color:var(--mu)}
+.u-o.sel kbd{border-color:#1899D6;color:#84D8FF}
+.u-o.ok{border-color:var(--ok);background:var(--okbg);color:#A5ED6E}.u-o.mal{border-color:var(--mal);background:var(--malbg);color:#FF8A8A}
+/* línea de respuesta + banco */
+.u-lin{min-height:120px;margin-top:22px;padding:6px 0;background:linear-gradient(transparent 58px,var(--line) 58px,var(--line) 60px,transparent 60px) 0 0/100% 62px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px 6px}
+.u-ban{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:22px}
+.u-ch{height:50px;padding:0 16px;border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;background:var(--bg);color:var(--ink);font:800 18px Nunito,sans-serif;cursor:pointer;touch-action:manipulation}
+.u-ch:active{transform:translateY(2px);border-bottom-width:2px}
+.u-ch.ida{background:#26262C;border-color:#26262C;color:transparent;pointer-events:none}
+.u-lin .u-ch{margin-top:4px}
+.u-hueco{display:inline-block;min-width:96px;border-bottom:2px solid #4A4A54;text-align:center;color:#84D8FF}
+/* tarjetas de imagen */
+.u-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.u-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px 14px;border:2px solid var(--line);border-bottom-width:4px;border-radius:18px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;cursor:pointer}
+.u-card svg{width:96px;height:auto;overflow:visible}
+.u-card.sel{border-color:#1899D6;background:#0E2230}.u-card.ok{border-color:var(--ok);background:var(--okbg)}.u-card.mal{border-color:var(--mal);background:var(--malbg)}
+.u-big{display:flex;justify-content:center;gap:14px;margin-top:6px}
+.u-bigb{width:84px;height:84px;border-radius:20px;border:0;border-bottom:5px solid #1480B4;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.u-bigb.lento{width:64px;height:64px;margin-top:10px}
+.u-ta{width:100%;min-height:120px;margin-top:20px;padding:14px;border:2px solid var(--line);border-radius:16px;background:#141418;color:var(--ink);font:700 18px Nunito,sans-serif;resize:none;outline:none}
+.u-ta:focus{border-color:#4A4A54}
+/* unir */
+.u-par{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.u-par .u-ch{width:100%;height:56px}
+.u-par .u-ch.sel{border-color:#1899D6;background:#0E2230;color:#84D8FF}
+.u-par .u-ch.ok{border-color:var(--line);color:#4A4A54;pointer-events:none}
+.u-par .u-ch.mal{border-color:var(--mal);color:#FF8A8A;animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* pie */
+.u-pie{padding:16px 18px 20px;border-top:2px solid var(--line);transition:background .2s}
+.u-pie.ok{background:var(--okbg);border-color:transparent}.u-pie.mal{background:var(--malbg);border-color:transparent}
+.u-fb{display:none;align-items:center;gap:12px;margin-bottom:14px}
+.u-pie.ok .u-fb,.u-pie.mal .u-fb{display:flex}
+.u-fb .ic{flex:none;width:52px;height:52px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.u-fb .ic svg{width:44px;height:auto}
+.u-fb b{display:block;font-size:20px;font-weight:900}.u-pie.ok .u-fb b{color:var(--ok)}.u-pie.mal .u-fb b{color:var(--mal)}
+.u-fb span{display:block;font-size:14.5px;font-weight:700;margin-top:2px}.u-pie.ok .u-fb span{color:#A5ED6E}.u-pie.mal .u-fb span{color:#FF8A8A}
+.u-btn{width:100%;height:52px;border:0;border-bottom:4px solid var(--okd);border-radius:16px;background:var(--ok);color:#fff;font:900 16px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.u-btn:disabled{background:#2A2A30;border-color:#2A2A30;color:#5A5A64;cursor:default}
+.u-pie.mal .u-btn{background:var(--mal);border-color:var(--mald)}
+.u-btn:active:not(:disabled){transform:translateY(2px);border-bottom-width:2px}
+/* animaciones del personaje (archivo Acciones) */
+/* ---------- base ---------- */
+.oc,.bo,.r1,.r2,.l1,.l2{opacity:0}
+.oc{animation:parp 4s infinite}
+@keyframes parp{0%,92%,100%{opacity:0}94%,97%{opacity:1}}
+.sp{transform-box:fill-box;transform-origin:center;animation:brilla 1s ease-in-out infinite}
+@keyframes brilla{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes ua{0%{opacity:1}50%{opacity:0}}
+@keyframes ub{0%{opacity:0}50%{opacity:1}}
+
+/* ---------- SALUDAR (7 s) ---------- */
+.saludo .mov{animation:resp 2.4s ease-in-out infinite}
+@keyframes resp{0%,100%{transform:translateY(0)}50%{transform:translateY(-.25px)}}
+.saludo .rd{animation:sd 7s step-end infinite}
+.saludo .r1{animation:s1 7s step-end infinite}
+.saludo .r2{animation:s2 7s step-end infinite}
+.saludo .bo{animation:sb 7s step-end infinite}
+@keyframes sd{0%{opacity:1}10%{opacity:0}50%{opacity:1}100%{opacity:1}}
+@keyframes s1{0%{opacity:0}10%{opacity:1}15%{opacity:0}20%{opacity:1}25%{opacity:0}30%{opacity:1}35%{opacity:0}40%{opacity:1}45%{opacity:0}100%{opacity:0}}
+@keyframes s2{0%{opacity:0}15%{opacity:1}20%{opacity:0}25%{opacity:1}30%{opacity:0}35%{opacity:1}40%{opacity:0}45%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes sb{0%{opacity:0}10%{opacity:1}13%{opacity:0}15%{opacity:1}18%{opacity:0}20%{opacity:1}23%{opacity:0}25%{opacity:1}28%{opacity:0}30%{opacity:1}33%{opacity:0}35%{opacity:1}38%{opacity:0}40%{opacity:1}43%{opacity:0}45%{opacity:1}48%{opacity:0}100%{opacity:0}}
+
+/* ---------- ALEGRE: salta, aplaude y se ríe ---------- */
+.alegre .mov{animation:salta .6s ease-in-out infinite alternate}
+@keyframes salta{from{transform:translateY(0)}to{transform:translateY(-1px)}}
+.alegre .rd,.alegre .ld{opacity:0}
+.alegre .r1,.alegre .l1{animation:ua .6s step-end infinite}
+.alegre .r2,.alegre .l2{animation:ub .6s step-end infinite}
+.alegre .bo{animation:ua .3s step-end infinite}
+
+/* ---------- TRISTE: llora y se limpia las lágrimas (6 s) ---------- */
+.triste .cab{animation:nod 3s ease-in-out infinite alternate}
+@keyframes nod{from{transform:translateY(.4px)}to{transform:translateY(.8px)}}
+.triste .mov{animation:sollozo 1.4s ease-in-out infinite}
+@keyframes sollozo{0%,60%,100%{transform:translateY(0)}70%{transform:translateY(.25px)}80%{transform:translateY(0)}90%{transform:translateY(.25px)}}
+.triste .rd{animation:wd 6s step-end infinite}
+.triste .r1{animation:w1 6s step-end infinite}
+.triste .r2{animation:w2 6s step-end infinite}
+@keyframes wd{0%{opacity:1}20%{opacity:0}70%{opacity:1}100%{opacity:1}}
+@keyframes w1{0%{opacity:0}20%{opacity:1}30%{opacity:0}40%{opacity:1}50%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes w2{0%{opacity:0}30%{opacity:1}40%{opacity:0}50%{opacity:1}60%{opacity:0}100%{opacity:0}}
+.tA,.tB{opacity:0;animation:tA 1.8s step-end infinite}
+.tB{animation-name:tB}
+@keyframes tA{0%{opacity:1}33%{opacity:0}100%{opacity:0}}
+@keyframes tB{0%{opacity:0}33%{opacity:1}66%{opacity:0}100%{opacity:0}}
+
+/* ---------- BRAVA: tiembla, saca humo y levanta el puño ---------- */
+.brava .mov{animation:tiembla .12s linear infinite alternate}
+@keyframes tiembla{from{transform:translateX(-.1px)}to{transform:translateX(.1px)}}
+.brava .rd{animation:ub 1s step-end infinite}
+.brava .r1{animation:ua 1s step-end infinite}
+.brava .bo{animation:ua .5s step-end infinite}
+.rojo,.vena{animation:late 1s ease-in-out infinite alternate}
+.rojo{opacity:.15}
+@keyframes late{from{opacity:.15}to{opacity:.5}}
+.humo{animation:sube 1.2s linear infinite}
+@keyframes sube{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(-2px);opacity:0}}
+
+/* ================= EVALUACIONES ================= */
+.gu,.gl{opacity:0}
+@keyframes wink{0%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes ladea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+@keyframes flota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+@keyframes sigue{from{transform:translateX(0)}to{transform:translateX(.3px)}}
+@keyframes balanceo{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
+@keyframes sube2{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
+.cor{opacity:0;animation:sube2 2.4s linear infinite}
+.q{animation:flota 1.6s ease-in-out infinite alternate}
+/* pulgar arriba: guiña el ojo y mueve el pulgar */
+.pulgar .mov{animation:salta 1s ease-in-out infinite alternate}
+.pulgar .rd{opacity:0}
+.pulgar .r1{animation:ua .8s step-end infinite}
+.pulgar .r2{animation:ub .8s step-end infinite}
+.pulgar .gu{animation:wink 3s step-end infinite}
+/* ánimo: puño que bombea y grita */
+.animo .mov{animation:salta .5s ease-in-out infinite alternate}
+.animo .rd{animation:ub .5s step-end infinite}
+.animo .r1{animation:ua .5s step-end infinite}
+.animo .bo{animation:ua .25s step-end infinite}
+/* pensando: mano en la barbilla */
+.pienso .cab{animation:ladea 2s ease-in-out infinite alternate}
+.pienso .rd{opacity:0}
+.pienso .r1{animation:ua 1.2s step-end infinite}
+.pienso .r2{animation:ub 1.2s step-end infinite}
+/* copión: mira de lado y pasa el papelito */
+.copion .mov{animation:sigue 1.8s ease-in-out infinite alternate}
+.copion .rd{opacity:0}
+.copion .r1{animation:ua .9s step-end infinite}
+.copion .r2{animation:ub .9s step-end infinite}
+.copion .gl{animation:ua 2.4s step-end infinite}
+/* enamorado: se balancea y le salen corazones */
+.amor .mov{animation:balanceo 1.6s ease-in-out infinite alternate}
+.amor .rd{opacity:0}
+.amor .r1{animation:ua 1.2s step-end infinite}
+.amor .r2{animation:ub 1.2s step-end infinite}
+/* ups: tiembla del susto con las manos arriba */
+.ups .mov{animation:tiembla .1s linear infinite alternate}
+.ups .rd,.ups .ld{opacity:0}
+.ups .r1,.ups .l1{opacity:1}
+
+/* ================= AVENTURAS RANDOM ================= */
+.card.ancha{grid-column:1/-1}
+.card.ancha svg{width:300px}
+@keyframes vibra{from{transform:translateY(0)}to{transform:translateY(.15px)}}
+@keyframes corre{from{transform:translateY(-3px);opacity:0}30%{opacity:.8}to{transform:translateY(5px);opacity:0}}
+@keyframes galopa{from{transform:translateY(0)}to{transform:translateY(-.5px)}}
+@keyframes pez{0%,60%{opacity:0;transform:translate(0,2px)}65%{opacity:1;transform:translate(1px,-1.5px)}75%{transform:translate(2px,-2.5px)}85%{transform:translate(3px,-1px)}90%{opacity:1;transform:translate(3.5px,2px)}100%{opacity:0}}
+.linea{animation:corre .5s linear infinite}
+/* moto */
+.moto .mov{animation:vibra .12s linear infinite alternate}
+.moto .ra{animation:ua .08s step-end infinite}
+.moto .rb{animation:ub .08s step-end infinite}
+/* caballo */
+.caballo .mov,.caballo .atras,.caballo .fuera{animation:galopa .35s ease-in-out infinite alternate}
+.caballo .hA{animation:ua .35s step-end infinite}
+.caballo .hB{animation:ub .35s step-end infinite}
+/* pescando */
+.pesca .rd{opacity:0}
+.pesca .r1{animation:ua 2s step-end infinite}
+.pesca .r2{animation:ub 2s step-end infinite}
+.pesca .wA{animation:ua .8s step-end infinite}
+.pesca .wB{animation:ub .8s step-end infinite}
+.bob{animation:flota 1s ease-in-out infinite alternate}
+.pez{opacity:0;animation:pez 3.5s ease-in-out infinite}
+/* baile */
+.baile .mov{animation:salta .3s ease-in-out infinite alternate}
+.baile .rd{animation:ub .6s step-end infinite}
+.baile .r1{animation:ua .6s step-end infinite}
+.baile .ld{animation:ua .6s step-end infinite}
+.baile .l1{animation:ub .6s step-end infinite}
+/* dormido */
+.dormido .oc{animation:none}
+.dormido .cab{animation:nod 3s ease-in-out infinite alternate}
+.dormido .mov{animation:resp 3s ease-in-out infinite}
+.dormido .bo{animation:ua 2.4s step-end infinite}
+
+/* ================= MÁS EXPRESIONES ================= */
+@keyframes q1{0%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes q2{0%{opacity:0}25%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes q3{0%,25%{opacity:0}50%{opacity:1}75%{opacity:0}100%{opacity:0}}
+@keyframes q4{0%,50%{opacity:0}75%{opacity:1}100%{opacity:0}}
+@keyframes vuela{0%,50%{opacity:0;transform:translate(0,0)}55%{opacity:1}100%{opacity:0;transform:translate(3px,-2px)}}
+@keyframes vuela2{0%,100%{transform:translate(0,0)}25%{transform:translate(2px,-2px)}50%{transform:translate(0,2px)}75%{transform:translate(3px,0)}}
+@keyframes susto{0%,70%,100%{transform:translateY(0)}75%{transform:translateY(-1px)}85%{transform:translateY(0)}}
+@keyframes cj{0%,20%{opacity:0}30%,80%{opacity:1}90%,100%{opacity:0}}
+.t1,.t2,.t3,.t4,.beso,.mari{opacity:0}
+.t1{animation:q1 1s step-end infinite}.t2{animation:q2 1s step-end infinite}.t3{animation:q3 1s step-end infinite}.t4{animation:q4 1s step-end infinite}
+.beso{animation:vuela 1.6s linear infinite}
+.mari{opacity:1;animation:vuela2 6s ease-in-out infinite}
+.m1{animation:ua .2s step-end infinite}.m2{opacity:0;animation:ub .2s step-end infinite}
+/* ceja levantada */
+.ceja .cab{animation:ladea 2s ease-in-out infinite alternate}
+.ceja .gu{animation:cj 3s step-end infinite}
+/* llorón */
+.lloron .oc,.sorpresa .oc,.amoroso .oc,.cool .oc{animation:none}
+.lloron .mov{animation:sollozo .5s ease-in-out infinite}
+.lloron .cab{animation:nod .5s ease-in-out infinite alternate}
+.lloron .rd,.lloron .ld,.sorpresa .rd,.sorpresa .ld{opacity:0}
+.lloron .r1{animation:ua .5s step-end infinite}.lloron .r2{animation:ub .5s step-end infinite}
+.lloron .l1{animation:ub .5s step-end infinite}.lloron .l2{animation:ua .5s step-end infinite}
+.lloron .bo{animation:ua .4s step-end infinite}
+/* amoroso: beso volado */
+.amoroso .mov{animation:balanceo 1.6s ease-in-out infinite alternate}
+.amoroso .rd{opacity:0}
+.amoroso .r1{animation:ua 1.6s step-end infinite}.amoroso .r2{animation:ub 1.6s step-end infinite}
+/* tonto */
+.tonto .cab{animation:ladea .4s ease-in-out infinite alternate}
+.tonto .gl{animation:ua .6s step-end infinite}
+.tonto .bo{animation:ua .4s step-end infinite}
+.tonto .rd{animation:ub .4s step-end infinite}.tonto .r1{animation:ua .4s step-end infinite}
+.tonto .ld{animation:ua .4s step-end infinite}.tonto .l1{animation:ub .4s step-end infinite}
+/* carro */
+.carro .mov,.carro .fuera{animation:vibra .12s linear infinite alternate}
+.carro .ra{animation:ua .08s step-end infinite}.carro .rb{animation:ub .08s step-end infinite}
+/* distraído */
+.distraido .cab{animation:ladea 3s ease-in-out infinite alternate}
+.distraido .gl{animation:ua 4s step-end infinite}
+/* sorprendido */
+.sorpresa .mov{animation:susto 1.6s ease-in-out infinite}
+.sorpresa .r1,.sorpresa .l1{opacity:1}
+/* cool */
+.cool .rd{opacity:0}
+.cool .r1{animation:ua 3s step-end infinite}.cool .r2{animation:ub 3s step-end infinite}
+.cool .gu{animation:wink 3s step-end infinite}
+
+/* ================= REACCIONES ================= */
+@keyframes nono{0%,100%{transform:translateX(0)}25%{transform:translateX(-.5px)}75%{transform:translateX(.5px)}}
+@keyframes sino{0%,100%{transform:translateY(0)}50%{transform:translateY(.55px)}}
+@keyframes cae2{0%{transform:translateY(-1px);opacity:0}15%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+.nieve{opacity:0;animation:cae2 2.2s linear infinite}
+.b1{animation:ua .5s step-end infinite}.b2{opacity:0;animation:ub .5s step-end infinite}
+.neg .cab{animation:nono .6s ease-in-out infinite}
+.neg .rd{opacity:0}.neg .r1{animation:ua .3s step-end infinite}.neg .r2{animation:ub .3s step-end infinite}
+.afirma .cab{animation:sino .5s ease-in-out infinite}
+.miedo .mov{animation:tiembla .08s linear infinite alternate}
+.miedo .bo{animation:ua .1s step-end infinite}
+.miedo .gl{animation:ua .5s step-end infinite}
+.miedo .rd,.miedo .ld{opacity:0}.miedo .r1,.miedo .l1{opacity:1}
+.ansiedad .mov{animation:vibra .1s linear infinite alternate}
+.ansiedad .rd{opacity:0}.ansiedad .r1{animation:ua .15s step-end infinite}.ansiedad .r2{animation:ub .15s step-end infinite}
+.ansiedad .gl{animation:ua .3s step-end infinite}
+.nube{animation:tiembla .1s linear infinite alternate}
+.frio .mov{animation:tiembla .08s linear infinite alternate}
+.frio .rd,.frio .ld{opacity:0}
+.frio .bo{animation:ua .1s step-end infinite}
+.frio .oc{animation:none}
+.enfermo .oc{animation:none}
+.enfermo .mov{animation:susto 2.4s ease-in-out infinite}
+.enfermo .cab{animation:nod 2.4s ease-in-out infinite alternate}
+.enfermo .rd{opacity:0}.enfermo .r1{opacity:1}
+.hambre .mov{animation:sollozo 1s ease-in-out infinite}
+.hambre .rd{opacity:0}.hambre .r1{animation:ua .8s step-end infinite}.hambre .r2{animation:ub .8s step-end infinite}
+.idea .mov{animation:salta .5s ease-in-out infinite alternate}
+.idea .rd{opacity:0}.idea .r1{animation:ua .5s step-end infinite}.idea .r2{animation:ub .5s step-end infinite}
+
+/* ================= HÉROES Y RETOS ================= */
+@keyframes hd{0%{opacity:1}10%{opacity:0}100%{opacity:0}}
+@keyframes h2{0%{opacity:0}10%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes h1{0%{opacity:0}25%{opacity:1}100%{opacity:1}}
+.heroe .rd{animation:hd 5s step-end infinite}
+.heroe .r2{animation:h2 5s step-end infinite}
+.heroe .r1{animation:h1 5s step-end infinite}
+.heroe .gu{animation:h1 5s step-end infinite}
+.ejer .mov{animation:vibra .1s linear infinite alternate}
+.ejer .rd,.ejer .ld{opacity:0}
+.ejer .r1,.ejer .l1{animation:ua .8s step-end infinite}
+.ejer .r2,.ejer .l2{animation:ub .8s step-end infinite}
+.copa .mov{animation:salta .4s ease-in-out infinite alternate}
+.copa .rd,.copa .ld{opacity:0}
+.copa .r1,.copa .l2{animation:ua .4s step-end infinite}
+.copa .r2,.copa .l1{animation:ub .4s step-end infinite}
+.super .mov{animation:salta 1s ease-in-out infinite alternate}
+.super .cab{animation:tiembla .06s linear infinite alternate}
+.super .oc{animation:none}
+.super .bo{animation:ua .3s step-end infinite}
+
+@media (prefers-reduced-motion:reduce){svg *{animation:none!important}}
+</style></head><body>
+<h1>Gustos · 6 diseños sencillos</h1>
+<p class="intro">Estilo Duolingo: limpio, con el <b>personaje animado</b> de Acciones, una tarea por pantalla y el botón <b>Comprobar</b> abajo. Solo <b>I like</b> / <b>I don't like</b>.</p>
+
+<div class="u-op"><b>1</b><div><span>El personaje habla</span><small>Dice una frase (con audio). Eliges qué significa entre 3 opciones.</small></div></div><div id="D1"></div>
+<div class="u-op"><b>2</b><div><span>Completa la frase</span><small>Frase con un hueco y las palabras abajo. Tocas la que va.</small></div></div><div id="D2"></div>
+<div class="u-op"><b>3</b><div><span>Escucha y elige</span><small>Oyes la frase y eliges el personaje que la dice: el del pulgar o el que dice que no.</small></div></div><div id="D3"></div>
+<div class="u-op"><b>4</b><div><span>Traduce con palabras</span><small>Frase en español; la armas en inglés tocando las palabras, sobre la línea.</small></div></div><div id="D4"></div>
+<div class="u-op"><b>5</b><div><span>Escribe lo que oyes</span><small>Botón grande de audio (y uno lento). Escribes con el teclado del celular.</small></div></div><div id="D5"></div>
+<div class="u-op"><b>6</b><div><span>Une las parejas</span><small>Inglés con español, como en Duolingo. Las que unes se apagan.</small></div></div><div id="D6"></div>
+
+<script>
+/* Cuadrícula (12 columnas x 16 filas). Cada letra es un color de la paleta */
+const BASE = [
+"...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..",
+"ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss",
+"..ppp..ppp..","..fff..fff.."
+];
+const PAL = { k:"#151518", w:"#F2F4F8", h:"#8A5A33", e:"#3A2414", s:"#F2B98F", m:"#B8704F", M:"#7A1F1F", g:"#5A5A5E", l:"#C4C4C8", q:"#A0A0A5", z:"#0B0B0D", p:"#1A1A1E", f:"#F2F4F8", W:"#FFFFFF", r:"#FF8FA3", t:"#6EC6FF", v:"#FF2D2D", S:"#E3A67C", H:"#FF4D8D", y:"#FFC83D", R:"#E5322B", N:"#2B1B12", B:"#8B5A2B", b:"#5E3E22", C:"#C98F6B", U:"#2E86DE", O:"#FF8A3D", T:"#FF6B5E", G:"#44444A", c:"#3FD8C8" };
+
+const solo = (r1, r2, c1, c2, k) => { const o = []; for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) o.push([r, c, k]); return o; };
+const rects = l => l.map(x => '<rect x="' + x[1] + '" y="' + x[0] + '" width="1" height="1" fill="' + PAL[x[2]] + '"></rect>').join("");
+// brazo levantado (lado "R" o "L"), top = fila donde empieza la mano
+const arriba = (lado, top) => { const a = lado === "R" ? 10 : 0; return solo(top, top + 1, a, a + 1, "s").concat(solo(top + 2, top + 2, a, a + 1, "l"), solo(top + 3, 8, a, a + 1, "g")); };
+// brazo ladeado (para el saludo)
+const lado = top => solo(top, top + 1, 11, 12, "s").concat(solo(top + 2, top + 2, 11, 12, "l"), solo(top + 3, 8, 10, 11, "g"));
+// mano en la cara (para limpiarse las lágrimas)
+const cara = () => solo(4, 5, 9, 10, "s").concat(solo(6, 6, 10, 11, "l"), solo(7, 8, 10, 11, "g"));
+const chispa = (x, y, d) => '<g class="sp" style="animation-delay:' + d + 's"><rect x="' + (x + 1) + '" y="' + y + '" width="1" height="3" fill="#FFC83D"></rect><rect x="' + x + '" y="' + (y + 1) + '" width="3" height="1" fill="#FFC83D"></rect></g>';
+
+const papel = x => [[3,x,"W"],[3,x+1,"W"],[4,x,"q"],[4,x+1,"W"]];
+const corazon = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"H"],[y,x+2,"H"],[y+1,x,"H"],[y+1,x+1,"H"],[y+1,x+2,"H"],[y+2,x+1,"H"]]) + '</g>';
+const interrog = '<g class="q">' + rects([[-2,10,"y"],[-2,11,"y"],[-2,12,"y"],[-1,12,"y"],[0,11,"y"],[2,11,"y"]]) + '</g>';
+const sudor = (a, b, d) => '<g class="tA" style="animation-delay:' + d + 's">' + rects([[a[0],a[1],"t"]]) + '</g><g class="tB" style="animation-delay:' + d + 's">' + rects([[b[0],b[1],"t"]]) + '</g>';
+const SONRISA = [[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"]];
+
+const nota = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x+1,"y"],[y+1,x+1,"y"],[y+2,x,"y"],[y+2,x+1,"y"]]) + '</g>';
+const zeta = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"W"],[y,x+1,"W"],[y,x+2,"W"],[y+1,x+1,"W"],[y+2,x,"W"],[y+2,x+1,"W"],[y+2,x+2,"W"]]) + '</g>';
+const lineas = x => [0, .17, .34].map((d, i) => '<g class="linea" style="animation-delay:' + d + 's">' + rects([[2 + i * 3, x, "q"], [3 + i * 3, x, "q"]]) + '</g>').join("");
+const SIN_PIERNAS = [[13,2,9,"."],[14,2,9,"."],[15,2,9,"."]];
+
+const caraL = () => solo(4, 5, 1, 2, "s").concat(solo(6, 6, 0, 1, "l"), solo(7, 8, 0, 1, "g"));
+const cara2 = () => solo(5, 6, 9, 10, "s").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g"));
+const caraL2 = () => solo(5, 6, 1, 2, "s").concat(solo(7, 7, 0, 1, "l"), solo(8, 8, 0, 1, "g"));
+const excl = x => '<g class="vena">' + rects([[-2,x,"v"],[-1,x,"v"],[0,x,"v"],[2,x,"v"]]) + '</g>';
+const mariposa = '<g class="mari"><g class="m1">' + rects([[1,10,"H"],[1,12,"H"],[2,11,"z"],[3,10,"H"],[3,12,"H"]]) + '</g><g class="m2">' + rects([[2,10,"H"],[2,12,"H"],[2,11,"z"]]) + '</g></g>';
+const lagrimas = '<g class="t1">' + rects([[5,3,"t"],[5,8,"t"]]) + '</g><g class="t2">' + rects([[6,3,"t"],[6,8,"t"]]) + '</g><g class="t3">' + rects([[7,3,"t"],[7,8,"t"]]) + '</g><g class="t4">' + rects([[8,3,"t"],[8,8,"t"]]) + '</g>';
+const OJOS_CERRADOS = [[4,3,4,"e"],[4,7,8,"e"]];
+
+const MANOBOCA = [[6,7,"S"],[6,8,"S"],[7,7,"S"],[7,8,"S"],[7,9,"l"],[8,9,"l"],[7,10,"g"],[7,11,"g"],[8,10,"g"],[8,11,"g"]];
+const MANOBOCA2 = [[6,8,"S"],[6,9,"S"],[7,8,"S"],[7,9,"S"],[7,10,"l"],[8,10,"l"],[7,11,"g"],[8,11,"g"]];
+const copo = x => '<g class="nieve" style="left:0;animation-delay:' + (-x * .3) + 's">' + rects([[-2,x,"W"]]) + '</g>';
+const fantasma = '<g class="q">' + rects([[0,11,"W"],[0,12,"W"],[0,13,"W"]].concat(solo(1, 1, 10, 14, "W"), [[2,10,"W"],[2,11,"z"],[2,12,"W"],[2,13,"z"],[2,14,"W"]], solo(3, 3, 10, 14, "W"), [[4,10,"W"],[4,12,"W"],[4,14,"W"]])) + '</g>';
+const pizza = '<g class="q">' + rects(solo(1, 1, 11, 15, "B").concat([[2,11,"y"],[2,12,"R"],[2,13,"y"],[2,14,"R"],[2,15,"y"],[3,12,"y"],[3,13,"y"],[3,14,"y"],[4,13,"y"]])) + '</g>';
+const bombilla = '<g class="b1">' + rects(solo(-3, -2, 4, 6, "y").concat([[-1,5,"q"]])) + '</g><g class="b2">' + rects(solo(-3, -2, 4, 6, "W").concat([[-1,5,"q"],[-3,3,"y"],[-3,7,"y"],[-2,2,"y"],[-2,8,"y"]])) + '</g>';
+
+const barra = y => solo(y, y, -1, 12, "q").concat(solo(y - 2, y + 2, -1, -1, "z"), solo(y - 2, y + 2, 12, 12, "z"));
+const copaC = y => solo(y, y, 10, 13, "y").concat([[y+1,10,"y"],[y+1,11,"W"],[y+1,12,"y"],[y+1,13,"y"]], solo(y + 2, y + 3, 11, 12, "y"), [[y,9,"y"],[y+1,9,"y"],[y,14,"y"],[y+1,14,"y"]]);
+const confeti = (x, col, d) => '<g class="nieve" style="animation-delay:' + d + 's"><rect x="' + x + '" y="-3" width=".8" height=".8" fill="' + col + '"></rect></g>';
+const llamas = hs => [-1, 0, 11, 12].reduce((o, x, i) => { for (let k = 0; k < hs[i]; k++) o.push([14 - k, x, k < 2 ? "O" : "y"]); return o; }, []);
+const CAPA_A = solo(13, 16, 1, 10, "R").concat(solo(15, 16, 11, 12, "R"));
+const CAPA_B = solo(13, 16, 1, 10, "R").concat(solo(15, 16, -1, 0, "R"));
+
+const ACCIONES = [
+  { id:"saludo", n:"Saludar", d:"Saluda con la mano y mueve la boca al decir hola.", g:"¡Hola!", mod:[],
+    bo:solo(5, 6, 5, 6, "M"), r1:arriba("R", 3), r2:lado(3), extra:"" },
+  { id:"alegre", n:"Alegre", d:"Salta con los dos brazos arriba, se ríe y le salen destellos.", g:"¡Yupi!",
+    mod:[[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"],[5,2,2,"r"],[5,9,9,"r"]],
+    bo:solo(6, 6, 5, 6, "W"), r1:arriba("R", 3), r2:arriba("R", 4), l1:arriba("L", 3), l2:arriba("L", 4),
+    extra:"", fuera:chispa(-1, 0, 0) + chispa(11, 0, .4) + chispa(5, -2, .8) },
+  { id:"triste", n:"Triste", d:"Cabeza baja, llora y se limpia las lágrimas.", g:"Buaaa...",
+    mod:[[6,5,6,"s"],[5,5,6,"m"],[6,4,4,"m"],[6,7,7,"m"]],
+    bo:[], r1:arriba("R", 4), r2:cara(),
+    extra:'<g class="tA">' + rects([[5,3,"t"],[5,8,"t"]]) + '</g><g class="tB">' + rects([[6,3,"t"],[6,8,"t"]]) + '</g>' +
+          '<g class="tA" style="animation-delay:-.9s">' + rects([[5,8,"t"]]) + '</g>' },
+  { id:"brava", n:"Brava", d:"Se pone roja, tiembla, saca humo y levanta el puño.", g:"¡Grrr!",
+    mod:[[3,3,8,"e"],[6,4,7,"M"],[6,5,6,"W"]],
+    bo:solo(5, 5, 4, 7, "M"), r1:arriba("R", 3),
+    extra:'<rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect>',
+    fuera:'<g class="vena">' + rects([[1,10,"v"],[1,12,"v"],[2,11,"v"],[3,10,"v"],[3,12,"v"]]) + '</g>' +
+          '<g class="humo">' + rects([[1,0,"W"],[0,1,"W"],[1,1,"W"]]).replace(/fill="#FFFFFF"/g, 'fill="#E8E8EE"') + '</g>' },
+  { eval:true, id:"pulgar", n:"Pulgar arriba", d:"Guiña el ojo y sube el pulgar para decir 'vas muy bien'.", g:"¡Muy bien!",
+    mod:SONRISA, bo:[], gu:[[4,7,"e"],[4,8,"e"]],
+    r1:arriba("R", 5).concat(solo(3, 4, 11, 11, "s")), r2:arriba("R", 5).concat(solo(2, 3, 11, 11, "s")),
+    extra:"", fuera:chispa(11, -2, 0) + chispa(-1, 1, .5) },
+  { eval:true, id:"animo", n:"Ánimo", d:"Levanta el puño y grita para darle fuerzas a quien está en el examen.", g:"¡Tú puedes!",
+    mod:SONRISA, bo:solo(6, 6, 5, 6, "W"), r1:arriba("R", 3), extra:"", fuera:chispa(-1, 0, 0) + chispa(11, -1, .5) },
+  { eval:true, id:"pienso", n:"Pensando", d:"Mano en la barbilla, mueve la cabeza y le sale un signo de pregunta.", g:"Hmm...",
+    mod:[[6,5,6,"s"],[6,6,7,"m"]], bo:[],
+    r1:solo(5, 6, 9, 10, "S").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g")),
+    r2:solo(6, 7, 9, 10, "S").concat(solo(8, 8, 10, 11, "l")), extra:"", fuera:interrog },
+  { eval:true, id:"copion", n:"Copión", d:"Mira de lado, susurra y pasa un papelito con la respuesta.", g:"Psst...",
+    mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,"e"],[4,4,"w"],[4,7,"e"],[4,8,"w"]],
+    r1:arriba("R", 5).concat(papel(10)), r2:lado(5).concat(papel(11)),
+    extra:sudor([3,1], [4,1], 0) },
+  { eval:true, id:"amor", n:"Enamorado", d:"Ojos de corazón, mejillas rosadas y corazones que flotan.", g:"Ay, qué lindo",
+    mod:[[4,3,4,"H"],[4,7,8,"H"],[5,2,3,"r"],[5,8,9,"r"],[6,4,7,"m"]], bo:[],
+    r1:arriba("R", 4), r2:cara(), extra:"", fuera:corazon(10, 2, 0) + corazon(-1, 1, .8) + corazon(10, -2, 1.6) },
+  { eval:true, id:"ups", n:"¡Ups!", d:"Se equivocó: tiembla, suda y levanta las manos del susto.", g:"¡Ups!",
+    mod:[[5,5,6,"M"],[6,5,6,"M"]], bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:sudor([1,1], [2,1], 0),
+    fuera:'<g class="vena">' + rects([[-2,10,"v"],[-1,10,"v"],[0,10,"v"],[2,10,"v"]]) + '</g>' },
+  { rand:true, id:"moto", n:"En moto", d:"Maneja una moto a toda velocidad: la rueda gira y se ven las líneas de velocidad.", g:"¡Brum brum!",
+    vb:"-1 -2 14 21", sy:18, mod:SIN_PIERNAS.concat(SONRISA, [[14,2,3,"p"],[14,8,9,"p"],[15,2,3,"f"],[15,8,9,"f"]]), bo:[],
+    atras:rects(solo(13, 13, -1, 12, "q").concat([[13,-1,"z"],[13,12,"z"],[14,4,"q"],[14,5,"y"],[14,6,"y"],[14,7,"q"]], solo(15, 15, 4, 7, "R"))) +
+          '<g class="ra">' + rects([[16,5,"z"],[16,6,"q"],[17,5,"q"],[17,6,"z"]]) + '</g><g class="rb">' + rects([[16,5,"q"],[16,6,"z"],[17,5,"z"],[17,6,"q"]]) + '</g>',
+    extra:"", fuera:lineas(-1) + lineas(12) },
+  { rand:true, id:"caballo", n:"A caballo", d:"Galopa montado en su caballo: sube y baja y las pezuñas se alternan.", g:"¡Arre!",
+    vb:"-1 -2 14 22", sy:19, mod:SIN_PIERNAS.concat(SONRISA, [[13,2,3,"p"],[13,8,9,"p"],[14,2,2,"p"],[14,9,9,"p"],[15,2,2,"f"],[15,9,9,"f"]]), bo:[],
+    atras:rects(solo(14, 16, 1, 10, "B").concat([[17,2,"B"],[17,3,"B"],[17,8,"B"],[17,9,"B"]])) +
+          '<g class="hA">' + rects([[18,2,"b"],[18,3,"b"]]) + '</g><g class="hB">' + rects([[18,8,"b"],[18,9,"b"]]) + '</g>',
+    extra:"", fuera:rects(solo(14, 16, 4, 7, "B").concat([[13,4,"b"],[13,7,"b"],[13,5,"R"],[13,6,"R"],[14,3,"N"],[14,8,"N"],[15,3,"N"],[15,8,"N"],[15,4,"z"],[15,7,"z"],[15,5,"W"],[15,6,"W"],[16,5,"W"],[16,6,"W"]], solo(17, 17, 4, 7, "C"), [[17,4,"z"],[17,7,"z"]])) },
+  { rand:true, ancha:true, id:"pesca", n:"Pescando", d:"Sostiene la caña, el flotador se mece y de vez en cuando salta un pez.", g:"¡Algo picó!",
+    vb:"-1 -2 19 18.8", mod:SONRISA, bo:[], r1:arriba("R", 5), r2:arriba("R", 6),
+    extra:"", fuera:rects([[4,12,"N"],[3,12,"N"],[2,13,"N"],[1,14,"N"],[0,14,"N"],[-1,15,"N"],[-2,16,"N"]]) +
+          '<rect x="16.4" y="-1.5" width=".2" height="14.5" fill="#F2F4F8"></rect>' +
+          rects(solo(15, 16, 12, 17, "U")) + '<g class="wA">' + rects([[15,12,"t"],[15,14,"t"],[15,16,"t"]]) + '</g><g class="wB">' + rects([[15,13,"t"],[15,15,"t"],[15,17,"t"]]) + '</g>' +
+          '<g class="bob">' + rects([[13,16,"W"],[14,16,"v"]]) + '</g>' +
+          '<g class="pez">' + rects([[14,12,"O"],[14,13,"O"],[14,14,"y"]]) + '</g>' },
+  { rand:true, id:"baile", n:"Bailando", d:"Salta al ritmo, alterna los brazos arriba y sueltan notas musicales.", g:"¡Qué ritmo!",
+    mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:"", fuera:nota(10, 1, 0) + nota(-1, 0, .8) + nota(10, -2, 1.6) },
+  { rand:true, id:"dormido", n:"Dormido", d:"Se queda dormido: respira lento, ronca y le salen las Zzz.", g:"Zzz...",
+    mod:[[4,3,4,"e"],[4,7,8,"e"]], bo:solo(5, 6, 5, 6, "M"), extra:"", fuera:zeta(10, 2, 0) + zeta(10, -2, 1.2) },
+  { mas:true, id:"ceja", n:"Ceja levantada", d:"Mira de lado con una ceja arriba y media sonrisa, como dudando.", g:"¿En serio?",
+    mod:[[3,3,8,"e"],[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"m"],[5,7,7,"m"]], bo:[], gu:[[3,6,8,"h"],[2,6,8,"e"]], extra:"", fuera:interrog },
+  { mas:true, id:"lloron", n:"Llorón", d:"Llora a mares con las manos en los ojos, la boca abierta y un charco en el piso.", g:"¡Buaaaa!",
+    vb:"-1 -2 14 19.8", sy:17, mod:OJOS_CERRADOS.concat([[5,4,7,"M"],[6,4,7,"M"]]), bo:[[5,4,"s"],[5,7,"s"],[6,4,"s"],[6,7,"s"]],
+    r1:cara(), r2:cara2(), l1:caraL(), l2:caraL2(), extra:lagrimas, fuera:rects(solo(16, 16, 1, 10, "U")) },
+  { mas:true, id:"amoroso", n:"Amoroso", d:"Cierra los ojos, se sonroja y manda un beso volado con la mano.", g:"Muac",
+    vb:"-1 -2 16 18.8", mod:OJOS_CERRADOS.concat([[5,2,3,"r"],[5,8,9,"r"],[6,5,6,"H"]]), bo:[],
+    r1:[[6,7,"S"],[6,8,"S"],[7,7,"S"],[7,8,"S"],[7,9,"l"],[8,9,"l"],[7,10,"g"],[7,11,"g"],[8,10,"g"],[8,11,"g"]], r2:lado(5),
+    extra:"", fuera:'<g class="beso">' + rects([[2,12,"H"],[2,14,"H"],[3,12,"H"],[3,13,"H"],[3,14,"H"],[4,13,"H"]]) + '</g>' + corazon(-1, 1, .6) },
+  { mas:true, id:"tonto", n:"Tonto", d:"Pone ojos locos, saca la lengua y agita los brazos sin sentido.", g:"¡Bleeeh!",
+    mod:[[6,4,7,"M"],[7,5,6,"H"]], bo:[[8,5,"H"],[8,6,"H"]], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"w"],[4,8,8,"e"]],
+    r1:arriba("R", 4), l1:arriba("L", 4), extra:"" },
+  { mas:true, id:"carro", n:"En carro", d:"Maneja un carro rojo con volante, faros y llantas que giran.", g:"¡Piii piii!",
+    vb:"-1 -2 14 19.8", sy:17, mod:SIN_PIERNAS.concat(SONRISA), bo:[], extra:"",
+    fuera:rects(solo(-2, -1, -1, 12, "R").concat(solo(0, 10, -1, -1, "R"), solo(0, 10, 12, 12, "R"),
+            [[8,4,"z"],[8,5,"z"],[8,6,"z"],[8,7,"z"],[9,3,"s"],[9,8,"s"],[10,4,"z"],[10,5,"z"],[10,6,"z"],[10,7,"z"]],
+            solo(11, 13, -1, 12, "R"), solo(11, 11, 0, 11, "T"), [[12,0,"y"],[12,1,"y"],[12,10,"y"],[12,11,"y"]],
+            solo(12, 12, 4, 7, "q"), solo(13, 13, 4, 7, "z"), solo(14, 14, -1, 12, "q"),
+            solo(14, 16, -1, 1, "z"), solo(14, 16, 10, 12, "z"))) +
+          '<g class="ra">' + rects([[15,0,"q"],[15,11,"z"]]) + '</g><g class="rb">' + rects([[15,0,"z"],[15,11,"q"]]) + '</g>' },
+  { mas:true, id:"distraido", n:"Distraído", d:"Silba mirando para todos lados, siguiendo una mariposa que pasa.", g:"Mmm... ¿qué?",
+    vb:"-1 -2 16 18.8", mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"e"],[4,8,8,"w"]],
+    extra:"", fuera:mariposa + nota(-1, 1, 0) },
+  { mas:true, id:"sorpresa", n:"Sorprendido", d:"Se asusta: ojos enormes, boca abierta, manos en la cara y signos de exclamación.", g:"¡¿Qué?!",
+    mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,5,6,"M"]], bo:[],
+    r1:cara(), l1:caraL(), extra:"", fuera:excl(10) + excl(0) },
+  { mas:true, id:"cool", n:"Cool", d:"Con lentes oscuros, sonrisa de lado y se acomoda los lentes con la mano.", g:"Qué cool",
+    mod:[[4,3,8,"z"],[6,4,7,"m"],[5,8,8,"m"]], bo:[], gu:[[4,4,"W"],[4,7,"W"]],
+    r1:arriba("R", 4), r2:cara(), extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 0, .7) },
+  { rx:true, id:"neg", n:"Diciendo no", d:"Mueve la cabeza de lado a lado y el dedo, con cara seria.", g:"¡No, no, no!",
+    mod:[[3,3,8,"e"],[6,4,7,"m"]], bo:[], r1:arriba("R", 4), r2:lado(4), extra:"" },
+  { rx:true, id:"afirma", n:"Diciendo sí", d:"Asiente con la cabeza una y otra vez con una gran sonrisa.", g:"¡Sí, sí, sí!",
+    mod:SONRISA, bo:[], extra:"", fuera:chispa(11, -1, 0) },
+  { rx:true, id:"miedo", n:"Con miedo", d:"Tiembla con los dientes castañeando, mira para todos lados y lo asusta un fantasma.", g:"¡Aaah!",
+    vb:"-1 -2 16 18.8", mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,4,4,"M"],[6,5,5,"m"],[6,6,6,"M"],[6,7,7,"m"]],
+    bo:[[6,4,4,"m"],[6,5,5,"M"],[6,6,6,"m"],[6,7,7,"M"]], gl:[[5,3,3,"e"],[5,4,4,"w"],[5,7,7,"e"],[5,8,8,"w"]],
+    r1:cara2(), l1:caraL2(), extra:sudor([3,1], [4,1], 0), fuera:fantasma },
+  { rx:true, id:"ansiedad", n:"Ansiedad", d:"Se come las uñas, mira nervioso a todos lados y una nube lo sigue.", g:"Uy, uy, uy...",
+    mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"e"],[4,8,8,"w"]],
+    r1:MANOBOCA, r2:MANOBOCA2, extra:sudor([3,1], [4,1], 0) + sudor([2,10], [3,10], .5),
+    fuera:'<g class="nube">' + rects(solo(-2, -2, 4, 7, "q").concat(solo(-1, -1, 3, 8, "q"))) + '</g>' },
+  { rx:true, id:"frio", n:"Con frío", d:"Se abraza, le castañean los dientes, tiene la nariz roja y cae nieve.", g:"Brrr...",
+    mod:OJOS_CERRADOS.concat([[5,5,6,"T"],[6,4,7,"M"],[10,2,9,"G"],[11,2,9,"G"],[10,2,2,"s"],[11,9,9,"s"]]), bo:[[6,4,7,"W"]],
+    extra:"", fuera:copo(-1) + copo(3) + copo(7) + copo(11) },
+  { rx:true, id:"enfermo", n:"Enfermo", d:"Está verde, con termómetro en la boca, la mano en la frente y muy decaído.", g:"Achú...",
+    mod:OJOS_CERRADOS.concat([[5,5,6,"T"],[6,5,6,"M"]]), bo:[], r1:cara(),
+    extra:'<rect class="rojo" x="2" y="3" width="8" height="4" fill="#7BC96F"></rect>' + rects([[6,7,"W"],[6,8,"W"],[6,9,"W"],[6,10,"v"]]) + sudor([3,1], [4,1], 0) },
+  { rx:true, id:"hambre", n:"Con hambre", d:"Se le hace agua la boca, estira la mano hacia una pizza y le ruge la panza.", g:"¡Tengo hambre!",
+    vb:"-1 -2 16 18.8", mod:[[6,4,7,"M"]], bo:[], r1:lado(6), r2:lado(5), extra:sudor([7,4], [8,4], 0), fuera:pizza },
+  { rx:true, id:"idea", n:"¡Una idea!", d:"Levanta el dedo y se le prende un foco sobre la cabeza.", g:"¡Ya sé!",
+    vb:"-1 -3 14 19.8", mod:SONRISA, bo:[], r1:arriba("R", 1), r2:arriba("R", 2), extra:"", fuera:bombilla },
+  { her:true, id:"ejer", n:"Haciendo ejercicio", d:"Levanta una pesa con los dos brazos, aprieta los dientes y se pone rojo del esfuerzo.", g:"¡Uno más!",
+    vb:"-1 -4 14 20.8", mod:[[3,3,8,"e"],[6,4,7,"W"]], bo:[],
+    r1:arriba("R", 0).concat(barra(-1)), r2:arriba("R", 3).concat(barra(2)), l1:arriba("L", 0), l2:arriba("L", 3),
+    extra:'<rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect>' },
+  { her:true, id:"copa", n:"Ganando la copa", d:"Levanta un trofeo dorado, salta de alegría y le cae confeti.", g:"¡Campeón!",
+    vb:"-1 -3 16 19.8", mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[],
+    r1:arriba("R", 3).concat(copaC(-1)), r2:arriba("R", 2).concat(copaC(-2)), l1:arriba("L", 3), l2:arriba("L", 4),
+    extra:"", fuera:confeti(-1, "#FF4D4D", 0) + confeti(2, "#3FD8C8", .5) + confeti(5, "#FFC83D", 1) + confeti(8, "#8E5BD6", 1.5) + confeti(12, "#5DB33A", .3) + confeti(14, "#FF4D8D", 1.1) },
+  { her:true, id:"super", n:"Poder máximo", d:"Se le para el pelo dorado, lo rodea un aura de fuego con rayos y grita levitando.", g:"¡Poder máximo!",
+    vb:"-1 -4 14 20.8", mod:[[0,3,8,"y"],[1,2,9,"y"],[2,2,9,"y"],[3,2,9,"y"],[4,4,4,"c"],[4,7,7,"c"],[6,4,7,"W"]], bo:solo(5, 6, 5, 6, "M"),
+    atras:'<rect class="rojo" x="-1" y="-4" width="14" height="20.8" fill="#FFC83D"></rect>' +
+          '<g class="m1">' + rects(llamas([7,5,5,7])) + '</g><g class="m2">' + rects(llamas([5,8,8,5])) + '</g>' +
+          '<g class="b1">' + rects([[2,-1,"c"],[3,0,"c"],[4,-1,"c"],[5,0,"c"],[4,12,"c"],[5,11,"c"],[6,12,"c"],[7,11,"c"]]) + '</g>' +
+          '<g class="b2">' + rects([[6,-1,"c"],[7,0,"c"],[8,-1,"c"],[9,0,"c"],[1,12,"c"],[2,11,"c"],[3,12,"c"],[4,11,"c"]]) + '</g>',
+    extra:'<g class="m1">' + rects([[-1,3,"y"],[-1,5,"y"],[-1,6,"y"],[-1,8,"y"],[-2,4,"y"],[-2,7,"y"],[-3,5,"y"]]) + '</g><g class="m2">' + rects([[-1,3,"y"],[-1,4,"y"],[-1,7,"y"],[-1,8,"y"],[-2,3,"y"],[-2,6,"y"],[-2,8,"y"],[-3,4,"y"],[-3,7,"y"]]) + '</g>' },
+  { her:true, id:"heroe", n:"Superhéroe", d:"Se pone el antifaz con la mano y levanta el puño con la capa al viento.", g:"¡Súper Gamer!",
+    mod:SONRISA.concat([[9,5,6,"y"],[10,5,6,"y"]]), bo:[], gu:[[4,2,"R"],[4,5,"R"],[4,6,"R"],[4,9,"R"]],
+    r1:arriba("R", 3), r2:cara(),
+    atras:'<g class="m1">' + rects(CAPA_A) + '</g><g class="m2">' + rects(CAPA_B) + '</g>', extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 1, .6) }
+];
+
+function dibujar(a) {
+  const g = BASE.map(f => f.split(""));
+  a.mod.forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [], rd = [], ld = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => {
+    if (k === ".") return;
+    const x = [r, c, k];
+    if (r <= 6) cab.push(x); else if (r <= 13 && c >= 10) rd.push(x); else if (r <= 13 && c <= 1) ld.push(x); else cue.push(x);
+  }));
+  const ojos = [[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]];
+  return '<svg class="' + a.id + '" viewBox="' + (a.vb || "-1 -2 14 18.8") + '" shape-rendering="crispEdges" role="img" aria-label="' + a.n + '">' +
+    '<rect x="2" y="' + (a.sy || 16) + '" width="8" height=".6" fill="#000" opacity=".4"></rect><g class="atras">' + (a.atras || "") + '</g>' +
+    '<g class="mov">' + rects(cue) +
+    '<g class="cab">' + rects(cab) + '<g class="oc">' + rects(ojos) + '</g><g class="bo">' + rects(a.bo) + '</g>' + a.extra + '</g>' +
+    '<g class="ld">' + rects(ld) + '</g><g class="l1">' + rects(a.l1 || []) + '</g><g class="l2">' + rects(a.l2 || []) + '</g>' +
+    '<g class="rd">' + rects(rd) + '</g><g class="r1">' + rects(a.r1 || []) + '</g><g class="r2">' + rects(a.r2 || []) + '</g>' +
+    '</g><g class="fuera">' + (a.fuera || "") + '</g></svg>';
+}
+
+const A = id => ACCIONES.find(a => a.id === id);
+const P = id => dibujar(A(id));
+const $ = id => document.getElementById(id);
+function voz(t, r){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=r||.9;speechSynthesis.speak(u);}catch(e){}}
+const mez = a => {a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const AU = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+const AUG = AU.replace(/22/g, "40");
+const X = '<svg class="u-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+const COR = '<svg width="24" height="22" viewBox="0 0 12 11" shape-rendering="crispEdges"><path fill="#FF4B4B" d="M1 1h4v1h2V1h4v1h1v4h-1v1h-1v1H9v1H8v1H7v1H5v-1H4V9H3V8H2V7H1V6H0V2h1z"/><path fill="#FF8A8A" d="M2 2h2v1H3v1H2z"/></svg>';
+/* marco: título, cuerpo, pie con Comprobar. ok(sel) devuelve [bien, texto] */
+function pantalla(el, pct, cuerpo, revisar, reac) {
+  el.innerHTML = '<div class="u-ph"><div class="u-top">' + X + '<div class="u-bar"><i style="width:' + pct + '%"></i></div><span class="u-vid">' + COR + '3</span></div>' +
+    '<div class="u-body">' + cuerpo + '</div><div class="u-pie" id="' + el.id + 'p"><div class="u-fb"><span class="ic"></span><span><b></b><span></span></span></div><button class="u-btn" disabled>Comprobar</button></div></div>';
+  const pie = $(el.id + "p"), btn = pie.querySelector(".u-btn");
+  let fin = false;
+  btn.onclick = () => {
+    if (fin) { el.dataset.r = ""; el._reset(); return; }
+    const r = revisar(); if (!r) return; fin = true;
+    pie.className = "u-pie " + (r[0] ? "ok" : "mal");
+    pie.querySelector(".ic").innerHTML = P(r[0] ? "pulgar" : "pienso");
+    pie.querySelector("b").textContent = r[0] ? "¡Bien hecho!" : "Respuesta correcta:";
+    pie.querySelector(".u-fb span span").textContent = r[1];
+    btn.textContent = r[0] ? "Continuar" : "Entendido"; voz(r[2] || r[1]);
+    if (reac) reac(r[0]);
+  };
+  return { listo: v => { if (!fin) btn.disabled = !v; } };
+}
+
+/* 1 · el personaje habla */
+function D1() { const el = $("D1"); el._reset = D1; let sel = null;
+  const ops = mez(["Me gusta la pizza.", "No me gusta la pizza.", "Tengo una pizza."]);
+  const ui = pantalla(el, 20, '<span class="u-nuevo">NUEVA FRASE</span><p class="u-t">¿Qué significa esta frase?</p>' +
+    '<div class="u-hab">' + P("hambre") + '<div class="u-glo"><button class="u-au" id="d1a">' + AU + '</button><u>I like</u> pizza.</div></div>' +
+    '<div class="u-ops">' + ops.map((o, i) => '<button class="u-o" data-o="' + o + '"><kbd>' + (i + 1) + '</kbd>' + o + '</button>').join("") + '</div>',
+    () => [sel === "Me gusta la pizza.", "Me gusta la pizza.", "I like pizza."]);
+  $("d1a").onclick = () => voz("I like pizza."); setTimeout(() => voz("I like pizza."), 200);
+  el.querySelectorAll(".u-o").forEach(b => b.onclick = () => { el.querySelectorAll(".u-o").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; ui.listo(1); });
+}
+D1();
+
+/* 2 · completa */
+function D2() { const el = $("D2"); el._reset = D2; let sel = null;
+  const ui = pantalla(el, 40, '<p class="u-t">Completa la frase</p><div class="u-hab">' + P("neg") + '<div class="u-glo">I <span class="u-hueco" id="d2h">&nbsp;</span> coffee.</div></div>' +
+    '<p style="margin:-26px 0 0 124px;color:var(--mu);font-weight:700;font-size:14px">No me gusta el café.</p>' +
+    '<div class="u-ban">' + mez(["like", "don't like", "likes"]).map(o => '<button class="u-ch" data-o="' + o + '">' + o + '</button>').join("") + '</div>',
+    () => [sel === "don't like", "I don't like coffee."]);
+  el.querySelectorAll(".u-ban .u-ch").forEach(b => b.onclick = () => { sel = b.dataset.o; $("d2h").textContent = sel; voz(sel); ui.listo(1); });
+}
+D2();
+
+/* 3 · escucha y elige */
+function D3() { const el = $("D3"); el._reset = D3; let sel = null;
+  const ui = pantalla(el, 55, '<p class="u-t">¿Quién lo dice?</p><div class="u-big"><button class="u-bigb" id="d3a">' + AUG + '</button></div>' +
+    '<div class="u-cards">' + mez([["pulgar", "I like"], ["neg", "I don't like"]]).map(c => '<button class="u-card" data-o="' + c[1] + '">' + P(c[0]) + c[1] + '</button>').join("") + '</div>',
+    () => [sel === "I don't like", "I don't like rain. — No me gusta la lluvia."]);
+  $("d3a").onclick = () => voz("I don't like rain."); setTimeout(() => voz("I don't like rain."), 200);
+  el.querySelectorAll(".u-card").forEach(b => b.onclick = () => { el.querySelectorAll(".u-card").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; ui.listo(1); });
+}
+D3();
+
+/* 4 · traduce con palabras */
+function D4() { const el = $("D4"); el._reset = D4; let puestos = [];
+  const META = "I don't like dogs", W = mez(["I", "don't", "like", "dogs", "likes", "cats"]);
+  const ui = pantalla(el, 70, '<p class="u-t">Escribe esto en inglés</p><div class="u-hab">' + P("triste") + '<div class="u-glo">No me gustan los perros.</div></div>' +
+    '<div class="u-lin" id="d4l"></div><div class="u-ban" id="d4b">' + W.map((w, i) => '<button class="u-ch" data-i="' + i + '">' + w + '</button>').join("") + '</div>',
+    () => { const d = puestos.map(i => W[i]).join(" "); return [d === META, META + "."]; });
+  const pint = () => { $("d4l").innerHTML = puestos.map((i, q) => '<button class="u-ch" data-q="' + q + '">' + W[i] + '</button>').join("");
+    $("d4l").querySelectorAll(".u-ch").forEach(b => b.onclick = () => { puestos.splice(+b.dataset.q, 1); pint(); });
+    $("d4b").querySelectorAll(".u-ch").forEach(b => b.classList.toggle("ida", puestos.indexOf(+b.dataset.i) > -1)); ui.listo(puestos.length); };
+  $("d4b").querySelectorAll(".u-ch").forEach(b => b.onclick = () => { puestos.push(+b.dataset.i); voz(b.textContent, 1); pint(); });
+}
+D4();
+
+/* 5 · escribe lo que oyes */
+function D5() { const el = $("D5"); el._reset = D5;
+  const META = "I like football";
+  const ui = pantalla(el, 85, '<p class="u-t">Escribe lo que escuchas</p><div class="u-hab" style="justify-content:center;gap:14px">' + P("afirma") +
+    '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:40px"><button class="u-bigb" id="d5a">' + AUG + '</button><button class="u-bigb lento" id="d5l"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 13V9M12 13l3 2M9 2h6"/></svg></button></div></div>' +
+    '<textarea class="u-ta" id="d5t" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>',
+    () => { const v = $("d5t").value.trim().toLowerCase().replace(/[.!]/g, ""); return [v === META.toLowerCase(), META + ". — Me gusta el fútbol."]; });
+  $("d5a").onclick = () => voz(META + "."); $("d5l").onclick = () => voz(META + ".", .55);
+  $("d5t").oninput = () => ui.listo($("d5t").value.trim());
+}
+D5();
+
+/* 6 · une las parejas */
+function D6() { const el = $("D6"); el._reset = D6; let sel = null, n = 0;
+  const PR = [["I like", "me gusta"], ["I don't like", "no me gusta"], ["rain", "la lluvia"], ["coffee", "el café"], ["dogs", "los perros"]];
+  const izq = mez(PR.map(p => p[0])), der = mez(PR.map(p => p[1]));
+  const ui = pantalla(el, 95, '<p class="u-t">Toca las parejas</p><div class="u-par">' +
+    izq.map((w, i) => '<button class="u-ch" data-l="en" data-w="' + w + '" style="grid-column:1;grid-row:' + (i + 1) + '">' + w + '</button><button class="u-ch" data-l="es" data-w="' + der[i] + '" style="grid-column:2;grid-row:' + (i + 1) + '">' + der[i] + '</button>').join("") + '</div>' +
+    '<div class="u-hab" style="justify-content:center;margin-top:10px">' + P("pulgar").replace('<svg ', '<svg style="width:70px" ') + '</div>',
+    () => [n === PR.length, "¡Todas las parejas!", "Great!"]);
+  el.querySelectorAll(".u-par .u-ch").forEach(b => b.onclick = () => {
+    if (b.dataset.l === "en") voz(b.dataset.w);
+    if (!sel || sel.dataset.l === b.dataset.l) { if (sel) sel.classList.remove("sel"); sel = b; b.classList.add("sel"); return; }
+    const par = PR.find(p => p[0] === (sel.dataset.l === "en" ? sel.dataset.w : b.dataset.w));
+    if (par[1] === (sel.dataset.l === "es" ? sel.dataset.w : b.dataset.w)) { [sel, b].forEach(x => { x.classList.remove("sel"); x.classList.add("ok"); }); n++; if (n === PR.length) ui.listo(1); }
+    else { const a = sel; [a, b].forEach(x => { x.classList.remove("sel"); x.classList.add("mal"); setTimeout(() => x.classList.remove("mal"), 400); }); }
+    sel = null;
+  });
+}
+D6();
+</script></body></html>
