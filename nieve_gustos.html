@@ -502,6 +502,7 @@ function ganar(errores, total, titulo, msg3, msgMenos, rep, otra) {
   const dar = darAura(Math.round(AURA_NIVEL * e / 3)), ya = dar === 0;
   setBarra(100); mandarNube(DIAGNOSTICO ? nubeDiag : null); setCC("#5FA8E8");
   mostrarFinal({ gano:true, est, titulo, n1:Math.max(0, total - errores) + "/" + total, t1:"a la primera", aura:dar, ya, msg:est === 3 ? msg3 : msgMenos, rep }, otra);
+  if (window.IGFinal) IGFinal.mostrar({ aura:dar, estrellas:est, titulo, sub:NIVEL.nombre });   /* final con la liga semanal */
 }
 function perder(n1, t1, msg, rep, otra) {
   setCC("#FF6B6B");
@@ -988,7 +989,7 @@ const CONFIG = {
 /* ===== FICHA: publica tu Aura, estrellas y racha en tu ficha pública (para el Ranking) ===== */
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, serverTimestamp, collection, query, where, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const CONFIG = {
   apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
@@ -1082,7 +1083,262 @@ const CONFIG = {
     onAuthStateChanged(auth, u => { user = u; ficha = null; if (u) setTimeout(() => publicar(), 4000); });
     document.addEventListener("visibilitychange", () => { if (document.hidden) publicar(); else setTimeout(() => publicar(), 3000); });
     setInterval(() => { if (!document.hidden) publicar(); }, 60000);
-    window.IGFicha = { publicar: () => publicar(true) };
+    /* Para la pantalla final: publica y trae a los jugadores de tu grupo de la liga semanal (mismo lgw) */
+    async function liga() {
+      if (!user) return null;
+      for (let i = 0; i < 20 && ocupado; i++) await new Promise(r => setTimeout(r, 250));
+      await publicar(true);
+      if (!ficha) { const s = await getDoc(doc(db, "jugadores", user.uid)); if (!s.exists()) return null; ficha = s.data(); }
+      if (!ficha.lgw) return null;
+      const s = await getDocs(query(collection(db, "jugadores"), where("lgw", "==", String(ficha.lgw)), limit(60)));
+      const lista = s.docs.map(d => ({ uid:d.id, n:String(d.data().n || "Jugador"), ls:Math.max(0, +d.data().ls || 0) }));
+      const yo = lista.find(x => x.uid === user.uid); if (yo) yo.ls = Math.max(0, +ficha.ls || 0); else lista.push({ uid:user.uid, n:String(ficha.n || "Tú"), ls:Math.max(0, +ficha.ls || 0) });
+      return { yo:user.uid, lista };
+    }
+    window.IGFicha = { publicar: () => publicar(true), liga };
   } catch (e) { console.error("[ficha]", e); }
 })();
 </script>
+<!-- ===== FINAL CON LIGA SEMANAL (bloque igual en todas las pantallas que dan Aura) =====
+     Uso: window.IGFinal.mostrar({ aura: 25, estrellas: 3, titulo: "¡Nivel completado!", sub: "Conectores", alSalir: () => {} })
+     - Suma el Aura ganada a los puntos de rango (liga por metas, igual que el Ranking) y si llegas a la meta sube de escalón.
+     - Muestra tu liga de esta semana (Firestore: jugadores con lgw = semana|rango) con tu fila subiendo. -->
+<style>
+.igf{position:fixed;inset:0;z-index:9000;display:flex;justify-content:center;overflow-y:auto;background:var(--bg,#000);color:var(--ink,#F4F4F5);font-family:Nunito,system-ui,sans-serif;opacity:0;transition:opacity .3s}
+.igf.on{opacity:1}.igf *{box-sizing:border-box}.igf-in>*{flex-shrink:0}
+.igf-in{width:100%;max-width:480px;min-height:100%;display:flex;flex-direction:column;gap:12px;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))}
+.igf-st{display:flex;justify-content:center;align-items:flex-end;gap:6px;margin-top:6px}
+.igf-st svg{width:54px;height:54px;opacity:0;transform:scale(.2) rotate(-30deg);animation:igfPop .55s cubic-bezier(.3,1.6,.5,1) forwards;filter:drop-shadow(0 4px 10px rgba(255,190,40,.35))}
+.igf-st .m svg{width:70px;height:70px}.igf-st .no svg{filter:grayscale(1) brightness(.45)}
+@keyframes igfPop{to{opacity:1;transform:none}}
+.igf-t{margin:0;text-align:center;font-size:28px;font-weight:900;letter-spacing:-.01em}
+.igf-s{margin:-8px 0 0;text-align:center;font-size:15px;font-weight:700;color:var(--mu,#B8B8C0)}
+.igf-a{display:flex;align-items:center;justify-content:center;gap:8px;font-size:26px;font-weight:900;color:var(--gold,#FFD166)}
+.igf-a small{font-size:13px;letter-spacing:.14em;color:var(--mu,#B8B8C0)}
+.igf-ya{margin:-6px 0 0;text-align:center;font-size:13px;font-weight:700;color:var(--mu,#B8B8C0)}
+.igf-ap{opacity:0;animation:igfIn .5s ease forwards}@keyframes igfIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.igf-rb{padding:12px 14px;border-radius:24px;background:radial-gradient(120% 90% at 50% 0%,var(--c1),#0E0B07 75%);border:1px solid var(--c2);color:#FFF3D6}
+.igf-rb.r0{--c1:#4A3018;--c2:#6B4A26}.igf-rb.r1{--c1:#5A2A14;--c2:#8A4A28}.igf-rb.r2{--c1:#3A3F48;--c2:#5A626E}.igf-rb.r3{--c1:#5A4410;--c2:#8A6A1A}.igf-rb.r4{--c1:#6A4A08;--c2:#C9952A}
+.igf-rr{display:flex;align-items:center;gap:12px}.igf-rr small{display:block;font-size:10px;letter-spacing:.18em;color:#E9DCC0;font-weight:900}
+.igf-rr b{display:block;font-family:Cinzel,Georgia,serif;font-size:22px;font-weight:900;line-height:1.1}
+.igf-mt{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:8px}.igf-mt b{display:flex;align-items:center;gap:6px;font-size:17px;font-weight:900}.igf-mt span{font-size:13px;font-weight:900;color:#FFD166}
+.igf-mb{position:relative;height:12px;margin-top:6px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.igf-mb i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:linear-gradient(90deg,#FFB627,#FFE08A)}
+.igf-mb .g{background:linear-gradient(90deg,#3FC46A,#B8F5C8);width:0;transition:width 1s cubic-bezier(.3,.9,.4,1)}
+.igf-sub{display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;border-radius:16px;background:rgba(63,196,106,.15);border:1px solid #3FC46A;color:#B8F5C8;font-weight:900;font-size:14px;opacity:0;transform:scale(.8);transition:all .45s cubic-bezier(.3,1.6,.5,1)}
+.igf-sub.on{opacity:1;transform:none}.igf-sub[hidden]{display:none}
+.igf-lh{display:flex;justify-content:space-between;align-items:center;margin:4px 4px 0;font-size:12px;font-weight:900;letter-spacing:.14em;color:var(--mu,#B8B8C0)}.igf-lh b{letter-spacing:0;font-size:13px;color:var(--ink,#F4F4F5)}
+.igf-ls{position:relative}
+.igf-f{position:absolute;left:0;right:0;height:60px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:22px;overflow:hidden;isolation:isolate;border:1px solid var(--bd,#2A2A2E);transition:top .9s cubic-bezier(.3,1.25,.45,1)}
+.igf-f .bg{position:absolute;inset:0;z-index:-1;background:var(--fbg);opacity:.9}
+.igf-f .bg:before{content:"";position:absolute;left:0;right:0;bottom:0;height:16%;background:var(--fgr);opacity:.85}
+.igf-f .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.25),rgba(0,0,0,.55) 55%,rgba(0,0,0,.75))}
+.igf-f .p{flex:none;width:24px;text-align:center;font-size:16px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.igf-av{flex:none;width:44px;height:44px;border-radius:50%;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;border:3px solid rgba(255,255,255,.7);background:var(--fbg)}
+.igf-av svg{margin-bottom:2px}
+.igf-f .n{flex:1;min-width:0}.igf-f .n b{display:block;font-size:16px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.igf-tt{display:inline-block;margin-top:2px;padding:1px 8px;border-radius:99px;background:#fff;color:#000;font-size:11px;font-weight:900}
+.igf-f .d{display:flex;flex-direction:column;align-items:flex-end;flex:none}
+.igf-au{display:inline-flex;align-items:center;gap:4px;font-size:16px;font-weight:900;color:#FFD166;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.igf-mas{margin-top:3px;padding:2px 8px;border-radius:99px;background:rgba(93,216,121,.25);color:#7BF09A;font-size:12px;font-weight:900;opacity:0;transform:scale(.4);transition:opacity .3s,transform .45s cubic-bezier(.3,1.7,.5,1)}
+.igf-mas.on{opacity:1;transform:none}
+.igf-f.yo{border:2px solid #fff;z-index:2}
+.igf-f.yo.fl{animation:igfFl 1s ease}@keyframes igfFl{40%{box-shadow:0 0 0 4px #5DD879,0 0 30px rgba(93,216,121,.6)}}
+.igf-up{margin-left:6px;color:#7BF09A;font-size:13px;opacity:0;transition:opacity .4s}.igf-up.on{opacity:1}
+.igf-nota{margin:0 4px;text-align:center;font-size:13px;font-weight:700;color:var(--mu,#B8B8C0)}
+.igf-btn{margin-top:auto;height:56px;width:100%;border:0;border-radius:99px;background:var(--hi,#fff);color:var(--on-hi,#000);font:900 17px Nunito,system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 0 rgba(128,128,128,.35)}
+.igf-btn:active{transform:translateY(2px)}
+@media (prefers-reduced-motion:reduce){.igf *{animation-duration:.01s!important;animation-delay:0s!important;transition-duration:.01s!important}}
+</style>
+<script type="module">
+/* ---- datos que comparte con el Ranking (no cambiar sin cambiar también el Ranking) ---- */
+const CONFIG = { apiKey:"AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE", authDomain:"inglesgamer-5a3a9.firebaseapp.com", projectId:"inglesgamer-5a3a9", storageBucket:"inglesgamer-5a3a9.firebasestorage.app", messagingSenderId:"599532765222", appId:"1:599532765222:web:38fe3a7348b3c38e3426e7" };
+const RANGOS_REINO = [
+  { n:"Campesino", m:"madera", g:"horca" }, { n:"Soldado", m:"cobre", g:"escudo" }, { n:"Caballero", m:"hierro", g:"espada" },
+  { n:"Noble", m:"oro", g:"leon" }, { n:"Rey", m:"real", g:"corona", rey:true } ];
+const MATERIAL = { madera:["#C99A5B","#7A4E22","#4A2C10"], cobre:["#F2A36B","#B4582A","#5E2A10"], hierro:["#C7CDD6","#6E7783","#2E343C"], oro:["#FFF0A8","#F2B526","#8A5A00"], real:["#FFF6C8","#FFC83D","#9A5B00"] };
+const GLIFO = {
+  horca:'<path d="M50 34v36M40 34v12a10 10 0 0 0 20 0V34" stroke-width="6" fill="none"/>',
+  escudo:'<path d="M50 32l14 6v12c0 10-6 16-14 20-8-4-14-10-14-20V38z" stroke-width="5" fill="none"/>',
+  espada:'<path d="M50 28v34M40 56h20M50 62v8" stroke-width="6" fill="none"/>',
+  leon:'<path d="M40 64c0-14 6-24 16-26 2 4 1 8-2 10 6 0 9 4 8 9l-4 1 3 6H40z" stroke-width="4.5" fill="none"/>',
+  corona:'<path d="M36 62l-2-22 10 9 6-13 6 13 10-9-2 22z" stroke-width="5" fill="none"/>' };
+const LOOK_SK = ["", "hue-rotate(150deg)", "hue-rotate(-40deg) saturate(1.6)", "hue-rotate(80deg) saturate(1.3)", "grayscale(1) brightness(1.5) opacity(.75)", "hue-rotate(280deg) saturate(2.2) brightness(1.15)", "sepia(1) saturate(3.5) brightness(1.1)", "", "sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05)"];
+const LOOK_MP = [
+  { bg:"linear-gradient(#0F1A10,#1E3A22)", g:"#5DB33A" }, { bg:"linear-gradient(#070B1F,#1B1F4A)", g:"#2B3A7A" }, { bg:"linear-gradient(#5A3A18,#B8782E)", g:"#D9A04A" },
+  { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" },
+  { bg:"linear-gradient(#0B1640,#2A3470)", g:"#141A36" }, { bg:"linear-gradient(#E8692A,#FFC977)", g:"#5E8F35" }, { bg:"radial-gradient(circle at 70% 15%,#4A2290,#0A0620 70%)", g:"#2A1458" }, { bg:"linear-gradient(#1B8BD2,#0B3A73)", g:"#E8D49A" }, { bg:"linear-gradient(#4A2E8E,#E58FC7)", g:"#2E1A55" }, { bg:"linear-gradient(#0B3A22,#1E7A3E)", g:"#0A2E1A" }, { bg:"linear-gradient(#1E222E,#4A5266)", g:"#2A3040" }, { bg:"linear-gradient(#FF9FD2,#FFE7F3)", g:"#FF6FB5" }, { bg:"linear-gradient(#030B16,#0B2A3A)", g:"#DDEFF5" }
+];
+const LOOK_TT = ["Novato", "Gamer", "Cazador de bugs", "Speaker", "Maestro Have/Has", "Rey del A1", "Leyenda", "Cazador de dinos", "Perfeccionista", "Constante", "Imparable", "Duelista", "Gladiador", "Caballero del Reino", "Su Majestad", "Rey del Hielo", "Coleccionista"];
+const SPR = {
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+  av9:{p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]},
+  av10:{"p": {"r": "#E8343B", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#6B3A1E", "m": "#B5574A", "w": "#F2F4F8", "b": "#2F5BD6", "l": "#3A3A42", "y": "#FFC83D"}, "r": ["....rrrr....", "..rrrrrrrr.r", "..rrrrrrrrr.", "..ssssssss..", "..skssskkk..", "..ssssssss..", "..hhsmmshh..", "...hhhhhh...", "..wbwbwbwb..", ".swbwbwbwbs.", "..lll..lll..", "..kkk..kkk.."]},
+  av11:{"p": {"w": "#F2F4F8", "c": "#3FA9F5", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#FF4D4D", "b": "#2F5BD6", "g": "#8C8C96"}, "r": ["...wwwwww...", "..wwwwwwww..", ".wwccccccww.", ".wcskssksccw", ".wcssmmsscw.", ".wwccccccww.", "..wwwwwwww..", ".wwwrwwbwww.", "w.wwwwwwww.w", "..wwwwwwww..", "..ww....ww..", "..gg....gg.."]},
+  av12:{"p": {"y": "#FFC83D", "g": "#A0AAB8", "d": "#5A6270", "r": "#FF4D4D", "b": "#3F7FD8", "c": "#3FD8C8"}, "r": [".....yy.....", ".....gg.....", "..gggggggg..", "..gddddddg..", "..gdyddydg..", "..gddddddg..", "..gdrrrrdg..", "...gggggg...", ".bbbbbbbbbb.", "g.bbbccbbb.g", "..bbbbbbbb..", "..gg....gg.."]},
+  av13:{"p": {"h": "#8B5A2B", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#E8343B", "p": "#E07A3A", "j": "#3F6FB5", "b": "#5E3E22"}, "r": ["...hhhhhh...", "...hhhhhh...", "hhhhhhhhhhhh", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..rrrrrrrr..", ".spppppppps.", "..jjjjjjjj..", "..jjj..jjj..", "..bbb..bbb.."]},
+  av14:{"p": {"w": "#F2F4F8", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#3A2414", "m": "#B5574A", "r": "#E8343B", "l": "#3A3A42"}, "r": ["...wwwwww...", "..wwwwwwww..", "..wwwwwwww..", "...wwwwww...", "..ssssssss..", "..skssssks..", "..sshhhhss..", "...ssmmss...", ".swwwwwwwws.", "..wwrrwwww..", "..lll..lll..", "..kkk..kkk.."]},
+  av15:{"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},
+  av16:{"p": {"k": "#1A1A22", "p": "#E6E1F0", "r": "#E8343B", "w": "#FFFFFF", "c": "#8E1B2B"}, "r": ["...kkkkkk...", "..kkkkkkkk..", "..kppppppk..", "..prpppprp..", "..pppppppp..", "...pwppwp...", "cc.kkkkkk.cc", "cckkwwwwkkcc", "cckkkkkkkkcc", "c.kkkkkkkk.c", "..kk....kk..", "..kk....kk.."]},
+  av17:{"p": {"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"}, "r": ["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]},
+  av18:{"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
+  av19:{"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]}
+};
+const METAS = [150, 250, 400, 600], DESC_LUNES = [80, 130, 210, 320, 400], PASO_MAX = 12;
+const reinoDe = st => Math.min(RANGOS_REINO.length - 1, Math.floor(st / 3));
+const nombreRango = st => RANGOS_REINO[reinoDe(st)].n + (st >= PASO_MAX ? "" : " " + ["III", "II", "I"][st % 3]);
+const metaDe = st => METAS[reinoDe(st)] || 0, descDe = st => DESC_LUNES[reinoDe(st)] || 0;
+let escN = 900;
+function escudoRango(st, s) {
+  const r = RANGOS_REINO[reinoDe(st)], m = MATERIAL[r.m], id = "esc" + (++escN), claro = r.m === "oro" || r.m === "real";
+  return '<svg class="escr' + (r.rey ? " rey" : "") + '" width="' + s + '" height="' + Math.round(s * 1.12) + '" viewBox="0 -4 100 116" aria-hidden="true"><defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + m[0] + '"/><stop offset=".55" stop-color="' + m[1] + '"/><stop offset="1" stop-color="' + m[2] + '"/></linearGradient></defs>' +
+    (r.rey ? '<path d="M28 18l-2-14 10 7 14-11 14 11 10-7-2 14z" fill="url(#' + id + ')" stroke="' + m[2] + '" stroke-width="2.5"/><circle cx="50" cy="10" r="3.5" fill="#E0213A"/>' : '') +
+    '<path d="M50 18l34 12v26c0 24-16 38-34 46C32 94 16 80 16 56V30z" fill="url(#' + id + ')" stroke="' + m[2] + '" stroke-width="3"/>' +
+    '<path d="M50 26l26 9v21c0 19-12 30-26 37-14-7-26-18-26-37V35z" fill="rgba(0,0,0,.22)"/><path d="M24 34l26-9 26 9" stroke="rgba(255,255,255,.55)" stroke-width="2.5" fill="none"/>' +
+    '<g stroke="' + (claro ? "#3A2400" : "#FFF4DE") + '" stroke-linecap="round" stroke-linejoin="round">' + GLIFO[r.g] + '</g>' + (r.rey ? '<circle cx="50" cy="83" r="4" fill="#E0213A" stroke="#7A0010" stroke-width="1.5"/>' : '') + '</svg>';
+}
+const leer = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
+const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const clave = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+const aSemana = d => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return clave(x); };
+const SEM = () => aSemana(new Date());
+function sprite(n, s) {
+  const d = SPR[n]; if (!d) return "";
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+const llama = s => sprite("llama", s);
+let sg = 0;
+const estrella = () => { const id = "igfs" + (++sg); return '<svg viewBox="0 0 24 24"><defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE58A"/><stop offset="1" stop-color="#FFB020"/></linearGradient></defs><path d="M12 2.2l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.1l-5.9 3.1 1.2-6.5L2.5 9.1l6.6-.9z" fill="url(#' + id + ')" stroke="#E08A00" stroke-width="1.2" stroke-linejoin="round"/><path d="M8.6 9.6l2.2-.3 1.2-2.6" fill="none" stroke="#FFF6CF" stroke-width="1.3" stroke-linecap="round" opacity=".9"/></svg>'; };
+function contar(el, a, b, ms) { if (!el) return; const t0 = performance.now(); const f = t => { const k = Math.min(1, (t - t0) / ms); el.textContent = Math.round(a + (b - a) * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); }
+function tono(f, t, d, tipo, v) { try { if (localStorage.getItem("ingles_gamer_sonido") === "0") return; const C = window.AudioContext || window.webkitAudioContext; if (!C) return; window.__igfAC = window.__igfAC || new C(); const ac = window.__igfAC, o = ac.createOscillator(), g = ac.createGain(); o.type = tipo || "triangle"; o.frequency.value = f; g.gain.setValueAtTime(0, ac.currentTime + t); g.gain.linearRampToValueAtTime(v || .07, ac.currentTime + t + .02); g.gain.exponentialRampToValueAtTime(.001, ac.currentTime + t + d); o.connect(g); g.connect(ac.destination); o.start(ac.currentTime + t); o.stop(ac.currentTime + t + d + .05); } catch (e) {} }
+
+/* ---- tu jugador (de este celular) ---- */
+function yo() {
+  const perfil = leer("ingles_gamer_perfil") || {}, t = leer("ingles_gamer_tienda") || {}, own = Array.isArray(t.own) ? t.own : [], eq = t.eq || {};
+  const pk = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
+  let av = +perfil.a >= 0 && +perfil.a < 20 ? +perfil.a : 0; if (av === 9) av = 0;
+  return { n:(String(perfil.n || "").trim().slice(0, 14) || "Gamer"), av, lsk:pk("sk", 9), lmp:pk("mp", 15), ltt:pk("tt", 17) };
+}
+const agTotal = () => Math.max(0, +((leer("ingles_gamer_aura") || {}).e) || 0);
+
+/* ---- liga por metas: la misma cuenta del Ranking (revisarLiga) ---- */
+function semanasEntre(a, b) { const f = k => { const p = String(k).split("-").map(Number); return new Date(p[0], (p[1] || 1) - 1, p[2] || 1); }; const d = Math.round((f(b) - f(a)) / 6048e5); return isNaN(d) ? 1 : Math.max(0, d); }
+function avanzarLiga(gan) {
+  const ag = agTotal();
+  let L = leer("ingles_gamer_liga") || {};
+  if (L.v !== 3) { const st = L.v === 2 ? Math.min(PASO_MAX, Math.max(0, +L.st || 0)) : Math.min(PASO_MAX, Math.max(0, (+L.lg || 0) * 3)); L = { v:3, st, lg:reinoDe(st), pt:0, e:Math.max(0, ag - gan), k:SEM(), ant:L.ant }; }
+  const antes = { st:L.st, pt:Math.max(0, +L.pt || 0) };
+  let st = L.st, pt = antes.pt;
+  if (L.k !== SEM()) {   /* semana nueva: primero el descuento (como en el Ranking) */
+    let desc = 0, bajo = false;
+    for (let w = Math.min(8, Math.max(1, semanasEntre(L.k, SEM()))); w > 0; w--) { const d = descDe(st); desc += d; pt -= d; if (pt < 0) { if (st > 0) { st--; pt = Math.floor(metaDe(st) / 2); bajo = true; } else pt = 0; } }
+    L.ant = { st:antes.st, res:bajo ? "baja" : "igual", desc, pt, visto:false };
+    antes.st = st; antes.pt = pt;
+  }
+  pt += Math.max(0, ag - (+L.e || 0));
+  const st0 = st;
+  while (st < PASO_MAX && pt >= metaDe(st)) { pt -= metaDe(st); st++; }
+  if (st > st0) L.ant = { st:st0, res:"sube", desc:0, pt, visto:true };   /* ya se celebra aquí */
+  guardar("ingles_gamer_liga", { v:3, st, lg:reinoDe(st), pt, e:ag, k:SEM(), ant:L.ant });
+  return { antes, st, pt, subio:st > st0 };
+}
+/* Aura ganada esta semana (la misma que publica la FICHA en "ls") */
+function auraSemana(gan) {
+  const ag = agTotal(); let bs = leer("ingles_gamer_aura_sem") || {};
+  if (bs.k !== SEM()) { bs = { k:SEM(), e:Math.max(0, ag - gan) }; guardar("ingles_gamer_aura_sem", bs); }
+  return Math.max(0, ag - (+bs.e || 0));
+}
+
+/* ---- lista de la liga en Firestore ---- */
+async function cargarLiga(lg) {
+  const V = "https://www.gstatic.com/firebasejs/10.12.2/";
+  const [A, U, F] = await Promise.all([import(V + "firebase-app.js"), import(V + "firebase-auth.js"), import(V + "firebase-firestore.js")]);
+  const app = A.getApps().length ? A.getApp() : A.initializeApp(CONFIG), auth = U.getAuth(app);
+  const user = auth.currentUser || await new Promise(ok => { const t = setTimeout(() => ok(null), 6000); const q = U.onAuthStateChanged(auth, u => { if (u) { clearTimeout(t); q(); ok(u); } }); });
+  if (!user) return null;
+  const s = await F.getDocs(F.query(F.collection(F.getFirestore(app), "jugadores"), F.where("lgw", "==", SEM() + "|" + lg), F.limit(60)));
+  const l = []; s.forEach(d => { const x = d.data(); l.push({ uid:d.id, n:String(x.n || "Jugador"), av:Math.min(19, Math.max(0, +x.av || 0)) === 9 ? 0 : Math.min(19, Math.max(0, +x.av || 0)), lmp:Math.min(14, Math.max(0, +x.lmp || 0)), lsk:Math.min(8, Math.max(0, +x.lsk || 0)), ltt:Math.min(16, Math.max(0, +x.ltt || 0)), ls:Math.max(0, +x.ls || 0) }); });
+  return { yo:user.uid, lista:l };
+}
+
+/* ---- pantalla ---- */
+function fila(j, pos, top, esYo, gan) {
+  const mp = LOOK_MP[j.lmp] || LOOK_MP[0], f = LOOK_SK[j.lsk] || "";
+  return '<div class="igf-f' + (esYo ? " yo" : "") + '" data-u="' + esc(j.uid) + '" style="top:' + top + 'px;--fbg:' + mp.bg + ';--fgr:' + mp.g + '"><i class="bg"></i><span class="p">' + pos + '</span>' +
+    '<span class="igf-av"><span' + (f ? ' style="filter:' + f + '"' : '') + '>' + sprite("av" + j.av, 28) + '</span></span>' +
+    '<span class="n"><b>' + esc(j.n) + (esYo ? ' · Tú<span class="igf-up"></span>' : '') + '</b>' + (j.ltt ? '<span class="igf-tt">' + esc(LOOK_TT[j.ltt] || "") + '</span>' : '') + '</span>' +
+    '<span class="d"><span class="igf-au">' + llama(16) + '<span class="v">' + j.ls + '</span></span>' + (esYo && gan > 0 ? '<span class="igf-mas">▲ +' + gan + '</span>' : '') + '</span></div>';
+}
+async function mostrar(o) {
+  o = o || {};
+  const gan = Math.max(0, Math.round(+o.aura || 0)), est = Math.max(0, Math.min(3, o.estrellas == null ? 3 : +o.estrellas));
+  const semana = auraSemana(gan), lg0 = avanzarLiga(gan), me = yo();
+  const ov = document.createElement("div"); ov.className = "igf"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", o.titulo || "Nivel completado");
+  const meta0 = metaDe(lg0.antes.st), pctA = st => Math.min(100, Math.round(lg0.antes.pt / Math.max(1, meta0) * 100));
+  const rango = '<div class="igf-rb r' + reinoDe(lg0.antes.st) + ' igf-ap" style="animation-delay:1.2s"><div class="igf-rr"><span id="igfEsc">' + escudoRango(lg0.antes.st, 48) + '</span><div><small>TU RANGO</small><b id="igfRk">' + nombreRango(lg0.antes.st) + '</b></div></div>' +
+    (lg0.antes.st >= PASO_MAX ? '<div class="igf-mt"><b>' + llama(18) + '<span id="igfPt">' + lg0.antes.pt + '</span></b><span>puntos de Rey</span></div>' :
+    '<div class="igf-mt"><b>' + llama(18) + '<span id="igfPt">' + lg0.antes.pt + '</span> / <span id="igfMeta">' + meta0 + '</span></b><span id="igfPara">para ' + nombreRango(lg0.antes.st + 1) + '</span></div><div class="igf-mb"><i id="igfA" style="width:' + pctA() + '%"></i><i class="g" id="igfG" style="left:' + pctA() + '%"></i></div>') +
+    '<div class="igf-sub" id="igfSub" hidden></div></div>';
+  ov.innerHTML = '<div class="igf-in">' + (est ? '<div class="igf-st">' + [0, 1, 2].map(i => '<span class="' + (i === 1 ? "m " : "") + (i < est ? "" : "no") + '">' + estrella().replace("<svg ", '<svg style="animation-delay:' + (.2 + i * .22) + 's" ') + '</span>').join("") + '</div>' : '') +
+    '<p class="igf-t igf-ap" style="animation-delay:.8s">' + esc(o.titulo || "¡Nivel completado!") + '</p>' + (o.sub ? '<p class="igf-s igf-ap" style="animation-delay:.9s">' + esc(o.sub) + '</p>' : '') +
+    '<div class="igf-a igf-ap" style="animation-delay:1s">' + llama(28) + '<span id="igfAu">+0</span><small>AURA</small></div>' + (gan ? '' : '<p class="igf-ya">Ya ganaste el Aura de esto. ¡Igual sumaste práctica!</p>') +
+    rango + '<div class="igf-lh igf-ap" style="animation-delay:1.4s"><span>LIGA SEMANAL</span><b>' + esc(RANGOS_REINO[reinoDe(lg0.st)].n) + '</b></div><div class="igf-ls" id="igfLs"><p class="igf-nota">Buscando tu liga…</p></div>' +
+    '<button type="button" class="igf-btn" id="igfOk">Continuar</button></div>';
+  document.body.appendChild(ov); void ov.offsetWidth; ov.classList.add("on");
+  setTimeout(() => (() => { const e = ov.querySelector("#igfAu"); const t0 = performance.now(); const f = t => { const k = Math.min(1, (t - t0) / 900); e.textContent = "+" + Math.round(gan * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); })(), 1000);
+  [523, 659, 784].forEach((f, i) => tono(f, .2 + i * .22, .35, "triangle", .06));
+  /* barra de rango */
+  setTimeout(() => {
+    if (lg0.antes.st >= PASO_MAX) { contar(ov.querySelector("#igfPt"), lg0.antes.pt, lg0.pt, 900); return; }
+    const sube = lg0.subio, g = ov.querySelector("#igfG"), fin = sube ? 100 - pctA() : Math.max(0, Math.min(100, Math.round(lg0.pt / Math.max(1, meta0) * 100)) - pctA());
+    g.style.width = fin + "%"; contar(ov.querySelector("#igfPt"), lg0.antes.pt, sube ? meta0 : lg0.pt, 900);
+    if (sube) setTimeout(() => {
+      const st = lg0.st, m = metaDe(st), a = ov.querySelector("#igfA");
+      a.style.width = "0"; g.style.transition = "none"; g.style.left = "0"; g.style.width = st >= PASO_MAX ? "100%" : Math.min(100, Math.round(lg0.pt / Math.max(1, m) * 100)) + "%";
+      ov.querySelector("#igfEsc").innerHTML = escudoRango(st, 48); ov.querySelector("#igfRk").textContent = nombreRango(st);
+      ov.querySelector(".igf-rb").className = "igf-rb r" + reinoDe(st);
+      ov.querySelector("#igfPt").textContent = lg0.pt; ov.querySelector("#igfMeta").textContent = st >= PASO_MAX ? "—" : m; ov.querySelector("#igfPara").textContent = st >= PASO_MAX ? "¡Eres Rey!" : "para " + nombreRango(st + 1);
+      const sb = ov.querySelector("#igfSub"); sb.hidden = false; sb.innerHTML = escudoRango(st, 28) + '¡Subiste a ' + nombreRango(st) + '!'; void sb.offsetWidth; sb.classList.add("on");
+      [523, 659, 784, 1047].forEach((f, i) => tono(f, i * .1, .3, "square", .04));
+    }, 1300);
+  }, 1700);
+  ov.querySelector("#igfOk").addEventListener("click", () => { ov.classList.remove("on"); setTimeout(() => ov.remove(), 300); if (typeof o.alSalir === "function") o.alSalir(); });
+  /* liga semanal */
+  const box = ov.querySelector("#igfLs");
+  let r = null; try { r = await Promise.race([cargarLiga(reinoDe(lg0.st)), new Promise(ok => setTimeout(() => ok(null), 9000))]); } catch (e) { r = null; }
+  const mio = { uid:"__yo", n:me.n, av:me.av, lmp:me.lmp, lsk:me.lsk, ltt:me.ltt, ls:semana };
+  let lista = r && r.lista ? r.lista.filter(x => x.uid !== r.yo) : [];
+  const id = r ? r.yo : "__yo"; mio.uid = id;
+  const orden = (arr, v) => arr.concat([Object.assign({}, mio, { ls:v })]).sort((a, b) => b.ls - a.ls || (a.uid === id ? -1 : 0));
+  const A = orden(lista, Math.max(0, semana - gan)), D = orden(lista, semana);
+  const pa = A.findIndex(x => x.uid === id), pd = D.findIndex(x => x.uid === id), sube = pa - pd;
+  const lo = Math.max(0, pd - 2), hi = Math.min(D.length, Math.max(pa, pd) + 2), vis = A.filter(x => { const i = D.findIndex(y => y.uid === x.uid); return (i >= lo && i < hi) || x.uid === id; });
+  const H = 66, off = Math.min(...vis.map(x => Math.min(A.indexOf(x), D.findIndex(y => y.uid === x.uid))));
+  box.style.height = (vis.length * H) + "px";
+  box.innerHTML = vis.map(x => fila(x, A.indexOf(x) + 1, (A.indexOf(x) - off) * H, x.uid === id, gan)).join("");
+  if (!r) box.insertAdjacentHTML("afterend", '<p class="igf-nota">Conéctate a internet para ver a los demás de tu liga.</p>');
+  else box.insertAdjacentHTML("afterend", '<p class="igf-nota">Puesto ' + (pd + 1) + ' de ' + D.length + ' esta semana.</p>');
+  setTimeout(() => {
+    box.querySelectorAll(".igf-f").forEach(f => { const i = D.findIndex(x => x.uid === f.dataset.u); f.style.top = (i - off) * H + "px"; f.querySelector(".p").textContent = i + 1; });
+    const y = box.querySelector(".igf-f.yo"); if (!y) return;
+    contar(y.querySelector(".v"), Math.max(0, semana - gan), semana, 900);
+    setTimeout(() => { const m = y.querySelector(".igf-mas"); if (m) m.classList.add("on"); y.classList.add("fl"); }, 600);
+    if (sube > 0) setTimeout(() => { const u = y.querySelector(".igf-up"); u.textContent = "▲" + sube; u.classList.add("on"); tono(880, 0, .25, "triangle", .06); tono(1175, .1, .3, "triangle", .06); }, 900);
+  }, 2000);
+}
+window.IGFinal = { mostrar };
+</script>
+<!-- ===== fin FINAL CON LIGA SEMANAL ===== -->
