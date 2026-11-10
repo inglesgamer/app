@@ -272,6 +272,15 @@ svg{display:block}
 .u-par .u-ch{width:100%;height:56px;justify-content:center}
 .u-par .u-ch.ok{border-color:var(--line2);color:#4A4A54;pointer-events:none}.u-par .u-ch.ok svg{opacity:.3}
 .u-par .u-ch.mal{border-color:var(--mal);color:#FF8A8A;animation:shk .3s}
+/* palabra nueva */
+.u-nw{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:4px}
+.u-nw .ob{line-height:0;animation:bob 2.4s ease-in-out infinite}
+.u-nw .pal{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:40px;font-weight:900;line-height:1}
+.u-nw .tra{margin-top:6px;font-size:21px;font-weight:900;color:var(--oro)}
+.u-nw .lento2{margin-top:10px;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:99px;border:2px solid var(--line2);background:none;color:var(--ink);font:800 14px Nunito,sans-serif;cursor:pointer}
+.u-ejx{display:flex;align-items:flex-end;gap:8px;margin-top:18px;width:100%}
+.u-ejx>svg{width:84px;height:auto;flex:none;overflow:visible}
+.u-ejx .u-glo{flex:1;margin-bottom:30px;text-align:left;font-size:17px}
 /* pie con Comprobar */
 .u-pie{position:sticky;bottom:0;z-index:4;margin:18px -16px 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom));border-top:2px solid var(--line2);background:var(--bg);transition:background .2s}
 .u-pie.ok{background:#0F2A1C;border-color:transparent}.u-pie.mal{background:#2A0F0F;border-color:transparent}
@@ -339,15 +348,20 @@ const TRAD = { "I":"yo", "like":"me gusta", "don't like":"no me gusta", "don't":
 /* El nivel, paso por paso.
    habla = qué significa · completa = palabra que falta · quien = escucha y elige · traduce = arma la frase
    escucha = escribe lo que oyes · parejas = une inglés-español
+   nueva = PALABRA NUEVA: se enseña antes de usarla en un ejercicio (no se evalúa)
    pj = personaje (hambre, neg, amor, pienso, afirma, pulgar) · ob = dibujo */
 const PLAN = [
   { t:"habla",    pj:"hambre", ob:"pizza",  en:"I like pizza.",           ops:["Me gusta la pizza.", "No me gusta la pizza.", "Quiero una pizza."], nuevo:1 },
   { t:"habla",    pj:"neg",    ob:"cafe",   en:"I don't like coffee.",    ops:["No me gusta el café.", "Me gusta el café.", "Tengo un café."], nuevo:1 },
   { t:"completa", pj:"amor",   ob:"perro",  en:"I ___ dogs.",             es:"Me gustan los perros.", ok:"like", ops:["like", "don't like", "likes"] },
+  { t:"nueva",    pj:"neg",    ob:"lluvia", en:"rain",       es:"la lluvia",  ej:"I don't like rain.",     ejEs:"No me gusta la lluvia." },
   { t:"quien",                 ob:"lluvia", en:"I don't like rain.",      es:"No me gusta la lluvia.", ok:"dont" },
+  { t:"nueva",    pj:"pienso", ob:"tarea",  en:"homework",   es:"la tarea",   ej:"I don't like homework.", ejEs:"No me gusta la tarea." },
   { t:"traduce",  pj:"pienso", ob:"tarea",  es:"No me gusta la tarea.",   en:"I don't like homework", extra:["likes", "pizza"] },
+  { t:"nueva",    pj:"amor",   ob:"helado", en:"ice cream",  es:"el helado",  ej:"I like ice cream.",      ejEs:"Me gusta el helado." },
   { t:"escucha",  pj:"afirma",              en:"I like ice cream.",       es:"Me gusta el helado." },
   { t:"completa", pj:"neg",    ob:"lluvia", en:"I ___ rain.",             es:"No me gusta la lluvia.", ok:"don't like", ops:["like", "don't like", "likes"] },
+  { t:"nueva",    pj:"pulgar", ob:"balon",  en:"football",   es:"el fútbol",  ej:"I like football.",      ejEs:"Me gusta el fútbol." },
   { t:"quien",                 ob:"balon",  en:"I like football.",        es:"Me gusta el fútbol.", ok:"like" },
   { t:"parejas",  pares:[["I like", "me gusta"], ["I don't like", "no me gusta"], ["rain", "la lluvia", "lluvia"], ["coffee", "el café", "cafe"], ["dogs", "los perros", "perro"]] },
   { t:"traduce",  pj:"amor",   ob:"helado", es:"Me gusta el helado.",     en:"I like ice cream", extra:["don't", "coffee"] },
@@ -690,7 +704,7 @@ function pantalla(cuerpo, rev) {
   window.scrollTo(0, 0);
   let fin = false;
   on("bChk", () => {
-    if (fin) { siguiente(); return; }
+    if (fin || !revisar) { siguiente(); return; }
     const r = revisar(); if (!r) return; fin = true;
     const pie = $("pie"); pie.className = "u-pie " + (r[0] ? "ok" : "mal");
     $("pieIc").innerHTML = PJ(r[0] ? "pulgar" : "pienso");
@@ -705,10 +719,20 @@ function pantalla(cuerpo, rev) {
 }
 listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") b.disabled = !v; };
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
-function pintar() { P = PLAN[pos]; ({ habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
+function pintar() { P = PLAN[pos]; ({ nueva:exNueva, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
 const enLimpio = t => t.replace(/[.!?]/g, "").trim();
 const espanol = t => t;
 
+/* 0 · PALABRA NUEVA: dibujo, palabra, traducción, audio y un ejemplo (no se evalúa) */
+function exNueva() {
+  pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + 'PALABRA NUEVA</span>' +
+    '<div class="u-nw"><span class="ob">' + OB(P.ob, 120) + '</span><div class="pal"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU.replace(/22/g, "30") + '</button>' + esc(P.en) + '</div>' +
+    '<div class="tra">' + esc(P.es) + '</div><button type="button" class="lento2" id="bLe">' + LENTO.replace(/28/g, "18") + 'Lento</button>' +
+    '<div class="u-ejx">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bEj" aria-label="Escuchar el ejemplo">' + AU + '</button>' + frase(P.ej) + '<span class="u-es">' + esc(P.ejEs) + '</span></div></div></div>', null);
+  const b = $("bChk"); b.disabled = false; b.textContent = "Continuar";
+  on("bAu", () => voz(P.en, .85)); on("bLe", () => voz(P.en, .5)); on("bEj", () => voz(P.ej, .9));
+  setTimeout(() => voz(P.en, .85), 300);
+}
 /* 1 · el personaje habla: ¿qué significa? */
 function exHabla() { let sel = null; const ops = mezcla(P.ops);
   pantalla((P.nuevo ? '<span class="u-nuevo">' + sprite("estrella", 14) + 'NUEVA FRASE</span>' : '') + '<p class="u-t">¿Qué significa esta frase?</p>' +
@@ -773,10 +797,11 @@ function exParejas() { let sel = null, n = 0;
 /* ===== final ===== */
 const textoDe = p => p.t === "parejas" ? "I like = me gusta · I don't like = no me gusta" : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
 const repaso = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB(p.ob, 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
-function perdido() { perder(pos + "/" + PLAN.length, "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
+const EVAL = () => PLAN.filter(p => p.t !== "nueva").length;
+function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
 function terminar() {
   const nd = Object.keys(dudas).length;
-  ganar(nd, PLAN.length, nd === 0 ? "¡Perfecto!" : "¡Gustos aprendidos!", "Ya sabes decir lo que te gusta y lo que no.", "Repasa las frases difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "¡Gustos aprendidos!", "Ya sabes decir lo que te gusta y lo que no.", "Repasa las frases difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
 }
 
 /* ===== arranque ===== */
