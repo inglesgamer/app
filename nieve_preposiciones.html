@@ -246,7 +246,7 @@ svg{display:block}
 .aprende .top .hearts{visibility:hidden}
 .u-pie.repaso .u-fb b{color:var(--gold)}
 
-.u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
+.u-w{border-bottom:2px dashed var(--toff);padding-bottom:1px}\n.u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
 .u-hab{display:flex;align-items:flex-end;gap:8px}
 .u-hab>svg{width:112px;height:auto;flex:none;overflow:visible}
 .u-glo{position:relative;margin-bottom:44px;padding:12px 14px;border:2px solid var(--line2);border-radius:16px;font-size:19px;font-weight:800;line-height:1.4}
@@ -449,6 +449,8 @@ const NIVEL = { id:"preposiciones", nombre:"Preposiciones" };
 const TEMA = "PREPOSICIONES", COLOR = "#3FD8C8";
 const PALABRAS = [];
 const LOS4 = [];
+const GLOS = { "the":"el / la", "penguin":"pingüino", "is":"está", "in":"en / dentro de", "on":"encima de", "under":"debajo de", "next to":"al lado de",
+  "box":"caja", "table":"mesa", "cat":"gato", "dog":"perro", "bed":"cama", "my":"mis", "socks":"medias", "are":"están" };
 /* El nivel, paso por paso (se enseña de a poco, con 3 corazones).
    nueva = enseña una palabra: dibujo, traducción, tip y un ejemplo (no se evalúa; se puede agregar ejs:[["en","es"]] para más ejemplos)
    habla = qué significa · completa = palabra que falta · palabra = letras que faltan · traduce = arma la frase
@@ -477,8 +479,8 @@ const PLAN = [
   { t:"sopa",     pal:[["IN", "en"], ["ON", "encima de"], ["UNDER", "debajo de"], ["NEXT", "next to = al lado de"]] },
   { t:"traduce",  pj:"pienso",   ob:"p_under", es:"El pingüino está debajo de la mesa.", en:"The penguin is under the table", extra:["on", "box"] },
   { t:"completa", pj:"dormido",  ob:["cama", "socks"], en:"My socks are ___ the bed.", es:"Mis medias están debajo de la cama.", ok:"under", ops:["under", "in", "on"], nota:"Repaso: socks = medias" },
-  { t:"escucha",  pj:"pienso",                 en:"The penguin is under the table.", es:"El pingüino está debajo de la mesa." },
-  { t:"escucha",  pj:"afirma",                 en:"The penguin is next to the box.", es:"El pingüino está al lado de la caja." },
+  { t:"escucha",  pj:"pienso",                 en:"Under the table.", es:"Debajo de la mesa." },
+  { t:"escucha",  pj:"afirma",                 en:"Next to the box.", es:"Al lado de la caja." },
   { t:"relampago", rondas:[["p_in", "The penguin is in the box.", 1], ["p_on", "The penguin is under the table.", 0], ["p_under", "The penguin is under the table.", 1], ["p_next", "The penguin is on the box.", 0], ["p_on", "The penguin is on the box.", 1]] }
 ];
 
@@ -828,6 +830,16 @@ const AU = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" 
 const AUG = AU.replace(/22/g, "40");
 const LENTO = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 13V9M12 13l3 2M9 2h6"></path></svg>';
 /* frase que se puede tocar: muestra la traducción de TODA la frase (si se pasa "es") */
+/* frase con cada palabra subrayada: al tocarla sale su traducción (GLOS) */
+function glosa(t) {
+  const G = typeof GLOS !== "undefined" ? GLOS : {}, w = t.split(" "), out = [];
+  for (let i = 0; i < w.length; i++) {
+    const limpio = x => x.toLowerCase().replace(/[.,!?¿¡]/g, ""), dos = i + 1 < w.length ? limpio(w[i]) + " " + limpio(w[i + 1]) : "";
+    if (dos && G[dos]) { out.push('<span class="u-fr u-w" data-t="' + esc(G[dos]) + '">' + esc(w[i] + " " + w[i + 1]) + '</span>'); i++; continue; }
+    const k = limpio(w[i]); out.push(G[k] ? '<span class="u-fr u-w" data-t="' + esc(G[k]) + '">' + esc(w[i]) + '</span>' : esc(w[i]));
+  }
+  return out.join(" ");
+}
 function frase(t, es) { return es ? '<span class="u-fr" data-t="' + esc(es) + '">' + esc(t) + '</span>' : esc(t); }
 document.addEventListener("click", e => {
   const w = e.target.closest(".u-fr"); document.querySelectorAll(".u-tip").forEach(x => x.remove());
@@ -997,7 +1009,7 @@ function exSopa() {
 /* 1 · el personaje habla: ¿qué significa? */
 function exHabla() { let sel = null; const ops = mezcla(P.ops);
   pantalla((P.nuevo ? '<span class="u-nuevo">' + sprite("estrella", 14) + 'NUEVA FRASE</span>' : '') + '<p class="u-t">¿Qué significa esta frase?</p>' +
-    '<div class="u-hab">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button>' + frase(P.en) + '<span class="ob">' + OB(P.ob, 26) + '</span></div></div>' +
+    '<div class="u-hab">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button>' + glosa(P.en) + '<span class="ob">' + OB(P.ob, 26) + '</span></div></div>' +
     '<div class="u-ops">' + ops.map((o, i) => '<button type="button" class="u-o" data-o="' + esc(o) + '"><kbd>' + (i + 1) + '</kbd>' + esc(o) + '</button>').join("") + '</div>',
     () => [sel === P.ops[0], P.ops[0], P.en]);
   on("bAu", () => voz(P.en, .9)); setTimeout(() => voz(P.en, .9), 300);
