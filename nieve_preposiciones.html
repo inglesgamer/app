@@ -230,40 +230,185 @@ svg{display:block}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* ===== ESCONDE AL PINGÜINO ===== */
-.esc2{position:relative;width:100%;aspect-ratio:360/250;border-radius:22px;overflow:hidden;border:1px solid #2F5A75;background:linear-gradient(#061230,#163C6A 58%,#DCEBF7 58%,#B9D3E8);touch-action:manipulation}
-.esc2:before{content:"";position:absolute;inset:0;z-index:9;pointer-events:none;background:radial-gradient(circle,#fff 0 1.6px,transparent 2.4px) 0 0/40px 40px,radial-gradient(circle,rgba(255,255,255,.7) 0 1.1px,transparent 1.8px) 18px 10px/26px 30px;animation:nieva 5s linear infinite}
-.esc2 .luna{position:absolute;right:7%;top:7%;width:7%;aspect-ratio:1;border-radius:50%;box-shadow:-6px 4px 0 0 #F4F4F5}
-.esc2 .pino{position:absolute;bottom:40%;width:13%;aspect-ratio:44/62;background:#1A6B5E;clip-path:polygon(50% 0,100% 100%,0 100%)}
-.esc2 .pino:after{content:"";position:absolute;left:30%;right:30%;top:0;height:30%;background:#fff;clip-path:polygon(50% 0,100% 100%,0 100%)}
-/* caja (atrás + adelante, para que el pingüino quepa "in") */
-.caja-a,.caja-f{position:absolute;left:38%;width:24%;bottom:18%;height:24%}
-.caja-a{z-index:2;border-radius:4px;background:#5E3A16}
-.caja-f{z-index:4;border-radius:0 0 6px 6px;background:linear-gradient(#C68A4A,#8A5A2A);border:3px solid #5E3A16;border-top:6px solid #A8703A;height:20%}
-.caja-f:after{content:"";position:absolute;left:44%;width:12%;top:0;bottom:0;background:#E5483C}
-/* mesa */
-.mesa-t{position:absolute;z-index:4;left:28%;width:44%;bottom:41%;height:5%;border-radius:4px;background:linear-gradient(#C68A4A,#8A5A2A);border:2px solid #5E3A16}
-.mesa-p{position:absolute;z-index:4;bottom:18%;height:23%;width:3.5%;background:#7A4E22;border:2px solid #5E3A16}
-/* pingüino */
-.pg{position:absolute;width:16%;aspect-ratio:1;margin-left:-8%;line-height:0;transition:left .45s cubic-bezier(.3,1.4,.5,1),bottom .45s cubic-bezier(.3,1.4,.5,1),transform .45s}
-.pg svg{width:100%;height:100%;filter:drop-shadow(0 3px 0 rgba(0,0,0,.25))}
-.pg.yo{animation:none}.pg.yo.hop svg{animation:hop .5s ease}.pg.yo.mal svg{animation:shk .35s ease 2}
-.pg.fan{z-index:8!important;cursor:pointer;opacity:.38;filter:grayscale(1) brightness(1.6)}
-.pg.fan:after{content:"";position:absolute;inset:-8%;border:2.5px dashed #fff;border-radius:16px;animation:late 1.2s ease-in-out infinite alternate}
-.pg.fan.ok{opacity:1;filter:none}.pg.fan.ok:after{border:3px solid var(--ok);animation:none}
-.pg.fan.no{opacity:.75;filter:none}.pg.fan.no:after{border:3px solid var(--mal);animation:none}
-.pg.fan.fuera{opacity:0;pointer-events:none}
-.tipE{position:absolute;left:3%;top:4%;z-index:10;padding:4px 10px;border-radius:99px;background:rgba(0,0,0,.45);font-size:11px;font-weight:900;color:#BDE8FF}
-.orden{display:flex;align-items:center;gap:12px;margin-top:10px;padding:10px 12px;border-radius:22px;background:linear-gradient(160deg,#0E2433,var(--card));border:1px solid #2F5A75}
-.orden .play{flex:none;width:52px;height:52px;border-radius:50%;border:0;background:var(--hi);color:var(--on-hi);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 0 rgba(128,128,128,.35)}
-.orden .t{flex:1;min-width:0}.orden b{display:block;font-size:18px;font-weight:900;line-height:1.25}.orden b u{text-decoration:none;color:#FFB27A}
-.orden span{display:block;margin-top:2px;font-size:13px;font-weight:700;color:var(--mu)}
-.orden .ejo em{font-style:normal;font-weight:900;color:var(--cc)}
-.orden .fr{flex:none;height:36px;padding:0 12px;border:1px solid var(--bd);border-radius:99px;background:var(--card);font:900 13px Nunito,sans-serif;cursor:pointer}
-.f2 .rep .it .esc2 svg{width:100%;height:100%}
-.apr .dib{width:100%;animation:none}.apr .dib .esc2 svg{width:100%;height:100%}
-.card2{margin-top:6px;animation:entra .35s ease}.card2.sale{animation:sale .25s ease forwards}
-@keyframes late{from{opacity:.5}to{opacity:1}}
+/* ===== GUSTOS · estilo minimalista con los colores de InglésGamer ===== */
+:root{--line2:var(--bd)}
+.u-body{padding:14px 2px 10px;animation:entra .3s ease}
+.u-t{margin:0 0 18px;font-size:21px;font-weight:900;line-height:1.25}
+.u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
+.u-hab{display:flex;align-items:flex-end;gap:8px}
+.u-hab>svg{width:112px;height:auto;flex:none;overflow:visible}
+.u-glo{position:relative;margin-bottom:44px;padding:12px 14px;border:2px solid var(--line2);border-radius:16px;font-size:19px;font-weight:800;line-height:1.4}
+.u-glo:before{content:"";position:absolute;left:-10px;bottom:16px;width:16px;height:16px;background:var(--bg);border-left:2px solid var(--line2);border-bottom:2px solid var(--line2);transform:rotate(45deg)}
+.u-glo .ob{display:inline-block;vertical-align:middle;margin-left:4px;line-height:0}
+.u-au{display:inline-flex;vertical-align:middle;margin-right:6px;color:var(--gold);cursor:pointer;border:0;background:none;padding:0}
+.u-es{display:block;margin-top:4px;font-size:14px;font-weight:700;color:var(--mu)}
+/* palabras con traducción al tocarlas */
+.u-w{position:relative;cursor:pointer;border-bottom:2px dashed var(--toff)}
+.u-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);z-index:6;white-space:nowrap;padding:6px 10px;border-radius:10px;background:var(--ink);color:var(--bg);font-size:14px;font-weight:900;box-shadow:0 6px 16px rgba(0,0,0,.4);animation:entra .15s ease}
+.u-tip:after{content:"";position:absolute;left:50%;top:100%;margin-left:-6px;border:6px solid transparent;border-top-color:var(--ink)}
+.u-ops{display:grid;gap:10px;margin-top:20px}
+.u-o{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:16px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;text-align:left;cursor:pointer;touch-action:manipulation}
+.u-o:active{transform:translateY(2px);border-bottom-width:2px}
+.u-o kbd{flex:none;width:28px;height:28px;border:2px solid var(--line2);border-radius:8px;display:flex;align-items:center;justify-content:center;font:800 13px Nunito;color:var(--mu)}
+.u-o.sel,.u-card.sel,.u-par .u-ch.sel{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,transparent);color:var(--gold)}
+.u-o.sel kbd{border-color:var(--gold);color:var(--gold)}
+.u-lin{min-height:120px;margin-top:20px;padding:6px 0;background:linear-gradient(transparent 58px,var(--line2) 58px,var(--line2) 60px,transparent 60px) 0 0/100% 62px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px}
+.u-ban{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px}
+.u-ch{display:inline-flex;align-items:center;gap:6px;height:50px;padding:0 16px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:14px;background:var(--bg);color:var(--ink);font:800 18px Nunito,sans-serif;cursor:pointer;touch-action:manipulation}
+.u-ch:active{transform:translateY(2px);border-bottom-width:2px}
+.u-ch.ida{background:var(--chip);border-color:var(--chip);color:transparent;pointer-events:none}.u-ch.ida svg{visibility:hidden}
+.u-lin .u-ch{margin-top:4px}
+.u-hueco{display:inline-block;min-width:96px;border-bottom:2px solid var(--toff);text-align:center;color:var(--gold)}
+.u-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.u-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px 12px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:18px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;cursor:pointer}
+.u-card>svg{width:92px;height:auto;overflow:visible}.u-card small{font-size:12.5px;color:var(--mu);font-weight:700}
+.u-big{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:4px}
+.u-bigb{width:84px;height:84px;border-radius:20px;border:0;border-bottom:5px solid color-mix(in srgb,var(--hi) 55%,#777);background:var(--hi);color:var(--on-hi);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.u-bigb.lento{width:64px;height:64px}
+.u-bigb:active{transform:translateY(2px);border-bottom-width:3px}
+.u-ta{width:100%;min-height:110px;margin-top:20px;padding:14px;border:2px solid var(--line2);border-radius:16px;background:var(--card);color:var(--ink);font:700 18px Nunito,sans-serif;resize:none;outline:none}
+.u-ta:focus{border-color:var(--toff)}
+.u-par{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.u-par .u-ch{width:100%;height:56px;justify-content:center}
+.u-par .u-ch.ok{border-color:var(--line2);color:var(--toff);pointer-events:none}.u-par .u-ch.ok svg{opacity:.3}
+.u-par .u-ch.mal{border-color:var(--mal);color:var(--mal);animation:shk .3s}
+/* palabra nueva */
+.u-nw{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:4px}
+.u-nw .ob{line-height:0;animation:bob 2.4s ease-in-out infinite}
+.u-nw .pal{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:40px;font-weight:900;line-height:1}
+.u-nw .tra{margin-top:6px;font-size:21px;font-weight:900;color:var(--gold)}
+.u-nw .lento2{margin-top:10px;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:99px;border:2px solid var(--line2);background:none;color:var(--ink);font:800 14px Nunito,sans-serif;cursor:pointer}
+.u-ejx{display:flex;align-items:flex-end;gap:8px;margin-top:18px;width:100%}
+.u-ejx>svg{width:84px;height:auto;flex:none;overflow:visible}
+.u-ejx .u-glo{flex:1;margin-bottom:30px;text-align:left;font-size:17px}
+
+/* completa la palabra */
+.u-pal{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:18px;flex-wrap:wrap}
+.u-pal span{font-size:40px;font-weight:900;line-height:1}
+.u-pal .esp{width:14px}
+.u-pal input{width:40px;height:54px;padding:0;border:0;border-bottom:4px solid var(--gold);border-radius:8px 8px 4px 4px;background:color-mix(in srgb,var(--gold) 10%,transparent);color:var(--gold);text-align:center;font:900 36px Nunito,sans-serif;outline:none;caret-color:var(--gold)}
+.u-pal input.ok{border-color:var(--ok);color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}.u-pal input.mal{border-color:var(--mal);color:var(--mal)}
+.u-pist{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px}.u-pist b{font-size:20px;color:var(--gold)}
+/* pásala a negativa */
+.u-camb{padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--bd);text-align:center}
+.u-camb .de{display:flex;align-items:center;justify-content:center;gap:8px;font-size:22px;font-weight:900}.u-camb small{display:block;font-size:13px;color:var(--mu);font-weight:700;margin-top:2px}
+.u-flecha{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0 0;color:var(--gold);font-weight:900;font-size:13px;letter-spacing:.08em}
+.u-flecha:before,.u-flecha:after{content:"";flex:1;height:2px;background:var(--bd)}
+/* ronda relámpago */
+.u-rel{position:relative;width:96px;height:96px;margin:4px auto 0}
+.u-rel svg.r{position:absolute;inset:0;transform:rotate(-90deg)}
+.u-rel b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900}
+.u-rel.urg b{color:var(--mal)}
+.u-rond{text-align:center;font-size:13px;font-weight:900;color:var(--mu);letter-spacing:.08em;margin-top:6px}
+.u-relq{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:12px;min-height:110px}
+.u-relq .fr{font-size:24px;font-weight:900;text-align:center}
+.u-sino{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.u-sino .u-o{justify-content:center;flex-direction:column;gap:4px;min-height:80px;font-size:17px}.u-sino .u-o svg{width:28px;height:28px}
+.u-marc{display:flex;gap:6px;justify-content:center;margin-top:12px}.u-marc i{width:26px;height:8px;border-radius:9px;background:var(--bd)}.u-marc i.ok{background:var(--ok)}.u-marc i.mal{background:var(--mal)}
+.u-go{display:block;margin:0 auto;height:50px;padding:0 26px;border:0;border-bottom:4px solid color-mix(in srgb,var(--hi) 55%,#777);border-radius:14px;background:var(--hi);color:var(--on-hi);font:900 15px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+/* frase tocable: traducción completa */
+.u-fr{position:relative;cursor:pointer;border-bottom:2px dashed var(--toff)}
+.u-fr .u-tip{white-space:normal;width:max-content;max-width:240px;text-align:center}
+/* los 4 conectores */
+.u-l4{display:grid;gap:10px}
+.u-l4i{display:flex;align-items:center;gap:12px;padding:12px 14px;border:2px solid var(--bd);border-bottom-width:4px;border-radius:18px;background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.u-l4i.oido{border-color:color-mix(in srgb,var(--gold) 55%,var(--bd))}
+.u-l4i .w{flex:none;width:100px}.u-l4i .w b{display:block;font-size:21px;font-weight:900;line-height:1}.u-l4i .w em{display:block;font-style:normal;margin-top:3px;font-size:15px;font-weight:900;color:var(--gold)}
+.u-l4i .x{flex:1;min-width:0}.u-l4i .e{display:block;font-size:15px;font-weight:800;line-height:1.3}.u-l4i .s{display:block;margin-top:2px;font-size:13px;font-weight:700;color:var(--mu)}
+.u-l4i .o{flex:none;display:flex;gap:2px;line-height:0}
+/* mini sopa de letras */
+.u-sopa{display:grid;gap:5px;max-width:340px;margin:0 auto;touch-action:none;user-select:none}
+.u-sl{aspect-ratio:1;border:0;border-radius:10px;background:var(--card);box-shadow:inset 0 0 0 2px var(--bd);color:var(--ink);font:900 20px Nunito,sans-serif;cursor:pointer;padding:0;transition:background .15s,transform .1s}
+.u-sl.ini,.u-sl.tmp{background:color-mix(in srgb,var(--gold) 30%,var(--card));box-shadow:inset 0 0 0 2px var(--gold);transform:scale(1.05)}
+.u-sl.ok{background:color-mix(in srgb,var(--ok) 30%,var(--card));box-shadow:inset 0 0 0 2px var(--ok);color:var(--ink)}
+.u-sl.mal{background:color-mix(in srgb,var(--mal) 25%,var(--card))}
+.u-spw{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.u-spw span{padding:7px 12px;border-radius:99px;border:2px solid var(--bd);font-size:14px;font-weight:800;color:var(--mu)}.u-spw span b{color:var(--ink)}
+.u-spw span.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent);text-decoration:line-through}
+/* conversación con huecos numerados */
+.u-conv .hueco2{display:flex;align-items:center;gap:8px;padding:12px;border-radius:14px;border:2px dashed var(--bd);color:var(--mu);font-size:14px;font-weight:800}
+.u-conv .hueco2.yo{flex-direction:row-reverse;text-align:right}
+.u-conv .hueco2 .num{flex:none;width:24px;height:24px;border-radius:50%;background:var(--chip);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--ink)}
+.u-conv .hueco2.pista2{border-color:var(--gold);color:var(--gold);animation:shk .35s}
+.u-conv .bb .qn{display:block;font-size:11px;font-weight:900;letter-spacing:.06em;color:var(--mu);text-transform:uppercase;margin-bottom:2px}
+.dormido .oc{animation:none}.dormido .cab{animation:nod 3s ease-in-out infinite alternate}.dormido .mov{animation:resp 3s ease-in-out infinite}.dormido .bo{animation:ua 2.4s step-end infinite}
+/* liga semanal en la pantalla final */
+.lgf{width:100%;margin:16px 0 4px;padding:14px;border-radius:20px;background:var(--card);border:1px solid var(--bd);text-align:left}
+.lgf h3{display:flex;align-items:center;justify-content:space-between;margin:0 0 4px;font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.lgf h3 span{letter-spacing:0;color:var(--gold);font-size:13px}
+.lgf .tit{margin:0 0 10px;font-size:18px;font-weight:900}.lgf .tit b{color:var(--ok)}
+.lgf .tb{position:relative;overflow:hidden;border-radius:14px}
+.lgf .fl{position:absolute;left:0;right:0;height:46px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:12px;transition:top .9s cubic-bezier(.3,1.2,.4,1),background .4s}
+.lgf .fl .p{flex:none;width:28px;font-size:15px;font-weight:900;color:var(--mu)}
+.lgf .fl .n{flex:1;min-width:0;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lgf .fl .a{flex:none;display:flex;align-items:center;gap:4px;font-size:15px;font-weight:900}
+.lgf .fl.yo{background:color-mix(in srgb,var(--gold) 18%,var(--card));box-shadow:inset 0 0 0 2px var(--gold);z-index:2}
+.lgf .fl.yo .n{color:var(--ink)}
+.lgf .fl.sube{animation:lgsube .9s ease}
+.lgf .flecha2{display:inline-flex;align-items:center;gap:4px;margin-left:6px;padding:2px 8px;border-radius:99px;background:var(--ok);color:var(--bg);font-size:12px;font-weight:900}
+.lgf .nota3{margin:10px 0 0;font-size:13px;font-weight:700;color:var(--mu)}
+@keyframes lgsube{40%{transform:scale(1.04)}}
+/* pista del conector (sale la primera vez) */
+.u-pista{display:flex;align-items:center;gap:8px;margin:0 0 14px;padding:10px 14px;border-radius:16px;border:2px solid color-mix(in srgb,var(--gold) 45%,var(--bd));background:color-mix(in srgb,var(--gold) 8%,var(--card));animation:entra .3s ease}
+.u-pista .k{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:99px;background:var(--gold);color:var(--bg);font-size:10.5px;font-weight:900;letter-spacing:.08em}
+.u-pista .u-au{margin:0 0 0 4px}
+.u-pista b{font-size:22px;font-weight:900}.u-pista .eq{color:var(--mu);font-weight:900}.u-pista .es{font-size:20px;font-weight:900;color:var(--gold)}
+/* encuentra el error */
+.u-ch.malw{border-color:var(--mal)!important;color:var(--mal)!important;background:color-mix(in srgb,var(--mal) 12%,transparent)!important}
+.u-ch.fix{border-color:var(--ok)!important;color:var(--ok)!important;background:color-mix(in srgb,var(--ok) 12%,transparent)!important}
+.u-ch.sel{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,transparent);color:var(--gold)}
+.u-paso{display:none;margin-top:18px;padding-top:14px;border-top:2px dashed var(--bd)}.u-paso.on{display:block}
+.u-paso p{margin:0 0 10px;font-weight:800;color:var(--mu);text-align:center}
+/* ordena la conversación */
+.u-conv{display:flex;flex-direction:column;gap:10px;min-height:180px;padding:12px;border-radius:20px;background:var(--card);border:1px solid var(--bd)}
+.u-conv .fila{display:flex;align-items:flex-end;gap:8px;animation:entra .25s ease}
+.u-conv .fila.yo{flex-direction:row-reverse}
+.u-conv .fila>svg{width:42px;height:auto;flex:none;overflow:visible}
+.u-conv .bb{max-width:74%;padding:9px 12px;border-radius:16px;font-size:16px;font-weight:800;line-height:1.35}
+.u-conv .fila.el .bb{background:var(--chip);border-bottom-left-radius:4px}.u-conv .fila.yo .bb{background:color-mix(in srgb,var(--gold) 16%,var(--card));color:var(--ink);border-bottom-right-radius:4px}
+.u-conv .bb small{display:block;font-size:12px;color:var(--mu);font-weight:700;margin-top:2px}
+.u-conv .vacio{margin:auto;color:var(--toff);font-weight:800;font-size:14px}
+#cvO .u-o{font-size:16px;min-height:50px}#cvO .u-o.ida{opacity:.2;pointer-events:none}
+.u-o.mal{border-color:var(--mal);animation:shk .3s}
+/* personajes extra */
+.kb1{animation:ua .5s step-end infinite}.kb2{opacity:0;animation:ub .5s step-end infinite}
+.idea .mov{animation:salta .5s ease-in-out infinite alternate}.idea .rd{opacity:0}.idea .r1{animation:ua .5s step-end infinite}.idea .r2{animation:ub .5s step-end infinite}
+.cool .oc{animation:none}.cool .rd{opacity:0}.cool .r1{animation:ua 3s step-end infinite}.cool .r2{animation:ub 3s step-end infinite}.cool .gu{animation:kwink 3s step-end infinite}
+.baile .mov{animation:salta .3s ease-in-out infinite alternate}.baile .rd{animation:ub .6s step-end infinite}.baile .r1{animation:ua .6s step-end infinite}.baile .ld{animation:ua .6s step-end infinite}.baile .l1{animation:ub .6s step-end infinite}
+.sorpresa .oc{animation:none}.sorpresa .mov{animation:ksusto 1.6s ease-in-out infinite}.sorpresa .rd,.sorpresa .ld{opacity:0}.sorpresa .r1,.sorpresa .l1{opacity:1}
+@keyframes ksusto{0%,70%,100%{transform:translateY(0)}75%{transform:translateY(-1px)}85%{transform:translateY(0)}}
+/* pie con Comprobar */
+.u-pie{position:sticky;bottom:0;z-index:4;margin:18px -16px 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom));border-top:2px solid var(--line2);background:var(--bg);transition:background .2s}
+.u-pie.ok{background:color-mix(in srgb,var(--ok) 15%,var(--bg));border-color:transparent}.u-pie.mal{background:color-mix(in srgb,var(--mal) 13%,var(--bg));border-color:transparent}
+.u-fb{display:none;align-items:center;gap:12px;margin-bottom:14px}
+.u-pie.ok .u-fb,.u-pie.mal .u-fb{display:flex}
+.u-fb .ic{flex:none;width:52px;height:52px;border-radius:50%;background:var(--card);border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.u-fb .ic svg{width:44px;height:auto}
+.u-fb b{display:block;font-size:20px;font-weight:900}.u-pie.ok .u-fb b{color:var(--ok)}.u-pie.mal .u-fb b{color:var(--mal)}
+.u-fb span span{display:block;font-size:15px;font-weight:700;margin-top:2px}.u-pie.ok .u-fb span span,.u-pie.mal .u-fb span span{color:var(--ink)}
+.u-btn{width:100%;height:52px;border:0;border-bottom:4px solid color-mix(in srgb,var(--hi) 55%,#777);border-radius:16px;background:var(--hi);color:var(--on-hi);font:900 16px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
+.u-btn:disabled{background:var(--chip);border-color:var(--chip);color:var(--toff);cursor:default}
+.u-pie.ok .u-btn{background:var(--ok);border-color:color-mix(in srgb,var(--ok) 60%,#000);color:var(--bg)}
+.u-pie.mal .u-btn{background:var(--mal);border-color:color-mix(in srgb,var(--mal) 60%,#000);color:#fff}
+.u-btn:active:not(:disabled){transform:translateY(2px);border-bottom-width:2px}
+/* animaciones de los personajes nuevos (de Acciones) */
+.gu,.gl{opacity:0}
+.kq{animation:kflota 1.6s ease-in-out infinite alternate}
+.cor{opacity:0;animation:ksube 2.4s linear infinite}
+.pulgar .mov{animation:salta 1s ease-in-out infinite alternate}.pulgar .rd{opacity:0}.pulgar .r1{animation:ua .8s step-end infinite}.pulgar .r2{animation:ub .8s step-end infinite}.pulgar .gu{animation:kwink 3s step-end infinite}
+.pienso .cab{animation:kladea 2s ease-in-out infinite alternate}.pienso .rd{opacity:0}.pienso .r1{animation:ua 1.2s step-end infinite}.pienso .r2{animation:ub 1.2s step-end infinite}
+.neg .cab{animation:knono .6s ease-in-out infinite}.neg .rd{opacity:0}.neg .r1{animation:ua .3s step-end infinite}.neg .r2{animation:ub .3s step-end infinite}
+.afirma .cab{animation:ksino .5s ease-in-out infinite}
+.hambre .mov{animation:sollozo 1s ease-in-out infinite}.hambre .rd{opacity:0}.hambre .r1{animation:ua .8s step-end infinite}.hambre .r2{animation:ub .8s step-end infinite}
+.amor .mov{animation:kbal 1.6s ease-in-out infinite alternate}.amor .rd{opacity:0}.amor .r1{animation:ua 1.2s step-end infinite}.amor .r2{animation:ub 1.2s step-end infinite}
+@keyframes kwink{0%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes kladea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+@keyframes kflota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+@keyframes knono{0%,100%{transform:translateX(0)}25%{transform:translateX(-.5px)}75%{transform:translateX(.5px)}}
+@keyframes ksino{0%,100%{transform:translateY(0)}50%{transform:translateY(.55px)}}
+@keyframes kbal{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
+@keyframes ksube{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.u-body svg *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -278,26 +423,43 @@ svg{display:block}
 </div>
 <script>
 /* =====================================================================
-   TUS DATOS · Nivel 2 de la Isla de Nieve: Preposiciones (Esconde al pingüino)
+   TUS DATOS · Nivel 2 de la Isla de Nieve: Preposiciones (in, on, under, next to)
+   Estilo Duolingo con la paleta del jugador. El pingüino y la caja muestran dónde está cada cosa.
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";            // ej. "go:nieve_repaso1"
 const AURA_NIVEL = 20;
-const RONDAS = 6;                    // cuántas órdenes por partida (las 4 palabras + 2 que se repiten)
 const DIAGNOSTICO = true;
-/* Carpeta de tus mp3 (con "/" al final). Cada mp3 dice SOLO la palabra: in.mp3, on.mp3, under.mp3, next-to.mp3 */
-const AUDIO_CARPETA = "";
+const AUDIO_CARPETA = "";            // cuando subas los audios: in.mp3, on.mp3, under.mp3, next-to.mp3; mientras tanto lee la voz del celular
 const AUDIO_DATA = {};
 const NIVEL = { id:"preposiciones", nombre:"Preposiciones" };
-const TEMA = "¿DÓNDE ESTÁ?", COLOR = "#8FD8FF";
-/* obj = con qué objeto se enseña ("box" caja o "table" mesa) */
-const PALABRAS = [
-  { k:"in",          en:"in",          es:"dentro de",  obj:"box",   ej:"The penguin is *in* the box.",          ejEs:"El pingüino está dentro de la caja." },
-  { k:"on",          en:"on",          es:"encima de",  obj:"box",   ej:"The penguin is *on* the box.",          ejEs:"El pingüino está encima de la caja." },
-  { k:"under",       en:"under",       es:"debajo de",  obj:"table", ej:"The penguin is *under* the table.",     ejEs:"El pingüino está debajo de la mesa." },
-  { k:"next to",     en:"next to",     es:"al lado de", obj:"box",   ej:"The penguin is *next to* the box.",     ejEs:"El pingüino está al lado de la caja." }
+const TEMA = "PREPOSICIONES", COLOR = "#3FD8C8";
+const PALABRAS = [];
+/* Pantalla de inicio: las 4 preposiciones con un ejemplo cada una (se toca para oír) */
+const LOS4 = [
+  { en:"in",      es:"en / dentro de", ej:"The penguin is in the box.",      ejEs:"El pingüino está en la caja.",            ob:["p_in"] },
+  { en:"on",      es:"encima de",      ej:"The penguin is on the box.",      ejEs:"El pingüino está encima de la caja.",     ob:["p_on"] },
+  { en:"under",   es:"debajo de",      ej:"The penguin is under the table.", ejEs:"El pingüino está debajo de la mesa.",     ob:["p_under"] },
+  { en:"next to", es:"al lado de",     ej:"The penguin is next to the box.", ejEs:"El pingüino está al lado de la caja.",    ob:["p_next"] }
 ];
-PALABRAS.forEach(w => w.audio = w.k.replace(/ /g, "-") + ".mp3");
+/* El nivel, paso por paso (ver la explicación de los tipos en el nivel 1) */
+const PLAN = [
+  { t:"los4" },
+  { t:"habla",    pj:"sorpresa", ob:"p_on",    en:"The penguin is on the box.", ops:["El pingüino está encima de la caja.", "El pingüino está en la caja.", "El pingüino está debajo de la caja."] },
+  { t:"completa", pj:"pienso",   ob:"p_in",    en:"The penguin is ___ the box.", es:"El pingüino está en la caja.", ok:"in", ops:["in", "on", "under"] },
+  { t:"completa", pj:"idea",     ob:"p_under", en:"The penguin is ___ the table.", es:"El pingüino está debajo de la mesa.", ok:"under", ops:["under", "on", "next to"] },
+  { t:"completa", pj:"afirma",   ob:"p_next",  en:"The penguin is ___ the box.", es:"El pingüino está al lado de la caja.", ok:"next to", ops:["next to", "in", "under"] },
+  { t:"sopa",     pal:[["IN", "en"], ["ON", "encima de"], ["UNDER", "debajo de"], ["NEXT", "next to = al lado de"]] },
+  { t:"escucha",  pj:"pienso",                 en:"The penguin is under the table.", es:"El pingüino está debajo de la mesa." },
+  { t:"error",    pj:"sorpresa", ob:"p_on",    malas:["The", "penguin", "is", "in", "the", "box."], mal:3, ok:"on", ops:["on", "under", "next to"], es:"El pingüino está encima de la caja.", en:"The penguin is on the box." },
+  { t:"palabra",  pj:"cool",     ob:"p_under", en:"under", es:"debajo de", faltan:[1, 3] },
+  { t:"habla",    pj:"amor",     ob:["gato", "perro"], en:"The cat is next to the dog.", ops:["El gato está al lado del perro.", "El gato está encima del perro.", "El gato está debajo del perro."] },
+  { t:"parejas",  pares:[["in", "en"], ["on", "encima de"], ["under", "debajo de"], ["next to", "al lado de"], ["box", "la caja", "caja"]] },
+  { t:"traduce",  pj:"pienso",   ob:"p_under", es:"El pingüino está debajo de la mesa.", en:"The penguin is under the table", extra:["on", "box"] },
+  { t:"completa", pj:"dormido",  ob:["cama", "socks"], en:"My socks are ___ the bed.", es:"Mis medias están debajo de la cama.", ok:"under", ops:["under", "in", "on"] },
+  { t:"escucha",  pj:"afirma",                 en:"The penguin is next to the box.", es:"El pingüino está al lado de la caja." },
+  { t:"relampago", rondas:[["p_in", "The penguin is in the box.", 1], ["p_on", "The penguin is under the table.", 0], ["p_under", "The penguin is under the table.", 1], ["p_next", "The penguin is on the box.", 0], ["p_on", "The penguin is on the box.", 1]] }
+];
 
 /* =====================================================================
    No necesitas tocar lo de abajo
@@ -576,95 +738,313 @@ const Racha = (() => {
  };
 })();
 
-/* =====================================================================
-   Esconde al pingüino
-   ===================================================================== */
-/* dónde queda el pingüino: x (centro, %), b (abajo, %), s (tamaño), z (capa) */
-const POS = {
-  box:   { "on":{x:50,b:46,s:1,z:5}, "in":{x:50,b:24,s:1,z:3}, "behind":{x:50,b:34,s:.8,z:1}, "next to":{x:77,b:18,s:1,z:5}, "in front of":{x:50,b:0,s:1.1,z:6} },
-  table: { "on":{x:50,b:46,s:1,z:5}, "under":{x:50,b:18,s:1,z:3}, "behind":{x:50,b:32,s:.8,z:1}, "next to":{x:84,b:18,s:1,z:5}, "in front of":{x:50,b:-2,s:1.1,z:6} }
+/* ===== dibujos de las cosas (12x12) ===== */
+Object.assign(DIB, {
+  pizza:{p:{y:"#FFC83D",o:"#C9822A",r:"#E5483C"},r:["............",".oooooooooo.",".yyryyyyryy.","..yyyyyyyy..","..yyyryyyy..","...yyyyyy...","...yyyryy...","....yyyy....","....yyyy....",".....yy.....","............","............"]},
+  lluvia:{p:{g:"#9AA6B5",b:"#5FB8FF",w:"#C9D3E0"},r:["............","....gggg....","..gggwwggg..",".gggggggggg.",".gggggggggg.","..gggggggg..","............","..b..b..b...",".b..b..b....","............","..b..b..b...","............"]},
+  perro:{p:{n:"#8A5A2A",w:"#F2E2C8",k:"#2B2B33",r:"#FF7A9A"},r:["............",".nn.....nn..",".nnwwwwwnn..","..wwkwwkw...","..wwwwwww...","..wwwkkww...","...wwrww....","..wwwwwww...",".wwwwwwwww..",".wwwwwwwwwn.",".ww.ww.ww...","............"]},
+  balon:{p:{k:"#2B2B33",w:"#F4F6FA"},r:["....kkkk....","..kwwwwwwk..",".kwwkkwwwwk.",".kwkkkkwwwk.","kwwkkkwwkkwk","kwwwwwwkkkwk","kwkkwwwwkwwk","kkkkkwwwwwwk",".kwkwwwkkwk.",".kwwwwkkkwk.","..kwwwwwwk..","....kkkk...."]},
+  helado:{p:{p:"#FF9FB2",w:"#FFFFFF",c:"#E8B04A",d:"#C9822A"},r:["....pppp....","...pppppp...","..pppwpppp..","..pppppppp..","..cccccccc..","...cdcdcd...","...dcdcdc...","....cdcd....","....dcdc....",".....cd.....",".....dc.....","............"]},
+  cafe:{p:{w:"#F4F6FA",b:"#3A2210",g:"#C9D3E0",s:"#B0B8C4"},r:["...s..s.....","..s..s......","...s..s.....","............",".wwwwwww....",".wbbbbbwww..",".wbbbbbw.w..",".wbbbbbw.w..",".wwwwwwwww..",".gwwwwwg....","..ggggg.....","............"]},
+  gato:{p:{g:"#F2A541",k:"#2B2B33",p:"#FF9FB2",t:"#D9822B"},r:["............",".g.......g..",".gg.....gg..",".ggggggggg..",".gkggggkgg..",".ggggpgggg..","..gggggggg..","..gggggggg.t","..gggggggg.t","..gggggggggt","..gg.gg.gg..","............"]},
+  sol:{p:{o:"#FFC83D",y:"#FF8A3D"},r:[".....y......",".y...y...y..","..y.....y...","....ooo.....","...ooooo....","yy.ooooo.yy.","...ooooo....","....ooo.....","..y.....y...",".y...y...y..",".....y......","............"]},
+  te:{p:{w:"#F4F6FA",b:"#7BC96F",g:"#C9D3E0",s:"#B0B8C4"},r:["...s..s.....","..s..s......","...s..s.....","............",".wwwwwww....",".wbbbbbwww..",".wbbbbbw.w..",".wbbbbbw.w..",".wwwwwwwww..",".gwwwwwg....","..ggggg.....","............"]},
+  pan:{p:{b:"#B5722E",c:"#E8B46A",d:"#8A5220"},r:["............","............","...bbbbbb...","..bccccccb..",".bccccccccb.",".bcdccdccdb.",".bccccccccb.",".bbbbbbbbbb.","............","............","............","............"]},
+  leche:{p:{w:"#F4F6FA",b:"#3FA9F5",g:"#C9D3E0"},r:["....bbbb....","...bwwwwb...","...wwwwww...","...wbbbbw...","...wbwwbw...","...wbbbbw...","...wwwwww...","...wwwwww...","...wwwwww...","...gggggg...","............","............"]},
+  cama:{p:{w:"#C9D3E0",p:"#F4F6FA",b:"#5FA8E8",d:"#3A78B8"},r:["............","............","............","w...........","w.pp........","wpppbbbbbbbw","wbbbbbbbbbbw","wddddddddddw","w..........w","............","............","............"]},
+  tarea:{p:{b:"#3FA9F5",w:"#F4F6FA",k:"#8A94A6",r:"#E5483C"},r:["............",".bbbbbbbbbb.",".bwwwwwwwwb.",".bwkkkkkkwb.",".bwwwwwwwwb.",".bwkkkkkwwb.",".bwwwwwwwwb.",".bwkkkkkkwb.",".bwwwwwwwrb.",".bbbbbbbbbb.","............","............"]}
+});
+/* ===== escenas del pingüino (in, on, under, next to): se dibujan más grandes ===== */
+const ESC_D = {
+  p_in:   { caja:[5, 13, 14, 10], ping:[6, 8] },
+  p_on:   { caja:[5, 13, 14, 10], ping:[6, 1], encima:1 },
+  p_under:{ mesa:1, ping:[6, 12], encima:1 },
+  p_next: { caja:[1, 13, 11, 10], ping:[12, 11], encima:1 },
+  caja:   { caja:[5, 10, 14, 12] }
 };
-const NOMBRE_OBJ = { box:["the box", "la caja"], table:["the table", "la mesa"] };
-const PING = () => dib("ping", 12).replace('width="12" height="12"', 'width="100" height="100"');
-function sitio(obj, p, cls, extra) { const q = POS[obj][p]; return '<span class="pg ' + cls + '" ' + (extra || "") + ' style="left:' + q.x + '%;bottom:' + q.b + '%;z-index:' + q.z + ';transform:scale(' + q.s + ')">' + PING() + '</span>'; }
-function escena(obj, dentro, tip) {
-  let h = '<div class="esc2" aria-hidden="true"><span class="luna"></span><span class="pino" style="left:3%"></span><span class="pino" style="right:3%;transform:scale(.8);transform-origin:bottom"></span>';
-  h += obj === "box" ? '<span class="caja-a"></span><span class="caja-f"></span>'
-    : '<span class="mesa-t"></span><span class="mesa-p" style="left:31%"></span><span class="mesa-p" style="left:65.5%"></span>';
-  return h + (tip ? '<span class="tipE">' + tip + '</span>' : '') + dentro + '</div>';
+function escena(n, s) {
+  const e = ESC_D[n], P = DIB.ping, W = Math.round(s * (s < 32 ? 2.3 : 1.7));
+  const peng = e.ping ? '<g transform="translate(' + e.ping[0] + ' ' + e.ping[1] + ')">' + pix(P.r, P.p, 1) + '</g>' : "";
+  const c = e.caja ? (() => { const [x, y, w, h] = e.caja; return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" fill="#C99A5B"/><rect x="' + x + '" y="' + y + '" width="' + w + '" height="1" fill="#7A4E22"/><rect x="' + x + '" y="' + (y + h - 1) + '" width="' + w + '" height="1" fill="#7A4E22"/><rect x="' + x + '" y="' + y + '" width="1" height="' + h + '" fill="#7A4E22"/><rect x="' + (x + w - 1) + '" y="' + y + '" width="1" height="' + h + '" fill="#7A4E22"/><rect x="' + (x + 2) + '" y="' + (y + 3) + '" width="' + (w - 4) + '" height="1" fill="#A87A44"/>'; })() : "";
+  const m = e.mesa ? '<rect x="1" y="8" width="22" height="3" fill="#8A5A2A"/><rect x="1" y="8" width="22" height="1" fill="#B5823F"/><rect x="2" y="11" width="2" height="13" fill="#6B4022"/><rect x="20" y="11" width="2" height="13" fill="#6B4022"/>' : "";
+  return '<svg width="' + W + '" height="' + W + '" viewBox="0 0 24 24" shape-rendering="crispEdges" aria-hidden="true">' + (e.encima ? c + m + peng : peng + c + m) + '</svg>';
 }
-/* qué lugares se muestran juntos sin taparse (3 opciones por orden) */
-function opciones(obj, t) {
-  return mezcla(obj === "box" ? ["in", "on", "next to"] : ["on", "under", "next to"]);
-}
-let cola, pos, hechas, dudas, racha, vidas, bloq, R;
-function pintarVidas() { const e = $("vidas"); if (e) e.setAttribute("aria-label", vidas + " de 3 corazones"); }
-function empezar() {
-  let base = []; while (base.length < RONDAS) base = base.concat(mezcla(PALABRAS.map(w => w.k)));
-  cola = base.slice(0, RONDAS).map(p => ({ p, obj:p === "in" ? "box" : p === "under" ? "table" : (Math.random() < .5 ? "box" : "table") }));
-  pos = 0; hechas = 0; dudas = {}; racha = 0; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar();
-}
-const W_ = p => PALABRAS.find(w => w.k === p);
-function frase(r) { return "Put the penguin " + r.p + " " + NOMBRE_OBJ[r.obj][0] + "."; }
-function pintar() {
-  bloq = false; R = cola[pos]; const total = cola.length, w = W_(R.p);
-  setBarra(hechas / total * 100);
-  const ops = opciones(R.obj, R.p);
-  const fant = ops.map(p => sitio(R.obj, p, "fan", 'data-p="' + p + '" role="button" aria-label="Ponerlo aquí"')).join("");
-  const yo = '<span class="pg yo" id="yo" style="left:12%;bottom:6%;z-index:7">' + PING() + '</span>';
-  $("v").innerHTML =
-    '<div class="hdr"><span class="chip">ESCONDE AL PINGÜINO</span><span class="rc">' + (pos + 1) + ' / ' + total + '</span></div>' +
-    '<div class="combo" aria-live="polite">' + (racha >= 2 ? sprite("llama", 18) + " Racha x" + racha : "") + '</div>' +
-    '<section class="card2" id="card">' +
-    '<div class="orden"><button type="button" class="play" id="bAud" aria-label="Escuchar la palabra">' + ICO_ON + '</button><span class="t"><b>Pon al pingüino <u>' + esc(w.es) + '</u> ' + NOMBRE_OBJ[R.obj][1] + '</b><span class="ejo">En inglés: <em>' + esc(w.en) + '</em></span></span></div>' +
-    '<div style="margin-top:10px">' + escena(R.obj, fant + yo, "Toca dónde va") + '</div>' +
-    '<p class="msg" id="msg" aria-live="polite"></p></section>';
-  pintarVidas();
-  on("bAud", () => oir(w.audio, w.en));
-  document.querySelectorAll(".pg.fan").forEach(b => b.addEventListener("click", () => elige(b)));
+const OB1 = (n, s) => typeof ESC_D !== "undefined" && ESC_D[n] ? escena(n, s) : dib(n, 12).replace('width="12" height="12"', 'width="' + s + '" height="' + s + '"');
+const OB = (n, s) => (Array.isArray(n) ? n : [n]).map(x => OB1(x, s)).join("");
+
+/* ===== personajes nuevos (del archivo Acciones) ===== */
+Object.assign(PAL, { H:"#FF4D8D", R:"#E5322B", B:"#8B5A2B" });
+const interrog = '<g class="kq">' + rects([[-2,10,"y"],[-2,11,"y"],[-2,12,"y"],[-1,12,"y"],[0,11,"y"],[2,11,"y"]]) + '</g>';
+const corazon = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"H"],[y,x+2,"H"],[y+1,x,"H"],[y+1,x+1,"H"],[y+1,x+2,"H"],[y+2,x+1,"H"]]) + '</g>';
+const pizzaF = '<g class="kq">' + rects(solo(1, 1, 11, 15, "B").concat([[2,11,"y"],[2,12,"R"],[2,13,"y"],[2,14,"R"],[2,15,"y"],[3,12,"y"],[3,13,"y"],[3,14,"y"],[4,13,"y"]])) + '</g>';
+Object.assign(ACC, {
+  pulgar:{ id:"pulgar", mod:SONRISA, bo:[], gu:[[4,7,"e"],[4,8,"e"]], r1:arriba("R", 5).concat(solo(3, 4, 11, 11, "s")), r2:arriba("R", 5).concat(solo(2, 3, 11, 11, "s")), extra:"", fuera:chispa(11, -2, 0) + chispa(-1, 1, .5) },
+  pienso:{ id:"pienso", mod:[[6,5,6,"s"],[6,6,7,"m"]], bo:[], r1:solo(5, 6, 9, 10, "S").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g")), r2:solo(6, 7, 9, 10, "S").concat(solo(8, 8, 10, 11, "l")), extra:"", fuera:interrog },
+  neg:{ id:"neg", mod:[[3,3,8,"e"],[6,4,7,"m"]], bo:[], r1:arriba("R", 4), r2:lado(4), extra:"" },
+  afirma:{ id:"afirma", mod:SONRISA, bo:[], extra:"", fuera:chispa(11, -1, 0) },
+  hambre:{ id:"hambre", vb:"-1 -2 16 18.8", mod:[[6,4,7,"M"]], bo:[], r1:lado(6), r2:lado(5), extra:sudor([7,4], [8,4], 0), fuera:pizzaF },
+  amor:{ id:"amor", mod:[[4,3,4,"H"],[4,7,8,"H"],[5,2,3,"r"],[5,8,9,"r"],[6,4,7,"m"]], bo:[], r1:arriba("R", 4), r2:cara(), extra:"", fuera:corazon(10, 2, 0) + corazon(-1, 1, .8) + corazon(10, -2, 1.6) }
+});
+const caraL = () => solo(4, 5, 1, 2, "s").concat(solo(6, 6, 0, 1, "l"), solo(7, 8, 0, 1, "g"));
+const excl = x => '<g class="vena">' + rects([[-2,x,"v"],[-1,x,"v"],[0,x,"v"],[2,x,"v"]]) + '</g>';
+const nota = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x+1,"y"],[y+1,x+1,"y"],[y+2,x,"y"],[y+2,x+1,"y"]]) + '</g>';
+const bombilla = '<g class="kb1">' + rects(solo(-3, -2, 4, 6, "y").concat([[-1,5,"q"]])) + '</g><g class="kb2">' + rects(solo(-3, -2, 4, 6, "W").concat([[-1,5,"q"],[-3,3,"y"],[-3,7,"y"],[-2,2,"y"],[-2,8,"y"]])) + '</g>';
+const zeta = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"W"],[y,x+1,"W"],[y,x+2,"W"],[y+1,x+1,"W"],[y+2,x,"W"],[y+2,x+1,"W"],[y+2,x+2,"W"]]) + '</g>';
+Object.assign(ACC, {
+  dormido:{ id:"dormido", mod:[[4,3,4,"e"],[4,7,8,"e"]], bo:solo(5, 6, 5, 6, "M"), extra:"", fuera:zeta(10, 2, 0) + zeta(10, -2, 1.2) },
+  idea:{ id:"idea", vb:"-1 -3 14 19.8", mod:SONRISA, bo:[], r1:arriba("R", 1), r2:arriba("R", 2), extra:"", fuera:bombilla },
+  cool:{ id:"cool", mod:[[4,3,8,"z"],[6,4,7,"m"],[5,8,8,"m"]], bo:[], gu:[[4,4,"W"],[4,7,"W"]], r1:arriba("R", 4), r2:cara(), extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 0, .7) },
+  baile:{ id:"baile", mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[], r1:arriba("R", 3), l1:arriba("L", 3), extra:"", fuera:nota(10, 1, 0) + nota(-1, 0, .8) + nota(10, -2, 1.6) },
+  sorpresa:{ id:"sorpresa", mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,5,6,"M"]], bo:[], r1:cara(), l1:caraL(), extra:"", fuera:excl(10) + excl(0) }
+});
+/* dibujar con guiño (gu) y mirada (gl) */
+function PJ(id) { const a = ACC[id]; let s = dibujar(a, "");
+  if (a.gu || a.gl) s = s.replace('<g class="bo">', '<g class="gu">' + rects(a.gu || []) + '</g><g class="gl">' + rects(a.gl || []) + '</g><g class="bo">');
+  return s; }
+
+/* ===== utilidades ===== */
+const AU = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>';
+const AUG = AU.replace(/22/g, "40");
+const LENTO = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 13V9M12 13l3 2M9 2h6"></path></svg>';
+/* frase que se puede tocar: muestra la traducción de TODA la frase (si se pasa "es") */
+function frase(t, es) { return es ? '<span class="u-fr" data-t="' + esc(es) + '">' + esc(t) + '</span>' : esc(t); }
+document.addEventListener("click", e => {
+  const w = e.target.closest(".u-fr"); document.querySelectorAll(".u-tip").forEach(x => x.remove());
+  if (w) { w.insertAdjacentHTML("beforeend", '<span class="u-tip">' + esc(w.dataset.t) + '</span>'); voz(w.firstChild.textContent, .9); setTimeout(() => { const t = w.querySelector(".u-tip"); if (t) t.remove(); }, 2600); }
+});
+
+/* ===== motor: una pantalla por paso, con Comprobar abajo ===== */
+let pos, dudas, vidas, P, listo, revisar;
+function empezar() { pos = 0; dudas = {}; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
+function pantalla(cuerpo, rev) {
+  revisar = rev; setBarra(pos / PLAN.length * 100);
+  const pis = P && P.pista ? '<div class="u-pista"><span class="k">NUEVO</span><button type="button" class="u-au" id="bPis" aria-label="Escuchar">' + AU + '</button><b>' + esc(P.pista[0]) + '</b><span class="eq">=</span><span class="es">' + esc(P.pista[1]) + '</span></div>' : '';
+  $("v").innerHTML = '<div class="u-body" id="ub">' + pis + cuerpo + '</div>' +
+    '<div class="u-pie" id="pie"><div class="u-fb"><span class="ic" id="pieIc"></span><span><b id="pieB"></b><span id="pieT"></span></span></div><button type="button" class="u-btn" id="bChk" disabled>Comprobar</button></div>';
   window.scrollTo(0, 0);
-  setTimeout(() => oir(w.audio, w.en), 450);
+  if (P && P.pista) on("bPis", () => voz(P.pista[0], .8));
+  let fin = false;
+  on("bChk", () => {
+    if (fin || !revisar) { siguiente(); return; }
+    const r = revisar(); if (!r) return; fin = true;
+    const pie = $("pie"); pie.className = "u-pie " + (r[0] ? "ok" : "mal");
+    $("pieIc").innerHTML = PJ(r[0] ? "pulgar" : "pienso");
+    $("pieB").textContent = r[0] ? ["¡Bien hecho!", "¡Excelente!", "¡Así se hace!"][pos % 3] : "Respuesta correcta:";
+    $("pieT").textContent = r[1];
+    $("bChk").textContent = r[0] ? "Continuar" : "Entendido";
+    document.querySelectorAll("#ub button, #ub textarea").forEach(x => x.disabled = true);
+    if (r[0]) { Racha.acierto(); sonido("ok", 0); } else { dudas[pos] = true; sonido("mal"); Racha.error(); vidas--; }
+    voz(r[2] || r[1], .9);
+    if (vidas <= 0) setTimeout(perdido, 1400);
+  });
 }
-function mover(p) { const q = POS[R.obj][p], y = $("yo"); if (!y) return; y.style.left = q.x + "%"; y.style.bottom = q.b + "%"; y.style.zIndex = q.z; y.style.transform = "scale(" + q.s + ")"; }
-function perderVida() { vidas = Math.max(0, vidas - 1); Racha.error(); pintarVidas(); }
-function elige(b) {
-  if (bloq) return; const p = b.dataset.p, m = $("msg"), w = W_(R.p);
-  mover(p); b.classList.add("fuera");
-  if (p === R.p) {
-    bloq = true; hechas++; racha = Racha.acierto(); sonido("ok", racha - 1);
-    document.querySelectorAll(".pg.fan").forEach(x => x.classList.add("fuera"));
-    const y = $("yo"); setTimeout(() => { if (y && !RM) { y.classList.remove("hop"); void y.offsetWidth; y.classList.add("hop"); } }, 420);
-    setBarra(hechas / cola.length * 100);
-    m.className = "msg ok"; m.textContent = "¡Bien! " + w.en + " = " + w.es;
-    setTimeout(() => oir(w.audio, w.en), 450);
-    setTimeout(siguiente, 2200); return;
+listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") b.disabled = !v; };
+function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
+function pintar() { P = PLAN[pos]; ({ los4:exLos4, sopa:exSopa, nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
+const enLimpio = t => t.replace(/[.!?]/g, "").trim();
+const espanol = t => t;
+
+/* 0 · PALABRA NUEVA: dibujo, palabra, traducción, audio y un ejemplo (no se evalúa) */
+function exNueva() {
+  pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + 'PALABRA NUEVA</span>' +
+    '<div class="u-nw"><span class="ob">' + OB(P.ob, 120) + '</span><div class="pal"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU.replace(/22/g, "30") + '</button>' + esc(P.en) + '</div>' +
+    '<div class="tra">' + esc(P.es) + '</div><button type="button" class="lento2" id="bLe">' + LENTO.replace(/28/g, "18") + 'Lento</button>' +
+    '<div class="u-ejx">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bEj" aria-label="Escuchar el ejemplo">' + AU + '</button>' + frase(P.ej, P.ejEs) + '<span class="u-es">' + esc(P.ejEs) + '</span></div></div></div>', null);
+  const b = $("bChk"); b.disabled = false; b.textContent = "Continuar";
+  on("bAu", () => voz(P.en, .85)); on("bLe", () => voz(P.en, .5)); on("bEj", () => voz(P.ej, .9));
+  setTimeout(() => voz(P.en, .85), 300);
+}
+/* 9 · COMPLETA LA PALABRA (letras que faltan, teclado del celular) */
+function exPalabra() {
+  pantalla('<p class="u-t">Completa la palabra</p><div class="u-hab" style="justify-content:center">' + PJ(P.pj) + '<span style="line-height:0;margin-bottom:24px;display:flex;gap:6px">' + OB(P.ob, 60) + '</span></div>' +
+    '<div class="u-pist"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button><b>' + esc(P.es) + '</b></div>' +
+    '<div class="u-pal" id="pal">' + P.en.split("").map((c, i) => c === " " ? '<span class="esp"></span>' : P.faltan.indexOf(i) > -1 ? '<input maxlength="2" data-i="' + i + '" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="letra que falta">' : '<span>' + esc(c) + '</span>').join("") + '</div>',
+    () => { const ins = [...document.querySelectorAll("#pal input")]; let ok = true; ins.forEach(x => { const b = x.value.toLowerCase() === P.en[+x.dataset.i]; x.classList.add(b ? "ok" : "mal"); if (!b) ok = false; }); return [ok, P.en + " = " + P.es, P.en]; });
+  on("bAu", () => voz(P.en, .85)); setTimeout(() => voz(P.en, .85), 300);
+  const ins = [...document.querySelectorAll("#pal input")];
+  ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value)); }));
+  setTimeout(() => ins[0].focus(), 400);
+}
+/* 10 · PÁSALA A NEGATIVA (I like → I don't like) */
+function exNegativa() { let puestos = [];
+  const W = mezcla(P.en.split(" ").concat(P.extra));
+  pantalla('<p class="u-t">Pásala a negativa</p><div class="u-camb"><div class="de">' + OB(P.ob, 30) + frase(P.de) + '</div><small>' + esc(P.deEs) + '</small></div>' +
+    '<div class="u-flecha">NO ME GUSTA</div><div class="u-lin" id="lin" style="margin-top:6px"></div><div class="u-ban" id="ban">' + W.map((w, i) => '<button type="button" class="u-ch" data-i="' + i + '">' + esc(w) + '</button>').join("") + '</div>',
+    () => [puestos.map(i => W[i]).join(" ") === P.en, P.en + ". = " + P.es + " (se pone don't antes de like)", P.en + "."]);
+  const pint = () => { $("lin").innerHTML = puestos.map((i, q) => '<button type="button" class="u-ch" data-q="' + q + '">' + esc(W[i]) + '</button>').join("");
+    $("lin").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.splice(+b.dataset.q, 1); pint(); }));
+    $("ban").querySelectorAll(".u-ch").forEach(b => b.classList.toggle("ida", puestos.indexOf(+b.dataset.i) > -1)); listo(puestos.length); };
+  $("ban").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.push(+b.dataset.i); voz(b.textContent, 1); pint(); }));
+}
+/* 11 · RONDA RELÁMPAGO (reto final: 5 frases, 6 s cada una) */
+function exRelampago() { const R = P.rondas, C = 2 * Math.PI * 42; let i = -1, res = [], tm = null, t0 = 0;
+  const SI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>';
+  const NO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>';
+  pantalla('<span class="u-nuevo">' + sprite("llama", 14) + 'RETO FINAL</span><p class="u-t">Ronda relámpago</p>' +
+    '<div class="u-rel" id="rl"><svg class="r" width="96" height="96" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="42" fill="none" stroke="var(--bd)" stroke-width="8"></circle><circle id="rlc" cx="48" cy="48" r="42" fill="none" stroke="var(--gold)" stroke-width="8" stroke-linecap="round" stroke-dasharray="' + C + '" stroke-dashoffset="0"></circle></svg><b id="rln">6</b></div>' +
+    '<div class="u-rond" id="rlo">¿LA FRASE COINCIDE CON EL DIBUJO?</div><div class="u-relq" id="rlq"><button type="button" class="u-go" id="rlGo">Empezar</button></div>' +
+    '<div class="u-sino"><button type="button" class="u-o" data-v="1" disabled>' + SI + 'Coincide</button><button type="button" class="u-o" data-v="0" disabled>' + NO + 'No coincide</button></div>' +
+    '<div class="u-marc" id="rlm">' + R.map(() => '<i></i>').join("") + '</div>',
+    () => { const b = res.filter(x => x).length; return [b >= 4, b + " de " + R.length + " correctas" + (b >= 4 ? "" : " (necesitas 4)"), "Great!"]; });
+  const botones = [...document.querySelectorAll(".u-sino .u-o")];
+  const fin = () => { clearInterval(tm); botones.forEach(x => x.disabled = true); $("rlq").innerHTML = '<span class="fr">' + res.filter(x => x).length + ' / ' + R.length + '</span>'; $("rlo").textContent = "¡TERMINASTE!"; listo(1); };
+  const ronda = () => { i++; if (i >= R.length) return fin(); const [o, f] = R[i];
+    $("rlq").innerHTML = OB(o, 84) + '<span class="fr">' + esc(f) + '</span>'; $("rlo").textContent = "FRASE " + (i + 1) + " DE " + R.length; voz(f, .95); t0 = Date.now(); clearInterval(tm);
+    tm = setInterval(() => { const q = Math.max(0, 6 - (Date.now() - t0) / 1000); $("rln").textContent = Math.ceil(q); $("rlc").setAttribute("stroke-dashoffset", C * (1 - q / 6)); $("rl").classList.toggle("urg", q < 2); if (q <= 0) marca(false); }, 100); };
+  const marca = ok => { clearInterval(tm); res.push(ok); $("rlm").children[i].className = ok ? "ok" : "mal"; sonido(ok ? "ok" : "mal", 0); setTimeout(ronda, 350); };
+  botones.forEach(b => b.addEventListener("click", () => { if (i < 0 || i >= R.length || res.length > i) return; marca((+b.dataset.v) === R[i][2]); }));
+  on("rlGo", () => { botones.forEach(x => x.disabled = false); ronda(); });
+}
+/* 12 · ENCUENTRA EL ERROR: toca la palabra mala y elige la corrección */
+function exError() { let malo = null, fix = null;
+  pantalla('<p class="u-t">Esta frase tiene un error. Tócalo.</p><div class="u-hab" style="justify-content:center">' + PJ(P.pj) + '<span style="line-height:0;margin-bottom:22px;display:flex;gap:6px">' + OB(P.ob, 50) + '</span></div>' +
+    '<div class="u-ban" id="erW" style="margin-top:6px">' + P.malas.map((w, i) => '<button type="button" class="u-ch" data-i="' + i + '">' + esc(w) + '</button>').join("") + '</div>' +
+    '<p class="u-es" style="text-align:center;margin-top:12px">Quiere decir: «' + esc(P.es) + '»</p>' +
+    '<div class="u-paso" id="erP"><p>¿Cómo se corrige?</p><div class="u-ban" style="margin-top:0">' + mezcla(P.ops).map(o => '<button type="button" class="u-ch" data-o="' + esc(o) + '">' + esc(o) + '</button>').join("") + '</div></div>',
+    () => [malo === P.mal && fix === P.ok, P.en + " = " + P.es, P.en]);
+  document.querySelectorAll("#erW .u-ch").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#erW .u-ch").forEach(x => x.classList.remove("sel", "malw", "fix")); malo = +b.dataset.i; b.classList.add(malo === P.mal ? "malw" : "sel"); $("erP").classList.add("on"); fix = null; listo(0); sonido("click"); }));
+  document.querySelectorAll("#erP .u-ch").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#erP .u-ch").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); fix = b.dataset.o;
+    const w = document.querySelector('#erW [data-i="' + malo + '"]'); if (malo === P.mal) { w.textContent = fix; w.classList.remove("malw"); w.classList.add("fix"); } voz(fix, .9); listo(1); }));
+}
+/* 13 · ORDENA LA CONVERSACIÓN: arma el chat en orden (1 tu amigo pregunta, 2 tú respondes, 3 tu amigo contesta) */
+function exCharla() { let n = 0, fallos = 0;
+  const quien = m => m[0] === "el" ? "Tu amigo" : "Tú";
+  pantalla('<p class="u-t">Arma la conversación</p><p class="u-es" style="margin:-10px 0 12px">Tu amigo te pregunta algo y tú le respondes. Toca los mensajes en el orden en que se dicen.</p>' +
+    '<div class="u-conv" id="cv">' + P.msgs.map((m, i) => '<div class="hueco2 ' + m[0] + '" id="h' + i + '"><span class="num">' + (i + 1) + '</span>' + quien(m) + (i === 0 ? ' pregunta…' : i === 1 ? ' respondes…' : ' contesta…') + '</div>').join("") + '</div>' +
+    '<div class="u-ops" id="cvO">' + mezcla(P.msgs.map((_, i) => i)).map(i => '<button type="button" class="u-o" data-i="' + i + '"><span><b style="display:block">' + esc(P.msgs[i][1]) + '</b><small style="color:var(--mu);font-weight:700">' + esc(P.msgs[i][2]) + '</small></span></button>').join("") + '</div>',
+    () => [fallos === 0, fallos === 0 ? "¡Conversación perfecta!" : P.msgs.map(m => m[1]).join(" → "), P.msgs.map(m => m[1]).join(" ")]);
+  document.querySelectorAll("#cvO .u-o").forEach(b => b.addEventListener("click", () => {
+    const i = +b.dataset.i;
+    if (i !== n) { fallos++; b.classList.remove("mal"); void b.offsetWidth; b.classList.add("mal"); sonido("mal"); const h = $("h" + n); h.classList.remove("pista2"); void h.offsetWidth; h.classList.add("pista2"); return; }
+    const m = P.msgs[i];
+    $("h" + i).outerHTML = '<div class="fila ' + m[0] + '">' + PJ(m[0] === "el" ? "baile" : "pulgar") + '<div class="bb"><span class="qn">' + quien(m) + '</span>' + esc(m[1]) + '<small>' + esc(m[2]) + '</small></div></div>';
+    b.classList.add("ida"); voz(m[1], .9); n++; if (n === P.msgs.length) listo(1);
+  }));
+}
+/* 14 · LOS 4 CONECTORES con ejemplo (no se evalúa) */
+function exLos4() {
+  pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + 'LAS 4 PREPOSICIONES</span><p class="u-t">Dicen dónde está algo. Toca cada una para oírla.</p>' +
+    '<div class="u-l4">' + LOS4.map((c, i) => '<button type="button" class="u-l4i" data-i="' + i + '"><span class="w"><b>' + esc(c.en) + '</b><em>' + esc(c.es) + '</em></span>' +
+      '<span class="x"><span class="e">' + esc(c.ej) + '</span><span class="s">' + esc(c.ejEs) + '</span></span><span class="o">' + OB(c.ob, 26) + '</span></button>').join("") + '</div>', null);
+  const b = $("bChk"); b.disabled = false; b.textContent = "¡Vamos!";
+  document.querySelectorAll(".u-l4i").forEach(x => x.addEventListener("click", () => { const c = LOS4[+x.dataset.i]; voz(c.en + ". " + c.ej, .85); x.classList.add("oido"); }));
+}
+/* 15 · MINI SOPA DE LETRAS (los 4 conectores). Toca la primera y la última letra (o arrastra) */
+function exSopa() {
+  const N = 7, W = P.pal.map(p => p[0]); let G, ok = {}, ini = null;
+  for (let intento = 0; intento < 200; intento++) {
+    G = Array.from({ length:N }, () => Array(N).fill("")); let bien = true;
+    for (const w of W.slice().sort((a, b) => b.length - a.length)) {
+      let puesto = false;
+      for (let k = 0; k < 80 && !puesto; k++) {
+        const h = Math.random() < .5, r = Math.floor(Math.random() * (h ? N : N - w.length + 1)), c = Math.floor(Math.random() * (h ? N - w.length + 1 : N));
+        if (w.split("").every((ch, i) => { const v = G[h ? r : r + i][h ? c + i : c]; return !v || v === ch; })) { w.split("").forEach((ch, i) => G[h ? r : r + i][h ? c + i : c] = ch); puesto = true; }
+      }
+      if (!puesto) { bien = false; break; }
+    }
+    if (bien) break;
   }
-  dudas[R.p] = true; racha = 0; sonido("mal"); perderVida();
-  const y = $("yo"); setTimeout(() => { if (y && !RM) { y.classList.remove("mal"); void y.offsetWidth; y.classList.add("mal"); } }, 420);
-  const wp = W_(p);
-  m.className = "msg mal"; m.textContent = "Ahí está " + wp.es + " (" + wp.en + "). Busca: " + w.es + ".";
-  if (vidas <= 0) { bloq = true; setTimeout(perdido, 1400); }
-  else setTimeout(() => { if (!bloq) { const yy = $("yo"); if (yy) { yy.style.left = "12%"; yy.style.bottom = "6%"; yy.style.zIndex = 7; yy.style.transform = "scale(1)"; } oir(w.audio, w.en); } }, 1300);
+  const AB = "ACDEFGHIKLMNPRSTUWY";
+  G = G.map(f => f.map(v => v || AB[Math.floor(Math.random() * AB.length)]));
+  pantalla('<p class="u-t">Encuentra las 4 palabras</p><p class="u-es" style="margin:-10px 0 12px">Toca la primera letra y luego la última (o arrastra el dedo).</p>' +
+    '<div class="u-sopa" id="sp" style="grid-template-columns:repeat(' + N + ',1fr)">' + G.map((f, r) => f.map((ch, c) => '<button type="button" class="u-sl" data-r="' + r + '" data-c="' + c + '">' + ch + '</button>').join("")).join("") + '</div>' +
+    '<div class="u-spw">' + P.pal.map(p => '<span data-w="' + p[0] + '"><b>' + p[0].toLowerCase() + '</b> ' + esc(p[1]) + '</span>').join("") + '</div>', () => [true, P.pal.map(p => p[0].toLowerCase() + " = " + p[1]).join(" · "), P.pal.map(p => p[0].toLowerCase()).join(", ")]);
+  const cel = (r, c) => document.querySelector('.u-sl[data-r="' + r + '"][data-c="' + c + '"]');
+  const linea = (a, b) => { if (a.r !== b.r && a.c !== b.c) return null; const out = [], n = Math.max(Math.abs(b.r - a.r), Math.abs(b.c - a.c)), dr = Math.sign(b.r - a.r), dc = Math.sign(b.c - a.c); for (let i = 0; i <= n; i++) out.push({ r:a.r + dr * i, c:a.c + dc * i }); return out; };
+  const probar = (a, b) => {
+    document.querySelectorAll(".u-sl.ini,.u-sl.tmp").forEach(x => x.classList.remove("ini", "tmp"));
+    const L = linea(a, b); if (!L) { sonido("mal"); return; }
+    const pal = L.map(p => G[p.r][p.c]).join(""), w = W.find(x => (x === pal || x === pal.split("").reverse().join("")) && !ok[x]);
+    if (!w) { L.forEach(p => { const e = cel(p.r, p.c); e.classList.add("mal"); setTimeout(() => e.classList.remove("mal"), 400); }); sonido("mal"); return; }
+    ok[w] = 1; L.forEach(p => cel(p.r, p.c).classList.add("ok")); document.querySelector('.u-spw [data-w="' + w + '"]').classList.add("ok"); voz(w.toLowerCase(), .9); sonido("ok", Object.keys(ok).length - 1);
+    if (Object.keys(ok).length === W.length) listo(1);
+  };
+  const sp = $("sp"); let arrastre = null;
+  sp.addEventListener("pointerdown", e => { const t = e.target.closest(".u-sl"); if (!t) return; arrastre = { r:+t.dataset.r, c:+t.dataset.c, mov:false }; });
+  sp.addEventListener("pointermove", e => { if (!arrastre) return; const t = document.elementFromPoint(e.clientX, e.clientY); const s = t && t.closest && t.closest(".u-sl"); if (s && (+s.dataset.r !== arrastre.r || +s.dataset.c !== arrastre.c)) { arrastre.mov = true; document.querySelectorAll(".u-sl.tmp").forEach(x => x.classList.remove("tmp")); const L = linea(arrastre, { r:+s.dataset.r, c:+s.dataset.c }); if (L) L.forEach(p => cel(p.r, p.c).classList.add("tmp")); } });
+  document.addEventListener("pointerup", e => { if (!arrastre) return; const a = arrastre; arrastre = null; const t = document.elementFromPoint(e.clientX, e.clientY); const s = t && t.closest && t.closest(".u-sl");
+    if (a.mov && s) { ini = null; probar(a, { r:+s.dataset.r, c:+s.dataset.c }); return; }
+    if (!s) return; const p = { r:+s.dataset.r, c:+s.dataset.c };
+    if (!ini) { ini = p; s.classList.add("ini"); sonido("click"); } else if (ini.r === p.r && ini.c === p.c) { s.classList.remove("ini"); ini = null; } else { const a2 = ini; ini = null; probar(a2, p); } }, { once:false });
 }
-function siguiente() {
-  const c = $("card"); if (c && !RM) c.classList.add("sale");
-  setTimeout(() => { pos++; if (pos >= cola.length) terminar(); else pintar(); }, RM ? 0 : 260);
+/* 1 · el personaje habla: ¿qué significa? */
+function exHabla() { let sel = null; const ops = mezcla(P.ops);
+  pantalla((P.nuevo ? '<span class="u-nuevo">' + sprite("estrella", 14) + 'NUEVA FRASE</span>' : '') + '<p class="u-t">¿Qué significa esta frase?</p>' +
+    '<div class="u-hab">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button>' + frase(P.en) + '<span class="ob">' + OB(P.ob, 26) + '</span></div></div>' +
+    '<div class="u-ops">' + ops.map((o, i) => '<button type="button" class="u-o" data-o="' + esc(o) + '"><kbd>' + (i + 1) + '</kbd>' + esc(o) + '</button>').join("") + '</div>',
+    () => [sel === P.ops[0], P.ops[0], P.en]);
+  on("bAu", () => voz(P.en, .9)); setTimeout(() => voz(P.en, .9), 300);
+  document.querySelectorAll(".u-o").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".u-o").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; sonido("click"); listo(1); }));
 }
-const mini = w => '<span style="flex:none;width:64px">' + escena(w.obj, sitio(w.obj, w.k, "", "")) + '</span>';
-const repaso = () => Object.keys(dudas).map(k => { const w = W_(k); return '<div class="it">' + mini(w) + '<span><b>' + esc(w.en) + '</b> = ' + esc(w.es) + '</span></div>'; }).join("");
-function perdido() { perder(hechas + "/" + cola.length, "bien puestos", "Repasa dónde va cada palabra y vuelve a intentarlo.", repaso(), empezar); }
-function terminar() {
-  const nd = Object.keys(dudas).length;
-  ganar(nd, cola.length, nd === 0 ? "¡Escondite perfecto!" : "¡Pingüino escondido!", "Ya sabes decir dónde están las cosas.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+/* 2 · completa la frase */
+function exCompleta() { let sel = null; const [a, b] = P.en.split("___");
+  pantalla('<p class="u-t">Completa la frase</p><div class="u-hab">' + PJ(P.pj) + '<div class="u-glo">' + frase(a) + '<span class="u-hueco" id="hu">&nbsp;</span>' + frase(b) + '<span class="ob">' + OB(P.ob, 26) + '</span><span class="u-es">' + esc(P.es) + '</span></div></div>' +
+    '<div class="u-ban">' + mezcla(P.ops).map(o => '<button type="button" class="u-ch" data-o="' + esc(o) + '">' + esc(o) + '</button>').join("") + '</div>',
+    () => [sel === P.ok, P.en.replace("___", P.ok) + " = " + P.es, P.en.replace("___", P.ok)]);
+  document.querySelectorAll(".u-ban .u-ch").forEach(x => x.addEventListener("click", () => { sel = x.dataset.o; $("hu").textContent = sel; voz(sel, .9); listo(1); }));
+}
+/* 3 · escucha y elige quién lo dice */
+function exQuien() { let sel = null;
+  const cards = mezcla([["pulgar", "like", "I like", "me gusta"], ["neg", "dont", "I don't like", "no me gusta"]]);
+  pantalla('<p class="u-t">Escucha: ¿qué dice?</p><div class="u-big"><button type="button" class="u-bigb" id="bAu" aria-label="Escuchar">' + AUG + '</button><span style="line-height:0;display:flex;gap:6px">' + OB(P.ob, 56) + '</span></div>' +
+    '<div class="u-cards">' + cards.map(c => '<button type="button" class="u-card" data-o="' + c[1] + '">' + PJ(c[0]) + esc(c[2]) + '<small>' + c[3] + '</small></button>').join("") + '</div>',
+    () => [sel === P.ok, P.en + " = " + P.es, P.en]);
+  on("bAu", () => voz(P.en, .9)); setTimeout(() => voz(P.en, .9), 300);
+  document.querySelectorAll(".u-card").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".u-card").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; sonido("click"); listo(1); }));
+}
+/* 4 · traduce con palabras */
+function exTraduce() { let puestos = [];
+  const META = P.en, W = mezcla(META.replace("ice cream", "ice_cream").split(" ").map(w => w.replace("_", " ")).concat(P.extra));
+  pantalla('<p class="u-t">Escribe esto en inglés</p><div class="u-hab">' + PJ(P.pj) + '<div class="u-glo">' + esc(P.es) + '<span class="ob">' + OB(P.ob, 26) + '</span></div></div>' +
+    '<div class="u-lin" id="lin"></div><div class="u-ban" id="ban">' + W.map((w, i) => '<button type="button" class="u-ch" data-i="' + i + '">' + esc(w) + '</button>').join("") + '</div>',
+    () => [puestos.map(i => W[i]).join(" ") === META, META + ". = " + P.es, META + "."]);
+  const pint = () => { $("lin").innerHTML = puestos.map((i, q) => '<button type="button" class="u-ch" data-q="' + q + '">' + esc(W[i]) + '</button>').join("");
+    $("lin").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.splice(+b.dataset.q, 1); pint(); }));
+    $("ban").querySelectorAll(".u-ch").forEach(b => b.classList.toggle("ida", puestos.indexOf(+b.dataset.i) > -1)); listo(puestos.length); };
+  $("ban").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.push(+b.dataset.i); voz(b.textContent, 1); pint(); }));
+}
+/* 5 · escribe lo que escuchas (teclado del celular) */
+function exEscucha() {
+  pantalla('<p class="u-t">Escribe lo que escuchas</p><div class="u-hab" style="justify-content:center;gap:14px">' + PJ(P.pj) +
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:40px"><button type="button" class="u-bigb" id="bAu" aria-label="Escuchar">' + AUG + '</button><button type="button" class="u-bigb lento" id="bLe" aria-label="Escuchar lento">' + LENTO + '</button></div></div>' +
+    '<textarea class="u-ta" id="ta" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Escribe lo que escuchas"></textarea>',
+    () => { const v = $("ta").value.trim().toLowerCase().replace(/[.!?]/g, "").replace(/’/g, "'").replace(/\s+/g, " "); const m = enLimpio(P.en).toLowerCase(); return [v === m || v === m.replace("don't", "dont"), P.en + " = " + P.es, P.en]; });
+  on("bAu", () => voz(P.en, .9)); on("bLe", () => voz(P.en, .55)); setTimeout(() => voz(P.en, .9), 300);
+  $("ta").addEventListener("input", () => listo($("ta").value.trim()));
+}
+/* 6 · une las parejas */
+function exParejas() { let sel = null, n = 0;
+  const izq = mezcla(P.pares.map(p => p[0])), der = mezcla(P.pares.map(p => p[1])), icono = w => { const p = P.pares.find(x => x[0] === w); return p && p[2] ? OB(p[2], 24) : ""; };
+  pantalla('<p class="u-t">Toca las parejas</p><div class="u-par">' +
+    izq.map((w, i) => '<button type="button" class="u-ch" data-l="en" data-w="' + esc(w) + '" style="grid-column:1;grid-row:' + (i + 1) + '">' + icono(w) + esc(w) + '</button><button type="button" class="u-ch" data-l="es" data-w="' + esc(der[i]) + '" style="grid-column:2;grid-row:' + (i + 1) + '">' + esc(der[i]) + '</button>').join("") + '</div>',
+    () => [n === P.pares.length, "¡Todas las parejas!", "Great!"]);
+  document.querySelectorAll(".u-par .u-ch").forEach(b => b.addEventListener("click", () => {
+    if (b.dataset.l === "en") voz(b.dataset.w, .9);
+    if (!sel || sel.dataset.l === b.dataset.l) { if (sel) sel.classList.remove("sel"); sel = b; b.classList.add("sel"); return; }
+    const en = sel.dataset.l === "en" ? sel.dataset.w : b.dataset.w, es2 = sel.dataset.l === "es" ? sel.dataset.w : b.dataset.w;
+    if (P.pares.find(p => p[0] === en)[1] === es2) { [sel, b].forEach(x => { x.classList.remove("sel"); x.classList.add("ok"); }); n++; sonido("ok", n - 1); if (n === P.pares.length) { listo(1); $("bChk").click(); } }
+    else { const a = sel; [a, b].forEach(x => { x.classList.remove("sel"); x.classList.add("mal"); setTimeout(() => x.classList.remove("mal"), 400); }); sonido("mal"); dudas[pos] = true; }
+    sel = null;
+  }));
 }
 
-/* ===== arranque: primero aprende las 6, después esconde al pingüino ===== */
+/* ===== final ===== */
+const textoDe = p => p.t === "parejas" ? p.pares.map(x => x[0] + " = " + x[1]).join(" · ") : p.t === "sopa" ? p.pal.map(x => x[0].toLowerCase() + " = " + x[1]).join(" · ") : p.t === "charla" ? p.msgs.map(m => m[1]).join(" ") : p.t === "error" ? p.en + " = " + p.es : p.t === "relampago" ? "Ronda relámpago: " + p.rondas.filter(x => x[2]).map(x => x[1]).join(" · ") : p.t === "palabra" ? p.en + " = " + p.es : p.t === "negativa" ? p.en + ". = " + p.es : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
+const repaso = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB1([].concat(p.ob)[0], 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
+const EVAL = () => PLAN.filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa").length;
+function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
+const RANG = ["Campesino", "Soldado", "Caballero", "Noble", "Rey"];
+function nombreRango() { let st = 0; try { const L = JSON.parse(localStorage.getItem("ingles_gamer_liga") || "{}"); st = L.v === 2 ? +L.st || 0 : (+L.lg || 0) * 3; } catch (e) {} return st >= 12 ? "Rey" : RANG[Math.floor(st / 3)] + " " + ["III", "II", "I"][st % 3]; }
+const auraE = () => { try { return +(JSON.parse(localStorage.getItem("ingles_gamer_aura") || "{}").e) || 0; } catch (e) { return 0; } };
+function terminar() {
+  const nd = Object.keys(dudas).length;
+  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Preposiciones aprendidas!", "Ya sabes decir d\u00f3nde est\u00e1n las cosas.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+}
+
+/* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-function irPractica() {
-  pantallaIntro("¡Esconde al pingüino!", "Lee la orden y toca el lugar donde debe ir el pingüino: dentro, encima, debajo o al lado.", "Empezar", PING().replace('width="100" height="100"', 'width="130" height="130"'), empezar);
-}
-pantallaAprende(0, PALABRAS, w => escena(w.obj, sitio(w.obj, w.k, "", "")), irPractica);
+pantallaIntro("Preposiciones", "Aprende a decir d\u00f3nde est\u00e1n las cosas: <b>in</b> (en), <b>on</b> (encima de), <b>under</b> (debajo de) y <b>next to</b> (al lado de).", "Empezar", PJ("pienso"), empezar);
 
 </script>
 <script type="module">
