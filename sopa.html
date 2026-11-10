@@ -854,6 +854,7 @@ function terminar() {
   ic.innerHTML = '<svg viewBox="0 0 52 52" width="104" height="104" aria-hidden="true"><circle class="ok-c" cx="26" cy="26" r="23"></circle><path class="ok-t" d="M15 27l8 8 15-17"></path></svg>';
   if (!quieto()) for (let i = 0; i < 12; i++) { const d = document.createElement("i"); d.className = "ok-d"; d.style.setProperty("--a", (i * 30) + "deg"); d.style.setProperty("--c", COLS[i % COLS.length]); ic.appendChild(d); }
   $("fin").hidden = false; sfx("fin");
+  try { if (window.IGNube && IGNube.subirYa) IGNube.subirYa().then(() => { try { if (window.IGFicha) IGFicha.publicar(); } catch (e) {} }); else if (window.IGFicha) IGFicha.publicar(); } catch (e) {}   /* guarda en la nube y sube tu Aura al Ranking */
   if (window.IGFinal) IGFinal.mostrar({ aura:J.auraGan, estrellas:est, titulo:"¡Sopa completada!", sub:J.t.tema });   /* final con la liga semanal */
 }
 let avisoT = null;
@@ -1403,6 +1404,108 @@ const CONFIG = {
       }
     };
   } catch (e) { console.error("[nube]", e); }
+})();
+</script>
+<script type="module">
+/* ===== FICHA: publica tu Aura, estrellas y racha en tu ficha pública (para el Ranking) ===== */
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const CONFIG = {
+  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
+  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
+  projectId: "inglesgamer-5a3a9",
+  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
+  messagingSenderId: "599532765222",
+  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
+};
+(function () {
+  try {
+    const app = getApps().length ? getApp() : initializeApp(CONFIG);
+    const auth = getAuth(app), db = getFirestore(app);
+    const CREADOR = "tZfZSV8kJ8emISaSpmVwsNzrueD2";
+    const IDS = ["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3","final"];
+    const leer = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
+    const clave = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    const aSemana = d => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return clave(x); };
+    const activo = () => { const v = leer("ingles_gamer_estado_activo"); return v === null ? true : !!v; };
+    const estado = (ok, e) => { try { localStorage.setItem("ig_ficha_estado", JSON.stringify({ ok: !!ok, t: Date.now(), c: ok ? "" : String((e && (e.code || e.message)) || "error") })); } catch (x) {} };
+
+    function calcular() {
+      const perfil = leer("ingles_gamer_perfil"), auraG = leer("ingles_gamer_aura"), tienda = leer("ingles_gamer_tienda");
+      const own = (tienda && Array.isArray(tienda.own)) ? tienda.own : [];
+      let av = perfil && Number(perfil.a) >= 0 && Number(perfil.a) < 20 ? Number(perfil.a) : 0;
+      if (av === 9) { if (!(user && user.uid === CREADOR)) av = 0; } else if (av > 1 && own.indexOf("av" + av) < 0) av = 0;
+      const aura = Math.max(0, +(auraG && auraG.t) || 0);
+      const rep = leer("ingles_gamer_a1_repaso") || {}, est = rep.est || {}, dia = rep.dia || { u: "", r: 0 };
+      const e = id => Math.min(3, Math.max(0, +est[id] || 0));
+      const estrellas = IDS.reduce((a, id) => a + e(id), 0);
+      const niv = IDS.filter(id => e(id) >= 1).length, tres = IDS.filter(id => e(id) >= 3).length;
+      const vivo = (dia.u === clave(new Date()) || dia.u === clave(new Date(Date.now() - 864e5))) && +dia.r > 0;
+      const racha = vivo ? Math.min(+dia.r, 3650) : 0;
+      const med = [];
+      if (estrellas >= 1) med.push(0); if (racha >= 3) med.push(1); if (niv >= 10) med.push(2); if (tres >= 1) med.push(3);
+      if (tres >= 5) med.push(4); if (e("verbos") >= 1) med.push(5); if (tres >= 10) med.push(6); if (e("final") >= 1) med.push(7);
+      const b = leer("ingles_gamer_aura_base") || {}, h = new Date();
+      const ks = { dia: clave(h), sem: aSemana(h), mes: h.getFullYear() + "-" + (h.getMonth() + 1) };
+      ["dia", "sem", "mes"].forEach(p => { if (!b[p]) b[p] = { k: ks[p], v: 0 }; else if (b[p].k !== ks[p]) b[p] = { k: ks[p], v: aura }; });
+      try { localStorage.setItem("ingles_gamer_aura_base", JSON.stringify(b)); } catch (x) {}
+      /* LOOK equipado en la Tienda: skin (sk), marco (mc), título (tt) y fondo/mapa (mp) */
+      const eq = (tienda && tienda.eq) || {};
+      const pick = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
+      return { av, aura, est: estrellas, niv, racha, med, sem: Math.max(0, aura - (b.sem.v || 0)), mes: Math.max(0, aura - (b.mes.v || 0)),
+               lsk: pick("sk", 9), lmc: pick("mc", 8), ltt: pick("tt", 17), lmp: pick("mp", 15) };
+    }
+
+    let user = null, ficha = null, ocupado = false, ultHash = "", ultT = 0;
+    async function publicar(forzar) {
+      if (!user || ocupado) return;
+      const m = leer("ig_nube_meta") || {};
+      if (m.uid !== user.uid) return;                 /* NUBE todavía no terminó de sincronizar */
+      ocupado = true;
+      try {
+        const ref = doc(db, "jugadores", user.uid);
+        if (!ficha) { const s = await getDoc(ref); if (!s.exists()) return; ficha = s.data(); }
+        const c = calcular(), aura = c.aura, h = new Date();   /* el Aura del ranking es el saldo: si gastas en la Tienda, baja */
+        const datos = { av: c.av, est: c.est, niv: c.niv, racha: c.racha, med: c.med, vis: activo(), sk: aSemana(h), mk: h.getFullYear() + "-" + (h.getMonth() + 1), aura, sem: c.sem, mes: c.mes,
+                        lsk: c.lsk, lmc: c.lmc, ltt: c.ltt, lmp: c.lmp };
+        const hs = JSON.stringify(datos);
+        if (!forzar && hs === ultHash && Date.now() - ultT < 240000) return;
+        let a = +ficha.aura || 0;
+        while (aura - a > 500) { a += 500; await updateDoc(ref, { aura: a, sem: Math.min(c.sem, a), mes: Math.min(c.mes, a) }); }   /* la regla permite +500 por escritura */
+        /* con el estado activo apagado NO se actualiza ni "ult" ni "act" (los amigos no ven cuándo juegas) */
+        await updateDoc(ref, activo() ? Object.assign({}, datos, { ult: serverTimestamp(), act: "Jugando" }) : datos);
+        ficha.aura = aura; ultHash = hs; ultT = Date.now(); estado(true);
+          try {   /* AURA GANADA para el ranking "Siempre" (campo ag). Sube como máximo TOPE_DIA por día; si ganaste más, se completa los días siguientes */
+            const TOPE_DIA = 5000, meta = Math.max(0, +((leer("ingles_gamer_aura") || {}).e) || 0), dd = Math.max(Math.floor(Date.now() / 864e5), +ficha.dd || 0);
+            let nAg, dg;
+            if (ficha.ag == null) { nAg = Math.min(meta, (+ficha.aura || 0) + TOPE_DIA); dg = 0; }
+            else { const dgHoy = ficha.dd === dd ? (+ficha.dg || 0) : 0; nAg = Math.max(+ficha.ag, Math.min(meta, +ficha.ag + TOPE_DIA - dgHoy)); dg = dgHoy + (nAg - ficha.ag); }
+            if (ficha.ag == null || nAg !== ficha.ag) { const u = { ag:nAg, dd, dg }; if (+ficha.tp1 > nAg) u.tp1 = nAg; if (+ficha.ls > nAg) u.ls = nAg; await updateDoc(ref, u); Object.assign(ficha, u); }
+          } catch (e3) { try { localStorage.setItem("ig_ficha_ag", String((e3 && e3.code) || e3)); } catch (x) {} }
+          try {   /* TEMPORADA 1: Aura ganada desde que empezó (campo aparte) */
+            const FIN_T = new Date(2026, 11, 1).getTime(), ag = Math.max(0, +((leer("ingles_gamer_aura") || {}).e) || 0), bt = leer("ingles_gamer_aura_temp") || {};
+            if (Date.now() < FIN_T) {
+              if (bt.tp1 == null) { bt.tp1 = ag; try { localStorage.setItem("ingles_gamer_aura_temp", JSON.stringify(bt)); } catch (x) {} }
+              const tp = Math.min(Math.max(0, ag - bt.tp1), ficha.ag == null ? 1e9 : +ficha.ag);
+              if (tp !== (+ficha.tp1 || 0)) { await updateDoc(ref, { tp1: tp }); ficha.tp1 = tp; }
+            }
+            /* LIGA SEMANAL: Aura ganada esta semana (ls) + grupo "semana|liga" (lgw). Al cambiar de semana se guarda la anterior en lsa/lgwa */
+            const sk0 = aSemana(new Date()); let bs = leer("ingles_gamer_aura_sem") || {};
+            if (bs.k !== sk0) { bs = { k:sk0, e:ag }; try { localStorage.setItem("ingles_gamer_aura_sem", JSON.stringify(bs)); } catch (x) {} }
+            const Lg = leer("ingles_gamer_liga") || { lg:0 }, lgw = sk0 + "|" + (+Lg.lg || 0), ls = Math.min(Math.max(0, ag - (+bs.e || 0)), ficha.ag == null ? 1e9 : +ficha.ag), up = {};
+            if (ficha.lgw && String(ficha.lgw).indexOf(sk0 + "|") !== 0 && ficha.lgwa !== ficha.lgw) { up.lsa = +ficha.ls || 0; up.lgwa = String(ficha.lgw); }
+            if (ls !== ficha.ls || lgw !== ficha.lgw) { up.ls = ls; up.lgw = lgw; }
+            if (Object.keys(up).length) { await updateDoc(ref, up); Object.assign(ficha, up); }
+          } catch (e2) { try { localStorage.setItem("ig_ficha_temp", String((e2 && e2.code) || e2)); } catch (x) {} }
+      } catch (e) { estado(false, e); } finally { ocupado = false; }
+    }
+    onAuthStateChanged(auth, u => { user = u; ficha = null; if (u) setTimeout(() => publicar(), 4000); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden) publicar(); else setTimeout(() => publicar(), 3000); });
+    setInterval(() => { if (!document.hidden) publicar(); }, 60000);
+    window.IGFicha = { publicar: () => publicar(true) };
+  } catch (e) { console.error("[ficha]", e); }
 })();
 </script>
 <!-- ===== FINAL CON LIGA SEMANAL (bloque igual en todas las pantallas que dan Aura) =====
