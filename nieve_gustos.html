@@ -25,7 +25,7 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Gustos y necesidades · InglésGamer</title>
+<title>Gustos · InglésGamer</title>
 <meta name="theme-color" content="#000000">
 <script>
 /* Paletas: las mismas del Inicio, Perfil y Ranking (se lee "ingles_gamer_tema") */
@@ -230,33 +230,80 @@ svg{display:block}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* ===== CONSTRUYE EL IGLÚ (frases con gustos y necesidades) ===== */
-.ig{position:relative;margin-top:8px;border-radius:24px;overflow:hidden;aspect-ratio:360/190;border:1px solid #2F5A75;background:linear-gradient(#061230,#163C6A 70%,#DCEBF7 70%,#B9D3E8)}
-.ig:before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle,#fff 0 1.6px,transparent 2.4px) 0 0/40px 40px,radial-gradient(circle,rgba(255,255,255,.7) 0 1.1px,transparent 1.8px) 18px 10px/26px 30px;animation:nieva 5s linear infinite}
-.ig .luna{position:absolute;right:7%;top:9%;width:7%;aspect-ratio:1;border-radius:50%;box-shadow:-6px 4px 0 0 #F4F4F5}
-.ig svg.iglu{position:absolute;left:50%;bottom:8%;width:58%;height:auto;transform:translateX(-50%);overflow:visible;z-index:2}
-.iglu .fi{opacity:.12}.iglu .fi.on{opacity:1}.iglu .fi.nuevo{animation:baja .5s cubic-bezier(.3,1.5,.5,1)}
-.iglu .pt{opacity:0}.ig.listo .iglu .pt{opacity:1;transition:opacity .4s .3s}
-.ig .pgi{position:absolute;bottom:7%;left:8%;width:15%;line-height:0;z-index:2;transition:left 1s ease}
-.ig .pgi svg{width:100%;height:auto}
-.ig.listo .pgi{left:42%;animation:hop .5s ease 1s 2}
-.ig .cont{position:absolute;left:3%;top:6%;z-index:4;padding:4px 10px;border-radius:99px;background:rgba(0,0,0,.45);font-size:11px;font-weight:900;color:#BDE8FF}
-.es{margin-top:12px;padding:12px 14px;border-radius:20px;border:1px solid #2F5A75;background:linear-gradient(160deg,#0E2433,var(--card));display:flex;align-items:center;gap:12px}
-.es .ob{flex:none;line-height:0}.es .t{flex:1;min-width:0}
-.es small{display:block;font-size:11px;font-weight:900;letter-spacing:.1em;color:var(--mu)}
-.es b{display:block;margin-top:2px;font-size:20px;font-weight:900;line-height:1.2}
-.res{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;min-height:62px;margin-top:12px;padding:8px;border-radius:18px;border:2px dashed #2F5A75}
-.res.ok{border:2px solid var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}.res.mal{border-color:var(--mal);animation:shk .35s}
-.res .vac{font-size:13px;font-weight:800;color:var(--mu)}
-.bloques{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
-.bl{min-width:54px;height:48px;padding:0 14px;border-radius:12px;border:1px solid #9CC8E8;background:linear-gradient(#FFFFFF,#D6ECFA);color:#0B2140;font:900 19px Nunito,sans-serif;cursor:pointer;touch-action:manipulation;box-shadow:0 4px 0 #7FA9C9;animation:entra .3s ease both}
-.bl:active:not(:disabled){transform:translateY(2px);box-shadow:0 2px 0 #7FA9C9}
-.bl.usado{visibility:hidden}
-.res .bl{animation:none}
-.dbts{display:flex;gap:10px;margin-top:14px}.dbts .lase{margin-top:0;flex:1}
-.lase:disabled{opacity:.4;cursor:default}
-.card2{margin-top:6px;animation:entra .35s ease}.card2.sale{animation:sale .25s ease forwards}
-@keyframes baja{0%{transform:translateY(-40px);opacity:0}100%{transform:none;opacity:1}}
+/* ===== GUSTOS · estilo minimalista con los colores de InglésGamer ===== */
+:root{--rojo:#FF4D4D;--oro:#FFC83D;--orod:#C9971E;--line2:#2A2A30}
+.u-body{padding:14px 2px 10px;animation:entra .3s ease}
+.u-t{margin:0 0 18px;font-size:21px;font-weight:900;line-height:1.25}
+.u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--oro)}
+.u-hab{display:flex;align-items:flex-end;gap:8px}
+.u-hab>svg{width:112px;height:auto;flex:none;overflow:visible}
+.u-glo{position:relative;margin-bottom:44px;padding:12px 14px;border:2px solid var(--line2);border-radius:16px;font-size:19px;font-weight:800;line-height:1.4}
+.u-glo:before{content:"";position:absolute;left:-10px;bottom:16px;width:16px;height:16px;background:var(--bg);border-left:2px solid var(--line2);border-bottom:2px solid var(--line2);transform:rotate(45deg)}
+.u-glo .ob{display:inline-block;vertical-align:middle;margin-left:4px;line-height:0}
+.u-au{display:inline-flex;vertical-align:middle;margin-right:6px;color:var(--oro);cursor:pointer;border:0;background:none;padding:0}
+.u-es{display:block;margin-top:4px;font-size:14px;font-weight:700;color:var(--mu)}
+/* palabras con traducción al tocarlas */
+.u-w{position:relative;cursor:pointer;border-bottom:2px dashed #4A4A54}
+.u-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);z-index:6;white-space:nowrap;padding:6px 10px;border-radius:10px;background:#F4F4F5;color:#111;font-size:14px;font-weight:900;box-shadow:0 6px 16px rgba(0,0,0,.4);animation:entra .15s ease}
+.u-tip:after{content:"";position:absolute;left:50%;top:100%;margin-left:-6px;border:6px solid transparent;border-top-color:#F4F4F5}
+.u-ops{display:grid;gap:10px;margin-top:20px}
+.u-o{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:16px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;text-align:left;cursor:pointer;touch-action:manipulation}
+.u-o:active{transform:translateY(2px);border-bottom-width:2px}
+.u-o kbd{flex:none;width:28px;height:28px;border:2px solid var(--line2);border-radius:8px;display:flex;align-items:center;justify-content:center;font:800 13px Nunito;color:var(--mu)}
+.u-o.sel,.u-card.sel,.u-par .u-ch.sel{border-color:var(--oro);background:rgba(255,200,61,.08);color:#FFE08A}
+.u-o.sel kbd{border-color:var(--oro);color:#FFE08A}
+.u-lin{min-height:120px;margin-top:20px;padding:6px 0;background:linear-gradient(transparent 58px,var(--line2) 58px,var(--line2) 60px,transparent 60px) 0 0/100% 62px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px}
+.u-ban{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px}
+.u-ch{display:inline-flex;align-items:center;gap:6px;height:50px;padding:0 16px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:14px;background:var(--bg);color:var(--ink);font:800 18px Nunito,sans-serif;cursor:pointer;touch-action:manipulation}
+.u-ch:active{transform:translateY(2px);border-bottom-width:2px}
+.u-ch.ida{background:#202026;border-color:#202026;color:transparent;pointer-events:none}.u-ch.ida svg{visibility:hidden}
+.u-lin .u-ch{margin-top:4px}
+.u-hueco{display:inline-block;min-width:96px;border-bottom:2px solid #4A4A54;text-align:center;color:#FFE08A}
+.u-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.u-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px 12px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:18px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;cursor:pointer}
+.u-card>svg{width:92px;height:auto;overflow:visible}.u-card small{font-size:12.5px;color:var(--mu);font-weight:700}
+.u-big{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:4px}
+.u-bigb{width:84px;height:84px;border-radius:20px;border:0;border-bottom:5px solid var(--orod);background:var(--oro);color:#2A1A00;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.u-bigb.lento{width:64px;height:64px}
+.u-bigb:active{transform:translateY(2px);border-bottom-width:3px}
+.u-ta{width:100%;min-height:110px;margin-top:20px;padding:14px;border:2px solid var(--line2);border-radius:16px;background:#141418;color:var(--ink);font:700 18px Nunito,sans-serif;resize:none;outline:none}
+.u-ta:focus{border-color:#4A4A54}
+.u-par{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.u-par .u-ch{width:100%;height:56px;justify-content:center}
+.u-par .u-ch.ok{border-color:var(--line2);color:#4A4A54;pointer-events:none}.u-par .u-ch.ok svg{opacity:.3}
+.u-par .u-ch.mal{border-color:var(--mal);color:#FF8A8A;animation:shk .3s}
+/* pie con Comprobar */
+.u-pie{position:sticky;bottom:0;z-index:4;margin:18px -16px 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom));border-top:2px solid var(--line2);background:var(--bg);transition:background .2s}
+.u-pie.ok{background:#0F2A1C;border-color:transparent}.u-pie.mal{background:#2A0F0F;border-color:transparent}
+.u-fb{display:none;align-items:center;gap:12px;margin-bottom:14px}
+.u-pie.ok .u-fb,.u-pie.mal .u-fb{display:flex}
+.u-fb .ic{flex:none;width:52px;height:52px;border-radius:50%;background:#F4F4F5;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.u-fb .ic svg{width:44px;height:auto}
+.u-fb b{display:block;font-size:20px;font-weight:900}.u-pie.ok .u-fb b{color:var(--ok)}.u-pie.mal .u-fb b{color:var(--mal)}
+.u-fb span span{display:block;font-size:15px;font-weight:700;margin-top:2px}.u-pie.ok .u-fb span span{color:#BFF3D6}.u-pie.mal .u-fb span span{color:#FFB0B0}
+.u-btn{width:100%;height:52px;border:0;border-bottom:4px solid var(--orod);border-radius:16px;background:var(--oro);color:#2A1A00;font:900 16px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
+.u-btn:disabled{background:#2A2A30;border-color:#2A2A30;color:#5A5A64;cursor:default}
+.u-pie.ok .u-btn{background:var(--ok);border-color:#3E9A68;color:#06210F}
+.u-pie.mal .u-btn{background:var(--mal);border-color:#C23A3A;color:#fff}
+.u-btn:active:not(:disabled){transform:translateY(2px);border-bottom-width:2px}
+/* animaciones de los personajes nuevos (de Acciones) */
+.gu,.gl{opacity:0}
+.kq{animation:kflota 1.6s ease-in-out infinite alternate}
+.cor{opacity:0;animation:ksube 2.4s linear infinite}
+.pulgar .mov{animation:salta 1s ease-in-out infinite alternate}.pulgar .rd{opacity:0}.pulgar .r1{animation:ua .8s step-end infinite}.pulgar .r2{animation:ub .8s step-end infinite}.pulgar .gu{animation:kwink 3s step-end infinite}
+.pienso .cab{animation:kladea 2s ease-in-out infinite alternate}.pienso .rd{opacity:0}.pienso .r1{animation:ua 1.2s step-end infinite}.pienso .r2{animation:ub 1.2s step-end infinite}
+.neg .cab{animation:knono .6s ease-in-out infinite}.neg .rd{opacity:0}.neg .r1{animation:ua .3s step-end infinite}.neg .r2{animation:ub .3s step-end infinite}
+.afirma .cab{animation:ksino .5s ease-in-out infinite}
+.hambre .mov{animation:sollozo 1s ease-in-out infinite}.hambre .rd{opacity:0}.hambre .r1{animation:ua .8s step-end infinite}.hambre .r2{animation:ub .8s step-end infinite}
+.amor .mov{animation:kbal 1.6s ease-in-out infinite alternate}.amor .rd{opacity:0}.amor .r1{animation:ua 1.2s step-end infinite}.amor .r2{animation:ub 1.2s step-end infinite}
+@keyframes kwink{0%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes kladea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+@keyframes kflota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+@keyframes knono{0%,100%{transform:translateX(0)}25%{transform:translateX(-.5px)}75%{transform:translateX(.5px)}}
+@keyframes ksino{0%,100%{transform:translateY(0)}50%{transform:translateY(.55px)}}
+@keyframes kbal{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
+@keyframes ksube{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.u-body svg *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -271,34 +318,40 @@ svg{display:block}
 </div>
 <script>
 /* =====================================================================
-   TUS DATOS · Nivel 5 de la Isla de Nieve: Gustos y necesidades (Construye el iglú)
+   TUS DATOS · Nivel 5 de la Isla de Nieve: Gustos (I like / I don't like)
+   Ejercicios cortos con el personaje (estilo minimalista).
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";
 const AURA_NIVEL = 25;
 const DIAGNOSTICO = true;
-/* Carpeta de tus mp3 (con "/" al final). Cada mp3 dice SOLO la palabra:
-   like.mp3, dont-like.mp3, love.mp3, want.mp3, need.mp3 */
-const AUDIO_CARPETA = "";
+const AUDIO_CARPETA = "";            // las frases las lee la voz del celular
 const AUDIO_DATA = {};
-const NIVEL = { id:"gustos", nombre:"Gustos y necesidades" };
-const TEMA = "GUSTOS", COLOR = "#FF9FB2";
+const NIVEL = { id:"gustos", nombre:"Gustos" };
+const TEMA = "GUSTOS", COLOR = "#FFC83D";
 const PALABRAS = [
-  { k:"like",       en:"I like",       es:"me gusta",     d:"corazon",  ej:"I *like* snow.",              ejEs:"Me gusta la nieve." },
-  { k:"love",       en:"I love",       es:"me encanta",   d:"corazones",ej:"I *love* hot chocolate.",     ejEs:"Me encanta el chocolate caliente." },
-  { k:"don't like", en:"I don't like", es:"no me gusta",  d:"roto",     ej:"I *don't like* ice.",         ejEs:"No me gusta el hielo." },
-  { k:"want",       en:"I want",       es:"quiero",       d:"regalo",   ej:"I *want* a hat.",             ejEs:"Quiero un gorro." },
-  { k:"need",       en:"I need",       es:"necesito",     d:"alerta",   ej:"I *need* a coat.",            ejEs:"Necesito un abrigo." }
+  { k:"like", en:"I like", es:"me gusta", audio:"like.mp3" },
+  { k:"dont", en:"I don't like", es:"no me gusta", audio:"dont-like.mp3" }
 ];
-PALABRAS.forEach(w => w.audio = w.k.replace("'", "").replace(/ /g, "-") + ".mp3");
-/* Las frases del juego (una por fila del iglú). ob = dibujo de la cosa */
-const FRASES = [
-  { en:"I need a coat",          es:"Necesito un abrigo.",                 ob:"coat" },
-  { en:"I like hot chocolate",   es:"Me gusta el chocolate caliente.",     ob:"taza" },
-  { en:"I don't like ice",       es:"No me gusta el hielo.",               ob:"hielo" },
-  { en:"I want a hat",           es:"Quiero un gorro.",                    ob:"hat" },
-  { en:"I love snow",            es:"Me encanta la nieve.",                ob:"muneco" },
-  { en:"I need gloves",          es:"Necesito guantes.",                   ob:"gloves" }
+/* Traducciones que salen al tocar una palabra */
+const TRAD = { "I":"yo", "like":"me gusta", "don't like":"no me gusta", "don't":"no", "pizza":"pizza", "coffee":"café", "dogs":"perros", "rain":"lluvia",
+  "homework":"tarea", "ice cream":"helado", "football":"fútbol", "likes":"le gusta" };
+/* El nivel, paso por paso.
+   habla = qué significa · completa = palabra que falta · quien = escucha y elige · traduce = arma la frase
+   escucha = escribe lo que oyes · parejas = une inglés-español
+   pj = personaje (hambre, neg, amor, pienso, afirma, pulgar) · ob = dibujo */
+const PLAN = [
+  { t:"habla",    pj:"hambre", ob:"pizza",  en:"I like pizza.",           ops:["Me gusta la pizza.", "No me gusta la pizza.", "Quiero una pizza."], nuevo:1 },
+  { t:"habla",    pj:"neg",    ob:"cafe",   en:"I don't like coffee.",    ops:["No me gusta el café.", "Me gusta el café.", "Tengo un café."], nuevo:1 },
+  { t:"completa", pj:"amor",   ob:"perro",  en:"I ___ dogs.",             es:"Me gustan los perros.", ok:"like", ops:["like", "don't like", "likes"] },
+  { t:"quien",                 ob:"lluvia", en:"I don't like rain.",      es:"No me gusta la lluvia.", ok:"dont" },
+  { t:"traduce",  pj:"pienso", ob:"tarea",  es:"No me gusta la tarea.",   en:"I don't like homework", extra:["likes", "pizza"] },
+  { t:"escucha",  pj:"afirma",              en:"I like ice cream.",       es:"Me gusta el helado." },
+  { t:"completa", pj:"neg",    ob:"lluvia", en:"I ___ rain.",             es:"No me gusta la lluvia.", ok:"don't like", ops:["like", "don't like", "likes"] },
+  { t:"quien",                 ob:"balon",  en:"I like football.",        es:"Me gusta el fútbol.", ok:"like" },
+  { t:"parejas",  pares:[["I like", "me gusta"], ["I don't like", "no me gusta"], ["rain", "la lluvia", "lluvia"], ["coffee", "el café", "cafe"], ["dogs", "los perros", "perro"]] },
+  { t:"traduce",  pj:"amor",   ob:"helado", es:"Me gusta el helado.",     en:"I like ice cream", extra:["don't", "coffee"] },
+  { t:"escucha",  pj:"pienso",              en:"I don't like coffee.",    es:"No me gusta el café." }
 ];
 
 /* =====================================================================
@@ -577,108 +630,159 @@ const Racha = (() => {
  };
 })();
 
-/* dibujos extra de este nivel (12x12) */
+/* ===== dibujos de las cosas (12x12) ===== */
 Object.assign(DIB, {
-  corazon:{p:{r:"#FF4D6D",w:"#FFFFFF",d:"#C22A48"},r:["............","..rr....rr..",".rwrr..rrrr.",".rwrrrrrrrd.",".rrrrrrrrrd.",".rrrrrrrrrd.","..rrrrrrrd..","...rrrrrd...","....rrrd....",".....rd.....","............","............"]},
-  corazones:{p:{r:"#FF4D6D",p:"#FF9FB2",y:"#FFD166"},r:["y.........y.","..rr.rr.....",".rrrrrrr....",".rrrrrrr.pp.","..rrrrr.pppp","...rrr..pppp","....r....pp.","..........p.","y...........","......y.....","............","............"]},
-  roto:{p:{g:"#8A8A96",d:"#55555F",k:"#15121C"},r:["............","..gg....gg..",".gggg..gggg.",".ggggkgggggd",".gggkggggggd",".ggggkgggggd","..gggkgggd..","...ggkggd...","....gkgd....",".....gd.....","............","............"]},
-  regalo:{p:{b:"#3FA9F5",d:"#2A78C0",y:"#FFD166"},r:["...yy..yy...","....yyyy....","bbbbbyybbbbb","bbbbbyybbbbb","............",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".bbbbyybbbb.",".ddddyydddd.","............","............"]},
-  alerta:{p:{o:"#FF8A3D",w:"#FFFFFF"},r:[".....oo.....","....oooo....","....owwo....","...oowwoo...","...oowwoo...","..ooowwooo..","..ooowwooo..",".oooooooooo.",".ooooowwoooo","oooooowwoooo","oooooooooooo","............"]},
-  taza:{p:{r:"#FF8A3D",w:"#F4F6FA",b:"#8A5A2A",g:"#C9D3E0"},r:["...r..r.....","..r..r......","...r..r.....","............",".wwwwwww....",".wbbbbbwww..",".wbbbbbw.w..",".wbbbbbw.w..",".wwwwwwwww..",".gwwwwwg....","..ggggg.....","............"]},
-  hielo:{p:{c:"#BDE8FF",w:"#FFFFFF",d:"#6FB0DF",b:"#3F86C4"},r:["............","..b.......b.","...cccccc...","..cwwccccc..","..cwcccccd..","..cccccccd..","..cccccccd..","..ccccwccd..","..cccccccd..","...ddddddd..",".b........b.","............"]}
+  pizza:{p:{y:"#FFC83D",o:"#C9822A",r:"#E5483C"},r:["............",".oooooooooo.",".yyryyyyryy.","..yyyyyyyy..","..yyyryyyy..","...yyyyyy...","...yyyryy...","....yyyy....","....yyyy....",".....yy.....","............","............"]},
+  lluvia:{p:{g:"#9AA6B5",b:"#5FB8FF",w:"#C9D3E0"},r:["............","....gggg....","..gggwwggg..",".gggggggggg.",".gggggggggg.","..gggggggg..","............","..b..b..b...",".b..b..b....","............","..b..b..b...","............"]},
+  perro:{p:{n:"#8A5A2A",w:"#F2E2C8",k:"#2B2B33",r:"#FF7A9A"},r:["............",".nn.....nn..",".nnwwwwwnn..","..wwkwwkw...","..wwwwwww...","..wwwkkww...","...wwrww....","..wwwwwww...",".wwwwwwwww..",".wwwwwwwwwn.",".ww.ww.ww...","............"]},
+  balon:{p:{k:"#2B2B33",w:"#F4F6FA"},r:["....kkkk....","..kwwwwwwk..",".kwwkkwwwwk.",".kwkkkkwwwk.","kwwkkkwwkkwk","kwwwwwwkkkwk","kwkkwwwwkwwk","kkkkkwwwwwwk",".kwkwwwkkwk.",".kwwwwkkkwk.","..kwwwwwwk..","....kkkk...."]},
+  helado:{p:{p:"#FF9FB2",w:"#FFFFFF",c:"#E8B04A",d:"#C9822A"},r:["....pppp....","...pppppp...","..pppwpppp..","..pppppppp..","..cccccccc..","...cdcdcd...","...dcdcdc...","....cdcd....","....dcdc....",".....cd.....",".....dc.....","............"]},
+  cafe:{p:{w:"#F4F6FA",b:"#3A2210",g:"#C9D3E0",s:"#B0B8C4"},r:["...s..s.....","..s..s......","...s..s.....","............",".wwwwwww....",".wbbbbbwww..",".wbbbbbw.w..",".wbbbbbw.w..",".wwwwwwwww..",".gwwwwwg....","..ggggg.....","............"]},
+  tarea:{p:{b:"#3FA9F5",w:"#F4F6FA",k:"#8A94A6",r:"#E5483C"},r:["............",".bbbbbbbbbb.",".bwwwwwwwwb.",".bwkkkkkkwb.",".bwwwwwwwwb.",".bwkkkkkwwb.",".bwwwwwwwwb.",".bwkkkkkkwb.",".bwwwwwwwrb.",".bbbbbbbbbb.","............","............"]}
 });
-const D_ = (n, s) => dib(n, 12).replace('width="12" height="12"', 'width="' + s + '" height="' + s + '"');
-const W_ = k => PALABRAS.find(w => w.k === k);
-const VERBOS = ["like", "love", "don't", "want", "need"];
+const OB = (n, s) => dib(n, 12).replace('width="12" height="12"', 'width="' + s + '" height="' + s + '"');
 
-/* ===== el iglú: 6 filas de bloques de hielo, se llena una por frase ===== */
-function igluSVG(n, nuevo) {
-  const filas = [[10, 150], [20, 140], [32, 128], [46, 114], [62, 98], [80, 80]];
-  let h = '<svg class="iglu" viewBox="0 0 180 112" aria-hidden="true">';
-  filas.forEach((f, i) => {
-    const y = 96 - i * 16, x0 = f[0], ancho = f[1] - f[0] + 20, nb = Math.max(2, Math.round(ancho / 22)), wb = ancho / nb, off = i % 2 ? wb / 2 : 0;
-    let b = "";
-    for (let j = 0; j < nb; j++) { const x = x0 + j * wb; b += '<rect x="' + (x + .8).toFixed(1) + '" y="' + y + '" width="' + (wb - 1.6).toFixed(1) + '" height="14.4" rx="3" fill="#F4FAFF" stroke="#9CC8E8" stroke-width="1.2"></rect>'; }
-    h += '<g class="fi' + (i < n ? " on" : "") + (i === nuevo ? " nuevo" : "") + '">' + b + '</g>';
-  });
-  h += '<g class="pt"><path d="M74 112v-22a16 16 0 0 1 32 0v22z" fill="#0B2140" stroke="#9CC8E8" stroke-width="1.5"></path></g>';
-  return h + '</svg>';
-}
-function escenaIglu(n, nuevo, listo) {
-  return '<div class="ig' + (listo ? " listo" : "") + '" id="ig" aria-hidden="true"><span class="luna"></span><span class="cont">' + n + ' / ' + FRASES.length + ' filas</span>' + igluSVG(n, nuevo) +
-    '<span class="pgi">' + D_("ping", 60) + '</span></div>';
-}
+/* ===== personajes nuevos (del archivo Acciones) ===== */
+Object.assign(PAL, { H:"#FF4D8D", R:"#E5322B", B:"#8B5A2B" });
+const interrog = '<g class="kq">' + rects([[-2,10,"y"],[-2,11,"y"],[-2,12,"y"],[-1,12,"y"],[0,11,"y"],[2,11,"y"]]) + '</g>';
+const corazon = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"H"],[y,x+2,"H"],[y+1,x,"H"],[y+1,x+1,"H"],[y+1,x+2,"H"],[y+2,x+1,"H"]]) + '</g>';
+const pizzaF = '<g class="kq">' + rects(solo(1, 1, 11, 15, "B").concat([[2,11,"y"],[2,12,"R"],[2,13,"y"],[2,14,"R"],[2,15,"y"],[3,12,"y"],[3,13,"y"],[3,14,"y"],[4,13,"y"]])) + '</g>';
+Object.assign(ACC, {
+  pulgar:{ id:"pulgar", mod:SONRISA, bo:[], gu:[[4,7,"e"],[4,8,"e"]], r1:arriba("R", 5).concat(solo(3, 4, 11, 11, "s")), r2:arriba("R", 5).concat(solo(2, 3, 11, 11, "s")), extra:"", fuera:chispa(11, -2, 0) + chispa(-1, 1, .5) },
+  pienso:{ id:"pienso", mod:[[6,5,6,"s"],[6,6,7,"m"]], bo:[], r1:solo(5, 6, 9, 10, "S").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g")), r2:solo(6, 7, 9, 10, "S").concat(solo(8, 8, 10, 11, "l")), extra:"", fuera:interrog },
+  neg:{ id:"neg", mod:[[3,3,8,"e"],[6,4,7,"m"]], bo:[], r1:arriba("R", 4), r2:lado(4), extra:"" },
+  afirma:{ id:"afirma", mod:SONRISA, bo:[], extra:"", fuera:chispa(11, -1, 0) },
+  hambre:{ id:"hambre", vb:"-1 -2 16 18.8", mod:[[6,4,7,"M"]], bo:[], r1:lado(6), r2:lado(5), extra:sudor([7,4], [8,4], 0), fuera:pizzaF },
+  amor:{ id:"amor", mod:[[4,3,4,"H"],[4,7,8,"H"],[5,2,3,"r"],[5,8,9,"r"],[6,4,7,"m"]], bo:[], r1:arriba("R", 4), r2:cara(), extra:"", fuera:corazon(10, 2, 0) + corazon(-1, 1, .8) + corazon(10, -2, 1.6) }
+});
+/* dibujar con guiño (gu) y mirada (gl) */
+function PJ(id) { const a = ACC[id]; let s = dibujar(a, "");
+  if (a.gu || a.gl) s = s.replace('<g class="bo">', '<g class="gu">' + rects(a.gu || []) + '</g><g class="gl">' + rects(a.gl || []) + '</g><g class="bo">');
+  return s; }
 
-/* ===== el juego: arma la frase en inglés con bloques de hielo ===== */
-let orden, pos, hechas, dudas, racha, vidas, bloq, F, puestos, fallo;
-function pintarVidas() { const e = $("vidas"); if (e) e.setAttribute("aria-label", vidas + " de 3 corazones"); }
-function empezar() {
-  orden = mezcla(FRASES.map((_, i) => i)); pos = 0; hechas = 0; dudas = {}; racha = 0; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar();
-}
-function palabras(f) { return f.en.split(" "); }
-function pintar(nuevo) {
-  bloq = false; fallo = false; F = FRASES[orden[pos]]; puestos = [];
-  const ps = palabras(F), verbo = ps.find(p => VERBOS.indexOf(p) > -1);
-  const otros = mezcla(VERBOS.filter(v => v !== verbo && ps.indexOf(v) < 0)).slice(0, 2);
-  F.bl = mezcla(ps.concat(otros)).map((t, i) => ({ t, i }));
-  setBarra(hechas / FRASES.length * 100);
-  $("v").innerHTML =
-    '<div class="hdr"><span class="chip">CONSTRUYE EL IGLÚ</span><span class="rc">' + (pos + 1) + ' / ' + FRASES.length + '</span></div>' +
-    '<div class="combo" aria-live="polite">' + (racha >= 2 ? sprite("llama", 18) + " Racha x" + racha : "") + '</div>' +
-    escenaIglu(hechas, nuevo, false) +
-    '<section class="card2" id="card"><div class="es"><span class="ob">' + D_(F.ob, 52) + '</span><span class="t"><small>DILO EN INGLÉS</small><b>' + esc(F.es) + '</b></span></div>' +
-    '<div class="res" id="res"></div><div class="bloques" id="bls">' + F.bl.map(b => '<button type="button" class="bl" data-i="' + b.i + '">' + esc(b.t) + '</button>').join("") + '</div>' +
-    '<div class="dbts"><button type="button" class="btnG" id="bBor">Borrar</button><button type="button" class="lase" id="bOk" disabled>Comprobar</button></div>' +
-    '<p class="msg" id="msg" aria-live="polite"></p></section>';
-  pintarVidas(); pintarRes();
-  document.querySelectorAll("#bls .bl").forEach(b => b.addEventListener("click", () => poner(+b.dataset.i)));
-  on("bBor", () => { if (bloq || !puestos.length) return; puestos.pop(); sonido("click"); pintarRes(); });
-  on("bOk", comprobar);
-  window.scrollTo(0, 0);
-}
-function pintarRes() {
-  const r = $("res"); if (!r) return;
-  r.innerHTML = puestos.length ? puestos.map((i, k) => '<button type="button" class="bl" data-k="' + k + '">' + esc(F.bl.find(b => b.i === i).t) + '</button>').join("") : '<span class="vac">Toca los bloques en orden</span>';
-  r.querySelectorAll(".bl").forEach(b => b.addEventListener("click", () => { if (bloq) return; puestos.splice(+b.dataset.k, 1); sonido("click"); pintarRes(); }));
-  document.querySelectorAll("#bls .bl").forEach(b => b.classList.toggle("usado", puestos.indexOf(+b.dataset.i) > -1));
-  const ok = $("bOk"); if (ok) ok.disabled = puestos.length < palabras(F).length;
-}
-function poner(i) { if (bloq || puestos.indexOf(i) > -1) return; puestos.push(i); sonido("click"); pintarRes(); }
-function perderVida() { vidas = Math.max(0, vidas - 1); Racha.error(); pintarVidas(); }
-function comprobar() {
-  if (bloq) return; const dicho = puestos.map(i => F.bl.find(b => b.i === i).t).join(" "), m = $("msg"), r = $("res");
-  if (dicho === F.en) {
-    bloq = true; hechas++; if (!fallo) racha = Racha.acierto(); sonido("ok", racha - 1);
-    r.classList.add("ok"); m.className = "msg ok"; m.textContent = "¡Bien! " + F.en + ".";
-    voz(F.en, .9); setBarra(hechas / FRASES.length * 100);
-    const ig = $("ig"); if (ig) ig.outerHTML = escenaIglu(hechas, hechas - 1, hechas >= FRASES.length);
-    setTimeout(siguiente, hechas >= FRASES.length ? 3000 : 2000); return;
+/* ===== utilidades ===== */
+const AU = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>';
+const AUG = AU.replace(/22/g, "40");
+const LENTO = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 13V9M12 13l3 2M9 2h6"></path></svg>';
+/* frase con palabras que se pueden tocar para ver la traducción */
+function frase(t) {
+  let out = "", r = t;
+  const claves = Object.keys(TRAD).sort((a, b) => b.length - a.length);
+  while (r.length) {
+    const k = claves.find(c => r.startsWith(c) && !/[a-z]/i.test(r.charAt(c.length) || " "));
+    if (k) { out += '<span class="u-w" data-t="' + esc(TRAD[k]) + '">' + esc(k) + '</span>'; r = r.slice(k.length); }
+    else { out += esc(r[0]); r = r.slice(1); }
   }
-  fallo = true; dudas[orden[pos]] = true; racha = 0; sonido("mal"); perderVida();
-  r.classList.remove("mal"); void r.offsetWidth; r.classList.add("mal");
-  m.className = "msg mal"; m.textContent = "Casi. Fíjate en el verbo y el orden.";
-  if (vidas <= 0) { bloq = true; m.textContent = "Era: " + F.en + "."; setTimeout(perdido, 1600); return; }
-  setTimeout(() => { if (!bloq) { puestos = []; r.classList.remove("mal"); pintarRes(); } }, 900);
+  return out;
 }
-function siguiente() {
-  const c = $("card"); if (c && !RM) c.classList.add("sale");
-  setTimeout(() => { pos++; if (pos >= FRASES.length) terminar(); else pintar(); }, RM ? 0 : 260);
+document.addEventListener("click", e => {
+  const w = e.target.closest(".u-w"); document.querySelectorAll(".u-tip").forEach(x => x.remove());
+  if (w) { w.insertAdjacentHTML("beforeend", '<span class="u-tip">' + esc(w.dataset.t) + '</span>'); voz(w.firstChild.textContent, .9); setTimeout(() => { const t = w.querySelector(".u-tip"); if (t) t.remove(); }, 1800); }
+});
+
+/* ===== motor: una pantalla por paso, con Comprobar abajo ===== */
+let pos, dudas, vidas, P, listo, revisar;
+function empezar() { pos = 0; dudas = {}; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
+function pantalla(cuerpo, rev) {
+  revisar = rev; setBarra(pos / PLAN.length * 100);
+  $("v").innerHTML = '<div class="u-body" id="ub">' + cuerpo + '</div>' +
+    '<div class="u-pie" id="pie"><div class="u-fb"><span class="ic" id="pieIc"></span><span><b id="pieB"></b><span id="pieT"></span></span></div><button type="button" class="u-btn" id="bChk" disabled>Comprobar</button></div>';
+  window.scrollTo(0, 0);
+  let fin = false;
+  on("bChk", () => {
+    if (fin) { siguiente(); return; }
+    const r = revisar(); if (!r) return; fin = true;
+    const pie = $("pie"); pie.className = "u-pie " + (r[0] ? "ok" : "mal");
+    $("pieIc").innerHTML = PJ(r[0] ? "pulgar" : "pienso");
+    $("pieB").textContent = r[0] ? ["¡Bien hecho!", "¡Excelente!", "¡Así se hace!"][pos % 3] : "Respuesta correcta:";
+    $("pieT").textContent = r[1];
+    $("bChk").textContent = r[0] ? "Continuar" : "Entendido";
+    document.querySelectorAll("#ub button, #ub textarea").forEach(x => x.disabled = true);
+    if (r[0]) { Racha.acierto(); sonido("ok", 0); } else { dudas[pos] = true; sonido("mal"); Racha.error(); vidas--; }
+    voz(r[2] || r[1], .9);
+    if (vidas <= 0) setTimeout(perdido, 1400);
+  });
 }
-const repaso = () => Object.keys(dudas).map(i => { const f = FRASES[i]; return '<div class="it"><span style="flex:none;line-height:0">' + D_(f.ob, 40) + '</span><span><b>' + esc(f.en) + '</b><br>' + esc(f.es) + '</span></div>'; }).join("");
-function perdido() { perder(hechas + "/" + FRASES.length, "filas del iglú", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
+listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") b.disabled = !v; };
+function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
+function pintar() { P = PLAN[pos]; ({ habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
+const enLimpio = t => t.replace(/[.!?]/g, "").trim();
+const espanol = t => t;
+
+/* 1 · el personaje habla: ¿qué significa? */
+function exHabla() { let sel = null; const ops = mezcla(P.ops);
+  pantalla((P.nuevo ? '<span class="u-nuevo">' + sprite("estrella", 14) + 'NUEVA FRASE</span>' : '') + '<p class="u-t">¿Qué significa esta frase?</p>' +
+    '<div class="u-hab">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button>' + frase(P.en) + '<span class="ob">' + OB(P.ob, 30) + '</span></div></div>' +
+    '<div class="u-ops">' + ops.map((o, i) => '<button type="button" class="u-o" data-o="' + esc(o) + '"><kbd>' + (i + 1) + '</kbd>' + esc(o) + '</button>').join("") + '</div>',
+    () => [sel === P.ops[0], P.ops[0], P.en]);
+  on("bAu", () => voz(P.en, .9)); setTimeout(() => voz(P.en, .9), 300);
+  document.querySelectorAll(".u-o").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".u-o").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; sonido("click"); listo(1); }));
+}
+/* 2 · completa la frase */
+function exCompleta() { let sel = null; const [a, b] = P.en.split("___");
+  pantalla('<p class="u-t">Completa la frase</p><div class="u-hab">' + PJ(P.pj) + '<div class="u-glo">' + frase(a) + '<span class="u-hueco" id="hu">&nbsp;</span>' + frase(b) + '<span class="ob">' + OB(P.ob, 30) + '</span><span class="u-es">' + esc(P.es) + '</span></div></div>' +
+    '<div class="u-ban">' + mezcla(P.ops).map(o => '<button type="button" class="u-ch" data-o="' + esc(o) + '">' + esc(o) + '</button>').join("") + '</div>',
+    () => [sel === P.ok, P.en.replace("___", P.ok) + " = " + P.es, P.en.replace("___", P.ok)]);
+  document.querySelectorAll(".u-ban .u-ch").forEach(x => x.addEventListener("click", () => { sel = x.dataset.o; $("hu").textContent = sel; voz(sel, .9); listo(1); }));
+}
+/* 3 · escucha y elige quién lo dice */
+function exQuien() { let sel = null;
+  const cards = mezcla([["pulgar", "like", "I like", "me gusta"], ["neg", "dont", "I don't like", "no me gusta"]]);
+  pantalla('<p class="u-t">Escucha: ¿qué dice?</p><div class="u-big"><button type="button" class="u-bigb" id="bAu" aria-label="Escuchar">' + AUG + '</button><span style="line-height:0">' + OB(P.ob, 64) + '</span></div>' +
+    '<div class="u-cards">' + cards.map(c => '<button type="button" class="u-card" data-o="' + c[1] + '">' + PJ(c[0]) + esc(c[2]) + '<small>' + c[3] + '</small></button>').join("") + '</div>',
+    () => [sel === P.ok, P.en + " = " + P.es, P.en]);
+  on("bAu", () => voz(P.en, .9)); setTimeout(() => voz(P.en, .9), 300);
+  document.querySelectorAll(".u-card").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".u-card").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; sonido("click"); listo(1); }));
+}
+/* 4 · traduce con palabras */
+function exTraduce() { let puestos = [];
+  const META = P.en, W = mezcla(META.replace("ice cream", "ice_cream").split(" ").map(w => w.replace("_", " ")).concat(P.extra));
+  pantalla('<p class="u-t">Escribe esto en inglés</p><div class="u-hab">' + PJ(P.pj) + '<div class="u-glo">' + esc(P.es) + '<span class="ob">' + OB(P.ob, 30) + '</span></div></div>' +
+    '<div class="u-lin" id="lin"></div><div class="u-ban" id="ban">' + W.map((w, i) => '<button type="button" class="u-ch" data-i="' + i + '">' + esc(w) + '</button>').join("") + '</div>',
+    () => [puestos.map(i => W[i]).join(" ") === META, META + ". = " + P.es, META + "."]);
+  const pint = () => { $("lin").innerHTML = puestos.map((i, q) => '<button type="button" class="u-ch" data-q="' + q + '">' + esc(W[i]) + '</button>').join("");
+    $("lin").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.splice(+b.dataset.q, 1); pint(); }));
+    $("ban").querySelectorAll(".u-ch").forEach(b => b.classList.toggle("ida", puestos.indexOf(+b.dataset.i) > -1)); listo(puestos.length); };
+  $("ban").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.push(+b.dataset.i); voz(b.textContent, 1); pint(); }));
+}
+/* 5 · escribe lo que escuchas (teclado del celular) */
+function exEscucha() {
+  pantalla('<p class="u-t">Escribe lo que escuchas</p><div class="u-hab" style="justify-content:center;gap:14px">' + PJ(P.pj) +
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:40px"><button type="button" class="u-bigb" id="bAu" aria-label="Escuchar">' + AUG + '</button><button type="button" class="u-bigb lento" id="bLe" aria-label="Escuchar lento">' + LENTO + '</button></div></div>' +
+    '<textarea class="u-ta" id="ta" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Escribe lo que escuchas"></textarea>',
+    () => { const v = $("ta").value.trim().toLowerCase().replace(/[.!?]/g, "").replace(/’/g, "'").replace(/\s+/g, " "); const m = enLimpio(P.en).toLowerCase(); return [v === m || v === m.replace("don't", "dont"), P.en + " = " + P.es, P.en]; });
+  on("bAu", () => voz(P.en, .9)); on("bLe", () => voz(P.en, .55)); setTimeout(() => voz(P.en, .9), 300);
+  $("ta").addEventListener("input", () => listo($("ta").value.trim()));
+}
+/* 6 · une las parejas */
+function exParejas() { let sel = null, n = 0;
+  const izq = mezcla(P.pares.map(p => p[0])), der = mezcla(P.pares.map(p => p[1])), icono = w => { const p = P.pares.find(x => x[0] === w); return p && p[2] ? OB(p[2], 24) : ""; };
+  pantalla('<p class="u-t">Toca las parejas</p><div class="u-par">' +
+    izq.map((w, i) => '<button type="button" class="u-ch" data-l="en" data-w="' + esc(w) + '" style="grid-column:1;grid-row:' + (i + 1) + '">' + icono(w) + esc(w) + '</button><button type="button" class="u-ch" data-l="es" data-w="' + esc(der[i]) + '" style="grid-column:2;grid-row:' + (i + 1) + '">' + esc(der[i]) + '</button>').join("") + '</div>',
+    () => [n === P.pares.length, "¡Todas las parejas!", "Great!"]);
+  document.querySelectorAll(".u-par .u-ch").forEach(b => b.addEventListener("click", () => {
+    if (b.dataset.l === "en") voz(b.dataset.w, .9);
+    if (!sel || sel.dataset.l === b.dataset.l) { if (sel) sel.classList.remove("sel"); sel = b; b.classList.add("sel"); return; }
+    const en = sel.dataset.l === "en" ? sel.dataset.w : b.dataset.w, es2 = sel.dataset.l === "es" ? sel.dataset.w : b.dataset.w;
+    if (P.pares.find(p => p[0] === en)[1] === es2) { [sel, b].forEach(x => { x.classList.remove("sel"); x.classList.add("ok"); }); n++; sonido("ok", n - 1); if (n === P.pares.length) { listo(1); $("bChk").click(); } }
+    else { const a = sel; [a, b].forEach(x => { x.classList.remove("sel"); x.classList.add("mal"); setTimeout(() => x.classList.remove("mal"), 400); }); sonido("mal"); dudas[pos] = true; }
+    sel = null;
+  }));
+}
+
+/* ===== final ===== */
+const textoDe = p => p.t === "parejas" ? "I like = me gusta · I don't like = no me gusta" : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
+const repaso = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB(p.ob, 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
+function perdido() { perder(pos + "/" + PLAN.length, "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
 function terminar() {
   const nd = Object.keys(dudas).length;
-  ganar(nd, FRASES.length, nd === 0 ? "¡Iglú perfecto!" : "¡Iglú construido!", "Ya sabes decir lo que te gusta y lo que necesitas.", "Repasa las frases difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+  ganar(nd, PLAN.length, nd === 0 ? "¡Perfecto!" : "¡Gustos aprendidos!", "Ya sabes decir lo que te gusta y lo que no.", "Repasa las frases difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
 }
 
-/* ===== arranque: aprende las 5, después construye el iglú ===== */
+/* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-function irPractica() {
-  pantallaIntro("¡Construye el iglú!", "Lee la frase en español y ármala en inglés tocando los bloques de hielo. Cada frase bien hecha es una fila del iglú.", "Empezar",
-    D_("ping", 120), empezar);
-}
-pantallaAprende(0, PALABRAS, w => D_(w.d, 150), irPractica);
+pantallaIntro("Gustos", "Aprende a decir lo que te gusta: <b>I like</b> (me gusta) y lo que no: <b>I don't like</b> (no me gusta).", "Empezar", PJ("pulgar"), empezar);
 
 </script>
 <script type="module">
