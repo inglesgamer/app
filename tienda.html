@@ -673,10 +673,15 @@ if (!ST || !Array.isArray(ST.own)) ST = { own: [], eq: {} };
 if (!ST.eq || typeof ST.eq !== "object") ST.eq = {};
 CATS.forEach(c => { if (!ST.eq[c.k] || !get(ST.eq[c.k])) ST.eq[c.k] = c.k + "0"; });
 ALL.forEach(it => { if (it.p === 0 && ST.own.indexOf(it.id) < 0) ST.own.push(it.id); });
-ST.own = ST.own.filter(id => get(id));
+ST.own = ST.own.filter((id, i, l) => typeof id === "string" && l.indexOf(id) === i);   /* NO borrar compras de otras pantallas (paletas del Inicio "tm…", premios del Pase): solo quita repetidos */
 let TAB = "av";
 const owns = id => ST.own.indexOf(id) > -1;
-function guardar() { guarda(K_TIENDA, ST); }
+const QUITAR = new Set();   /* compras que SÍ se deben quitar (p. ej. el exclusivo si no eres el creador) */
+function guardar() {   /* junta con lo guardado: nunca borra compras hechas en otras pantallas (paletas del Inicio, premios del Pase) */
+  const s = lee(K_TIENDA, null) || {}, viejo = Array.isArray(s.own) ? s.own : [];
+  ST.own = viejo.concat(ST.own).filter((id, i, l) => typeof id === "string" && l.indexOf(id) === i && !QUITAR.has(id));
+  guarda(K_TIENDA, Object.assign({}, s, ST));
+}
 const esUnico = it => it.base >= 1000;
 /* [nombre, fondo de la etiqueta, color del texto, color del confeti] */
 function rareza(p) {
@@ -828,7 +833,7 @@ function personajeDelPerfil() {
 }
 function refrescar() { /* al volver de otra pantalla se releen las compras, lo equipado y el personaje */
   const s = lee(K_TIENDA, null);
-  if (s && Array.isArray(s.own)) { ST.own = s.own.filter(id => get(id)); }
+  if (s && Array.isArray(s.own)) { ST.own = s.own.filter((id, i, l) => typeof id === "string" && l.indexOf(id) === i); }
   if (s && s.eq && typeof s.eq === "object") CATS.forEach(c => { if (s.eq[c.k] && get(s.eq[c.k])) ST.eq[c.k] = s.eq[c.k]; });
   if (personajeDelPerfil()) guardar();
   todo();
@@ -990,7 +995,7 @@ function sesionCreador(uid) {
   let cambio = false;
   if (ES_CREADOR) { if (ST.own.indexOf(EXCLUSIVO) < 0) { ST.own.push(EXCLUSIVO); cambio = true; } }
   else if (uid) {
-    if (ST.own.indexOf(EXCLUSIVO) > -1) { ST.own = ST.own.filter(x => x !== EXCLUSIVO); cambio = true; }
+    QUITAR.add(EXCLUSIVO); if (ST.own.indexOf(EXCLUSIVO) > -1) { ST.own = ST.own.filter(x => x !== EXCLUSIVO); cambio = true; }
     if (ST.eq.av === EXCLUSIVO) { ST.eq.av = "av0"; cambio = true; }
     const pf = lee(K_PERFIL, {}) || {}; if (pf.a === 9) { pf.a = 0; guarda(K_PERFIL, pf); }
   }
