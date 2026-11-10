@@ -436,21 +436,21 @@ svg{display:block}
 <script>
 /* =====================================================================
    TUS DATOS · Nivel 2 de la Isla de Nieve: Preposiciones (in, on, under, next to)
-   Modo aprender: cada preposición se enseña con el pingüino, un tip y ejemplos, y se practica enseguida.
+   Cada preposición se enseña con el pingüino, un tip y un ejemplo, y se practica enseguida.
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";            // ej. "go:nieve_repaso1"
 const AURA_NIVEL = 20;
 const DIAGNOSTICO = true;
-const APRENDE = true;                // true = sin corazones, los errores se repiten al final
+const APRENDE = false;               // false = con los 3 corazones (true = sin corazones y los errores se repiten al final)
 const AUDIO_CARPETA = "";            // cuando subas los audios: in.mp3, on.mp3, under.mp3, next-to.mp3; mientras tanto lee la voz del celular
 const AUDIO_DATA = {};
 const NIVEL = { id:"preposiciones", nombre:"Preposiciones" };
 const TEMA = "PREPOSICIONES", COLOR = "#3FD8C8";
 const PALABRAS = [];
 const LOS4 = [];
-/* El nivel, paso por paso (MODO APRENDER: se enseña de a poco; sin corazones; si fallas, la pregunta vuelve más adelante).
-   nueva = enseña una palabra: dibujo, traducción, tip, un ejemplo y "más ejemplos" (no se evalúa)
+/* El nivel, paso por paso (se enseña de a poco, con 3 corazones).
+   nueva = enseña una palabra: dibujo, traducción, tip y un ejemplo (no se evalúa; se puede agregar ejs:[["en","es"]] para más ejemplos)
    habla = qué significa · completa = palabra que falta · palabra = letras que faltan · traduce = arma la frase
    escucha = escribe lo que oyes · parejas = une · error = encuentra la palabra mala · sopa = mini sopa de letras
    relampago = ¿la frase coincide con el dibujo? (reto final)
@@ -458,18 +458,18 @@ const LOS4 = [];
    pj = personaje · ob = dibujo · es = traducción de la frase (sale al tocarla) */
 const PLAN = [
   { t:"nueva",    pj:"idea",     ob:"p_in",    en:"in",      es:"en / dentro de", tip:"Cuando algo está <b>adentro</b>.",
-    ej:"The penguin is in the box.", ejEs:"El pingüino está en la caja.", ejs:[["The cat is in the box.", "El gato está en la caja."], ["My socks are in my boots.", "Mis medias están en mis botas."]] },
+    ej:"The penguin is in the box.", ejEs:"El pingüino está en la caja." },
   { t:"habla",    pj:"afirma",   ob:"p_in",    en:"The penguin is in the box.", pista:["in", "en / dentro de"], ops:["El pingüino está en la caja.", "El pingüino está al lado de la caja.", "El pingüino tiene una caja."] },
   { t:"nueva",    pj:"sorpresa", ob:"p_on",    en:"on",      es:"encima de",      tip:"Cuando algo está <b>arriba</b>, tocando la otra cosa.",
-    ej:"The penguin is on the box.", ejEs:"El pingüino está encima de la caja.", ejs:[["The cat is on the bed.", "El gato está encima de la cama."], ["My hat is on the table.", "Mi gorro está encima de la mesa."]] },
+    ej:"The penguin is on the box.", ejEs:"El pingüino está encima de la caja." },
   { t:"completa", pj:"pienso",   ob:"p_on",    en:"The penguin is ___ the box.", es:"El pingüino está encima de la caja.", ok:"on", ops:["on", "in"], pista:["on", "encima de"], nota:"Está arriba → on" },
   { t:"completa", pj:"idea",     ob:"p_in",    en:"The penguin is ___ the box.", es:"El pingüino está en la caja.", ok:"in", ops:["in", "on"], nota:"Está adentro → in" },
   { t:"nueva",    pj:"pienso",   ob:"p_under", en:"under",   es:"debajo de",      tip:"Cuando algo está <b>abajo</b>.",
-    ej:"The penguin is under the table.", ejEs:"El pingüino está debajo de la mesa.", ejs:[["The dog is under the bed.", "El perro está debajo de la cama."], ["My boots are under the table.", "Mis botas están debajo de la mesa."]] },
+    ej:"The penguin is under the table.", ejEs:"El pingüino está debajo de la mesa." },
   { t:"completa", pj:"idea",     ob:"p_under", en:"The penguin is ___ the table.", es:"El pingüino está debajo de la mesa.", ok:"under", ops:["under", "on", "in"], pista:["under", "debajo de"], nota:"Está abajo → under" },
   { t:"palabra",  pj:"cool",     ob:"p_under", en:"under", es:"debajo de", faltan:[1, 3] },
   { t:"nueva",    pj:"amor",     ob:"p_next",  en:"next to", es:"al lado de",     tip:"Cuando algo está <b>al lado</b>, cerquita. Son dos palabras: <b>next to</b>.",
-    ej:"The penguin is next to the box.", ejEs:"El pingüino está al lado de la caja.", ejs:[["The cat is next to the dog.", "El gato está al lado del perro."], ["My coat is next to my scarf.", "Mi abrigo está al lado de mi bufanda."]] },
+    ej:"The penguin is next to the box.", ejEs:"El pingüino está al lado de la caja." },
   { t:"completa", pj:"afirma",   ob:"p_next",  en:"The penguin is ___ the box.", es:"El pingüino está al lado de la caja.", ok:"next to", ops:["next to", "in", "under"], pista:["next to", "al lado de"] },
   { t:"habla",    pj:"amor",     ob:["gato", "perro"], en:"The cat is next to the dog.", ops:["El gato está al lado del perro.", "El gato está encima del perro.", "El gato está debajo del perro."] },
   { t:"parejas",  pares:[["in", "en"], ["on", "encima de"], ["under", "debajo de"], ["next to", "al lado de"], ["box", "la caja", "caja"]] },
@@ -1071,7 +1071,7 @@ function terminar() {
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Preposiciones", "Vamos a aprender a decir d\u00f3nde est\u00e1n las cosas, con el ping\u00fcino y muchos ejemplos. Aqu\u00ed no pierdes corazones: si te equivocas, lo practicamos otra vez.", "Empezar", PJ("pienso"), empezar);
+pantallaIntro("Preposiciones", "Vamos a aprender a decir d\u00f3nde est\u00e1n las cosas, con el ping\u00fcino.", "Empezar", PJ("pienso"), empezar);
 
 </script>
 <script type="module">

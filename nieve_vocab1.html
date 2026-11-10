@@ -436,21 +436,21 @@ svg{display:block}
 <script>
 /* =====================================================================
    TUS DATOS · Nivel 1 de la Isla de Nieve: Vocabulario 1 (ropa para el frío)
-   Modo aprender: las prendas se enseñan de a una, con ejemplos, y se practican enseguida.
+   Las prendas se enseñan de a una, con un tip y un ejemplo, y se practican enseguida.
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";            // ej. "go:nieve_preposiciones" para ir directo al siguiente nivel
 const AURA_NIVEL = 20;
 const DIAGNOSTICO = true;
-const APRENDE = true;                // true = sin corazones, los errores se repiten al final
+const APRENDE = false;               // false = con los 3 corazones (true = sin corazones y los errores se repiten al final)
 const AUDIO_CARPETA = "";            // cuando subas los audios: carpeta con hat.mp3, scarf.mp3...; mientras tanto lee la voz del celular
 const AUDIO_DATA = {};
 const NIVEL = { id:"vocab1", nombre:"Vocabulario 1" };
 const TEMA = "ROPA PARA EL FRÍO", COLOR = "#5FA8E8";
 const PALABRAS = [];
 const LOS4 = [];
-/* El nivel, paso por paso (MODO APRENDER: se enseña de a poco; sin corazones; si fallas, la pregunta vuelve más adelante).
-   nueva = enseña una palabra: dibujo, traducción, tip, un ejemplo y "más ejemplos" (no se evalúa)
+/* El nivel, paso por paso (se enseña de a poco, con 3 corazones).
+   nueva = enseña una palabra: dibujo, traducción, tip y un ejemplo (no se evalúa; se puede agregar ejs:[["en","es"]] para más ejemplos)
    habla = qué significa · completa = palabra que falta · palabra = letras que faltan · traduce = arma la frase
    escucha = escribe lo que oyes · parejas = une · error = encuentra la palabra mala · sopa = mini sopa de letras
    relampago = ¿la frase coincide con el dibujo? (reto final)
@@ -458,28 +458,28 @@ const LOS4 = [];
    pj = personaje · ob = dibujo · es = traducción de la frase (sale al tocarla) */
 const PLAN = [
   { t:"nueva",    pj:"idea",     ob:"hat",     en:"hat",     es:"el gorro",    tip:"Para la cabeza cuando hace frío.",
-    ej:"I have a hat.", ejEs:"Tengo un gorro.", ejs:[["My hat is red.", "Mi gorro es rojo."], ["I like my hat.", "Me gusta mi gorro."]] },
+    ej:"I have a hat.", ejEs:"Tengo un gorro." },
   { t:"habla",    pj:"afirma",   ob:"hat",     en:"My hat is red.", pista:["hat", "gorro"], ops:["Mi gorro es rojo.", "Mi gorro es azul.", "Tengo un gorro."] },
   { t:"nueva",    pj:"cool",     ob:"scarf",   en:"scarf",   es:"la bufanda",  tip:"Va en el cuello.",
-    ej:"My scarf is blue.", ejEs:"Mi bufanda es azul.", ejs:[["I need my scarf.", "Necesito mi bufanda."], ["I have a hat and a scarf.", "Tengo un gorro y una bufanda."]] },
+    ej:"My scarf is blue.", ejEs:"Mi bufanda es azul." },
   { t:"completa", pj:"pienso",   ob:"scarf",   en:"I need my ___.", es:"Necesito mi bufanda.", ok:"scarf", ops:["scarf", "hat"], pista:["scarf", "bufanda"], nota:"scarf = bufanda" },
   { t:"nueva",    pj:"sorpresa", ob:"coat",    en:"coat",    es:"el abrigo",   tip:"Cuando hace mucho frío: <b>It is cold</b> (hace frío).",
-    ej:"It is cold. I need a coat.", ejEs:"Hace frío. Necesito un abrigo.", ejs:[["My coat is big.", "Mi abrigo es grande."], ["I have a black coat.", "Tengo un abrigo negro."]] },
+    ej:"It is cold. I need a coat.", ejEs:"Hace frío. Necesito un abrigo." },
   { t:"completa", pj:"idea",     ob:"coat",    en:"It is cold. I need a ___.", es:"Hace frío. Necesito un abrigo.", ok:"coat", ops:["coat", "scarf", "hat"], pista:["coat", "abrigo"] },
   { t:"nueva",    pj:"afirma",   ob:"gloves",  en:"gloves",  es:"los guantes", tip:"Para las manos. Casi siempre se dice en plural: <b>gloves</b>.",
-    ej:"I need my gloves.", ejEs:"Necesito mis guantes.", ejs:[["My gloves are black.", "Mis guantes son negros."], ["I have red gloves.", "Tengo guantes rojos."]] },
+    ej:"I need my gloves.", ejEs:"Necesito mis guantes." },
   { t:"palabra",  pj:"cool",     ob:"gloves",  en:"gloves", es:"los guantes", faltan:[1, 4] },
   { t:"parejas",  pares:[["hat", "gorro", "hat"], ["scarf", "bufanda", "scarf"], ["coat", "abrigo", "coat"], ["gloves", "guantes", "gloves"]] },
   { t:"nueva",    pj:"pulgar",   ob:"boots",   en:"boots",   es:"las botas",   tip:"Para los pies cuando hay nieve.",
-    ej:"My boots are big.", ejEs:"Mis botas son grandes.", ejs:[["I like my boots.", "Me gustan mis botas."], ["I need my boots.", "Necesito mis botas."]] },
+    ej:"My boots are big.", ejEs:"Mis botas son grandes." },
   { t:"nueva",    pj:"amor",     ob:"socks",   en:"socks",   es:"las medias",  tip:"Van dentro de las botas.",
-    ej:"I have blue socks.", ejEs:"Tengo medias azules.", ejs:[["My socks are white.", "Mis medias son blancas."], ["I need socks and boots.", "Necesito medias y botas."]] },
+    ej:"I have blue socks.", ejEs:"Tengo medias azules." },
   { t:"completa", pj:"sorpresa", ob:"boots",   en:"My ___ are big.", es:"Mis botas son grandes.", ok:"boots", ops:["boots", "socks", "hat"], pista:["boots", "botas"] },
   { t:"error",    pj:"sorpresa", ob:"socks",   malas:["I", "have", "blue", "boots."], mal:3, ok:"socks.", ops:["socks.", "coat.", "hats."], es:"Tengo medias azules.", en:"I have blue socks.", nota:"socks = medias · boots = botas" },
   { t:"nueva",    pj:"pulgar",   ob:"sweater", en:"sweater", es:"el suéter",   tip:"Es abrigado y se pone debajo del abrigo.",
-    ej:"I like my sweater.", ejEs:"Me gusta mi suéter.", ejs:[["My sweater is green.", "Mi suéter es verde."], ["I have a sweater and a coat.", "Tengo un suéter y un abrigo."]] },
+    ej:"I like my sweater.", ejEs:"Me gusta mi suéter." },
   { t:"nueva",    pj:"cool",     ob:"pants",   en:"pants",   es:"el pantalón", tip:"En inglés va en plural: <b>pants</b> (\"my pants are…\").",
-    ej:"My pants are black.", ejEs:"Mi pantalón es negro.", ejs:[["I need my pants.", "Necesito mi pantalón."], ["My pants are big.", "Mi pantalón es grande."]] },
+    ej:"My pants are black.", ejEs:"Mi pantalón es negro." },
   { t:"habla",    pj:"pulgar",   ob:"sweater", en:"I like my sweater.", ops:["Me gusta mi suéter.", "Me gusta mi abrigo.", "No me gusta mi suéter."] },
   { t:"traduce",  pj:"cool",     ob:"pants",   es:"Mi pantalón es negro.", en:"My pants are black", extra:["is", "hat"], nota:"pants va con are" },
   { t:"sopa",     pal:[["HAT", "gorro"], ["COAT", "abrigo"], ["SOCKS", "medias"], ["BOOTS", "botas"]] },
@@ -1063,7 +1063,7 @@ function terminar() {
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Vocabulario 1", "Vamos a aprender la ropa para el fr\u00edo, de a poquito y con ejemplos. Aqu\u00ed no pierdes corazones: si te equivocas, lo practicamos otra vez.", "Empezar", PJ("idea"), empezar);
+pantallaIntro("Vocabulario 1", "Vamos a aprender la ropa para el fr\u00edo, de a poquito y con ejemplos.", "Empezar", PJ("idea"), empezar);
 
 </script>
 <script type="module">
