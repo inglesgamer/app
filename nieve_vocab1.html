@@ -400,8 +400,8 @@ svg{display:block}
 .u-glo .ob{display:inline-flex!important;flex-direction:row;align-items:center;gap:4px;flex-wrap:nowrap}.u-glo .ob svg{display:block;flex:none}
 .u-fb{display:none;align-items:center;gap:12px;margin-bottom:14px}
 .u-pie.ok .u-fb,.u-pie.mal .u-fb{display:flex}
-.u-fb .ic{flex:none;width:52px;height:52px;border-radius:50%;background:var(--card);border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.u-fb .ic svg{width:44px;height:auto}
+.u-fb .ic{flex:none;width:64px;height:64px;border-radius:50%;background:var(--card);border:2px solid var(--bd);display:flex;align-items:flex-end;justify-content:center;overflow:visible}
+.u-fb .ic svg{width:58px;height:auto;margin-bottom:2px;overflow:visible}
 .u-fb b{display:block;font-size:20px;font-weight:900}.u-pie.ok .u-fb b{color:var(--ok)}.u-pie.mal .u-fb b{color:var(--mal)}
 .u-fb span span{display:block;font-size:15px;font-weight:700;margin-top:2px}.u-pie.ok .u-fb span span,.u-pie.mal .u-fb span span{color:var(--ink)}
 .u-btn{width:100%;height:52px;border:0;border-bottom:4px solid color-mix(in srgb,var(--hi) 55%,#777);border-radius:16px;background:var(--hi);color:var(--on-hi);font:900 16px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
@@ -862,7 +862,6 @@ function pantalla(cuerpo, rev) {
     if (fin || !revisar) { siguiente(); return; }
     const r = revisar(); if (!r) return; fin = true;
     const pie = $("pie"); pie.className = "u-pie " + (r[0] ? "ok" : "mal");
-    $("pieIc").innerHTML = PJ(r[0] ? "pulgar" : "pienso");
     reaccion(r[0]);
     $("pieB").textContent = r[0] ? ["¡Bien hecho!", "¡Excelente!", "¡Así se hace!"][pos % 3] : APRENDE ? "Casi. Así se dice:" : "Respuesta correcta:";
     if (!r[0] && APRENDE) $("pie").classList.add("repaso");
@@ -874,14 +873,13 @@ function pantalla(cuerpo, rev) {
     if (vidas <= 0) setTimeout(perdido, 1400);
   });
 }
-/* el personaje de la pantalla reacciona: salta con brillo verde si aciertas, se asusta con brillo rojo si fallas */
+/* el personaje de ABAJO (el del mensaje "¡Bien hecho!") reacciona: salta en verde si aciertas, se asusta en rojo si fallas.
+   El personaje de arriba se queda como está. */
 function reaccion(ok) {
-  const pj = document.querySelector("#ub .u-hab > svg, #ub .u-ejx > svg, #ub .u-nw svg.pjx");
-  if (!pj) return;
-  const OKS = ["baile", "pulgar", "cool", "afirma"], nuevo = ok ? OKS[pos % OKS.length] : "sorpresa";
-  const t = document.createElement("div"); t.innerHTML = PJ(ACC[nuevo] ? nuevo : (ok ? "pulgar" : "pienso"));
-  const n = t.firstElementChild; if (!n) return;
-  n.classList.add(ok ? "rx-ok" : "rx-mal"); pj.replaceWith(n);
+  const ic = $("pieIc"); if (!ic) return;
+  const OKS = ["baile", "pulgar", "cool", "afirma"], id = ok ? OKS[pos % OKS.length] : "sorpresa";
+  ic.innerHTML = PJ(ACC[id] ? id : (ok ? "pulgar" : "pienso"));
+  const n = ic.firstElementChild; if (n) n.classList.add(ok ? "rx-ok" : "rx-mal");
 }
 listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") b.disabled = !v; };
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
