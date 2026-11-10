@@ -389,6 +389,44 @@ nav a.on{color:var(--hi)}
 .ftj-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.25),rgba(0,0,0,.55) 55%,rgba(0,0,0,.75))}
 .fila.ftj .nombre,.fila.ftj .pos{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7)}.fila.ftj .rg{color:#E8E8EE}
 .fila.ftj .au{text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.tvol{position:relative;height:250px;border-radius:28px;overflow:hidden;background:linear-gradient(#2A0E08,#7A2A10 55%,#C85A1E);border:1px solid #8A3A18}
+.tv-mt{position:absolute;left:50%;bottom:0;width:250px;height:130px;margin-left:-125px;background:#2A1410;clip-path:polygon(0 100%,38% 12%,62% 12%,100% 100%)}
+.tv-cr{position:absolute;left:50%;bottom:114px;width:56px;height:18px;margin-left:-28px;border-radius:50%;background:#FFB627;box-shadow:0 0 30px 12px rgba(255,140,40,.8);animation:tvLat 1.6s ease-in-out infinite}
+@keyframes tvLat{50%{box-shadow:0 0 50px 22px rgba(255,140,40,.95)}}
+.tv-hu{position:absolute;left:50%;bottom:130px;width:110px;height:110px;margin-left:-55px;border-radius:50%;background:radial-gradient(circle,rgba(80,60,60,.7),transparent 65%);animation:tvHumo 4s ease-in-out infinite}
+@keyframes tvHumo{0%{transform:translateY(20px) scale(.6);opacity:0}40%{opacity:1}100%{transform:translateY(-90px) scale(1.4);opacity:0}}
+.tv-met{position:absolute;width:6px;height:6px;border-radius:50%;background:#FFE08A;box-shadow:0 0 10px 4px rgba(255,200,80,.8);animation:tvMet 2.4s linear infinite}
+.tv-met:after{content:"";position:absolute;right:3px;top:2px;width:60px;height:2px;background:linear-gradient(90deg,transparent,#FFD166);transform-origin:right;transform:rotate(-30deg)}
+@keyframes tvMet{0%{transform:translate(0,0);opacity:0}10%{opacity:1}100%{transform:translate(-260px,150px);opacity:0}}
+.tv-tx{position:absolute;left:0;right:0;top:14px;text-align:center}
+.tv-tx small{font-size:11px;font-weight:900;letter-spacing:.2em;color:#FFC977}.tv-tx b{display:block;font-family:Cinzel,Georgia,serif;font-size:30px;color:#FFF0D0;text-shadow:0 3px 0 #5A1A08}
+.tv-cd{display:flex;justify-content:center;gap:6px;margin-top:8px}.tv-cd div{min-width:50px;padding:6px 4px;border-radius:12px;background:rgba(0,0,0,.45);color:#FFE7C0;font-size:20px;font-weight:900;line-height:1}.tv-cd small{display:block;font-size:9.5px;letter-spacing:.12em;margin-top:3px;opacity:.8}
+.tv-fin{display:inline-block;margin-top:8px;padding:6px 12px;border-radius:99px;background:rgba(0,0,0,.45);color:#FFE7C0;font-weight:900}
+.tv-rx{position:absolute;bottom:4px;animation:tvCamina 9s linear infinite}.tv-rx svg{transform:scaleX(-1)}
+@keyframes tvCamina{from{left:-80px}to{left:110%}}
+.tpod{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:8px;margin-top:-70px;position:relative;padding:0 6px}
+.tpd{display:flex;flex-direction:column;align-items:center;min-width:0;cursor:pointer;animation:tpIn .5s ease both}.tpd.p1{animation-delay:.2s}.tpd.p3{animation-delay:.4s}
+@keyframes tpIn{from{opacity:0;transform:translateY(16px)}}
+.tp-cor{color:#FFC83D}.tpd .nombre{max-width:100%;font-size:14px;margin-top:5px}.tpd .au{font-size:14px}
+.tp-roca{width:100%;margin-top:8px;border-radius:18px 18px 8px 8px;display:flex;justify-content:center;padding-top:8px;font-size:30px;font-weight:900;color:#2A1408;background:linear-gradient(#B07A4A,#6B4022);box-shadow:inset 0 -6px 0 rgba(0,0,0,.25);height:56px}
+.tpd.p1 .tp-roca{height:96px;background:linear-gradient(#FFE08A,#C9952A)}.tpd.p2 .tp-roca{height:72px;background:linear-gradient(#E6EBF0,#9AA4B0)}
+.pz{padding:14px 12px}
+.pz-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 4px}.pz-h b{font-size:12px;letter-spacing:.14em;font-weight:900}.pz-h span{font-size:12px;font-weight:800;color:var(--mu)}
+.pz-3{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:8px;margin-top:12px}
+.pz-i{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 4px 10px;border-radius:20px;text-align:center;background:linear-gradient(180deg,color-mix(in srgb,var(--mc) 16%,transparent),transparent);border:1px solid color-mix(in srgb,var(--mc) 45%,var(--bd))}
+.pz1{--mc:#FFC83D;padding-top:18px}.pz2{--mc:#C9CED6}.pz3{--mc:#D08A4A}
+.pz-cor{position:absolute;top:-12px;color:#FFC83D}
+.pz-fr{position:relative;display:flex;align-items:flex-end;justify-content:center;width:var(--s);height:var(--s);border-radius:50%;padding:5px;background:conic-gradient(from 210deg,var(--m1),var(--m2),var(--m3),var(--m2),var(--m1));box-shadow:0 0 14px color-mix(in srgb,var(--m2) 50%,transparent)}
+.pz-in{display:flex;align-items:flex-end;justify-content:center;width:100%;height:100%;border-radius:50%;overflow:hidden;background:linear-gradient(#1E0B0E,#5A2A14)}
+.pz-dn{position:absolute;right:-8px;bottom:-4px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+.pz1 .pz-fr{animation:pzBr 2.4s ease-in-out infinite}@keyframes pzBr{50%{box-shadow:0 0 24px rgba(255,200,61,.85)}}
+.pz-p{margin-top:6px;font-size:18px;font-weight:900;color:var(--mc)}.pz-m{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu);text-transform:uppercase}
+.pz-t{font-size:12.5px;font-weight:900;line-height:1.2}
+.pz-10{display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;border-radius:16px;background:var(--chip)}
+.pz-ins{flex:none;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(#5A3A1E,#2A1A0C);border:1px solid #8A6A3A}
+.pz-10 b{display:block;font-size:12px;letter-spacing:.06em;color:var(--mu)}.pz-10 span{font-size:15px;font-weight:900}
+.pz-n{margin:10px 4px 0;font-size:12.5px;font-weight:700;color:var(--mu);line-height:1.4}
+@media (prefers-reduced-motion:reduce){.tv-hu,.tv-met,.tv-rx,.tv-cr,.pz1 .pz-fr{animation:none}}
 .rdots{display:flex;justify-content:center;gap:6px;margin-top:-4px}.rdots i{width:7px;height:7px;border-radius:99px;background:var(--bd);transition:width .25s}.rdots i.on{width:20px;background:var(--hi)}.rdots i.mio:not(.on){background:var(--mu)}
 </style>
 </head>
@@ -466,7 +504,13 @@ const RANGOS_REINO = [
 const METAS = [150, 250, 400, 600], DESC_LUNES = [80, 130, 210, 320, 400];
 const metaDe = st => METAS[reinoDe(st)] || 0, descDe = st => DESC_LUNES[reinoDe(st)] || 0;
 const PASO_MAX = (RANGOS_REINO.length - 1) * 3;   // 12 = Rey
-const PREMIOS_TEMP = [["1.º", "Marco «Rey Jurásico»"], ["Top 3", "Título «Leyenda T1»"], ["Top 10", "Insignia «Top 10 · T1»"]];
+/* Premios de la temporada: el top 3 recibe el MISMO premio en distinto metal (oro, plata, bronce), así cada puesto es exclusivo
+   y se nota quién fue 1.º, 2.º o 3.º. Del 4.º al 10.º: insignia. */
+const PREMIOS_TEMP = [
+  { p:"1.º", metal:"Oro", marco:"Marco Jurásico de Oro", titulo:"Rey Jurásico", c:["#FFF0A8", "#F2B526", "#8A5A00"], dino:"rex" },
+  { p:"2.º", metal:"Plata", marco:"Marco Jurásico de Plata", titulo:"Duque Jurásico", c:["#FFFFFF", "#B8C2CC", "#5A626E"], dino:"trice" },
+  { p:"3.º", metal:"Bronce", marco:"Marco Jurásico de Bronce", titulo:"Barón Jurásico", c:["#F2C49B", "#C9864A", "#5E2A10"], dino:"raptor" } ];
+const PREMIO_TOP10 = "Insignia Fósil T1";
 const NAV = [
   { nombre:"Inicio", url:"go:inicio", i:"home" }, { nombre:"Mapa", url:"go:MAPA", i:"map" }, { nombre:"Tienda", url:"go:tienda", i:"shop" },
   { nombre:"Ranking", url:"go:ranking", i:"cup", activo:true }, { nombre:"Perfil", url:"go:perfil", i:"user" }
@@ -503,6 +547,7 @@ const SPR = {
   av18:{"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
   av19:{"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]}
 };
+Object.assign(SPR,{"rex": {"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},"raptor": {"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},"trice": {"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]},"huevo": {"p": {"w": "#F5EFD8", "g": "#5DB33A"}, "r": ["...ww...", "..wwww..", ".wgwwgw.", ".wwwwww.", "wwwwgwww", "wgwwwwgw", ".wwwgww.", "..wwww.."]},"hueso": {"p": {"w": "#F5EFD8", "s": "#C9BFA0"}, "r": ["........", "ww....ww", "wwwwwwww", ".wwwwww.", "wwwwwwws", "ww....ww", "........", "........"]}});
 function sprite(n, s) {
   const d = SPR[n]; if (!d) return "";
   const h = d.r.length, w = d.r[0].length;
@@ -826,9 +871,7 @@ function vistaGlobal() {
   const hoy = m.hoy > 0 ? '<span class="hoy">' + ic("up", 16, 3) + '+' + m.hoy + ' hoy</span>' : "";
   const vacio = LISTA.length ? "" : '<div class="card vacio" style="margin:0"><b>' + (per === "tmp" ? "La temporada acaba de empezar" : "Aún no hay jugadores aquí") + '</b>Gana Aura jugando y aparecerás en esta lista.</div>';
   const dias = Math.ceil((TEMPORADA.fin - Date.now()) / 864e5), acabo = dias <= 0;
-  const banner = per !== "tmp" ? "" : '<div class="card tban"><div class="tb-t"><small>TEMPORADA ' + TEMPORADA.num + ' · ' + TEMPORADA.nombre.toUpperCase() + '</small><b>' + (acabo ? "¡Temporada terminada!" : "Ranking de la temporada") + '</b>' +
-    '<span class="tb-cd"><i></i>' + (acabo ? "Estos son los ganadores" : "Termina en " + dias + (dias === 1 ? " día" : " días")) + '</span></div>' +
-    '<div class="tb-pr">' + PREMIOS_TEMP.map(x => '<span><b>' + x[0] + '</b>' + x[1] + '</span>').join("") + '</div><p class="tb-n">Cuenta el Aura que ganas jugando desde que empezó la temporada.</p></div>';
+  const banner = "";   /* la Temporada tiene su propia vista (vistaTemporada) */
   const perBtns = '<div class="per" role="group" aria-label="Periodo">' + PER.map(p => '<button type="button" class="pc' + (per === p[0] ? " on" : "") + '" data-per="' + p[0] + '" aria-pressed="' + (per === p[0]) + '">' + p[1] + '</button>').join("") + '</div>';
   if (per === "liga") {
     const L = miLiga(), mia = ligaVista() === L.lg, lg = ligaVista(), n = LISTA.length;
@@ -839,11 +882,38 @@ function vistaGlobal() {
     return carruselRangos(L, m) + titulo + filas + vac + (mia ?
       '<div class="fila card yo ftj" style="--fbg:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).bg + ';--fgr:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).g + '"><i class="ftj-bg"></i><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>' : "");
   }
+  if (per === "tmp") return vistaTemporada(m, hoy);
   return banner +
     (per === "tot" ? '<div class="cats" role="group" aria-label="Récord">' + CATS.map(c => '<button type="button" class="pc' + (cat === c[0] ? " on" : "") + '" data-cat="' + c[0] + '">' + valHTML("", c[0]).replace("</span>", c[1] + "</span>") + '</button>').join("") + '</div>' : "") +
     (LISTA.length ? (per === "tot" ? '<div class="sal"><div class="sal-ray"></div><small class="sal-h">SALÓN DE LA FAMA</small><div class="podio">' + podio + '</div></div>' : '<div class="card podio">' + podio + '</div>') + resto : vacio) +
     '<div class="fila card yo"><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span>' +
     '</span><span class="der">' + valHTML(clavePer() === "est" ? m.estrellas : m[clavePer()], clavePer()) + (per === "tot" && cat !== "tot" ? "" : hoy) + '</span></div>';
+}
+/* TEMPORADA JURÁSICA (diseño J1): volcán con cuenta regresiva, top 3 sobre rocas, premios por metal y filas con fondo */
+function vistaTemporada(m, hoy) {
+  const ms = Math.max(0, TEMPORADA.fin - Date.now()), acabo = ms <= 0, dd = Math.floor(ms / 864e5), hh = Math.floor(ms % 864e5 / 36e5), mm = Math.floor(ms % 36e5 / 6e4);
+  const dos = n => (n < 10 ? "0" : "") + n;
+  const met = [[10, 0], [40, 1.1], [70, 1.8]].map(x => '<i class="tv-met" style="right:-' + (10 + x[0]) + 'px;top:' + x[0] + 'px;animation-delay:' + x[1] + 's"></i>').join("");
+  const vol = '<div class="tvol"><i class="tv-hu"></i><i class="tv-hu" style="animation-delay:2s"></i><i class="tv-mt"></i><i class="tv-cr"></i>' + met +
+    '<div class="tv-tx"><small>TEMPORADA ' + TEMPORADA.num + '</small><b>' + TEMPORADA.nombre.toUpperCase() + '</b>' +
+    (acabo ? '<span class="tv-fin">¡Temporada terminada!</span>' : '<div class="tv-cd"><div>' + dd + '<small>DÍAS</small></div><div>' + dos(hh) + '<small>HORAS</small></div><div>' + dos(mm) + '<small>MIN</small></div></div>') +
+    '</div><span class="tv-rx">' + sprite("rex", 44) + '</span></div>';
+  const RG = ["#FFC83D", "#C9CED6", "#D08A4A"], top = LISTA.slice(0, 3);
+  const pod = !LISTA.length ? '<div class="card vacio" style="margin:0"><b>' + (acabo ? "Nadie jugó esta temporada" : "La temporada acaba de empezar") + '</b>Gana Aura jugando y aparecerás aquí.</div>' :
+    '<div class="tpod">' + [[1, "p2", 62], [0, "p1", 80], [2, "p3", 62]].map(c => { const j = top[c[0]]; if (!j) return "<div></div>";
+      return '<div class="tpd ' + c[1] + '" data-ver="' + esc(j.uid) + '" role="button" tabindex="0">' + (c[0] === 0 ? '<span class="tp-cor">' + ic("crown", 24, 2) + '</span>' : '') +
+        lookMini(j.av, j, c[2], { ring:RG[c[0]], rw:c[0] ? 3 : 4 }) + '<span class="nombre">' + esc(j.n) + '</span>' + auraHTML(j.tmp) + '<div class="tp-roca">' + (c[0] + 1) + '</div></div>'; }).join("") + '</div>';
+  const look = miLook();
+  const marco = (x, s) => '<span class="pz-fr" style="--m1:' + x.c[0] + ';--m2:' + x.c[1] + ';--m3:' + x.c[2] + ';--s:' + s + 'px"><span class="pz-in">' + sprite("av" + m.av, Math.round(s * .55)) + '</span><span class="pz-dn">' + sprite(x.dino, Math.round(s * .36)) + '</span></span>';
+  const premios = '<div class="card pz"><div class="pz-h"><b>PREMIOS DE LA TEMPORADA</b><span>Se entregan el ' + TEMPORADA.fin.getDate() + ' de ' + ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"][TEMPORADA.fin.getMonth()] + '</span></div><div class="pz-3">' +
+    [1, 0, 2].map(i => { const x = PREMIOS_TEMP[i]; return '<div class="pz-i pz' + (i + 1) + '">' + (i === 0 ? '<span class="pz-cor">' + ic("crown", 18, 2.4) + '</span>' : '') + marco(x, i === 0 ? 70 : 56) +
+      '<span class="pz-p">' + x.p + '</span><span class="pz-m">' + x.metal + '</span><span class="pz-t">«' + x.titulo + '»</span></div>'; }).join("") + '</div>' +
+    '<div class="pz-10"><span class="pz-ins">' + sprite("hueso", 24) + '</span><span><b>Puestos 4.º al 10.º</b>' + PREMIO_TOP10 + '</span></div>' +
+    '<p class="pz-n">Solo hay un marco de cada metal: el de Oro es solo del 1.º. Cuenta el Aura que ganas desde que empezó la temporada.</p></div>';
+  const resto = LISTA.slice(3, TOP).map((j, i) => filaJugador(j, i + 4, j.tmp, "", 0)).join("");
+  const mp = LOOK_MP[look.lmp] || LOOK_MP[0];
+  const tu = '<div class="fila card yo ftj" style="--fbg:' + mp.bg + ';--fgr:' + mp.g + '"><i class="ftj-bg"></i><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, look, 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(look) + '</span></span><span class="der">' + auraHTML(m.tmp) + hoy + '</span></div>';
+  return vol + pod + premios + resto + tu;
 }
 function interruptor() {
   return '<div class="card sw"><span class="sw-tx"><b>Mostrar mi estado activo</b><small>Tus amigos ven cuándo estás jugando. Puedes apagarlo cuando quieras.</small></span>' +
