@@ -455,7 +455,7 @@ svg{display:block}
 </div>
 <script>
 /* =====================================================================
-   TUS DATOS · Nivel 8 de la Isla de Nieve: Futuro con WILL (will, won't, Will you...?, tomorrow)
+   TUS DATOS · Nivel 8 de la Isla de Nieve: Futuro con WILL afirmativo (will + acción, tomorrow)
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";            // ej. "go:nieve_situaciones"
@@ -468,11 +468,11 @@ const NIVEL = { id:"futuro", nombre:"Futuro (will)" };
 const TEMA = "FUTURO", COLOR = "#7C6CF2";
 const PALABRAS = [];
 const LOS4 = [];
-const GLOS = { "i":"yo", "will":"(futuro: -ré)", "won't":"no + futuro", "i will":"yo -ré", "i won't":"no -ré", "will you":"¿tú -rás?", "you":"tú", "sleep":"dormir",
+const GLOS = { "i":"yo", "will":"(futuro: -ré)", "i will":"yo -ré", "sleep":"dormir",
   "eat":"comer", "drink":"tomar", "play":"jugar", "tomorrow":"mañana", "pizza":"pizza", "bread":"pan", "milk":"leche", "tea":"té", "coffee":"café",
-  "wear":"ponerse / usar", "my":"mi", "coat":"abrigo", "the":"el / la", "cat":"gato", "on":"encima de", "bed":"cama", "be":"ser / estar",
-  "colder":"más frío", "because":"porque", "am":"estoy", "cold":"frío", "tired":"cansado", "not":"no", "yes":"sí" };
-/* El nivel, paso por paso (se enseña de a poco, con 3 corazones). Solo WILL (will, won't, Will you...?).
+  "wear":"ponerse / usar", "my":"mi", "coat":"abrigo", "the":"el / la", "cat":"gato", "on":"encima de", "bed":"cama",
+  "because":"porque", "am":"estoy", "cold":"frío", "tired":"cansado", "not":"no", "yes":"sí" };
+/* El nivel, paso por paso (se enseña de a poco, con 3 corazones). Solo WILL afirmativo (sin won't ni preguntas, sin will be).
    nueva = enseña una palabra: dibujo, traducción, tip y un ejemplo (no se evalúa)
    habla = qué significa (cada palabra con rayita) · completa = palabra que falta · palabra = letras que faltan
    traduce = arma la frase · escucha = escribe lo que oyes (frases cortas) · parejas = une · sopa = mini sopa · relampago = reto final
@@ -489,22 +489,19 @@ const PLAN = [
     ej:"I will play tomorrow.", ejEs:"Jugaré mañana." },
   { t:"completa", pj:"pienso",   ob:"f_balon",   en:"I will play ___.", es:"Jugaré mañana.", ok:"tomorrow", ops:["tomorrow", "than", "because"], pista:["tomorrow", "mañana"] },
   { t:"palabra",  pj:"cool",     ob:"f_sol",     en:"tomorrow", es:"mañana", faltan:[1, 5] },
-  { t:"nueva",    pj:"neg",      ob:"f_pan_no",  en:"won't", es:"no (en futuro)", tip:"<b>won't</b> = will not. I <b>won't</b> eat = <b>No</b> comeré.",
-    ej:"I won't eat bread.", ejEs:"No comeré pan." },
-  { t:"completa", pj:"cool",     ob:"f_cama_no", en:"I ___ sleep. I am not tired.", es:"No dormiré. No estoy cansado.", ok:"won't", ops:["won't", "will"], pista:["won't", "no + futuro"], nota:"No estoy cansado → won't sleep (repaso: tired = cansado)" },
-  { t:"habla",    pj:"neg",      ob:"f_leche_no", en:"I won't drink milk.", ops:["No tomaré leche.", "Tomaré leche.", "No tomo leche."] },
-  { t:"nueva",    pj:"pienso",   ob:"f_cafe",    en:"Will you...?", es:"¿Vas a...? / ¿...-rás?", tip:"Para preguntar, <b>will</b> va primero: <b>Will</b> you eat? Se responde: Yes, I will. / No, I won't.",
-    ej:"Will you drink coffee?", ejEs:"¿Tomarás café?" },
-  { t:"completa", pj:"afirma",   ob:"f_pizza",   en:"___ you eat pizza? Yes, I will.", es:"¿Comerás pizza? Sí.", ok:"Will", ops:["Will", "Are", "Won't"], nota:"La pregunta empieza con Will" },
-  { t:"parejas",  pares:[["will", "futuro (-ré)"], ["won't", "no + futuro"], ["tomorrow", "mañana"], ["sleep", "dormir"], ["eat", "comer"]] },
+  { t:"habla",    pj:"afirma",   ob:"f_leche",   en:"I will drink milk.", pista:["drink", "tomar"], ops:["Tomaré leche.", "Tomo leche.", "Tomé leche."] },
+  { t:"completa", pj:"hambre",   ob:"f_pan",     en:"I will ___ bread.", es:"Comeré pan.", ok:"eat", ops:["eat", "drink", "sleep"], nota:"eat = comer → will eat = comeré" },
+  { t:"completa", pj:"amor",     ob:"f_cafe",    en:"I will ___ coffee tomorrow.", es:"Tomaré café mañana.", ok:"drink", ops:["drink", "play", "sleep"], nota:"drink = tomar → will drink = tomaré" },
+  { t:"parejas",  pares:[["will", "futuro (-ré)"], ["tomorrow", "mañana"], ["sleep", "dormir"], ["eat", "comer"], ["drink", "tomar"]] },
+  { t:"traduce",  pj:"dormido",  ob:"f_dormir",  es:"Yo dormiré mañana.", en:"I will sleep tomorrow", extra:["am", "eat"], nota:"will + sleep + tomorrow" },
   { t:"habla",    pj:"pulgar",   ob:"f_abrigo",  en:"I will wear my coat tomorrow.", ops:["Me pondré mi abrigo mañana.", "Me pondré mi gorro mañana.", "Me puse mi abrigo ayer."] },
   { t:"completa", pj:"dormido",  ob:"f_gato_cama", en:"The cat will sleep ___ the bed.", es:"El gato dormirá encima de la cama.", ok:"on", ops:["on", "under", "than"], nota:"Repaso de Preposiciones: on = encima" },
   { t:"sopa",     pal:[["WILL", "futuro"], ["SLEEP", "dormir"], ["DRINK", "tomar"], ["EAT", "comer"]] },
-  { t:"traduce",  pj:"sorpresa", ob:"f_frio",    es:"Mañana hará más frío.", en:"Tomorrow will be colder", extra:["hotter", "won't"], nota:"Repaso de Comparativos: colder = más frío" },
+  { t:"traduce",  pj:"cool",     ob:"f_gorro",   es:"Me pondré mi gorro mañana.", en:"I will wear my hat tomorrow", extra:["coat", "on"], nota:"Repaso de Vocabulario 1: hat = gorro" },
   { t:"completa", pj:"amor",     ob:"f_te",      en:"I will drink tea ___ I am cold.", es:"Tomaré té porque tengo frío.", ok:"because", ops:["because", "but", "or"], nota:"Repaso de Conectores: because = porque" },
   { t:"escucha",  pj:"dormido",                  en:"I will sleep.", es:"Yo dormiré." },
   { t:"escucha",  pj:"hambre",                   en:"I will eat.", es:"Yo comeré." },
-  { t:"relampago", rondas:[["f_dormir", "I will sleep.", 1], ["f_pan_no", "I will eat bread.", 0], ["f_leche_no", "I won't drink milk.", 1], ["f_gato_cama", "The cat will sleep under the bed.", 0], ["f_abrigo", "I will wear my coat.", 1]] }
+  { t:"relampago", rondas:[["f_dormir", "I will sleep.", 1], ["f_leche", "I will eat pizza.", 0], ["f_balon", "I will play tomorrow.", 1], ["f_gato_cama", "The cat will sleep under the bed.", 0], ["f_abrigo", "I will wear my coat.", 1]] }
 ];
 
 /* =====================================================================
@@ -806,14 +803,13 @@ const ESC_D = {
   f_pizza:    { it:["→", ["pizza", 1]] },
   f_sol:      { it:["→", ["sol", 1]] },
   f_balon:    { it:["→", ["balon", 1]] },
-  f_pan_no:   { it:["→", ["pan", 1]], no:true },
-  f_cama_no:  { it:["→", ["cama", 1]], no:true },
-  f_leche_no: { it:["→", ["leche", 1]], no:true },
+  f_pan:      { it:["→", ["pan", 1]] },
+  f_leche:    { it:["→", ["leche", 1]] },
+  f_gorro:    { it:["→", ["hat", 1]] },
   f_cafe:     { it:["→", ["cafe", 1]] },
   f_te:       { it:["→", ["te", 1]] },
   f_abrigo:   { it:["→", ["coat", 1]] },
-  f_gato_cama:{ it:[["gato", .62], ["cama", 1]], col:true },
-  f_frio:     { it:["→", ["muneco", 1]] }
+  f_gato_cama:{ it:[["gato", .62], ["cama", 1]], col:true }
 };
 function escena(n, s) {
   const d = ESC_D[n], k = s < 32 ? 1.7 : 1;
@@ -1115,13 +1111,13 @@ function nombreRango() { let st = 0; try { const L = JSON.parse(localStorage.get
 const auraE = () => { try { return +(JSON.parse(localStorage.getItem("ingles_gamer_aura") || "{}").e) || 0; } catch (e) { return 0; } };
 function terminar() {
   const nd = Object.keys(dudas).length;
-  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Futuro aprendido!", "Ya sabes hablar del futuro: will, won't y Will you...?", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Futuro aprendido!", "Ya sabes decir lo que vas a hacer con will.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
 }
 
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Futuro", "Aprende a decir lo que vas a hacer: will, won't y tomorrow.", "Empezar", PJ("idea"), empezar);
+pantallaIntro("Futuro", "Aprende a decir lo que vas a hacer con will y tomorrow.", "Empezar", PJ("idea"), empezar);
 
 </script>
 <script type="module">
