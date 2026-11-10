@@ -465,14 +465,15 @@ const PALABRAS = [];
 const LOS4 = [];
 const GLOS = { "the":"el / la", "dog":"perro", "cat":"gato", "is":"es / está", "are":"son", "than":"que", "bigger":"más grande", "smaller":"más pequeño",
   "hotter":"más caliente", "colder":"más frío", "coffee":"café", "ice cream":"helado", "tea":"té", "milk":"leche", "my":"mi / mis", "boots":"botas", "socks":"medias",
-  "coat":"abrigo", "hat":"gorro", "it is":"es / está", "i like":"me gusta" };
+  "coat":"abrigo", "hat":"gorro", "sweater":"suéter", "like":"gusta", "because":"porque", "i":"yo", "it is":"es / está", "i like":"me gusta" };
 /* El nivel, paso por paso (se enseña de a poco, con 3 corazones).
    nueva = enseña una palabra: dibujo, traducción, tip y un ejemplo (no se evalúa)
    habla = qué significa (cada palabra con rayita: toca para ver su traducción) · completa = palabra que falta
    palabra = letras que faltan · traduce = arma la frase · escucha = escribe lo que oyes (frases cortas)
    parejas = une · error = encuentra la palabra mala · sopa = mini sopa de letras · relampago = reto final
    pista = ["palabra", "traducción"] arriba del ejercicio · nota = explicación al responder
-   ob = dibujo; los que empiezan por c_ son dos cosas comparadas (ver ESC_D) */
+   ob = dibujo; los que empiezan por c_ son dos cosas comparadas (ver ESC_D)
+   REGLA: ~30 % de los ejercicios repasan lo de niveles anteriores (ropa, preposiciones, gustos, conectores); el resto es lo nuevo. */
 const PLAN = [
   { t:"nueva",    pj:"idea",     ob:"c_perro_gato",  en:"bigger",  es:"más grande",  tip:"<b>big</b> (grande) → <b>bigger</b> (más grande). Sirve para comparar dos cosas.",
     ej:"The dog is bigger than the cat.", ejEs:"El perro es más grande que el gato." },
@@ -483,7 +484,7 @@ const PLAN = [
   { t:"completa", pj:"idea",     ob:"c_perro_gato",  en:"The dog is bigger ___ the cat.", es:"El perro es más grande que el gato.", ok:"than", ops:["than", "and", "but"], pista:["than", "que"], nota:"bigger than = más grande que" },
   { t:"nueva",    pj:"sorpresa", ob:"c_perro_gato",  en:"smaller", es:"más pequeño", tip:"<b>small</b> (pequeño) → <b>smaller</b> (más pequeño).",
     ej:"The cat is smaller than the dog.", ejEs:"El gato es más pequeño que el perro." },
-  { t:"completa", pj:"pienso",   ob:"c_perro_gato",  en:"The cat is ___ than the dog.", es:"El gato es más pequeño que el perro.", ok:"smaller", ops:["smaller", "bigger"], pista:["smaller", "más pequeño"], nota:"El gato es el pequeño → smaller" },
+  { t:"completa", pj:"pienso",   ob:"c_gorro_abrigo", en:"My hat is ___ than my coat.", es:"Mi gorro es más pequeño que mi abrigo.", ok:"smaller", ops:["smaller", "bigger"], pista:["smaller", "más pequeño"], nota:"El gorro es el pequeño → smaller (repaso: hat = gorro, coat = abrigo)" },
   { t:"palabra",  pj:"cool",     ob:"c_perro_gato",  en:"smaller", es:"más pequeño", faltan:[2, 5] },
   { t:"nueva",    pj:"amor",     ob:"c_cafe_helado", en:"hotter",  es:"más caliente", tip:"<b>hot</b> (caliente) → <b>hotter</b>. Ojo: se escriben dos <b>t</b>.",
     ej:"Coffee is hotter than ice cream.", ejEs:"El café es más caliente que el helado." },
@@ -494,11 +495,11 @@ const PLAN = [
   { t:"parejas",  pares:[["bigger", "más grande"], ["smaller", "más pequeño"], ["hotter", "más caliente"], ["colder", "más frío"], ["than", "que"]] },
   { t:"habla",    pj:"pulgar",   ob:"c_botas_medias", en:"My boots are bigger than my socks.", ops:["Mis botas son más grandes que mis medias.", "Mis medias son más grandes que mis botas.", "Mis botas son más pequeñas que mis medias."] },
   { t:"sopa",     pal:[["BIGGER", "más grande"], ["COLDER", "más frío"], ["HOTTER", "más caliente"], ["THAN", "que"]] },
-  { t:"traduce",  pj:"cool",     ob:"c_perro_gato",  es:"El perro es más grande que el gato.", en:"The dog is bigger than the cat", extra:["smaller", "a"] },
-  { t:"completa", pj:"amor",     ob:"c_te_leche",    en:"Tea is hotter ___ milk.", es:"El té es más caliente que la leche.", ok:"than", ops:["than", "and", "or"], nota:"Repaso: tea = té, milk = leche" },
+  { t:"traduce",  pj:"cool",     ob:"c_abrigo_sueter", es:"Mi abrigo es más grande que mi suéter.", en:"My coat is bigger than my sweater", extra:["smaller", "hat"], nota:"Repaso: coat = abrigo, sweater = suéter" },
+  { t:"completa", pj:"amor",     ob:"c_te_leche",    en:"I like tea ___ it is hotter than milk.", es:"Me gusta el té porque es más caliente que la leche.", ok:"because", ops:["because", "but", "or"], nota:"Repaso de Conectores: because = porque" },
   { t:"escucha",  pj:"pienso",                       en:"Bigger than the cat.", es:"Más grande que el gato." },
-  { t:"escucha",  pj:"afirma",                       en:"Colder than coffee.", es:"Más frío que el café." },
-  { t:"relampago", rondas:[["c_perro_gato", "The dog is bigger than the cat.", 1], ["c_cafe_helado", "Ice cream is hotter than coffee.", 0], ["c_helado_cafe", "Ice cream is colder than coffee.", 1], ["c_perro_gato", "The cat is bigger than the dog.", 0], ["c_botas_medias", "My boots are bigger than my socks.", 1]] }
+  { t:"escucha",  pj:"afirma",                       en:"Bigger than my hat.", es:"Más grande que mi gorro." },
+  { t:"relampago", rondas:[["c_perro_gato", "The dog is bigger than the cat.", 1], ["c_cafe_helado", "Ice cream is hotter than coffee.", 0], ["c_helado_cafe", "Ice cream is colder than coffee.", 1], ["c_gorro_abrigo", "My hat is bigger than my coat.", 0], ["c_botas_medias", "My boots are bigger than my socks.", 1]] }
 ];
 
 /* =====================================================================
@@ -801,7 +802,9 @@ const ESC_D = {
   c_helado_cafe: [["helado", 1], ["cafe", 1]],
   c_te_leche:    [["te", 1], ["leche", 1]],
   c_botas_medias:[["boots", 1.2], ["socks", .75]],
-  c_abrigo_gorro:[["coat", 1.25], ["hat", .7]]
+  c_abrigo_gorro:[["coat", 1.25], ["hat", .7]],
+  c_gorro_abrigo:[["hat", .7], ["coat", 1.25]],
+  c_abrigo_sueter:[["coat", 1.25], ["sweater", .8]]
 };
 function escena(n, s) {
   const k = s < 32 ? 1.7 : 1;
