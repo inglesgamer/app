@@ -349,6 +349,17 @@ nav a.on{color:var(--hi)}
 .rb-bar{height:10px;margin-top:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}.rb-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#FFB627,#FFE08A);transition:width .6s}
 .rb-fal.ok .rb-bar i{background:linear-gradient(90deg,#3FC46A,#B8F5C8)}.rb-fal.ok .rb-ft b{color:#B8F5C8}
 .rb-fal.top b{display:block;font-size:17px;color:#FFD166}
+.rcar{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 4px;scrollbar-width:none;overscroll-behavior-x:contain}
+.rcar::-webkit-scrollbar{display:none}
+.rcar .rc{flex:0 0 calc(100% - 26px);scroll-snap-align:center;cursor:pointer;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.rcar .rc.sel{box-shadow:0 0 0 2px #FFD166}
+.rcar .rc.lejos .escr{filter:grayscale(.55) brightness(.8) drop-shadow(0 6px 10px rgba(0,0,0,.55))}
+.rcar .rc .rb-fal{flex:1}
+.rc-div{font-size:12px;font-weight:900;letter-spacing:.2em;color:#E9DCC0}
+.rc-t{display:block;font-size:16px;font-weight:900;color:#FFD166}
+.rc-ver{align-self:flex-end;margin-top:10px;font-size:13px;font-weight:900;color:#FFF3D6}
+.rcar .rc.sel .rc-ver{color:#FFD166}
+.rdots{display:flex;justify-content:center;gap:6px;margin-top:-4px}.rdots i{width:7px;height:7px;border-radius:99px;background:var(--bd);transition:width .25s}.rdots i.on{width:20px;background:var(--hi)}.rdots i.mio:not(.on){background:var(--mu)}
 </style>
 </head>
 <body>
@@ -414,11 +425,13 @@ const REPORTE_URL = "";
 const TEMPORADA = { num:1, nombre:"Jurásica", campo:"tp1", fin:new Date(2026, 11, 1) };
 /* RANGOS DEL REINO (liga semanal): cada semana compites con los de tu mismo rango.
    Cada rango tiene 3 escalones (III → II → I), menos el Rey. Al empezar la semana nueva:
-   los SUBEN primeros suben un escalón y los BAJAN últimos (o quien no ganó Aura) bajan uno. */
+   los primeros de cada rango suben un escalón (Campesino: los 10 primeros; los demás: los 5 primeros)
+   y los BAJAN últimos (o quien no ganó Aura) bajan uno. */
 const RANGOS_REINO = [
   { n:"Campesino", m:"madera", g:"horca" }, { n:"Soldado", m:"cobre", g:"escudo" }, { n:"Caballero", m:"hierro", g:"espada" },
   { n:"Noble", m:"oro", g:"leon" }, { n:"Rey", m:"real", g:"corona", rey:true } ];
-const SUBEN = 5, BAJAN = 5;
+const SUBEN_RANGO = [10, 5, 5, 5, 5], BAJAN = 5;
+const subenDe = lg => SUBEN_RANGO[lg] || 5;
 const PASO_MAX = (RANGOS_REINO.length - 1) * 3;   // 12 = Rey
 const PREMIOS_TEMP = [["1.º", "Marco «Rey Jurásico»"], ["Top 3", "Título «Leyenda T1»"], ["Top 10", "Insignia «Top 10 · T1»"]];
 const NAV = [
@@ -567,13 +580,16 @@ function rel(uid) {
 const esAmigo = uid => rel(uid) === "amigo";
 
 let tLista = 0, tAmigos = 0;
+let verLg = null;   /* rango que estás mirando en la liga semanal (null = el tuyo) */
+const ligaVista = () => verLg === null ? miLiga().lg : verLg;
 async function cargarLista() {
   const col = collection(db, "jugadores");
   /* "Este mes" necesita un índice compuesto: mk (ascendente) + mes (descendente) */
-  const q = per === "liga" ? query(col, where("lgw", "==", SEM() + "|" + miLiga().lg), limit(60)) : per === "tmp" ? query(col, orderBy(TEMPORADA.campo, "desc"), limit(TOP)) : per === "mes" ? query(col, where("mk", "==", MES()), orderBy("mes", "desc"), limit(TOP)) : query(col, orderBy("ag", "desc"), limit(TOP));
+  const q = per === "liga" ? query(col, where("lgw", "==", SEM() + "|" + ligaVista()), limit(60)) : per === "tmp" ? query(col, orderBy(TEMPORADA.campo, "desc"), limit(TOP)) : per === "mes" ? query(col, where("mk", "==", MES()), orderBy("mes", "desc"), limit(TOP)) : query(col, orderBy("ag", "desc"), limit(TOP));
   const s = await getDocs(q);
   const l = []; s.forEach(d => l.push(norm(d.id, d.data())));
   LISTA = l.filter(j => per === "tot" || j[per] > 0).sort((a, b) => b[per] - a[per]);
+  if (per === "liga" && ligaVista() !== miLiga().lg) LISTA = LISTA.filter(j => j.uid !== ME.uid);
   const mio = yo()[per], i = LISTA.findIndex(j => j.uid === ME.uid);
   miPuesto = i >= 0 ? i + 1 : mio <= 0 ? "—" : TOP + "+";
   tLista = Date.now();
@@ -618,11 +634,12 @@ async function actualizarSilencioso() {
 /* ---- RANGOS DEL REINO ---- */
 /* cuánto te falta para entrar en la zona de ascenso (los SUBEN primeros de tu rango) */
 function cuantoFalta(L, m) {
+  const SUBEN = subenDe(L.lg);
   const mio = Math.max(0, +m.liga || 0), sig = L.st < PASO_MAX ? nombreRango(L.st + 1) : "";
   if (!sig) return '<div class="rb-fal top"><b>¡Eres Rey!</b><span>Estás en el rango más alto. Quédate fuera de los 5 últimos para mantener la corona.</span></div>';
   const otros = LISTA.filter(j => j.uid !== ME.uid).map(j => +j.liga || 0).sort((a, b) => b - a);
   const puesto = 1 + otros.filter(v => v > mio).length;
-  const corte = otros.length >= SUBEN ? otros[SUBEN - 1] : 0;   // puntos del 5.º (sin contarte a ti)
+  const corte = otros.length >= SUBEN ? otros[SUBEN - 1] : 0;   // puntos del último que sube (sin contarte a ti)
   const meta = Math.max(1, corte + 1), falta = Math.max(0, meta - mio), pct = Math.min(100, Math.round(mio / meta * 100));
   if (mio > 0 && puesto <= SUBEN) {
     const ventaja = otros.length >= SUBEN ? mio - corte : null;
@@ -653,7 +670,7 @@ async function revisarLiga() {
     a.forEach(d => { m[d.id] = +d.data().ls || 0; }); b.forEach(d => { m[d.id] = +d.data().lsa || 0; });
   } catch (e) { return; }
   const arr = Object.keys(m).map(u => ({ uid:u, ls:m[u] })).sort((x, y) => y.ls - x.ls);
-  const i = arr.findIndex(x => x.uid === ME.uid), n = arr.length, mi = arr[i];
+  const i = arr.findIndex(x => x.uid === ME.uid), n = arr.length, mi = arr[i], SUBEN = subenDe(L.lg);
   let st = L.st, res = "igual";
   if (mi && mi.ls > 0 && i < SUBEN && st < PASO_MAX) { st++; res = "sube"; }
   else if (st > 0 && (!mi || mi.ls <= 0 || (n >= SUBEN + BAJAN && i >= n - BAJAN))) { st--; res = "baja"; }
@@ -677,6 +694,26 @@ function escudoRango(st, s) {
     '<g stroke="' + (claro ? "#3A2400" : "#FFF4DE") + '" stroke-linecap="round" stroke-linejoin="round">' + GLIFO[r.g] + '</g>' + (r.rey ? '<circle cx="50" cy="83" r="4" fill="#E0213A" stroke="#7A0010" stroke-width="1.5"/>' : '') + '</svg>';
 }
 const pipsDiv = st => st >= PASO_MAX ? '<span class="rpips rey">RANGO MÁXIMO</span>' : '<span class="rpips">' + [0, 1, 2].map(i => '<i class="' + (i <= st % 3 ? "on" : "") + '"></i>').join("") + '</span>';
+/* CARRUSEL de rangos: tu tarjeta de rango y, deslizando, los demás rangos del reino. Al tocar uno se ve su liga. */
+function carruselRangos(L, m) {
+  const mio = L.lg, vista = ligaVista();
+  const cards = RANGOS_REINO.map((r, lg) => {
+    const sel = lg === vista ? " sel" : "";
+    if (lg === mio) return '<div class="card rban rc r' + lg + sel + '" data-lg="' + lg + '" role="button" tabindex="0"><div class="rb-row">' + escudoRango(L.st, 78) + '<div class="rb-tx"><small>TU RANGO ESTA SEMANA</small><b>' + nombreRango(L.st) + '</b>' + pipsDiv(L.st) +
+      '<span class="tb-cd"><i></i>Termina en ' + finSemana() + '</span></div></div>' + cuantoFalta(L, m) + (lg !== vista ? '<span class="rc-ver">Ver mi liga ›</span>' : '') + '</div>';
+    const st = lg * 3, arriba = lg > mio;
+    const estado = arriba ? (lg === mio + 1 ? "EL SIGUIENTE RANGO" : "MÁS ARRIBA") : "YA LO PASASTE";
+    return '<div class="card rban rc r' + lg + sel + (arriba ? " lejos" : "") + '" data-lg="' + lg + '" role="button" tabindex="0"><div class="rb-row">' + escudoRango(r.rey ? PASO_MAX : st, 78) + '<div class="rb-tx"><small>' + estado + '</small><b>' + r.n + '</b>' +
+      (r.rey ? '<span class="rpips rey">RANGO MÁXIMO</span>' : '<span class="rc-div">III · II · I</span>') + '</div></div>' +
+      '<div class="rb-fal"><b class="rc-t">' + (r.rey ? "La corona" : "Suben los " + subenDe(lg) + " primeros") + '</b><span>' + (r.rey ? "Solo los mejores llegan aquí. Los 5 últimos de la semana bajan a Noble." : "Cada semana los " + subenDe(lg) + " primeros suben un escalón" + (lg ? " y los 5 últimos bajan uno" : "") + ".") + '</span></div>' +
+      '<span class="rc-ver">' + (lg === vista ? "Viendo esta liga" : "Ver jugadores ›") + '</span></div>';
+  }).join("");
+  return '<div class="rcar" id="rcar">' + cards + '</div><div class="rdots">' + RANGOS_REINO.map((r, lg) => '<i class="' + (lg === vista ? "on" : "") + (lg === mio ? " mio" : "") + '"></i>').join("") + '</div>';
+}
+function centrarRango(suave) {
+  const c = $("rcar"); if (!c) return; const k = c.querySelector(".sel") || c.children[0];
+  c.scrollTo({ left:k.offsetLeft - c.offsetLeft - 16 + 8, behavior:suave ? "smooth" : "auto" });
+}
 /* aviso del lunes: si subiste, la CORONACIÓN; si bajaste o sigues igual, una ventana sencilla */
 function avisoLiga() {
   const L = miLiga(); if (!L.ant || L.ant.visto) return;
@@ -760,19 +797,18 @@ function vistaGlobal() {
     '<div class="tb-pr">' + PREMIOS_TEMP.map(x => '<span><b>' + x[0] + '</b>' + x[1] + '</span>').join("") + '</div><p class="tb-n">Cuenta el Aura que ganas jugando desde que empezó la temporada.</p></div>';
   const perBtns = '<div class="per" role="group" aria-label="Periodo">' + PER.map(p => '<button type="button" class="pc' + (per === p[0] ? " on" : "") + '" data-per="' + p[0] + '" aria-pressed="' + (per === p[0]) + '">' + p[1] + '</button>').join("") + '</div>';
   if (per === "liga") {
-    const L = miLiga(), n = LISTA.length, tope = L.st >= PASO_MAX;
-    const esc_ = '<div class="card rban r' + reinoDe(L.st) + '"><div class="rb-row">' + escudoRango(L.st, 78) + '<div class="rb-tx"><small>TU RANGO ESTA SEMANA</small><b>' + nombreRango(L.st) + '</b>' + pipsDiv(L.st) +
-      '<span class="tb-cd"><i></i>Termina en ' + finSemana() + '</span></div></div>' + cuantoFalta(L, m) + '</div>';
+    const L = miLiga(), mia = ligaVista() === L.lg, lg = ligaVista(), stV = mia ? L.st : lg * 3, n = LISTA.length, tope = stV >= PASO_MAX, SUBEN = subenDe(lg);
     let filas = "";
     LISTA.forEach((j, i) => {
       if (i === SUBEN && !tope) filas += '<div class="zsep up">▲ ZONA DE ASCENSO</div>';
-      if (L.st > 0 && n >= SUBEN + BAJAN && i === n - BAJAN) filas += '<div class="zsep dn">▼ ZONA DE DESCENSO</div>';
-      const z = i < SUBEN && !tope ? "up" : (L.st > 0 && n >= SUBEN + BAJAN && i >= n - BAJAN ? "dn" : "");
+      if (stV > 0 && n >= SUBEN + BAJAN && i === n - BAJAN) filas += '<div class="zsep dn">▼ ZONA DE DESCENSO</div>';
+      const z = i < SUBEN && !tope ? "up" : (stV > 0 && n >= SUBEN + BAJAN && i >= n - BAJAN ? "dn" : "");
       filas += filaJugador(j, i + 1, j.liga, z);
     });
-    const vac = n ? "" : '<div class="card vacio" style="margin:0"><b>Nadie más de tu rango ha jugado esta semana</b>Gana Aura jugando y serás el primero.</div>';
-    return esc_ + perBtns + filas + vac +
-      '<div class="fila card yo"><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>';
+    const vac = n ? "" : '<div class="card vacio" style="margin:0"><b>' + (mia ? "Nadie más de tu rango ha jugado esta semana" : "Nadie de " + RANGOS_REINO[lg].n + " ha jugado esta semana") + '</b>' + (mia ? "Gana Aura jugando y serás el primero." : "Cuando alguien de este rango gane Aura, aparecerá aquí.") + '</div>';
+    const titulo = '<div class="sec"><span>' + (mia ? "TU LIGA" : "LIGA " + RANGOS_REINO[lg].n.toUpperCase()) + '</span><b>' + (n ? n + (n === 1 ? " jugador" : " jugadores") : "") + '</b></div>';
+    return carruselRangos(L, m) + perBtns + titulo + filas + vac + (mia ?
+      '<div class="fila card yo"><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>' : "");
   }
   return banner + '<div class="per" role="group" aria-label="Periodo">' + PER.map(p => '<button type="button" class="pc' + (per === p[0] ? " on" : "") + '" data-per="' + p[0] + '" aria-pressed="' + (per === p[0]) + '">' + p[1] + '</button>').join("") + '</div>' +
     (LISTA.length ? '<div class="card podio">' + podio + '</div>' + resto : vacio) +
@@ -814,6 +850,7 @@ function pintar() {
   else if (error) c.innerHTML = '<div class="card vacio"><b>No se pudo cargar</b>Revisa tu internet e inténtalo otra vez. (' + esc(error) + ')<div style="margin-top:14px"><button type="button" class="btn" data-reintentar>Reintentar</button></div></div>';
   else c.innerHTML = tab === "global" ? vistaGlobal() : tab === "amigos" ? vistaAmigos() : vistaSolicitudes();
   c.scrollTop = y;
+  if (tab === "global" && per === "liga") centrarRango(false);
 }
 
 /* ================= AGREGAR AMIGO ================= */
@@ -959,6 +996,13 @@ document.addEventListener("click", async e => {
   if ((el = t.closest("[data-acc]"))) { accion(el.dataset.acc, el.dataset.u); return; }
   if ((el = t.closest("[data-ver]"))) { verJugador(el.dataset.ver); return; }
   if ((el = t.closest("[data-tab]"))) { tab = el.dataset.tab; pintar(); $("cont").scrollTop = 0; actualizarSilencioso(); return; }
+  if ((el = t.closest("[data-lg]"))) {
+    const lg = +el.dataset.lg, nuevo = lg === miLiga().lg ? null : lg;
+    if (nuevo === verLg) return;
+    verLg = nuevo; cargando = false;
+    const c = $("cont"); c.querySelectorAll(".rc").forEach(x => x.classList.toggle("sel", +x.dataset.lg === lg));
+    try { await cargarLista(); } catch (er) {} pintar(); centrarRango(true); return;
+  }
   if ((el = t.closest("[data-per]"))) { per = el.dataset.per; try { await cargarLista(); } catch (er) {} pintar(); return; }
   if (t.closest("[data-reintentar]")) { iniciar(); return; }
   if ((el = t.closest("[data-abrir]"))) { abrir(el.dataset.abrir); return; }
