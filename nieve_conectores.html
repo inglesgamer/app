@@ -231,86 +231,123 @@ svg{display:block}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ===== GUSTOS · estilo minimalista con los colores de InglésGamer ===== */
-:root{--rojo:#FF4D4D;--oro:#FFC83D;--orod:#C9971E;--line2:#2A2A30}
+:root{--line2:var(--bd)}
 .u-body{padding:14px 2px 10px;animation:entra .3s ease}
 .u-t{margin:0 0 18px;font-size:21px;font-weight:900;line-height:1.25}
-.u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--oro)}
+.u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
 .u-hab{display:flex;align-items:flex-end;gap:8px}
 .u-hab>svg{width:112px;height:auto;flex:none;overflow:visible}
 .u-glo{position:relative;margin-bottom:44px;padding:12px 14px;border:2px solid var(--line2);border-radius:16px;font-size:19px;font-weight:800;line-height:1.4}
 .u-glo:before{content:"";position:absolute;left:-10px;bottom:16px;width:16px;height:16px;background:var(--bg);border-left:2px solid var(--line2);border-bottom:2px solid var(--line2);transform:rotate(45deg)}
 .u-glo .ob{display:inline-block;vertical-align:middle;margin-left:4px;line-height:0}
-.u-au{display:inline-flex;vertical-align:middle;margin-right:6px;color:var(--oro);cursor:pointer;border:0;background:none;padding:0}
+.u-au{display:inline-flex;vertical-align:middle;margin-right:6px;color:var(--gold);cursor:pointer;border:0;background:none;padding:0}
 .u-es{display:block;margin-top:4px;font-size:14px;font-weight:700;color:var(--mu)}
 /* palabras con traducción al tocarlas */
-.u-w{position:relative;cursor:pointer;border-bottom:2px dashed #4A4A54}
-.u-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);z-index:6;white-space:nowrap;padding:6px 10px;border-radius:10px;background:#F4F4F5;color:#111;font-size:14px;font-weight:900;box-shadow:0 6px 16px rgba(0,0,0,.4);animation:entra .15s ease}
-.u-tip:after{content:"";position:absolute;left:50%;top:100%;margin-left:-6px;border:6px solid transparent;border-top-color:#F4F4F5}
+.u-w{position:relative;cursor:pointer;border-bottom:2px dashed var(--toff)}
+.u-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);z-index:6;white-space:nowrap;padding:6px 10px;border-radius:10px;background:var(--ink);color:var(--bg);font-size:14px;font-weight:900;box-shadow:0 6px 16px rgba(0,0,0,.4);animation:entra .15s ease}
+.u-tip:after{content:"";position:absolute;left:50%;top:100%;margin-left:-6px;border:6px solid transparent;border-top-color:var(--ink)}
 .u-ops{display:grid;gap:10px;margin-top:20px}
 .u-o{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:16px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;text-align:left;cursor:pointer;touch-action:manipulation}
 .u-o:active{transform:translateY(2px);border-bottom-width:2px}
 .u-o kbd{flex:none;width:28px;height:28px;border:2px solid var(--line2);border-radius:8px;display:flex;align-items:center;justify-content:center;font:800 13px Nunito;color:var(--mu)}
-.u-o.sel,.u-card.sel,.u-par .u-ch.sel{border-color:var(--oro);background:rgba(255,200,61,.08);color:#FFE08A}
-.u-o.sel kbd{border-color:var(--oro);color:#FFE08A}
+.u-o.sel,.u-card.sel,.u-par .u-ch.sel{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,transparent);color:var(--gold)}
+.u-o.sel kbd{border-color:var(--gold);color:var(--gold)}
 .u-lin{min-height:120px;margin-top:20px;padding:6px 0;background:linear-gradient(transparent 58px,var(--line2) 58px,var(--line2) 60px,transparent 60px) 0 0/100% 62px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px}
 .u-ban{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px}
 .u-ch{display:inline-flex;align-items:center;gap:6px;height:50px;padding:0 16px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:14px;background:var(--bg);color:var(--ink);font:800 18px Nunito,sans-serif;cursor:pointer;touch-action:manipulation}
 .u-ch:active{transform:translateY(2px);border-bottom-width:2px}
-.u-ch.ida{background:#202026;border-color:#202026;color:transparent;pointer-events:none}.u-ch.ida svg{visibility:hidden}
+.u-ch.ida{background:var(--chip);border-color:var(--chip);color:transparent;pointer-events:none}.u-ch.ida svg{visibility:hidden}
 .u-lin .u-ch{margin-top:4px}
-.u-hueco{display:inline-block;min-width:96px;border-bottom:2px solid #4A4A54;text-align:center;color:#FFE08A}
+.u-hueco{display:inline-block;min-width:96px;border-bottom:2px solid var(--toff);text-align:center;color:var(--gold)}
 .u-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
 .u-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px 12px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:18px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;cursor:pointer}
 .u-card>svg{width:92px;height:auto;overflow:visible}.u-card small{font-size:12.5px;color:var(--mu);font-weight:700}
 .u-big{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:4px}
-.u-bigb{width:84px;height:84px;border-radius:20px;border:0;border-bottom:5px solid var(--orod);background:var(--oro);color:#2A1A00;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.u-bigb{width:84px;height:84px;border-radius:20px;border:0;border-bottom:5px solid color-mix(in srgb,var(--hi) 55%,#777);background:var(--hi);color:var(--on-hi);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .u-bigb.lento{width:64px;height:64px}
 .u-bigb:active{transform:translateY(2px);border-bottom-width:3px}
-.u-ta{width:100%;min-height:110px;margin-top:20px;padding:14px;border:2px solid var(--line2);border-radius:16px;background:#141418;color:var(--ink);font:700 18px Nunito,sans-serif;resize:none;outline:none}
-.u-ta:focus{border-color:#4A4A54}
+.u-ta{width:100%;min-height:110px;margin-top:20px;padding:14px;border:2px solid var(--line2);border-radius:16px;background:var(--card);color:var(--ink);font:700 18px Nunito,sans-serif;resize:none;outline:none}
+.u-ta:focus{border-color:var(--toff)}
 .u-par{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
 .u-par .u-ch{width:100%;height:56px;justify-content:center}
-.u-par .u-ch.ok{border-color:var(--line2);color:#4A4A54;pointer-events:none}.u-par .u-ch.ok svg{opacity:.3}
-.u-par .u-ch.mal{border-color:var(--mal);color:#FF8A8A;animation:shk .3s}
-/* encuentra el error */
-.u-ch.malw{border-color:var(--mal)!important;color:#FF8A8A!important;background:#2A0F0F!important}
-.u-ch.fix{border-color:var(--ok)!important;color:var(--ok)!important;background:#0F2A1C!important}
-.u-ch.sel{border-color:var(--oro);background:rgba(255,200,61,.08);color:#FFE08A}
-.u-paso{display:none;margin-top:18px;padding-top:14px;border-top:2px dashed var(--line2)}.u-paso.on{display:block}
-.u-paso p{margin:0 0 10px;font-weight:800;color:var(--mu);text-align:center}
-/* ordena la conversación */
-.u-conv{display:flex;flex-direction:column;gap:10px;min-height:180px;padding:12px;border-radius:20px;background:#141418}
-.u-conv .fila{display:flex;align-items:flex-end;gap:8px;animation:entra .25s ease}
-.u-conv .fila.yo{flex-direction:row-reverse}
-.u-conv .fila>svg{width:42px;height:auto;flex:none;overflow:visible}
-.u-conv .bb{max-width:74%;padding:9px 12px;border-radius:16px;font-size:16px;font-weight:800;line-height:1.35}
-.u-conv .fila.el .bb{background:#23232A;border-bottom-left-radius:4px}.u-conv .fila.yo .bb{background:#3A2E0A;color:#FFE08A;border-bottom-right-radius:4px}
-.u-conv .bb small{display:block;font-size:12px;color:var(--mu);font-weight:700;margin-top:2px}
-.u-conv .vacio{margin:auto;color:#4A4A54;font-weight:800;font-size:14px}
-#cvO .u-o{font-size:16px;min-height:50px}#cvO .u-o.ida{opacity:.2;pointer-events:none}
-.u-o.mal{border-color:var(--mal);animation:shk .3s}
+.u-par .u-ch.ok{border-color:var(--line2);color:var(--toff);pointer-events:none}.u-par .u-ch.ok svg{opacity:.3}
+.u-par .u-ch.mal{border-color:var(--mal);color:var(--mal);animation:shk .3s}
 /* palabra nueva */
 .u-nw{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:4px}
 .u-nw .ob{line-height:0;animation:bob 2.4s ease-in-out infinite}
 .u-nw .pal{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:40px;font-weight:900;line-height:1}
-.u-nw .tra{margin-top:6px;font-size:21px;font-weight:900;color:var(--oro)}
+.u-nw .tra{margin-top:6px;font-size:21px;font-weight:900;color:var(--gold)}
 .u-nw .lento2{margin-top:10px;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:99px;border:2px solid var(--line2);background:none;color:var(--ink);font:800 14px Nunito,sans-serif;cursor:pointer}
 .u-ejx{display:flex;align-items:flex-end;gap:8px;margin-top:18px;width:100%}
 .u-ejx>svg{width:84px;height:auto;flex:none;overflow:visible}
 .u-ejx .u-glo{flex:1;margin-bottom:30px;text-align:left;font-size:17px}
+
+/* completa la palabra */
+.u-pal{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:18px;flex-wrap:wrap}
+.u-pal span{font-size:40px;font-weight:900;line-height:1}
+.u-pal .esp{width:14px}
+.u-pal input{width:40px;height:54px;padding:0;border:0;border-bottom:4px solid var(--gold);border-radius:8px 8px 4px 4px;background:color-mix(in srgb,var(--gold) 10%,transparent);color:var(--gold);text-align:center;font:900 36px Nunito,sans-serif;outline:none;caret-color:var(--gold)}
+.u-pal input.ok{border-color:var(--ok);color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}.u-pal input.mal{border-color:var(--mal);color:var(--mal)}
+.u-pist{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px}.u-pist b{font-size:20px;color:var(--gold)}
+/* pásala a negativa */
+.u-camb{padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--bd);text-align:center}
+.u-camb .de{display:flex;align-items:center;justify-content:center;gap:8px;font-size:22px;font-weight:900}.u-camb small{display:block;font-size:13px;color:var(--mu);font-weight:700;margin-top:2px}
+.u-flecha{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0 0;color:var(--gold);font-weight:900;font-size:13px;letter-spacing:.08em}
+.u-flecha:before,.u-flecha:after{content:"";flex:1;height:2px;background:var(--bd)}
+/* ronda relámpago */
+.u-rel{position:relative;width:96px;height:96px;margin:4px auto 0}
+.u-rel svg.r{position:absolute;inset:0;transform:rotate(-90deg)}
+.u-rel b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900}
+.u-rel.urg b{color:var(--mal)}
+.u-rond{text-align:center;font-size:13px;font-weight:900;color:var(--mu);letter-spacing:.08em;margin-top:6px}
+.u-relq{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:12px;min-height:110px}
+.u-relq .fr{font-size:24px;font-weight:900;text-align:center}
+.u-sino{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.u-sino .u-o{justify-content:center;flex-direction:column;gap:4px;min-height:80px;font-size:17px}.u-sino .u-o svg{width:28px;height:28px}
+.u-marc{display:flex;gap:6px;justify-content:center;margin-top:12px}.u-marc i{width:26px;height:8px;border-radius:9px;background:var(--bd)}.u-marc i.ok{background:var(--ok)}.u-marc i.mal{background:var(--mal)}
+.u-go{display:block;margin:0 auto;height:50px;padding:0 26px;border:0;border-bottom:4px solid color-mix(in srgb,var(--hi) 55%,#777);border-radius:14px;background:var(--hi);color:var(--on-hi);font:900 15px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+/* pista del conector (sale la primera vez) */
+.u-pista{display:flex;align-items:center;gap:8px;margin:0 0 14px;padding:10px 14px;border-radius:16px;border:2px solid color-mix(in srgb,var(--gold) 45%,var(--bd));background:color-mix(in srgb,var(--gold) 8%,var(--card));animation:entra .3s ease}
+.u-pista .k{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:99px;background:var(--gold);color:var(--bg);font-size:10.5px;font-weight:900;letter-spacing:.08em}
+.u-pista .u-au{margin:0 0 0 4px}
+.u-pista b{font-size:22px;font-weight:900}.u-pista .eq{color:var(--mu);font-weight:900}.u-pista .es{font-size:20px;font-weight:900;color:var(--gold)}
+/* encuentra el error */
+.u-ch.malw{border-color:var(--mal)!important;color:var(--mal)!important;background:color-mix(in srgb,var(--mal) 12%,transparent)!important}
+.u-ch.fix{border-color:var(--ok)!important;color:var(--ok)!important;background:color-mix(in srgb,var(--ok) 12%,transparent)!important}
+.u-ch.sel{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,transparent);color:var(--gold)}
+.u-paso{display:none;margin-top:18px;padding-top:14px;border-top:2px dashed var(--bd)}.u-paso.on{display:block}
+.u-paso p{margin:0 0 10px;font-weight:800;color:var(--mu);text-align:center}
+/* ordena la conversación */
+.u-conv{display:flex;flex-direction:column;gap:10px;min-height:180px;padding:12px;border-radius:20px;background:var(--card);border:1px solid var(--bd)}
+.u-conv .fila{display:flex;align-items:flex-end;gap:8px;animation:entra .25s ease}
+.u-conv .fila.yo{flex-direction:row-reverse}
+.u-conv .fila>svg{width:42px;height:auto;flex:none;overflow:visible}
+.u-conv .bb{max-width:74%;padding:9px 12px;border-radius:16px;font-size:16px;font-weight:800;line-height:1.35}
+.u-conv .fila.el .bb{background:var(--chip);border-bottom-left-radius:4px}.u-conv .fila.yo .bb{background:color-mix(in srgb,var(--gold) 16%,var(--card));color:var(--ink);border-bottom-right-radius:4px}
+.u-conv .bb small{display:block;font-size:12px;color:var(--mu);font-weight:700;margin-top:2px}
+.u-conv .vacio{margin:auto;color:var(--toff);font-weight:800;font-size:14px}
+#cvO .u-o{font-size:16px;min-height:50px}#cvO .u-o.ida{opacity:.2;pointer-events:none}
+.u-o.mal{border-color:var(--mal);animation:shk .3s}
+/* personajes extra */
+.kb1{animation:ua .5s step-end infinite}.kb2{opacity:0;animation:ub .5s step-end infinite}
+.idea .mov{animation:salta .5s ease-in-out infinite alternate}.idea .rd{opacity:0}.idea .r1{animation:ua .5s step-end infinite}.idea .r2{animation:ub .5s step-end infinite}
+.cool .oc{animation:none}.cool .rd{opacity:0}.cool .r1{animation:ua 3s step-end infinite}.cool .r2{animation:ub 3s step-end infinite}.cool .gu{animation:kwink 3s step-end infinite}
+.baile .mov{animation:salta .3s ease-in-out infinite alternate}.baile .rd{animation:ub .6s step-end infinite}.baile .r1{animation:ua .6s step-end infinite}.baile .ld{animation:ua .6s step-end infinite}.baile .l1{animation:ub .6s step-end infinite}
+.sorpresa .oc{animation:none}.sorpresa .mov{animation:ksusto 1.6s ease-in-out infinite}.sorpresa .rd,.sorpresa .ld{opacity:0}.sorpresa .r1,.sorpresa .l1{opacity:1}
+@keyframes ksusto{0%,70%,100%{transform:translateY(0)}75%{transform:translateY(-1px)}85%{transform:translateY(0)}}
 /* pie con Comprobar */
 .u-pie{position:sticky;bottom:0;z-index:4;margin:18px -16px 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom));border-top:2px solid var(--line2);background:var(--bg);transition:background .2s}
-.u-pie.ok{background:#0F2A1C;border-color:transparent}.u-pie.mal{background:#2A0F0F;border-color:transparent}
+.u-pie.ok{background:color-mix(in srgb,var(--ok) 15%,var(--bg));border-color:transparent}.u-pie.mal{background:color-mix(in srgb,var(--mal) 13%,var(--bg));border-color:transparent}
 .u-fb{display:none;align-items:center;gap:12px;margin-bottom:14px}
 .u-pie.ok .u-fb,.u-pie.mal .u-fb{display:flex}
-.u-fb .ic{flex:none;width:52px;height:52px;border-radius:50%;background:#F4F4F5;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.u-fb .ic{flex:none;width:52px;height:52px;border-radius:50%;background:var(--card);border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .u-fb .ic svg{width:44px;height:auto}
 .u-fb b{display:block;font-size:20px;font-weight:900}.u-pie.ok .u-fb b{color:var(--ok)}.u-pie.mal .u-fb b{color:var(--mal)}
-.u-fb span span{display:block;font-size:15px;font-weight:700;margin-top:2px}.u-pie.ok .u-fb span span{color:#BFF3D6}.u-pie.mal .u-fb span span{color:#FFB0B0}
-.u-btn{width:100%;height:52px;border:0;border-bottom:4px solid var(--orod);border-radius:16px;background:var(--oro);color:#2A1A00;font:900 16px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
-.u-btn:disabled{background:#2A2A30;border-color:#2A2A30;color:#5A5A64;cursor:default}
-.u-pie.ok .u-btn{background:var(--ok);border-color:#3E9A68;color:#06210F}
-.u-pie.mal .u-btn{background:var(--mal);border-color:#C23A3A;color:#fff}
+.u-fb span span{display:block;font-size:15px;font-weight:700;margin-top:2px}.u-pie.ok .u-fb span span,.u-pie.mal .u-fb span span{color:var(--ink)}
+.u-btn{width:100%;height:52px;border:0;border-bottom:4px solid color-mix(in srgb,var(--hi) 55%,#777);border-radius:16px;background:var(--hi);color:var(--on-hi);font:900 16px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
+.u-btn:disabled{background:var(--chip);border-color:var(--chip);color:var(--toff);cursor:default}
+.u-pie.ok .u-btn{background:var(--ok);border-color:color-mix(in srgb,var(--ok) 60%,#000);color:var(--bg)}
+.u-pie.mal .u-btn{background:var(--mal);border-color:color-mix(in srgb,var(--mal) 60%,#000);color:#fff}
 .u-btn:active:not(:disabled){transform:translateY(2px);border-bottom-width:2px}
 /* animaciones de los personajes nuevos (de Acciones) */
 .gu,.gl{opacity:0}
@@ -345,7 +382,8 @@ svg{display:block}
 <script>
 /* =====================================================================
    TUS DATOS · Nivel 6 de la Isla de Nieve: Conectores (and, but, or, because)
-   Mismo estilo minimalista que Gustos. Cada conector se enseña antes de evaluarlo.
+   Estilo Duolingo con la paleta del jugador. Los conectores se aprenden en la misma práctica:
+   la primera vez que sale uno, aparece la PISTA (ej. "and = y") con su audio.
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";
@@ -361,28 +399,27 @@ const PALABRAS = [
 ];
 /* Traducciones que salen al tocar una palabra */
 const TRAD = { "I":"yo", "like":"me gusta", "don't like":"no me gusta", "don't":"no", "and":"y", "but":"pero", "or":"o", "because":"porque",
-  "pizza":"pizza", "coffee":"café", "dogs":"perros", "rain":"lluvia", "ice cream":"helado", "football":"fútbol", "it is":"es / está", "cold":"frío",
-  "Do you like":"¿Te gusta…?", "Me too":"A mí también", "Me neither":"A mí tampoco" };
-/* El nivel, paso por paso.
-   nueva = CONECTOR NUEVO (se enseña, no se evalúa) · habla = qué significa · completa = palabra que falta
-   traduce = arma la frase · escucha = escribe lo que oyes · parejas = une inglés-español
-   error = encuentra la palabra mala y corrígela · charla = ordena la conversación
-   pj = personaje · ob = dibujo (o lista de dibujos) */
+  "pizza":"pizza", "Pizza":"pizza", "coffee":"café", "dogs":"perros", "Dogs":"perros", "rain":"lluvia", "ice cream":"helado", "football":"fútbol", "it is":"es / está", "cold":"frío",
+  "Do you like":"¿Te gusta…?", "Me too":"A mí también" };
+/* El nivel, paso por paso. pista = [inglés, español] sale la primera vez que aparece un conector.
+   habla = qué significa · completa = palabra que falta · palabra = letras que faltan · traduce = arma la frase
+   escucha = escribe lo que oyes · parejas = une · error = encuentra la palabra mala · charla = ordena la conversación
+   pj = personaje (baile, amor, neg, idea, pienso, sorpresa, cool, triste, afirma, pulgar, hambre) · ob = dibujo o lista de dibujos */
 const PLAN = [
-  { t:"nueva",    pj:"hambre", ob:["pizza", "helado"], en:"and",     es:"y",      ej:"I like pizza and ice cream.",           ejEs:"Me gusta la pizza y el helado.", tag:"CONECTOR NUEVO" },
-  { t:"habla",    pj:"hambre", ob:["pizza", "helado"], en:"I like pizza and ice cream.", ops:["Me gusta la pizza y el helado.", "Me gusta la pizza o el helado.", "Me gusta la pizza, pero no el helado."] },
-  { t:"nueva",    pj:"amor",   ob:["perro", "lluvia"], en:"but",     es:"pero",   ej:"I like dogs, but I don't like rain.",   ejEs:"Me gustan los perros, pero no me gusta la lluvia.", tag:"CONECTOR NUEVO" },
-  { t:"completa", pj:"neg",    ob:["cafe", "helado"],  en:"I like coffee, ___ I don't like ice cream.", es:"Me gusta el café, pero no me gusta el helado.", ok:"but", ops:["and", "but", "or"] },
-  { t:"nueva",    pj:"pienso", ob:["pizza", "helado"], en:"or",      es:"o",      ej:"Pizza or ice cream?",                   ejEs:"¿Pizza o helado?", tag:"CONECTOR NUEVO" },
-  { t:"completa", pj:"pienso", ob:["perro", "balon"],  en:"Dogs ___ football?", es:"¿Perros o fútbol?", ok:"or", ops:["and", "but", "or"] },
-  { t:"error",    pj:"pienso", ob:["pizza", "helado"], malas:["I", "like", "pizza", "but", "ice cream."], mal:3, ok:"and", ops:["and", "or", "because"], es:"Me gusta la pizza y el helado.", en:"I like pizza and ice cream." },
-  { t:"nueva",    pj:"neg",    ob:["lluvia"],          en:"because", es:"porque", ej:"I don't like rain because it is cold.", ejEs:"No me gusta la lluvia porque es fría.", tag:"CONECTOR NUEVO" },
-  { t:"completa", pj:"amor",   ob:["helado"],          en:"I like ice cream ___ it is cold.", es:"Me gusta el helado porque es frío.", ok:"because", ops:["because", "but", "or"] },
+  { t:"habla",    pj:"baile",    ob:["pizza", "helado"], pista:["and", "y"],          en:"I like pizza and ice cream.", ops:["Me gusta la pizza y el helado.", "Me gusta la pizza o el helado.", "Me gusta la pizza, pero no el helado."] },
+  { t:"completa", pj:"amor",     ob:["perro", "lluvia"], pista:["but", "pero"],       en:"I like dogs, ___ I don't like rain.", es:"Me gustan los perros, pero no me gusta la lluvia.", ok:"but", ops:["and", "but", "or"] },
+  { t:"completa", pj:"neg",      ob:["cafe", "helado"],                               en:"I like coffee, ___ I don't like ice cream.", es:"Me gusta el café, pero no me gusta el helado.", ok:"but", ops:["and", "but", "or"] },
+  { t:"habla",    pj:"idea",     ob:["pizza", "helado"], pista:["or", "o"],           en:"Pizza or ice cream?", ops:["¿Pizza o helado?", "¿Pizza y helado?", "Pizza, pero no helado."] },
+  { t:"completa", pj:"pienso",   ob:["perro", "balon"],                               en:"Dogs ___ football?", es:"¿Perros o fútbol?", ok:"or", ops:["and", "but", "or"] },
+  { t:"error",    pj:"sorpresa", ob:["pizza", "helado"], malas:["I", "like", "pizza", "but", "ice cream."], mal:3, ok:"and", ops:["and", "or", "because"], es:"Me gusta la pizza y el helado.", en:"I like pizza and ice cream." },
+  { t:"habla",    pj:"cool",     ob:["helado"],          pista:["because", "porque"], en:"I like ice cream because it is cold.", ops:["Me gusta el helado porque es frío.", "Me gusta el helado, pero es frío.", "Me gusta el helado o es frío."] },
+  { t:"completa", pj:"triste",   ob:["lluvia"],                                       en:"I don't like rain ___ it is cold.", es:"No me gusta la lluvia porque es fría.", ok:"because", ops:["because", "but", "and"] },
+  { t:"palabra",  pj:"cool",     ob:["helado"],                                       en:"because", es:"porque", faltan:[3, 5] },
   { t:"parejas",  pares:[["and", "y"], ["but", "pero"], ["or", "o"], ["because", "porque"], ["ice cream", "el helado", "helado"]] },
-  { t:"traduce",  pj:"neg",    ob:["lluvia"],          es:"No me gusta la lluvia porque es fría.", en:"I don't like rain because it is cold", extra:["but", "hot"] },
+  { t:"traduce",  pj:"neg",      ob:["lluvia"],          es:"No me gusta la lluvia porque es fría.", en:"I don't like rain because it is cold", extra:["but", "hot"] },
   { t:"charla",   msgs:[["el", "Do you like pizza or ice cream?", "¿Te gusta la pizza o el helado?"], ["yo", "I like pizza and ice cream!", "¡Me gusta la pizza y el helado!"], ["el", "Me too, but I don't like coffee.", "A mí también, pero no me gusta el café."]] },
-  { t:"escucha",  pj:"afirma",                         en:"I like dogs and football.",              es:"Me gustan los perros y el fútbol." },
-  { t:"escucha",  pj:"pienso",                         en:"I like coffee, but I don't like rain.",  es:"Me gusta el café, pero no me gusta la lluvia." }
+  { t:"escucha",  pj:"afirma",                           en:"I like dogs and football.",              es:"Me gustan los perros y el fútbol." },
+  { t:"escucha",  pj:"pienso",                           en:"I like coffee, but I don't like rain.",  es:"Me gusta el café, pero no me gusta la lluvia." }
 ];
 
 /* =====================================================================
@@ -687,6 +724,16 @@ Object.assign(ACC, {
   hambre:{ id:"hambre", vb:"-1 -2 16 18.8", mod:[[6,4,7,"M"]], bo:[], r1:lado(6), r2:lado(5), extra:sudor([7,4], [8,4], 0), fuera:pizzaF },
   amor:{ id:"amor", mod:[[4,3,4,"H"],[4,7,8,"H"],[5,2,3,"r"],[5,8,9,"r"],[6,4,7,"m"]], bo:[], r1:arriba("R", 4), r2:cara(), extra:"", fuera:corazon(10, 2, 0) + corazon(-1, 1, .8) + corazon(10, -2, 1.6) }
 });
+const caraL = () => solo(4, 5, 1, 2, "s").concat(solo(6, 6, 0, 1, "l"), solo(7, 8, 0, 1, "g"));
+const excl = x => '<g class="vena">' + rects([[-2,x,"v"],[-1,x,"v"],[0,x,"v"],[2,x,"v"]]) + '</g>';
+const nota = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x+1,"y"],[y+1,x+1,"y"],[y+2,x,"y"],[y+2,x+1,"y"]]) + '</g>';
+const bombilla = '<g class="kb1">' + rects(solo(-3, -2, 4, 6, "y").concat([[-1,5,"q"]])) + '</g><g class="kb2">' + rects(solo(-3, -2, 4, 6, "W").concat([[-1,5,"q"],[-3,3,"y"],[-3,7,"y"],[-2,2,"y"],[-2,8,"y"]])) + '</g>';
+Object.assign(ACC, {
+  idea:{ id:"idea", vb:"-1 -3 14 19.8", mod:SONRISA, bo:[], r1:arriba("R", 1), r2:arriba("R", 2), extra:"", fuera:bombilla },
+  cool:{ id:"cool", mod:[[4,3,8,"z"],[6,4,7,"m"],[5,8,8,"m"]], bo:[], gu:[[4,4,"W"],[4,7,"W"]], r1:arriba("R", 4), r2:cara(), extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 0, .7) },
+  baile:{ id:"baile", mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[], r1:arriba("R", 3), l1:arriba("L", 3), extra:"", fuera:nota(10, 1, 0) + nota(-1, 0, .8) + nota(10, -2, 1.6) },
+  sorpresa:{ id:"sorpresa", mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,5,6,"M"]], bo:[], r1:cara(), l1:caraL(), extra:"", fuera:excl(10) + excl(0) }
+});
 /* dibujar con guiño (gu) y mirada (gl) */
 function PJ(id) { const a = ACC[id]; let s = dibujar(a, "");
   if (a.gu || a.gl) s = s.replace('<g class="bo">', '<g class="gu">' + rects(a.gu || []) + '</g><g class="gl">' + rects(a.gl || []) + '</g><g class="bo">');
@@ -717,9 +764,11 @@ let pos, dudas, vidas, P, listo, revisar;
 function empezar() { pos = 0; dudas = {}; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
 function pantalla(cuerpo, rev) {
   revisar = rev; setBarra(pos / PLAN.length * 100);
-  $("v").innerHTML = '<div class="u-body" id="ub">' + cuerpo + '</div>' +
+  const pis = P && P.pista ? '<div class="u-pista"><span class="k">NUEVO</span><button type="button" class="u-au" id="bPis" aria-label="Escuchar">' + AU + '</button><b>' + esc(P.pista[0]) + '</b><span class="eq">=</span><span class="es">' + esc(P.pista[1]) + '</span></div>' : '';
+  $("v").innerHTML = '<div class="u-body" id="ub">' + pis + cuerpo + '</div>' +
     '<div class="u-pie" id="pie"><div class="u-fb"><span class="ic" id="pieIc"></span><span><b id="pieB"></b><span id="pieT"></span></span></div><button type="button" class="u-btn" id="bChk" disabled>Comprobar</button></div>';
   window.scrollTo(0, 0);
+  if (P && P.pista) on("bPis", () => voz(P.pista[0], .8));
   let fin = false;
   on("bChk", () => {
     if (fin || !revisar) { siguiente(); return; }
@@ -737,21 +786,62 @@ function pantalla(cuerpo, rev) {
 }
 listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") b.disabled = !v; };
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
-function pintar() { P = PLAN[pos]; ({ nueva:exNueva, error:exError, charla:exCharla, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
+function pintar() { P = PLAN[pos]; ({ nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
 const enLimpio = t => t.replace(/[.!?]/g, "").trim();
 const espanol = t => t;
 
 /* 0 · PALABRA NUEVA: dibujo, palabra, traducción, audio y un ejemplo (no se evalúa) */
 function exNueva() {
-  pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + (P.tag || 'PALABRA NUEVA') + '</span>' +
-    '<div class="u-nw"><span class="ob" style="display:flex;gap:10px">' + OB(P.ob, Array.isArray(P.ob) && P.ob.length > 1 ? 90 : 120) + '</span><div class="pal"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU.replace(/22/g, "30") + '</button>' + esc(P.en) + '</div>' +
+  pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + 'PALABRA NUEVA</span>' +
+    '<div class="u-nw"><span class="ob">' + OB(P.ob, 120) + '</span><div class="pal"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU.replace(/22/g, "30") + '</button>' + esc(P.en) + '</div>' +
     '<div class="tra">' + esc(P.es) + '</div><button type="button" class="lento2" id="bLe">' + LENTO.replace(/28/g, "18") + 'Lento</button>' +
     '<div class="u-ejx">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bEj" aria-label="Escuchar el ejemplo">' + AU + '</button>' + frase(P.ej) + '<span class="u-es">' + esc(P.ejEs) + '</span></div></div></div>', null);
   const b = $("bChk"); b.disabled = false; b.textContent = "Continuar";
   on("bAu", () => voz(P.en, .85)); on("bLe", () => voz(P.en, .5)); on("bEj", () => voz(P.ej, .9));
   setTimeout(() => voz(P.en, .85), 300);
 }
-/* 7 · ENCUENTRA EL ERROR: toca la palabra mala y elige la corrección */
+/* 9 · COMPLETA LA PALABRA (letras que faltan, teclado del celular) */
+function exPalabra() {
+  pantalla('<p class="u-t">Completa la palabra</p><div class="u-hab" style="justify-content:center">' + PJ(P.pj) + '<span style="line-height:0;margin-bottom:24px;display:flex;gap:6px">' + OB(P.ob, 60) + '</span></div>' +
+    '<div class="u-pist"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button><b>' + esc(P.es) + '</b></div>' +
+    '<div class="u-pal" id="pal">' + P.en.split("").map((c, i) => c === " " ? '<span class="esp"></span>' : P.faltan.indexOf(i) > -1 ? '<input maxlength="2" data-i="' + i + '" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="letra que falta">' : '<span>' + esc(c) + '</span>').join("") + '</div>',
+    () => { const ins = [...document.querySelectorAll("#pal input")]; let ok = true; ins.forEach(x => { const b = x.value.toLowerCase() === P.en[+x.dataset.i]; x.classList.add(b ? "ok" : "mal"); if (!b) ok = false; }); return [ok, P.en + " = " + P.es, P.en]; });
+  on("bAu", () => voz(P.en, .85)); setTimeout(() => voz(P.en, .85), 300);
+  const ins = [...document.querySelectorAll("#pal input")];
+  ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value)); }));
+  setTimeout(() => ins[0].focus(), 400);
+}
+/* 10 · PÁSALA A NEGATIVA (I like → I don't like) */
+function exNegativa() { let puestos = [];
+  const W = mezcla(P.en.split(" ").concat(P.extra));
+  pantalla('<p class="u-t">Pásala a negativa</p><div class="u-camb"><div class="de">' + OB(P.ob, 30) + frase(P.de) + '</div><small>' + esc(P.deEs) + '</small></div>' +
+    '<div class="u-flecha">NO ME GUSTA</div><div class="u-lin" id="lin" style="margin-top:6px"></div><div class="u-ban" id="ban">' + W.map((w, i) => '<button type="button" class="u-ch" data-i="' + i + '">' + esc(w) + '</button>').join("") + '</div>',
+    () => [puestos.map(i => W[i]).join(" ") === P.en, P.en + ". = " + P.es + " (se pone don't antes de like)", P.en + "."]);
+  const pint = () => { $("lin").innerHTML = puestos.map((i, q) => '<button type="button" class="u-ch" data-q="' + q + '">' + esc(W[i]) + '</button>').join("");
+    $("lin").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.splice(+b.dataset.q, 1); pint(); }));
+    $("ban").querySelectorAll(".u-ch").forEach(b => b.classList.toggle("ida", puestos.indexOf(+b.dataset.i) > -1)); listo(puestos.length); };
+  $("ban").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.push(+b.dataset.i); voz(b.textContent, 1); pint(); }));
+}
+/* 11 · RONDA RELÁMPAGO (reto final: 5 frases, 6 s cada una) */
+function exRelampago() { const R = P.rondas, C = 2 * Math.PI * 42; let i = -1, res = [], tm = null, t0 = 0;
+  const SI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>';
+  const NO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>';
+  pantalla('<span class="u-nuevo">' + sprite("llama", 14) + 'RETO FINAL</span><p class="u-t">Ronda relámpago</p>' +
+    '<div class="u-rel" id="rl"><svg class="r" width="96" height="96" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="42" fill="none" stroke="var(--bd)" stroke-width="8"></circle><circle id="rlc" cx="48" cy="48" r="42" fill="none" stroke="var(--gold)" stroke-width="8" stroke-linecap="round" stroke-dasharray="' + C + '" stroke-dashoffset="0"></circle></svg><b id="rln">6</b></div>' +
+    '<div class="u-rond" id="rlo">¿LA FRASE COINCIDE CON EL DIBUJO?</div><div class="u-relq" id="rlq"><button type="button" class="u-go" id="rlGo">Empezar</button></div>' +
+    '<div class="u-sino"><button type="button" class="u-o" data-v="1" disabled>' + SI + 'Coincide</button><button type="button" class="u-o" data-v="0" disabled>' + NO + 'No coincide</button></div>' +
+    '<div class="u-marc" id="rlm">' + R.map(() => '<i></i>').join("") + '</div>',
+    () => { const b = res.filter(x => x).length; return [b >= 4, b + " de " + R.length + " correctas" + (b >= 4 ? "" : " (necesitas 4)"), "Great!"]; });
+  const botones = [...document.querySelectorAll(".u-sino .u-o")];
+  const fin = () => { clearInterval(tm); botones.forEach(x => x.disabled = true); $("rlq").innerHTML = '<span class="fr">' + res.filter(x => x).length + ' / ' + R.length + '</span>'; $("rlo").textContent = "¡TERMINASTE!"; listo(1); };
+  const ronda = () => { i++; if (i >= R.length) return fin(); const [o, f] = R[i];
+    $("rlq").innerHTML = OB(o, 84) + '<span class="fr">' + esc(f) + '</span>'; $("rlo").textContent = "FRASE " + (i + 1) + " DE " + R.length; voz(f, .95); t0 = Date.now(); clearInterval(tm);
+    tm = setInterval(() => { const q = Math.max(0, 6 - (Date.now() - t0) / 1000); $("rln").textContent = Math.ceil(q); $("rlc").setAttribute("stroke-dashoffset", C * (1 - q / 6)); $("rl").classList.toggle("urg", q < 2); if (q <= 0) marca(false); }, 100); };
+  const marca = ok => { clearInterval(tm); res.push(ok); $("rlm").children[i].className = ok ? "ok" : "mal"; sonido(ok ? "ok" : "mal", 0); setTimeout(ronda, 350); };
+  botones.forEach(b => b.addEventListener("click", () => { if (i < 0 || i >= R.length || res.length > i) return; marca((+b.dataset.v) === R[i][2]); }));
+  on("rlGo", () => { botones.forEach(x => x.disabled = false); ronda(); });
+}
+/* 12 · ENCUENTRA EL ERROR: toca la palabra mala y elige la corrección */
 function exError() { let malo = null, fix = null;
   pantalla('<p class="u-t">Esta frase tiene un error. Tócalo.</p><div class="u-hab" style="justify-content:center">' + PJ(P.pj) + '<span style="line-height:0;margin-bottom:22px;display:flex;gap:6px">' + OB(P.ob, 50) + '</span></div>' +
     '<div class="u-ban" id="erW" style="margin-top:6px">' + P.malas.map((w, i) => '<button type="button" class="u-ch" data-i="' + i + '">' + esc(w) + '</button>').join("") + '</div>' +
@@ -762,7 +852,7 @@ function exError() { let malo = null, fix = null;
   document.querySelectorAll("#erP .u-ch").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#erP .u-ch").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); fix = b.dataset.o;
     const w = document.querySelector('#erW [data-i="' + malo + '"]'); if (malo === P.mal) { w.textContent = fix; w.classList.remove("malw"); w.classList.add("fix"); } voz(fix, .9); listo(1); }));
 }
-/* 8 · ORDENA LA CONVERSACIÓN */
+/* 13 · ORDENA LA CONVERSACIÓN */
 function exCharla() { let n = 0, fallos = 0;
   pantalla('<p class="u-t">Ordena la conversación</p><div class="u-conv" id="cv"><span class="vacio">Toca los mensajes en orden</span></div>' +
     '<div class="u-ops" id="cvO">' + mezcla(P.msgs.map((_, i) => i)).map(i => '<button type="button" class="u-o" data-i="' + i + '">' + esc(P.msgs[i][1]) + '</button>').join("") + '</div>',
@@ -771,7 +861,7 @@ function exCharla() { let n = 0, fallos = 0;
     const i = +b.dataset.i;
     if (i !== n) { fallos++; b.classList.remove("mal"); void b.offsetWidth; b.classList.add("mal"); sonido("mal"); return; }
     const m = P.msgs[i]; if (n === 0) $("cv").innerHTML = "";
-    $("cv").insertAdjacentHTML("beforeend", '<div class="fila ' + m[0] + '">' + PJ(m[0] === "el" ? "afirma" : "pulgar") + '<div class="bb">' + frase(m[1]) + '<small>' + esc(m[2]) + '</small></div></div>');
+    $("cv").insertAdjacentHTML("beforeend", '<div class="fila ' + m[0] + '">' + PJ(m[0] === "el" ? "baile" : "pulgar") + '<div class="bb">' + frase(m[1]) + '<small>' + esc(m[2]) + '</small></div></div>');
     b.classList.add("ida"); voz(m[1], .9); n++; if (n === P.msgs.length) listo(1);
   }));
 }
@@ -837,7 +927,7 @@ function exParejas() { let sel = null, n = 0;
 }
 
 /* ===== final ===== */
-const textoDe = p => p.t === "parejas" ? "and = y · but = pero · or = o · because = porque" : p.t === "charla" ? p.msgs.map(m => m[1]).join(" ") : p.t === "error" ? p.en + " = " + p.es : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
+const textoDe = p => p.t === "parejas" ? "and = y · but = pero · or = o · because = porque" : p.t === "charla" ? p.msgs.map(m => m[1]).join(" ") : p.t === "error" ? p.en + " = " + p.es : p.t === "relampago" ? "Ronda relámpago: I like pizza · I like dogs · I like ice cream" : p.t === "palabra" ? p.en + " = " + p.es : p.t === "negativa" ? p.en + ". = " + p.es : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
 const repaso = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB1([].concat(p.ob)[0], 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
 const EVAL = () => PLAN.filter(p => p.t !== "nueva").length;
 function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
@@ -849,7 +939,7 @@ function terminar() {
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Conectores", "Aprende a unir ideas: <b>and</b> (y), <b>but</b> (pero), <b>or</b> (o) y <b>because</b> (porque).", "Empezar", PJ("pienso"), empezar);
+pantallaIntro("Conectores", "Aprende a unir ideas: <b>and</b> (y), <b>but</b> (pero), <b>or</b> (o) y <b>because</b> (porque).", "Empezar", PJ("idea"), empezar);
 
 </script>
 <script type="module">
