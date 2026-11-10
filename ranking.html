@@ -372,6 +372,23 @@ nav a.on{color:var(--hi)}
 .rban .mb{height:14px;margin-top:8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}.rban .mb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#FFB627,#FFE08A);transition:width .8s}
 .rban .dsc{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 10px;border-radius:14px;background:rgba(0,0,0,.35);font-size:12.5px;font-weight:800;color:#E9DCC0}.rban .dsc svg{flex:none;color:#FF8A8A}.rban .dsc b{color:#FFD166}
 .lun-men{font-size:34px;font-weight:900;color:#FF6B6B;line-height:1}
+.tabs{display:block}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;padding:4px;border-radius:99px;background:var(--card);border:1px solid var(--bd)}
+.seg button{height:40px;border-radius:99px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:15px;font-weight:800;color:var(--mu)}
+.seg button.on{background:var(--hi);color:var(--on-hi);font-weight:900}
+.seg button .bdg{background:#FF4B4B;color:#fff;min-width:20px;height:20px;font-size:12px}
+.seg-am{display:flex;gap:8px;align-items:center}.seg-am .seg{flex:1}
+#btnAmigos{position:relative}#btnAmigos.on{background:var(--hi);color:var(--on-hi);border-color:var(--hi)}
+#btnAmigos .bdg{position:absolute;top:-4px;right:-4px;background:#FF4B4B;color:#fff;min-width:20px;height:20px;font-size:11px}
+.rcar .rc{padding:12px 14px}.rcar .rb-row{gap:12px}.rcar .rb-tx{gap:3px}.rcar .rb-tx b{font-size:22px}.rcar .rb-tx small{font-size:10px}
+.rcar .rban .mt{margin-top:8px}.rcar .rban .mt b{font-size:17px}.rcar .rban .mb{height:11px;margin-top:6px}.rcar .rban .dsc{margin-top:8px;padding:6px 10px;font-size:12px}
+.rcar .rb-fal{margin-top:8px;padding:9px 11px}.rcar .rc-ver{margin-top:6px}
+.fila.ftj{position:relative;overflow:hidden;isolation:isolate}
+.ftj-bg{position:absolute;inset:0;z-index:-1;background:var(--fbg);opacity:.9}
+.ftj-bg:before{content:"";position:absolute;left:0;right:0;bottom:0;height:16%;background:var(--fgr);opacity:.85}
+.ftj-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.25),rgba(0,0,0,.55) 55%,rgba(0,0,0,.75))}
+.fila.ftj .nombre,.fila.ftj .pos{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7)}.fila.ftj .rg{color:#E8E8EE}
+.fila.ftj .au{text-shadow:0 1px 3px rgba(0,0,0,.7)}
 .rdots{display:flex;justify-content:center;gap:6px;margin-top:-4px}.rdots i{width:7px;height:7px;border-radius:99px;background:var(--bd);transition:width .25s}.rdots i.on{width:20px;background:var(--hi)}.rdots i.mio:not(.on){background:var(--mu)}
 </style>
 </head>
@@ -380,6 +397,7 @@ nav a.on{color:var(--hi)}
 <div class="app" id="app">
   <div class="top">
     <h1>Ranking</h1>
+    <button type="button" class="ib" id="btnAmigos" aria-label="Amigos"></button>
     <button type="button" class="ib" id="btnAgregar" aria-label="Agregar amigo"></button>
   </div>
   <div class="tabs" id="tabs" role="tablist" aria-label="Secciones del ranking"></div>
@@ -445,7 +463,7 @@ const RANGOS_REINO = [
 /* LIGA POR METAS (desde 2026-11-10): cada escalón pide una meta de Aura ganada; al llegar subes en ese momento
    (lo que sobra pasa al siguiente). Cada lunes se descuentan puntos; si quedas en menos de 0, bajas un escalón
    y quedas a la mitad de esa meta (en Campesino III no se baja). */
-const METAS = [150, 250, 400, 600], DESC_LUNES = [30, 50, 80, 120, 150];
+const METAS = [150, 250, 400, 600], DESC_LUNES = [80, 130, 210, 320, 400];
 const metaDe = st => METAS[reinoDe(st)] || 0, descDe = st => DESC_LUNES[reinoDe(st)] || 0;
 const PASO_MAX = (RANGOS_REINO.length - 1) * 3;   // 12 = Rey
 const PREMIOS_TEMP = [["1.º", "Marco «Rey Jurásico»"], ["Top 3", "Título «Leyenda T1»"], ["Top 10", "Insignia «Top 10 · T1»"]];
@@ -513,6 +531,7 @@ const lk = (v, m) => { v = +v || 0; return v >= 0 && v <= m ? v : 0; };
 
 const IC = {
   back:'<path d="M15 5l-7 7 7 7"></path>', chev:'<path d="M9 6l6 6-6 6"></path>', mas:'<circle cx="5" cy="12" r="1.2"></circle><circle cx="12" cy="12" r="1.2"></circle><circle cx="19" cy="12" r="1.2"></circle>',
+  users:'<circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 4 6"></path>',
   add:'<circle cx="9" cy="8" r="4"></circle><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"></path>', search:'<circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path>',
   copy:'<rect x="9" y="9" width="11" height="11" rx="2.5"></rect><path d="M5 15V6a2 2 0 0 1 2-2h8"></path>', share:'<circle cx="18" cy="5" r="2.6"></circle><circle cx="6" cy="12" r="2.6"></circle><circle cx="18" cy="19" r="2.6"></circle><path d="m8.3 10.8 7.4-4.3M8.3 13.2l7.4 4.3"></path>',
   check:'<path d="M5 12.5l4.5 4.5L19 7.5"></path>', x:'<path d="M6 6l12 12M18 6 6 18"></path>',
@@ -576,7 +595,7 @@ let miPuesto = "—", cargando = true, error = "";
 let tab = "global", per = "liga", cat = "tot";   /* cat = récord de "Siempre": tot (Aura), est (estrellas), racha */
 const CATS = [["tot", "Aura"], ["est", "Estrellas"], ["racha", "Racha"]];
 const clavePer = () => per === "tot" ? cat : per;
-const PER = [["liga", "Rango semanal"], ["tmp", "Temporada " + TEMPORADA.num], ["tot", "Siempre"]];
+const PER = [["liga", "Liga"], ["tmp", "Temporada"], ["tot", "Siempre"]];
 
 function norm(uid, d) {
   const ult = d.ult && d.ult.toMillis ? d.ult.toMillis() : 0, est = +d.est || 0, vis = d.vis !== false;
@@ -706,11 +725,11 @@ function carruselRangos(L, m) {
   const mio = L.lg, vista = ligaVista();
   const cards = RANGOS_REINO.map((r, lg) => {
     const sel = lg === vista ? " sel" : "";
-    if (lg === mio) return '<div class="card rban rc r' + lg + sel + '" data-lg="' + lg + '" role="button" tabindex="0"><div class="rb-row">' + escudoRango(L.st, 78) + '<div class="rb-tx"><small>TU RANGO</small><b>' + nombreRango(L.st) + '</b>' + pipsDiv(L.st) +
+    if (lg === mio) return '<div class="card rban rc r' + lg + sel + '" data-lg="' + lg + '" role="button" tabindex="0"><div class="rb-row">' + escudoRango(L.st, 54) + '<div class="rb-tx"><small>TU RANGO</small><b>' + nombreRango(L.st) + '</b>' + pipsDiv(L.st) +
       '</div></div>' + barraMeta(L) + (lg !== vista ? '<span class="rc-ver">Ver mi liga ›</span>' : '') + '</div>';
     const st = lg * 3, arriba = lg > mio;
     const estado = arriba ? (lg === mio + 1 ? "EL SIGUIENTE RANGO" : "MÁS ARRIBA") : "YA LO PASASTE";
-    return '<div class="card rban rc r' + lg + sel + (arriba ? " lejos" : "") + '" data-lg="' + lg + '" role="button" tabindex="0"><div class="rb-row">' + escudoRango(r.rey ? PASO_MAX : st, 78) + '<div class="rb-tx"><small>' + estado + '</small><b>' + r.n + '</b>' +
+    return '<div class="card rban rc r' + lg + sel + (arriba ? " lejos" : "") + '" data-lg="' + lg + '" role="button" tabindex="0"><div class="rb-row">' + escudoRango(r.rey ? PASO_MAX : st, 54) + '<div class="rb-tx"><small>' + estado + '</small><b>' + r.n + '</b>' +
       (r.rey ? '<span class="rpips rey">RANGO MÁXIMO</span>' : '<span class="rc-div">III · II · I</span>') + '</div></div>' +
       '<div class="rb-fal"><b class="rc-t">' + (r.rey ? "La corona" : "Meta: " + METAS[lg] + " de Aura por escalón") + '</b><span>' + (r.rey ? "El rango más alto. Cada lunes se descuentan " + DESC_LUNES[lg] + " puntos." : "Llegas a la meta y subes. Cada lunes se descuentan " + DESC_LUNES[lg] + " puntos.") + '</span></div>' +
       '<span class="rc-ver">' + (lg === vista ? "Viendo esta liga" : "Ver jugadores ›") + '</span></div>';
@@ -779,14 +798,19 @@ const marca = '<span class="ok" title="Amigo">' + ic("check", 16, 3) + '</span>'
 const conPunto = (j, s, d) => lookMini(j.av, j, s, { punto: esAmigo(j.uid) ? j.on : undefined, d });
 
 /* ================= PESTAÑAS ================= */
-function pintarTabs() {
-  const T = [["global", "Global"], ["amigos", "Amigos"], ["sol", "Solicitudes"]];
-  $("tabs").innerHTML = T.map(t => '<button type="button" role="tab" class="tab' + (tab === t[0] ? " on" : "") + '" data-tab="' + t[0] + '" aria-selected="' + (tab === t[0]) + '">' + t[1] +
-    (t[0] === "sol" && FR.recibidas.length ? '<span class="bdg">' + FR.recibidas.length + '</span>' : "") + '</button>').join("");
+function pintarTabs() {   /* arriba: Liga · Temporada · Siempre. Amigos y Solicitudes van en el botón redondo de la esquina */
+  const n = FR.recibidas.length, b = $("bdgAm");
+  if (b) { b.hidden = !n; b.textContent = n; }
+  $("btnAmigos").classList.toggle("on", tab !== "global");
+  $("tabs").innerHTML = tab === "global"
+    ? '<div class="seg" role="tablist">' + PER.map(p => '<button type="button" role="tab" class="' + (per === p[0] ? "on" : "") + '" data-per="' + p[0] + '" aria-selected="' + (per === p[0]) + '">' + p[1] + '</button>').join("") + '</div>'
+    : '<div class="seg-am"><button type="button" class="ib" data-tab="global" aria-label="Volver al ranking">' + ic("back", 22) + '</button><div class="seg" role="tablist">' +
+      [["amigos", "Amigos"], ["sol", "Solicitudes"]].map(t => '<button type="button" role="tab" class="' + (tab === t[0] ? "on" : "") + '" data-tab="' + t[0] + '">' + t[1] + (t[0] === "sol" && n ? ' <span class="bdg">' + n + '</span>' : '') + '</button>').join("") + '</div></div>';
 }
-function filaJugador(j, pos, valor, zona) {
-  return '<button type="button" class="fila card' + (zona ? " z-" + zona : "") + '" data-ver="' + esc(j.uid) + '"><span class="pos">' + pos + '</span>' + conPunto(j, 52, 14) +
-    '<span class="info"><span class="nombre" style="display:block">' + esc(j.n) + (esAmigo(j.uid) ? marca : "") + '</span><span class="rgl">' + rangoHTML(j.rango) + tituloHTML(j) + '</span></span><span class="der">' + valHTML(valor, per === "liga" ? "tot" : clavePer()) + '</span></button>';
+function filaJugador(j, pos, valor, zona, lg) {
+  const tj = lg !== undefined, mp = LOOK_MP[j.lmp] || LOOK_MP[0];
+  return '<button type="button" class="fila card' + (zona ? " z-" + zona : "") + (tj ? " ftj" : "") + '" data-ver="' + esc(j.uid) + '"' + (tj ? ' style="--fbg:' + mp.bg + ';--fgr:' + mp.g + '"' : '') + '>' + (tj ? '<i class="ftj-bg"></i>' : '') + '<span class="pos">' + pos + '</span>' + conPunto(j, 52, 14) +
+    '<span class="info"><span class="nombre" style="display:block">' + esc(j.n) + (esAmigo(j.uid) ? marca : "") + '</span><span class="rgl">' + (tj ? '<span class="rg">' + escudoRango(lg * 3, 16) + RANGOS_REINO[lg].n + '</span>' : rangoHTML(j.rango)) + tituloHTML(j) + '</span></span><span class="der">' + valHTML(valor, per === "liga" ? "tot" : clavePer()) + '</span></button>';
 }
 function vistaGlobal() {
   const top = LISTA.slice(0, 3), m = yo();
@@ -808,13 +832,13 @@ function vistaGlobal() {
   if (per === "liga") {
     const L = miLiga(), mia = ligaVista() === L.lg, lg = ligaVista(), n = LISTA.length;
     let filas = "";
-    LISTA.forEach((j, i) => { filas += filaJugador(j, i + 1, j.liga); });
+    LISTA.forEach((j, i) => { filas += filaJugador(j, i + 1, j.liga, "", lg); });
     const vac = n ? "" : '<div class="card vacio" style="margin:0"><b>' + (mia ? "Nadie más de tu rango ha jugado esta semana" : "Nadie de " + RANGOS_REINO[lg].n + " ha jugado esta semana") + '</b>' + (mia ? "Gana Aura jugando y serás el primero." : "Cuando alguien de este rango gane Aura, aparecerá aquí.") + '</div>';
     const titulo = '<div class="sec"><span>' + (mia ? "TU LIGA · ESTA SEMANA" : "LIGA " + RANGOS_REINO[lg].n.toUpperCase() + " · ESTA SEMANA") + '</span><b>' + (n ? n + (n === 1 ? " jugador" : " jugadores") : "") + '</b></div>';
-    return carruselRangos(L, m) + perBtns + titulo + filas + vac + (mia ?
-      '<div class="fila card yo"><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>' : "");
+    return carruselRangos(L, m) + titulo + filas + vac + (mia ?
+      '<div class="fila card yo ftj" style="--fbg:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).bg + ';--fgr:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).g + '"><i class="ftj-bg"></i><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl"><span class="rg">' + escudoRango(L.st, 16) + nombreRango(L.st) + '</span>' + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>' : "");
   }
-  return banner + '<div class="per" role="group" aria-label="Periodo">' + PER.map(p => '<button type="button" class="pc' + (per === p[0] ? " on" : "") + '" data-per="' + p[0] + '" aria-pressed="' + (per === p[0]) + '">' + p[1] + '</button>').join("") + '</div>' +
+  return banner +
     (per === "tot" ? '<div class="cats" role="group" aria-label="Récord">' + CATS.map(c => '<button type="button" class="pc' + (cat === c[0] ? " on" : "") + '" data-cat="' + c[0] + '">' + valHTML("", c[0]).replace("</span>", c[1] + "</span>") + '</button>').join("") + '</div>' : "") +
     (LISTA.length ? (per === "tot" ? '<div class="sal"><div class="sal-ray"></div><small class="sal-h">SALÓN DE LA FAMA</small><div class="podio">' + podio + '</div></div>' : '<div class="card podio">' + podio + '</div>') + resto : vacio) +
     '<div class="fila card yo"><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span>' +
@@ -1000,6 +1024,7 @@ document.addEventListener("click", async e => {
   if ((el = t.closest("[data-duelo]"))) { if (el.dataset.duelo) guardar("ig_duelo_con", { u:el.dataset.duelo }); location.href = igURL("go:duelo"); return; }
   if ((el = t.closest("[data-acc]"))) { accion(el.dataset.acc, el.dataset.u); return; }
   if ((el = t.closest("[data-ver]"))) { verJugador(el.dataset.ver); return; }
+  if (t.closest("#btnAmigos")) { tab = tab === "global" ? "amigos" : "global"; pintar(); $("cont").scrollTop = 0; actualizarSilencioso(); return; }
   if ((el = t.closest("[data-tab]"))) { tab = el.dataset.tab; pintar(); $("cont").scrollTop = 0; actualizarSilencioso(); return; }
   if ((el = t.closest("[data-lg]"))) {
     const lg = +el.dataset.lg, nuevo = lg === miLiga().lg ? null : lg;
@@ -1009,7 +1034,7 @@ document.addEventListener("click", async e => {
     try { await cargarLista(); } catch (er) {} pintar(); centrarRango(true); return;
   }
   if ((el = t.closest("[data-cat]"))) { cat = el.dataset.cat; try { await cargarLista(); } catch (er) {} pintar(); return; }
-  if ((el = t.closest("[data-per]"))) { per = el.dataset.per; try { await cargarLista(); } catch (er) {} pintar(); return; }
+  if ((el = t.closest("[data-per]"))) { tab = "global"; per = el.dataset.per; try { await cargarLista(); } catch (er) {} pintar(); return; }
   if (t.closest("[data-reintentar]")) { iniciar(); return; }
   if ((el = t.closest("[data-abrir]"))) { abrir(el.dataset.abrir); return; }
   if (t.closest("#btnAgregar")) { abrir("agregar"); return; }
@@ -1041,6 +1066,7 @@ setInterval(actualizarSilencioso, REFRESCO_MS);
 
 /* arranque */
 $("btnAgregar").innerHTML = ic("add", 24);
+$("btnAmigos").innerHTML = ic("users", 24) + '<span class="bdg" id="bdgAm" hidden></span>';
 document.querySelectorAll("[data-cerrar]").forEach(b => b.innerHTML = ic("back", 22, 2.4));
 $("btnMas").innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + IC.mas + '</svg>';
 $("navbar").innerHTML = NAV.map(n => '<a' + (n.activo ? ' class="on" aria-current="page"' : '') + ' href="' + n.url + '">' + ic(n.i, 26) + n.nombre + '</a>').join("");
