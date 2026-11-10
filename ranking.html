@@ -359,6 +359,15 @@ nav a.on{color:var(--hi)}
 .rc-t{display:block;font-size:16px;font-weight:900;color:#FFD166}
 .rc-ver{align-self:flex-end;margin-top:10px;font-size:13px;font-weight:900;color:#FFF3D6}
 .rcar .rc.sel .rc-ver{color:#FFD166}
+.cats{display:flex;gap:6px}.cats .pc{flex:1;display:flex;align-items:center;justify-content:center;padding:0 8px}.cats .pc .au{font-size:14px;gap:5px}.cats .pc:not(.on) .au{opacity:.85}
+.sal{position:relative;padding:16px 10px 0;border-radius:28px;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#3A2A08,#0B0905 75%);border:1px solid #5A4410}
+.sal-ray{position:absolute;width:700px;height:700px;left:50%;top:70px;margin:-350px 0 0 -350px;background:repeating-conic-gradient(rgba(255,200,80,.12) 0 7deg,transparent 7deg 20deg);-webkit-mask:radial-gradient(circle,#000 10%,transparent 55%);mask:radial-gradient(circle,#000 10%,transparent 55%);animation:salGira 24s linear infinite;pointer-events:none}
+@keyframes salGira{to{transform:rotate(360deg)}}
+.sal-h{position:relative;display:block;text-align:center;font-family:Cinzel,Georgia,serif;font-size:20px;font-weight:900;color:#FFE7A8;letter-spacing:.06em;text-shadow:0 2px 0 #6B4300}
+.sal .podio{position:relative;background:none;border:0;padding:12px 0 0}
+.sal .ped{background:linear-gradient(#2A2008,#14100A);border-color:#5A4410}.sal .p1 .ped{background:linear-gradient(#5A4410,#2A1E06)}
+.sal .nombre{color:#FFF3D6}.sl-tt{margin-top:3px}
+@media (prefers-reduced-motion:reduce){.sal-ray{animation:none}}
 .rdots{display:flex;justify-content:center;gap:6px;margin-top:-4px}.rdots i{width:7px;height:7px;border-radius:99px;background:var(--bd);transition:width .25s}.rdots i.on{width:20px;background:var(--hi)}.rdots i.mio:not(.on){background:var(--mu)}
 </style>
 </head>
@@ -558,7 +567,9 @@ let LISTA = [];                           // ranking global del periodo
 let FR = { amigos:[], recibidas:[], enviadas:[] };   // amistades: { id, t, j }
 const JUG = {};                           // jugadores conocidos por uid
 let miPuesto = "—", cargando = true, error = "";
-let tab = "global", per = "liga";
+let tab = "global", per = "liga", cat = "tot";   /* cat = récord de "Siempre": tot (Aura), est (estrellas), racha */
+const CATS = [["tot", "Aura"], ["est", "Estrellas"], ["racha", "Racha"]];
+const clavePer = () => per === "tot" ? cat : per;
 const PER = [["liga", "Rango semanal"], ["tmp", "Temporada " + TEMPORADA.num], ["tot", "Siempre"]];
 
 function norm(uid, d) {
@@ -566,7 +577,7 @@ function norm(uid, d) {
   const j = { uid, n:String(d.n || "Jugador"), av:(+d.av === 9 && uid !== CREADOR) ? 0 : Math.min(19, Math.max(0, +d.av || 0)), tot:Math.max(0, d.ag != null ? +d.ag : +d.aura || 0),
     sem: d.sk === SEM() ? Math.max(0, +d.sem || 0) : 0, mes: d.mk === MES() ? Math.max(0, +d.mes || 0) : 0,
     tmp:Math.max(0, +d[TEMPORADA.campo] || 0), liga:Math.max(0, +d.ls || 0), lgw:String(d.lgw || ""), est, racha:+d.racha || 0, niv:+d.niv || 0, med:Array.isArray(d.med) ? d.med : [], cod:String(d.cod || ""),
-    lsk:lk(d.lsk, 8), lmc:lk(d.lmc, 7), ltt:lk(d.ltt, 7), lmp:lk(d.lmp, 14), vis,
+    lsk:lk(d.lsk, 8), lmc:lk(d.lmc, 7), ltt:lk(d.ltt, 16), lmp:lk(d.lmp, 14), vis,
     on: vis && ult > 0 && Date.now() - ult < ONLINE_MS, act:String(d.act || "Jugando"), visto: ult ? hace(ult) : "hace tiempo", rango: rangoPorEstrellas(est).n };
   JUG[uid] = j; return j;
 }
@@ -585,12 +596,13 @@ const ligaVista = () => verLg === null ? miLiga().lg : verLg;
 async function cargarLista() {
   const col = collection(db, "jugadores");
   /* "Este mes" necesita un índice compuesto: mk (ascendente) + mes (descendente) */
-  const q = per === "liga" ? query(col, where("lgw", "==", SEM() + "|" + ligaVista()), limit(60)) : per === "tmp" ? query(col, orderBy(TEMPORADA.campo, "desc"), limit(TOP)) : per === "mes" ? query(col, where("mk", "==", MES()), orderBy("mes", "desc"), limit(TOP)) : query(col, orderBy("ag", "desc"), limit(TOP));
+  const q = per === "liga" ? query(col, where("lgw", "==", SEM() + "|" + ligaVista()), limit(60)) : per === "tmp" ? query(col, orderBy(TEMPORADA.campo, "desc"), limit(TOP)) : per === "mes" ? query(col, where("mk", "==", MES()), orderBy("mes", "desc"), limit(TOP)) : query(col, orderBy(cat === "tot" ? "ag" : cat, "desc"), limit(TOP));
   const s = await getDocs(q);
   const l = []; s.forEach(d => l.push(norm(d.id, d.data())));
-  LISTA = l.filter(j => per === "tot" || j[per] > 0).sort((a, b) => b[per] - a[per]);
+  const K = clavePer();
+  LISTA = l.filter(j => (per === "tot" && cat === "tot") || j[K] > 0).sort((a, b) => b[K] - a[K]);
   if (per === "liga" && ligaVista() !== miLiga().lg) LISTA = LISTA.filter(j => j.uid !== ME.uid);
-  const mio = yo()[per], i = LISTA.findIndex(j => j.uid === ME.uid);
+  const Y = yo(), mio = K === "est" ? Y.estrellas : Y[K], i = LISTA.findIndex(j => j.uid === ME.uid);
   miPuesto = i >= 0 ? i + 1 : mio <= 0 ? "—" : TOP + "+";
   tLista = Date.now();
 }
@@ -766,6 +778,7 @@ function avatar(av, s, extra) {
 }
 const rangoHTML = (r, s) => '<span class="rg">' + escudo(rangoDe(r).c, s || 16) + esc(r) + '</span>';
 const auraHTML = v => '<span class="au">' + llama(16) + v + '</span>';
+const valHTML = (v, k) => k === "est" ? '<span class="au" style="color:#FFD166">' + ic("star", 16, 2.6) + v + '</span>' : k === "racha" ? '<span class="au" style="color:#FF8A3D">' + ic("flame", 16, 2.6) + v + '</span>' : auraHTML(v);
 const marca = '<span class="ok" title="Amigo">' + ic("check", 16, 3) + '</span>';
 const conPunto = (j, s, d) => lookMini(j.av, j, s, { punto: esAmigo(j.uid) ? j.on : undefined, d });
 
@@ -777,7 +790,7 @@ function pintarTabs() {
 }
 function filaJugador(j, pos, valor, zona) {
   return '<button type="button" class="fila card' + (zona ? " z-" + zona : "") + '" data-ver="' + esc(j.uid) + '"><span class="pos">' + pos + '</span>' + conPunto(j, 52, 14) +
-    '<span class="info"><span class="nombre" style="display:block">' + esc(j.n) + (esAmigo(j.uid) ? marca : "") + '</span><span class="rgl">' + rangoHTML(j.rango) + tituloHTML(j) + '</span></span><span class="der">' + auraHTML(valor) + '</span></button>';
+    '<span class="info"><span class="nombre" style="display:block">' + esc(j.n) + (esAmigo(j.uid) ? marca : "") + '</span><span class="rgl">' + rangoHTML(j.rango) + tituloHTML(j) + '</span></span><span class="der">' + valHTML(valor, per === "liga" ? "tot" : clavePer()) + '</span></button>';
 }
 function vistaGlobal() {
   const top = LISTA.slice(0, 3), m = yo();
@@ -786,9 +799,9 @@ function vistaGlobal() {
     const j = top[c[0]]; if (!j) return "<div></div>";
     return '<div class="pd ' + c[1] + '" data-ver="' + esc(j.uid) + '" role="button" tabindex="0">' + (c[0] === 0 ? '<span class="corona">' + ic("crown", 26, 2) + '</span>' : "") +
       lookMini(j.av, j, c[3], { ring: c[2], rw: c[0] === 0 ? 4 : 3, punto: esAmigo(j.uid) ? j.on : undefined, d: 18 }) +
-      '<span class="nombre">' + esc(j.n) + '</span>' + auraHTML(j[per]) + '<span class="ped">' + (c[0] + 1) + '</span></div>';
+      '<span class="nombre">' + esc(j.n) + '</span>' + (per === "tot" && j.ltt ? '<span class="sl-tt">' + tituloHTML(j) + '</span>' : '') + valHTML(j[clavePer()], clavePer()) + '<span class="ped">' + (c[0] + 1) + '</span></div>';
   }).join("");
-  const resto = LISTA.slice(3).map((j, i) => filaJugador(j, i + 4, j[per])).join("");
+  const resto = LISTA.slice(3).map((j, i) => filaJugador(j, i + 4, j[clavePer()])).join("");
   const hoy = m.hoy > 0 ? '<span class="hoy">' + ic("up", 16, 3) + '+' + m.hoy + ' hoy</span>' : "";
   const vacio = LISTA.length ? "" : '<div class="card vacio" style="margin:0"><b>' + (per === "tmp" ? "La temporada acaba de empezar" : "Aún no hay jugadores aquí") + '</b>Gana Aura jugando y aparecerás en esta lista.</div>';
   const dias = Math.ceil((TEMPORADA.fin - Date.now()) / 864e5), acabo = dias <= 0;
@@ -811,9 +824,10 @@ function vistaGlobal() {
       '<div class="fila card yo"><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>' : "");
   }
   return banner + '<div class="per" role="group" aria-label="Periodo">' + PER.map(p => '<button type="button" class="pc' + (per === p[0] ? " on" : "") + '" data-per="' + p[0] + '" aria-pressed="' + (per === p[0]) + '">' + p[1] + '</button>').join("") + '</div>' +
-    (LISTA.length ? '<div class="card podio">' + podio + '</div>' + resto : vacio) +
+    (per === "tot" ? '<div class="cats" role="group" aria-label="Récord">' + CATS.map(c => '<button type="button" class="pc' + (cat === c[0] ? " on" : "") + '" data-cat="' + c[0] + '">' + valHTML("", c[0]).replace("</span>", c[1] + "</span>") + '</button>').join("") + '</div>' : "") +
+    (LISTA.length ? (per === "tot" ? '<div class="sal"><div class="sal-ray"></div><small class="sal-h">SALÓN DE LA FAMA</small><div class="podio">' + podio + '</div></div>' : '<div class="card podio">' + podio + '</div>') + resto : vacio) +
     '<div class="fila card yo"><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span>' +
-    '</span><span class="der">' + auraHTML(m[per]) + hoy + '</span></div>';
+    '</span><span class="der">' + valHTML(clavePer() === "est" ? m.estrellas : m[clavePer()], clavePer()) + (per === "tot" && cat !== "tot" ? "" : hoy) + '</span></div>';
 }
 function interruptor() {
   return '<div class="card sw"><span class="sw-tx"><b>Mostrar mi estado activo</b><small>Tus amigos ven cuándo estás jugando. Puedes apagarlo cuando quieras.</small></span>' +
@@ -1003,6 +1017,7 @@ document.addEventListener("click", async e => {
     const c = $("cont"); c.querySelectorAll(".rc").forEach(x => x.classList.toggle("sel", +x.dataset.lg === lg));
     try { await cargarLista(); } catch (er) {} pintar(); centrarRango(true); return;
   }
+  if ((el = t.closest("[data-cat]"))) { cat = el.dataset.cat; try { await cargarLista(); } catch (er) {} pintar(); return; }
   if ((el = t.closest("[data-per]"))) { per = el.dataset.per; try { await cargarLista(); } catch (er) {} pintar(); return; }
   if (t.closest("[data-reintentar]")) { iniciar(); return; }
   if ((el = t.closest("[data-abrir]"))) { abrir(el.dataset.abrir); return; }
