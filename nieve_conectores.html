@@ -306,6 +306,48 @@ svg{display:block}
 .u-sino .u-o{justify-content:center;flex-direction:column;gap:4px;min-height:80px;font-size:17px}.u-sino .u-o svg{width:28px;height:28px}
 .u-marc{display:flex;gap:6px;justify-content:center;margin-top:12px}.u-marc i{width:26px;height:8px;border-radius:9px;background:var(--bd)}.u-marc i.ok{background:var(--ok)}.u-marc i.mal{background:var(--mal)}
 .u-go{display:block;margin:0 auto;height:50px;padding:0 26px;border:0;border-bottom:4px solid color-mix(in srgb,var(--hi) 55%,#777);border-radius:14px;background:var(--hi);color:var(--on-hi);font:900 15px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+/* frase tocable: traducción completa */
+.u-fr{position:relative;cursor:pointer;border-bottom:2px dashed var(--toff)}
+.u-fr .u-tip{white-space:normal;width:max-content;max-width:240px;text-align:center}
+/* los 4 conectores */
+.u-l4{display:grid;gap:10px}
+.u-l4i{display:flex;align-items:center;gap:12px;padding:12px 14px;border:2px solid var(--bd);border-bottom-width:4px;border-radius:18px;background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.u-l4i.oido{border-color:color-mix(in srgb,var(--gold) 55%,var(--bd))}
+.u-l4i .w{flex:none;width:100px}.u-l4i .w b{display:block;font-size:21px;font-weight:900;line-height:1}.u-l4i .w em{display:block;font-style:normal;margin-top:3px;font-size:15px;font-weight:900;color:var(--gold)}
+.u-l4i .x{flex:1;min-width:0}.u-l4i .e{display:block;font-size:15px;font-weight:800;line-height:1.3}.u-l4i .s{display:block;margin-top:2px;font-size:13px;font-weight:700;color:var(--mu)}
+.u-l4i .o{flex:none;display:flex;gap:2px;line-height:0}
+/* mini sopa de letras */
+.u-sopa{display:grid;gap:5px;max-width:340px;margin:0 auto;touch-action:none;user-select:none}
+.u-sl{aspect-ratio:1;border:0;border-radius:10px;background:var(--card);box-shadow:inset 0 0 0 2px var(--bd);color:var(--ink);font:900 20px Nunito,sans-serif;cursor:pointer;padding:0;transition:background .15s,transform .1s}
+.u-sl.ini,.u-sl.tmp{background:color-mix(in srgb,var(--gold) 30%,var(--card));box-shadow:inset 0 0 0 2px var(--gold);transform:scale(1.05)}
+.u-sl.ok{background:color-mix(in srgb,var(--ok) 30%,var(--card));box-shadow:inset 0 0 0 2px var(--ok);color:var(--ink)}
+.u-sl.mal{background:color-mix(in srgb,var(--mal) 25%,var(--card))}
+.u-spw{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.u-spw span{padding:7px 12px;border-radius:99px;border:2px solid var(--bd);font-size:14px;font-weight:800;color:var(--mu)}.u-spw span b{color:var(--ink)}
+.u-spw span.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent);text-decoration:line-through}
+/* conversación con huecos numerados */
+.u-conv .hueco2{display:flex;align-items:center;gap:8px;padding:12px;border-radius:14px;border:2px dashed var(--bd);color:var(--mu);font-size:14px;font-weight:800}
+.u-conv .hueco2.yo{flex-direction:row-reverse;text-align:right}
+.u-conv .hueco2 .num{flex:none;width:24px;height:24px;border-radius:50%;background:var(--chip);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--ink)}
+.u-conv .hueco2.pista2{border-color:var(--gold);color:var(--gold);animation:shk .35s}
+.u-conv .bb .qn{display:block;font-size:11px;font-weight:900;letter-spacing:.06em;color:var(--mu);text-transform:uppercase;margin-bottom:2px}
+.dormido .oc{animation:none}.dormido .cab{animation:nod 3s ease-in-out infinite alternate}.dormido .mov{animation:resp 3s ease-in-out infinite}.dormido .bo{animation:ua 2.4s step-end infinite}
+/* liga semanal en la pantalla final */
+.lgf{width:100%;margin:16px 0 4px;padding:14px;border-radius:20px;background:var(--card);border:1px solid var(--bd);text-align:left}
+.lgf h3{display:flex;align-items:center;justify-content:space-between;margin:0 0 4px;font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.lgf h3 span{letter-spacing:0;color:var(--gold);font-size:13px}
+.lgf .tit{margin:0 0 10px;font-size:18px;font-weight:900}.lgf .tit b{color:var(--ok)}
+.lgf .tb{position:relative;overflow:hidden;border-radius:14px}
+.lgf .fl{position:absolute;left:0;right:0;height:46px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:12px;transition:top .9s cubic-bezier(.3,1.2,.4,1),background .4s}
+.lgf .fl .p{flex:none;width:28px;font-size:15px;font-weight:900;color:var(--mu)}
+.lgf .fl .n{flex:1;min-width:0;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lgf .fl .a{flex:none;display:flex;align-items:center;gap:4px;font-size:15px;font-weight:900}
+.lgf .fl.yo{background:color-mix(in srgb,var(--gold) 18%,var(--card));box-shadow:inset 0 0 0 2px var(--gold);z-index:2}
+.lgf .fl.yo .n{color:var(--ink)}
+.lgf .fl.sube{animation:lgsube .9s ease}
+.lgf .flecha2{display:inline-flex;align-items:center;gap:4px;margin-left:6px;padding:2px 8px;border-radius:99px;background:var(--ok);color:var(--bg);font-size:12px;font-weight:900}
+.lgf .nota3{margin:10px 0 0;font-size:13px;font-weight:700;color:var(--mu)}
+@keyframes lgsube{40%{transform:scale(1.04)}}
 /* pista del conector (sale la primera vez) */
 .u-pista{display:flex;align-items:center;gap:8px;margin:0 0 14px;padding:10px 14px;border-radius:16px;border:2px solid color-mix(in srgb,var(--gold) 45%,var(--bd));background:color-mix(in srgb,var(--gold) 8%,var(--card));animation:entra .3s ease}
 .u-pista .k{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:99px;background:var(--gold);color:var(--bg);font-size:10.5px;font-weight:900;letter-spacing:.08em}
@@ -382,8 +424,8 @@ svg{display:block}
 <script>
 /* =====================================================================
    TUS DATOS · Nivel 6 de la Isla de Nieve: Conectores (and, but, or, because)
-   Estilo Duolingo con la paleta del jugador. Los conectores se aprenden en la misma práctica:
-   la primera vez que sale uno, aparece la PISTA (ej. "and = y") con su audio.
+   Estilo Duolingo con la paleta del jugador. Frases sencillas de todos los días
+   (gato, perro, té, café, pan, leche, dormir...) y un poquito de Gustos.
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";
@@ -397,29 +439,34 @@ const PALABRAS = [
   { k:"and", en:"and", es:"y", audio:"and.mp3" }, { k:"but", en:"but", es:"pero", audio:"but.mp3" },
   { k:"or", en:"or", es:"o", audio:"or.mp3" }, { k:"because", en:"because", es:"porque", audio:"because.mp3" }
 ];
-/* Traducciones que salen al tocar una palabra */
-const TRAD = { "I":"yo", "like":"me gusta", "don't like":"no me gusta", "don't":"no", "and":"y", "but":"pero", "or":"o", "because":"porque",
-  "pizza":"pizza", "Pizza":"pizza", "coffee":"café", "dogs":"perros", "Dogs":"perros", "rain":"lluvia", "ice cream":"helado", "football":"fútbol", "it is":"es / está", "cold":"frío",
-  "Do you like":"¿Te gusta…?", "Me too":"A mí también" };
-/* El nivel, paso por paso. pista = [inglés, español] sale la primera vez que aparece un conector.
-   habla = qué significa · completa = palabra que falta · palabra = letras que faltan · traduce = arma la frase
-   escucha = escribe lo que oyes · parejas = une · error = encuentra la palabra mala · charla = ordena la conversación
-   pj = personaje (baile, amor, neg, idea, pienso, sorpresa, cool, triste, afirma, pulgar, hambre) · ob = dibujo o lista de dibujos */
+/* Pantalla de inicio: los 4 conectores con un ejemplo cada uno */
+const LOS4 = [
+  { en:"and",     es:"y",      ej:"I have a cat and a dog.",   ejEs:"Tengo un gato y un perro.",     ob:["gato", "perro"] },
+  { en:"but",     es:"pero",   ej:"I am tired, but happy.",    ejEs:"Estoy cansado, pero feliz.",    ob:["cama"] },
+  { en:"or",      es:"o",      ej:"Tea or coffee?",            ejEs:"¿Té o café?",                   ob:["te", "cafe"] },
+  { en:"because", es:"porque", ej:"I eat because I am hungry.", ejEs:"Como porque tengo hambre.",    ob:["pan"] }
+];
+/* El nivel, paso por paso.
+   los4 = los 4 conectores con ejemplo (no se evalúa) · habla = qué significa · completa = palabra que falta
+   sopa = mini sopa de letras · palabra = letras que faltan · traduce = arma la frase · escucha = escribe lo que oyes
+   parejas = une · error = encuentra la palabra mala · charla = ordena la conversación
+   pj = personaje · ob = dibujo o lista de dibujos · es = traducción de la frase (sale al tocarla) */
 const PLAN = [
-  { t:"habla",    pj:"baile",    ob:["pizza", "helado"], pista:["and", "y"],          en:"I like pizza and ice cream.", ops:["Me gusta la pizza y el helado.", "Me gusta la pizza o el helado.", "Me gusta la pizza, pero no el helado."] },
-  { t:"completa", pj:"amor",     ob:["perro", "lluvia"], pista:["but", "pero"],       en:"I like dogs, ___ I don't like rain.", es:"Me gustan los perros, pero no me gusta la lluvia.", ok:"but", ops:["and", "but", "or"] },
-  { t:"completa", pj:"neg",      ob:["cafe", "helado"],                               en:"I like coffee, ___ I don't like ice cream.", es:"Me gusta el café, pero no me gusta el helado.", ok:"but", ops:["and", "but", "or"] },
-  { t:"habla",    pj:"idea",     ob:["pizza", "helado"], pista:["or", "o"],           en:"Pizza or ice cream?", ops:["¿Pizza o helado?", "¿Pizza y helado?", "Pizza, pero no helado."] },
-  { t:"completa", pj:"pienso",   ob:["perro", "balon"],                               en:"Dogs ___ football?", es:"¿Perros o fútbol?", ok:"or", ops:["and", "but", "or"] },
-  { t:"error",    pj:"sorpresa", ob:["pizza", "helado"], malas:["I", "like", "pizza", "but", "ice cream."], mal:3, ok:"and", ops:["and", "or", "because"], es:"Me gusta la pizza y el helado.", en:"I like pizza and ice cream." },
-  { t:"habla",    pj:"cool",     ob:["helado"],          pista:["because", "porque"], en:"I like ice cream because it is cold.", ops:["Me gusta el helado porque es frío.", "Me gusta el helado, pero es frío.", "Me gusta el helado o es frío."] },
-  { t:"completa", pj:"triste",   ob:["lluvia"],                                       en:"I don't like rain ___ it is cold.", es:"No me gusta la lluvia porque es fría.", ok:"because", ops:["because", "but", "and"] },
-  { t:"palabra",  pj:"cool",     ob:["helado"],                                       en:"because", es:"porque", faltan:[3, 5] },
-  { t:"parejas",  pares:[["and", "y"], ["but", "pero"], ["or", "o"], ["because", "porque"], ["ice cream", "el helado", "helado"]] },
-  { t:"traduce",  pj:"neg",      ob:["lluvia"],          es:"No me gusta la lluvia porque es fría.", en:"I don't like rain because it is cold", extra:["but", "hot"] },
-  { t:"charla",   msgs:[["el", "Do you like pizza or ice cream?", "¿Te gusta la pizza o el helado?"], ["yo", "I like pizza and ice cream!", "¡Me gusta la pizza y el helado!"], ["el", "Me too, but I don't like coffee.", "A mí también, pero no me gusta el café."]] },
-  { t:"escucha",  pj:"afirma",                           en:"I like dogs and football.",              es:"Me gustan los perros y el fútbol." },
-  { t:"escucha",  pj:"pienso",                           en:"I like coffee, but I don't like rain.",  es:"Me gusta el café, pero no me gusta la lluvia." }
+  { t:"los4" },
+  { t:"habla",    pj:"baile",    ob:["gato", "perro"], en:"I have a cat and a dog.", ops:["Tengo un gato y un perro.", "Tengo un gato o un perro.", "Tengo un gato, pero no un perro."] },
+  { t:"completa", pj:"idea",     ob:["te", "cafe"],    en:"Tea ___ coffee?", es:"¿Té o café?", ok:"or", ops:["and", "or", "because"] },
+  { t:"completa", pj:"dormido",  ob:["cama"],          en:"I am tired, ___ happy.", es:"Estoy cansado, pero feliz.", ok:"but", ops:["but", "or", "because"] },
+  { t:"sopa",     pal:[["AND", "y"], ["BUT", "pero"], ["OR", "o"], ["BECAUSE", "porque"]] },
+  { t:"completa", pj:"hambre",   ob:["pan"],           en:"I eat ___ I am hungry.", es:"Como porque tengo hambre.", ok:"because", ops:["because", "and", "or"] },
+  { t:"habla",    pj:"pienso",   ob:["leche", "te"],   en:"Milk or tea?", ops:["¿Leche o té?", "¿Leche y té?", "Leche, pero no té."] },
+  { t:"error",    pj:"sorpresa", ob:["gato", "perro"], malas:["I", "have", "a", "cat", "or", "a", "dog."], mal:4, ok:"and", ops:["and", "but", "because"], es:"Tengo un gato y un perro.", en:"I have a cat and a dog." },
+  { t:"palabra",  pj:"cool",     ob:["sol"],           en:"because", es:"porque", faltan:[3, 5] },
+  { t:"completa", pj:"hambre",   ob:["pizza", "helado"], en:"I like pizza ___ ice cream.", es:"Me gusta la pizza y el helado.", ok:"and", ops:["and", "or", "but"] },
+  { t:"parejas",  pares:[["and", "y"], ["but", "pero"], ["or", "o"], ["because", "porque"], ["cat", "gato", "gato"]] },
+  { t:"traduce",  pj:"dormido",  ob:["cama"],          es:"Duermo porque estoy cansado.", en:"I sleep because I am tired", extra:["but", "happy"] },
+  { t:"charla",   msgs:[["el", "Tea or coffee?", "¿Té o café?"], ["yo", "Coffee, because I am tired.", "Café, porque estoy cansado."], ["el", "Me too!", "¡Yo también!"]] },
+  { t:"escucha",  pj:"afirma",                         en:"I have a cat and a dog.",  es:"Tengo un gato y un perro." },
+  { t:"escucha",  pj:"pienso",                         en:"I am tired, but happy.",   es:"Estoy cansado, pero feliz." }
 ];
 
 /* =====================================================================
@@ -706,6 +753,12 @@ Object.assign(DIB, {
   balon:{p:{k:"#2B2B33",w:"#F4F6FA"},r:["....kkkk....","..kwwwwwwk..",".kwwkkwwwwk.",".kwkkkkwwwk.","kwwkkkwwkkwk","kwwwwwwkkkwk","kwkkwwwwkwwk","kkkkkwwwwwwk",".kwkwwwkkwk.",".kwwwwkkkwk.","..kwwwwwwk..","....kkkk...."]},
   helado:{p:{p:"#FF9FB2",w:"#FFFFFF",c:"#E8B04A",d:"#C9822A"},r:["....pppp....","...pppppp...","..pppwpppp..","..pppppppp..","..cccccccc..","...cdcdcd...","...dcdcdc...","....cdcd....","....dcdc....",".....cd.....",".....dc.....","............"]},
   cafe:{p:{w:"#F4F6FA",b:"#3A2210",g:"#C9D3E0",s:"#B0B8C4"},r:["...s..s.....","..s..s......","...s..s.....","............",".wwwwwww....",".wbbbbbwww..",".wbbbbbw.w..",".wbbbbbw.w..",".wwwwwwwww..",".gwwwwwg....","..ggggg.....","............"]},
+  gato:{p:{g:"#F2A541",k:"#2B2B33",p:"#FF9FB2",t:"#D9822B"},r:["............",".g.......g..",".gg.....gg..",".ggggggggg..",".gkggggkgg..",".ggggpgggg..","..gggggggg..","..gggggggg.t","..gggggggg.t","..gggggggggt","..gg.gg.gg..","............"]},
+  sol:{p:{o:"#FFC83D",y:"#FF8A3D"},r:[".....y......",".y...y...y..","..y.....y...","....ooo.....","...ooooo....","yy.ooooo.yy.","...ooooo....","....ooo.....","..y.....y...",".y...y...y..",".....y......","............"]},
+  te:{p:{w:"#F4F6FA",b:"#7BC96F",g:"#C9D3E0",s:"#B0B8C4"},r:["...s..s.....","..s..s......","...s..s.....","............",".wwwwwww....",".wbbbbbwww..",".wbbbbbw.w..",".wbbbbbw.w..",".wwwwwwwww..",".gwwwwwg....","..ggggg.....","............"]},
+  pan:{p:{b:"#B5722E",c:"#E8B46A",d:"#8A5220"},r:["............","............","...bbbbbb...","..bccccccb..",".bccccccccb.",".bcdccdccdb.",".bccccccccb.",".bbbbbbbbbb.","............","............","............","............"]},
+  leche:{p:{w:"#F4F6FA",b:"#3FA9F5",g:"#C9D3E0"},r:["....bbbb....","...bwwwwb...","...wwwwww...","...wbbbbw...","...wbwwbw...","...wbbbbw...","...wwwwww...","...wwwwww...","...wwwwww...","...gggggg...","............","............"]},
+  cama:{p:{w:"#C9D3E0",p:"#F4F6FA",b:"#5FA8E8",d:"#3A78B8"},r:["............","............","............","w...........","w.pp........","wpppbbbbbbbw","wbbbbbbbbbbw","wddddddddddw","w..........w","............","............","............"]},
   tarea:{p:{b:"#3FA9F5",w:"#F4F6FA",k:"#8A94A6",r:"#E5483C"},r:["............",".bbbbbbbbbb.",".bwwwwwwwwb.",".bwkkkkkkwb.",".bwwwwwwwwb.",".bwkkkkkwwb.",".bwwwwwwwwb.",".bwkkkkkkwb.",".bwwwwwwwrb.",".bbbbbbbbbb.","............","............"]}
 });
 const OB1 = (n, s) => dib(n, 12).replace('width="12" height="12"', 'width="' + s + '" height="' + s + '"');
@@ -728,7 +781,9 @@ const caraL = () => solo(4, 5, 1, 2, "s").concat(solo(6, 6, 0, 1, "l"), solo(7, 
 const excl = x => '<g class="vena">' + rects([[-2,x,"v"],[-1,x,"v"],[0,x,"v"],[2,x,"v"]]) + '</g>';
 const nota = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x+1,"y"],[y+1,x+1,"y"],[y+2,x,"y"],[y+2,x+1,"y"]]) + '</g>';
 const bombilla = '<g class="kb1">' + rects(solo(-3, -2, 4, 6, "y").concat([[-1,5,"q"]])) + '</g><g class="kb2">' + rects(solo(-3, -2, 4, 6, "W").concat([[-1,5,"q"],[-3,3,"y"],[-3,7,"y"],[-2,2,"y"],[-2,8,"y"]])) + '</g>';
+const zeta = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"W"],[y,x+1,"W"],[y,x+2,"W"],[y+1,x+1,"W"],[y+2,x,"W"],[y+2,x+1,"W"],[y+2,x+2,"W"]]) + '</g>';
 Object.assign(ACC, {
+  dormido:{ id:"dormido", mod:[[4,3,4,"e"],[4,7,8,"e"]], bo:solo(5, 6, 5, 6, "M"), extra:"", fuera:zeta(10, 2, 0) + zeta(10, -2, 1.2) },
   idea:{ id:"idea", vb:"-1 -3 14 19.8", mod:SONRISA, bo:[], r1:arriba("R", 1), r2:arriba("R", 2), extra:"", fuera:bombilla },
   cool:{ id:"cool", mod:[[4,3,8,"z"],[6,4,7,"m"],[5,8,8,"m"]], bo:[], gu:[[4,4,"W"],[4,7,"W"]], r1:arriba("R", 4), r2:cara(), extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 0, .7) },
   baile:{ id:"baile", mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[], r1:arriba("R", 3), l1:arriba("L", 3), extra:"", fuera:nota(10, 1, 0) + nota(-1, 0, .8) + nota(10, -2, 1.6) },
@@ -743,20 +798,11 @@ function PJ(id) { const a = ACC[id]; let s = dibujar(a, "");
 const AU = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>';
 const AUG = AU.replace(/22/g, "40");
 const LENTO = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 13V9M12 13l3 2M9 2h6"></path></svg>';
-/* frase con palabras que se pueden tocar para ver la traducción */
-function frase(t) {
-  let out = "", r = t;
-  const claves = Object.keys(TRAD).sort((a, b) => b.length - a.length);
-  while (r.length) {
-    const k = claves.find(c => r.startsWith(c) && !/[a-z]/i.test(r.charAt(c.length) || " "));
-    if (k) { out += '<span class="u-w" data-t="' + esc(TRAD[k]) + '">' + esc(k) + '</span>'; r = r.slice(k.length); }
-    else { out += esc(r[0]); r = r.slice(1); }
-  }
-  return out;
-}
+/* frase que se puede tocar: muestra la traducción de TODA la frase (si se pasa "es") */
+function frase(t, es) { return es ? '<span class="u-fr" data-t="' + esc(es) + '">' + esc(t) + '</span>' : esc(t); }
 document.addEventListener("click", e => {
-  const w = e.target.closest(".u-w"); document.querySelectorAll(".u-tip").forEach(x => x.remove());
-  if (w) { w.insertAdjacentHTML("beforeend", '<span class="u-tip">' + esc(w.dataset.t) + '</span>'); voz(w.firstChild.textContent, .9); setTimeout(() => { const t = w.querySelector(".u-tip"); if (t) t.remove(); }, 1800); }
+  const w = e.target.closest(".u-fr"); document.querySelectorAll(".u-tip").forEach(x => x.remove());
+  if (w) { w.insertAdjacentHTML("beforeend", '<span class="u-tip">' + esc(w.dataset.t) + '</span>'); voz(w.firstChild.textContent, .9); setTimeout(() => { const t = w.querySelector(".u-tip"); if (t) t.remove(); }, 2600); }
 });
 
 /* ===== motor: una pantalla por paso, con Comprobar abajo ===== */
@@ -786,7 +832,7 @@ function pantalla(cuerpo, rev) {
 }
 listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") b.disabled = !v; };
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
-function pintar() { P = PLAN[pos]; ({ nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
+function pintar() { P = PLAN[pos]; ({ los4:exLos4, sopa:exSopa, nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
 const enLimpio = t => t.replace(/[.!?]/g, "").trim();
 const espanol = t => t;
 
@@ -795,7 +841,7 @@ function exNueva() {
   pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + 'PALABRA NUEVA</span>' +
     '<div class="u-nw"><span class="ob">' + OB(P.ob, 120) + '</span><div class="pal"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU.replace(/22/g, "30") + '</button>' + esc(P.en) + '</div>' +
     '<div class="tra">' + esc(P.es) + '</div><button type="button" class="lento2" id="bLe">' + LENTO.replace(/28/g, "18") + 'Lento</button>' +
-    '<div class="u-ejx">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bEj" aria-label="Escuchar el ejemplo">' + AU + '</button>' + frase(P.ej) + '<span class="u-es">' + esc(P.ejEs) + '</span></div></div></div>', null);
+    '<div class="u-ejx">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bEj" aria-label="Escuchar el ejemplo">' + AU + '</button>' + frase(P.ej, P.ejEs) + '<span class="u-es">' + esc(P.ejEs) + '</span></div></div></div>', null);
   const b = $("bChk"); b.disabled = false; b.textContent = "Continuar";
   on("bAu", () => voz(P.en, .85)); on("bLe", () => voz(P.en, .5)); on("bEj", () => voz(P.ej, .9));
   setTimeout(() => voz(P.en, .85), 300);
@@ -852,18 +898,66 @@ function exError() { let malo = null, fix = null;
   document.querySelectorAll("#erP .u-ch").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#erP .u-ch").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); fix = b.dataset.o;
     const w = document.querySelector('#erW [data-i="' + malo + '"]'); if (malo === P.mal) { w.textContent = fix; w.classList.remove("malw"); w.classList.add("fix"); } voz(fix, .9); listo(1); }));
 }
-/* 13 · ORDENA LA CONVERSACIÓN */
+/* 13 · ORDENA LA CONVERSACIÓN: arma el chat en orden (1 tu amigo pregunta, 2 tú respondes, 3 tu amigo contesta) */
 function exCharla() { let n = 0, fallos = 0;
-  pantalla('<p class="u-t">Ordena la conversación</p><div class="u-conv" id="cv"><span class="vacio">Toca los mensajes en orden</span></div>' +
-    '<div class="u-ops" id="cvO">' + mezcla(P.msgs.map((_, i) => i)).map(i => '<button type="button" class="u-o" data-i="' + i + '">' + esc(P.msgs[i][1]) + '</button>').join("") + '</div>',
+  const quien = m => m[0] === "el" ? "Tu amigo" : "Tú";
+  pantalla('<p class="u-t">Arma la conversación</p><p class="u-es" style="margin:-10px 0 12px">Tu amigo te pregunta algo y tú le respondes. Toca los mensajes en el orden en que se dicen.</p>' +
+    '<div class="u-conv" id="cv">' + P.msgs.map((m, i) => '<div class="hueco2 ' + m[0] + '" id="h' + i + '"><span class="num">' + (i + 1) + '</span>' + quien(m) + (i === 0 ? ' pregunta…' : i === 1 ? ' respondes…' : ' contesta…') + '</div>').join("") + '</div>' +
+    '<div class="u-ops" id="cvO">' + mezcla(P.msgs.map((_, i) => i)).map(i => '<button type="button" class="u-o" data-i="' + i + '"><span><b style="display:block">' + esc(P.msgs[i][1]) + '</b><small style="color:var(--mu);font-weight:700">' + esc(P.msgs[i][2]) + '</small></span></button>').join("") + '</div>',
     () => [fallos === 0, fallos === 0 ? "¡Conversación perfecta!" : P.msgs.map(m => m[1]).join(" → "), P.msgs.map(m => m[1]).join(" ")]);
   document.querySelectorAll("#cvO .u-o").forEach(b => b.addEventListener("click", () => {
     const i = +b.dataset.i;
-    if (i !== n) { fallos++; b.classList.remove("mal"); void b.offsetWidth; b.classList.add("mal"); sonido("mal"); return; }
-    const m = P.msgs[i]; if (n === 0) $("cv").innerHTML = "";
-    $("cv").insertAdjacentHTML("beforeend", '<div class="fila ' + m[0] + '">' + PJ(m[0] === "el" ? "baile" : "pulgar") + '<div class="bb">' + frase(m[1]) + '<small>' + esc(m[2]) + '</small></div></div>');
+    if (i !== n) { fallos++; b.classList.remove("mal"); void b.offsetWidth; b.classList.add("mal"); sonido("mal"); const h = $("h" + n); h.classList.remove("pista2"); void h.offsetWidth; h.classList.add("pista2"); return; }
+    const m = P.msgs[i];
+    $("h" + i).outerHTML = '<div class="fila ' + m[0] + '">' + PJ(m[0] === "el" ? "baile" : "pulgar") + '<div class="bb"><span class="qn">' + quien(m) + '</span>' + esc(m[1]) + '<small>' + esc(m[2]) + '</small></div></div>';
     b.classList.add("ida"); voz(m[1], .9); n++; if (n === P.msgs.length) listo(1);
   }));
+}
+/* 14 · LOS 4 CONECTORES con ejemplo (no se evalúa) */
+function exLos4() {
+  pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + 'LOS 4 CONECTORES</span><p class="u-t">Sirven para unir ideas. Toca cada uno para oírlo.</p>' +
+    '<div class="u-l4">' + LOS4.map((c, i) => '<button type="button" class="u-l4i" data-i="' + i + '"><span class="w"><b>' + esc(c.en) + '</b><em>' + esc(c.es) + '</em></span>' +
+      '<span class="x"><span class="e">' + esc(c.ej) + '</span><span class="s">' + esc(c.ejEs) + '</span></span><span class="o">' + OB(c.ob, 26) + '</span></button>').join("") + '</div>', null);
+  const b = $("bChk"); b.disabled = false; b.textContent = "¡Vamos!";
+  document.querySelectorAll(".u-l4i").forEach(x => x.addEventListener("click", () => { const c = LOS4[+x.dataset.i]; voz(c.en + ". " + c.ej, .85); x.classList.add("oido"); }));
+}
+/* 15 · MINI SOPA DE LETRAS (los 4 conectores). Toca la primera y la última letra (o arrastra) */
+function exSopa() {
+  const N = 7, W = P.pal.map(p => p[0]); let G, ok = {}, ini = null;
+  for (let intento = 0; intento < 200; intento++) {
+    G = Array.from({ length:N }, () => Array(N).fill("")); let bien = true;
+    for (const w of W.slice().sort((a, b) => b.length - a.length)) {
+      let puesto = false;
+      for (let k = 0; k < 80 && !puesto; k++) {
+        const h = Math.random() < .5, r = Math.floor(Math.random() * (h ? N : N - w.length + 1)), c = Math.floor(Math.random() * (h ? N - w.length + 1 : N));
+        if (w.split("").every((ch, i) => { const v = G[h ? r : r + i][h ? c + i : c]; return !v || v === ch; })) { w.split("").forEach((ch, i) => G[h ? r : r + i][h ? c + i : c] = ch); puesto = true; }
+      }
+      if (!puesto) { bien = false; break; }
+    }
+    if (bien) break;
+  }
+  const AB = "ACDEFGHIKLMNPRSTUWY";
+  G = G.map(f => f.map(v => v || AB[Math.floor(Math.random() * AB.length)]));
+  pantalla('<p class="u-t">Encuentra los 4 conectores</p><p class="u-es" style="margin:-10px 0 12px">Toca la primera letra y luego la última (o arrastra el dedo).</p>' +
+    '<div class="u-sopa" id="sp" style="grid-template-columns:repeat(' + N + ',1fr)">' + G.map((f, r) => f.map((ch, c) => '<button type="button" class="u-sl" data-r="' + r + '" data-c="' + c + '">' + ch + '</button>').join("")).join("") + '</div>' +
+    '<div class="u-spw">' + P.pal.map(p => '<span data-w="' + p[0] + '"><b>' + p[0].toLowerCase() + '</b> ' + esc(p[1]) + '</span>').join("") + '</div>', () => [true, "and = y · but = pero · or = o · because = porque", "and, but, or, because"]);
+  const cel = (r, c) => document.querySelector('.u-sl[data-r="' + r + '"][data-c="' + c + '"]');
+  const linea = (a, b) => { if (a.r !== b.r && a.c !== b.c) return null; const out = [], n = Math.max(Math.abs(b.r - a.r), Math.abs(b.c - a.c)), dr = Math.sign(b.r - a.r), dc = Math.sign(b.c - a.c); for (let i = 0; i <= n; i++) out.push({ r:a.r + dr * i, c:a.c + dc * i }); return out; };
+  const probar = (a, b) => {
+    document.querySelectorAll(".u-sl.ini,.u-sl.tmp").forEach(x => x.classList.remove("ini", "tmp"));
+    const L = linea(a, b); if (!L) { sonido("mal"); return; }
+    const pal = L.map(p => G[p.r][p.c]).join(""), w = W.find(x => (x === pal || x === pal.split("").reverse().join("")) && !ok[x]);
+    if (!w) { L.forEach(p => { const e = cel(p.r, p.c); e.classList.add("mal"); setTimeout(() => e.classList.remove("mal"), 400); }); sonido("mal"); return; }
+    ok[w] = 1; L.forEach(p => cel(p.r, p.c).classList.add("ok")); document.querySelector('.u-spw [data-w="' + w + '"]').classList.add("ok"); voz(w.toLowerCase(), .9); sonido("ok", Object.keys(ok).length - 1);
+    if (Object.keys(ok).length === W.length) listo(1);
+  };
+  const sp = $("sp"); let arrastre = null;
+  sp.addEventListener("pointerdown", e => { const t = e.target.closest(".u-sl"); if (!t) return; arrastre = { r:+t.dataset.r, c:+t.dataset.c, mov:false }; });
+  sp.addEventListener("pointermove", e => { if (!arrastre) return; const t = document.elementFromPoint(e.clientX, e.clientY); const s = t && t.closest && t.closest(".u-sl"); if (s && (+s.dataset.r !== arrastre.r || +s.dataset.c !== arrastre.c)) { arrastre.mov = true; document.querySelectorAll(".u-sl.tmp").forEach(x => x.classList.remove("tmp")); const L = linea(arrastre, { r:+s.dataset.r, c:+s.dataset.c }); if (L) L.forEach(p => cel(p.r, p.c).classList.add("tmp")); } });
+  document.addEventListener("pointerup", e => { if (!arrastre) return; const a = arrastre; arrastre = null; const t = document.elementFromPoint(e.clientX, e.clientY); const s = t && t.closest && t.closest(".u-sl");
+    if (a.mov && s) { ini = null; probar(a, { r:+s.dataset.r, c:+s.dataset.c }); return; }
+    if (!s) return; const p = { r:+s.dataset.r, c:+s.dataset.c };
+    if (!ini) { ini = p; s.classList.add("ini"); sonido("click"); } else if (ini.r === p.r && ini.c === p.c) { s.classList.remove("ini"); ini = null; } else { const a2 = ini; ini = null; probar(a2, p); } }, { once:false });
 }
 /* 1 · el personaje habla: ¿qué significa? */
 function exHabla() { let sel = null; const ops = mezcla(P.ops);
@@ -927,19 +1021,51 @@ function exParejas() { let sel = null, n = 0;
 }
 
 /* ===== final ===== */
-const textoDe = p => p.t === "parejas" ? "and = y · but = pero · or = o · because = porque" : p.t === "charla" ? p.msgs.map(m => m[1]).join(" ") : p.t === "error" ? p.en + " = " + p.es : p.t === "relampago" ? "Ronda relámpago: I like pizza · I like dogs · I like ice cream" : p.t === "palabra" ? p.en + " = " + p.es : p.t === "negativa" ? p.en + ". = " + p.es : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
+const textoDe = p => p.t === "parejas" || p.t === "sopa" ? "and = y · but = pero · or = o · because = porque" : p.t === "charla" ? p.msgs.map(m => m[1]).join(" ") : p.t === "error" ? p.en + " = " + p.es : p.t === "relampago" ? "Ronda relámpago: I like pizza · I like dogs · I like ice cream" : p.t === "palabra" ? p.en + " = " + p.es : p.t === "negativa" ? p.en + ". = " + p.es : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
 const repaso = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB1([].concat(p.ob)[0], 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
-const EVAL = () => PLAN.filter(p => p.t !== "nueva").length;
-function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
+const EVAL = () => PLAN.filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa").length;
+function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
+const RANG = ["Campesino", "Soldado", "Caballero", "Noble", "Rey"];
+function nombreRango() { let st = 0; try { const L = JSON.parse(localStorage.getItem("ingles_gamer_liga") || "{}"); st = L.v === 2 ? +L.st || 0 : (+L.lg || 0) * 3; } catch (e) {} return st >= 12 ? "Rey" : RANG[Math.floor(st / 3)] + " " + ["III", "II", "I"][st % 3]; }
+const auraE = () => { try { return +(JSON.parse(localStorage.getItem("ingles_gamer_aura") || "{}").e) || 0; } catch (e) { return 0; } };
+/* Tabla de la liga semanal al final: tu puesto antes y después del nivel, con animación si subes */
+async function ligaFinal(gan) {
+  const sec = document.querySelector("#v .f2"); if (!sec) return;
+  const box = document.createElement("div"); box.className = "lgf";
+  box.innerHTML = '<h3>LIGA SEMANAL <span>' + esc(nombreRango()) + '</span></h3><p class="tit">' + (gan > 0 ? '+' + gan + ' de Aura para tu liga' : 'Tu liga de esta semana') + '</p><p class="nota3" id="lgEst">Buscando tu puesto…</p>';
+  sec.insertBefore(box, sec.querySelector(".acc"));
+  let r = null;
+  try { if (window.IGFicha && IGFicha.liga) r = await Promise.race([IGFicha.liga(), new Promise(ok => setTimeout(() => ok(null), 9000))]); } catch (e) { r = null; }
+  if (!r || !r.lista || !r.lista.length) { $("lgEst").textContent = "Conéctate a internet para ver tu puesto en la liga."; return; }
+  const yo = r.lista.find(x => x.uid === r.yo), antes = Math.max(0, yo.ls - gan);
+  const orden = arr => arr.slice().sort((a, b) => b.v - a.v || (a.uid === r.yo ? -1 : 0));
+  const A = orden(r.lista.map(x => ({ uid:x.uid, n:x.n, v:x.uid === r.yo ? antes : x.ls }))), D = orden(r.lista.map(x => ({ uid:x.uid, n:x.n, v:x.ls })));
+  const pa = A.findIndex(x => x.uid === r.yo), pd = D.findIndex(x => x.uid === r.yo), sube = pa - pd;
+  const lo = Math.max(0, Math.min(pd, pa) - 2), hi = Math.min(D.length, Math.max(pd, pa) + 3), vis = D.slice(lo, hi).map(x => x.uid);
+  const H = 50, fila = (x, i) => '<div class="fl' + (x.uid === r.yo ? " yo" : "") + '" data-u="' + x.uid + '" style="top:' + (i * H) + 'px"><span class="p">' + (i + 1) + '</span><span class="n">' + esc(x.uid === r.yo ? "Tú" : x.n) + '</span><span class="a">' + sprite("llama", 16) + '<span class="v">' + x.v + '</span></span></div>';
+  const base = A.filter(x => vis.indexOf(x.uid) > -1);
+  box.querySelector(".tit").innerHTML = (gan > 0 ? '+' + gan + ' de Aura · ' : '') + (sube > 0 ? '<b>¡Subiste ' + sube + (sube === 1 ? ' puesto' : ' puestos') + '!</b>' : 'Puesto ' + (pd + 1) + ' de ' + D.length);
+  $("lgEst").outerHTML = '<div class="tb" style="height:' + (base.length * H) + 'px">' + base.map((x) => fila(x, A.indexOf(x))).join("") + '</div><p class="nota3">' + (pd < 5 ? "Estás en los 5 primeros: vas subiendo de rango el domingo." : "Los 5 primeros suben de rango el domingo.") + '</p>';
+  const tb = box.querySelector(".tb"), off = Math.min(...base.map(x => A.indexOf(x)));
+  tb.querySelectorAll(".fl").forEach(f => { f.style.top = (A.findIndex(x => x.uid === f.dataset.u) - off) * H + "px"; f.querySelector(".p").textContent = A.findIndex(x => x.uid === f.dataset.u) + 1; });
+  setTimeout(() => {
+    const off2 = Math.min(...vis.map(u => D.findIndex(x => x.uid === u)));
+    tb.querySelectorAll(".fl").forEach(f => { const i = D.findIndex(x => x.uid === f.dataset.u); f.style.top = (i - off2) * H + "px"; f.querySelector(".p").textContent = i + 1; });
+    const mio = tb.querySelector(".fl.yo"); if (mio) { const v = mio.querySelector(".v"); let k = antes; const t = setInterval(() => { k = Math.min(yo.ls, k + Math.max(1, Math.ceil(gan / 15))); v.textContent = k; if (k >= yo.ls) clearInterval(t); }, 50);
+      if (sube > 0) { mio.classList.add("sube"); mio.querySelector(".n").insertAdjacentHTML("beforeend", '<span class="flecha2">+' + sube + '</span>'); sonido("est", 3); } }
+  }, 900);
+}
 function terminar() {
   const nd = Object.keys(dudas).length;
+  const e0 = auraE();
   ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "¡Conectores aprendidos!", "Ya sabes unir ideas con and, but, or y because.", "Repasa las frases difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+  setTimeout(() => ligaFinal(Math.max(0, auraE() - e0)), 600);
 }
 
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Conectores", "Aprende a unir ideas: <b>and</b> (y), <b>but</b> (pero), <b>or</b> (o) y <b>because</b> (porque).", "Empezar", PJ("idea"), empezar);
+pantallaIntro("Conectores", "Aprende a unir ideas con 4 palabras: <b>and</b> (y), <b>but</b> (pero), <b>or</b> (o) y <b>because</b> (porque).", "Empezar", PJ("idea"), empezar);
 
 </script>
 <script type="module">
@@ -1047,7 +1173,7 @@ const CONFIG = {
 /* ===== FICHA: publica tu Aura, estrellas y racha en tu ficha pública (para el Ranking) ===== */
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, serverTimestamp, collection, query, where, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const CONFIG = {
   apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
@@ -1141,7 +1267,19 @@ const CONFIG = {
     onAuthStateChanged(auth, u => { user = u; ficha = null; if (u) setTimeout(() => publicar(), 4000); });
     document.addEventListener("visibilitychange", () => { if (document.hidden) publicar(); else setTimeout(() => publicar(), 3000); });
     setInterval(() => { if (!document.hidden) publicar(); }, 60000);
-    window.IGFicha = { publicar: () => publicar(true) };
+    /* Para la pantalla final: publica y trae a los jugadores de tu grupo de la liga semanal (mismo lgw) */
+    async function liga() {
+      if (!user) return null;
+      for (let i = 0; i < 20 && ocupado; i++) await new Promise(r => setTimeout(r, 250));
+      await publicar(true);
+      if (!ficha) { const s = await getDoc(doc(db, "jugadores", user.uid)); if (!s.exists()) return null; ficha = s.data(); }
+      if (!ficha.lgw) return null;
+      const s = await getDocs(query(collection(db, "jugadores"), where("lgw", "==", String(ficha.lgw)), limit(60)));
+      const lista = s.docs.map(d => ({ uid:d.id, n:String(d.data().n || "Jugador"), ls:Math.max(0, +d.data().ls || 0) }));
+      const yo = lista.find(x => x.uid === user.uid); if (yo) yo.ls = Math.max(0, +ficha.ls || 0); else lista.push({ uid:user.uid, n:String(ficha.n || "Tú"), ls:Math.max(0, +ficha.ls || 0) });
+      return { yo:user.uid, lista };
+    }
+    window.IGFicha = { publicar: () => publicar(true), liga };
   } catch (e) { console.error("[ficha]", e); }
 })();
 </script>
