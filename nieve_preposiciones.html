@@ -234,6 +234,18 @@ svg{display:block}
 :root{--line2:var(--bd)}
 .u-body{padding:14px 2px 10px;animation:entra .3s ease}
 .u-t{margin:0 0 18px;font-size:21px;font-weight:900;line-height:1.25}
+
+/* ===== modo aprender: se enseña de a poco, sin corazones, los errores se repiten más adelante ===== */
+.u-tip2{display:flex;gap:8px;align-items:flex-start;margin-top:12px;padding:10px 12px;border-radius:14px;background:color-mix(in srgb,var(--gold) 12%,transparent);border:1.5px solid color-mix(in srgb,var(--gold) 40%,var(--line2));font-size:15px;font-weight:800;text-align:left;line-height:1.35}
+.u-tip2 .k{flex:none;padding:2px 8px;border-radius:99px;background:var(--gold);color:var(--bg);font-size:10.5px;font-weight:900;letter-spacing:.08em;margin-top:1px}
+.u-ejs{width:100%;display:grid;gap:8px;margin-top:12px;text-align:left}
+.u-ejs .r{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;border:2px solid var(--line2);background:var(--card)}
+.u-ejs .r .u-au{flex:none;margin:0}
+.u-ejs .r b{display:block;font-size:16px;font-weight:900;line-height:1.25}.u-ejs .r small{display:block;margin-top:2px;font-size:13.5px;font-weight:700;color:var(--mu)}
+.u-ejs .h{font-size:11.5px;font-weight:900;letter-spacing:.1em;color:var(--mu);margin-bottom:-2px}
+.aprende .top .hearts{visibility:hidden}
+.u-pie.repaso .u-fb b{color:var(--gold)}
+
 .u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
 .u-hab{display:flex;align-items:flex-end;gap:8px}
 .u-hab>svg{width:112px;height:auto;flex:none;overflow:visible}
@@ -424,39 +436,48 @@ svg{display:block}
 <script>
 /* =====================================================================
    TUS DATOS · Nivel 2 de la Isla de Nieve: Preposiciones (in, on, under, next to)
-   Estilo Duolingo con la paleta del jugador. El pingüino y la caja muestran dónde está cada cosa.
+   Modo aprender: cada preposición se enseña con el pingüino, un tip y ejemplos, y se practica enseguida.
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";            // ej. "go:nieve_repaso1"
 const AURA_NIVEL = 20;
 const DIAGNOSTICO = true;
+const APRENDE = true;                // true = sin corazones, los errores se repiten al final
 const AUDIO_CARPETA = "";            // cuando subas los audios: in.mp3, on.mp3, under.mp3, next-to.mp3; mientras tanto lee la voz del celular
 const AUDIO_DATA = {};
 const NIVEL = { id:"preposiciones", nombre:"Preposiciones" };
 const TEMA = "PREPOSICIONES", COLOR = "#3FD8C8";
 const PALABRAS = [];
-/* Pantalla de inicio: las 4 preposiciones con un ejemplo cada una (se toca para oír) */
-const LOS4 = [
-  { en:"in",      es:"en / dentro de", ej:"The penguin is in the box.",      ejEs:"El pingüino está en la caja.",            ob:["p_in"] },
-  { en:"on",      es:"encima de",      ej:"The penguin is on the box.",      ejEs:"El pingüino está encima de la caja.",     ob:["p_on"] },
-  { en:"under",   es:"debajo de",      ej:"The penguin is under the table.", ejEs:"El pingüino está debajo de la mesa.",     ob:["p_under"] },
-  { en:"next to", es:"al lado de",     ej:"The penguin is next to the box.", ejEs:"El pingüino está al lado de la caja.",    ob:["p_next"] }
-];
-/* El nivel, paso por paso (ver la explicación de los tipos en el nivel 1) */
+const LOS4 = [];
+/* El nivel, paso por paso (MODO APRENDER: se enseña de a poco; sin corazones; si fallas, la pregunta vuelve más adelante).
+   nueva = enseña una palabra: dibujo, traducción, tip, un ejemplo y "más ejemplos" (no se evalúa)
+   habla = qué significa · completa = palabra que falta · palabra = letras que faltan · traduce = arma la frase
+   escucha = escribe lo que oyes · parejas = une · error = encuentra la palabra mala · sopa = mini sopa de letras
+   relampago = ¿la frase coincide con el dibujo? (reto final)
+   pista = ["palabra", "traducción"]: sale arriba como recordatorio · nota = explicación que sale al responder
+   pj = personaje · ob = dibujo · es = traducción de la frase (sale al tocarla) */
 const PLAN = [
-  { t:"los4" },
-  { t:"habla",    pj:"sorpresa", ob:"p_on",    en:"The penguin is on the box.", ops:["El pingüino está encima de la caja.", "El pingüino está en la caja.", "El pingüino está debajo de la caja."] },
-  { t:"completa", pj:"pienso",   ob:"p_in",    en:"The penguin is ___ the box.", es:"El pingüino está en la caja.", ok:"in", ops:["in", "on", "under"] },
-  { t:"completa", pj:"idea",     ob:"p_under", en:"The penguin is ___ the table.", es:"El pingüino está debajo de la mesa.", ok:"under", ops:["under", "on", "next to"] },
-  { t:"completa", pj:"afirma",   ob:"p_next",  en:"The penguin is ___ the box.", es:"El pingüino está al lado de la caja.", ok:"next to", ops:["next to", "in", "under"] },
-  { t:"sopa",     pal:[["IN", "en"], ["ON", "encima de"], ["UNDER", "debajo de"], ["NEXT", "next to = al lado de"]] },
-  { t:"escucha",  pj:"pienso",                 en:"The penguin is under the table.", es:"El pingüino está debajo de la mesa." },
-  { t:"error",    pj:"sorpresa", ob:"p_on",    malas:["The", "penguin", "is", "in", "the", "box."], mal:3, ok:"on", ops:["on", "under", "next to"], es:"El pingüino está encima de la caja.", en:"The penguin is on the box." },
+  { t:"nueva",    pj:"idea",     ob:"p_in",    en:"in",      es:"en / dentro de", tip:"Cuando algo está <b>adentro</b>.",
+    ej:"The penguin is in the box.", ejEs:"El pingüino está en la caja.", ejs:[["The cat is in the box.", "El gato está en la caja."], ["My socks are in my boots.", "Mis medias están en mis botas."]] },
+  { t:"habla",    pj:"afirma",   ob:"p_in",    en:"The penguin is in the box.", pista:["in", "en / dentro de"], ops:["El pingüino está en la caja.", "El pingüino está al lado de la caja.", "El pingüino tiene una caja."] },
+  { t:"nueva",    pj:"sorpresa", ob:"p_on",    en:"on",      es:"encima de",      tip:"Cuando algo está <b>arriba</b>, tocando la otra cosa.",
+    ej:"The penguin is on the box.", ejEs:"El pingüino está encima de la caja.", ejs:[["The cat is on the bed.", "El gato está encima de la cama."], ["My hat is on the table.", "Mi gorro está encima de la mesa."]] },
+  { t:"completa", pj:"pienso",   ob:"p_on",    en:"The penguin is ___ the box.", es:"El pingüino está encima de la caja.", ok:"on", ops:["on", "in"], pista:["on", "encima de"], nota:"Está arriba → on" },
+  { t:"completa", pj:"idea",     ob:"p_in",    en:"The penguin is ___ the box.", es:"El pingüino está en la caja.", ok:"in", ops:["in", "on"], nota:"Está adentro → in" },
+  { t:"nueva",    pj:"pienso",   ob:"p_under", en:"under",   es:"debajo de",      tip:"Cuando algo está <b>abajo</b>.",
+    ej:"The penguin is under the table.", ejEs:"El pingüino está debajo de la mesa.", ejs:[["The dog is under the bed.", "El perro está debajo de la cama."], ["My boots are under the table.", "Mis botas están debajo de la mesa."]] },
+  { t:"completa", pj:"idea",     ob:"p_under", en:"The penguin is ___ the table.", es:"El pingüino está debajo de la mesa.", ok:"under", ops:["under", "on", "in"], pista:["under", "debajo de"], nota:"Está abajo → under" },
   { t:"palabra",  pj:"cool",     ob:"p_under", en:"under", es:"debajo de", faltan:[1, 3] },
+  { t:"nueva",    pj:"amor",     ob:"p_next",  en:"next to", es:"al lado de",     tip:"Cuando algo está <b>al lado</b>, cerquita. Son dos palabras: <b>next to</b>.",
+    ej:"The penguin is next to the box.", ejEs:"El pingüino está al lado de la caja.", ejs:[["The cat is next to the dog.", "El gato está al lado del perro."], ["My coat is next to my scarf.", "Mi abrigo está al lado de mi bufanda."]] },
+  { t:"completa", pj:"afirma",   ob:"p_next",  en:"The penguin is ___ the box.", es:"El pingüino está al lado de la caja.", ok:"next to", ops:["next to", "in", "under"], pista:["next to", "al lado de"] },
   { t:"habla",    pj:"amor",     ob:["gato", "perro"], en:"The cat is next to the dog.", ops:["El gato está al lado del perro.", "El gato está encima del perro.", "El gato está debajo del perro."] },
   { t:"parejas",  pares:[["in", "en"], ["on", "encima de"], ["under", "debajo de"], ["next to", "al lado de"], ["box", "la caja", "caja"]] },
+  { t:"error",    pj:"sorpresa", ob:"p_on",    malas:["The", "penguin", "is", "in", "the", "box."], mal:3, ok:"on", ops:["on", "under", "next to"], es:"El pingüino está encima de la caja.", en:"The penguin is on the box.", nota:"Está arriba de la caja → on" },
+  { t:"sopa",     pal:[["IN", "en"], ["ON", "encima de"], ["UNDER", "debajo de"], ["NEXT", "next to = al lado de"]] },
   { t:"traduce",  pj:"pienso",   ob:"p_under", es:"El pingüino está debajo de la mesa.", en:"The penguin is under the table", extra:["on", "box"] },
-  { t:"completa", pj:"dormido",  ob:["cama", "socks"], en:"My socks are ___ the bed.", es:"Mis medias están debajo de la cama.", ok:"under", ops:["under", "in", "on"] },
+  { t:"completa", pj:"dormido",  ob:["cama", "socks"], en:"My socks are ___ the bed.", es:"Mis medias están debajo de la cama.", ok:"under", ops:["under", "in", "on"], nota:"Repaso: socks = medias" },
+  { t:"escucha",  pj:"pienso",                 en:"The penguin is under the table.", es:"El pingüino está debajo de la mesa." },
   { t:"escucha",  pj:"afirma",                 en:"The penguin is next to the box.", es:"El pingüino está al lado de la caja." },
   { t:"relampago", rondas:[["p_in", "The penguin is in the box.", 1], ["p_on", "The penguin is under the table.", 0], ["p_under", "The penguin is under the table.", 1], ["p_next", "The penguin is on the box.", 0], ["p_on", "The penguin is on the box.", 1]] }
 ];
@@ -815,7 +836,9 @@ document.addEventListener("click", e => {
 
 /* ===== motor: una pantalla por paso, con Comprobar abajo ===== */
 let pos, dudas, vidas, P, listo, revisar;
-function empezar() { pos = 0; dudas = {}; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
+const PLAN_N = PLAN.length;
+if (APRENDE) document.body.classList.add("aprende");
+function empezar() { if (APRENDE) { PLAN.length = PLAN_N; document.body.classList.add("aprende"); } pos = 0; dudas = {}; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
 function pantalla(cuerpo, rev) {
   revisar = rev; setBarra(pos / PLAN.length * 100);
   const pis = P && P.pista ? '<div class="u-pista"><span class="k">NUEVO</span><button type="button" class="u-au" id="bPis" aria-label="Escuchar">' + AU + '</button><b>' + esc(P.pista[0]) + '</b><span class="eq">=</span><span class="es">' + esc(P.pista[1]) + '</span></div>' : '';
@@ -829,11 +852,12 @@ function pantalla(cuerpo, rev) {
     const r = revisar(); if (!r) return; fin = true;
     const pie = $("pie"); pie.className = "u-pie " + (r[0] ? "ok" : "mal");
     $("pieIc").innerHTML = PJ(r[0] ? "pulgar" : "pienso");
-    $("pieB").textContent = r[0] ? ["¡Bien hecho!", "¡Excelente!", "¡Así se hace!"][pos % 3] : "Respuesta correcta:";
-    $("pieT").textContent = r[1];
-    $("bChk").textContent = r[0] ? "Continuar" : "Entendido";
+    $("pieB").textContent = r[0] ? ["¡Bien hecho!", "¡Excelente!", "¡Así se hace!"][pos % 3] : APRENDE ? "Casi. Así se dice:" : "Respuesta correcta:";
+    if (!r[0] && APRENDE) $("pie").classList.add("repaso");
+    $("pieT").textContent = r[1] + (P.nota ? " — " + P.nota : "") + (!r[0] && APRENDE && !P._rep ? " (La practicamos otra vez más adelante.)" : "");
+    $("bChk").textContent = r[0] || APRENDE ? "Continuar" : "Entendido";
     document.querySelectorAll("#ub button, #ub textarea").forEach(x => x.disabled = true);
-    if (r[0]) { Racha.acierto(); sonido("ok", 0); } else { dudas[pos] = true; sonido("mal"); Racha.error(); vidas--; }
+    if (r[0]) { Racha.acierto(); sonido("ok", 0); } else if (APRENDE) { dudas[pos] = true; sonido("mal"); if (!P._rep) { PLAN.push(Object.assign({}, P, { _rep:1, pista:null })); } } else { dudas[pos] = true; sonido("mal"); Racha.error(); vidas--; }
     voz(r[2] || r[1], .9);
     if (vidas <= 0) setTimeout(perdido, 1400);
   });
@@ -849,7 +873,10 @@ function exNueva() {
   pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + 'PALABRA NUEVA</span>' +
     '<div class="u-nw"><span class="ob">' + OB(P.ob, 120) + '</span><div class="pal"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU.replace(/22/g, "30") + '</button>' + esc(P.en) + '</div>' +
     '<div class="tra">' + esc(P.es) + '</div><button type="button" class="lento2" id="bLe">' + LENTO.replace(/28/g, "18") + 'Lento</button>' +
-    '<div class="u-ejx">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bEj" aria-label="Escuchar el ejemplo">' + AU + '</button>' + frase(P.ej, P.ejEs) + '<span class="u-es">' + esc(P.ejEs) + '</span></div></div></div>', null);
+    (P.tip ? '<div class="u-tip2"><span class="k">TIP</span><span>' + P.tip + '</span></div>' : '') +
+    '<div class="u-ejx">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bEj" aria-label="Escuchar el ejemplo">' + AU + '</button>' + frase(P.ej, P.ejEs) + '<span class="u-es">' + esc(P.ejEs) + '</span></div></div>' +
+    (P.ejs ? '<div class="u-ejs"><span class="h">MÁS EJEMPLOS</span>' + P.ejs.map((e, i) => '<div class="r"><button type="button" class="u-au" data-ej="' + i + '" aria-label="Escuchar">' + AU + '</button><span><b>' + esc(e[0]) + '</b><small>' + esc(e[1]) + '</small></span></div>').join("") + '</div>' : '') + '</div>', null);
+  document.querySelectorAll("[data-ej]").forEach(b => b.addEventListener("click", () => voz(P.ejs[+b.dataset.ej][0], .9)));
   const b = $("bChk"); b.disabled = false; b.textContent = "Continuar";
   on("bAu", () => voz(P.en, .85)); on("bLe", () => voz(P.en, .5)); on("bEj", () => voz(P.ej, .9));
   setTimeout(() => voz(P.en, .85), 300);
@@ -923,7 +950,7 @@ function exCharla() { let n = 0, fallos = 0;
 }
 /* 14 · LOS 4 CONECTORES con ejemplo (no se evalúa) */
 function exLos4() {
-  pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + 'LAS 4 PREPOSICIONES</span><p class="u-t">Dicen dónde está algo. Toca cada una para oírla.</p>' +
+  pantalla('<span class="u-nuevo">' + sprite("estrella", 14) + '</span><p class="u-t"></p>' +
     '<div class="u-l4">' + LOS4.map((c, i) => '<button type="button" class="u-l4i" data-i="' + i + '"><span class="w"><b>' + esc(c.en) + '</b><em>' + esc(c.es) + '</em></span>' +
       '<span class="x"><span class="e">' + esc(c.ej) + '</span><span class="s">' + esc(c.ejEs) + '</span></span><span class="o">' + OB(c.ob, 26) + '</span></button>').join("") + '</div>', null);
   const b = $("bChk"); b.disabled = false; b.textContent = "¡Vamos!";
@@ -1031,7 +1058,7 @@ function exParejas() { let sel = null, n = 0;
 /* ===== final ===== */
 const textoDe = p => p.t === "parejas" ? p.pares.map(x => x[0] + " = " + x[1]).join(" · ") : p.t === "sopa" ? p.pal.map(x => x[0].toLowerCase() + " = " + x[1]).join(" · ") : p.t === "charla" ? p.msgs.map(m => m[1]).join(" ") : p.t === "error" ? p.en + " = " + p.es : p.t === "relampago" ? "Ronda relámpago: " + p.rondas.filter(x => x[2]).map(x => x[1]).join(" · ") : p.t === "palabra" ? p.en + " = " + p.es : p.t === "negativa" ? p.en + ". = " + p.es : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
 const repaso = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB1([].concat(p.ob)[0], 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
-const EVAL = () => PLAN.filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa").length;
+const EVAL = () => PLAN.filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa" && !p._rep).length;
 function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
 const RANG = ["Campesino", "Soldado", "Caballero", "Noble", "Rey"];
 function nombreRango() { let st = 0; try { const L = JSON.parse(localStorage.getItem("ingles_gamer_liga") || "{}"); st = L.v === 2 ? +L.st || 0 : (+L.lg || 0) * 3; } catch (e) {} return st >= 12 ? "Rey" : RANG[Math.floor(st / 3)] + " " + ["III", "II", "I"][st % 3]; }
@@ -1044,7 +1071,7 @@ function terminar() {
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Preposiciones", "Aprende a decir d\u00f3nde est\u00e1n las cosas: <b>in</b> (en), <b>on</b> (encima de), <b>under</b> (debajo de) y <b>next to</b> (al lado de).", "Empezar", PJ("pienso"), empezar);
+pantallaIntro("Preposiciones", "Vamos a aprender a decir d\u00f3nde est\u00e1n las cosas, con el ping\u00fcino y muchos ejemplos. Aqu\u00ed no pierdes corazones: si te equivocas, lo practicamos otra vez.", "Empezar", PJ("pienso"), empezar);
 
 </script>
 <script type="module">
