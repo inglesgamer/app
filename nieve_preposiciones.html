@@ -392,6 +392,12 @@ svg{display:block}
 /* pie con Comprobar */
 .u-pie{position:sticky;bottom:0;z-index:4;margin:18px -16px 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom));border-top:2px solid var(--line2);background:var(--bg);transition:background .2s}
 .u-pie.ok{background:color-mix(in srgb,var(--ok) 15%,var(--bg));border-color:transparent}.u-pie.mal{background:color-mix(in srgb,var(--mal) 13%,var(--bg));border-color:transparent}
+.rx-ok{animation:rxSalta .55s cubic-bezier(.3,1.6,.5,1) 2;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--ok) 75%,transparent)) drop-shadow(0 0 22px color-mix(in srgb,var(--ok) 45%,transparent))}
+.rx-mal{animation:rxSusto .12s linear 5;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--mal) 75%,transparent)) drop-shadow(0 0 22px color-mix(in srgb,var(--mal) 40%,transparent))}
+@keyframes rxSalta{0%,100%{transform:translateY(0)}45%{transform:translateY(-22px) scale(1.04)}}
+@keyframes rxSusto{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.u-pie.ok .u-fb .ic{background:color-mix(in srgb,var(--ok) 25%,var(--card));border-color:var(--ok)}.u-pie.mal .u-fb .ic{background:color-mix(in srgb,var(--mal) 22%,var(--card));border-color:var(--mal)}
+.u-glo .ob{display:inline-flex!important;flex-direction:row;align-items:center;gap:4px;flex-wrap:nowrap}.u-glo .ob svg{display:block;flex:none}
 .u-fb{display:none;align-items:center;gap:12px;margin-bottom:14px}
 .u-pie.ok .u-fb,.u-pie.mal .u-fb{display:flex}
 .u-fb .ic{flex:none;width:52px;height:52px;border-radius:50%;background:var(--card);border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -864,6 +870,7 @@ function pantalla(cuerpo, rev) {
     const r = revisar(); if (!r) return; fin = true;
     const pie = $("pie"); pie.className = "u-pie " + (r[0] ? "ok" : "mal");
     $("pieIc").innerHTML = PJ(r[0] ? "pulgar" : "pienso");
+    reaccion(r[0]);
     $("pieB").textContent = r[0] ? ["¡Bien hecho!", "¡Excelente!", "¡Así se hace!"][pos % 3] : APRENDE ? "Casi. Así se dice:" : "Respuesta correcta:";
     if (!r[0] && APRENDE) $("pie").classList.add("repaso");
     $("pieT").textContent = r[1] + (P.nota ? " — " + P.nota : "") + (!r[0] && APRENDE && !P._rep ? " (La practicamos otra vez más adelante.)" : "");
@@ -873,6 +880,15 @@ function pantalla(cuerpo, rev) {
     voz(r[2] || r[1], .9);
     if (vidas <= 0) setTimeout(perdido, 1400);
   });
+}
+/* el personaje de la pantalla reacciona: salta con brillo verde si aciertas, se asusta con brillo rojo si fallas */
+function reaccion(ok) {
+  const pj = document.querySelector("#ub .u-hab > svg, #ub .u-ejx > svg, #ub .u-nw svg.pjx");
+  if (!pj) return;
+  const OKS = ["baile", "pulgar", "cool", "afirma"], nuevo = ok ? OKS[pos % OKS.length] : "sorpresa";
+  const t = document.createElement("div"); t.innerHTML = PJ(ACC[nuevo] ? nuevo : (ok ? "pulgar" : "pienso"));
+  const n = t.firstElementChild; if (!n) return;
+  n.classList.add(ok ? "rx-ok" : "rx-mal"); pj.replaceWith(n);
 }
 listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") b.disabled = !v; };
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
