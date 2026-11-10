@@ -447,7 +447,7 @@ const MEDALLAS = [
   { t:"Cazajefes", i:"shield" }, { t:"Rey de los verbos", i:"bolt" }, { t:"Perfeccionista", i:"cup" }, { t:"Rey del A1", i:"crown" }
 ];
 const ONLINE_MS = 7 * 60000;   // "activo ahora" = publicó su ficha hace menos de 7 min
-const TOP = 20;                // cuántos jugadores se cargan en el ranking global (el resto aparece como "20+")
+const TOP = 10;                // cuántos jugadores se cargan en el ranking global (el resto aparece como "10+")
 const REFRESCO_MS = 300000;    // se actualiza solo cada 5 minutos, y solo la pestaña que estás viendo
 // Reportes: si pones una dirección (Formspree, Google Form...), se envían ahí. Vacío = solo se guardan en el celular.
 const REPORTE_URL = "";
@@ -616,6 +616,7 @@ function rel(uid) {
 const esAmigo = uid => rel(uid) === "amigo";
 
 let tLista = 0, tAmigos = 0;
+const MAX_LISTA = 10;   /* la liga muestra máximo 10 (tu puesto se calcula con todos) */
 let verLg = null;   /* rango que estás mirando en la liga semanal (null = el tuyo) */
 const ligaVista = () => verLg === null ? miLiga().lg : verLg;
 async function cargarLista() {
@@ -810,7 +811,7 @@ function pintarTabs() {   /* arriba: Liga · Temporada · Siempre. Amigos y Soli
 function filaJugador(j, pos, valor, zona, lg) {
   const tj = lg !== undefined, mp = LOOK_MP[j.lmp] || LOOK_MP[0];
   return '<button type="button" class="fila card' + (zona ? " z-" + zona : "") + (tj ? " ftj" : "") + '" data-ver="' + esc(j.uid) + '"' + (tj ? ' style="--fbg:' + mp.bg + ';--fgr:' + mp.g + '"' : '') + '>' + (tj ? '<i class="ftj-bg"></i>' : '') + '<span class="pos">' + pos + '</span>' + conPunto(j, 52, 14) +
-    '<span class="info"><span class="nombre" style="display:block">' + esc(j.n) + (esAmigo(j.uid) ? marca : "") + '</span><span class="rgl">' + (tj ? '<span class="rg">' + escudoRango(lg * 3, 16) + RANGOS_REINO[lg].n + '</span>' : rangoHTML(j.rango)) + tituloHTML(j) + '</span></span><span class="der">' + valHTML(valor, per === "liga" ? "tot" : clavePer()) + '</span></button>';
+    '<span class="info"><span class="nombre" style="display:block">' + esc(j.n) + (esAmigo(j.uid) ? marca : "") + '</span><span class="rgl">' + rangoHTML(j.rango) + tituloHTML(j) + '</span></span><span class="der">' + valHTML(valor, per === "liga" ? "tot" : clavePer()) + '</span></button>';
 }
 function vistaGlobal() {
   const top = LISTA.slice(0, 3), m = yo();
@@ -821,7 +822,7 @@ function vistaGlobal() {
       lookMini(j.av, j, c[3], { ring: c[2], rw: c[0] === 0 ? 4 : 3, punto: esAmigo(j.uid) ? j.on : undefined, d: 18 }) +
       '<span class="nombre">' + esc(j.n) + '</span>' + (per === "tot" && j.ltt ? '<span class="sl-tt">' + tituloHTML(j) + '</span>' : '') + valHTML(j[clavePer()], clavePer()) + '<span class="ped">' + (c[0] + 1) + '</span></div>';
   }).join("");
-  const resto = LISTA.slice(3).map((j, i) => filaJugador(j, i + 4, j[clavePer()])).join("");
+  const resto = LISTA.slice(3, TOP).map((j, i) => filaJugador(j, i + 4, j[clavePer()])).join("");
   const hoy = m.hoy > 0 ? '<span class="hoy">' + ic("up", 16, 3) + '+' + m.hoy + ' hoy</span>' : "";
   const vacio = LISTA.length ? "" : '<div class="card vacio" style="margin:0"><b>' + (per === "tmp" ? "La temporada acaba de empezar" : "Aún no hay jugadores aquí") + '</b>Gana Aura jugando y aparecerás en esta lista.</div>';
   const dias = Math.ceil((TEMPORADA.fin - Date.now()) / 864e5), acabo = dias <= 0;
@@ -832,11 +833,11 @@ function vistaGlobal() {
   if (per === "liga") {
     const L = miLiga(), mia = ligaVista() === L.lg, lg = ligaVista(), n = LISTA.length;
     let filas = "";
-    LISTA.forEach((j, i) => { filas += filaJugador(j, i + 1, j.liga, "", lg); });
+    LISTA.slice(0, MAX_LISTA).forEach((j, i) => { filas += filaJugador(j, i + 1, j.liga, "", lg); });
     const vac = n ? "" : '<div class="card vacio" style="margin:0"><b>' + (mia ? "Nadie más de tu rango ha jugado esta semana" : "Nadie de " + RANGOS_REINO[lg].n + " ha jugado esta semana") + '</b>' + (mia ? "Gana Aura jugando y serás el primero." : "Cuando alguien de este rango gane Aura, aparecerá aquí.") + '</div>';
     const titulo = '<div class="sec"><span>' + (mia ? "TU LIGA · ESTA SEMANA" : "LIGA " + RANGOS_REINO[lg].n.toUpperCase() + " · ESTA SEMANA") + '</span><b>' + (n ? n + (n === 1 ? " jugador" : " jugadores") : "") + '</b></div>';
     return carruselRangos(L, m) + titulo + filas + vac + (mia ?
-      '<div class="fila card yo ftj" style="--fbg:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).bg + ';--fgr:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).g + '"><i class="ftj-bg"></i><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl"><span class="rg">' + escudoRango(L.st, 16) + nombreRango(L.st) + '</span>' + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>' : "");
+      '<div class="fila card yo ftj" style="--fbg:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).bg + ';--fgr:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).g + '"><i class="ftj-bg"></i><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + rangoHTML(m.rango) + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>' : "");
   }
   return banner +
     (per === "tot" ? '<div class="cats" role="group" aria-label="Récord">' + CATS.map(c => '<button type="button" class="pc' + (cat === c[0] ? " on" : "") + '" data-cat="' + c[0] + '">' + valHTML("", c[0]).replace("</span>", c[1] + "</span>") + '</button>').join("") + '</div>' : "") +
