@@ -231,69 +231,94 @@ svg{display:block}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ===== GUSTOS · estilo minimalista con los colores de InglésGamer ===== */
-:root{--rojo:#FF4D4D;--oro:#FFC83D;--orod:#C9971E;--line2:#2A2A30}
+:root{--line2:var(--bd)}
 .u-body{padding:14px 2px 10px;animation:entra .3s ease}
 .u-t{margin:0 0 18px;font-size:21px;font-weight:900;line-height:1.25}
-.u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--oro)}
+.u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
 .u-hab{display:flex;align-items:flex-end;gap:8px}
 .u-hab>svg{width:112px;height:auto;flex:none;overflow:visible}
 .u-glo{position:relative;margin-bottom:44px;padding:12px 14px;border:2px solid var(--line2);border-radius:16px;font-size:19px;font-weight:800;line-height:1.4}
 .u-glo:before{content:"";position:absolute;left:-10px;bottom:16px;width:16px;height:16px;background:var(--bg);border-left:2px solid var(--line2);border-bottom:2px solid var(--line2);transform:rotate(45deg)}
 .u-glo .ob{display:inline-block;vertical-align:middle;margin-left:4px;line-height:0}
-.u-au{display:inline-flex;vertical-align:middle;margin-right:6px;color:var(--oro);cursor:pointer;border:0;background:none;padding:0}
+.u-au{display:inline-flex;vertical-align:middle;margin-right:6px;color:var(--gold);cursor:pointer;border:0;background:none;padding:0}
 .u-es{display:block;margin-top:4px;font-size:14px;font-weight:700;color:var(--mu)}
 /* palabras con traducción al tocarlas */
-.u-w{position:relative;cursor:pointer;border-bottom:2px dashed #4A4A54}
-.u-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);z-index:6;white-space:nowrap;padding:6px 10px;border-radius:10px;background:#F4F4F5;color:#111;font-size:14px;font-weight:900;box-shadow:0 6px 16px rgba(0,0,0,.4);animation:entra .15s ease}
-.u-tip:after{content:"";position:absolute;left:50%;top:100%;margin-left:-6px;border:6px solid transparent;border-top-color:#F4F4F5}
+.u-w{position:relative;cursor:pointer;border-bottom:2px dashed var(--toff)}
+.u-tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);z-index:6;white-space:nowrap;padding:6px 10px;border-radius:10px;background:var(--ink);color:var(--bg);font-size:14px;font-weight:900;box-shadow:0 6px 16px rgba(0,0,0,.4);animation:entra .15s ease}
+.u-tip:after{content:"";position:absolute;left:50%;top:100%;margin-left:-6px;border:6px solid transparent;border-top-color:var(--ink)}
 .u-ops{display:grid;gap:10px;margin-top:20px}
 .u-o{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:16px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;text-align:left;cursor:pointer;touch-action:manipulation}
 .u-o:active{transform:translateY(2px);border-bottom-width:2px}
 .u-o kbd{flex:none;width:28px;height:28px;border:2px solid var(--line2);border-radius:8px;display:flex;align-items:center;justify-content:center;font:800 13px Nunito;color:var(--mu)}
-.u-o.sel,.u-card.sel,.u-par .u-ch.sel{border-color:var(--oro);background:rgba(255,200,61,.08);color:#FFE08A}
-.u-o.sel kbd{border-color:var(--oro);color:#FFE08A}
+.u-o.sel,.u-card.sel,.u-par .u-ch.sel{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,transparent);color:var(--gold)}
+.u-o.sel kbd{border-color:var(--gold);color:var(--gold)}
 .u-lin{min-height:120px;margin-top:20px;padding:6px 0;background:linear-gradient(transparent 58px,var(--line2) 58px,var(--line2) 60px,transparent 60px) 0 0/100% 62px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px}
 .u-ban{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px}
 .u-ch{display:inline-flex;align-items:center;gap:6px;height:50px;padding:0 16px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:14px;background:var(--bg);color:var(--ink);font:800 18px Nunito,sans-serif;cursor:pointer;touch-action:manipulation}
 .u-ch:active{transform:translateY(2px);border-bottom-width:2px}
-.u-ch.ida{background:#202026;border-color:#202026;color:transparent;pointer-events:none}.u-ch.ida svg{visibility:hidden}
+.u-ch.ida{background:var(--chip);border-color:var(--chip);color:transparent;pointer-events:none}.u-ch.ida svg{visibility:hidden}
 .u-lin .u-ch{margin-top:4px}
-.u-hueco{display:inline-block;min-width:96px;border-bottom:2px solid #4A4A54;text-align:center;color:#FFE08A}
+.u-hueco{display:inline-block;min-width:96px;border-bottom:2px solid var(--toff);text-align:center;color:var(--gold)}
 .u-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
 .u-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px 12px;border:2px solid var(--line2);border-bottom-width:4px;border-radius:18px;background:none;color:var(--ink);font:800 17px Nunito,sans-serif;cursor:pointer}
 .u-card>svg{width:92px;height:auto;overflow:visible}.u-card small{font-size:12.5px;color:var(--mu);font-weight:700}
 .u-big{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:4px}
-.u-bigb{width:84px;height:84px;border-radius:20px;border:0;border-bottom:5px solid var(--orod);background:var(--oro);color:#2A1A00;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.u-bigb{width:84px;height:84px;border-radius:20px;border:0;border-bottom:5px solid color-mix(in srgb,var(--hi) 55%,#777);background:var(--hi);color:var(--on-hi);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .u-bigb.lento{width:64px;height:64px}
 .u-bigb:active{transform:translateY(2px);border-bottom-width:3px}
-.u-ta{width:100%;min-height:110px;margin-top:20px;padding:14px;border:2px solid var(--line2);border-radius:16px;background:#141418;color:var(--ink);font:700 18px Nunito,sans-serif;resize:none;outline:none}
-.u-ta:focus{border-color:#4A4A54}
+.u-ta{width:100%;min-height:110px;margin-top:20px;padding:14px;border:2px solid var(--line2);border-radius:16px;background:var(--card);color:var(--ink);font:700 18px Nunito,sans-serif;resize:none;outline:none}
+.u-ta:focus{border-color:var(--toff)}
 .u-par{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
 .u-par .u-ch{width:100%;height:56px;justify-content:center}
-.u-par .u-ch.ok{border-color:var(--line2);color:#4A4A54;pointer-events:none}.u-par .u-ch.ok svg{opacity:.3}
-.u-par .u-ch.mal{border-color:var(--mal);color:#FF8A8A;animation:shk .3s}
+.u-par .u-ch.ok{border-color:var(--line2);color:var(--toff);pointer-events:none}.u-par .u-ch.ok svg{opacity:.3}
+.u-par .u-ch.mal{border-color:var(--mal);color:var(--mal);animation:shk .3s}
 /* palabra nueva */
 .u-nw{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:4px}
 .u-nw .ob{line-height:0;animation:bob 2.4s ease-in-out infinite}
 .u-nw .pal{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:40px;font-weight:900;line-height:1}
-.u-nw .tra{margin-top:6px;font-size:21px;font-weight:900;color:var(--oro)}
+.u-nw .tra{margin-top:6px;font-size:21px;font-weight:900;color:var(--gold)}
 .u-nw .lento2{margin-top:10px;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:99px;border:2px solid var(--line2);background:none;color:var(--ink);font:800 14px Nunito,sans-serif;cursor:pointer}
 .u-ejx{display:flex;align-items:flex-end;gap:8px;margin-top:18px;width:100%}
 .u-ejx>svg{width:84px;height:auto;flex:none;overflow:visible}
 .u-ejx .u-glo{flex:1;margin-bottom:30px;text-align:left;font-size:17px}
+
+/* completa la palabra */
+.u-pal{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:18px;flex-wrap:wrap}
+.u-pal span{font-size:40px;font-weight:900;line-height:1}
+.u-pal .esp{width:14px}
+.u-pal input{width:40px;height:54px;padding:0;border:0;border-bottom:4px solid var(--gold);border-radius:8px 8px 4px 4px;background:color-mix(in srgb,var(--gold) 10%,transparent);color:var(--gold);text-align:center;font:900 36px Nunito,sans-serif;outline:none;caret-color:var(--gold)}
+.u-pal input.ok{border-color:var(--ok);color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}.u-pal input.mal{border-color:var(--mal);color:var(--mal)}
+.u-pist{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px}.u-pist b{font-size:20px;color:var(--gold)}
+/* pásala a negativa */
+.u-camb{padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--bd);text-align:center}
+.u-camb .de{display:flex;align-items:center;justify-content:center;gap:8px;font-size:22px;font-weight:900}.u-camb small{display:block;font-size:13px;color:var(--mu);font-weight:700;margin-top:2px}
+.u-flecha{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0 0;color:var(--gold);font-weight:900;font-size:13px;letter-spacing:.08em}
+.u-flecha:before,.u-flecha:after{content:"";flex:1;height:2px;background:var(--bd)}
+/* ronda relámpago */
+.u-rel{position:relative;width:96px;height:96px;margin:4px auto 0}
+.u-rel svg.r{position:absolute;inset:0;transform:rotate(-90deg)}
+.u-rel b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900}
+.u-rel.urg b{color:var(--mal)}
+.u-rond{text-align:center;font-size:13px;font-weight:900;color:var(--mu);letter-spacing:.08em;margin-top:6px}
+.u-relq{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:12px;min-height:110px}
+.u-relq .fr{font-size:24px;font-weight:900;text-align:center}
+.u-sino{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.u-sino .u-o{justify-content:center;flex-direction:column;gap:4px;min-height:80px;font-size:17px}.u-sino .u-o svg{width:28px;height:28px}
+.u-marc{display:flex;gap:6px;justify-content:center;margin-top:12px}.u-marc i{width:26px;height:8px;border-radius:9px;background:var(--bd)}.u-marc i.ok{background:var(--ok)}.u-marc i.mal{background:var(--mal)}
+.u-go{display:block;margin:0 auto;height:50px;padding:0 26px;border:0;border-bottom:4px solid color-mix(in srgb,var(--hi) 55%,#777);border-radius:14px;background:var(--hi);color:var(--on-hi);font:900 15px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 /* pie con Comprobar */
 .u-pie{position:sticky;bottom:0;z-index:4;margin:18px -16px 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom));border-top:2px solid var(--line2);background:var(--bg);transition:background .2s}
-.u-pie.ok{background:#0F2A1C;border-color:transparent}.u-pie.mal{background:#2A0F0F;border-color:transparent}
+.u-pie.ok{background:color-mix(in srgb,var(--ok) 15%,var(--bg));border-color:transparent}.u-pie.mal{background:color-mix(in srgb,var(--mal) 13%,var(--bg));border-color:transparent}
 .u-fb{display:none;align-items:center;gap:12px;margin-bottom:14px}
 .u-pie.ok .u-fb,.u-pie.mal .u-fb{display:flex}
-.u-fb .ic{flex:none;width:52px;height:52px;border-radius:50%;background:#F4F4F5;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.u-fb .ic{flex:none;width:52px;height:52px;border-radius:50%;background:var(--card);border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .u-fb .ic svg{width:44px;height:auto}
 .u-fb b{display:block;font-size:20px;font-weight:900}.u-pie.ok .u-fb b{color:var(--ok)}.u-pie.mal .u-fb b{color:var(--mal)}
-.u-fb span span{display:block;font-size:15px;font-weight:700;margin-top:2px}.u-pie.ok .u-fb span span{color:#BFF3D6}.u-pie.mal .u-fb span span{color:#FFB0B0}
-.u-btn{width:100%;height:52px;border:0;border-bottom:4px solid var(--orod);border-radius:16px;background:var(--oro);color:#2A1A00;font:900 16px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
-.u-btn:disabled{background:#2A2A30;border-color:#2A2A30;color:#5A5A64;cursor:default}
-.u-pie.ok .u-btn{background:var(--ok);border-color:#3E9A68;color:#06210F}
-.u-pie.mal .u-btn{background:var(--mal);border-color:#C23A3A;color:#fff}
+.u-fb span span{display:block;font-size:15px;font-weight:700;margin-top:2px}.u-pie.ok .u-fb span span,.u-pie.mal .u-fb span span{color:var(--ink)}
+.u-btn{width:100%;height:52px;border:0;border-bottom:4px solid color-mix(in srgb,var(--hi) 55%,#777);border-radius:16px;background:var(--hi);color:var(--on-hi);font:900 16px Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
+.u-btn:disabled{background:var(--chip);border-color:var(--chip);color:var(--toff);cursor:default}
+.u-pie.ok .u-btn{background:var(--ok);border-color:color-mix(in srgb,var(--ok) 60%,#000);color:var(--bg)}
+.u-pie.mal .u-btn{background:var(--mal);border-color:color-mix(in srgb,var(--mal) 60%,#000);color:#fff}
 .u-btn:active:not(:disabled){transform:translateY(2px);border-bottom-width:2px}
 /* animaciones de los personajes nuevos (de Acciones) */
 .gu,.gl{opacity:0}
@@ -349,6 +374,8 @@ const TRAD = { "I":"yo", "like":"me gusta", "don't like":"no me gusta", "don't":
    habla = qué significa · completa = palabra que falta · quien = escucha y elige · traduce = arma la frase
    escucha = escribe lo que oyes · parejas = une inglés-español
    nueva = PALABRA NUEVA: se enseña antes de usarla en un ejercicio (no se evalúa)
+   palabra = completa las letras que faltan (faltan = posiciones) · negativa = pasa "I like…" a "I don't like…"
+   relampago = reto final: 5 frases con reloj de 6 s, ¿coincide con el dibujo? (se pasa con 4 de 5)
    pj = personaje (hambre, neg, amor, pienso, afirma, pulgar) · ob = dibujo */
 const PLAN = [
   { t:"habla",    pj:"hambre", ob:"pizza",  en:"I like pizza.",           ops:["Me gusta la pizza.", "No me gusta la pizza.", "Quiero una pizza."], nuevo:1 },
@@ -359,13 +386,18 @@ const PLAN = [
   { t:"nueva",    pj:"pienso", ob:"tarea",  en:"homework",   es:"la tarea",   ej:"I don't like homework.", ejEs:"No me gusta la tarea." },
   { t:"traduce",  pj:"pienso", ob:"tarea",  es:"No me gusta la tarea.",   en:"I don't like homework", extra:["likes", "pizza"] },
   { t:"nueva",    pj:"amor",   ob:"helado", en:"ice cream",  es:"el helado",  ej:"I like ice cream.",      ejEs:"Me gusta el helado." },
+  { t:"palabra",  pj:"amor",   ob:"helado", en:"ice cream",  es:"el helado",  faltan:[6, 7] },
   { t:"escucha",  pj:"afirma",              en:"I like ice cream.",       es:"Me gusta el helado." },
   { t:"completa", pj:"neg",    ob:"lluvia", en:"I ___ rain.",             es:"No me gusta la lluvia.", ok:"don't like", ops:["like", "don't like", "likes"] },
+  { t:"negativa", pj:"neg",    ob:"cafe",   de:"I like coffee.",          deEs:"Me gusta el café.", en:"I don't like coffee", es:"No me gusta el café.", extra:["likes", "not"] },
   { t:"nueva",    pj:"pulgar", ob:"balon",  en:"football",   es:"el fútbol",  ej:"I like football.",      ejEs:"Me gusta el fútbol." },
+  { t:"palabra",  pj:"pulgar", ob:"balon",  en:"football",   es:"el fútbol",  faltan:[1, 5] },
   { t:"quien",                 ob:"balon",  en:"I like football.",        es:"Me gusta el fútbol.", ok:"like" },
   { t:"parejas",  pares:[["I like", "me gusta"], ["I don't like", "no me gusta"], ["rain", "la lluvia", "lluvia"], ["coffee", "el café", "cafe"], ["dogs", "los perros", "perro"]] },
+  { t:"negativa", pj:"pienso", ob:"tarea",  de:"I like homework.",        deEs:"Me gusta la tarea.", en:"I don't like homework", es:"No me gusta la tarea.", extra:["likes", "pizza"] },
   { t:"traduce",  pj:"amor",   ob:"helado", es:"Me gusta el helado.",     en:"I like ice cream", extra:["don't", "coffee"] },
-  { t:"escucha",  pj:"pienso",              en:"I don't like coffee.",    es:"No me gusta el café." }
+  { t:"escucha",  pj:"pienso",              en:"I don't like coffee.",    es:"No me gusta el café." },
+  { t:"relampago", rondas:[["pizza", "I like pizza.", 1], ["lluvia", "I don't like coffee.", 0], ["perro", "I like dogs.", 1], ["balon", "I like ice cream.", 0], ["helado", "I like ice cream.", 1]] }
 ];
 
 /* =====================================================================
@@ -719,7 +751,7 @@ function pantalla(cuerpo, rev) {
 }
 listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") b.disabled = !v; };
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
-function pintar() { P = PLAN[pos]; ({ nueva:exNueva, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
+function pintar() { P = PLAN[pos]; ({ nueva:exNueva, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
 const enLimpio = t => t.replace(/[.!?]/g, "").trim();
 const espanol = t => t;
 
@@ -732,6 +764,47 @@ function exNueva() {
   const b = $("bChk"); b.disabled = false; b.textContent = "Continuar";
   on("bAu", () => voz(P.en, .85)); on("bLe", () => voz(P.en, .5)); on("bEj", () => voz(P.ej, .9));
   setTimeout(() => voz(P.en, .85), 300);
+}
+/* 9 · COMPLETA LA PALABRA (letras que faltan, teclado del celular) */
+function exPalabra() {
+  pantalla('<p class="u-t">Completa la palabra</p><div class="u-hab" style="justify-content:center">' + PJ(P.pj) + '<span style="line-height:0;margin-bottom:24px">' + OB(P.ob, 70) + '</span></div>' +
+    '<div class="u-pist"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button><b>' + esc(P.es) + '</b></div>' +
+    '<div class="u-pal" id="pal">' + P.en.split("").map((c, i) => c === " " ? '<span class="esp"></span>' : P.faltan.indexOf(i) > -1 ? '<input maxlength="2" data-i="' + i + '" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="letra que falta">' : '<span>' + esc(c) + '</span>').join("") + '</div>',
+    () => { const ins = [...document.querySelectorAll("#pal input")]; let ok = true; ins.forEach(x => { const b = x.value.toLowerCase() === P.en[+x.dataset.i]; x.classList.add(b ? "ok" : "mal"); if (!b) ok = false; }); return [ok, P.en + " = " + P.es, P.en]; });
+  on("bAu", () => voz(P.en, .85)); setTimeout(() => voz(P.en, .85), 300);
+  const ins = [...document.querySelectorAll("#pal input")];
+  ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value)); }));
+  setTimeout(() => ins[0].focus(), 400);
+}
+/* 10 · PÁSALA A NEGATIVA (I like → I don't like) */
+function exNegativa() { let puestos = [];
+  const W = mezcla(P.en.split(" ").concat(P.extra));
+  pantalla('<p class="u-t">Pásala a negativa</p><div class="u-camb"><div class="de">' + OB(P.ob, 30) + frase(P.de) + '</div><small>' + esc(P.deEs) + '</small></div>' +
+    '<div class="u-flecha">NO ME GUSTA</div><div class="u-lin" id="lin" style="margin-top:6px"></div><div class="u-ban" id="ban">' + W.map((w, i) => '<button type="button" class="u-ch" data-i="' + i + '">' + esc(w) + '</button>').join("") + '</div>',
+    () => [puestos.map(i => W[i]).join(" ") === P.en, P.en + ". = " + P.es + " (se pone don't antes de like)", P.en + "."]);
+  const pint = () => { $("lin").innerHTML = puestos.map((i, q) => '<button type="button" class="u-ch" data-q="' + q + '">' + esc(W[i]) + '</button>').join("");
+    $("lin").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.splice(+b.dataset.q, 1); pint(); }));
+    $("ban").querySelectorAll(".u-ch").forEach(b => b.classList.toggle("ida", puestos.indexOf(+b.dataset.i) > -1)); listo(puestos.length); };
+  $("ban").querySelectorAll(".u-ch").forEach(b => b.addEventListener("click", () => { puestos.push(+b.dataset.i); voz(b.textContent, 1); pint(); }));
+}
+/* 11 · RONDA RELÁMPAGO (reto final: 5 frases, 6 s cada una) */
+function exRelampago() { const R = P.rondas, C = 2 * Math.PI * 42; let i = -1, res = [], tm = null, t0 = 0;
+  const SI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>';
+  const NO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>';
+  pantalla('<span class="u-nuevo">' + sprite("llama", 14) + 'RETO FINAL</span><p class="u-t">Ronda relámpago</p>' +
+    '<div class="u-rel" id="rl"><svg class="r" width="96" height="96" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="42" fill="none" stroke="var(--bd)" stroke-width="8"></circle><circle id="rlc" cx="48" cy="48" r="42" fill="none" stroke="var(--gold)" stroke-width="8" stroke-linecap="round" stroke-dasharray="' + C + '" stroke-dashoffset="0"></circle></svg><b id="rln">6</b></div>' +
+    '<div class="u-rond" id="rlo">¿LA FRASE COINCIDE CON EL DIBUJO?</div><div class="u-relq" id="rlq"><button type="button" class="u-go" id="rlGo">Empezar</button></div>' +
+    '<div class="u-sino"><button type="button" class="u-o" data-v="1" disabled>' + SI + 'Coincide</button><button type="button" class="u-o" data-v="0" disabled>' + NO + 'No coincide</button></div>' +
+    '<div class="u-marc" id="rlm">' + R.map(() => '<i></i>').join("") + '</div>',
+    () => { const b = res.filter(x => x).length; return [b >= 4, b + " de " + R.length + " correctas" + (b >= 4 ? "" : " (necesitas 4)"), "Great!"]; });
+  const botones = [...document.querySelectorAll(".u-sino .u-o")];
+  const fin = () => { clearInterval(tm); botones.forEach(x => x.disabled = true); $("rlq").innerHTML = '<span class="fr">' + res.filter(x => x).length + ' / ' + R.length + '</span>'; $("rlo").textContent = "¡TERMINASTE!"; listo(1); };
+  const ronda = () => { i++; if (i >= R.length) return fin(); const [o, f] = R[i];
+    $("rlq").innerHTML = OB(o, 84) + '<span class="fr">' + esc(f) + '</span>'; $("rlo").textContent = "FRASE " + (i + 1) + " DE " + R.length; voz(f, .95); t0 = Date.now(); clearInterval(tm);
+    tm = setInterval(() => { const q = Math.max(0, 6 - (Date.now() - t0) / 1000); $("rln").textContent = Math.ceil(q); $("rlc").setAttribute("stroke-dashoffset", C * (1 - q / 6)); $("rl").classList.toggle("urg", q < 2); if (q <= 0) marca(false); }, 100); };
+  const marca = ok => { clearInterval(tm); res.push(ok); $("rlm").children[i].className = ok ? "ok" : "mal"; sonido(ok ? "ok" : "mal", 0); setTimeout(ronda, 350); };
+  botones.forEach(b => b.addEventListener("click", () => { if (i < 0 || i >= R.length || res.length > i) return; marca((+b.dataset.v) === R[i][2]); }));
+  on("rlGo", () => { botones.forEach(x => x.disabled = false); ronda(); });
 }
 /* 1 · el personaje habla: ¿qué significa? */
 function exHabla() { let sel = null; const ops = mezcla(P.ops);
@@ -795,7 +868,7 @@ function exParejas() { let sel = null, n = 0;
 }
 
 /* ===== final ===== */
-const textoDe = p => p.t === "parejas" ? "I like = me gusta · I don't like = no me gusta" : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
+const textoDe = p => p.t === "parejas" ? "I like = me gusta · I don't like = no me gusta" : p.t === "relampago" ? "Ronda relámpago: I like pizza · I like dogs · I like ice cream" : p.t === "palabra" ? p.en + " = " + p.es : p.t === "negativa" ? p.en + ". = " + p.es : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
 const repaso = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB(p.ob, 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
 const EVAL = () => PLAN.filter(p => p.t !== "nueva").length;
 function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
