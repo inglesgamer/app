@@ -482,20 +482,19 @@ const AURA_NIVEL = 30;               // Aura con 3 estrellas (nunca se cobra dob
 const DIAGNOSTICO = false;
 const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // true = sin botón Comprobar: al responder se revisa sola
-const AUDIO_SITIO = "https://cheery-moonbeam-8fd0e3-paisesoficial.netlify.app/";   // tu sitio de Netlify donde están los mp3
-const AUDIO_URL = "";
-const RUTAS = [AUDIO_SITIO + "audios/", AUDIO_SITIO, "audios/", ""];   // prueba estas rutas en orden hasta que suene
+const AUDIO_URL = "https://inglesgamer.github.io/app/audios/";   // audios con voz natural (Fenrir, inglés de EE. UU.) en tu GitHub
+const RUTAS = [""];
 const EXTS = ["mp3"];
-const AUDIO_CARPETA = AUDIO_SITIO + "audios/";
+const AUDIO_CARPETA = AUDIO_URL;
 const AUDIO_DATA = {};
 const NIVEL = { id:"saludos", nombre:"Saludos" };
 const TEMA = "SALUDOS", COLOR = "#FFC83D";
-/* cada frase con su mp3 (cuando se dice esa frase, suena el mp3) */
-const PALABRAS = [
-  ["Hello", "hello"], ["Hi! My name is Leo.", "hi-my-name-is-leo"], ["Good morning", "good-morning"], ["Good morning, team!", "good-morning-team"],
-  ["Good night", "good-night"], ["Good night, see you tomorrow.", "good-night-see-you-tomorrow"], ["Goodbye", "goodbye"], ["My name is Ana.", "my-name-is-ana"],
-  ["How are you?", "how-are-you"], ["Nice to meet you! How are you?", "nice-to-meet-you-how-are-you"], ["I'm fine, thanks.", "im-fine-thanks"]
-].map(x => ({ en:x[0], es:"", audio:x[1] }));
+/* cada frase que se dice tiene su mp3 (nombre = la frase en minúsculas con guiones). Si falta uno, lee la voz del celular. */
+const slugA = t => String(t).toLowerCase().replace(/['’…]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const PALABRAS = ["Hello", "Hi! My name is Leo.", "Good morning", "Good morning, team!", "Good night", "Good night, see you tomorrow.", "Goodbye", "Goodbye, Leo!",
+  "My name is Ana.", "How are you?", "Nice to meet you! How are you?", "I'm fine, thanks.", "I'm fine, thanks. And you?",
+  "Good morning! My name is Leo. I am from Colombia. How are you?", "Leo.", "Colombia.", "Nice to meet you, Leo.", "I am from Mexico.", "Thank you!", "Great!"]
+  .map(t => ({ en:t, es:"", audio:slugA(t) }));
 const LOS4 = [];
 const GLOS = { "hi":"hola", "hello":"hola", "my":"mi", "name":"nombre", "is":"es", "good morning":"buenos días", "good night":"buenas noches", "goodbye":"adiós",
   "how":"cómo", "are":"estás", "you":"tú", "i'm":"yo estoy / soy", "fine":"bien", "thanks":"gracias", "nice":"agradable", "to meet":"conocer", "from":"de",
