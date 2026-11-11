@@ -489,23 +489,18 @@ const AURA_NIVEL = 28;               // Aura que da este nivel (una sola vez)
 const DIAGNOSTICO = false;
 const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // true = sin botón Comprobar: al responder se revisa sola
-const AUDIO_URL = "https://deluxe-biscochitos-3cc3fb.netlify.app";   // donde están tus mp3
-const RUTAS = ["/", "/audios/"];     // prueba …/nombre.mp3 y luego …/audios/nombre.mp3 (si no hay, usa la voz del celular)
-const EXTS = ["mp3", "m4a", "wav", "ogg"];
-const AUDIO_CARPETA = AUDIO_URL + "/";
+const AUDIO_URL = "https://inglesgamer.github.io/app/audios/";   // audios con voz natural (Heart, inglés de EE. UU.) en tu GitHub
+const RUTAS = [""];                  // los mp3 están directo en esa carpeta
+const EXTS = ["mp3"];
+const AUDIO_CARPETA = AUDIO_URL;
 const AUDIO_DATA = {};
 const NIVEL = { id:"esc1", nombre:"Escucha · Presentaciones" };
 const TEMA = "PRESENTACIONES", COLOR = "#3FD8C8";
-/* "audio" = nombre del mp3 (sin .mp3) · "en" = lo que se dice. Cuando se dice ese texto, suena el mp3. */
-const PALABRAS = [
-  { en:"Hello, I am Anna. I am from Colombia.", es:"Hola, soy Anna. Soy de Colombia.", audio:"pres_charla1" },
-  { en:"Nice to meet you, Anna.", es:"Mucho gusto, Anna.", audio:"pres_charla2" },
-  { en:"Hello, my name is Anna.", es:"Hola, me llamo Anna.", audio:"pres_anna" },
-  { en:"I am from Mexico.", es:"Soy de México.", audio:"pres_mexico" },
-  { en:"Hello", es:"Hola", audio:"hello" },
-  { en:"Goodbye", es:"Adiós", audio:"goodbye" },
-  { en:"Thank you", es:"Gracias", audio:"thankyou" }
-];
+/* cada frase que se dice tiene su mp3 (nombre = la frase en minúsculas con guiones). Si falta uno, lee la voz del celular. */
+const slugA = t => String(t).toLowerCase().replace(/['’…]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const PALABRAS = ["Hello", "Goodbye", "Thank you", "Nice to meet you", "I am from…", "Hello, my name is Anna.", "Hello, I am Anna. I am from Colombia.",
+  "I am from Mexico.", "Goodbye, Anna.", "Thank you, Anna.", "Nice to meet you, Anna.", "Hello, I am Anna. I am from Colombia. Nice to meet you, Anna.", "Hello, Goodbye, Thank you"]
+  .map(t => ({ en:t, es:"", audio:slugA(t) }));
 const CH = [
   { quien:0, texto:"Hello, I am Anna. I am from Colombia.", es:"Hola, soy Anna. Soy de Colombia." },
   { quien:1, texto:"Nice to meet you, Anna.", es:"Mucho gusto, Anna." } ];
@@ -580,7 +575,7 @@ function marcarDia() {
 function leerAura() { let a = { t:0, r:0, e:0, g:{}, l:[] }; try { const x = JSON.parse(localStorage.getItem(CLAVE_AURA) || "null"); if (x && typeof x === "object") a = Object.assign(a, x); } catch (e) {} a.t = Math.max(0, +a.t || 0); a.e = Math.max(0, +a.e || 0); if (!a.g || typeof a.g !== "object") a.g = {}; if (!Array.isArray(a.l)) a.l = []; return a; }
 function darAura(total) {
   total = Math.max(0, Math.round(+total || 0));
-  const a = leerAura(), gk = NIVEL.id, ya = +a.g[gk] || 0, dar = Math.max(0, total - ya);
+  const a = leerAura(), gk = (typeof AURA_ID !== "undefined" ? AURA_ID : NIVEL.id), ya = +a.g[gk] || 0, dar = Math.max(0, total - ya);
   a.g[gk] = Math.max(ya, total); if (!dar) return 0;
   a.t += dar; a.e += dar; a.l = [[dar, NIVEL.nombre.slice(0, 30), Date.now()]].concat(a.l).slice(0, 20);
   try { localStorage.setItem(CLAVE_AURA, JSON.stringify(a)); } catch (e) { return 0; } return dar;
@@ -681,7 +676,7 @@ function voz(texto, rate) { const k = normA(texto), w = PALABRAS.find(x => x.aud
 function vozTTS(texto, rate) { if (!("speechSynthesis" in window)) return; usoVoz = true; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(texto); u.lang = "en-US"; u.rate = rate || 1; speechSynthesis.speak(u); } catch (e) {} }
 function prep(f) {
   if (!f) return null; if (CACHE[f]) return CACHE[f];
-  const a = new Audio(); a.preload = "auto"; const C = []; RUTAS.forEach(r => EXTS.forEach(x => C.push(AUDIO_URL + r + f + "." + x))); let kk = 0;
+  const a = new Audio(); a.preload = "auto"; const C = []; RUTAS.forEach(r => EXTS.forEach(x => C.push(AUDIO_URL + r + String(f).replace(/\.mp3$/, "") + "." + x))); let kk = 0;
   a.onerror = function () { if (kk < C.length) { a.src = C[kk++]; try { a.load(); } catch (e) {} } else a.fallo = true; };
   a.src = AUDIO_DATA[f] || C[kk++]; try { a.load(); } catch (e) {} CACHE[f] = a; return a;
 }
