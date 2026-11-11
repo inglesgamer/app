@@ -66,7 +66,7 @@ svg.px{display:block;overflow:visible}
 .ofb{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;width:96px;height:58px;border-radius:16px;background:linear-gradient(#FFE07A,#FF8A3D);color:#2a1400;box-shadow:0 4px 0 #a2521c;animation:latB 1.2s ease-in-out infinite alternate}
 .ofb small{font-size:10px;font-weight:900;letter-spacing:.1em}.ofb span{display:flex;align-items:center;gap:4px;font-size:22px;font-weight:900}
 @keyframes latB{to{transform:scale(1.05)}}
-.pie.act{background:none}.activo{text-align:center;padding:12px;border-radius:16px;background:#12261a;border:1px solid #2f4a33;color:#7BE3A8;font-weight:900}
+.ofTop{padding:12px 12px 0}.ofTop:empty{display:none}.activo{text-align:center;padding:12px;border-radius:16px;background:#12261a;border:1px solid #2f4a33;color:#7BE3A8;font-weight:900}
 .arcoS{display:inline-block;animation:arcoH 3s linear infinite}@keyframes arcoH{to{filter:hue-rotate(360deg)}}
 .supS{display:inline-block;filter:drop-shadow(0 0 6px #FFC83D);animation:latB .8s ease-in-out infinite alternate}
 .adx{position:fixed;inset:0;z-index:300;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#B8B8C0;font-weight:800}
@@ -258,9 +258,10 @@ function pintar(centrar) {
     return '<div class="col' + (n === NUEVO ? " nuevo" : "") + '"><button class="rw p' + (!conP || !ab ? " lk" : "") + '" data-n="' + n + '" data-p="1">' + verPremio(e.p, 60) + mp + '</button>' +
       '<div class="tkw"><span class="tk ' + (ab ? "ok" : sig ? "sig" : "") + '">' + (n > 1 ? '<i class="lin"></i>' : '') + n + '</span>' + (sig && act ? '<button class="desb' + (g.h ? "" : " no") + '" data-abrir="1">' + HUESO(16) + (g.h ? 'Abrir · 1' : '1 hueso') + '</button>' : '') + '</div>' +
       '<button class="rw f' + (ab ? "" : " lk") + '" data-n="' + n + '" data-p="0">' + verPremio(e.g, 60) + (ab ? '<span class="mk ok">' + CHK + '</span>' : '') + '</button></div>'; };
-  $("app").innerHTML = '<div class="ban"><div class="cielo"></div><div class="vol"></div><div class="lava"></div><div class="dino">' + sprite("av15", 84) + '</div>' +
+  $("app").innerHTML = '<div class="ban"><div class="cielo"></div><div class="vol"></div><div class="lava"></div><div class="dino">' + sprite("av19", 80) + '</div>' +
     '<a class="bk" href="go:tienda" aria-label="Volver a la Tienda">' + BACK + '</a><div class="chips"><span class="chip" id="au">' + LLAMA(16) + saldo() + '</span><span class="chip hb" id="hb">' + HUESO(24) + g.h + '</span></div>' +
     '<div class="txt"><b>Temporada ' + TEMPORADA.nombre + '</b><small>Consigue huesos y abre premios</small></div><span class="tm">' + (act ? "Termina en " + diasQuedan() + (diasQuedan() === 1 ? " día" : " días") : "Temporada terminada") + '</span></div>' +
+    '<div class="ofTop">' + (conP ? '<div class="activo">✓ Pase ' + TEMPORADA.nombre + ' activo · cobras los premios dorados</div>' : act ? oferta() : '') + '</div>' +
     '<div class="xp"><span class="nv">' + g.a + '</span><div class="bar"><i style="width:' + (g.a / ESC * 100) + '%"></i></div><small>' + g.a + '/' + ESC + '</small></div>' +
     '<div class="tr"><div class="lb" style="color:#FFC83D">' + LLAMA(14) + 'PASE ' + TEMPORADA.nombre.toUpperCase() + '</div><div class="hz">' + Array.from({ length:ESC }, (_, i) => col(i + 1)).join("") + '</div><div class="lb" style="color:#B8B8C0">GRATIS PARA TODOS</div></div>' +
     (act ? '<div class="mj"><div class="t">MINIJUEGOS DE HOY<span>' + g.j.length + '/2 · cada uno da 1 hueso</span></div><div class="mjs">' +
@@ -268,7 +269,7 @@ function pintar(centrar) {
         return '<div class="mjc' + (h ? " hecho" : "") + (bloq ? " ad" : "") + '"><span class="art">' + ART[m.id](44) + '</span><div class="mjt"><b>' + m.n + '</b><small>' + HUESO(14) + '+1 hueso' + (k === 1 ? ' · <span class="adt">con anuncio</span>' : '') + '</small></div>' +
           (bloq ? '<button class="jg ver" data-anuncio="1">' + PLAY + 'Ver anuncio</button>' : '<button class="jg" data-jugar="' + m.id + '">' + (h ? "✓ Hecho" : "Jugar") + '</button>') + '</div>'; }).join("") +
       '</div></div><p class="mana">' + (g.j.length >= 2 ? "¡Listo por hoy! Mañana salen minijuegos nuevos" : "Mañana salen 2 minijuegos nuevos") + '</p>' : '<p class="fin">La temporada terminó. Pronto llega una nueva.</p>') +
-    '<div class="pie' + (conP ? " act" : "") + '">' + (conP ? '<div class="activo">✓ Pase ' + TEMPORADA.nombre + ' activo · cobras los premios dorados</div>' : act ? oferta() : '') + '</div>';
+    '<div style="height:calc(14px + env(safe-area-inset-bottom))"></div>';
   const hz = document.querySelector(".hz");
   if (centrar) { const c = hz.children[Math.min(g.a, ESC - 1)]; hz.scrollLeft = c.offsetLeft - hz.clientWidth / 2 + c.clientWidth / 2; } else hz.scrollLeft = x;
 }
