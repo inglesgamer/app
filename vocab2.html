@@ -471,7 +471,7 @@ const AURA_NIVEL = 20;
 const DIAGNOSTICO = false;
 const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // true = sin botón Comprobar: al responder se revisa sola
-const AUDIO_CARPETA = "https://fanciful-griffin-e03104-vocab1.netlify.app/";
+const AUDIO_CARPETA = "https://inglesgamer.github.io/app/audios/";
 const AUDIO_DATA = {};
 const NIVEL = {
   id:"vocab2", num:17, nombre:"Vocabulario 2",
@@ -489,7 +489,7 @@ const NIVEL = {
   ]
 };
 const TEMA = "VOCABULARIO 2", COLOR = "#5DB33A";
-const PALABRAS = NIVEL.tarjetas;     // los mp3 suenan cuando se dice la palabra sola
+const PALABRAS = NIVEL.tarjetas.concat([{en:"I go to school.",audio:"i-go-to-school.mp3"},{en:"We eat lunch together.",audio:"we-eat-lunch-together.mp3"},{en:"I have a ticket.",audio:"i-have-a-ticket.mp3"},{en:"The airport is big.",audio:"the-airport-is-big.mp3"},{en:"The menu, please.",audio:"the-menu-please.mp3"},{en:"The bill, please.",audio:"the-bill-please.mp3"},{en:"I like apples.",audio:"i-like-apples.mp3"},{en:"The banana is yellow.",audio:"the-banana-is-yellow.mp3"},{en:"I study on Monday.",audio:"i-study-on-monday.mp3"},{en:"Sunday is a free day.",audio:"sunday-is-a-free-day.mp3"},{en:"The banana is yellow and the apple is red.",audio:"the-banana-is-yellow-and-the-apple-is-red.mp3"},{en:"I have two tickets.",audio:"i-have-two-tickets.mp3"},{en:"Good morning! The menu, please.",audio:"good-morning-the-menu-please.mp3"},{en:"I'm from Colombia. I go to the airport.",audio:"im-from-colombia-i-go-to-the-airport.mp3"}]);     // palabras y frases con mp3 (voz natural, en GitHub)
 const LOS4 = [];
 const GLOS = { "i":"yo", "go":"voy / ir", "to":"a", "school":"la escuela", "we":"nosotros", "eat":"comer", "lunch":"almuerzo", "together":"juntos", "i have":"tengo", "a":"un",
   "ticket":"boleto", "tickets":"boletos", "the":"el / la", "airport":"aeropuerto", "is":"es", "big":"grande", "menu":"carta", "please":"por favor", "bill":"cuenta",
