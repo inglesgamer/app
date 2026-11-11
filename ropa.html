@@ -265,9 +265,13 @@ body.auto .u-btn:disabled{visibility:hidden}
 .vf-f .u-au{margin:0}
 .vf-q{margin:4px 0 0;text-align:center;font-size:14px;font-weight:700;color:var(--mu)}
 .vf-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.vf-2 .u-o{justify-content:center;text-align:center;min-height:58px;font-size:18px}
-#v .u-sopa{max-width:420px;gap:6px}
-#v .u-sl{font-size:25px;border-radius:12px;min-height:40px}
-#v .u-spw span{font-size:15px;padding:8px 13px}
+#v .u-sopa{width:min(100%,420px,calc(100dvh - 300px));max-width:none;gap:5px}
+#v .u-sl{font-size:clamp(17px,5.6vw,25px);border-radius:10px}
+#v .u-spw{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+#v .u-spw span{font-size:13px;padding:6px 4px;text-align:center;line-height:1.15}
+#v .u-spw span b{display:block;font-size:15px}
+body.auto #v>.u-pie:has(#bChk:disabled){min-height:0;height:0;padding-top:0;padding-bottom:0;overflow:hidden;border:0}
+#v .sp-sub{margin:-10px 0 8px;font-size:13px}
 .u-w{border-bottom:2px dashed var(--toff);padding-bottom:1px}
 .u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
 .u-hab{display:flex;align-items:flex-end;gap:8px}
@@ -491,7 +495,7 @@ body.auto .u-btn:disabled{visibility:hidden}
    ===================================================================== */
 const URL_MAPA = "go:veranoa1";      // X y "Volver al mapa"
 const URL_SIGUIENTE = "";
-const AURA_NIVEL = 20;
+const AURA_NIVEL = 35;
 const DIAGNOSTICO = false;
 const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // true = sin botón Comprobar: al responder se revisa sola
@@ -521,7 +525,7 @@ const PALABRAS = NIVEL.tarjetas.map(t => Object.assign({}, t, { audio:slugA(t.en
     "I wear a hat in the garden.", "My cap is in the car.", "Great!"]).map(x => ({ en:x, es:"", audio:slugA(x) + ".mp3" })));   // palabras y frases con su mp3 (voz natural en GitHub)
 const LOS4 = [];
 const GLOS = { "i":"yo", "like":"me gusta", "your":"tu", "my":"mi", "is":"es / está", "are":"son / están", "red":"roja", "warm":"abrigado", "take":"lleva", "blue":"azul",
-  "it is hot":"hace calor", "wear":"uso / llevo", "this":"esta", "new":"nueva", "she has":"ella tiene", "a":"un / una", "pink":"rosado", "white":"blancos", "need":"necesito",
+  "it is":"hace (clima)", "hot":"calor", "the t-shirt":"la camiseta", "wear":"uso / llevo", "this":"esta", "new":"nueva", "she has":"ella tiene", "a":"un / una", "pink":"rosado", "white":"blancos", "need":"necesito",
   "clean":"limpias", "in the sun":"cuando hay sol", "he has":"él tiene", "black":"negra", "put":"pon", "the":"el / la / los", "in":"en", "bedroom":"cuarto", "fridge":"refrigerador",
   "wardrobe":"ropero", "garden":"jardín", "car":"carro", "shirt":"camisa", "t-shirt":"camiseta", "sweater":"suéter", "jacket":"chaqueta", "pants":"pantalón", "shorts":"pantalón corto",
   "skirt":"falda", "dress":"vestido", "shoes":"zapatos", "socks":"medias", "hat":"sombrero", "cap":"gorra" };
@@ -877,7 +881,7 @@ const PRENDA = {
 const ESC_D = PRENDA;
 function escena(n, s) { return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 64 64" aria-hidden="true">' + PRENDA[n] + '</svg>'; }
 function exVerdad() { let sel = null;
-  pantalla('<p class="u-t">¿Es verdad?</p><div class="vf-d">' + OB(P.ob, 110) + '</div><p class="vf-f"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button>' + esc(P.en) + '</p><p class="vf-q">' + esc(P.q) + '</p>' +
+  pantalla('<p class="u-t">¿Es verdad?</p><div class="vf-d">' + OB(P.ob, 110) + '</div><p class="vf-f"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button>' + glosa(P.en) + '</p><p class="vf-q">' + esc(P.q) + '</p>' +
     '<div class="vf-2"><button type="button" class="u-o vf-o" data-o="1">Verdad</button><button type="button" class="u-o vf-o" data-o="0">Mentira</button></div>',
     () => [(sel === "1") === P.ok, P.p, P.en]);
   on("bAu", () => voz(P.en, .9)); setTimeout(() => voz(P.en, .9), 400);
@@ -1096,7 +1100,7 @@ function exSopa() {
   }
   const AB = "ACDEFGHIKLMNPRSTUWY";
   G = G.map(f => f.map(v => v || AB[Math.floor(Math.random() * AB.length)]));
-  pantalla('<p class="u-t">Encuentra las 6 palabras</p><p class="u-es" style="margin:-10px 0 12px">Toca la primera letra y luego la última (o arrastra el dedo).</p>' +
+  pantalla('<p class="u-t">Encuentra las 6 palabras</p><p class="u-es sp-sub">Toca la primera y la última letra (o arrastra el dedo).</p>' +
     '<div class="u-sopa" id="sp" style="grid-template-columns:repeat(' + N + ',1fr)">' + G.map((f, r) => f.map((ch, c) => '<button type="button" class="u-sl" data-r="' + r + '" data-c="' + c + '">' + ch + '</button>').join("")).join("") + '</div>' +
     '<div class="u-spw">' + P.pal.map(p => '<span data-w="' + p[0] + '"><b>' + p[0].toLowerCase() + '</b> ' + esc(p[1]) + '</span>').join("") + '</div>', () => [true, P.pal.map(p => p[0].toLowerCase() + " = " + p[1]).join(" · "), P.pal.map(p => p[0].toLowerCase()).join(", ")]);
   const cel = (r, c) => document.querySelector('.u-sl[data-r="' + r + '"][data-c="' + c + '"]');
