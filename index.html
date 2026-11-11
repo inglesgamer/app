@@ -589,10 +589,18 @@ const REFUERZA = { titulo:"Refuerza tu inglés", detalle:"12 lecciones", url:"go
 // ===== SOPA DE LETRAS (NUEVO) =====
 // A dónde lleva el botón (crea esa sección en AppCreator24), cuántas sopas hay en total y cuánta Aura da cada una.
 // El progreso lo guarda la pantalla de la sopa en "ingles_gamer_sopa" = { est:{ idSopa: 0-3 }, hoy:"AAAA-M-D" } (la NUBE lo sube sola).
-const SOPA = { titulo:"Sopa de letras", url:"go:sopa", total:5, aura:40, clave:"ingles_gamer_sopa" };
+const SOPA = { titulo:"Sopa de letras", url:"go:sopa", total:4, aura:40, clave:"ingles_gamer_sopa" };
 // Tema de la sopa del día: sale UNO por día, en orden (cuenta desde VOCAB_DESDE, igual que el Vocabulario del día).
 // Palabras de 3 a 5 letras en MAYÚSCULAS: [inglés, español]. c = color del tema.
+// Sopas del día (11 nov 2026, pedido del usuario): por ahora rotan SOLO estas 4 — Verbos, Saludos, Vocabulario básico, Info personal.
+// Las de antes (Colores, Animales, Frutas, Familia, Números) quedan guardadas en SOPA_ANTES por si se vuelven a usar.
 const SOPA_TEMAS = [
+  { tema:"Verbos", c:"#8E5BD6", p:[["EAT", "comer"], ["SLEEP", "dormir"], ["DANCE", "bailar"], ["CRY", "llorar"]] },
+  { tema:"Saludos", c:"#3FD8C8", p:[["HELLO", "hola"], ["BYE", "chao"], ["NIGHT", "noche"], ["THANKS", "gracias"]] },
+  { tema:"Vocabulario básico", c:"#5DB33A", p:[["NAME", "nombre"], ["AGE", "edad"], ["BOY", "niño"], ["GIRL", "niña"]] },
+  { tema:"Info personal", c:"#FF6B6B", p:[["LIVE", "vivir"], ["FROM", "de"], ["YEARS", "años"], ["JUNE", "junio"]] }
+];
+const SOPA_ANTES = [
   { tema:"Colores",  c:"#3FD8C8", p:[["RED","rojo"],["BLUE","azul"],["PINK","rosado"],["GREEN","verde"]] },
   { tema:"Animales", c:"#FFC83D", p:[["CAT","gato"],["DOG","perro"],["FISH","pez"],["BIRD","pájaro"]] },
   { tema:"Frutas",   c:"#FF6FB5", p:[["FIG","higo"],["PEAR","pera"],["LIME","lima"],["APPLE","manzana"]] },

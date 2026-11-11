@@ -554,12 +554,36 @@ main{overflow:hidden;gap:10px;padding-bottom:calc(12px + env(safe-area-inset-bot
 </div>
 <script>
 /* ================= TUS DATOS: edita solo esta parte ================= */
-const SOPA = { titulo:"Sopa de letras", url:"go:sopa", total:5, aura:40, clave:"ingles_gamer_sopa" };
+const SOPA = { titulo:"Sopa de letras", url:"go:sopa", total:4, aura:40, clave:"ingles_gamer_sopa" };
 // Un tema por día (mismo orden que en el Inicio). Cada tema tiene 4 rondas de 4 palabras:
 //   p = ronda 1 (el Inicio solo usa esta: [inglés, español]) · mas = ronda 2 (solo se usa la PRIMERA lista de "mas").
 // Cada palabra: [INGLÉS EN MAYÚSCULAS, significado, ejemplo con la *palabra* entre asteriscos, traducción del ejemplo]
 // OJO: este MISMO bloque va en la pantalla del Álbum (album). Si cambias palabras aquí, cámbialas allá también.
+// Sopas del día (11 nov 2026, pedido del usuario): por ahora rotan SOLO estas 4 — Verbos, Saludos, Vocabulario básico, Info personal.
+// Las de antes (Colores, Animales, Frutas, Familia, Números) quedan guardadas en SOPA_ANTES por si se vuelven a usar.
 const SOPA_TEMAS = [
+  { tema:"Verbos", c:"#8E5BD6",
+    p:[["EAT", "comer", "I *eat* pizza.", "Como pizza."], ["SLEEP", "dormir", "I *sleep* at night.", "Duermo de noche."], ["DANCE", "bailar", "I *dance* with my friends.", "Bailo con mis amigos."], ["CRY", "llorar", "Babies *cry* a lot.", "Los bebés lloran mucho."]],
+    mas:[
+      [["DRIVE", "manejar", "I *drive* a red car.", "Manejo un carro rojo."], ["THINK", "pensar", "I *think* in English.", "Pienso en inglés."], ["LAUGH", "reír", "I *laugh* with my friends.", "Me río con mis amigos."], ["RIDE", "montar", "I *ride* a horse.", "Monto a caballo."]]
+    ] },
+  { tema:"Saludos", c:"#3FD8C8",
+    p:[["HELLO", "hola", "*Hello*, my name is Ana.", "Hola, me llamo Ana."], ["BYE", "chao", "*Bye*, see you tomorrow!", "¡Chao, nos vemos mañana!"], ["NIGHT", "noche", "Good *night*, Mom!", "¡Buenas noches, mamá!"], ["THANKS", "gracias", "*Thanks* for the pizza!", "¡Gracias por la pizza!"]],
+    mas:[
+      [["MORNING", "mañana", "Good *morning*, teacher!", "¡Buenos días, profe!"], ["GOODBYE", "adiós", "*Goodbye*, Leo!", "¡Adiós, Leo!"], ["FINE", "bien", "I'm *fine*, thanks.", "Estoy bien, gracias."], ["PLEASE", "por favor", "Water, *please*.", "Agua, por favor."]]
+    ] },
+  { tema:"Vocabulario básico", c:"#5DB33A",
+    p:[["NAME", "nombre", "My *name* is Leo.", "Me llamo Leo."], ["AGE", "edad", "What is your *age*?", "¿Cuál es tu edad?"], ["BOY", "niño", "He is a *boy*.", "Él es un niño."], ["GIRL", "niña", "She is a *girl*.", "Ella es una niña."]],
+    mas:[
+      [["COUNTRY", "país", "My *country* is Colombia.", "Mi país es Colombia."], ["FRIEND", "amigo", "Leo is my *friend*.", "Leo es mi amigo."], ["SCHOOL", "colegio", "I go to *school*.", "Voy al colegio."], ["HOUSE", "casa", "My *house* is big.", "Mi casa es grande."]]
+    ] },
+  { tema:"Info personal", c:"#FF6B6B",
+    p:[["LIVE", "vivir", "I *live* in Bogotá.", "Vivo en Bogotá."], ["FROM", "de", "I'm *from* Colombia.", "Soy de Colombia."], ["YEARS", "años", "I'm ten *years* old.", "Tengo diez años."], ["JUNE", "junio", "My birthday is in *June*.", "Mi cumpleaños es en junio."]],
+    mas:[
+      [["BIRTHDAY", "cumpleaños", "My *birthday* is in June.", "Mi cumpleaños es en junio."], ["CITY", "ciudad", "I live in a big *city*.", "Vivo en una ciudad grande."], ["PHONE", "teléfono", "My *phone* is new.", "Mi teléfono es nuevo."], ["EMAIL", "correo", "What's your *email*?", "¿Cuál es tu correo?"]]
+    ] }
+];
+const SOPA_ANTES = [
   { tema:"Colores", c:"#3FD8C8",
     p:[["RED", "rojo", "My cap is *red*.", "Mi gorra es roja."],["BLUE", "azul", "The sky is *blue*.", "El cielo es azul."],["PINK", "rosado", "Her bike is *pink*.", "Su bicicleta es rosada."],["GREEN", "verde", "Frogs are *green*.", "Las ranas son verdes."]],
     mas:[
@@ -666,7 +690,22 @@ function sopaHoy() {
   return Object.assign({ k:k, semilla:Math.abs(dias) + 1, id:sinTilde(SOPA_TEMAS[k].tema) }, SOPA_TEMAS[k]);
 }
 const rondasDe = t => [t.p].concat(t.mas);
-function voz(t) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = "en-US"; u.rate = .85; speechSynthesis.speak(u); } catch (e) {} }
+function vozTTS(t) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = "en-US"; u.rate = .85; speechSynthesis.speak(u); } catch (e) {} }
+/* voz natural (Fenrir) de cada palabra: mp3 en GitHub, una sola pista (iPhone no la bloquea) */
+const AUDIO_CARPETA = "https://inglesgamer.github.io/app/audios/";
+const slugV = t => String(t).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const UNA = new Audio(); UNA.preload = "auto"; try { UNA.setAttribute("playsinline", ""); } catch (e) {}
+const FALLO = {};
+function voz(t) { t = String(t || "").replace(/\*/g, "").trim(); if (!t) return; const f = slugV(t) + ".mp3";
+  try { UNA.pause(); speechSynthesis.cancel(); } catch (e) {}
+  if (FALLO[f]) { vozTTS(t); return; }
+  UNA.onerror = () => { if (UNA.src.indexOf(f) > -1) { FALLO[f] = 1; vozTTS(t); } };
+  try { UNA.muted = false; UNA.src = AUDIO_CARPETA + f; UNA.playbackRate = 1; const p = UNA.play(); if (p && p.catch) p.catch(() => {}); } catch (e) { vozTTS(t); } }
+function callar() { try { UNA.pause(); } catch (e) {} try { speechSynthesis.cancel(); } catch (e) {} }
+addEventListener("pagehide", callar); document.addEventListener("visibilitychange", () => { if (document.hidden) callar(); });
+document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a[href]"); if (a) callar(); }, true);
+/* precarga suave de las palabras del día */
+setTimeout(() => { try { const t = sopaHoy(); rondasDe(t).slice(0, 2).forEach(r => r.forEach(x => fetch(AUDIO_CARPETA + slugV(x[0]) + ".mp3", { mode:"no-cors" }).catch(() => {}))); } catch (e) {} }, 800);
 function vibrar(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
 function quieto() { return window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches; }
 function aura() { const a = leer("ingles_gamer_aura"); return Math.max(0, +(a && a.t) || 0); }
@@ -801,7 +840,7 @@ function acierto(p, a, b, ls) {
   const t = document.createElement("div"); t.className = "toast";
   t.innerHTML = esc(p[0].toLowerCase()) + " <small>= " + esc(p[1]) + "</small>" + "";
   $("tablero").appendChild(t); setTimeout(() => t.remove(), 1900);
-  sfx("ok"); vibrar(30);
+  sfx("ok"); vibrar(30); setTimeout(() => voz(p[0]), 180);   /* suena cómo se dice la palabra */
   cinta(p[0]); pintarPalabras(p[0]); pieAcierto(p);
   if (Object.keys(J.hallada).length === J.pal.length) setTimeout(rondaLista, 1100);
 }
@@ -846,7 +885,7 @@ function terminar() {
   const s = sopaGuardada(); s.est = s.est || {}; s.est[J.t.id] = Math.max(+s.est[J.t.id] || 0, est); s.hoy = clave(new Date()); guardarSopa(s);
   const total = RONDAS.length * 4;
   $("finP").textContent = "Encontraste las " + total + " palabras de " + J.t.tema + ".";
-  $("estr").innerHTML = [0, 1, 2].map(i => '<svg class="' + (i < est ? "on" : "") + '" style="animation-delay:' + (.5 + i * .2) + 's" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg>').join("");
+  $("estr").innerHTML = ""; if (0) [0, 1, 2].map(i => '<svg class="' + (i < est ? "on" : "") + '" style="animation-delay:' + (.5 + i * .2) + 's" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg>').join("");
   $("finDat").innerHTML = '<span>Tiempo<b>' + Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, "0") + '</b></span>' +
     '<span>Errores<b>' + J.errores + '</b></span>' + (J.auraGan ? '<span class="au">Aura<b>' + sprite("llama", 18) + '+' + J.auraGan + '</b></span>' : '');
   $("finYa").hidden = !!J.auraGan;
@@ -855,7 +894,8 @@ function terminar() {
   if (!quieto()) for (let i = 0; i < 12; i++) { const d = document.createElement("i"); d.className = "ok-d"; d.style.setProperty("--a", (i * 30) + "deg"); d.style.setProperty("--c", COLS[i % COLS.length]); ic.appendChild(d); }
   $("fin").hidden = false; sfx("fin");
   try { if (window.IGNube && IGNube.subirYa) IGNube.subirYa().then(() => { try { if (window.IGFicha) IGFicha.publicar(); } catch (e) {} }); else if (window.IGFicha) IGFicha.publicar(); } catch (e) {}   /* guarda en la nube y sube tu Aura al Ranking */
-  if (window.IGFinal) IGFinal.mostrar({ aura:J.auraGan, estrellas:est, titulo:"¡Sopa completada!", sub:J.t.tema });   /* final con la liga semanal */
+  if (window.IGFinal) IGFinal.mostrar({ aura:J.auraGan, estrellas:0, titulo:"¡Sopa completada!", sub:"Sopa de hoy · " + J.t.tema,   /* final con la liga semanal: sin estrellas, con Aura y el resultado */
+    datos:[["Palabras", total + "/" + total], ["Tiempo", Math.floor(seg / 60) + ":" + String(seg % 60).padStart(2, "0")], ["Errores", String(J.errores)]] });
 }
 let avisoT = null;
 function aviso(t) { const a = $("aviso"); a.textContent = t; a.hidden = false; clearTimeout(avisoT); avisoT = setTimeout(() => { a.hidden = true; }, 2200); }
@@ -1524,6 +1564,7 @@ const CONFIG = {
 .igf-s{margin:-8px 0 0;text-align:center;font-size:15px;font-weight:700;color:var(--mu,#B8B8C0)}
 .igf-a{display:flex;align-items:center;justify-content:center;gap:8px;font-size:26px;font-weight:900;color:var(--gold,#FFD166)}
 .igf-a small{font-size:13px;letter-spacing:.14em;color:var(--mu,#B8B8C0)}
+.igf-dt{display:flex;justify-content:center;gap:8px}.igf-dt span{flex:1;max-width:120px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border-radius:14px;border:1px solid var(--bd,#2c2c35);background:var(--card,#141418)}.igf-dt small{font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--mu,#B8B8C0);text-transform:uppercase}.igf-dt b{font-size:20px;font-weight:900}
 .igf-ya{margin:-6px 0 0;text-align:center;font-size:13px;font-weight:700;color:var(--mu,#B8B8C0)}
 .igf-ap{opacity:0;animation:igfIn .5s ease forwards}@keyframes igfIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .igf-rb{padding:12px 14px;border-radius:24px;background:radial-gradient(120% 90% at 50% 0%,var(--c1),#0E0B07 75%);border:1px solid var(--c2);color:#FFF3D6}
@@ -1703,7 +1744,7 @@ async function mostrar(o) {
     '<div class="igf-sub" id="igfSub" hidden></div></div>';
   ov.innerHTML = '<div class="igf-in">' + (est ? '<div class="igf-st">' + [0, 1, 2].map(i => '<span class="' + (i === 1 ? "m " : "") + (i < est ? "" : "no") + '">' + estrella().replace("<svg ", '<svg style="animation-delay:' + (.2 + i * .22) + 's" ') + '</span>').join("") + '</div>' : '') +
     '<p class="igf-t igf-ap" style="animation-delay:.8s">' + esc(o.titulo || "¡Nivel completado!") + '</p>' + (o.sub ? '<p class="igf-s igf-ap" style="animation-delay:.9s">' + esc(o.sub) + '</p>' : '') +
-    '<div class="igf-a igf-ap" style="animation-delay:1s">' + llama(28) + '<span id="igfAu">+0</span><small>AURA</small></div>' + (gan ? '' : '<p class="igf-ya">Ya ganaste el Aura de esto. ¡Igual sumaste práctica!</p>') +
+    '<div class="igf-a igf-ap" style="animation-delay:1s">' + llama(28) + '<span id="igfAu">+0</span><small>AURA</small></div>' + (o.datos ? '<div class="igf-dt igf-ap" style="animation-delay:1.1s">' + o.datos.map(d => '<span><small>' + esc(d[0]) + '</small><b>' + esc(d[1]) + '</b></span>').join("") + '</div>' : '') + (gan ? '' : '<p class="igf-ya">Ya ganaste el Aura de esto. ¡Igual sumaste práctica!</p>') +
     rango + '<div class="igf-lh igf-ap" style="animation-delay:1.4s"><span>LIGA SEMANAL</span><b>' + esc(RANGOS_REINO[reinoDe(lg0.st)].n) + '</b></div><div class="igf-ls" id="igfLs"><p class="igf-nota">Buscando tu liga…</p></div>' +
     '<button type="button" class="igf-btn" id="igfOk">Continuar</button></div>';
   document.body.appendChild(ov); void ov.offsetWidth; ov.classList.add("on");
