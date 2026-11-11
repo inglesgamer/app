@@ -1,0 +1,89 @@
+<script>
+/* ===== PREMIO DEL PASE (teaser): al GANAR este nivel sale el COFRE DE LUZ (diseño A) con un premio del Pase Jurásico.
+   Si no tiene el pase, al tocar "Obtener" le dice que necesita el pase (y lo manda a verlo).
+   Cambia solo PREMIO_NIVEL: "av18" Raptor · "av19" Triceratops · "sk8" Skin Ámbar · "mc7" Marco Fósil · "tt7" Título · "mp7" Fondo Jurásico ===== */
+const PREMIO_NIVEL = "av18";
+(function () {
+  const PASE_URL = "go:pase", TEMP = "t1", FIN = new Date(2026, 11, 1);      /* la temporada termina el 1 de diciembre */
+  const SPRX = {"av18": {"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]}, "av19": {"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]}, "av0": {"p": {"o": "#FF8A3D", "s": "#F2C9A0", "k": "#0B0B0D", "b": "#3FD8C8", "d": "#1E8F84", "m": "#B5574A", "l": "#3A3A42"}, "r": ["....oooo....", "..oooooooo..", ".oooooooooo.", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..bbbbbbbb..", ".sbbbbbbbbs.", "..dddddddd..", "..lll..lll..", "..kkk..kkk.."]}, "cofre": {"p": {"b": "#8B5A2B", "y": "#FFC83D", "k": "#5E3E22"}, "r": ["bbbbbbbb", "bkkkkkkb", "bbbbbbbb", "yyyyyyyy", "bbbyybbb", "bkkyykkb", "bkkkkkkb", "bbbbbbbb"]}};
+  const ITEMS = {
+    av18:{ n:"Raptor", r:"LEGENDARIO", c:"#FFC83D" }, av19:{ n:"Triceratops", r:"ÉPICO", c:"#B58CFF" }, sk8:{ n:"Skin Ámbar", r:"ÉPICO", c:"#B58CFF" },
+    mc7:{ n:"Marco Fósil", r:"RARO", c:"#7CC8FF" }, tt7:{ n:"Título «Cazador de dinos»", r:"ESPECIAL", c:"#FF8A3D" }, mp7:{ n:"Fondo Jurásico", r:"FONDO", c:"#7CC8FF" } };
+  const it = ITEMS[PREMIO_NIVEL]; if (!it || Date.now() >= FIN.getTime()) return;
+  const px = (n, s, st) => { const d = SPRX[n], h = d.r.length, w = d.r[0].length; let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" style="display:block;overflow:visible;' + (st || '') + '">'; d.r.forEach((r, y) => r.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + d.p[c] + '"></rect>'; })); return o + "</svg>"; };
+  const ver = s => PREMIO_NIVEL === "av18" || PREMIO_NIVEL === "av19" ? px(PREMIO_NIVEL, s)
+    : PREMIO_NIVEL === "sk8" ? px("av0", s, "filter:sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05)")
+    : PREMIO_NIVEL === "mc7" ? '<span style="display:flex;align-items:flex-end;justify-content:center;width:' + s + 'px;height:' + s + 'px;border-radius:50%;border:' + Math.round(s / 14) + 'px dashed #C9BFA0;background:#2A2018;overflow:hidden">' + px("av0", Math.round(s * .55)) + '</span>'
+    : PREMIO_NIVEL === "mp7" ? '<span style="position:relative;display:block;width:' + Math.round(s * 1.4) + 'px;height:' + s + 'px;border-radius:16px;overflow:hidden;background:linear-gradient(#E8692A,#FFC977);border-bottom:' + Math.round(s / 6) + 'px solid #5E8F35"><span style="position:absolute;left:8%;bottom:0;width:60%;height:70%;background:#7A3A20;clip-path:polygon(4% 100%,26% 22%,32% 30%,38% 20%,62% 100%)"></span></span>'
+    : '<b style="display:block;padding:14px 18px;border-radius:18px;background:#2A1408;border:3px solid #FFC83D;color:#FFC83D;font:900 ' + Math.round(s / 5) + 'px Nunito,sans-serif;text-align:center;line-height:1.1">Cazador<br>de dinos</b>';
+  const tienePase = () => { if (window.IG_DEMO_PASE !== undefined) return window.IG_DEMO_PASE; try { const p = JSON.parse(localStorage.getItem("ingles_gamer_pase") || "null"); return !!(p && p[TEMP]); } catch (e) { return false; } };
+  const son = () => { try { return localStorage.getItem("ingles_gamer_sonido") !== "0"; } catch (e) { return true; } };
+  let AC = null; const tn = (f, t0, d, v, tp) => { if (!son()) return; try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + t0; o.type = tp || "sine"; o.frequency.setValueAtTime(f, t); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(v || .1, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + .05); } catch (e) {} };
+  const SND = { tiembla:() => { for (let k = 0; k < 8; k++) tn(180 + k * 20, k * .12, .08, .07, "square"); }, boom:() => { tn(90, 0, .5, .2, "sawtooth"); [523.25, 659.25, 783.99, 1046.5, 1318.5, 1568].forEach((f, k) => tn(f, .15 + k * .08, .5, .09)); }, no:() => { tn(330, 0, .16, .09, "triangle"); tn(220, .15, .35, .09, "triangle"); } };
+  /* DISEÑO A · COFRE DE LUZ (elegido por el usuario el 11 nov 2026): el cofre tiembla, lo tocas y se abre con un rayo de luz; el premio sube flotando */
+  const css = document.createElement("style");
+  css.textContent = `
+#igTz{position:fixed;inset:0;z-index:9500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(56px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));text-align:center;overflow:hidden;font-family:Nunito,system-ui,sans-serif;color:#fff;background:radial-gradient(circle at 50% 40%,#3B1A6B,#0C0418 72%);animation:tzIn .3s ease}
+#igTz .tg{position:absolute;top:calc(16px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);white-space:nowrap;padding:6px 14px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.16em;background:#2A1050;color:#D9B8FF;border:1px solid #B58CFF66}
+#igTz .ray{position:absolute;left:50%;top:42%;width:820px;height:820px;margin:-410px 0 0 -410px;border-radius:50%;background:repeating-conic-gradient(color-mix(in srgb,var(--c) 26%,transparent) 0 8deg,transparent 8deg 18deg);-webkit-mask:radial-gradient(circle,#000 6%,transparent 55%);mask:radial-gradient(circle,#000 6%,transparent 55%);opacity:0;transition:opacity .5s;animation:tzG 18s linear infinite}
+#igTz.ab .ray{opacity:1}
+#igTz .esc{position:relative;width:260px;height:230px;display:flex;align-items:flex-end;justify-content:center}
+#igTz .haz{position:absolute;left:50%;bottom:40px;width:150px;height:0;margin-left:-75px;background:linear-gradient(to top,color-mix(in srgb,var(--c) 85%,#fff),transparent);clip-path:polygon(35% 100%,65% 100%,100% 0,0 0);transition:height .6s ease-out}
+#igTz.ab .haz{height:230px}
+#igTz .cof{position:relative;z-index:2;cursor:pointer;animation:tzT .5s infinite;filter:drop-shadow(0 0 18px var(--c))}
+#igTz.ab .cof{animation:none;opacity:0;transform:translateY(20px) scale(.6);transition:all .4s}
+#igTz .pr{position:absolute;left:50%;bottom:56px;z-index:3;transform:translate(-50%,40px) scale(.2);opacity:0;transition:all .7s cubic-bezier(.3,1.6,.5,1)}
+#igTz.ab .pr{transform:translate(-50%,0) scale(1);opacity:1}#igTz.ab .pr>*{animation:tzFl 2.4s ease-in-out .7s infinite}
+#igTz .tp{margin:6px 0 0;min-height:22px;font-size:16px;font-weight:900;color:#D9B8FF;animation:tzPu 1s infinite}
+#igTz .rs{opacity:0}
+#igTz h2{margin:10px 0 0;font-size:clamp(32px,10vw,42px);font-weight:900;line-height:1;background:linear-gradient(#FFF,#D9B8FF 50%,#B58CFF);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #2A1050)}
+#igTz .nm{margin-top:6px;font-size:22px;font-weight:900}
+#igTz .rr{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:99px;background:var(--c);color:#1A0838;font-size:12px;font-weight:900;letter-spacing:.12em}
+#igTz .bts{width:100%;max-width:330px;display:flex;flex-direction:column;align-items:center;opacity:0}
+#igTz .tx{margin:12px auto 0;max-width:300px;font-size:15px;font-weight:800;color:#E9D6FF;line-height:1.4}
+#igTz .lk{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 14px;border-radius:14px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.2);font-size:14px;font-weight:800}
+#igTz .bt{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:58px;margin-top:16px;border:0;border-radius:99px;overflow:hidden;background:linear-gradient(#E9D6FF,#B58CFF);color:#1A0838;font:900 18px Nunito,sans-serif;box-shadow:0 5px 0 #6B3FB0;text-decoration:none;cursor:pointer}
+#igTz .bt.oro{background:linear-gradient(#FFE07A,#FFB13D);color:#2A1408;box-shadow:0 5px 0 #A0661A}
+#igTz .bt::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:tzBr 2.4s 1s infinite}
+#igTz .bt:active{transform:translateY(2px)}
+#igTz .bt2{display:block;width:100%;height:46px;margin-top:4px;border:0;background:none;color:#C9B2E8;font:800 15px Nunito,sans-serif;cursor:pointer}
+#igTz .cf{position:absolute;width:8px;height:12px;left:50%;top:40%;pointer-events:none}
+#igTz.no .pr>*{filter:grayscale(.7) brightness(.6)}#igTz.no .esc{animation:tzS .45s}
+@keyframes tzIn{from{opacity:0}}@keyframes tzG{to{transform:rotate(360deg)}}@keyframes tzPu{50%{transform:scale(1.06)}}
+@keyframes tzT{0%,100%{transform:rotate(0)}20%{transform:rotate(-7deg)}40%{transform:rotate(7deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(4deg)}}
+@keyframes tzFl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes tzBr{0%{left:-60%}40%,100%{left:130%}}
+@keyframes tzS{25%{transform:translateX(-10px) rotate(-3deg)}75%{transform:translateX(10px) rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){#igTz *{animation-duration:.01s!important;animation-delay:0s!important;transition-duration:.01s!important}}`;
+  function mostrar() {
+    if (document.getElementById("igTz")) return;
+    document.head.appendChild(css);
+    const d = document.createElement("div"); d.id = "igTz"; d.style.setProperty("--c", it.c);
+    d.innerHTML = '<i class="ray"></i><span class="tg">PASE JURÁSICO · PREMIO ' + it.r + '</span><div class="esc"><i class="haz"></i><span class="cof" id="tzC">' + px("cofre", 120) + '</span><span class="pr">' + ver(150) + '</span></div>' +
+      '<p class="tp" id="tzP">¡Toca el cofre!</p><div class="rs" id="tzR"><h2>¡NUEVO PREMIO!</h2><div class="nm">' + it.n + '</div><span class="rr">★ ' + it.r + ' ★</span></div>' +
+      '<div class="bts" id="tzB"><button class="bt" type="button" id="tzO">Obtener</button><button class="bt2" type="button" id="tzX">Cerrar</button></div>';
+    document.body.appendChild(d);
+    SND.tiembla();
+    const cerrar = () => d.remove();
+    const abre = () => {
+      if (d.classList.contains("ab")) return; d.classList.add("ab"); SND.boom(); confeti(d);
+      d.querySelector("#tzP").style.visibility = "hidden";
+      [["#tzR", 500], ["#tzB", 700]].forEach(x => d.querySelector(x[0]).animate([{ opacity:0, transform:"scale(.6)" }, { opacity:1, transform:"none" }], { duration:450, delay:x[1], fill:"forwards", easing:"cubic-bezier(.3,1.6,.5,1)" }));
+    };
+    d.querySelector("#tzC").onclick = abre; setTimeout(abre, 4000);   /* si no lo toca, se abre solo */
+    d.querySelector("#tzX").onclick = cerrar;
+    d.querySelector("#tzO").onclick = () => {
+      const B = d.querySelector("#tzB");
+      if (tienePase()) B.innerHTML = '<p class="tx">¡Ya es parte de tu Pase! Juega los niveles jurásicos del mapa para reclamarlo.</p><a class="bt" href="' + PASE_URL + '">Ir a mi Pase</a><button class="bt2" type="button" id="tzX">Cerrar</button>';
+      else {
+        d.classList.remove("no"); void d.offsetWidth; d.classList.add("no"); SND.no();
+        B.innerHTML = '<span class="lk">🔒 Este premio es del Pase Jurásico</span><p class="tx">Consigue el pase antes de que termine la temporada y será tuyo para siempre.</p><a class="bt oro" href="' + PASE_URL + '">Ver el Pase Jurásico</a><button class="bt2" type="button" id="tzX">Ahora no</button>';
+      }
+      d.querySelector("#tzX").onclick = cerrar;
+    };
+  }
+  function confeti(p) { const cols = ["#FFC83D", "#FF8A3D", "#5DB33A", "#B58CFF", "#FFE07A"]; for (let k = 0; k < 40; k++) { const e = document.createElement("i"); e.className = "cf"; e.style.background = cols[k % 5]; p.appendChild(e); const a = Math.random() * 6.283, r = 120 + Math.random() * 200; e.animate([{ transform:"translate(0,0)", opacity:1 }, { transform:"translate(" + Math.cos(a) * r + "px," + (Math.sin(a) * r + 160) + "px) rotate(600deg)", opacity:0 }], { duration:1100 + Math.random() * 600, easing:"cubic-bezier(.2,.8,.4,1)", fill:"forwards" }); setTimeout(() => e.remove(), 1800); } }
+  window.IGTeaser = { mostrar };
+  /* se engancha solo: los niveles llaman a mandarNube() cuando el jugador GANA */
+  if (typeof window.mandarNube === "function") { const base = window.mandarNube; window.mandarNube = function () { const r = base.apply(this, arguments); setTimeout(mostrar, 1800); return r; }; }
+})();
+</script>
