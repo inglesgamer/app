@@ -465,6 +465,22 @@ body.auto .u-btn:disabled{visibility:hidden}
 @keyframes kbal{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
 @keyframes ksube{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.u-body svg *{animation:none!important}}
+
+/* pantalla completa: el contenido llena el alto y el panel de respuesta queda pegado abajo */
+.app{display:flex;flex-direction:column}
+#v{flex:1;display:flex;flex-direction:column}
+#v>.u-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:18px}
+#v>.u-pie{margin-top:auto;margin-bottom:calc(-28px - env(safe-area-inset-bottom))}
+.u-body .u-o{min-height:64px;font-size:19px}
+.u-body .u-t{font-size:24px}
+.u-body .u-hab{margin:10px 0 14px}
+.u-body .u-ops{gap:12px}
+
+/* botón Lento: píldora dorada al lado del audio */
+.u-body .lento2{appearance:none;-webkit-appearance:none;margin:0;display:inline-flex;flex-direction:row;align-items:center;justify-content:center;gap:7px;height:46px;padding:0 18px;border-radius:99px;border:2px solid color-mix(in srgb,var(--gold) 55%,var(--line2));border-bottom-width:4px;background:color-mix(in srgb,var(--gold) 12%,var(--card));color:var(--ink);font:900 15px Nunito,sans-serif;letter-spacing:.02em;cursor:pointer;opacity:1;filter:none;box-shadow:none;touch-action:manipulation}
+.u-body .lento2 svg{width:20px;height:20px;color:var(--gold);flex:none}
+.u-body .lento2:active{transform:translateY(2px);border-bottom-width:2px}
+.u-body .u-nw .lento2{margin-top:10px;height:40px}
 </style>
 </head>
 <body>
@@ -494,11 +510,10 @@ const DIAGNOSTICO = false;
 const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // true = sin botón Comprobar: al responder se revisa sola
 /* Audios: cada frase o color usa su nombre en minúsculas con guiones: the-sky-is-blue.mp3, red.mp3 (en la carpeta audios/ de tu sitio) */
-const SITIO_AUDIO = "https://comfy-zabaione-747ff0-colores.netlify.app/";
-const AUDIO_URL = "";
-const RUTAS = [SITIO_AUDIO + "audios/", SITIO_AUDIO, "audios/"];
-const EXTS = ["mp3", "m4a", "wav", "ogg"];
-const AUDIO_CARPETA = SITIO_AUDIO + "audios/";
+const AUDIO_URL = "https://inglesgamer.github.io/app/audios/";   // audios con voz natural (Fenrir) en tu GitHub
+const RUTAS = [""];
+const EXTS = ["mp3"];
+const AUDIO_CARPETA = AUDIO_URL;
 const AUDIO_DATA = {};
 const NIVEL = { id:"colores", nombre:"Colores" };   // id de este nivel en el Mapa y el Ranking (de ahí salen las estrellas)
 const TEMA = "COLORES", COLOR = "#FF6FB5";
@@ -515,12 +530,14 @@ const FR = [
  {dice:"The chocolate is brown.",es:"El chocolate es café.",o:["brown","purple","green","red"]}
 ];
 const slugA = t => String(t).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-const PALABRAS = FR.map(f => ({ en:f.dice, es:f.es, audio:slugA(f.dice) })).concat(Object.keys(COL).map(c => ({ en:c, es:COL[c][0], audio:c })));
+const PALABRAS = FR.map(f => ({ en:f.dice, es:f.es, audio:slugA(f.dice) })).concat(Object.keys(COL).map(c => ({ en:c, es:COL[c][0], audio:c })),
+  ["Hi! I'm Leo. I'm from Colombia. I have two cats. My cats are black. My car is red.", "Red.", "Two.", "I have two red cars.",
+   "The yellow banana is two dollars.", "My mother likes pink flowers.", "The white milk is five dollars.", "Great!"].map(t => ({ en:t, es:"", audio:slugA(t) })));
 const LOS4 = [];
 const GLOS = { "the":"el / la", "is":"es", "are":"son", "i have":"tengo", "a":"un / una", "my":"mi", "she likes":"a ella le gusta", "flowers":"flores", "car":"carro", "cars":"carros",
   "cat":"gato", "cats":"gatos", "new":"nuevos", "shoes":"zapatos", "sky":"cielo", "grass":"pasto", "banana":"plátano", "chocolate":"chocolate", "mother":"mamá", "likes":"le gusta",
   "red":"rojo", "blue":"azul", "yellow":"amarillo", "green":"verde", "pink":"rosa", "black":"negro", "white":"blanco", "brown":"café", "hi":"hola", "i'm":"yo soy", "from":"de",
-  "two":"dos", "and":"y", "brother":"hermano", "has":"tiene", "hat":"gorro" };
+  "two":"dos", "five":"cinco", "dollars":"dólares", "milk":"leche", "and":"y", "brother":"hermano", "has":"tiene", "hat":"gorro" };
 
 /* El nivel, paso por paso (3 corazones, sin botón Comprobar, sin relámpago).
    nueva = enseña un color · color = ¿qué color escuchaste? (el de siempre) · lee = lee y responde
@@ -550,9 +567,10 @@ const PLAN = [
   { t:"lee", pj:"saludo", quien:"Leo", en:"Hi! I'm Leo. I'm from Colombia. I have two cats. My cats are black. My car is red.", es:"Leo es de Colombia, tiene dos gatos negros y un carro rojo.",
     texto:"Hi! I'm Leo. I'm from Colombia. I have two cats. My cats are black. My car is red.",
     preg:[["What color is Leo's car?", "¿De qué color es el carro de Leo?", ["Red.", "Blue.", "Black."]], ["How many cats does Leo have?", "¿Cuántos gatos tiene Leo?", ["Two.", "Five.", "Ten."]]] },
-  { t:"completa", pj:"pienso", ob:"c_red", en:"I have ___ red cars.", es:"Tengo dos carros rojos.", ok:"two", ops:["two", "twenty", "blue"], nota:"Repaso de Números: two = dos" },
+  { t:"completa", pj:"pienso", ob:"c_red", en:"I have ___ red cars.", es:"Tengo dos carros rojos.", ok:"two", ops:["two", "twenty", "blue"], nota:"Repaso de La tiendita: two = dos" },
   { t:"habla", pj:"amor", ob:"c_pink", en:"My mother likes pink flowers.", ops:["A mi mamá le gustan las flores rosas.", "A mi hermana le gustan las flores rosas.", "A mi mamá le gustan las flores rojas."], nota:"Repaso de Vocabulario: mother = mamá" },
-  { t:"color", en:"My brother has a green hat.", es:"Mi hermano tiene un gorro verde.", o:["green", "gray", "brown", "yellow"] },
+  { t:"color", en:"The white milk is five dollars.", es:"La leche blanca cuesta cinco dólares.", o:["white", "black", "brown", "yellow"] },
+  { t:"habla", pj:"hambre", ob:"c_yellow", en:"The yellow banana is two dollars.", ops:["El banano amarillo cuesta dos dólares.", "El banano verde cuesta dos dólares.", "El banano amarillo cuesta doce dólares."], nota:"Repaso de La tiendita: It is two dollars = cuesta dos dólares" },
   { t:"parejas", pares:[["pink", "rosa", "c_pink"], ["black", "negro", "c_black"], ["white", "blanco", "c_white"], ["brown", "café", "c_brown"]] }
 ];
 
