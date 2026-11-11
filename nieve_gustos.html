@@ -507,6 +507,7 @@ body.auto .u-btn:disabled{visibility:hidden}
 .adjx.hot i:nth-child(3){left:45%;animation-delay:.4s}.adjx.hot i:nth-child(4){left:60%;animation-delay:.8s}
 @keyframes vapor{0%{opacity:0;transform:translateY(8px)}50%{opacity:1}100%{opacity:0;transform:translateY(-14px)}}
 .ev-l b{width:10px}
+.ev-sub b{color:var(--gold);font-size:18px;font-weight:900}
 .u-w{border-bottom:2px dashed var(--toff);padding-bottom:1px}
 .u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
 .u-hab{display:flex;align-items:flex-end;gap:8px}
@@ -744,7 +745,7 @@ const PLAN = [
   { t:"completa", pj:"neg",     ob:"lluvia",  en:"I ___ rain.", es:"No me gusta la lluvia.", ok:"don't like", ops:["like", "don't like"], nota:"No le gusta → don't like" },
   { t:"completa", pj:"triste",  ob:["lluvia", "g_triste"], en:"I don't like rain. I am ___.", es:"No me gusta la lluvia. Estoy triste.", ok:"sad", ops:["sad", "happy", "hot"], nota:"Repaso de Adjetivos: sad = triste" },
   { t:"nueva",    pj:"amor",    ob:"helado",  en:"ice cream", es:"el helado", tip:"<b>ice cream</b> = helado. Son dos palabras.", ej:"I like ice cream.", ejEs:"Me gusta el helado." },
-  { t:"escribe",  ob:"helado",  en:"ice cream", es:"helado" },
+  { t:"escribe",  ob:"helado",  en:"ice cream", es:"helado", sub:"Pista: es un <b>helado</b>. Escríbelo en inglés." },
   { t:"habla",    pj:"afirma",  ob:"a_hot",   en:"I like hot coffee.", ops:["Me gusta el café caliente.", "No me gusta el café caliente.", "Me gusta el café frío."], nota:"Repaso de Adjetivos: hot = caliente" },
   { t:"nueva",    pj:"pulgar",  ob:"balon",   en:"football", es:"el fútbol", tip:"<b>football</b> = fútbol.", ej:"I like football.", ejEs:"Me gusta el fútbol." },
   { t:"palabra",  pj:"pulgar",  ob:"balon",   en:"football", es:"el fútbol", faltan:[1, 5] },
@@ -754,7 +755,7 @@ const PLAN = [
   { t:"parejas",  pares:[["I like", "me gusta"], ["I don't like", "no me gusta"], ["rain", "la lluvia", "lluvia"], ["ice cream", "el helado", "helado"], ["football", "el fútbol", "balon"]] },
   { t:"traduce",  pj:"pienso",  ob:"tarea",   es:"No me gusta la tarea.", en:"I don't like homework", extra:["likes", "pizza"] },
   { t:"traduce",  pj:"amor",    ob:"a_tehot", es:"Me gusta el té caliente.", en:"I like hot tea", extra:["cold", "don't"], nota:"Repaso de Adjetivos: hot = caliente (va antes de tea)" },
-  { t:"escribe",  ob:"g_alegre", en:"happy", es:"feliz", sub:"¿Cómo está? Escríbelo en inglés." },
+  { t:"escribe",  ob:"g_alegre", en:"happy", es:"feliz", sub:"Pista: está <b>feliz</b>. ¿Cómo se dice en inglés?" },
   { t:"memoriza", ver:["g_alegre", "g_dormido", "a_hot"], otras:["g_triste", "g_frio", "a_big"] },
   { t:"escucha",  pj:"amor",    en:"I like ice cream.", es:"Me gusta el helado." },
   { t:"escucha",  pj:"pulgar",  en:"I like football.", es:"Me gusta el fútbol." }
