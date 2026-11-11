@@ -366,7 +366,7 @@ const PROB_COFRE = { comun: 70, raro: 22, epico: 7, legendario: 1 };
 const CATS = [
   { k:"av", t:"Personajes", items:[
     {n:"Constructor",p:0},{n:"Arquera",p:0},{n:"Dragoncito",p:700},{n:"Mago",p:350},{n:"Caballero",p:90},{n:"Princesa",p:400},
-    {n:"Alien",p:150},{n:"Sirena",p:350},{n:"Kunoichi",p:300},{n:"InglésGamer",p:1000},{n:"Pirata",p:350},{n:"Astronauta",p:700},{n:"Robot",p:450},{n:"Vaquero",p:150},{n:"Chef",p:100},{n:"T-Rex",p:800},{n:"Vampiro",p:300},{n:"Súper Héroe",p:700},{n:"Raptor",p:700,tmp:1},{n:"Triceratops",p:500,tmp:1} ] },
+    {n:"Alien",p:150},{n:"Sirena",p:350},{n:"Kunoichi",p:300},{n:"InglésGamer",p:1000},{n:"Pirata",p:350},{n:"Astronauta",p:700},{n:"Robot",p:450},{n:"Vaquero",p:150},{n:"Chef",p:100},{n:"T-Rex",p:800,tmp:1},{n:"Vampiro",p:300},{n:"Súper Héroe",p:700},{n:"Raptor",p:700,tmp:1},{n:"Triceratops",p:500,tmp:1} ] },
   { k:"sk", t:"Skins", items:[
     {n:"Original",p:0,f:""},
     {n:"Hielo",p:120,f:"hue-rotate(150deg)"},
@@ -784,7 +784,7 @@ function pintarAnuncio() {
 
 /* ---------- PACKS: personaje + fondo + animación más baratos juntos ----------
    [nombre, personaje, fondo, animación, precio del pack]. Si ya tienes algo del pack, el precio baja en proporción. */
-const PACKS = [["Pack Pirata","av10","mp9","an5",850],["Pack Espacial","av11","mp8","an7",1300],["Pack Jurásico","av15","mp7","an6",1250],["Pack Héroe","av17","mp6","an8",1400]];
+const PACKS = [["Pack Pirata","av10","mp9","an5",850],["Pack Espacial","av11","mp8","an7",1300],["Pack Nocturno","av16","mp1","an4",850],["Pack Héroe","av17","mp6","an8",1400]];
 function precioPack(p) {
   const its = [p[1], p[2], p[3]].map(get), tot = its.reduce((a, x) => a + x.p, 0), falt = its.filter(x => !owns(x.id)).reduce((a, x) => a + x.p, 0);
   return { its, tot, falt, pr: falt ? Math.max(10, Math.round(p[4] * falt / tot / 10) * 10) : 0 };
@@ -961,7 +961,7 @@ $("ofertas").addEventListener("click", e => {
   const flip = (n, s) => '<span style="display:block;transform:scaleX(-1)">' + sprite(n, s) + '</span>';
   const ms = finT() - Date.now(), dias = Math.max(1, Math.ceil(ms / 864e5));
   const amb = ALL.find(x => x.cat === "sk" && x.tmp), e = ST.eq;
-  const ITEMS = [["Raptor", sprite("av18", 46), 1], ["Triceratops", sprite("av19", 44), 0], ["Skin Ámbar", pj(e.av, amb ? amb.id : "sk0", 44), 0], ["Marco Fósil", marco(e.av, "sk0", "mc7", 24), 0]];
+  const ITEMS = [["T-Rex", sprite("av15", 46), 1], ["Raptor", sprite("av18", 44), 0], ["Triceratops", sprite("av19", 44), 0], ["Skin Ámbar", pj(e.av, amb ? amb.id : "sk0", 44), 0], ["Marco Fósil", marco(e.av, "sk0", "mc7", 24), 0]];
   const DN = [["av15", 130, 2.2, 0, 1], ["av18", 70, 1.7, .15, 1], ["av19", 90, 2.4, .35, 0], ["av18", 56, 1.6, .6, 1], ["av15", 100, 2.0, .8, 1], ["av19", 70, 1.9, 1.0, 0], ["av18", 80, 1.5, 1.2, 1]];
   const ds = DN.map(x => '<div class="dn" style="left:110%;bottom:calc(26% - ' + (x[1] * .08) + 'px);animation-duration:' + x[2] + 's;animation-delay:' + x[3] + 's"><div class="b">' + (x[4] ? flip(x[0], x[1]) : sprite(x[0], x[1])) + '</div></div>').join("");
   const pv = Array.from({ length: 8 }, (_, i) => '<i class="polvo" style="left:' + (i * 13) + '%;bottom:calc(26% - 10px);animation-delay:' + (i * .13) + 's"></i>').join("");

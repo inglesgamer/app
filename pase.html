@@ -1,28 +1,6 @@
 <!doctype html>
 <html lang="es">
 <head>
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icono-180.png?v=2">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="InglésGamer">
-<script>
-/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
-(function(){
-  var web = /github\.io$/.test(location.hostname);
-  window.igURL = function(u){
-    u = String(u);
-    if (!web || u.indexOf("go:") !== 0) return u;
-    var s = u.slice(3);
-    return (s === "inicio" ? "index" : s) + ".html";
-  };
-  if (!web) return;
-  document.addEventListener("click", function(e){
-    var a = e.target.closest && e.target.closest('a[href^="go:"]');
-    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
-  }, true);
-})();
-</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pase Jurásico · InglésGamer</title>
@@ -70,14 +48,29 @@ svg.px{display:block;overflow:visible}
 .desb.no{background:#3a3a40;color:#9a9aa2;box-shadow:none}
 .mj{padding:12px 14px 0;display:flex;flex-direction:column;gap:8px;border-top:1px solid #1d2a1f;margin-top:6px}
 .mj .t{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:900;letter-spacing:.08em;color:#B8B8C0}.mj .t span{letter-spacing:0;color:#e9dcc3}
-.mjs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.mjc{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:18px;background:linear-gradient(170deg,#1d2a1f,#121614);border:2px solid #2f4a33;text-align:center}
-.mjc .art{height:50px;display:grid;place-items:center}
-.mjc b{font-size:13px;line-height:1.1}.mjc small{display:flex;align-items:center;gap:3px;font-size:11px;font-weight:900;color:#e9dcc3}
-.mjc .jg{margin-top:4px;width:90%;height:32px;border-radius:99px;background:#7BE3A8;color:#06210f;font-size:13px;font-weight:900;box-shadow:0 3px 0 #2f8a4e}
+.mjs{display:flex;flex-direction:column;gap:8px}
+.mjc{position:relative;display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:18px;background:linear-gradient(170deg,#1d2a1f,#121614);border:2px solid #2f4a33}.mjt{flex:1;min-width:0}.mjc.ad{border-color:#8a6a1a;background:linear-gradient(170deg,#2a2010,#141008)}.adt{color:#FFC83D}
+.mjc .art{flex:none;width:50px;height:46px;display:grid;place-items:center}
+.mjc b{display:block;font-size:15px;line-height:1.1}.mjc small{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:3px;font-size:12px;font-weight:900;color:#e9dcc3}
+.mjc .jg.ver{background:linear-gradient(#FFE07A,#FFB13D);color:#2a1400;box-shadow:0 3px 0 #a2521c}
+.mjc .jg{flex:none;display:flex;align-items:center;justify-content:center;gap:5px;padding:0 14px;height:38px;border-radius:99px;background:#7BE3A8;color:#06210f;font-size:13px;font-weight:900;box-shadow:0 3px 0 #2f8a4e}
 .mjc.hecho{border-color:#3FAE5A;background:linear-gradient(170deg,#163a20,#0c1a10)}.mjc.hecho .jg{background:#2a2a2e;color:#7BE3A8;box-shadow:none}
 .mana{font-size:11px;font-weight:800;color:#B8B8C0;text-align:center;padding:8px 14px 0}
-.pie{margin-top:auto;padding:12px 14px calc(16px + env(safe-area-inset-bottom))}
+.pie{position:sticky;bottom:0;z-index:40;margin-top:auto;padding:10px 12px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,#050506 22%)}
+.of{position:relative;display:flex;align-items:center;gap:10px;padding:10px 10px 10px 82px;border-radius:22px;background:linear-gradient(120deg,#5a3a00,#2b1c00 60%,#3a2400);border:2px solid #FFC83D;box-shadow:0 0 24px rgba(255,200,61,.25)}
+.of::before{content:"";position:absolute;inset:0;border-radius:20px;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.18) 45%,transparent 60%);background-size:250% 100%;animation:brilloP 2.8s linear infinite;pointer-events:none}
+@keyframes brilloP{from{background-position:120% 0}to{background-position:-120% 0}}
+.ofd{position:absolute;left:6px;bottom:4px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6));animation:paso .8s steps(2) infinite}
+.oft{flex:1;min-width:0}.oft small{display:block;font-size:10px;font-weight:900;letter-spacing:.12em;color:#FFC83D}.oft b{display:block;font-size:14px;line-height:1.15}
+.ofv{white-space:nowrap;display:flex;align-items:center;gap:3px;margin-top:3px;font-size:11px;font-weight:900;color:#ffe3a0}
+.ofb{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;width:96px;height:58px;border-radius:16px;background:linear-gradient(#FFE07A,#FF8A3D);color:#2a1400;box-shadow:0 4px 0 #a2521c;animation:latB 1.2s ease-in-out infinite alternate}
+.ofb small{font-size:10px;font-weight:900;letter-spacing:.1em}.ofb span{display:flex;align-items:center;gap:4px;font-size:22px;font-weight:900}
+@keyframes latB{to{transform:scale(1.05)}}
+.pie.act{background:none}.activo{text-align:center;padding:12px;border-radius:16px;background:#12261a;border:1px solid #2f4a33;color:#7BE3A8;font-weight:900}
+.arcoS{display:inline-block;animation:arcoH 3s linear infinite}@keyframes arcoH{to{filter:hue-rotate(360deg)}}
+.supS{display:inline-block;filter:drop-shadow(0 0 6px #FFC83D);animation:latB .8s ease-in-out infinite alternate}
+.adx{position:fixed;inset:0;z-index:300;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#B8B8C0;font-weight:800}
+.adx .adc{width:90px;height:90px;border-radius:50%;border:5px solid #FFC83D;display:grid;place-items:center}.adx .adc b{font-size:36px;color:#fff}
 .btnP{width:100%;height:52px;border-radius:99px;background:linear-gradient(90deg,#FFC83D,#FF8A3D);color:#1a0d00;font-weight:900;font-size:17px;box-shadow:0 4px 0 #a2521c;display:flex;align-items:center;justify-content:center;gap:6px}
 .btnP.act{background:#1d2a20;color:#7BE3A8;box-shadow:none;border:1px solid #2f4a33}
 .vuela{position:fixed;z-index:200;pointer-events:none;transition:all .8s cubic-bezier(.5,-.3,.6,1)}
@@ -135,14 +128,17 @@ const TEMPORADA = { num:1, nombre:"Jurásica", fin:"2026-12-01" };   // mismo da
 const PRECIO_PASE = 800;
 /* 30 escalones. Cada uno se abre con 1 hueso. g = premio gratis, p = premio del Pase.
    {aura:n} o {item:"id de la Tienda"} (av18 Raptor, av19 Triceratops, sk8 Ámbar, mc7 Fósil, tt7 Cazador de dinos, mp7 Fondo Jurásico) */
-const ESCALONES = [
-  { g:{aura:20}, p:{aura:100} }, { g:{aura:20}, p:{aura:80} },  { g:{aura:25}, p:{item:"mc7"} }, { g:{aura:25}, p:{aura:100} }, { g:{aura:30}, p:{aura:100} },
-  { g:{aura:30}, p:{aura:100} }, { g:{aura:30}, p:{item:"sk8"} }, { g:{aura:35}, p:{aura:100} }, { g:{aura:35}, p:{aura:120} }, { g:{aura:40}, p:{item:"tt7"} },
-  { g:{aura:40}, p:{aura:120} }, { g:{aura:40}, p:{aura:120} }, { g:{aura:45}, p:{aura:150} }, { g:{aura:45}, p:{aura:150} }, { g:{aura:50}, p:{item:"av19"} },
-  { g:{aura:50}, p:{aura:150} }, { g:{aura:50}, p:{aura:150} }, { g:{aura:55}, p:{aura:150} }, { g:{aura:55}, p:{aura:180} }, { g:{aura:60}, p:{item:"mp7"} },
-  { g:{aura:60}, p:{aura:180} }, { g:{aura:60}, p:{aura:200} }, { g:{aura:65}, p:{aura:200} }, { g:{aura:65}, p:{aura:200} }, { g:{aura:70}, p:{aura:250} },
-  { g:{aura:70}, p:{aura:250} }, { g:{aura:75}, p:{aura:250} }, { g:{aura:75}, p:{aura:300} }, { g:{aura:80}, p:{aura:300} }, { g:{aura:100}, p:{item:"av18"} }
+const ESCALONES = [   /* g = gratis (Aura de 10 a 12 y algunas cosas comunes de la Tienda) · p = Pase */
+  { g:{aura:10},       p:{aura:40} },        { g:{aura:10},       p:{item:"mc7"} },  { g:{aura:11},       p:{aura:40} },        { g:{item:"tt1"},    p:{item:"sk6"} },   { g:{aura:11},       p:{aura:50} },
+  { g:{aura:12},       p:{item:"sk8"} },     { g:{aura:10},       p:{aura:50} },     { g:{item:"mc1"},    p:{item:"tt7"} },     { g:{aura:11},       p:{aura:50} },      { g:{aura:12},       p:{item:"av19"} },
+  { g:{aura:10},       p:{aura:60} },        { g:{item:"sk1"},    p:{item:"mc4"} },  { g:{aura:11},       p:{aura:60} },        { g:{aura:12},       p:{item:"mp4"} },   { g:{aura:10},       p:{aura:60} },
+  { g:{item:"av4"},    p:{item:"tt6"} },     { g:{aura:11},       p:{aura:70} },     { g:{aura:12},       p:{item:"mp7"} },     { g:{aura:10},       p:{aura:70} },      { g:{item:"mp11"},   p:{item:"av18"} },
+  { g:{aura:11},       p:{aura:80} },        { g:{aura:12},       p:{item:"mc5"} },  { g:{aura:10},       p:{aura:80} },        { g:{item:"tt2"},    p:{item:"sk7"} },   { g:{aura:11},       p:{aura:100} },
+  { g:{aura:12},       p:{item:"mp14"} },    { g:{aura:10},       p:{aura:100} },    { g:{item:"mp1"},    p:{item:"an8"} },     { g:{aura:12},       p:{aura:150} },     { g:{aura:12},       p:{item:"av15"} }
 ];
+/* La sección de App Creator que muestra el anuncio con premio. Al volver al pase se desbloquea el 2.º minijuego del día.
+   Si la dejas vacía, sale un anuncio de prueba de 5 segundos. */
+const ANUNCIO_URL = "";
 /* Minijuegos: salen 3 por día (rotan solos). Cada uno da 1 hueso la primera vez del día. */
 const MINIJUEGOS = [
   { id:"huevos",  n:"Huevos sorpresa",   d:"Escucha qué animal sale del huevo" },
@@ -180,7 +176,7 @@ const ITEM = {
   mp7: { n:"Fondo Jurásico", r:["FONDO","rr"], v:s => FONDO(Math.round(s * 1.3), Math.round(s * .85)) }
 };
 const premioVer = (p, s) => p.aura ? '<span style="display:flex;flex-direction:column;align-items:center">' + LLAMA(Math.round(s * .55)) + '<b style="color:#FFC83D;font-size:' + Math.round(s / 4.2) + 'px">+' + p.aura + '</b></span>' : ITEM[p.item].v(s);
-const premioNom = p => p.aura ? p.aura + " de Aura" : ITEM[p.item].n;
+let premioNom = p => p.aura ? p.aura + " de Aura" : ITEM[p.item].n;
 
 /* ---------- Aura (igual que la Tienda) ---------- */
 function leerAura() { const a = Object.assign({ t:0, r:0, e:0, g:{}, l:[] }, lee(K_AURA, {}) || {}); a.t = Math.max(0, +a.t || 0); if (!Array.isArray(a.l)) a.l = []; return a; }
@@ -215,10 +211,10 @@ const ESC = ESCALONES.length;
 const clave = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 const diaN = () => { const h = new Date(); return Math.floor(Date.UTC(h.getFullYear(), h.getMonth(), h.getDate()) / 864e5); };
 /* progreso: ingles_gamer_pase.t1h = { h: huesos, a: escalones abiertos, d: día, j:[minijuegos hechos hoy], cp:[escalones del Pase ya cobrados] } */
-function prog() { const p = lee(K_PASE, {}) || {}, k = "t" + TEMPORADA.num + "h"; const g = Object.assign({ h:0, a:0, d:"", j:[], cp:[] }, p[k] || {}); if (g.d !== clave(new Date())) { g.d = clave(new Date()); g.j = []; } return g; }
+function prog() { const p = lee(K_PASE, {}) || {}, k = "t" + TEMPORADA.num + "h"; const g = Object.assign({ h:0, a:0, d:"", j:[], cp:[], ad:"", adp:"" }, p[k] || {}); if (g.d !== clave(new Date())) { g.d = clave(new Date()); g.j = []; } return g; }
 function guardarProg(g) { const p = lee(K_PASE, {}) || {}; p["t" + TEMPORADA.num + "h"] = g; guarda(K_PASE, p); }
 const tienePase = () => !!(pase() && pase().c);
-const hoyJuegos = () => { const s = diaN() % MINIJUEGOS.length; return MINIJUEGOS.filter((_, i) => i !== s).slice(0, 3); };
+const hoyJuegos = () => { const d = diaN(), n = MINIJUEGOS.length; return [MINIJUEGOS[d % n], MINIJUEGOS[(d + 1) % n]]; };   /* 2 por día: el 1.º libre, el 2.º se abre viendo un anuncio */
 const HUESO = s => '<svg width="' + s + '" height="' + Math.round(s * .6) + '" viewBox="0 0 20 12" shape-rendering="crispEdges" aria-hidden="true"><g fill="#E9DCC3"><rect x="1" y="1" width="3" height="4"/><rect x="1" y="7" width="3" height="4"/><rect x="0" y="2" width="5" height="2"/><rect x="0" y="8" width="5" height="2"/><rect x="16" y="1" width="3" height="4"/><rect x="16" y="7" width="3" height="4"/><rect x="15" y="2" width="5" height="2"/><rect x="15" y="8" width="5" height="2"/><rect x="4" y="4" width="12" height="4"/></g><g fill="#B9A27A"><rect x="4" y="7" width="12" height="1"/></g></svg>';
 const PXA = (rows, pal, s) => { const h = rows.length, w = rows[0].length; let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">'; rows.forEach((r, y) => r.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + pal[c] + '"/>'; })); return o + '</svg>'; };
 const ART = {
@@ -230,8 +226,31 @@ const ART = {
 const LOCK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 const CHK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const BACK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
-function verPremio(p, s) { return p.aura ? LLAMA(Math.round(s * .5)) + '<span class="cant">+' + p.aura + '</span>' : ITEM[p.item].v(Math.round(s * .78)); }
+/* premios posibles (mismo id y precio base que en la Tienda) */
+const ANILLO = (s, c1, c2) => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="' + c1 + '" stroke-width="7"/><circle cx="20" cy="20" r="15" fill="none" stroke="' + c2 + '" stroke-width="2.5" stroke-dasharray="4 4"/></svg>';
+const TITULO = (t, s) => '<b style="display:inline-block;padding:4px 7px;border-radius:8px;background:#000;border:1.5px solid #FFC83D;color:#FFC83D;font-size:' + Math.max(10, Math.round(s / 5)) + 'px;line-height:1.1;text-align:center;max-width:' + (s + 14) + 'px">' + t + '</b>';
+const MAPA = (s, bg, g) => '<span style="display:block;width:' + Math.round(s * 1.2) + 'px;height:' + Math.round(s * .8) + 'px;border-radius:10px;background:' + bg + ';border-bottom:' + Math.round(s / 5) + 'px solid ' + g + '"></span>';
+const CAT = {
+  av4:["Caballero", 90, s => sprite("av4", s)], av15:["T-Rex", 800, s => sprite("av15", s)], av18:["Raptor", 700, s => sprite("av18", s)], av19:["Triceratops", 500, s => sprite("av19", s)],
+  sk1:["Skin Hielo", 120, s => sprite(miAv(), s, "filter:hue-rotate(150deg)")], sk6:["Skin Dorada", 450, s => sprite(miAv(), s, "filter:sepia(1) saturate(3.5) brightness(1.1)")],
+  sk7:["Skin Arcoíris", 800, s => '<span class="arcoS">' + sprite(miAv(), s) + '</span>'], sk8:["Skin Ámbar", 300, s => sprite(miAv(), s, "filter:" + AMBAR)],
+  mc1:["Marco Hierro", 100, s => ANILLO(s, "#9aa0a6", "#5a5f66")], mc4:["Marco Fuego", 400, s => ANILLO(s, "#FF6A00", "#FFC83D")], mc5:["Marco Cristal", 500, s => ANILLO(s, "#9fe8ff", "#ffffff")], mc7:["Marco Fósil", 250, s => FOSIL(s)],
+  tt1:["Título «Gamer»", 80, s => TITULO("Gamer", s)], tt2:["Título «Cazador de bugs»", 120, s => TITULO("Cazador de bugs", s)], tt6:["Título «Leyenda»", 600, s => TITULO("Leyenda", s)], tt7:["Título «Cazador de dinos»", 300, s => TITULO("Cazador de dinos", s)],
+  mp1:["Fondo Noche", 200, s => MAPA(s, "linear-gradient(#070B1F,#1B1F4A)", "#2B3A7A")], mp4:["Fondo Volcán", 450, s => MAPA(s, "linear-gradient(#1E0B0E,#8A2214)", "#FF8A3D")],
+  mp7:["Fondo Jurásico", 450, s => MAPA(s, "linear-gradient(#E8692A,#FFC977)", "#5E8F35")], mp11:["Fondo Selva", 250, s => MAPA(s, "linear-gradient(#0B3A22,#1E7A3E)", "#0A2E1A")], mp14:["Fondo Aurora", 600, s => MAPA(s, "linear-gradient(#030B16,#0B2A3A)", "#DDEFF5")],
+  an8:["Animación Superestrella", 700, s => '<span class="supS">' + sprite(miAv(), s) + '</span>']
+};
+const rareza = p => p >= 600 ? ["LEGENDARIO", "leg"] : p >= 300 ? ["ÉPICO", "epi"] : p >= 100 ? ["RARO", "rr"] : ["COMÚN", "esp"];
+function verPremio(p, s) { return p.aura ? LLAMA(Math.round(s * .5)) + '<span class="cant">+' + p.aura + '</span>' : CAT[p.item][2](Math.round(s * .74)); }
+premioNom = p => p.aura ? p.aura + " de Aura" : CAT[p.item][0];
+const VALOR = ESCALONES.reduce((a, e) => a + (e.p.aura || (CAT[e.p.item][1] + 100)), 0);   /* lo que valen los premios del Pase en la Tienda */
 let NUEVO = 0;
+const PLAY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>';
+/* barra fija para comprar el Pase: siempre visible y tentadora */
+function oferta() {
+  return '<div class="of"><span class="ofd">' + sprite("av15", 70) + '</span><div class="oft"><small>PASE ' + TEMPORADA.nombre.toUpperCase() + '</small><b>T-Rex, Raptor, Triceratops y más</b><span class="ofv">Valen ' + LLAMA(13) + VALOR.toLocaleString("es") + ' de Aura</span></div>' +
+    '<button class="ofb" id="comprar"><small>COMPRAR</small><span>' + LLAMA(18) + PRECIO_PASE + '</span></button></div>';
+}
 function pintar(centrar) {
   const g = prog(), conP = tienePase(), viejo = document.querySelector(".hz"), x = viejo ? viejo.scrollLeft : 0, act = activa();
   const col = n => { const e = ESCALONES[n - 1], ab = n <= g.a, sig = n === g.a + 1;
@@ -244,10 +263,12 @@ function pintar(centrar) {
     '<div class="txt"><b>Temporada ' + TEMPORADA.nombre + '</b><small>Consigue huesos y abre premios</small></div><span class="tm">' + (act ? "Termina en " + diasQuedan() + (diasQuedan() === 1 ? " día" : " días") : "Temporada terminada") + '</span></div>' +
     '<div class="xp"><span class="nv">' + g.a + '</span><div class="bar"><i style="width:' + (g.a / ESC * 100) + '%"></i></div><small>' + g.a + '/' + ESC + '</small></div>' +
     '<div class="tr"><div class="lb" style="color:#FFC83D">' + LLAMA(14) + 'PASE ' + TEMPORADA.nombre.toUpperCase() + '</div><div class="hz">' + Array.from({ length:ESC }, (_, i) => col(i + 1)).join("") + '</div><div class="lb" style="color:#B8B8C0">GRATIS PARA TODOS</div></div>' +
-    (act ? '<div class="mj"><div class="t">MINIJUEGOS DE HOY<span>' + g.j.length + '/3 · cada uno da 1 hueso</span></div><div class="mjs">' +
-      hoyJuegos().map(m => { const h = g.j.indexOf(m.id) > -1; return '<div class="mjc' + (h ? " hecho" : "") + '"><span class="art">' + ART[m.id](44) + '</span><b>' + m.n + '</b><small>' + HUESO(14) + '+1</small><button class="jg" data-jugar="' + m.id + '">' + (h ? "✓ Hecho" : "Jugar") + '</button></div>'; }).join("") +
-      '</div></div><p class="mana">' + (g.j.length >= 3 ? "¡Listo por hoy! Mañana salen minijuegos nuevos" : "Mañana salen 3 minijuegos nuevos") + '</p>' : '<p class="fin">La temporada terminó. Pronto llega una nueva.</p>') +
-    '<div class="pie">' + (conP ? '<button class="btnP act">✓ Pase ' + TEMPORADA.nombre + ' activo</button>' : act ? '<button class="btnP" id="comprar">Comprar el Pase · ' + LLAMA(18) + PRECIO_PASE + '</button>' : '') + '</div>';
+    (act ? '<div class="mj"><div class="t">MINIJUEGOS DE HOY<span>' + g.j.length + '/2 · cada uno da 1 hueso</span></div><div class="mjs">' +
+      hoyJuegos().map((m, k) => { const h = g.j.indexOf(m.id) > -1, bloq = k === 1 && g.ad !== g.d;
+        return '<div class="mjc' + (h ? " hecho" : "") + (bloq ? " ad" : "") + '"><span class="art">' + ART[m.id](44) + '</span><div class="mjt"><b>' + m.n + '</b><small>' + HUESO(14) + '+1 hueso' + (k === 1 ? ' · <span class="adt">con anuncio</span>' : '') + '</small></div>' +
+          (bloq ? '<button class="jg ver" data-anuncio="1">' + PLAY + 'Ver anuncio</button>' : '<button class="jg" data-jugar="' + m.id + '">' + (h ? "✓ Hecho" : "Jugar") + '</button>') + '</div>'; }).join("") +
+      '</div></div><p class="mana">' + (g.j.length >= 2 ? "¡Listo por hoy! Mañana salen minijuegos nuevos" : "Mañana salen 2 minijuegos nuevos") + '</p>' : '<p class="fin">La temporada terminó. Pronto llega una nueva.</p>') +
+    '<div class="pie' + (conP ? " act" : "") + '">' + (conP ? '<div class="activo">✓ Pase ' + TEMPORADA.nombre + ' activo · cobras los premios dorados</div>' : act ? oferta() : '') + '</div>';
   const hz = document.querySelector(".hz");
   if (centrar) { const c = hz.children[Math.min(g.a, ESC - 1)]; hz.scrollLeft = c.offsetLeft - hz.clientWidth / 2 + c.clientWidth / 2; } else hz.scrollLeft = x;
 }
@@ -267,7 +288,7 @@ function cobrar(p, motivo) { if (p.aura) moverAura(p.aura, motivo); else if (p.i
 function comprar() {
   if (tienePase() || !activa()) return;
   if (saldo() < PRECIO_PASE) { aviso("Te faltan " + (PRECIO_PASE - saldo()) + " de Aura"); S.mal(); const b = $("comprar"); b.animate([{ transform:"translateX(-6px)" }, { transform:"translateX(6px)" }, { transform:"none" }], { duration:300 }); return; }
-  ventana('<div class="pv">' + sprite("av18", 90) + '</div><h3>¿Comprar el Pase?</h3><p>Cuesta ' + PRECIO_PASE + ' de Aura. Te llevas ya los premios dorados de los escalones que abriste y los que abras después.</p><button class="bn si" id="siC">Comprar · ' + PRECIO_PASE + '</button><button class="bn" id="noC">Ahora no</button>');
+  ventana('<div class="pv">' + sprite("av15", 96) + '</div><h3>¿Comprar el Pase?</h3><p>Cuesta ' + PRECIO_PASE + ' de Aura. Te llevas el T-Rex, el Raptor, el Triceratops y todos los premios dorados: los de los escalones que ya abriste y los que abras después.</p><button class="bn si" id="siC">Comprar · ' + PRECIO_PASE + '</button><button class="bn" id="noC">Ahora no</button>');
   $("noC").onclick = () => document.querySelector(".mo").remove();
   $("siC").onclick = () => {
     document.querySelector(".mo").remove();
@@ -280,7 +301,7 @@ function comprar() {
 /* hojita con el detalle del premio */
 function hoja(n, p) {
   const g = prog(), e = ESCALONES[n - 1], x = p ? e.p : e.g, ab = n <= g.a, conP = tienePase();
-  const r = x.item ? ITEM[x.item].r : ["AURA", "rr"];
+  const r = x.item ? rareza(CAT[x.item][1]) : ["AURA", "rr"];
   $("hoja").innerHTML = '<span class="pv">' + verPremio(x, 70) + '</span><div><b>' + premioNom(x) + '</b><small>Escalón ' + n + ' · ' + (p ? "Pase " + TEMPORADA.nombre : "Gratis") + '</small><small>' +
     (p && !conP ? "Compra el Pase para ganarlo" : ab ? "Ya lo tienes" : "Faltan " + (n - g.a) + (n - g.a === 1 ? " hueso" : " huesos")) + '</small><span class="rar ' + r[1] + '" style="margin-top:6px">' + r[0] + '</span></div><button class="x" aria-label="Cerrar">✕</button>';
   $("hoja").classList.add("on");
@@ -288,6 +309,7 @@ function hoja(n, p) {
 document.addEventListener("click", e => {
   if (e.target.closest("#hoja .x")) { $("hoja").classList.remove("on"); return; }
   if (e.target.closest("[data-abrir]")) { abrir(); return; }
+  if (e.target.closest("[data-anuncio]")) { verAnuncio(); return; }
   const j = e.target.closest("[data-jugar]"); if (j) { if (prog().j.indexOf(j.dataset.jugar) > -1) { aviso("Ya ganaste el hueso de este minijuego hoy"); } else jugar(j.dataset.jugar); return; }
   const b = e.target.closest("[data-n]"); if (b) { hoja(+b.dataset.n, b.dataset.p === "1"); return; }
   if (e.target.closest("#comprar")) { comprar(); return; }
@@ -355,10 +377,19 @@ function jugar(id) {
   }
   ronda();
 }
-function mostrar() { pintar(true); }
+/* ===== ANUNCIO para abrir el 2.º minijuego ===== */
+function verAnuncio() {
+  const g = prog(); g.adp = g.d; guardarProg(g);
+  if (ANUNCIO_URL) { location.href = (window.igURL ? igURL(ANUNCIO_URL) : ANUNCIO_URL); return; }
+  const ov = document.createElement("div"); ov.className = "adx"; let t = 5;
+  ov.innerHTML = '<small>ANUNCIO DE PRUEBA</small><div class="adc"><b id="adT">5</b></div><p>Aquí va el anuncio de App Creator</p>'; document.body.appendChild(ov);
+  const iv = setInterval(() => { t--; const b = ov.querySelector("#adT"); if (b) b.textContent = t; if (t <= 0) { clearInterval(iv); ov.remove(); revisarAnuncio(); } }, 1000);
+}
+function revisarAnuncio() { const g = prog(); if (g.adp && g.adp === g.d && g.ad !== g.d) { g.ad = g.d; g.adp = ""; guardarProg(g); pintar(); aviso("¡Minijuego desbloqueado!"); S.premio(); } }
+function mostrar() { revisarAnuncio(); pintar(true); }
 mostrar();
-window.addEventListener("pageshow", e => { if (e.persisted) pintar(); });
-document.addEventListener("visibilitychange", () => { if (!document.hidden && !MG) pintar(); });
+window.addEventListener("pageshow", e => { if (e.persisted) { revisarAnuncio(); pintar(); } });
+document.addEventListener("visibilitychange", () => { if (!document.hidden && !MG) { revisarAnuncio(); pintar(); } });
 window.addEventListener("storage", e => { if ([K_PASE, K_AURA].indexOf(e.key) > -1 && !MG) pintar(); });
 </script>
 <div id="sinNet" role="alert" hidden style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:var(--bg)">
