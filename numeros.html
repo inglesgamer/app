@@ -536,11 +536,11 @@ const TEMA = "LA TIENDITA", COLOR = "#FFC83D";
 const slugA = t => String(t).toLowerCase().replace(/['’…]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 /* números y frases con su mp3 (nombre = la frase en minúsculas con guiones) */
 const PALABRAS = PRECIOS.map(p => ({ en:p.w, es:p.es, audio:p.w + ".mp3" })).concat(PRECIOS.map(p => "It is " + p.w + " dollars.").concat(
-  ["The pizza is from France. It is seven dollars.", "My age is twelve.", "My sister is ten years old.", "I'm from Brazil. I have eight friends.", "I'm Japanese. I'm twelve years old.", "Great!"])
+  ["I have five friends in Japan.", "China has five letters.", "Colombia has eight letters.", "My age is twelve.", "My sister is ten years old.", "Great!"])
   .map(t => ({ en:t, es:"", audio:slugA(t) + ".mp3" })));
 const LOS4 = [];
 const GLOS = { "it is":"es / cuesta", "dollars":"dólares", "two":"dos", "five":"cinco", "seven":"siete", "eight":"ocho", "ten":"diez", "twelve":"doce", "fifteen":"quince",
-  "twenty":"veinte", "hello":"hola", "my":"mi", "age":"edad", "is":"es", "sister":"hermana", "i have":"tengo", "friends":"amigos", "years old":"años", "the":"el / la", "pizza":"pizza", "france":"Francia", "brazil":"Brasil", "japanese":"japonés", "eight":"ocho", "from":"de", "i'm":"yo soy" };
+  "twenty":"veinte", "hello":"hola", "my":"mi", "age":"edad", "is":"es", "sister":"hermana", "i have":"tengo", "friends":"amigos", "years old":"años", "the":"el / la", "pizza":"pizza", "japan":"Japón", "china":"China", "colombia":"Colombia", "has":"tiene", "letters":"letras", "in":"en", "friends":"amigos", "i have":"tengo", "eight":"ocho", "from":"de", "i'm":"yo soy" };
 
 /* El nivel, paso por paso (3 corazones, sin botón Comprobar, sin ronda relámpago).
    nueva = enseña un número (no se evalúa) · precio = escucha y toca el precio · leer = mira el precio y elige la palabra
@@ -556,7 +556,7 @@ const PLAN = [
   NUM("seven", "cool",     "<b>seven</b> = 7. Tiene dos <b>e</b>: s-e-v-e-n."),
   T("leer",    "seven", "soda",    "el refresco",    "idea",   ["seven", "two", "five"]),
   T("monedas", "five",  "manzana", "la manzana",     "hambre"),
-  { t:"habla", pj:"hambre", ob:"pizza", en:"The pizza is from France. It is seven dollars.", ops:["La pizza es de Francia. Cuesta siete dólares.", "La pizza es de Francia. Cuesta diez dólares.", "La pizza es de China. Cuesta siete dólares."], nota:"Repaso de Países: France = Francia" },
+  { t:"habla", pj:"amor", ob:"n5", en:"I have five friends in Japan.", ops:["Tengo cinco amigos en Japón.", "Tengo quince amigos en Japón.", "Tengo cinco amigos en China."], nota:"Repaso de Países: Japan = Japón" },
   NUM("eight", "sorpresa", "<b>eight</b> = 8. Se escribe raro pero suena \"eit\"."),
   NUM("ten",   "baile",    "<b>ten</b> = 10."),
   T("estante", "ten",   "",        "",               "afirma", [10, 8, 2]),
@@ -571,11 +571,11 @@ const PLAN = [
   T("leer",    "fifteen","burger", "la hamburguesa", "pienso", ["fifteen", "five", "twenty"]),
   T("escribir","seven", "helado",  "el helado",      "afirma"),
   { t:"completa", pj:"amor", ob:"n10", en:"My sister is ___ years old.", es:"Mi hermana tiene diez años.", ok:"ten", ops:["ten", "two", "twelve"], nota:"Repaso de Vocabulario: sister = hermana" },
-  { t:"habla", pj:"pulgar", ob:"n8", en:"I'm from Brazil. I have eight friends.", ops:["Soy de Brasil. Tengo ocho amigos.", "Soy de Brasil. Tengo dos amigos.", "Soy brasileño. Tengo dieciocho amigos."], nota:"Repaso de Países: Brazil = Brasil" },
+  { t:"completa", pj:"pienso", ob:"n8", en:"Colombia has ___ letters.", es:"Colombia tiene ocho letras: C-O-L-O-M-B-I-A.", ok:"eight", ops:["eight", "ten", "twelve"], nota:"Cuenta: C-O-L-O-M-B-I-A = 8 letras (repaso de Países)" },
   { t:"sopa", pal:[["TWO", "dos"], ["FIVE", "cinco"], ["TEN", "diez"], ["EIGHT", "ocho"]] },
   T("estante", "twelve","",        "",               "cool",   [12, 20, 2]),
   T("precio",  "fifteen","soda",   "el refresco",    "idea",   [15, 5, 20]),
-  { t:"completa", pj:"cool", ob:"n12", en:"I'm Japanese. I'm ___ years old.", es:"Soy japonés. Tengo doce años.", ok:"twelve", ops:["twelve", "Japan", "two"], nota:"Repaso de Países: Japanese = japonés" },
+  { t:"completa", pj:"idea", ob:"n5", en:"China has ___ letters.", es:"China tiene cinco letras: C-H-I-N-A.", ok:"five", ops:["five", "seven", "two"], nota:"Cuenta: C-H-I-N-A = 5 letras (repaso de Países)" },
   { t:"parejas", pares:[["twelve", "doce"], ["fifteen", "quince"], ["twenty", "veinte"], ["eight", "ocho"], ["seven", "siete"]] }
 ];
 
