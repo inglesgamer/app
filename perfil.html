@@ -931,8 +931,9 @@ $("btnDel2").addEventListener("click", async () => {
     /* 4) Código, apodo y ficha JUNTOS: o se borran los 3 o ninguno (así nunca queda a medias).
           Cuentas viejas sin "nl": el apodo se saca del nombre en minúsculas. */
     const nl = f.nl || (f.n ? String(f.n).toLowerCase() : ""), b = writeBatch(db);
-    if (f.cod) b.delete(doc(db, "codigos", f.cod));
-    if (nl) b.delete(doc(db, "apodos", nl));
+    /* solo se borran si existen y son tuyos (las reglas no dejan borrar uno que ya no está) */
+    if (f.cod) { const c = await getDoc(doc(db, "codigos", f.cod)); if (c.exists() && c.data().uid === uid) b.delete(c.ref); }
+    if (nl) { const a = await getDoc(doc(db, "apodos", nl)); if (a.exists() && a.data().uid === uid) b.delete(a.ref); }
     b.delete(refJ);
     await b.commit();
     /* 5) La cuenta */
