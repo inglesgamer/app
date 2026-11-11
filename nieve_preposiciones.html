@@ -456,7 +456,7 @@ const URL_SIGUIENTE = "";            // ej. "go:nieve_repaso1"
 const AURA_NIVEL = 20;
 const DIAGNOSTICO = true;
 const APRENDE = false;               // false = con los 3 corazones (true = sin corazones y los errores se repiten al final)
-const AUDIO_CARPETA = "";            // cuando subas los audios: in.mp3, on.mp3, under.mp3, next-to.mp3; mientras tanto lee la voz del celular
+const AUDIO_CARPETA = "https://inglesgamer.github.io/app/audios/puck/";   // voz natural PUCK (Isla de Nieve) en tu GitHub
 const AUDIO_DATA = {};
 const NIVEL = { id:"preposiciones", nombre:"Preposiciones" };
 const TEMA = "PREPOSICIONES", COLOR = "#3FD8C8";
@@ -566,7 +566,7 @@ function pantallaAprende(i, lista, dibujo, alTerminar) {
   on("bEj", () => voz(w.ej.replace(/\*/g, ""), .9));
   on("bSe", () => { sonido("ok", i); if (i + 1 < n) pantallaAprende(i + 1, lista, dibujo, alTerminar); else alTerminar(); });
   window.scrollTo(0, 0);
-  setTimeout(() => oir(w.audio, w.en), 350);
+  tVoz(() => oir(w.audio, w.en), 350);
 }
 function pantallaIntro(titulo, texto, boton, pj, cb) {
   $("v").innerHTML = '<section class="intro"><div class="pj">' + pj + '</div><h2>' + esc(titulo) + '</h2><p>' + texto + '</p><button type="button" class="lase" id="bGo">' + esc(boton) + '</button></section>';
@@ -634,25 +634,32 @@ pintarSon();
 
 /* audio de las palabras (precarga + "calentado" en el primer toque para que suene al instante) */
 let AUD = null, usoVoz = false; const CACHE = {};
-function voz(texto, rate) { if (!("speechSynthesis" in window)) return; usoVoz = true; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(texto); u.lang = "en-US"; u.rate = rate || 1; speechSynthesis.speak(u); } catch (e) {} }
-function prep(f) {
-  if (!f) return null; if (CACHE[f]) return CACHE[f];
-  const a = new Audio(); a.preload = "auto"; a.onerror = function () { a.fallo = true; };
-  a.src = AUDIO_DATA[f] || (AUDIO_CARPETA + f); try { a.load(); } catch (e) {} CACHE[f] = a; return a;
-}
+const tVoz = (fn, ms) => { const g = typeof GEN_V !== "undefined" ? GEN_V : 0; return setTimeout(() => { if ((typeof GEN_V !== "undefined" ? GEN_V : 0) === g) fn(); }, ms); };
+const normA = t => String(t).toLowerCase().replace(/[.!?¿¡…]/g, "").replace(/\s+/g, " ").trim();
+/*ARREGLO_AUDIO_V2: una sola pista (iPhone no la bloquea) y voz natural siempre que haya mp3 */
+const slugV = t => String(t).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+function limpiaV(t) { t = String(t == null ? "" : t); if (t.indexOf(" = ") > -1) t = t.split(" = ")[0]; return t.trim(); }
+function voz(texto, rate) { const t = limpiaV(texto); if (!t || /[¡¿áéíóúñ]/i.test(t) || !/[a-z]/i.test(t)) return; const k = normA(t), w = PALABRAS.find(x => x.audio && normA(x.en) === k); oir(w ? w.audio : slugV(t) + ".mp3", t, rate); }
+function vozTTS(texto, rate) { if (!("speechSynthesis" in window)) return; usoVoz = true; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(texto); u.lang = "en-US"; u.rate = rate || 1; speechSynthesis.speak(u); } catch (e) {} }
+const SILENCIO = "data:audio/wav;base64,UklGRmQGAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YUAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+const UNA = new Audio(); UNA.preload = "auto"; try { UNA.setAttribute("playsinline", ""); UNA.setAttribute("webkit-playsinline", ""); } catch (e) {}
+let UNA_T = null;
+function prep(f) { if (!f) return null; if (CACHE[f]) return CACHE[f]; const o = { f, url:AUDIO_DATA[f] || (AUDIO_CARPETA + (/\.(mp3|m4a|ogg|wav)$/i.test(f) ? f : f + ".mp3")), fallo:false }; CACHE[f] = o; return o; }
 function oir(f, texto, rate) {
-  try { if (AUD) AUD.pause(); if (usoVoz && "speechSynthesis" in window) speechSynthesis.cancel(); } catch (e) {}
-  const a = f ? prep(f) : null; if (!a || a.fallo) { voz(texto, rate); return; }
-  try { a.muted = false; a.playbackRate = rate || 1; if (a.currentTime > 0) { try { a.currentTime = 0; } catch (e) {} } AUD = a; const p = a.play(); if (p && p.catch) p.catch(err => { if (!err || err.name !== "NotAllowedError") voz(texto, rate); }); } catch (e) { voz(texto, rate); }
+  try { UNA.pause(); if (usoVoz && "speechSynthesis" in window) speechSynthesis.cancel(); } catch (e) {}
+  const o = f ? prep(f) : null; if (!o || o.fallo) { if (texto) vozTTS(texto, rate); return; }
+  AUD = UNA; UNA_T = o;
+  UNA.onerror = () => { if (UNA_T === o && UNA.src.indexOf("data:") !== 0) { o.fallo = true; vozTTS(texto, rate); } };
+  try { UNA.muted = false; if (UNA.src !== o.url) UNA.src = o.url; else { try { UNA.currentTime = 0; } catch (e) {} }
+    try { UNA.preservesPitch = true; UNA.webkitPreservesPitch = true; } catch (e) {}
+    UNA.defaultPlaybackRate = rate || 1; UNA.playbackRate = rate || 1;
+    const p = UNA.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
 }
-PALABRAS.forEach(f => prep(f.audio));
-document.addEventListener("pointerdown", () => {
-  PALABRAS.forEach(f => {
-    const a = prep(f.audio); if (!a || a.fallo) return;
-    a.muted = true; const p = a.play(), listo = () => { a.muted = false; };
-    if (p && p.then) p.then(() => { if (AUD === a) { listo(); return; } a.pause(); try { a.currentTime = 0; } catch (e) {} listo(); }).catch(listo);
-  });
-}, { once: true });
+/* precarga suave: pide cada mp3 una vez para que quede guardado y suene al instante */
+setTimeout(() => PALABRAS.forEach(w => { if (w.audio && !AUDIO_DATA[w.audio]) try { fetch(AUDIO_CARPETA + w.audio, { mode:"no-cors" }).catch(() => {}); } catch (e) {} }), 800);
+/* primer toque: habilita la pista para siempre (iPhone) */
+document.addEventListener("pointerdown", () => { if (UNA.src) return; try { UNA.muted = true; UNA.src = SILENCIO; const p = UNA.play(), fin = () => { if (UNA.src === SILENCIO) { try { UNA.pause(); } catch (e) {} UNA.muted = false; } }; if (p && p.then) p.then(fin).catch(fin); } catch (e) {} }, { once:true, capture:true });
+
 /* sprites 8x8 de la pantalla final: copa, estrellas y llama */
 const SPR = {
   estrella:  { p:{ y:"#FFC83D" }, r:["...yy...","...yy...","yyyyyyyy",".yyyyyy.","..yyyy..","..yyyy..",".yy..yy.","yy....yy"] },
@@ -863,7 +870,10 @@ document.addEventListener("click", e => {
 let pos, dudas, vidas, P, listo, revisar;
 const PLAN_N = PLAN.length;
 if (APRENDE) document.body.classList.add("aprende");
-function empezar() { if (APRENDE) { PLAN.length = PLAN_N; document.body.classList.add("aprende"); } pos = 0; dudas = {}; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
+/*ARREGLO_VIDAS_V1: sin corazones = fin del intento, no se puede seguir */
+let PERDIO = false;
+function perdidoYa() { if (PERDIO) return; PERDIO = true; perdido(); }
+function empezar() { PERDIO = false; if (APRENDE) { PLAN.length = PLAN_N; document.body.classList.add("aprende"); } pos = 0; dudas = {}; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
 function pantalla(cuerpo, rev) {
   revisar = rev; setBarra(pos / PLAN.length * 100);
   const pis = P && P.pista ? '<div class="u-pista"><span class="k">NUEVO</span><button type="button" class="u-au" id="bPis" aria-label="Escuchar">' + AU + '</button><b>' + esc(P.pista[0]) + '</b><span class="eq">=</span><span class="es">' + esc(P.pista[1]) + '</span></div>' : '';
@@ -873,7 +883,7 @@ function pantalla(cuerpo, rev) {
   if (P && P.pista) on("bPis", () => voz(P.pista[0], .8));
   let fin = false;
   on("bChk", () => {
-    if (fin || !revisar) { siguiente(); return; }
+    if (fin || !revisar) { if (vidas <= 0) { perdidoYa(); return; } siguiente(); return; }
     const r = revisar(); if (!r) return; fin = true;
     const pie = $("pie"); pie.className = "u-pie " + (r[0] ? "ok" : "mal");
     reaccion(r[0]);
@@ -884,7 +894,7 @@ function pantalla(cuerpo, rev) {
     document.querySelectorAll("#ub button, #ub textarea").forEach(x => x.disabled = true);
     if (r[0]) { Racha.acierto(); sonido("ok", 0); } else if (APRENDE) { dudas[pos] = true; sonido("mal"); if (!P._rep) { PLAN.push(Object.assign({}, P, { _rep:1, pista:null })); } } else { dudas[pos] = true; sonido("mal"); Racha.error(); vidas--; }
     voz(r[2] || r[1], .9);
-    if (vidas <= 0) setTimeout(perdido, 1400);
+    if (vidas <= 0) { $("bChk").textContent = "Continuar"; setTimeout(perdidoYa, 1400); }
   });
 }
 /* el personaje de ABAJO sale grande, asomándose sobre el panel, con su globito (como en el Reto 3).
@@ -914,7 +924,7 @@ function exNueva() {
   document.querySelectorAll("[data-ej]").forEach(b => b.addEventListener("click", () => voz(P.ejs[+b.dataset.ej][0], .9)));
   const b = $("bChk"); b.disabled = false; b.textContent = "Continuar";
   on("bAu", () => voz(P.en, .85)); on("bLe", () => voz(P.en, .5)); on("bEj", () => voz(P.ej, .9));
-  setTimeout(() => voz(P.en, .85), 300);
+  tVoz(() => voz(P.en, .85), 300);
 }
 /* 9 · COMPLETA LA PALABRA (letras que faltan, teclado del celular) */
 function exPalabra() {
@@ -922,7 +932,7 @@ function exPalabra() {
     '<div class="u-pist"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button><b>' + esc(P.es) + '</b></div>' +
     '<div class="u-pal" id="pal">' + P.en.split("").map((c, i) => c === " " ? '<span class="esp"></span>' : P.faltan.indexOf(i) > -1 ? '<input maxlength="2" data-i="' + i + '" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="letra que falta">' : '<span>' + esc(c) + '</span>').join("") + '</div>',
     () => { const ins = [...document.querySelectorAll("#pal input")]; let ok = true; ins.forEach(x => { const b = x.value.toLowerCase() === P.en[+x.dataset.i]; x.classList.add(b ? "ok" : "mal"); if (!b) ok = false; }); return [ok, P.en + " = " + P.es, P.en]; });
-  on("bAu", () => voz(P.en, .85)); setTimeout(() => voz(P.en, .85), 300);
+  on("bAu", () => voz(P.en, .85)); tVoz(() => voz(P.en, .85), 300);
   const ins = [...document.querySelectorAll("#pal input")];
   ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value)); }));
   setTimeout(() => ins[0].focus(), 400);
@@ -1035,7 +1045,7 @@ function exHabla() { let sel = null; const ops = mezcla(P.ops);
     '<div class="u-hab">' + PJ(P.pj) + '<div class="u-glo"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button>' + glosa(P.en) + '<span class="ob">' + OB(P.ob, 26) + '</span></div></div>' +
     '<div class="u-ops">' + ops.map((o, i) => '<button type="button" class="u-o" data-o="' + esc(o) + '"><kbd>' + (i + 1) + '</kbd>' + esc(o) + '</button>').join("") + '</div>',
     () => [sel === P.ops[0], P.ops[0], P.en]);
-  on("bAu", () => voz(P.en, .9)); setTimeout(() => voz(P.en, .9), 300);
+  on("bAu", () => voz(P.en, .9)); tVoz(() => voz(P.en, .9), 300);
   document.querySelectorAll(".u-o").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".u-o").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; sonido("click"); listo(1); }));
 }
 /* 2 · completa la frase */
@@ -1051,7 +1061,7 @@ function exQuien() { let sel = null;
   pantalla('<p class="u-t">Escucha: ¿qué dice?</p><div class="u-big"><button type="button" class="u-bigb" id="bAu" aria-label="Escuchar">' + AUG + '</button><span style="line-height:0;display:flex;gap:6px">' + OB(P.ob, 56) + '</span></div>' +
     '<div class="u-cards">' + cards.map(c => '<button type="button" class="u-card" data-o="' + c[1] + '">' + PJ(c[0]) + esc(c[2]) + '<small>' + c[3] + '</small></button>').join("") + '</div>',
     () => [sel === P.ok, P.en + " = " + P.es, P.en]);
-  on("bAu", () => voz(P.en, .9)); setTimeout(() => voz(P.en, .9), 300);
+  on("bAu", () => voz(P.en, .9)); tVoz(() => voz(P.en, .9), 300);
   document.querySelectorAll(".u-card").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".u-card").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; sonido("click"); listo(1); }));
 }
 /* 4 · traduce con palabras */
@@ -1071,7 +1081,7 @@ function exEscucha() {
     '<div style="display:flex;align-items:center;gap:10px;margin-bottom:40px"><button type="button" class="u-bigb" id="bAu" aria-label="Escuchar">' + AUG + '</button><button type="button" class="u-bigb lento" id="bLe" aria-label="Escuchar lento">' + LENTO + '</button></div></div>' +
     '<textarea class="u-ta" id="ta" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Escribe lo que escuchas"></textarea>',
     () => { const v = $("ta").value.trim().toLowerCase().replace(/[.!?]/g, "").replace(/’/g, "'").replace(/\s+/g, " "); const m = enLimpio(P.en).toLowerCase(); return [v === m || v === m.replace("don't", "dont"), P.en + " = " + P.es, P.en]; });
-  on("bAu", () => voz(P.en, .9)); on("bLe", () => voz(P.en, .55)); setTimeout(() => voz(P.en, .9), 300);
+  on("bAu", () => voz(P.en, .9)); on("bLe", () => voz(P.en, .55)); tVoz(() => voz(P.en, .9), 300);
   $("ta").addEventListener("input", () => listo($("ta").value.trim()));
 }
 /* 6 · une las parejas */
@@ -1091,8 +1101,10 @@ function exParejas() { let sel = null, n = 0;
 }
 
 /* ===== final ===== */
-const textoDe = p => p.t === "parejas" ? p.pares.map(x => x[0] + " = " + x[1]).join(" · ") : p.t === "sopa" ? p.pal.map(x => x[0].toLowerCase() + " = " + x[1]).join(" · ") : p.t === "charla" ? p.msgs.map(m => m[1]).join(" ") : p.t === "error" ? p.en + " = " + p.es : p.t === "relampago" ? "Ronda relámpago: " + p.rondas.filter(x => x[2]).map(x => x[1]).join(" · ") : p.t === "palabra" ? p.en + " = " + p.es : p.t === "negativa" ? p.en + ". = " + p.es : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
-const repaso = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB1([].concat(p.ob)[0], 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
+const textoDe = p => p.t === "parejas" ? p.pares.map(x => x[0] + " = " + x[1]).join(" · ") : p.t === "sopa" ? p.pal.map(x => x[0].toLowerCase() + " = " + x[1]).join(" · ") : p.t === "charla" ? p.msgs.map(m => m[1]).join(" ") : p.t === "error" ? p.en + " = " + p.es : p.t === "relampago" ? "Ronda relámpago: " + p.rondas.filter(x => x[2]).map(x => x[1]).join(" · ") : p.t === "palabra" ? p.en + " = " + p.es : p.t === "negativa" ? p.en + ". = " + p.es : !p.en ? String(p.ok || p.room || p.it || "") : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
+/*ARREGLO_REPASO_V1*/
+const repaso = () => { try { return repaso0(); } catch (e) { return ""; } };
+const repaso0 = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB1([].concat(p.ob)[0], 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
 const EVAL = () => PLAN.filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa" && !p._rep).length;
 function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
 const RANG = ["Campesino", "Soldado", "Caballero", "Noble", "Rey"];
@@ -1108,6 +1120,18 @@ document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
 pantallaIntro("Preposiciones", "Vamos a aprender a decir d\u00f3nde est\u00e1n las cosas, con el ping\u00fcino.", "Empezar", PJ("pienso"), empezar);
 
+</script>
+<script>
+/* ===== CALLAR: al pasar de ejercicio, terminar o salir, se corta el audio que esté sonando (y los audios que iban a sonar con retraso) ===== */
+let GEN_V = 0;
+function callar() { GEN_V++;
+  try { if (typeof AUD !== "undefined" && AUD) { AUD.pause(); try { AUD.currentTime = 0; } catch (e) {} } } catch (e) {}
+  try { if (typeof SRC !== "undefined" && SRC) { SRC.stop(); SRC = null; } } catch (e) {}
+  try { if ("speechSynthesis" in window) speechSynthesis.cancel(); } catch (e) {} }
+["pintar", "terminar", "ganar", "perder", "empezar"].forEach(n => { try { const f = eval(n); if (typeof f === "function") eval(n + " = function () { callar(); return f.apply(this, arguments); }"); } catch (e) {} });
+addEventListener("pagehide", callar);
+document.addEventListener("visibilitychange", () => { if (document.hidden) callar(); });
+document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a[href]"); if (a) callar(); }, true);
 </script>
 <script type="module">
 /* ===== NUBE: guarda tu progreso en tu cuenta y lo recupera. Este MISMO bloque va en todas las pantallas (justo antes de </body>). ===== */
