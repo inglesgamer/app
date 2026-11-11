@@ -459,6 +459,16 @@ body.auto .u-btn:disabled{visibility:hidden}
 @keyframes kbal{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
 @keyframes ksube{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.u-body svg *{animation:none!important}}
+
+/* pantalla completa: el contenido llena el alto y el panel de respuesta queda pegado abajo */
+.app{display:flex;flex-direction:column}
+#v{flex:1;display:flex;flex-direction:column}
+#v>.u-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:18px}
+#v>.u-pie{margin-top:auto;margin-bottom:calc(-28px - env(safe-area-inset-bottom))}
+.u-body .u-o{min-height:64px;font-size:19px}
+.u-body .u-t{font-size:24px}
+.u-body .u-hab{margin:10px 0 14px}
+.u-body .u-ops{gap:12px}
 </style>
 </head>
 <body>
