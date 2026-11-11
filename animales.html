@@ -264,18 +264,12 @@ body.auto .u-btn:disabled{visibility:hidden}
 .lr-h{display:flex;align-items:center;gap:10px;margin-bottom:6px;line-height:0}.lr-h .pj,.lr-h>svg{width:46px}.lr-h b{flex:1;font-size:15px;line-height:1.2;color:var(--mu)}
 .lr-q{margin:16px 0 0;font-size:18px;font-weight:900}.lr-q small{display:block;font-size:14px;font-weight:700;color:var(--mu)}
 .lr-o.lr-ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--card))}.lr-o.lr-mal{border-color:var(--mal);background:color-mix(in srgb,var(--mal) 14%,var(--card))}
-.tu-n{margin:6px 0 12px;font-size:15px;font-weight:800;color:var(--mu);text-align:center}
-.tu-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tu-c{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 4px 12px;border-radius:18px;border:2px solid var(--line2);border-bottom-width:4px;background:var(--card);cursor:pointer;font:900 19px Nunito,sans-serif;color:var(--ink)}
-.tu-c .d{line-height:0}.tu-c small{font-size:13px;font-weight:700;color:var(--mu)}
-.tu-c i{position:absolute;top:8px;right:10px;font-style:normal;font-size:15px;color:var(--ok);opacity:0}
-.tu-c.v{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,var(--card))}.tu-c.v i{opacity:1}
-.lb-h{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:18px;border:2px solid color-mix(in srgb,#FF6B6B 45%,var(--line2));background:color-mix(in srgb,#FF6B6B 10%,var(--card))}
-.lb-l{line-height:0}.lb-h b{display:block;font-size:16px;font-weight:900;letter-spacing:.06em;color:#FF6B6B}.lb-h small{font-size:14px;font-weight:800;color:var(--mu)}
-.lb-tr{display:block;width:100%;margin:10px 0 12px;padding:8px 12px;border-radius:14px;border:2px dashed var(--line2);background:none;cursor:pointer;text-align:center;font:inherit;color:var(--ink)}
-.lb-tr small{display:block;font-size:11px;font-weight:900;letter-spacing:.1em;color:var(--mu)}
-.lb-tr b{display:none;font-size:17px;font-weight:900}.lb-tr i{font-style:normal;font-size:13px;font-weight:700;color:var(--mu)}
-.lb-tr.on b{display:block}.lb-tr.on i{display:none}
+.pxa{animation:pxb 2.4s ease-in-out infinite}
+@keyframes pxb{0%,100%{transform:translateY(0)}50%{transform:translateY(-.6px)}}
+.pxe{transform-box:fill-box;transform-origin:center;animation:pxk 4.2s infinite}
+@keyframes pxk{0%,88%,100%{transform:scaleY(1)}91%{transform:scaleY(.1)}94%{transform:scaleY(1)}}
+.oye-c small{font-size:12px;font-weight:700;color:var(--mu)}
+@media (prefers-reduced-motion:reduce){.pxa,.pxe{animation:none}}
 .u-w{border-bottom:2px dashed var(--toff);padding-bottom:1px}
 .u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
 .u-hab{display:flex;align-items:flex-end;gap:8px}
@@ -495,7 +489,7 @@ body.auto .u-btn:disabled{visibility:hidden}
 <script>
 /* =====================================================================
    TUS DATOS · Mapa de Verano A1 · Animales (id animales, go:animales)
-   Los 12 animales, las 3 rondas y las 6 preguntas del Lobo Gris: los mismos de antes.
+   Los 12 animales, las 3 rondas y las 6 preguntas de escucha: los mismos de antes.
    ===================================================================== */
 const URL_MAPA = "go:veranoa1";      // X y "Volver al mapa"
 const URL_SIGUIENTE = "";
@@ -506,56 +500,74 @@ const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // true = sin botón Comprobar: al responder se revisa sola
 const AUDIO_CARPETA = "https://inglesgamer.github.io/app/audios/";   // audios con voz natural (Fenrir) en tu GitHub
 const AUDIO_DATA = {};
-const NOMBRE_JEFE = "LOBO GRIS";
-const ES = {cat:"gato",dog:"perro",bird:"pájaro",fish:"pez",frog:"rana",elephant:"elefante",lion:"león",pig:"cerdo",cow:"vaca",rabbit:"conejo",monkey:"mono",panda:"panda"};
+const NIVEL = {
+  id:"animales", nombre:"Animales",
+  tarjetas:[
+    { en:"cat",      es:"gato",     ex:"The cat is orange.",          exes:"El gato es anaranjado." },
+    { en:"dog",      es:"perro",    ex:"The dog is brown.",           exes:"El perro es café." },
+    { en:"bird",     es:"pájaro",   ex:"The bird is yellow.",         exes:"El pájaro es amarillo." },
+    { en:"fish",     es:"pez",      ex:"The fish is blue.",           exes:"El pez es azul." },
+    { en:"frog",     es:"rana",     ex:"The frog can jump.",          exes:"La rana puede saltar." },
+    { en:"elephant", es:"elefante", ex:"The elephant is big.",        exes:"El elefante es grande." },
+    { en:"lion",     es:"león",     ex:"The lion is strong.",         exes:"El león es fuerte." },
+    { en:"pig",      es:"cerdo",    ex:"The pig is pink.",            exes:"El cerdo es rosado." },
+    { en:"cow",      es:"vaca",     ex:"The cow is black and white.", exes:"La vaca es blanca y negra." },
+    { en:"rabbit",   es:"conejo",   ex:"The rabbit is white.",        exes:"El conejo es blanco." },
+    { en:"monkey",   es:"mono",     ex:"The monkey is brown.",        exes:"El mono es café." },
+    { en:"panda",    es:"panda",    ex:"The panda is black and white.", exes:"El panda es blanco y negro." }
+  ]
+};
 const RONDAS = [["cat","dog","bird","fish"],["frog","elephant","lion","pig"],["cow","rabbit","monkey","panda"]];
-const JEFE = [
- {dice:"dog",es:"perro",o:["dog","cat","fish","bird"]},
- {dice:"elephant",es:"elefante",o:["elephant","monkey","pig","lion"]},
- {dice:"fish",es:"pez",o:["fish","frog","bird","cat"]},
- {dice:"monkey",es:"mono",o:["monkey","panda","rabbit","pig"]},
- {dice:"The frog can jump.",es:"La rana puede saltar.",o:["frog","rabbit","fish","bird"]},
- {dice:"The lion is strong.",es:"El león es fuerte.",o:["lion","dog","cow","panda"]}
-];
-const TAUNTS = ["¡Auuuu!","¡Nunca los liberarás!","¡Son míos!","¡Escucha bien!","¡Grrr!"];
-const NIVEL = { id:"animales", nombre:"Animales" };
 const TEMA = "ANIMALES", COLOR = "#3FD8C8";
 const slugA = t => String(t).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 const LEO = "Hi! I'm Leo. I have a dog and a cat. My dog is brown. My cat likes my socks!";
-const PALABRAS = Object.keys(ES).map(k => ({ en:k, es:ES[k], ob:k, audio:slugA(k) + ".mp3" })).concat(
-  ["The frog can jump.", "The lion is strong.", "The dog has my cap!", "The pig has a pink dress.", "The monkey has my hat!", "My T-shirt has a panda.", LEO,
-   "A dog and a cat.", "My socks.", "Great!"].map(x => ({ en:x, es:"", audio:slugA(x) + ".mp3" })));   // palabras y frases con su mp3 (voz natural en GitHub)
+const PALABRAS = NIVEL.tarjetas.map(t => Object.assign({}, t, { ob:t.en, audio:slugA(t.en) + ".mp3" })).concat(
+  NIVEL.tarjetas.map(t => t.ex).concat(["The dog has my cap!", "The pig has a pink dress.", "The monkey has my hat!", "My T-shirt has a panda.", LEO,
+   "A dog and a cat.", "My socks.", "Great!"]).map(x => ({ en:x, es:"", audio:slugA(x) + ".mp3" })));   // palabras y frases con su mp3 (voz natural en GitHub)
 const LOS4 = [];
 const GLOS = { "hi":"hola", "i'm":"yo soy", "i":"yo", "have":"tengo", "a":"un / una", "and":"y", "my":"mi", "is":"es / está", "brown":"café", "likes":"le gustan",
-  "my socks":"mis medias", "socks":"medias", "dog":"perro", "cat":"gato", "the":"el / la", "has":"tiene", "cap":"gorra", "monkey":"mono", "hat":"sombrero", "pig":"cerdo",
-  "pink":"rosado", "dress":"vestido", "t-shirt":"camiseta", "panda":"panda", "white":"blanco", "black":"negro", "it":"él / ella (animal)", "sleeps":"duerme", "on":"sobre / en", "shoes":"zapatos" };
+  "socks":"medias", "dog":"perro", "cat":"gato", "the":"el / la", "has":"tiene", "cap":"gorra", "monkey":"mono", "hat":"sombrero", "pig":"cerdo", "pink":"rosado",
+  "dress":"vestido", "t-shirt":"camiseta", "panda":"panda", "white":"blanco", "black":"negro", "orange":"anaranjado", "yellow":"amarillo", "blue":"azul", "green":"verde",
+  "gray":"gris", "big":"grande", "strong":"fuerte", "can":"puede", "jump":"saltar", "frog":"rana", "lion":"león", "bird":"pájaro", "fish":"pez", "elephant":"elefante",
+  "cow":"vaca", "rabbit":"conejo", "black and white":"blanco y negro" };
 
 /* El nivel, paso por paso (3 corazones, sin botón Comprobar, sin relámpago).
-   zoo = conoce a los 4 animales de la ronda · parejas = une animal y nombre (las 3 rondas de antes)
-   jefe = las 6 preguntas del Lobo Gris · escribe = escribe lo que ves (aprobado) · lee = lee y responde (aprobado)
+   nueva = enseña un animal · parejas = une animal y nombre (las 3 rondas de antes)
+   oye = las 6 preguntas de escucha de antes · escribe = escribe lo que ves (aprobado) · lee = lee y responde (aprobado)
    REGLA: ~30 % repasa Ropa (el nivel anterior), con frases que tienen sentido y se ven en el dibujo. */
-const PAR = r => ({ t:"parejas", pares:RONDAS[r].map(k => [k, ES[k], k]) });
-const JF = k => Object.assign({ t:"jefe", k, en:JEFE[k].dice }, JEFE[k]);
+const T = n => NIVEL.tarjetas.find(t => t.en === n);
+const NUEVA = (n, pj, tip) => { const t = T(n); return { t:"nueva", pj, ob:n, en:n, es:t.es, tip, ej:t.ex, ejEs:t.exes }; };
+const PAR = r => ({ t:"parejas", pares:RONDAS[r].map(k => [k, T(k).es, k]) });
+const OYE = (dice, es, o) => dice === o[0] ? { t:"oye", en:dice, ops:o } : { t:"oye", en:dice, es, ok:o[0], ops:o };
 const PLAN = [
-  { t:"zoo", an:RONDAS[0] },
+  NUEVA("cat", "alegre", "<b>cat</b> = gato."),
+  NUEVA("dog", "cool", "<b>dog</b> = perro."),
+  NUEVA("bird", "baile", "<b>bird</b> = pájaro."),
+  NUEVA("fish", "pienso", "<b>fish</b> = pez."),
   PAR(0),
-  JF(0),
+  OYE("dog", "perro", ["dog", "cat", "fish", "bird"]),
   { t:"escribe", ob:"cat", en:"cat", es:"gato" },
   { t:"habla", pj:"sorpresa", ob:["dog", "cap"], en:"The dog has my cap!", ops:["¡El perro tiene mi gorra!", "¡El gato tiene mi gorra!", "¡El perro tiene mi sombrero!"], nota:"Repaso de Ropa: cap = gorra" },
-  { t:"zoo", an:RONDAS[1] },
+  OYE("fish", "pez", ["fish", "frog", "bird", "cat"]),
+  NUEVA("frog", "baile", "<b>frog</b> = rana. The frog can jump = La rana puede saltar."),
+  NUEVA("elephant", "sorpresa", "<b>elephant</b> = elefante. Big = grande."),
+  NUEVA("lion", "cool", "<b>lion</b> = león. Strong = fuerte."),
+  NUEVA("pig", "alegre", "<b>pig</b> = cerdo."),
   PAR(1),
-  JF(1),
+  OYE("The frog can jump.", "La rana puede saltar.", ["frog", "rabbit", "fish", "bird"]),
   { t:"completa", pj:"alegre", ob:["pig", "dress"], en:"The pig has a pink ___.", es:"El cerdo tiene un vestido rosado.", ok:"dress", ops:["dress", "cap", "socks"], nota:"Repaso de Ropa: dress = vestido" },
   { t:"escribe", ob:"lion", en:"lion", es:"león" },
-  JF(4),
-  { t:"zoo", an:RONDAS[2] },
+  OYE("The lion is strong.", "El león es fuerte.", ["lion", "dog", "cow", "panda"]),
+  NUEVA("cow", "pulgar", "<b>cow</b> = vaca."),
+  NUEVA("rabbit", "amor", "<b>rabbit</b> = conejo."),
+  NUEVA("monkey", "baile", "<b>monkey</b> = mono."),
+  NUEVA("panda", "dormido", "<b>panda</b> = panda (igual que en español)."),
   PAR(2),
-  JF(3),
+  OYE("monkey", "mono", ["monkey", "panda", "rabbit", "pig"]),
+  OYE("elephant", "elefante", ["elephant", "monkey", "pig", "lion"]),
   { t:"completa", pj:"sorpresa", ob:["monkey", "hat"], en:"The monkey has my ___!", es:"¡El mono tiene mi sombrero!", ok:"hat", ops:["hat", "shoes", "skirt"], nota:"Repaso de Ropa: hat = sombrero" },
-  JF(5),
   { t:"lee", pj:"saludo", quien:"Leo", en:LEO, es:"Leo tiene un perro café y un gato al que le gustan sus medias.", texto:LEO,
     preg:[["What animals does Leo have?", "¿Qué animales tiene Leo?", ["A dog and a cat.", "A fish and a bird.", "A pig and a cow."]], ["What does the cat like?", "¿Qué le gusta al gato?", ["My socks.", "My hat.", "My shoes."]]], nota:"Repaso de Ropa: socks = medias" },
-  JF(2),
   { t:"habla", pj:"cool", ob:["tshirt", "panda"], en:"My T-shirt has a panda.", ops:["Mi camiseta tiene un panda.", "Mi camisa tiene un mono.", "Mi chaqueta tiene un panda."], nota:"Repaso de Ropa: T-shirt = camiseta" }
 ];
 
@@ -855,38 +867,14 @@ Object.assign(DIB, {
   cama:{p:{w:"#C9D3E0",p:"#F4F6FA",b:"#5FA8E8",d:"#3A78B8"},r:["............","............","............","w...........","w.pp........","wpppbbbbbbbw","wbbbbbbbbbbw","wddddddddddw","w..........w","............","............","............"]},
   tarea:{p:{b:"#3FA9F5",w:"#F4F6FA",k:"#8A94A6",r:"#E5483C"},r:["............",".bbbbbbbbbb.",".bwwwwwwwwb.",".bwkkkkkkwb.",".bwwwwwwwwb.",".bwkkkkkwwb.",".bwwwwwwwwb.",".bwkkkkkkwb.",".bwwwwwwwrb.",".bbbbbbbbbb.","............","............"]}
 });
-const OJ='<circle cx="23" cy="32" r="3" fill="#1B1B22"></circle><circle cx="41" cy="32" r="3" fill="#1B1B22"></circle><circle cx="24" cy="31" r="1" fill="#fff"></circle><circle cx="42" cy="31" r="1" fill="#fff"></circle>';
-const AN={
-cat:'<path d="M10 24 12 6l14 10zM54 24 52 6 38 16z" fill="#F08A3C"></path><path d="M14 13l1.5 6 5-3zM50 13l-1.5 6-5-3z" fill="#FFB3C6"></path><ellipse cx="32" cy="37" rx="23" ry="20" fill="#F08A3C"></ellipse><path d="M32 18v7M24 20l2 5M40 20l-2 5" stroke="#C96A22" stroke-width="2.5" stroke-linecap="round"></path><ellipse cx="32" cy="45" rx="10" ry="8" fill="#FFE2C6"></ellipse>'+OJ+'<path d="M29 40h6l-3 3z" fill="#FF6F91"></path><path d="M32 43v3M28 47q4 3 8 0" stroke="#7A3E1D" stroke-width="1.6" fill="none" stroke-linecap="round"></path><path d="M6 38h11M7 44l10-2M58 38H47M57 44l-10-2" stroke="#fff" stroke-width="1.4" opacity=".85" stroke-linecap="round"></path>',
-dog:'<ellipse cx="13" cy="30" rx="8" ry="15" fill="#7A4A25" transform="rotate(12 13 30)"></ellipse><ellipse cx="51" cy="30" rx="8" ry="15" fill="#7A4A25" transform="rotate(-12 51 30)"></ellipse><ellipse cx="32" cy="34" rx="20" ry="21" fill="#C8924F"></ellipse><ellipse cx="32" cy="44" rx="12" ry="10" fill="#F2D3A4"></ellipse>'+OJ+'<ellipse cx="32" cy="39" rx="5" ry="3.6" fill="#1B1B22"></ellipse><path d="M32 42v4M26 47q3 3 6 0 3 3 6 0" stroke="#1B1B22" stroke-width="1.8" fill="none" stroke-linecap="round"></path><path d="M29 49q3 9 6 0z" fill="#FF7A93"></path>',
-bird:'<ellipse cx="9" cy="42" rx="6" ry="10" fill="#F2A91F"></ellipse><ellipse cx="55" cy="42" rx="6" ry="10" fill="#F2A91F"></ellipse><ellipse cx="32" cy="36" rx="22" ry="21" fill="#FFCB3D"></ellipse><path d="M26 16q2-10 6-1 2-9 7 0-6 0-13 1z" fill="#FFCB3D"></path><circle cx="17" cy="42" r="4" fill="#FF9EB5" opacity=".7"></circle><circle cx="47" cy="42" r="4" fill="#FF9EB5" opacity=".7"></circle>'+OJ+'<path d="M26 38h12l-6 10z" fill="#FF8A3D"></path>',
-fish:'<path d="M48 32 62 18v28z" fill="#2E6FDB"></path><ellipse cx="28" cy="32" rx="24" ry="16" fill="#3B82F6"></ellipse><path d="M20 18q8-9 18 0z" fill="#2E6FDB"></path><ellipse cx="26" cy="38" rx="16" ry="7" fill="#9CCBFF" opacity=".75"></ellipse><path d="M32 24q4 8 0 16M40 25q4 7 0 14" stroke="#2E6FDB" stroke-width="2" fill="none" stroke-linecap="round"></path><circle cx="14" cy="29" r="4.5" fill="#fff"></circle><circle cx="13" cy="29" r="2.4" fill="#111"></circle><path d="M5 36q4 3 8 1" stroke="#1B3D8F" stroke-width="2" fill="none" stroke-linecap="round"></path>',
-frog:'<circle cx="17" cy="20" r="10" fill="#5DB33A"></circle><circle cx="47" cy="20" r="10" fill="#5DB33A"></circle><ellipse cx="32" cy="39" rx="27" ry="19" fill="#6CC644"></ellipse><circle cx="17" cy="20" r="6.5" fill="#fff"></circle><circle cx="47" cy="20" r="6.5" fill="#fff"></circle><circle cx="18" cy="21" r="3.2" fill="#111"></circle><circle cx="46" cy="21" r="3.2" fill="#111"></circle><circle cx="28" cy="34" r="1.4" fill="#2F6B1A"></circle><circle cx="36" cy="34" r="1.4" fill="#2F6B1A"></circle><circle cx="12" cy="43" r="4" fill="#FF9EB5" opacity=".65"></circle><circle cx="52" cy="43" r="4" fill="#FF9EB5" opacity=".65"></circle><path d="M14 42q18 14 36 0" stroke="#2F6B1A" stroke-width="3" fill="none" stroke-linecap="round"></path>',
-elephant:'<circle cx="12" cy="30" r="12" fill="#9AA0B2"></circle><circle cx="52" cy="30" r="12" fill="#9AA0B2"></circle><circle cx="12" cy="30" r="7" fill="#FFB4C8" opacity=".7"></circle><circle cx="52" cy="30" r="7" fill="#FFB4C8" opacity=".7"></circle><ellipse cx="32" cy="30" rx="18" ry="19" fill="#B4BACB"></ellipse><path d="M24 38h16v16q0 7-8 7t-8-7z" fill="#B4BACB"></path><path d="M26 46h12M26 52h12" stroke="#8F96AA" stroke-width="2" stroke-linecap="round"></path><path d="M19 44q-4 6 0 11M45 44q4 6 0 11" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"></path><circle cx="25" cy="28" r="3" fill="#1B1B22"></circle><circle cx="39" cy="28" r="3" fill="#1B1B22"></circle><circle cx="26" cy="27" r="1" fill="#fff"></circle><circle cx="40" cy="27" r="1" fill="#fff"></circle>',
-lion:'<g fill="#C45F14"><circle cx="8" cy="30" r="8"></circle><circle cx="56" cy="30" r="8"></circle><circle cx="14" cy="52" r="8"></circle><circle cx="50" cy="52" r="8"></circle><circle cx="32" cy="58" r="7"></circle><circle cx="32" cy="8" r="8"></circle></g><circle cx="32" cy="34" r="27" fill="#D9701E"></circle><circle cx="14" cy="14" r="6" fill="#D9701E"></circle><circle cx="50" cy="14" r="6" fill="#D9701E"></circle><ellipse cx="32" cy="36" rx="18" ry="19" fill="#FFC857"></ellipse><ellipse cx="32" cy="45" rx="9" ry="7" fill="#FFE6A8"></ellipse>'+OJ+'<path d="M29 39h6l-3 4z" fill="#8B4A1E"></path><path d="M32 43v3M27 48q5 4 10 0" stroke="#8B4A1E" stroke-width="1.8" fill="none" stroke-linecap="round"></path>',
-pig:'<path d="M10 26 8 8l16 8zM54 26 56 8 40 16z" fill="#F58FB8"></path><ellipse cx="32" cy="37" rx="23" ry="20" fill="#FFA6C9"></ellipse><circle cx="14" cy="42" r="4" fill="#FF7FB0" opacity=".55"></circle><circle cx="50" cy="42" r="4" fill="#FF7FB0" opacity=".55"></circle><ellipse cx="32" cy="44" rx="12" ry="9" fill="#F77FB0"></ellipse><ellipse cx="28" cy="44" rx="2.2" ry="3.2" fill="#B8447A"></ellipse><ellipse cx="36" cy="44" rx="2.2" ry="3.2" fill="#B8447A"></ellipse>'+OJ,
-cow:'<path d="M12 20q-7-11-1-14 6 3 7 13zM52 20q7-11 1-14-6 3-7 13z" fill="#F2E6C4"></path><ellipse cx="8" cy="30" rx="8" ry="5" fill="#2B2B33" transform="rotate(-20 8 30)"></ellipse><ellipse cx="56" cy="30" rx="8" ry="5" fill="#2B2B33" transform="rotate(20 56 30)"></ellipse><ellipse cx="32" cy="35" rx="21" ry="20" fill="#F7F7FA"></ellipse><path d="M42 16q11 2 9 14-9 0-9-14z" fill="#2B2B33"></path><ellipse cx="32" cy="46" rx="14" ry="10" fill="#FFB3C6"></ellipse><ellipse cx="26" cy="46" rx="2.4" ry="3.2" fill="#C2587F"></ellipse><ellipse cx="38" cy="46" rx="2.4" ry="3.2" fill="#C2587F"></ellipse>'+OJ,
-rabbit:'<ellipse cx="22" cy="14" rx="6" ry="15" fill="#F4F4F8"></ellipse><ellipse cx="42" cy="14" rx="6" ry="15" fill="#F4F4F8"></ellipse><ellipse cx="22" cy="15" rx="3" ry="11" fill="#FFB3C6"></ellipse><ellipse cx="42" cy="15" rx="3" ry="11" fill="#FFB3C6"></ellipse><ellipse cx="32" cy="40" rx="21" ry="19" fill="#F4F4F8"></ellipse><circle cx="16" cy="45" r="4" fill="#FF9EB5" opacity=".6"></circle><circle cx="48" cy="45" r="4" fill="#FF9EB5" opacity=".6"></circle>'+OJ+'<path d="M29 41h6l-3 3z" fill="#FF8FAF"></path><path d="M32 44v3M27 48q5 3 10 0" stroke="#9A8FA0" stroke-width="1.5" fill="none" stroke-linecap="round"></path><rect x="29.5" y="48" width="5" height="5" rx="1" fill="#fff" stroke="#C9C9D6" stroke-width=".8"></rect>',
-monkey:'<circle cx="9" cy="32" r="9" fill="#8B5A2B"></circle><circle cx="55" cy="32" r="9" fill="#8B5A2B"></circle><circle cx="9" cy="32" r="5" fill="#E8B98A"></circle><circle cx="55" cy="32" r="5" fill="#E8B98A"></circle><circle cx="32" cy="31" r="23" fill="#8B5A2B"></circle><path d="M32 23c-8-6-18 0-18 10 0 6 4 8 8 8 4 0 6-3 10-3s6 3 10 3c4 0 8-2 8-8 0-10-10-16-18-10z" fill="#E8B98A"></path><ellipse cx="32" cy="47" rx="13" ry="10" fill="#E8B98A"></ellipse>'+OJ+'<circle cx="29" cy="43" r="1.3" fill="#5A3A1A"></circle><circle cx="35" cy="43" r="1.3" fill="#5A3A1A"></circle><path d="M25 48q7 6 14 0" stroke="#5A3A1A" stroke-width="2" fill="none" stroke-linecap="round"></path>',
-panda:'<circle cx="12" cy="14" r="9" fill="#1E1E24"></circle><circle cx="52" cy="14" r="9" fill="#1E1E24"></circle><ellipse cx="32" cy="37" rx="23" ry="21" fill="#F7F7FA"></ellipse><ellipse cx="22" cy="32" rx="6.5" ry="8.5" fill="#1E1E24" transform="rotate(25 22 32)"></ellipse><ellipse cx="42" cy="32" rx="6.5" ry="8.5" fill="#1E1E24" transform="rotate(-25 42 32)"></ellipse><circle cx="23" cy="32" r="2.6" fill="#fff"></circle><circle cx="41" cy="32" r="2.6" fill="#fff"></circle><ellipse cx="32" cy="42" rx="4" ry="3" fill="#1E1E24"></ellipse><path d="M32 45v3M27 49q5 4 10 0" stroke="#1E1E24" stroke-width="1.8" fill="none" stroke-linecap="round"></path>'
-};
-const PRENDA = {
-  shirt:'<path d="M22 8 8 16l5 12 6-3v31h26V25l6 3 5-12-14-8c-1 5-5 8-10 8s-9-3-10-8z" fill="#3E86DE"></path><path d="M22 8c1 5 5 8 10 8s9-3 10-8l-10 14z" fill="#F2F4F8"></path><g fill="#F2F4F8"><circle cx="32" cy="31" r="1.7"></circle><circle cx="32" cy="39" r="1.7"></circle><circle cx="32" cy="47" r="1.7"></circle></g>',
-  tshirt:'<path d="M22 8c1 4 5 6 10 6s9-2 10-6l14 8-5 12-6-3v31H19V25l-6 3-5-12z" fill="#FF4D4D"></path><path d="M22 8c1 4 5 6 10 6s9-2 10-6" fill="none" stroke="#B83232" stroke-width="3" stroke-linecap="round"></path>',
-  sweater:'<path d="M21 8c3 3 7 4 11 4s8-1 11-4l12 9v28h-9V29l-3 1v26H21V30l-3-1v16H9V17z" fill="#8E5BD6"></path><rect x="21" y="34" width="22" height="5" fill="#FFC83D"></rect><rect x="21" y="52" width="22" height="4" rx="1" fill="#6B3FB0"></rect><path d="M26 8c1 3 3 5 6 5s5-2 6-5" fill="none" stroke="#6B3FB0" stroke-width="3" stroke-linecap="round"></path>',
-  jacket:'<path d="M22 8 8 16l3 36h8V26h26v26h8l3-36-14-8-10 12z" fill="#5DB33A"></path><path d="M19 26h26v30H19z" fill="#4A9230"></path><path d="M32 20v36" stroke="#F2F4F8" stroke-width="2.5"></path><path d="M22 8l10 12 10-12" fill="none" stroke="#3E7A25" stroke-width="3" stroke-linejoin="round"></path>',
-  pants:'<path d="M18 6h28l5 52H35l-3-30-3 30H13z" fill="#3E5DB5"></path><rect x="18" y="6" width="28" height="6" fill="#FFC83D"></rect><path d="M32 12v16" stroke="#2C4690" stroke-width="2"></path>',
-  shorts:'<path d="M16 10h32l5 32H36l-4-14-4 14H11z" fill="#D9A441"></path><rect x="16" y="10" width="32" height="6" fill="#B8862A"></rect><path d="M32 16v12" stroke="#B8862A" stroke-width="2"></path>',
-  skirt:'<path d="M22 10h20l13 42H9z" fill="#3FD8C8"></path><rect x="22" y="10" width="20" height="6" fill="#1E8F84"></rect><path d="M26 18l-6 32M38 18l6 32M32 18v32" stroke="#1E8F84" stroke-width="1.5" opacity=".5"></path>',
-  dress:'<path d="M23 6l5 10h8l5-10 4 3-3 14 11 31H10l11-31-3-14z" fill="#FF6FB5"></path><rect x="21" y="30" width="22" height="5" fill="#D94A93"></rect><path d="M28 16h8" stroke="#D94A93" stroke-width="2"></path>',
-  shoes:'<path d="M5 36c9 0 13-4 15-10l8 6c4 2 10 3 18 5 5 1 8 4 8 9v4H5z" fill="#FF4D4D"></path><rect x="5" y="46" width="54" height="7" rx="3" fill="#F2F4F8"></rect><path d="M24 34l4-4M30 37l4-4M36 40l4-4" stroke="#F2F4F8" stroke-width="2.5" stroke-linecap="round"></path>',
-  socks:'<path d="M24 6h18v28l14 10c4 3 3 9-3 10l-10 2c-4 1-8-1-11-4L24 36z" fill="#F2F4F8"></path><rect x="24" y="6" width="18" height="6" fill="#FF4D4D"></rect><rect x="24" y="16" width="18" height="4" fill="#FF4D4D"></rect>',
-  hat:'<ellipse cx="32" cy="42" rx="29" ry="9" fill="#D9A441"></ellipse><path d="M16 42c0-17 6-27 16-27s16 10 16 27z" fill="#FFC83D"></path><path d="M16.5 36h31l.5 6H16z" fill="#FF4D4D"></path>',
-  cap:'<path d="M12 40c0-14 9-22 20-22s20 8 20 22z" fill="#3E86DE"></path><path d="M12 40h40c4 0 8 2 8 5H12z" fill="#2A2A33"></path><circle cx="32" cy="18" r="2.6" fill="#F2F4F8"></circle><path d="M32 18v22" stroke="#2C66B5" stroke-width="2"></path>'
-};
-/* animales y prendas: los mismos dibujos vectoriales de antes (sin emojis) */
-const ESC_D = Object.assign({}, AN, PRENDA);
-function escena(n, s) { return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 64 64" aria-hidden="true">' + ESC_D[n] + '</svg>'; }
+const PX = {"cat": {"p": {"o": "#F08A3C", "d": "#C96A22", "p": "#FFB3C6", "w": "#FFE2C6", "e": "#1B1B22"}, "r": ["................", "..o..........o..", "..oo........oo..", "..opo......opo..", "..oooooddooooo..", ".oooooooooooooo.", ".ooeeooooooeeoo.", ".ooeeooooooeeoo.", ".oooooowwoooooo.", ".oooowwppwwoooo.", "..oooowwwwoooo..", "...oooooooooo...", "....oooooooo....", "...oowoooowoo...", "................", "................"]}, "dog": {"p": {"b": "#C8924F", "d": "#7A4A25", "t": "#F2D3A4", "n": "#1B1B22", "p": "#FF7A93", "e": "#1B1B22"}, "r": ["................", "..dd........dd..", ".dddd.bbbb.dddd.", ".ddddbbbbbbdddd.", ".ddbbbbbbbbbbdd.", ".ddbeebbbbeebdd.", ".ddbeebbbbeebdd.", "..dbbbbbbbbbbd..", "...bbttnnttbb...", "...btttnntttb...", "...bttttttttb...", "....tttppttt....", ".....ttpptt.....", "....bbbbbbbb....", "...bb.bbbb.bb...", "................"]}, "bird": {"p": {"y": "#FFCB3D", "l": "#F2A91F", "o": "#FF8A3D", "e": "#1B1B22"}, "r": ["................", ".......yy.......", "....yyyyyyyy....", "...yyyyyyyyyy...", "..yyyyyyyyyyyy..", "..yyeeyyyyeeyy..", "..yyeeyyyyeeyy..", "..yyyyyooyyyyy..", ".lyyyyooooyyyyl.", ".llyyyyooyyyyll.", ".llyyyyyyyyyyll.", "..lyyyyyyyyyyl..", "...yyyyyyyyyy...", "....yyyyyyyy....", ".....o....o.....", "....oo....oo...."]}, "fish": {"p": {"b": "#3B82F6", "l": "#9CCBFF", "f": "#2E6FDB", "w": "#FFFFFF", "e": "#111111"}, "r": ["................", "................", "......fff.......", ".....ffff.......", "...bbbbbbbb...f.", "..bbbbbbbbbb.ff.", ".bbwebbbbbbbbff.", ".bbwebbbbbbbfff.", "bbbbbbbblbbbbff.", ".bbbllllbbbbbff.", "..bblllllbbb.ff.", "...bbbbbbbb...f.", "......fff.......", "................", "................", "................"]}, "frog": {"p": {"g": "#6CC644", "d": "#3E8A26", "w": "#FFFFFF", "e": "#111111", "p": "#FF9EB5", "m": "#2F6B1A"}, "r": ["................", "................", "................", "..www......www..", ".wweew....weeww.", ".wweew....weeww.", ".gwwwggggggwwwg.", "gggggggggggggggg", "gpggggggggggggpg", "ggmggggggggggmgg", ".ggmmmmmmmmmmgg.", "..gggggggggggg..", ".ddggggggggggdd.", "dd.gggg..gggg.dd", "dd.dd......dd.dd", "................"]}, "elephant": {"p": {"g": "#A9AFC0", "d": "#8F96AA", "p": "#FFB4C8", "w": "#FFFFFF", "e": "#1B1B22"}, "r": ["................", ".gggg......gggg.", "gppggggggggggppg", "gppggggggggggppg", "gppgeeggggeegppg", "gppgeeggggeegppg", "gppggggggggggppg", ".gggggggggggggg.", "..gggggggggggg..", "...w..gggg..w...", "...w..dggd..w...", "......gggg......", "......dggd......", ".......gg.......", "................", "................"]}, "lion": {"p": {"m": "#C45F14", "y": "#FFC857", "w": "#FFE6A8", "n": "#8B4A1E", "e": "#1B1B22"}, "r": ["....mmmmmmmm....", "..mmmmmmmmmmmm..", ".mmmyyyyyyyymmm.", "mmmyyyyyyyyyymmm", "mmyyeeyyyyeeyymm", "mmyyeeyyyyeeyymm", "mmyyyyyyyyyyyymm", "mmyyyywnnwyyyymm", "mmyyywwnnwwyyymm", ".mmyyywwwwyyymm.", "..mmyyyyyyyymm..", "...mmmmmmmmmm...", "....mmmmmmmm....", "....yy....yy....", "................", "................"]}, "pig": {"p": {"p": "#FFA6C9", "d": "#F77FB0", "n": "#B8447A", "e": "#1B1B22"}, "r": ["................", "..dd........dd..", "..ddp......pdd..", "..pppppppppppp..", ".pppppppppppppp.", ".ppeeppppppeepp.", ".ppeeppppppeepp.", ".ppppddddddpppp.", ".pppdnddddndppp.", ".pppddddddddppp.", "..pppppppppppp..", "...pppppppppp...", "...pp......pp...", "................", "................", "................"]}, "cow": {"p": {"w": "#F7F7FA", "k": "#2B2B33", "p": "#FFB3C6", "n": "#C2587F", "h": "#E8D9A8", "e": "#1B1B22"}, "r": ["................", ".hh..........hh.", "..hh........hh..", "kkwwwwwwwwwwwwkk", ".kwwkkwwwwkkwwk.", "..wkkkwwwwkkkw..", "..weewwwwwweew..", "..weewwwwwweew..", "..wwwwwwwwwwww..", "..pppppppppppp..", "..ppnppppppnpp..", "..pppppppppppp..", "...pppppppppp...", "................", "................", "................"]}, "rabbit": {"p": {"w": "#F4F4F8", "p": "#FFB3C6", "g": "#9A8FA0", "e": "#1B1B22"}, "r": ["...ww......ww...", "...wpw....wpw...", "...wpw....wpw...", "...wpw....wpw...", "...ww......ww...", "..wwwwwwwwwwww..", ".wwwwwwwwwwwwww.", ".wweewwwwwweeww.", ".wweewwwwwweeww.", ".wppwwwppwwwppw.", ".wwwwwwwwwwwwww.", "..wwwwgwwgwwww..", "...wwwwwwwwww...", "..wwww....wwww..", "................", "................"]}, "monkey": {"p": {"b": "#8B5A2B", "t": "#E8B98A", "m": "#5A3A1A", "e": "#1B1B22"}, "r": ["................", "....bbbbbbbb....", "...bbbbbbbbbb...", "tb.bbbbbbbbbb.bt", "tbbbttttttttbbbt", "tbbtteetteettbbt", "bbbttttttttttbbb", "..bttttttttttb..", "..bttmmmmmmttb..", "...bttttttttb...", "....bbbbbbbb....", "...bbbbbbbbbb...", "..bb.bbbbbb.bb..", "................", "................", "................"]}, "panda": {"p": {"w": "#F7F7FA", "k": "#1E1E24", "e": "#FFFFFF"}, "r": ["................", ".kk..........kk.", "kkkkwwwwwwwwkkkk", "kkwwwwwwwwwwwwkk", ".wwwwwwwwwwwwww.", ".wkkwwwwwwwwkkw.", ".wkekwwwwwwkekw.", ".wkkwwwwwwwwkkw.", ".wwwwwwkkwwwwww.", "..wwwwwkkwwwww..", "...wwwwwwwwww...", "..kkwwwwwwwwkk..", "..kkwwwwwwwwkk..", "...kk......kk...", "................", "................"]}, "cap": {"p": {"b": "#3E86DE", "w": "#F2F4F8", "k": "#2A2A33"}, "r": ["................", "................", "................", "................", "................", "......bbbb......", "....bbbbbbbb....", "...bbbbbwbbbb...", "...bbbbbbbbbb...", "...bbbbbbbbbb...", "..kkkkkkkkkkkkkk", "...........kkkk.", "................", "................", "................", "................"]}, "hat": {"p": {"y": "#FFC83D", "r": "#FF4D4D", "o": "#D9A441"}, "r": ["................", "................", "................", "................", ".....yyyyyy.....", "....yyyyyyyy....", "....yyyyyyyy....", "....rrrrrrrr....", ".ooyyyyyyyyyyoo.", "oooooooooooooooo", ".oooooooooooooo.", "................", "................", "................", "................", "................"]}, "dress": {"p": {"p": "#FF6FB5", "q": "#D94A93"}, "r": ["................", ".....p....p.....", ".....pp..pp.....", ".....pppppp.....", "....pppppppp....", "....pppppppp....", "....qqqqqqqq....", "....pppppppp....", "...pppppppppp...", "...pppppppppp...", "..pppppppppppp..", "..pppppppppppp..", ".pppppppppppppp.", ".qqqqqqqqqqqqqq.", "................", "................"]}, "tshirt": {"p": {"r": "#FF4D4D", "d": "#B83232"}, "r": ["................", "................", "................", "....rrr..rrr....", "..rrrrrddrrrrr..", ".rrrrrrrrrrrrrr.", ".rrrrrrrrrrrrrr.", "..rrrrrrrrrrrr..", "....rrrrrrrr....", "....rrrrrrrr....", "....rrrrrrrr....", "....rrrrrrrr....", "....rrrrrrrr....", "....dddddddd....", "................", "................"]}};
+/* animales y ropa en pixel art 16x16, animados: respiran (suben y bajan) y parpadean */
+const ESC_D = PX;
+let PXN = 0;
+function escena(n, s) { const d = PX[n], del = (PXN++ % 7) * .37;
+  let o = '<svg class="pxs" width="' + s + '" height="' + s + '" viewBox="0 -1 16 17" shape-rendering="crispEdges" aria-hidden="true"><g class="pxa" style="animation-delay:-' + del + 's">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect' + (c === "e" ? ' class="pxe" style="animation-delay:-' + del + 's"' : '') + ' x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
+  return o + '</g></svg>'; }
 /* LEE Y RESPONDE (aprobado): un personaje escribe y respondes 2 preguntas */
 function exLee() { let q = 0, err = 0;
   pantalla('<p class="u-t">Lee y responde</p><div class="lr"><div class="lr-h">' + PJ(P.pj || "saludo") + '<b>' + esc(P.quien) + ' escribe:</b><button type="button" class="u-au" id="bAu" aria-label="Escuchar el texto">' + AU + '</button></div>' + glosa(P.texto) + '</div><div id="lrQ"></div>',
@@ -907,8 +895,8 @@ function exLee() { let q = 0, err = 0;
 function exOye() { let sel = null; const ops = mezcla(P.ops), w = en => PALABRAS.find(x => x.en === en) || { en, ob:"" };
   pantalla('<p class="u-t">Toca lo que oyes</p>' +
     '<div class="oye-top"><button type="button" class="oye-big" id="bAu" aria-label="Escuchar otra vez">' + AU.replace(/22/g, "38") + '</button><button type="button" class="lento2" id="bLe">' + LENTO.replace(/28/g, "18") + 'Lento</button></div>' +
-    '<div class="oye-g">' + ops.map(o => '<button type="button" class="oye-c" data-o="' + esc(o) + '"><span class="d">' + OB(w(o).ob, 58) + '</span><b>' + esc(o) + '</b></button>').join("") + '</div>',
-    () => { const x = w(P.en); return [sel === P.en, P.en + " = " + x.es, P.en]; });
+    '<div class="oye-g">' + ops.map(o => '<button type="button" class="oye-c" data-o="' + esc(o) + '"><span class="d">' + OB(w(o).ob, 58) + '</span><b>' + esc(o) + '</b>' + (P.ok ? '<small>' + esc(w(o).es) + '</small>' : '') + '</button>').join("") + '</div>',
+    () => { const ok = P.ok || P.en, x = w(ok); return [sel === ok, ok + " = " + x.es + (P.ok ? " · " + P.en + " = " + P.es : ""), P.en]; });
   on("bAu", () => voz(P.en, .9)); on("bLe", () => voz(P.en, .55)); setTimeout(() => voz(P.en, .9), 350);
   document.querySelectorAll(".oye-c").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".oye-c").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; listo(1); }));
 }
@@ -920,30 +908,6 @@ function exEscribe() { const W = P.en;
   const inp = $("evi"); setTimeout(() => { try { inp.focus(); } catch (e) {} }, 300);
   inp.addEventListener("input", () => { const v = inp.value.trim(); $("evl").querySelectorAll("i").forEach((i, k) => i.classList.toggle("f", k < v.length)); if (v.length >= W.length) listo(1); });
 }
-
-/* CONOCE A LOS ANIMALES (como el "une y nombra" de antes): toca cada animal para escuchar su nombre */
-function exZoo() { const its = P.an, toc = {};
-  pantalla('<p class="u-t">Conoce a los animales</p><p class="tu-n" id="tuN">Toca cada animal para escuchar su nombre: 0 de ' + its.length + '</p><div class="tu-g z4">' +
-    its.map(k => '<button type="button" class="tu-c" data-k="' + k + '"><i>✓</i><span class="d">' + OB(k, 76) + '</span><b>' + esc(k) + '</b><small>' + esc(ES[k]) + '</small></button>').join("") + '</div>',
-    () => [true, its.map(k => k + " = " + ES[k]).join(" · "), "Great!"]);
-  document.querySelectorAll(".tu-c").forEach(b => b.addEventListener("click", () => { const k = b.dataset.k; voz(k, .9);
-    if (toc[k]) return; toc[k] = 1; b.classList.add("v"); const n = Object.keys(toc).length; sonido("ok", n);
-    $("tuN").textContent = n === its.length ? "¡Ya los conoces!" : "Toca cada animal para escuchar su nombre: " + n + " de " + its.length;
-    if (n === its.length) setTimeout(() => listo(1), 700); }));
-}
-/* VS LOBO GRIS (las preguntas de siempre): escucha y elige el animal; botón de traducción */
-function exJefe() { let sel = null; const ops = mezcla(P.o);
-  pantalla('<p class="u-t">¿Qué animal escuchaste?</p><div class="lb-h"><span class="lb-l">' + lobo(70) + '</span><div><b>VS ' + NOMBRE_JEFE + '</b><small>' + esc(TAUNTS[P.k % TAUNTS.length]) + '</small></div></div>' +
-    '<div class="oye-top"><button type="button" class="oye-big" id="bAu" aria-label="Escuchar">' + AU.replace(/22/g, "38") + '</button><button type="button" class="lento2" id="bLe">' + LENTO.replace(/28/g, "18") + 'Lento</button></div>' +
-    '<button type="button" class="lb-tr" id="bTr"><small>TRADUCCIÓN DEL AUDIO</small><b>' + esc(P.es) + '</b><i>Toca para ver</i></button>' +
-    '<div class="oye-g jf">' + ops.map(k => '<button type="button" class="oye-c" data-o="' + k + '"><span class="d">' + OB(k, 58) + '</span><b>' + esc(k) + '</b></button>').join("") + '</div>',
-    () => [sel === P.o[0], P.o[0] + " = " + ES[P.o[0]] + (P.dice !== P.o[0] ? " · " + P.dice + " = " + P.es : ""), P.dice]);
-  on("bAu", () => voz(P.dice, .9)); on("bLe", () => voz(P.dice, .55)); setTimeout(() => voz(P.dice, .9), 400);
-  on("bTr", () => $("bTr").classList.toggle("on"));
-  document.querySelectorAll(".jf .oye-c").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".jf .oye-c").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; listo(1); }));
-}
-/* el Lobo Gris de siempre (vectorial) */
-const lobo = z => '<svg viewBox="0 0 160 160" width="' + z + '" height="' + z + '" aria-hidden="true"><path d="M12 160C12 126 40 110 80 110s68 16 68 50z" fill="#434859"></path><path d="M38 58 28 6l46 28z" fill="#4A4F63"></path><path d="M42 48 36 22l22 14z" fill="#FF8FA3"></path><path d="M122 58 132 6 86 34z" fill="#4A4F63"></path><path d="M118 48 124 22 102 36z" fill="#FF8FA3"></path><path d="M80 28C112 28 134 46 134 76c0 14-4 24-10 32l12 18-24-6c-8 8-20 12-32 12s-24-4-32-12l-24 6 12-18c-6-8-10-18-10-32 0-30 22-48 54-48z" fill="#5B6178"></path><path d="M80 76c18 0 32 10 32 26 0 14-14 26-32 26S48 116 48 102c0-16 14-26 32-26z" fill="#D5D9E6"></path><ellipse cx="56" cy="82" rx="11" ry="7" transform="rotate(16 56 82)" fill="#FFD23D"></ellipse><ellipse cx="104" cy="82" rx="11" ry="7" transform="rotate(-16 104 82)" fill="#FFD23D"></ellipse><rect x="54" y="75" width="4" height="14" rx="2" fill="#111" transform="rotate(16 56 82)"></rect><rect x="102" y="75" width="4" height="14" rx="2" fill="#111" transform="rotate(-16 104 82)"></rect><path d="M38 64 72 78M122 64 88 78" stroke="#171925" stroke-width="8" stroke-linecap="round"></path><path d="M68 98h24l-12 14z" fill="#15151C"></path><path d="M58 112C62 134 98 134 102 112Q80 118 58 112z" fill="#2A0F18"></path><path d="M63 113l5 13 5-12zM87 114l5 12 5-13z" fill="#fff"></path></svg>';
 const OB1 = (n, s) => typeof ESC_D !== "undefined" && ESC_D[n] ? escena(n, s) : dib(n, 12).replace('width="12" height="12"', 'width="' + s + '" height="' + s + '"');
 const OB = (n, s) => (Array.isArray(n) ? n : [n]).map(x => OB1(x, s)).join("");
 
@@ -1039,7 +1003,7 @@ function reaccion(ok) {
 listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") { b.disabled = !v; if (v && typeof AUTO !== "undefined" && AUTO) setTimeout(() => { if (b.textContent === "Comprobar" && !b.disabled) b.click(); }, 160); } };
 if (typeof AUTO !== "undefined" && AUTO) document.body.classList.add("auto");
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
-function pintar() { P = PLAN[pos]; ({ los4:exLos4, sopa:exSopa, nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas, zoo:exZoo, jefe:exJefe, escribe:exEscribe, lee:exLee })[P.t](); }
+function pintar() { P = PLAN[pos]; ({ los4:exLos4, sopa:exSopa, nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas, oye:exOye, escribe:exEscribe, lee:exLee })[P.t](); }
 const enLimpio = t => t.replace(/[.!?]/g, "").trim();
 const espanol = t => t;
 
@@ -1233,20 +1197,20 @@ function exParejas() { let sel = null, n = 0;
 /* ===== final ===== */
 const textoDe = p => p.t === "parejas" ? p.pares.map(x => x[0] + " = " + x[1]).join(" · ") : p.t === "sopa" ? p.pal.map(x => x[0].toLowerCase() + " = " + x[1]).join(" · ") : p.t === "charla" ? p.msgs.map(m => m[1]).join(" ") : p.t === "error" ? p.en + " = " + p.es : p.t === "relampago" ? "Ronda relámpago: " + p.rondas.filter(x => x[2]).map(x => x[1]).join(" · ") : p.t === "palabra" ? p.en + " = " + p.es : p.t === "negativa" ? p.en + ". = " + p.es : (p.en.indexOf("___") > -1 ? p.en.replace("___", p.ok) : p.en.replace(/\.$/, "") + ".") + (p.es ? " = " + p.es : p.ops ? " = " + p.ops[0] : "");
 const repaso = () => Object.keys(dudas).map(i => { const p = PLAN[i]; return '<div class="it"><span style="flex:none;line-height:0">' + (p.ob ? OB1([].concat(p.ob)[0], 36) : PJ("pienso").replace("<svg ", '<svg width="30" ')) + '</span><span>' + esc(textoDe(p)) + '</span></div>'; }).join("");
-const EVAL = () => PLAN.filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "zoo" && p.t !== "sopa" && !p._rep).length;
-function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "zoo" && p.t !== "sopa").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
+const EVAL = () => PLAN.filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa" && !p._rep).length;
+function perdido() { perder(PLAN.slice(0, pos).filter(p => p.t !== "nueva" && p.t !== "los4" && p.t !== "sopa").length + "/" + EVAL(), "ejercicios", "Repasa las frases y vuelve a intentarlo.", repaso(), empezar); }
 const RANG = ["Campesino", "Soldado", "Caballero", "Noble", "Rey"];
 function nombreRango() { let st = 0; try { const L = JSON.parse(localStorage.getItem("ingles_gamer_liga") || "{}"); st = L.v === 2 ? +L.st || 0 : (+L.lg || 0) * 3; } catch (e) {} return st >= 12 ? "Rey" : RANG[Math.floor(st / 3)] + " " + ["III", "II", "I"][st % 3]; }
 const auraE = () => { try { return +(JSON.parse(localStorage.getItem("ingles_gamer_aura") || "{}").e) || 0; } catch (e) { return 0; } };
 function terminar() {
   const nd = Object.keys(dudas).length;
-  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Zoo libre!", "Derrotaste al Lobo Gris y rescataste a los animales.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Zoo completo!", "Ya conoces a los 12 animales en ingl\u00e9s.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
 }
 
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Animales", "El Lobo Gris encerr\u00f3 a los animales del zoo. Con\u00f3celos, \u00fanelos y vence al lobo escuchando.", "Empezar", PJ("saludo"), empezar);
+pantallaIntro("Animales", "Gatos, perros, leones y pandas. Escucha, toca y escribe.", "Empezar", PJ("baile"), empezar);
 
 </script>
 <script type="module">
