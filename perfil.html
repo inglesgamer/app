@@ -274,7 +274,7 @@ nav a.on{color:var(--hi);font-weight:700}
       <button type="button" class="cbtn" id="btnOut">Cerrar sesión</button>
       <button type="button" class="cbtn pel" id="btnDel">Eliminar mi cuenta</button>
       <div id="delPanel" hidden>
-        <p class="nota"><b>Esto es permanente.</b> Se borran tu ficha, tu apodo, tu código de amigo y tus solicitudes. Para confirmar, escribe tu contraseña.</p>
+        <p class="nota"><b>Esto es permanente.</b> Se borran tu ficha, tu apodo, tu código de amigo, tus amigos y solicitudes, y tu progreso guardado. Para confirmar, escribe tu contraseña.</p>
         <input class="inp" id="delPass" type="password" autocomplete="current-password" placeholder="Tu contraseña" aria-label="Tu contraseña" style="margin-top:10px">
         <button type="button" class="cbtn ok" id="btnDel2">Sí, eliminar para siempre</button>
         <button type="button" class="cbtn" id="btnDel0">Cancelar</button>
@@ -839,7 +839,7 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden) pint
 /* ===== CUENTA (Firebase): apodo fijo, cerrar sesión y eliminar cuenta ===== */
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, deleteDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, deleteDoc, collection, query, where, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const CONFIG = {
   apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
@@ -860,7 +860,9 @@ const msg = t => { $("avisoCta").textContent = t; };
 const limpiarLocal = () => { LOCALES.forEach(k => { try { localStorage.removeItem(k); } catch (e) {} }); limpiarTodoJugador(); };
 const irAcceso = () => { location.href = igURL("go:acceso"); };
 
+let BORRANDO = false;   /* mientras se elimina la cuenta, no se salta a otra pantalla antes de limpiar el celular */
 onAuthStateChanged(auth, async user => {
+  if (BORRANDO) return;
   if (!user) {
     /* Inicio de sesión obligatorio: sin sesión se vuelve a la pantalla de acceso */
     irAcceso();            /* NO se borra nada aquí: solo "Cerrar sesión" (ya con el progreso guardado) o eliminar la cuenta limpian el celular */
@@ -912,7 +914,7 @@ $("btnDel2").addEventListener("click", async () => {
   const user = auth.currentUser, pass = $("delPass").value;
   if (!user) { irAcceso(); return; }
   if (!pass) { msg("Escribe tu contraseña para confirmar."); return; }
-  $("btnDel2").disabled = true; msg("Eliminando…");
+  $("btnDel2").disabled = true; $("btnDel0").disabled = true; msg("Eliminando…"); BORRANDO = true;
   try {
     /* 1) Reautenticar primero: si la contraseña falla, no se borra nada */
     await reauthenticateWithCredential(user, EmailAuthProvider.credential(user.email, pass));
@@ -923,22 +925,27 @@ $("btnDel2").addEventListener("click", async () => {
       const q = await getDocs(query(collection(db, "amistades"), where(campo, "==", uid)));
       for (const d of q.docs) await deleteDoc(d.ref);
     }
-    /* 3) Código y apodo (liberan el apodo para otras personas) */
-    if (f.cod) await deleteDoc(doc(db, "codigos", f.cod));
-    if (f.nl) await deleteDoc(doc(db, "apodos", f.nl));
-    /* 4) Progreso guardado en la nube (Google Play exige borrar todos los datos de la cuenta).
+    /* 3) Progreso guardado en la nube (Google Play exige borrar todos los datos de la cuenta).
           Si las reglas de Firestore aún no permiten borrarlo, NO se detiene la eliminación de la cuenta. */
     try { await deleteDoc(doc(db, "progreso", uid)); } catch (e) { console.warn("[eliminar] no se pudo borrar progreso/" + uid, e); }
-    /* 5) Ficha y cuenta */
-    await deleteDoc(refJ);
+    /* 4) Código, apodo y ficha JUNTOS: o se borran los 3 o ninguno (así nunca queda a medias).
+          Cuentas viejas sin "nl": el apodo se saca del nombre en minúsculas. */
+    const nl = f.nl || (f.n ? String(f.n).toLowerCase() : ""), b = writeBatch(db);
+    if (f.cod) b.delete(doc(db, "codigos", f.cod));
+    if (nl) b.delete(doc(db, "apodos", nl));
+    b.delete(refJ);
+    await b.commit();
+    /* 5) La cuenta */
     await deleteUser(user);
     limpiarLocal(); irAcceso();
   } catch (e) {
     const c = (e && e.code) || "";
-    msg(c === "auth/wrong-password" || c === "auth/invalid-credential" ? "Contraseña incorrecta."
+    msg(c === "auth/wrong-password" || c === "auth/invalid-credential" || c === "auth/invalid-login-credentials" ? "Contraseña incorrecta."
       : c === "auth/too-many-requests" ? "Demasiados intentos. Espera un momento."
-      : "No se pudo eliminar. Revisa tu internet e intenta otra vez.");
-    $("btnDel2").disabled = false;
+      : c === "permission-denied" ? "No se pudo eliminar: las reglas de Firebase no dejan borrar estos datos (permission-denied)."
+      : c === "auth/requires-recent-login" ? "Por seguridad, cierra sesión, vuelve a entrar y repite esto."
+      : "No se pudo eliminar. Revisa tu internet e intenta otra vez." + (c ? " (" + c + ")" : ""));
+    $("btnDel2").disabled = false; $("btnDel0").disabled = false; BORRANDO = false;
     console.error(e);
   }
 });
