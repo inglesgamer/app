@@ -710,7 +710,7 @@ const GLOS = { "i":"yo", "am":"estoy / soy", "i am":"yo estoy", "it":"(eso)", "i
   "under":"debajo de", "next to":"al lado de", "ice cream":"helado" };
 
 /* nueva = enseña una palabra (dibujo, traducción, tip y un ejemplo) · habla = qué significa (con rayitas) · completa = palabra que falta
-   palabra = letras que faltan · traduce = arma la frase · escucha = escribe lo que oyes · parejas · sopa · relampago = reto final
+   palabra = letras que faltan · traduce = arma la frase · escucha = escribe lo que oyes · parejas · sopa
    REGLA 30/70: ~30 % repasa Preposiciones (p_in, p_on, p_under, p_next). Sin "error". */
 const PLAN = [
   { t:"nueva",    pj:"idea",    ob:"g_frio",    en:"cold",  es:"frío",      tip:"<b>I am cold</b> = Tengo frío. En inglés se dice «estoy frío».", ej:"I am cold.", ejEs:"Tengo frío." },
@@ -733,8 +733,7 @@ const PLAN = [
   { t:"traduce",  pj:"pienso",  ob:"p_next",    es:"El pingüino está al lado de la caja.", en:"The penguin is next to the box", extra:["big", "on"], nota:"Repaso de Preposiciones: next to = al lado de" },
   { t:"sopa",     pal:[["COLD", "frío"], ["HAPPY", "feliz"], ["SAD", "triste"], ["TIRED", "cansado"]] },
   { t:"escucha",  pj:"idea",    en:"I am cold.", es:"Tengo frío." },
-  { t:"escucha",  pj:"pienso",  en:"On the box.", es:"Encima de la caja.", nota:"Repaso de Preposiciones" },
-  { t:"relampago", rondas:[["g_frio", "I am cold.", 1], ["g_alegre", "I am sad.", 0], ["a_big", "The snowman is big.", 1], ["p_under", "The penguin is on the table.", 0], ["g_dormido", "I am tired.", 1]] }
+  { t:"escucha",  pj:"pienso",  en:"On the box.", es:"Encima de la caja.", nota:"Repaso de Preposiciones" }
 ];
 
 /* =====================================================================
