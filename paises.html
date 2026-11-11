@@ -468,6 +468,22 @@ body.auto .u-btn:disabled{visibility:hidden}
 @keyframes kbal{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
 @keyframes ksube{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.u-body svg *{animation:none!important}}
+
+/* pantalla completa: el contenido llena el alto y el panel de respuesta queda pegado abajo */
+.app{display:flex;flex-direction:column}
+#v{flex:1;display:flex;flex-direction:column}
+#v>.u-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:18px}
+#v>.u-pie{margin-top:auto;margin-bottom:calc(-28px - env(safe-area-inset-bottom))}
+.u-body .u-o{min-height:64px;font-size:19px}
+.u-body .u-t{font-size:24px}
+.u-body .u-hab{margin:10px 0 14px}
+.u-body .u-ops{gap:12px}
+
+/* botón Lento: píldora dorada al lado del audio */
+.u-body .lento2{appearance:none;-webkit-appearance:none;margin:0;display:inline-flex;flex-direction:row;align-items:center;justify-content:center;gap:7px;height:46px;padding:0 18px;border-radius:99px;border:2px solid color-mix(in srgb,var(--gold) 55%,var(--line2));border-bottom-width:4px;background:color-mix(in srgb,var(--gold) 12%,var(--card));color:var(--ink);font:900 15px Nunito,sans-serif;letter-spacing:.02em;cursor:pointer;opacity:1;filter:none;box-shadow:none;touch-action:manipulation}
+.u-body .lento2 svg{width:20px;height:20px;color:var(--gold);flex:none}
+.u-body .lento2:active{transform:translateY(2px);border-bottom-width:2px}
+.u-body .u-nw .lento2{margin-top:10px;height:40px}
 </style>
 </head>
 <body>
@@ -492,9 +508,9 @@ const DIAGNOSTICO = false;
 const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // true = sin botón Comprobar: al responder se revisa sola
 const AUDIO_SITIO = "https://cheery-moonbeam-8fd0e3-paisesoficial.netlify.app/";
-const AUDIO_URL = "";
-const RUTAS = [AUDIO_SITIO, AUDIO_SITIO + "audios/", "", "audios/"];
-const EXTS = ["mp3", "m4a", "wav", "ogg", "mpeg", "opus", "aac"];
+const AUDIO_URL = "https://inglesgamer.github.io/app/audios/";   // audios con voz natural (Fenrir) en tu GitHub
+const RUTAS = [""];
+const EXTS = ["mp3"];
 const AUDIO_CARPETA = AUDIO_SITIO;
 const AUDIO_DATA = {};
 const MAPA_FILAS = ["......................#########.........................................", "...................############........................#................", "............#........##########...................#########.............", "..###############.....#########........#........#####################...", ".##################...#######..........###############################..", "####################...#####............###############################.", "..####################.###............#############################.....", "..##...###############..........##..#.#############################.....", ".#......###############..........#.###############################......", ".........##############..........#################################......", ".........#############...........##############################.........", ".........############............##############################.........", ".........############...........###.#########################.#.........", ".........###########............###..#######################.##.........", ".........##########.............#####.######################.##.........", "..........#########.............#####....##################.##..........", "...........#######..............###########################.#...........", "............###...#............#############.##############.............", "............###................###############.############.............", ".............####.............###############...#########...............", "..............###.............###############...###..####...............", "...............##.............#############......##..###................", ".................#.###.........##############....#...###................", ".................######........#############.....#...##..#..............", "..................######........############.........##.##..............", "..................#######..........########..........#####..............", "..................########.........########...........#.#...............", ".................###########........#######...........###...............", ".................###########........#######.............................", "..................#########.........#######.................###.........", "..................#########.........#########..............####.........", "....................######..........#########.............######........", "....................######..........########............########........", "....................#####............####.##............#########.......", "...................#####.............###.................########.......", "...................#####..............##.................########.......", "...................####...............#..................#...####...#...", "...................###........................................###...##..", "...................###.............................................##...", "...................###.............................................##...", "...................##...............................................#...", "...................##...................................................", "...................##...................................................", "........................................................................"];
@@ -510,10 +526,12 @@ const NIVEL = { id:"paises", num:4, nombre:"Países e idiomas" };
 const TEMA = "PAÍSES E IDIOMAS", COLOR = "#3FD8C8";
 /* cada país, nacionalidad e idioma suena con su mp3 (nombre en minúsculas con guiones: united-states.mp3) */
 const slugA = t => String(t).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-const PALABRAS = (() => { const o = {}; PAISES.forEach(p => [p.en, p.nat, p.idi].forEach(t => { o[t] = 1; })); return Object.keys(o).map(t => ({ en:t, es:"", audio:slugA(t) })); })();
+const FRASES = ["I'm from Colombia.", "I live in France. I speak French.", "Where are you from? I'm from Brazil.", "Hello! I'm from France. I speak French.",
+  "My birthday is in June. I'm from China.", "I'm fifteen years old. I'm Brazilian."];
+const PALABRAS = (() => { const o = {}; PAISES.forEach(p => [p.en, p.nat, p.idi].forEach(t => { o[t] = 1; })); return Object.keys(o).concat(FRASES).map(t => ({ en:t, es:"", audio:slugA(t) })); })();
 const LOS4 = [];
 const GLOS = { "i'm":"yo soy", "from":"de", "my":"mi", "mother":"mamá", "is":"es", "brazil":"Brasil", "fifteen":"quince", "years old":"años", "brazilian":"brasileño",
-  "hello":"hola", "i speak":"yo hablo", "french":"francés", "france":"Francia", "colombia":"Colombia" };
+  "hello":"hola", "i live in":"vivo en", "where":"dónde", "are you":"eres", "birthday":"cumpleaños", "june":"junio", "china":"China", "i speak":"yo hablo", "french":"francés", "france":"Francia", "colombia":"Colombia" };
 
 /* El nivel, paso por paso (3 corazones, sin botón Comprobar, sin relámpago).
    mapa = mapa mundi del inicio (no se evalúa) · pais = escucha y toca la bandera · dato = nacionalidad o idioma
@@ -533,9 +551,11 @@ const PLAN = [
   { t:"escribe", id:"jp", en:"Japan", es:"Japón" },
   { t:"pais", en:"Brazil", es:"Brasil", o:["br","co","jp","cn"], p:"Brazil = Brasil. Nacionalidad: Brazilian. Idioma: Portuguese." },
   { t:"completa", pj:"saludo", ob:"f_co", en:"I'm ___ Colombia.", es:"Soy de Colombia.", ok:"from", ops:["from", "in", "is"], nota:"Repaso de Info personal: I'm from… = soy de…" },
-  { t:"habla", pj:"amor", ob:"f_br", en:"My mother is from Brazil.", ops:["Mi mamá es de Brasil.", "Mi hermana es de Brasil.", "Mi mamá vive en Brasil."], nota:"Repaso de Vocabulario: mother = mamá" },
+  { t:"habla", pj:"cool", ob:"f_fr", en:"I live in France. I speak French.", ops:["Vivo en Francia. Hablo francés.", "Soy de Francia. Hablo francés.", "Vivo en Francia. Hablo inglés."], nota:"Repaso de Info personal: I live in… = vivo en…" },
+  { t:"completa", pj:"idea", ob:"f_br", en:"Where are you ___? I'm from Brazil.", es:"¿De dónde eres? Soy de Brasil.", ok:"from", ops:["from", "live", "name"], nota:"Repaso de Info personal: Where are you from? = ¿De dónde eres?" },
   { t:"completa", pj:"cool", ob:"f_fr", en:"Hello! I'm from France. I speak ___.", es:"¡Hola! Soy de Francia. Hablo francés.", ok:"French", ops:["French", "Spanish", "France"], nota:"France = el país · French = el idioma" },
-  { t:"habla", pj:"pulgar", ob:"f_br", en:"I'm fifteen years old. I'm Brazilian.", ops:["Tengo quince años. Soy brasileño.", "Tengo cinco años. Soy brasileño.", "Tengo quince años. Soy colombiano."], nota:"Repaso de Números: fifteen = quince" }
+  { t:"habla", pj:"amor", ob:"f_cn", en:"My birthday is in June. I'm from China.", ops:["Mi cumpleaños es en junio. Soy de China.", "Mi cumpleaños es en enero. Soy de China.", "Mi cumpleaños es en junio. Vivo en China."], nota:"Repaso de Info personal: birthday = cumpleaños" },
+  { t:"habla", pj:"pulgar", ob:"f_br", en:"I'm fifteen years old. I'm Brazilian.", ops:["Tengo quince años. Soy brasileño.", "Tengo cinco años. Soy brasileño.", "Tengo quince años. Soy colombiano."], nota:"Repaso de Info personal: I'm … years old = tengo … años" }
 ];
 
 /* =====================================================================
