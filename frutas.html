@@ -270,7 +270,19 @@ body.auto .u-btn:disabled{visibility:hidden}
 .pxe{transform-box:fill-box;transform-origin:center;animation:pxk 4.2s infinite}
 @keyframes pxk{0%,88%,100%{transform:scaleY(1)}91%{transform:scaleY(.1)}94%{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){.pxa,.pxe{animation:none}}
-.pd-s{display:block;font-size:11px;font-weight:900;letter-spacing:.1em;color:var(--mu)}
+.fx{position:relative;border-radius:22px;overflow:hidden;background:linear-gradient(#8FD0F5,#FFE8B8 70%);border:2px solid var(--line2)}
+.fx-tol{height:30px;background:repeating-linear-gradient(90deg,#FF4D4D 0 30px,#F2F4F8 30px 60px);-webkit-mask:radial-gradient(15px 9px at 15px 100%,transparent 98%,#000) -0px 0/30px 100%;mask:radial-gradient(15px 9px at 15px 100%,transparent 98%,#000) 0 0/30px 100%;filter:drop-shadow(0 3px 0 rgba(0,0,0,.15))}
+.fx-car{position:absolute;top:22px;left:50%;transform:translateX(-50%) rotate(-2deg);padding:4px 14px;border-radius:8px;background:#5A3A1E;border:3px solid #D9A25F;color:#FFE07A;font:900 13px Nunito,sans-serif;letter-spacing:.18em;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+.fx-esc{display:flex;align-items:flex-end;gap:8px;padding:30px 12px 0}
+.fx-cli{flex:none;width:74px;line-height:0}.fx-cli svg{width:100%;height:auto}
+.fx-bb{position:relative;flex:1;margin-bottom:18px;padding:10px 12px;border-radius:16px 16px 16px 4px;background:#fff;color:#1A1A1E;text-align:left;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.fx-bb small{display:block;font-size:10px;font-weight:900;letter-spacing:.12em;color:#B8704F}.fx-bb b{display:block;font-size:20px;font-weight:900;line-height:1.15}
+.fx-au{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:4px 10px 4px 6px;border:0;border-radius:99px;background:#1A1A1E;color:#fff;font:800 12px Nunito,sans-serif;cursor:pointer}.fx-au svg{width:18px;height:18px}
+.fx-mos{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;background:repeating-linear-gradient(0deg,#B9803F 0 18px,#A8712F 18px 20px);border-top:8px solid #7A5230}
+.fx-c{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px 10px;border:0;border-radius:12px;cursor:pointer;background:repeating-linear-gradient(90deg,#D9A25F 0 22px,#C98F4A 22px 24px);box-shadow:inset 0 -6px 0 #8B5A2B,0 3px 0 rgba(0,0,0,.25);transition:transform .12s}
+.fx-c .d{line-height:0;filter:drop-shadow(0 3px 0 rgba(0,0,0,.2))}
+.fx-pz{padding:3px 10px;border-radius:6px;background:#1E2A22;border:2px solid #E8E2CF;color:#F2F4F8;font:900 15px Nunito,sans-serif}
+.fx-c:active{transform:translateY(2px)}.fx-c.sel{outline:4px solid var(--gold);outline-offset:-2px;transform:translateY(-3px)}
 #v .u-sopa{width:min(100%,420px,calc(100dvh - 300px));max-width:none;gap:5px}
 #v .u-sl{font-size:clamp(17px,5.6vw,25px);border-radius:10px}
 #v .u-spw{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
@@ -870,12 +882,14 @@ function escena(n, s) { const d = PX[n], N = d.r.length, del = (PXN++ % 7) * .37
   let o = '<svg class="pxs" width="' + s + '" height="' + s + '" viewBox="0 -1 ' + N + ' ' + (N + 1) + '" shape-rendering="crispEdges" aria-hidden="true"><g class="pxa" style="animation-delay:-' + del + 's">';
   d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect' + (c === "e" && N === 16 ? ' class="pxe" style="animation-delay:-' + del + 's"' : '') + ' x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
   return o + '</g></svg>'; }
-/* LA FRUTERÍA (la de antes): el cliente pide en español y tocas la fruta en inglés */
+/* LA FRUTERÍA (la de antes, ahora con su puesto): el cliente pide en español y tocas la caja de la fruta en inglés */
 function exPedido() { let sel = null; const F = PALABRAS.find(x => x.ob === P.k), otras = mezcla(FR_K.filter(k => k !== P.k)).slice(0, 3), ops = mezcla([P.k].concat(otras));
-  pantalla('<p class="u-t">La frutería</p><div class="u-hab">' + PJ(P.pj || "hambre") + '<div class="u-glo"><small class="pd-s">EL CLIENTE PIDE</small><b>Quiero ' + esc(P.art) + ' ' + esc(F.es) + '</b></div></div>' +
-    '<p class="ev-sub" style="text-align:center">Toca la fruta en inglés</p><div class="oye-g pd">' + ops.map(k => { const w = PALABRAS.find(x => x.ob === k); return '<button type="button" class="oye-c" data-o="' + k + '"><span class="d">' + OB(k, 58) + '</span><b>' + esc(w.en) + '</b></button>'; }).join("") + '</div>',
+  pantalla('<div class="fx"><div class="fx-tol"></div><div class="fx-car">FRUTERÍA</div>' +
+    '<div class="fx-esc"><span class="fx-cli">' + PJ(P.pj || "hambre") + '</span><div class="fx-bb"><small>EL CLIENTE PIDE</small><b>Quiero ' + esc(P.art) + ' ' + esc(F.es) + '</b><button type="button" class="fx-au" id="bAu" aria-label="Escuchar en inglés">' + AU + '<span>en inglés</span></button></div></div>' +
+    '<div class="fx-mos">' + ops.map(k => { const w = PALABRAS.find(x => x.ob === k); return '<button type="button" class="fx-c" data-o="' + k + '"><span class="d">' + OB(k, 54) + '</span><span class="fx-pz">' + esc(w.en) + '</span></button>'; }).join("") + '</div></div>',
     () => [sel === P.k, F.es + " = " + F.en, F.en]);
-  document.querySelectorAll(".pd .oye-c").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".pd .oye-c").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; listo(1); }));
+  on("bAu", () => voz(F.en, .9));
+  document.querySelectorAll(".fx-c").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".fx-c").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); sel = b.dataset.o; voz(PALABRAS.find(x => x.ob === sel).en, .9); listo(1); }));
 }
 function exVerdad() { let sel = null;
   pantalla('<p class="u-t">¿Es verdad?</p><div class="vf-d">' + OB(P.ob, 110) + '</div><p class="vf-f"><button type="button" class="u-au" id="bAu" aria-label="Escuchar">' + AU + '</button>' + glosa(P.en) + '</p><p class="vf-q">' + esc(P.q) + '</p>' +
