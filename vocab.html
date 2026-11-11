@@ -443,6 +443,22 @@ body.auto .u-btn:disabled{visibility:hidden}
 @keyframes kbal{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
 @keyframes ksube{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.u-body svg *{animation:none!important}}
+
+/* pantalla completa: el contenido llena el alto y el panel de respuesta queda pegado abajo */
+.app{display:flex;flex-direction:column}
+#v{flex:1;display:flex;flex-direction:column}
+#v>.u-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:18px}
+#v>.u-pie{margin-top:auto;margin-bottom:calc(-28px - env(safe-area-inset-bottom))}
+.u-body .u-o{min-height:64px;font-size:19px}
+.u-body .u-t{font-size:24px}
+.u-body .u-hab{margin:10px 0 14px}
+.u-body .u-ops{gap:12px}
+
+/* botón Lento: píldora dorada al lado del audio */
+.u-body .lento2{appearance:none;-webkit-appearance:none;margin:0;display:inline-flex;flex-direction:row;align-items:center;justify-content:center;gap:7px;height:46px;padding:0 18px;border-radius:99px;border:2px solid color-mix(in srgb,var(--gold) 55%,var(--line2));border-bottom-width:4px;background:color-mix(in srgb,var(--gold) 12%,var(--card));color:var(--ink);font:900 15px Nunito,sans-serif;letter-spacing:.02em;cursor:pointer;opacity:1;filter:none;box-shadow:none;touch-action:manipulation}
+.u-body .lento2 svg{width:20px;height:20px;color:var(--gold);flex:none}
+.u-body .lento2:active{transform:translateY(2px);border-bottom-width:2px}
+.u-body .u-nw .lento2{margin-top:10px;height:40px}
 </style>
 </head>
 <body>
@@ -466,7 +482,7 @@ const AURA_NIVEL = 20;               // Aura máxima del nivel (se gana una sola
 const DIAGNOSTICO = false;
 const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // true = sin botón Comprobar: al tocar la respuesta se revisa sola
-const AUDIO_CARPETA = "https://fanciful-griffin-e03104-vocab1.netlify.app/";
+const AUDIO_CARPETA = "https://inglesgamer.github.io/app/audios/";   // audios con voz natural (Fenrir) en tu GitHub
 const AUDIO_DATA = {};
 const NIVEL = {
   id:"vocab", num:3, nombre:"Vocabulario",
@@ -484,7 +500,12 @@ const NIVEL = {
   ]
 };
 const TEMA = "VOCABULARIO", COLOR = "#3FD8C8";
-const PALABRAS = NIVEL.tarjetas;     // los mp3 se precargan y suenan cuando se dice la palabra sola
+const slugA = t => String(t).toLowerCase().replace(/['’…]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+/* palabras y frases con su mp3 (nombre = la frase en minúsculas con guiones). Si falta uno, lee la voz del celular. */
+const PALABRAS = NIVEL.tarjetas.map(t => Object.assign({}, t, { audio:slugA(t.en) + ".mp3" })).concat(
+  ["My name is Ana.", "My age is fifteen.", "My country is Colombia.", "I am Colombian.", "My mother is kind.", "He is my brother.", "She is my sister.",
+   "I have five friends.", "I am fifteen years old.", "My phone number has twenty digits.", "Hello! My name is Ana.", "Good morning, mother!",
+   "Nice to meet you. My country is Colombia.", "Great!"].map(t => ({ en:t, es:"", audio:slugA(t) + ".mp3" })));
 const LOS4 = [];
 const GLOS = { "my":"mi", "name":"nombre", "is":"es", "age":"edad", "fifteen":"quince", "country":"país", "colombia":"Colombia", "i am":"yo soy", "colombian":"colombiano",
   "mother":"mamá", "kind":"amable", "he":"él", "she":"ella", "brother":"hermano", "sister":"hermana", "hello":"hola", "good morning":"buenos días",
@@ -566,7 +587,7 @@ function marcarDia() {
 function leerAura() { let a = { t:0, r:0, e:0, g:{}, l:[] }; try { const x = JSON.parse(localStorage.getItem(CLAVE_AURA) || "null"); if (x && typeof x === "object") a = Object.assign(a, x); } catch (e) {} a.t = Math.max(0, +a.t || 0); a.e = Math.max(0, +a.e || 0); if (!a.g || typeof a.g !== "object") a.g = {}; if (!Array.isArray(a.l)) a.l = []; return a; }
 function darAura(total) {
   total = Math.max(0, Math.round(+total || 0));
-  const a = leerAura(), gk = NIVEL.id, ya = +a.g[gk] || 0, dar = Math.max(0, total - ya);
+  const a = leerAura(), gk = (typeof AURA_ID !== "undefined" ? AURA_ID : NIVEL.id), ya = +a.g[gk] || 0, dar = Math.max(0, total - ya);
   a.g[gk] = Math.max(ya, total); if (!dar) return 0;
   a.t += dar; a.e += dar; a.l = [[dar, NIVEL.nombre.slice(0, 30), Date.now()]].concat(a.l).slice(0, 20);
   try { localStorage.setItem(CLAVE_AURA, JSON.stringify(a)); } catch (e) { return 0; } return dar;
@@ -662,7 +683,8 @@ pintarSon();
 /* audio de las palabras (precarga + "calentado" en el primer toque para que suene al instante) */
 let AUD = null, usoVoz = false; const CACHE = {};
 /* si se dice una palabra que tiene mp3, suena el mp3; si no, la voz del celular */
-function voz(texto, rate) { const k = String(texto).toLowerCase().replace(/[.!?]/g, "").trim(), w = PALABRAS.find(x => x.audio && x.en.toLowerCase() === k); if (w && !(CACHE[w.audio] && CACHE[w.audio].fallo)) { oir(w.audio, texto, rate); return; } vozTTS(texto, rate); }
+const normA = t => String(t).toLowerCase().replace(/[.!?¿¡…]/g, "").replace(/\s+/g, " ").trim();
+function voz(texto, rate) { const k = normA(texto), w = PALABRAS.find(x => x.audio && normA(x.en) === k); if (w && !(CACHE[w.audio] && CACHE[w.audio].fallo)) { oir(w.audio, texto, rate); return; } vozTTS(texto, rate); }
 function vozTTS(texto, rate) { if (!("speechSynthesis" in window)) return; usoVoz = true; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(texto); u.lang = "en-US"; u.rate = rate || 1; speechSynthesis.speak(u); } catch (e) {} }
 function prep(f) {
   if (!f) return null; if (CACHE[f]) return CACHE[f];
