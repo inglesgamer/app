@@ -434,6 +434,11 @@ svg{display:block}
 @keyframes kbal{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
 @keyframes ksube{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.u-body svg *{animation:none!important}}
+.ev-sub{margin:2px 0 14px;font-size:15px;font-weight:700;color:var(--mu)}
+.ev{display:flex;flex-direction:column;align-items:center;gap:14px}.ev-d{line-height:0}
+.ev input{width:100%;max-width:300px;height:56px;border-radius:16px;border:2px solid var(--bd);background:var(--card);color:var(--ink);text-align:center;font:900 24px Nunito,sans-serif;letter-spacing:.06em}
+.ev input:focus{outline:none;border-color:var(--gold)}.ev input.ok{border-color:var(--ok)}.ev input.mal{border-color:var(--mal)}
+.ev-l{display:flex;gap:6px}.ev-l i{width:20px;height:4px;border-radius:2px;background:var(--bd)}.ev-l i.f{background:var(--gold)}.ev-l b{width:10px}
 </style>
 </head>
 <body>
@@ -488,8 +493,9 @@ const PLAN = [
   { t:"completa", pj:"afirma",   ob:"p_next",  en:"The penguin is ___ the box.", es:"El pingüino está al lado de la caja.", ok:"next to", ops:["next to", "in", "under"], pista:["next to", "al lado de"] },
   { t:"habla",    pj:"amor",     ob:["gato", "perro"], en:"The cat is next to the dog.", ops:["El gato está al lado del perro.", "El gato está encima del perro.", "El gato está debajo del perro."] },
   { t:"parejas",  pares:[["in", "en"], ["on", "encima de"], ["under", "debajo de"], ["next to", "al lado de"], ["box", "la caja", "caja"]] },
-  { t:"error",    pj:"sorpresa", ob:"p_on",    malas:["The", "penguin", "is", "in", "the", "box."], mal:3, ok:"on", ops:["on", "under", "next to"], es:"El pingüino está encima de la caja.", en:"The penguin is on the box.", nota:"Está arriba de la caja → on" },
+  { t:"escribe",  ob:"p_on", en:"on", es:"encima de" },
   { t:"sopa",     pal:[["IN", "en"], ["ON", "encima de"], ["UNDER", "debajo de"], ["NEXT", "next to = al lado de"]] },
+  { t:"escribe",  ob:"p_next", en:"next to", es:"al lado de" },
   { t:"traduce",  pj:"pienso",   ob:"p_under", es:"El pingüino está debajo de la mesa.", en:"The penguin is under the table", extra:["on", "box"] },
   { t:"completa", pj:"dormido",  ob:["cama", "socks"], en:"My socks are ___ the bed.", es:"Mis medias están debajo de la cama.", ok:"under", ops:["under", "in", "on"], nota:"Repaso: socks = medias" },
   { t:"escucha",  pj:"pienso",                 en:"Under the table.", es:"Debajo de la mesa." },
@@ -909,7 +915,7 @@ function reaccion(ok) {
 }
 listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") b.disabled = !v; };
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
-function pintar() { P = PLAN[pos]; ({ los4:exLos4, sopa:exSopa, nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas })[P.t](); }
+function pintar() { P = PLAN[pos]; ({ los4:exLos4, sopa:exSopa, nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas, escribe:exEscribe })[P.t](); }
 const enLimpio = t => t.replace(/[.!?]/g, "").trim();
 const espanol = t => t;
 
@@ -1085,6 +1091,15 @@ function exEscucha() {
   $("ta").addEventListener("input", () => listo($("ta").value.trim()));
 }
 /* 6 · une las parejas */
+
+/* ESCRIBE LO QUE VES (aprobado): sale el dibujo y escribes la palabra en inglés */
+function exEscribe() { const W = P.en;
+  pantalla('<p class="u-t">Escribe lo que ves</p><p class="ev-sub">Escribe en inglés dónde está el pingüino.</p><div class="ev"><span class="ev-d">' + OB(P.ob, 130) + '</span>' +
+    '<div class="ev-l" id="evl">' + W.split("").map(c => c === " " ? '<b></b>' : '<i></i>').join("") + '</div><input id="evi" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Escribe la palabra en inglés"></div>',
+    () => { const ok = $("evi").value.trim().toLowerCase().replace(/\s+/g, " ") === W.toLowerCase(); $("evi").classList.add(ok ? "ok" : "mal"); return [ok, W + " = " + P.es, W]; });
+  const inp = $("evi"); setTimeout(() => { try { inp.focus(); } catch (e) {} }, 300);
+  inp.addEventListener("input", () => { const v = inp.value.replace(/\s/g, ""); $("evl").querySelectorAll("i").forEach((i, k) => i.classList.toggle("f", k < v.length)); listo(v.length >= W.replace(/ /g, "").length); });
+}
 function exParejas() { let sel = null, n = 0;
   const izq = mezcla(P.pares.map(p => p[0])), der = mezcla(P.pares.map(p => p[1])), icono = w => { const p = P.pares.find(x => x[0] === w); return p && p[2] ? OB(p[2], 24) : ""; };
   pantalla('<p class="u-t">Toca las parejas</p><div class="u-par">' +
