@@ -239,20 +239,21 @@ const BLOQUEO = true;
 const CLAVE = "ingles_gamer_fuego_repaso";
 
 const NODOS = [
-  { id:"oraciones",     nombre:"Fundamentos",        spr:"bloque",     url:"go:fuego_oraciones" },
-  { id:"pronombres",    nombre:"Pronombres",         spr:"carnet",     url:"go:fuego_pronombres" },
+  { id:"pronombres",    nombre:"Pronombres y posesivos", spr:"carnet",   url:"go:fuego_pronombres" },
   { id:"tobe",          nombre:"Verbo To be",        spr:"gema",       url:"go:fuego_tobe" },
-  { id:"escf1", tipo:"escucha", nombre:"Quién es quién", spr:"audifonos", url:"go:fuego_esc1" },
-  { id:"articulos",     nombre:"Artículos",          spr:"libro",      url:"go:fuego_articulos" },
-  { id:"demostrativos", nombre:"Demostrativos",      spr:"lupa",       url:"go:fuego_demostrativos" },
+  { id:"thereis",       nombre:"There is / There are", spr:"cofre",    url:"go:fuego_thereis" },
+  { id:"escf1", tipo:"escucha", nombre:"Repaso 5",   spr:"audifonos",  url:"go:fuego_esc1" },
+  { id:"articulos",     nombre:"A / an, this / that", spr:"libro",     url:"go:fuego_articulos" },
+  { id:"wh",            nombre:"Preguntas WH",       spr:"pregunta",   url:"go:fuego_wh" },
+  { id:"vocab5",        nombre:"Vocabulario 5",      spr:"dialogo",    url:"go:fuego_vocab5" },
   { id:"psimple",       nombre:"Present Simple",     spr:"reloj",      url:"go:fuego_psimple" },
   { id:"frecuencia",    nombre:"Frecuencia",         spr:"calendario", url:"go:fuego_frecuencia" },
-  { id:"escf2", tipo:"escucha", nombre:"Mi rutina",  spr:"audifonos",  url:"go:fuego_esc2" },
-  { id:"havehas",       nombre:"Have / Has",         spr:"cofre",      url:"go:fuego_havehas" },
+  { id:"escf2", tipo:"escucha", nombre:"Repaso 6",   spr:"audifonos",  url:"go:fuego_esc2" },
   { id:"canimp",        nombre:"Can e imperativo",   spr:"espada",     url:"go:fuego_canimp" },
   { id:"pcont",         nombre:"Presente continuo",  spr:"cohete",     url:"go:fuego_pcont" },
-  { id:"pasado",        nombre:"Pasado básico",      spr:"pocion",     url:"go:fuego_pasado" },
-  { id:"escf3", tipo:"escucha", nombre:"Ayer y hoy", spr:"audifonos",  url:"go:fuego_esc3" },
+  { id:"pasado",        nombre:"Pasado: was / were", spr:"pocion",     url:"go:fuego_pasado" },
+  { id:"pasado2",       nombre:"Pasado: -ed e irregulares", spr:"llave", url:"go:fuego_pasado2" },
+  { id:"escf3", tipo:"escucha", nombre:"Repaso 7",   spr:"audifonos",  url:"go:fuego_esc3" },
   { id:"finalf", tipo:"final", nombre:"Jefe final",  spr:"jefe",       url:"go:fuego_final" }
 ];
 
@@ -367,6 +368,7 @@ const ICON = {
   calendario:'<rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M8 3v4M16 3v4"></path>',
   cofre:'<path d="M4 10a8 5 0 0 1 16 0v9H4z"></path><path d="M4 12h16M12 11v4"></path>',
   espada:'<path d="M14.5 4H20v5.5L10 19.5 4.5 14z"></path><path d="M6 12l6 6M4 20l3-3"></path>',
+  pregunta:'<path d="M9 9a3 3 0 1 1 4.5 2.6c-.9.5-1.5 1.2-1.5 2.4"></path><circle cx="12" cy="18" r="1"></circle>',
   pocion:'<path d="M10 3h4M10 3v5L5 17a3 3 0 0 0 2.7 4h8.6A3 3 0 0 0 19 17l-5-9V3"></path><path d="M7 15h10"></path>',
   libro:'<path d="M12 6c-2-1.6-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.4 12 6z"></path><path d="M12 6v14.5"></path>',
   estrella:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path>'
