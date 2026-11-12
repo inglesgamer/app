@@ -769,6 +769,31 @@ svg{display:block}
 @keyframes ksube{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.u-body svg *{animation:none!important}}
 </style>
+<style>/* LECCION_V1 */
+.lec-btn{width:100%;max-width:360px;height:52px;margin-top:10px;border-radius:99px;cursor:pointer;background:transparent;color:var(--ink);border:2px solid var(--bd);font:900 16px Nunito,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px}
+.lec-btn svg{color:var(--gold,#F5C542)}
+.lec{position:fixed;inset:0;z-index:80;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;animation:lecin .25s ease}
+@keyframes lecin{from{transform:translateY(24px);opacity:0}}
+.lec-in{max-width:520px;margin:0 auto;padding:14px 16px calc(110px + env(safe-area-inset-bottom))}
+.lec-hd{display:flex;align-items:center;gap:10px;position:sticky;top:0;background:var(--bg);padding:6px 0 10px;z-index:2}
+.lec-x{width:42px;height:42px;border-radius:50%;border:2px solid var(--bd);background:transparent;color:var(--mu);font:900 18px Nunito,sans-serif;cursor:pointer}
+.lec-hd b{flex:1;font-size:13px;letter-spacing:.12em;color:var(--gold,#F5C542)}
+.lec h2{font-size:26px;font-weight:900;margin:2px 0 4px}.lec .lec-sub{color:var(--mu);font-weight:700;font-size:15px;margin:0 0 14px;line-height:1.4}
+.lec-c{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:2px solid var(--bd);border-radius:20px;padding:14px;margin-bottom:12px}
+.lec-c .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--gold,#F5C542);color:#000;font-weight:900;font-size:13px;display:grid;place-items:center;margin-top:2px}
+.lec-d{flex:none;width:70px;display:flex;justify-content:center;align-items:flex-end;gap:2px;line-height:0}.lec-d svg,.lec-d .gax{max-width:100%;height:auto}
+.lec-t{flex:1;min-width:0}
+.lec-w{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.lec-w b{font-size:22px;font-weight:900}
+.lec-a{width:34px;height:34px;border-radius:10px;border:0;background:rgba(245,197,66,.15);color:var(--gold,#F5C542);cursor:pointer;display:grid;place-items:center;flex:none}
+.lec-es{color:var(--gold,#F5C542);font-weight:900;font-size:15px;margin-top:2px}
+.lec-tip{margin-top:8px;font-size:14px;font-weight:700;line-height:1.4;color:var(--ink)}.lec-tip b{color:var(--gold,#F5C542)}
+.lec-ej{margin-top:8px;display:flex;gap:8px;align-items:flex-start;background:var(--chip,#1D1F23);border-radius:14px;padding:8px 10px}
+.lec-ej p{margin:0;font-size:14px;font-weight:800;line-height:1.35}.lec-ej small{display:block;color:var(--mu);font-weight:700;font-size:13px}
+.lec-li{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lec-li div{background:var(--card);border:2px solid var(--bd);border-radius:14px;padding:10px;display:flex;align-items:center;gap:8px}
+.lec-li b{font-size:16px;font-weight:900;display:block}.lec-li small{color:var(--mu);font-weight:700;font-size:12px}
+.lec-pie{position:fixed;left:0;right:0;bottom:0;z-index:81;background:var(--bg);border-top:2px solid var(--bd);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.lec-pie button{display:block;width:100%;max-width:488px;margin:0 auto}
+</style>
 </head>
 <body>
 <div class="app" id="app">
@@ -898,9 +923,37 @@ function pantallaAprende(i, lista, dibujo, alTerminar) {
   window.scrollTo(0, 0);
   tVoz(() => oir(w.audio, w.en), 350);
 }
+/* LECCION_V1: «Ver lección» junto a «Empezar» */
+const LEC_PARL = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>';
+function leccionHTML() {
+  const N = PLAN.filter(p => p.t === "nueva"), dib = o => { try { return (Array.isArray(o) ? o : [o]).map(k => OB(k, Array.isArray(o) ? 34 : 64)).join(""); } catch (e) { return ""; } };
+  const au = t => '<button type="button" class="lec-a" data-t="' + esc(t) + '" aria-label="Escuchar">' + LEC_PARL + '</button>';
+  let h = '<h2>' + esc(NIVEL.nombre) + '</h2>';
+  if (N.length) {
+    h += '<p class="lec-sub">Lee esto antes de empezar. Toca el parlante para escuchar.</p>';
+    N.forEach((p, i) => { h += '<div class="lec-c"><span class="n">' + (i + 1) + '</span>' + (p.ob ? '<span class="lec-d">' + dib(p.ob) + '</span>' : '') +
+      '<div class="lec-t"><div class="lec-w"><b>' + esc(p.en) + '</b>' + au(p.en) + '</div><div class="lec-es">' + esc(p.es || "") + '</div>' +
+      (p.tip ? '<div class="lec-tip">' + p.tip + '</div>' : '') + (p.ej ? '<div class="lec-ej">' + au(p.ej) + '<p>' + esc(p.ej) + '<small>' + esc(p.ejEs || "") + '</small></p></div>' : '') + '</div></div>'; });
+  } else {
+    const W = []; PLAN.forEach(p => { if (p.en && p.es && p.t !== "sopa" && p.en.indexOf("___") < 0 && p.en.split(" ").length <= 3 && W.length < 12 && !W.some(w => w[0] === p.en)) W.push([p.en, p.es]); });
+    h += '<p class="lec-sub">En este repaso vas a practicar estas palabras. Tócalas para escucharlas.</p><div class="lec-li">' + W.map(w => '<div>' + au(w[0]) + '<span><b>' + esc(w[0]) + '</b><small>' + esc(w[1]) + '</small></span></div>').join("") + '</div>';
+  }
+  return h;
+}
+function abrirLeccion(cb) { sonido("click");
+  const d = document.createElement("div"); d.className = "lec"; d.setAttribute("role", "dialog"); d.setAttribute("aria-modal", "true");
+  d.innerHTML = '<div class="lec-in"><div class="lec-hd"><button type="button" class="lec-x" aria-label="Cerrar">✕</button><b>LECCIÓN</b></div>' + leccionHTML() + '</div>' +
+    '<div class="lec-pie"><button type="button" class="lase" style="margin:0 auto">¡Empezar el nivel!</button></div>';
+  document.body.appendChild(d);
+  const cerrar = () => { try { callar(); } catch (e) {} d.remove(); };
+  d.querySelector(".lec-x").onclick = () => { sonido("click"); cerrar(); };
+  d.querySelector(".lec-pie button").onclick = () => { cerrar(); cb(); };
+  d.querySelectorAll(".lec-a").forEach(b => b.onclick = () => voz(b.dataset.t, .9));
+}
+
 function pantallaIntro(titulo, texto, boton, pj, cb) {
-  $("v").innerHTML = '<section class="intro"><div class="pj">' + pj + '</div><h2>' + esc(titulo) + '</h2><p>' + texto + '</p><button type="button" class="lase" id="bGo">' + esc(boton) + '</button></section>';
-  on("bGo", cb); window.scrollTo(0, 0);
+  $("v").innerHTML = '<section class="intro"><div class="pj">' + pj + '</div><h2>' + esc(titulo) + '</h2><p>' + texto + '</p><button type="button" class="lase" id="bGo">' + esc(boton) + '</button><button type="button" class="lec-btn" id="bLec"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7M8 11h5"/></svg>Ver lección</button></section>';
+  on("bGo", cb); on("bLec", () => abrirLeccion(cb));
 }
 
 /* ===== pantalla final · MEDALLA con rayos ===== */
