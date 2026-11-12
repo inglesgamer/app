@@ -820,6 +820,18 @@ svg{display:block}
 .sc-premio .cr{animation:scLlega .7s cubic-bezier(.3,1.6,.5,1)}@keyframes scLlega{from{transform:scale(0) rotate(-30deg)}}
 .sc-premio b{font-size:24px}.sc-premio small{color:#9AA3B2;font-weight:800}
 </style>
+<style>/* ANUNCIOS_V3: Sin corazones más grande */
+.sc{min-height:calc(100vh - 110px);padding-top:10px}
+.sc-roto{width:170px;height:156px;margin-top:4px}
+.sc-roto svg{width:85px;height:156px}
+.sc-pj{margin-top:4px}.sc-pj svg{width:150px!important;height:auto!important}
+.sc h2{font-size:36px;margin-top:12px}
+.sc .t2{font-size:18px;margin-top:8px}
+.sc-b{height:68px;font-size:20px;border-radius:18px}
+.sc-ad>svg{width:28px;height:28px}.sc-ad .tag svg{width:18px;height:16px}
+.sc-ad .tag{font-size:14px;padding:3px 10px}
+.sc-out{height:52px;font-size:17px}
+</style>
 </head>
 <body>
 <div class="app" id="app">
@@ -1675,7 +1687,7 @@ const SC_MITAD = lado => '<svg width="60" height="110" viewBox="0 0 5.5 10" shap
 const SC_COR = s => '<svg width="' + s + '" height="' + Math.round(s * .9) + '" viewBox="0 0 11 10" shape-rendering="crispEdges"><path d="M1 0h3v1h1v1h1V1h1V0h3v1h1v4h-1v1H9v1H8v1H7v1H6v1H5V9H4V8H3V7H2V6H1V5H0V1h1z" fill="#FF5A6A"/><path d="M1 1h2v1H1z" fill="#fff" opacity=".6"/></svg>';
 function sinCorazones() {
   SC_ON = true; try { callar(); } catch (e) {}
-  let pj = ""; try { pj = GAL("lloron", 96); } catch (e) {}
+  let pj = ""; try { pj = GAL("lloron", 150); } catch (e) {}
   $("v").innerHTML = '<div class="sc"><div class="sc-roto"><span class="a">' + SC_MITAD(0) + '</span><span class="b">' + SC_MITAD(1) + '</span></div><div class="sc-pj">' + pj + '</div>' +
     '<h2>¡Sin corazones!</h2><p class="t2">Te quedaste sin vidas en este nivel.</p>' +
     '<div class="sc-bt"><button type="button" class="sc-b sc-ad" id="scAd">' + '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="#1A1206"/><path d="M10 9v6l5-3z" fill="#F5C542"/></svg>' + 'Ver anuncio y seguir <span class="tag">+1 ' + SC_COR(12) + '</span></button>' +
@@ -2445,7 +2457,9 @@ function igAvisoAd(t) { const p = document.createElement("div"); p.textContent =
 const IG_YO = "go:fuego_vocab5";   /* la sección de App Creator de este nivel (para volver después del anuncio) */
 function igPremio(t) {   /* App Creator: el anuncio sale al abrir la sección «premio» (Ver vídeo para acceder: Sí) */
   t.nivel = IG_YO; t.t = Date.now(); try { localStorage.setItem("ig_premio", JSON.stringify(t)); } catch (e) {}
-  try { callar(); } catch (e) {} location.href = igURL("go:premio");
+  try { callar(); } catch (e) {} /* ANUNCIOS_V3 */
+  if (t.tipo === "x2") location.href = igURL("go:premio2");   /* sección aparte para el x2 */
+  else location.href = igURL("go:premio");
 }
 function igRevivir() {   /* volviste de ver el anuncio por un corazón: sigues en la misma pregunta con 1 corazón */
   let r = null; try { r = JSON.parse(localStorage.getItem("ig_revivir") || "null"); } catch (e) {}
