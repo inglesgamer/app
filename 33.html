@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Días Y Meses | InglésGamer</title>
+<meta name="theme-color" content="#000000">
+<script>
+/* ===== PALETAS: las mismas del Inicio. La elección se guarda en "ingles_gamer_tema" y esta pantalla la lee. ===== */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+/* si cambias la paleta en otra pantalla, esta se actualiza al volver o al cambiar */
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+window.addEventListener("pageshow", function () { aplicarTema(temaActual()); });
+document.addEventListener("visibilitychange", function () { if (!document.hidden) aplicarTema(temaActual()); });
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--hi:#FFFFFF;--on-hi:#000000;--track:#2A2A2E;--toff:#3A3A40;--nav:#0E0E10;--av1:#3A3A40;--av2:#101012;--ok:#7BE3A8;--bad:#FF7A7A}
+[data-tema="dia"],[data-tema="rosa"],[data-tema="azul"]{--bad:#C62828}
+html{background:var(--bg)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.s{max-width:520px;margin:0 auto;min-height:100vh;padding:calc(20px + env(safe-area-inset-top)) 16px calc(120px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px}
+#contenido{display:flex;flex-direction:column;gap:14px}
+.hd{display:flex;align-items:center;gap:10px}
+.ti{flex:1;margin:0;font-size:28px;font-weight:900}
+.bk{flex:none;width:46px;height:46px;padding:0;border-radius:50%;background:var(--card);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center}
+.bk .x{display:none}.bk.off .x{display:block}
+.vid{position:relative;height:190px;border-radius:30px;overflow:hidden;background:radial-gradient(circle at 80% 80%,var(--av1),var(--av2));border:1px solid var(--bd)}
+.vid.yt{height:auto;aspect-ratio:16/9}
+.vid iframe,.vid img{display:block;width:100%;height:100%;border:0;object-fit:cover}
+.vt{position:absolute;left:20px;top:22px;font-size:34px;font-weight:900;letter-spacing:.02em}
+.vs{position:absolute;left:20px;top:66px;font-size:15px;font-weight:700;color:var(--mu)}
+.pl{position:absolute;left:20px;bottom:20px;width:56px;height:56px;border-radius:50%;background:var(--hi);color:var(--on-hi);display:flex;align-items:center;justify-content:center}
+.vp{position:absolute;right:20px;bottom:0}.vp svg{display:block;width:87px;height:auto}
+h2{margin:6px 0 0;font-size:26px;font-weight:900;line-height:1.15}
+h3{display:flex;align-items:center;margin:8px 0 0;font-size:21px;font-weight:900;line-height:1.25}
+h3::before{content:"";flex:none;width:12px;height:12px;border-radius:50%;background:var(--hi);margin-right:10px}
+p{margin:0;font-size:16px;line-height:1.55;color:color-mix(in srgb,var(--ink) 82%,var(--bg))}
+p b{color:var(--ink)}
+.en{color:var(--ink);background:var(--track);padding:0 7px;border-radius:8px;font-weight:800}
+.tip{display:flex;align-items:flex-end;gap:10px;margin:2px 0}
+.tip .pj{flex:none;width:71px}
+.pj svg{display:block;width:100%;height:auto;overflow:visible}
+.bub{position:relative;flex:1;min-width:0;padding:14px 16px;border-radius:26px;background:var(--card);border:1px solid var(--bd);font-weight:600}
+.bub strong{display:block;margin-bottom:4px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.bub p{font-size:15px;line-height:1.45;color:var(--ink)}
+.ej{margin-top:8px;font-size:14px;font-weight:800}
+.ej.ok{color:var(--ok)}.ej.mal{color:var(--bad)}
+.chus{display:grid;gap:8px}
+.chu{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:22px;background:var(--card);border:1px solid var(--bd)}
+.chu .p{flex:1;font-weight:800;font-size:15px}
+.chu small{display:block;font-weight:600;font-size:12px;color:var(--mu)}
+.chu .v{font-weight:900;font-size:20px;text-align:right}
+.tabla{border-radius:22px;overflow:hidden;background:var(--card);border:1px solid var(--bd)}
+.fila{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 16px;border-top:1px solid var(--bd);font-size:15px}
+.fila:first-child{border-top:0;background:var(--chip);font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.fila .a{font-weight:800}
+.hint{font-size:14px;color:var(--mu)}
+.pros{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pro{display:flex;flex-direction:column;gap:2px;min-height:64px;padding:12px;border-radius:22px;background:var(--card);border:1px solid var(--bd);text-align:left}
+.pro:last-child:nth-child(odd){grid-column:1/-1}
+.pro b{display:flex;justify-content:space-between;align-items:center;gap:4px;font-size:17px}
+.pro i{display:flex;color:var(--mu)}
+.pro small{font-size:13px;color:var(--mu);font-weight:700}
+.fr2{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 16px;border-radius:24px;background:var(--card);border:1px solid var(--bd)}
+.fr2 .t{flex:1}.fr2 b{display:block;font-size:16px}.fr2 small{font-size:13px;color:var(--mu);font-weight:600}
+.snd{flex:none;width:46px;height:46px;padding:0;border:0;border-radius:50%;background:var(--hi);color:var(--on-hi);display:flex;align-items:center;justify-content:center}
+.quiz{padding:18px;border-radius:30px;background:var(--card);border:1px solid var(--bd)}
+.qbar{height:10px;border-radius:99px;background:var(--track);overflow:hidden}
+.qbar i{display:block;height:100%;width:0;background:var(--hi);border-radius:99px;transition:width .3s}
+.qs{margin:16px 0;text-align:center;font-size:25px;font-weight:900}
+.qs em{font-style:normal;background:var(--track);padding:0 8px;border-radius:10px}
+.qo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.qo button{height:56px;border-radius:99px;border:2px solid var(--bd);background:var(--chip);font:900 18px Nunito,sans-serif}
+.qo button.ok{background:var(--ok);border-color:var(--ok);color:var(--bg)}
+.qo button.no{background:var(--bad);border-color:var(--bad);color:var(--bg)}
+.qm{min-height:26px;margin-top:12px;text-align:center;font-weight:800;color:var(--ok)}
+.qm.bad{color:var(--bad)}
+.qr{width:100%;height:54px;margin-top:4px;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font:900 16px Nunito,sans-serif}
+.flips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.flip{display:block;width:100%;height:84px;margin:0;padding:0;border:0;background:none;perspective:800px}
+.flip .in{display:block;position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:8px;text-align:center;border-radius:24px;font-weight:800;font-size:15px;line-height:1.3;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip .f{background:var(--card);border:1px solid var(--bd)}
+.flip .b{background:var(--hi);color:var(--on-hi);transform:rotateY(180deg);font-size:20px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:28px}
+.fin{padding:20px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.fin strong{font-size:22px;font-weight:900}
+.fin .pj{width:88px;margin-bottom:-2px}
+.btn{width:100%;height:54px;border-radius:99px;display:flex;align-items:center;justify-content:center;font:900 16px Nunito,sans-serif;background:none}
+button.btn{border:0}
+.btn.main{background:var(--hi);color:var(--on-hi)}
+.btn.alt{border:2px solid var(--toff)}
+.btn.marca{border:2px solid var(--ok);color:var(--ok)}
+.btn.marca.on{background:var(--ok);color:var(--bg)}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:10}
+nav .inner{max-width:520px;margin:0 auto;display:flex;padding:8px 6px max(14px,env(safe-area-inset-bottom));background:var(--nav);border-radius:28px 28px 0 0;border-top:1px solid var(--bd)}
+nav a{flex:1;min-width:0;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mu);font-size:11px;font-weight:700}
+nav a.on{color:var(--hi)}
+/* personajes */
+.oc,.bo,.r1,.r2,.l1,.l2,.gu{opacity:0}
+.oc{animation:parp 4s infinite}
+@keyframes parp{0%,92%,100%{opacity:0}94%,97%{opacity:1}}
+@keyframes ua{0%{opacity:1}50%{opacity:0}}
+@keyframes ub{0%{opacity:0}50%{opacity:1}}
+@keyframes flota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+@keyframes salta{from{transform:translateY(0)}to{transform:translateY(-1px)}}
+@keyframes tiembla{from{transform:translateX(-.1px)}to{transform:translateX(.1px)}}
+@keyframes wink{0%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes late{from{opacity:.15}to{opacity:.5}}
+@keyframes brilla{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes tA{0%{opacity:1}33%{opacity:0}100%{opacity:0}}
+@keyframes tB{0%{opacity:0}33%{opacity:1}66%{opacity:0}100%{opacity:0}}
+.sp{transform-box:fill-box;transform-origin:center;animation:brilla 1s ease-in-out infinite}
+.tA,.tB{opacity:0;animation:tA 1.8s step-end infinite}
+.tB{animation-name:tB}
+.vena{animation:late 1s ease-in-out infinite alternate}
+.saludo .mov{animation:flota 2.4s ease-in-out infinite alternate}
+.saludo .rd{animation:sd 7s step-end infinite}
+.saludo .r1{animation:s1 7s step-end infinite}
+.saludo .r2{animation:s2 7s step-end infinite}
+.saludo .bo{animation:sb 7s step-end infinite}
+@keyframes sd{0%{opacity:1}10%{opacity:0}50%{opacity:1}100%{opacity:1}}
+@keyframes s1{0%{opacity:0}10%{opacity:1}15%{opacity:0}20%{opacity:1}25%{opacity:0}30%{opacity:1}35%{opacity:0}40%{opacity:1}45%{opacity:0}100%{opacity:0}}
+@keyframes s2{0%{opacity:0}15%{opacity:1}20%{opacity:0}25%{opacity:1}30%{opacity:0}35%{opacity:1}40%{opacity:0}45%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes sb{0%{opacity:0}10%{opacity:1}13%{opacity:0}15%{opacity:1}18%{opacity:0}20%{opacity:1}23%{opacity:0}25%{opacity:1}28%{opacity:0}30%{opacity:1}33%{opacity:0}35%{opacity:1}38%{opacity:0}40%{opacity:1}43%{opacity:0}45%{opacity:1}48%{opacity:0}100%{opacity:0}}
+.pulgar .mov{animation:salta 1s ease-in-out infinite alternate}
+.pulgar .rd,.ups .rd,.ups .ld,.animo .rd{opacity:0}
+.pulgar .r1{animation:ua .8s step-end infinite}
+.pulgar .r2{animation:ub .8s step-end infinite}
+.pulgar .gu{animation:wink 3s step-end infinite}
+.animo .mov{animation:salta .5s ease-in-out infinite alternate}
+.animo .r1{animation:ua .5s step-end infinite}
+.animo .bo{animation:ua .25s step-end infinite}
+.ups .mov{animation:tiembla .1s linear infinite alternate}
+.ups .r1,.ups .l1{opacity:1}
+.cor{opacity:0;animation:sube2 2.4s linear infinite}
+.q{animation:flota 1.6s ease-in-out infinite alternate}
+@keyframes sube2{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
+@keyframes nod{from{transform:translateY(.4px)}to{transform:translateY(.8px)}}
+@keyframes sollozo{0%,60%,100%{transform:translateY(0)}70%{transform:translateY(.25px)}80%{transform:translateY(0)}90%{transform:translateY(.25px)}}
+@keyframes ladea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+@keyframes balanceo{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
+@keyframes susto{0%,70%,100%{transform:translateY(0)}75%{transform:translateY(-1px)}85%{transform:translateY(0)}}
+@keyframes wd{0%{opacity:1}20%{opacity:0}70%{opacity:1}100%{opacity:1}}
+@keyframes w1{0%{opacity:0}20%{opacity:1}30%{opacity:0}40%{opacity:1}50%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes w2{0%{opacity:0}30%{opacity:1}40%{opacity:0}50%{opacity:1}60%{opacity:0}100%{opacity:0}}
+.alegre .mov{animation:salta .6s ease-in-out infinite alternate}
+.alegre .rd,.alegre .ld{opacity:0}
+.alegre .r1,.alegre .l1{animation:ua .6s step-end infinite}
+.alegre .r2,.alegre .l2{animation:ub .6s step-end infinite}
+.alegre .bo{animation:ua .3s step-end infinite}
+.triste .cab{animation:nod 3s ease-in-out infinite alternate}
+.triste .mov{animation:sollozo 1.4s ease-in-out infinite}
+.triste .rd{animation:wd 6s step-end infinite}
+.triste .r1{animation:w1 6s step-end infinite}
+.triste .r2{animation:w2 6s step-end infinite}
+.amor .mov{animation:balanceo 1.6s ease-in-out infinite alternate}
+.amor .rd{opacity:0}
+.amor .r1{animation:ua 1.2s step-end infinite}
+.amor .r2{animation:ub 1.2s step-end infinite}
+.pienso .cab{animation:ladea 2s ease-in-out infinite alternate}
+.pienso .rd{opacity:0}
+.pienso .r1{animation:ua 1.2s step-end infinite}
+.pienso .r2{animation:ub 1.2s step-end infinite}
+.sorpresa .oc,.cool .oc{animation:none}
+.sorpresa .mov{animation:susto 1.6s ease-in-out infinite}
+.sorpresa .rd,.sorpresa .ld{opacity:0}
+.sorpresa .r1,.sorpresa .l1{opacity:1}
+.cool .rd{opacity:0}
+.cool .r1{animation:ua 3s step-end infinite}
+.cool .r2{animation:ub 3s step-end infinite}
+.cool .gu{animation:wink 3s step-end infinite}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}svg .rd{opacity:0}svg .r1,svg .l1{opacity:1}.saludo .rd{opacity:1}.saludo .r1{opacity:0}}
+</style>
+</head>
+<body>
+<div class="s">
+  <div class="hd">
+    <a class="bk" href="go:refuerza" aria-label="Volver"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
+    <h1 class="ti">Lección</h1>
+    <button type="button" class="bk" id="mudo" aria-pressed="false" aria-label="Silenciar audio"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path class="x" d="M3 3l18 18"></path></svg></button>
+  </div>
+  <div class="vid" id="video"></div>
+  <div id="contenido"></div>
+</div>
+<nav aria-label="Navegación principal"><div class="inner" id="navbar"></div></nav>
+
+<script>
+/* ================= TUS DATOS: edita solo esta parte ================= */
+
+/* VIDEO EN PAUSA: mientras VIDEO_ID esté vacío se muestra la tarjeta de video.
+   Para activar el video, escribe su ID aquí. */
+const VIDEO_ID = "";
+/* Opcional: si pones aquí la URL de una imagen, se muestra en vez de la tarjeta. */
+const IMAGEN_VIDEO = "";
+
+/* Carpeta de audios (voz Bella en tu GitHub, termina en /) */
+const AUDIO_BASE = "https://inglesgamer.github.io/app/audios/";
+/* Los audios se cargan desde AUDIO_BASE. Si un mp3 falla, usa la voz del teléfono. */
+const AUDIOS = {};
+
+/* ID de esta lección: debe ser igual al "id" de este tema en la página Refuerza tu inglés. */
+/* Nivel del mapa que abre el botón «Jugar» al final de la lección */
+const JUGAR = "go:fechas";
+
+const LECCION_ID = "fechas1";
+
+const CONTENIDO = [
+  {"tipo": "titulo", "texto": "Días y meses"},
+  {"tipo": "parrafo", "texto": "Los días y los meses en inglés van <b>siempre con mayúscula</b>: <span class='en'>Monday</span>, <span class='en'>June</span>."},
+  {"tipo": "tip", "pj": "saludo", "titulo": "¡Hola, jugador!", "texto": "Toca cada palabra para escucharla y luego haz el reto."},
+  {"tipo": "subtitulo", "texto": "1. Días y meses"},
+  {"tipo": "pronombres", "items": [["Monday", "lunes", "monday.mp3"], ["Tuesday", "martes", "tuesday.mp3"], ["Wednesday", "miércoles", "wednesday.mp3"], ["Thursday", "jueves", "thursday.mp3"], ["Friday", "viernes", "friday.mp3"], ["Saturday", "sábado", "saturday.mp3"], ["Sunday", "domingo", "sunday.mp3"], ["January", "enero", "january.mp3"], ["June", "junio", "june.mp3"], ["December", "diciembre", "december.mp3"]]},
+  {"tipo": "tip", "pj": "pulgar", "titulo": "Tip gamer", "texto": "Los meses: January, February, March, April, May, June, July, August, September, October, November, December."},
+  {"tipo": "subtitulo", "texto": "2. En frases"},
+  {"tipo": "frases", "items": [["Today is Monday.", "Hoy es lunes.", "today-is-monday.mp3"], ["I play on Saturday.", "Juego el sábado.", "i-play-on-saturday.mp3"], ["My birthday is in June.", "Mi cumpleaños es en junio.", "my-birthday-is-in-june.mp3"]]},
+  {"tipo": "cuidado", "pj": "ups", "titulo": "¡Ups! Ojo", "ok": "on Monday · in June", "mal": "in Monday · on June", "texto": "Días con <b>on</b> (on Monday). Meses con <b>in</b> (in June)."},
+  {"tipo": "subtitulo", "texto": "3. ¡Reto rápido!"},
+  {"tipo": "tip", "pj": "animo", "titulo": "¡Tú puedes!", "texto": "Elige la respuesta correcta."},
+  {"tipo": "quiz", "items": [["viernes → ___", "Friday", ["Friday", "Thursday", "Sunday"], ""], ["I study ___ Monday.", "on", ["on", "in", "at"], ""], ["My birthday is ___ July.", "in", ["in", "on", "at"], ""], ["miércoles → ___", "Wednesday", ["Wednesday", "Tuesday", "Monday"], ""], ["diciembre → ___", "December", ["December", "November", "October"], ""]]},
+  {"tipo": "subtitulo", "texto": "Tarjetas"},
+  {"tipo": "flip", "items": [["lunes", "Monday"], ["miércoles", "Wednesday"], ["sábado", "Saturday"], ["domingo", "Sunday"], ["enero", "January"], ["agosto", "August"]]},
+  {"tipo": "siguiente", "pj": "pulgar", "titulo": "¡Ya sabes los días y los meses!", "texto": "Lección completada. Ya puedes decir qué día es y cuándo es tu cumpleaños."}
+];
+
+const NAV = [
+  { nombre:"Inicio", url:"go:inicio", activo:true, icono:'<path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path>' },
+  { nombre:"Mapa", url:"go:repaso", icono:'<path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7z"></path><path d="M9 4v13M15 7v12.5"></path>' },
+  { nombre:"Tienda", url:"go:tienda", icono:'<path d="M4 9h16l-1 11H5L4 9z"></path><path d="M8 9V7a4 4 0 0 1 8 0v2"></path>' },
+  { nombre:"Perfil", url:"go:perfil", icono:'<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>' }
+];
+
+/* ================= No necesitas tocar lo de abajo ================= */
+const $ = id => document.getElementById(id);
+let mudo = false;
+const say = t => { if (mudo) return; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = "en-US"; u.rate = .85; speechSynthesis.speak(u); } catch (e) {} };
+/* Se usa \x26 para que AppCreator24 no convierta las entidades */
+const esc = s => String(s).replace(/&/g, "\x26amp;").replace(/"/g, "\x26quot;");
+const spk = n => '<svg width="' + n + '" height="' + n + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg>';
+
+let audioActual = null;
+const CACHE = {};
+const srcDe = mp3 => mp3 ? (AUDIOS[mp3] || (AUDIO_BASE ? AUDIO_BASE + mp3 : "")) : "";
+/* Precarga: descarga los mp3 al abrir la página para que suenen al instante */
+const precarga = () => {
+  document.querySelectorAll("[data-mp3]").forEach(el => {
+    const m = el.dataset.mp3, s = srcDe(m);
+    if (!m || !s || CACHE[m]) return;
+    try { const a = new Audio(); a.preload = "auto"; a.src = s; a.load(); CACHE[m] = a; } catch (e) {}
+  });
+};
+const play = (txt, mp3) => {
+  try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {}
+  try { if (audioActual) { audioActual.pause(); audioActual.currentTime = 0; } } catch (e) {}
+  if (mudo) return;
+  const src = srcDe(mp3);
+  if (src) {
+    try {
+      const a = CACHE[mp3] || new Audio(src);
+      CACHE[mp3] = a;
+      audioActual = a; a.volume = 1; a.currentTime = 0;
+      a.onerror = () => say(txt);
+      const p = a.play();
+      if (p && p.catch) p.catch(() => say(txt));
+      return;
+    } catch (e) {}
+  }
+  say(txt);
+};
+
+const BASE = ["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."];
+const PAL = { k:"#151518", w:"#F2F4F8", h:"#8A5A33", e:"#3A2414", s:"#F2B98F", m:"#B8704F", M:"#7A1F1F", g:"#5A5A5E", l:"#C4C4C8", q:"#A0A0A5", z:"#0B0B0D", p:"#1A1A1E", f:"#F2F4F8", W:"#FFFFFF", r:"#FF8FA3", t:"#6EC6FF", v:"#FF2D2D", S:"#E3A67C", H:"#FF4D8D", y:"#FFC83D" };
+const solo = (r1, r2, c1, c2, k) => { const o = []; for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) o.push([r, c, k]); return o; };
+const rects = l => l.map(x => '<rect x="' + x[1] + '" y="' + x[0] + '" width="1" height="1" fill="' + PAL[x[2]] + '"></rect>').join("");
+const arriba = (lado, top) => { const a = lado === "R" ? 10 : 0; return solo(top, top + 1, a, a + 1, "s").concat(solo(top + 2, top + 2, a, a + 1, "l"), solo(top + 3, 8, a, a + 1, "g")); };
+const lado = top => solo(top, top + 1, 11, 12, "s").concat(solo(top + 2, top + 2, 11, 12, "l"), solo(top + 3, 8, 10, 11, "g"));
+const chispa = (x, y, d) => '<g class="sp" style="animation-delay:' + d + 's"><rect x="' + (x + 1) + '" y="' + y + '" width="1" height="3" fill="#FFC83D"></rect><rect x="' + x + '" y="' + (y + 1) + '" width="3" height="1" fill="#FFC83D"></rect></g>';
+const sudor = (a, b, d) => '<g class="tA" style="animation-delay:' + d + 's">' + rects([[a[0],a[1],"t"]]) + '</g><g class="tB" style="animation-delay:' + d + 's">' + rects([[b[0],b[1],"t"]]) + '</g>';
+const SONRISA = [[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"]];
+const cara = () => solo(4,5,9,10,"s").concat(solo(6,6,10,11,"l"),solo(7,8,10,11,"g"));
+const caraL = () => solo(4,5,1,2,"s").concat(solo(6,6,0,1,"l"),solo(7,8,0,1,"g"));
+const corazon = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"H"],[y,x+2,"H"],[y+1,x,"H"],[y+1,x+1,"H"],[y+1,x+2,"H"],[y+2,x+1,"H"]]) + '</g>';
+const interrog = '<g class="q">' + rects([[-2,10,"y"],[-2,11,"y"],[-2,12,"y"],[-1,12,"y"],[0,11,"y"],[2,11,"y"]]) + '</g>';
+const excl = x => '<g class="vena">' + rects([[-2,x,"v"],[-1,x,"v"],[0,x,"v"],[2,x,"v"]]) + '</g>';
+const PJ = {
+  saludo:{ mod:[], bo:solo(5,6,5,6,"M"), r1:arriba("R",3), r2:lado(3), extra:"" },
+  alegre:{ mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:solo(6,6,5,6,"W"), r1:arriba("R",3), r2:arriba("R",4), l1:arriba("L",3), l2:arriba("L",4), extra:"", fuera:chispa(-1,0,0)+chispa(11,0,.4)+chispa(5,-2,.8) },
+  pulgar:{ mod:SONRISA, bo:[], gu:[[4,7,"e"],[4,8,"e"]], r1:arriba("R",5).concat(solo(3,4,11,11,"s")), r2:arriba("R",5).concat(solo(2,3,11,11,"s")), extra:"", fuera:chispa(11,-2,0)+chispa(-1,1,.5) },
+  animo:{ mod:SONRISA, bo:solo(6,6,5,6,"W"), r1:arriba("R",3), extra:"", fuera:chispa(-1,0,0)+chispa(11,-1,.5) },
+  ups:{ mod:[[5,5,6,"M"],[6,5,6,"M"]], bo:[], r1:arriba("R",3), l1:arriba("L",3), extra:sudor([1,1],[2,1],0), fuera:'<g class="vena">'+rects([[-2,10,"v"],[-1,10,"v"],[0,10,"v"],[2,10,"v"]])+'</g>' },
+  triste:{ mod:[[6,5,6,"s"],[5,5,6,"m"],[6,4,4,"m"],[6,7,7,"m"]], bo:[], r1:arriba("R",4), r2:cara(),
+    extra:'<g class="tA">'+rects([[5,3,"t"],[5,8,"t"]])+'</g><g class="tB">'+rects([[6,3,"t"],[6,8,"t"]])+'</g>' },
+  amor:{ mod:[[4,3,4,"H"],[4,7,8,"H"],[5,2,3,"r"],[5,8,9,"r"],[6,4,7,"m"]], bo:[], r1:arriba("R",4), r2:cara(), extra:"", fuera:corazon(10,2,0)+corazon(-1,1,.8)+corazon(10,-2,1.6) },
+  pienso:{ mod:[[6,5,6,"s"],[6,6,7,"m"]], bo:[],
+    r1:solo(5,6,9,10,"S").concat(solo(7,7,10,11,"l"),solo(8,8,10,11,"g")), r2:solo(6,7,9,10,"S").concat(solo(8,8,10,11,"l")), extra:"", fuera:interrog },
+  sorpresa:{ mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,5,6,"M"]], bo:[], r1:cara(), l1:caraL(), extra:"", fuera:excl(10)+excl(0) },
+  cool:{ mod:[[4,3,8,"z"],[6,4,7,"m"],[5,8,8,"m"]], bo:[], gu:[[4,4,"W"],[4,7,"W"]], r1:arriba("R",4), r2:cara(), extra:"", fuera:chispa(11,-1,0)+chispa(-1,0,.7) }
+};
+function personaje(id) {
+  const a = PJ[id], g = BASE.map(f => f.split(""));
+  a.mod.forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [], rd = [], ld = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => {
+    if (k === ".") return;
+    const x = [r, c, k];
+    if (r <= 6) cab.push(x); else if (r <= 13 && c >= 10) rd.push(x); else if (r <= 13 && c <= 1) ld.push(x); else cue.push(x);
+  }));
+  return '<svg class="' + id + '" viewBox="-1 -2 14 18.8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="16" width="8" height=".6" fill="#000" opacity=".4"></rect>' +
+    '<g class="mov">' + rects(cue) + '<g class="cab">' + rects(cab) + '<g class="oc">' + rects([[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]]) + '</g><g class="bo">' + rects(a.bo) + '</g><g class="gu">' + rects(a.gu || []) + '</g>' + a.extra + '</g>' +
+    '<g class="ld">' + rects(ld) + '</g><g class="l1">' + rects(a.l1 || []) + '</g><g class="l2">' + rects(a.l2 || []) + '</g>' +
+    '<g class="rd">' + rects(rd) + '</g><g class="r1">' + rects(a.r1 || []) + '</g><g class="r2">' + rects(a.r2 || []) + '</g></g>' + (a.fuera || "") + '</svg>';
+}
+
+const QZ = [];
+function bloque(b) {
+  if (b.tipo === "titulo") return "<h2>" + b.texto + "</h2>";
+  if (b.tipo === "subtitulo") return "<h3>" + b.texto + "</h3>";
+  if (b.tipo === "tip" || b.tipo === "cuidado")
+    return '<div class="tip"><div class="pj">' + personaje(b.pj || "alegre") + '</div><div class="bub"><strong>' + b.titulo + "</strong><p>" + b.texto + "</p>" +
+      (b.ok ? '<div class="ej ok">✓ ' + b.ok + "</div>" : "") +
+      (b.mal ? '<div class="ej mal">✗ ' + b.mal + "</div>" : "") + "</div></div>";
+  if (b.tipo === "tabla")
+    return '<div class="tabla">' + b.filas.map(f => '<div class="fila"><span class="a">' + f[0] + '</span><span class="b">' + f[1] + "</span></div>").join("") + "</div>";
+  if (b.tipo === "chuleta")
+    return '<div class="chus">' + b.items.map(c => '<div class="chu"><span class="p">' + c[0] + '<small>' + c[2] + '</small></span><span class="v">→ ' + c[1] + '</span></div>').join("") + "</div>";
+  if (b.tipo === "frases")
+    return b.items.map(f => '<div class="fr2"><div class="t"><b>' + f[0] + "</b><small>" + f[1] + '</small></div><button type="button" class="snd" aria-label="Escuchar ' + esc(f[0]) + '" data-say="' + esc(f[0]) + '" data-mp3="' + (f[2] || "") + '">' + spk(22) + '</button></div>').join("");
+  if (b.tipo === "pronombres")
+    return '<div class="pros">' + b.items.map(p => '<button type="button" class="pro" data-say="' + esc(p[0]) + '" data-mp3="' + (p[2] || "") + '"><b>' + p[0] + ' <i>' + spk(15) + '</i></b><small>' + p[1] + "</small></button>").join("") + "</div>";
+  if (b.tipo === "quiz") { QZ.push({ items: b.items, i: 0, s: 0 }); return '<div class="quiz" data-q="' + (QZ.length - 1) + '"></div>'; }
+  if (b.tipo === "flip")
+    return '<p class="hint">Toca una tarjeta para ver la respuesta.</p><div class="flips">' + b.items.map(f => '<button type="button" class="flip" aria-label="Voltear tarjeta"><span class="in"><span class="f">' + f[0] + '</span><span class="b">' + f[1] + "</span></span></button>").join("") + "</div>";
+  if (b.tipo === "siguiente")
+    return '<div class="card fin"><div class="pj">' + personaje(b.pj || "pulgar") + '</div><strong>' + b.titulo + '</strong><p>' + b.texto + '</p><button type="button" class="btn marca" id="visto">☐ Marcar como vista</button><a class="btn main" id="jugar" href="' + esc(JUGAR) + '">Jugar</a></div>';
+  return "<p>" + b.texto + "</p>";
+}
+
+function dibujaQuiz(el) {
+  const q = QZ[+el.dataset.q], n = q.items.length;
+  if (q.i >= n) {
+    el.innerHTML = '<div class="qs">¡Listo! ' + q.s + "/" + n + ' ⭐</div><button type="button" class="qr">Jugar otra vez</button>';
+    el.querySelector(".qr").onclick = () => { q.i = 0; q.s = 0; dibujaQuiz(el); };
+    return;
+  }
+  const it = q.items[q.i];
+  el.innerHTML = '<div class="qbar"><i style="width:' + (q.i / n * 100) + '%"></i></div><div class="qs">' + it[0] + '</div><div class="qo" style="grid-template-columns:repeat(' + it[2].length + ',1fr)">' +
+    it[2].map(v => '<button type="button" data-v="' + v + '">' + v + "</button>").join("") + '</div><div class="qm"></div>';
+  let fallo = false;
+  el.querySelectorAll(".qo button").forEach(bt => bt.onclick = () => {
+    const qm = el.querySelector(".qm");
+    if (bt.dataset.v === it[1]) {
+      bt.classList.add("ok"); el.querySelectorAll(".qo button").forEach(x => x.disabled = true);
+      qm.className = "qm"; qm.textContent = "¡Correcto!";
+      if (!fallo) q.s++;
+      setTimeout(() => { q.i++; dibujaQuiz(el); }, 1500);
+    } else { fallo = true; bt.classList.add("no"); bt.disabled = true; qm.className = "qm bad"; qm.textContent = "Casi... prueba otra"; }
+  });
+}
+
+/* Video (si hay ID), imagen (si la pones) o tarjeta de video mientras tanto */
+const vid = $("video");
+if (VIDEO_ID) {
+  vid.classList.add("yt");
+  vid.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + VIDEO_ID + '" title="Video de la publicación" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+} else if (IMAGEN_VIDEO) {
+  vid.innerHTML = '<img src="' + IMAGEN_VIDEO + '" alt="Video próximamente">';
+} else {
+  vid.innerHTML = '<span class="vt">DÍAS Y MESES</span><span class="vs">Monday, January · video pronto</span><span class="pl" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"></path></svg></span><div class="vp">' + personaje("saludo") + '</div>';
+}
+$("contenido").innerHTML = CONTENIDO.map(bloque).join("");
+document.querySelectorAll(".quiz").forEach(dibujaQuiz);
+precarga();
+$("contenido").addEventListener("click", e => {
+  const f = e.target.closest(".flip"); if (f) { f.classList.toggle("on"); return; }
+  const s = e.target.closest("[data-say]"); if (s) play(s.dataset.say, s.dataset.mp3);
+});
+
+/* Botón de silencio del encabezado */
+$("mudo").onclick = e => {
+  mudo = !mudo;
+  const b = e.currentTarget;
+  b.classList.toggle("off", mudo); b.setAttribute("aria-pressed", mudo);
+  b.setAttribute("aria-label", mudo ? "Activar audio" : "Silenciar audio");
+  if (mudo) { try { speechSynthesis.cancel(); } catch (x) {} try { if (audioActual) audioActual.pause(); } catch (x) {} }
+};
+
+/* Marcar como vista: se guarda en "ig:vistos" y la página Refuerza tu inglés lo lee */
+const KEY = "ig:vistos", vb = $("visto");
+const leerVistos = () => { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } };
+const pintaVisto = v => { vb.classList.toggle("on", v); vb.textContent = v ? "✅ Vista" : "☐ Marcar como vista"; };
+let visto = leerVistos().includes(LECCION_ID);
+if (vb) {
+  pintaVisto(visto);
+  vb.onclick = () => {
+    visto = !visto;
+    const l = leerVistos().filter(x => x !== LECCION_ID);
+    if (visto) l.push(LECCION_ID);
+    try { localStorage.setItem(KEY, JSON.stringify(l)); } catch (e) {}
+    pintaVisto(visto);
+  };
+}
+
+$("navbar").innerHTML = NAV.map(n => '<a' + (n.activo ? ' class="on" aria-current="page"' : '') + ' href="' + n.url + '"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + n.icono + '</svg>' + n.nombre + '</a>').join("");
+/* Si llegaste desde «Ver lección» de un nivel, la flecha de atrás te regresa a ese nivel */
+(function () {
+  let v = null; try { v = JSON.parse(localStorage.getItem("ig:volver") || "null"); } catch (e) {}
+  if (!v || !v.u || Date.now() - (v.t || 0) > 3 * 3600e3) return;
+  document.querySelectorAll('a.bk[href="go:refuerza"]').forEach(a => a.setAttribute("href", v.u));
+})();
+/* Al ir a jugar ya no hace falta recordar el nivel */
+document.addEventListener("click", e => { if (e.target.closest("#jugar, a.bk")) { try { localStorage.removeItem("ig:volver"); } catch (x) {} } });
+</script>
+</body>
+</html>
