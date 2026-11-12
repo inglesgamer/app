@@ -25,7 +25,7 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Repaso 2 · InglésGamer</title>
+<title>Repaso 4 · InglésGamer</title>
 <meta name="theme-color" content="#000000">
 <script>
 /* Paletas: las mismas del Inicio, Perfil y Ranking (se lee "ingles_gamer_tema") */
@@ -724,7 +724,7 @@ const DIAGNOSTICO = true;
 const APRENDE = false;               // false = con los 3 corazones
 const AUDIO_CARPETA = "https://inglesgamer.github.io/app/audios/puck/";   // voz natural PUCK (Isla de Nieve) en tu GitHub
 const AUDIO_DATA = {};
-const NIVEL = { id:"esc2", nombre:"Repaso 2" };
+const NIVEL = { id:"esc2", nombre:"Repaso 4" };
 const TEMA = "REPASO 2", COLOR = "#FF6FB5";
 /* cosas con dibujo (para Toca lo que oyes y Memoriza) */
 const PALABRAS = [["tea","té","te"],["bread","pan","pan"],["coffee","café","cafe"],["milk","leche","leche"],["ice cream","helado","helado"],
@@ -1626,13 +1626,13 @@ function nombreRango() { let st = 0; try { const L = JSON.parse(localStorage.get
 const auraE = () => { try { return +(JSON.parse(localStorage.getItem("ingles_gamer_aura") || "{}").e) || 0; } catch (e) { return 0; } };
 function terminar() {
   const nd = Object.keys(dudas).length;
-  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Repaso 2 superado!", "Repasaste conectores, comparativos, futuro y situaciones.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Repaso 4 superado!", "Repasaste conectores, comparativos, futuro y situaciones.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
 }
 
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Repaso 2", "Repaso de todo: escucha, escribe, memoriza y encuentra.", "Empezar", PJ("pienso"), empezar);
+pantallaIntro("Repaso 4", "Repaso de todo: escucha, escribe, memoriza y encuentra.", "Empezar", PJ("pienso"), empezar);
 
 </script>
 <script>
