@@ -519,14 +519,39 @@ body.auto #v>.u-pie:has(#bChk:disabled){min-height:0;height:0;padding-top:0;padd
 
 .fr-f{font-size:24px;font-weight:900;text-align:center;margin:2px 0 0}.fr-f u{text-decoration:none;display:inline-block;min-width:90px;border-bottom:3px solid var(--gold)}.fr-s{margin:0;text-align:center}
 .ev-sub b{color:var(--gold)}
-.jf{display:flex;align-items:center;gap:12px;margin:2px 16px 4px;padding:8px 12px;border-radius:16px;border:2px solid #5A1E22;background:linear-gradient(#2A0E10,#160607)}
-.jf-s{line-height:0;flex:none}.jf-s.hit{animation:jfh .45s}.jf-s.rie{animation:jfr .6s}
-@keyframes jfh{0%{transform:none;filter:brightness(3)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}100%{transform:none;filter:none}}
-@keyframes jfr{0%,100%{transform:none}30%{transform:translateY(-6px) scale(1.08)}60%{transform:none}}
-.jf-i{flex:1;min-width:0}.jf-n{display:flex;justify-content:space-between;font-weight:900;font-size:14px;color:#FFD4D6;margin-bottom:5px}.jf-n span{color:#FF8A8F}
-.jf-b{height:12px;border-radius:6px;background:#3A1416;overflow:hidden}.jf-b i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#FF4B4B,#FF8A3D);transition:width .5s}
-.jf-t{margin:5px 0 0;font-size:12px;font-weight:800;color:#C9A0A3}
-.jf.ko .jf-s svg{filter:grayscale(1);transform:rotate(180deg);transition:.6s}.jf.ko .jf-b i{background:#555}
+.ar{position:relative;flex:none;height:168px;margin:2px 12px 0;border-radius:18px;overflow:hidden;border:2px solid #3A2A4A;background:linear-gradient(#2B1B4A 0%,#C2477A 46%,#FF9A5A 62%,#2C6E9A 63%,#1B4466 100%)}
+.ar-sol{position:absolute;left:50%;top:62px;width:90px;height:44px;margin-left:-45px;border-radius:45px 45px 0 0;background:#FFD27A;opacity:.85}
+.ar-pl{position:absolute;width:112px;height:24px;border-radius:50%;background:radial-gradient(#F2D49A,#C9A05A);box-shadow:0 5px 0 #8A6A30}
+.ar-pb{right:8px;top:96px}.ar-pp{left:6px;top:140px}
+.ar-boss{position:absolute;right:26px;top:28px;animation:jbid 1.6s ease-in-out infinite}.ar-bi{line-height:0}
+@keyframes jbid{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.ar-bi.hit{animation:jhit .45s}@keyframes jhit{0%{filter:brightness(4) saturate(0)}25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}100%{filter:none;transform:none}}
+.ar-bi.lunge{animation:jlun .5s}@keyframes jlun{40%{transform:translate(calc(-1 * (100vw - 210px)),70px) scale(1.12)}100%{transform:none}}
+.ar-yo{position:absolute;left:34px;top:70px;line-height:0;animation:jyid 2s ease-in-out infinite}@keyframes jyid{50%{transform:translateY(-2px)}}
+.ar-cb{position:absolute;left:10px;top:10px;width:172px;background:rgba(0,0,0,.66);border:2px solid #fff3;border-radius:12px;padding:5px 9px;z-index:2}
+.ar-cn{display:flex;justify-content:space-between;font-weight:900;font-size:12px;color:#fff;margin-bottom:4px}.ar-cn span{color:#FF8A8F}
+.jf-b{height:10px;border-radius:5px;background:#3A1416;overflow:hidden;border:1px solid #000}.jf-b i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#FF4B4B,#FF8A3D);transition:width .5s}
+.ar-bala{position:absolute;left:80px;top:96px;z-index:6;line-height:0;animation:jbal .42s ease-in forwards}@keyframes jbal{to{transform:translate(var(--tx),-50px) rotate(540deg) scale(1.3)}}
+.ar-dmg{position:absolute;font-weight:900;font-size:26px;color:#FFE27A;text-shadow:0 3px 0 #7A3A00,0 0 10px #000;z-index:7;animation:jdmg 1s forwards}.ar-dmg.r{color:#FF6B6B;text-shadow:0 3px 0 #5A0000,0 0 10px #000}
+@keyframes jdmg{0%{transform:translateY(0) scale(.4);opacity:0}20%{transform:translateY(-8px) scale(1.3);opacity:1}100%{transform:translateY(-46px);opacity:0}}
+.ar-pt{position:absolute;width:7px;height:7px;z-index:6;animation:jpt .7s ease-out forwards}@keyframes jpt{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+.ar-slash{position:absolute;left:24px;top:104px;width:110px;height:6px;border-radius:3px;background:#fff;box-shadow:0 0 12px #fff;z-index:7;animation:jsla .35s forwards}
+@keyframes jsla{from{transform:rotate(-35deg) scaleX(0)}50%{transform:rotate(-35deg) scaleX(1)}to{transform:rotate(-35deg) scaleX(1);opacity:0}}
+.ar-red{position:absolute;inset:0;background:radial-gradient(transparent 35%,rgba(255,0,0,.55));z-index:8;animation:jfad .5s forwards}@keyframes jfad{from{opacity:1}to{opacity:0}}
+body.jshake .app{animation:jshk .45s}@keyframes jshk{20%{transform:translate(-6px,3px)}40%{transform:translate(5px,-3px)}60%{transform:translate(-4px,2px)}80%{transform:translate(3px,-1px)}}
+.ar.ko .ar-bi svg{filter:grayscale(1);transform:rotate(180deg);transition:.6s}.ar.ko .ar-boss{animation:none}.ar.ko .jf-b i{background:#555}
+.jvs{position:fixed;inset:0;z-index:9999;display:none;font-family:Nunito,sans-serif}.jvs.on{display:block;background:#000c}
+.jvs-h{position:absolute;top:0;bottom:0;width:56%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-weight:900;color:#fff;font-size:15px;letter-spacing:.06em;line-height:0}
+.jvs-h span{line-height:1.2}
+.jvs-l{left:0;background:linear-gradient(135deg,#1E5BD8,#0A2A6A);clip-path:polygon(0 0,100% 0,78% 100%,0 100%);animation:jinL .5s both}
+.jvs-r{right:0;background:linear-gradient(135deg,#8A0A1A,#E5484D);clip-path:polygon(22% 0,100% 0,100% 100%,0 100%);animation:jinR .5s both}
+@keyframes jinL{from{transform:translateX(-100%)}}@keyframes jinR{from{transform:translateX(100%)}}
+.jvs-vs{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:84px;font-weight:900;font-style:italic;color:#FFE27A;-webkit-text-stroke:3px #5A1A00;text-shadow:0 0 30px #FF8A00;animation:jvs .6s .45s both}
+@keyframes jvs{from{transform:translate(-50%,-50%) scale(4);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.jvs-t{position:absolute;left:0;right:0;top:50%;text-align:center;font-size:50px;font-weight:900;font-style:italic;color:#fff;-webkit-text-stroke:2px #000;animation:jvt .45s both}
+@keyframes jvt{from{transform:translateY(-50%) scale(3);opacity:0}to{transform:translateY(-50%) scale(1);opacity:1}}
+.jvs-p{color:#FFE27A;-webkit-text-stroke:2px #7A1A00;font-size:60px}.jvs-ko{color:#FF4B4B;-webkit-text-stroke:3px #000;font-size:96px}
+@media (prefers-reduced-motion:reduce){.ar-boss,.ar-yo{animation:none}}
 .u-w{border-bottom:2px dashed var(--toff);padding-bottom:1px}
 .u-nuevo{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--gold)}
 .u-hab{display:flex;align-items:flex-end;gap:8px}
@@ -1370,23 +1395,43 @@ function exFrase() { const W = P.en, fin = P.despues || ".", fr = P.antes + " " 
   const inp = $("evi"); setTimeout(() => { try { inp.focus(); } catch (e) {} }, 300);
   inp.addEventListener("input", () => { const v = inp.value.replace(/\s/g, ""); $("evl").querySelectorAll("i").forEach((i, k) => i.classList.toggle("f", k < v.length)); listo(v.length >= W.replace(/ /g, "").length); });
 }
-/* ===== JEFE FINAL: el Rey Cangrejo con barra de vida (baja 1 por cada acierto; al fallar se ríe) ===== */
-const JEFE = { n:"Rey Cangrejo", p:{ r:"#E5484D", y:"#F5C542", w:"#F4F6FA", e:"#111", k:"#5A0F12" },
-  r:["......y.y.y.....","......yyyyy.....",".rr...yyyyy...rr","rr.r........r.rr","rrrr..w..w..rrrr",".rr...e..e...rr.","..r..rrrrrr..r..","...rrrrrrrrrr...","..rrrrrrrrrrrr..","..rrrrkkkkrrrr..","..rrrrrrrrrrrr..","...rrrrrrrrrr...","..r.r.r..r.r.r..",".r..r..r.r..r..r","................","................"] };
-let JHP = 0, JMAX = 0;
-function jefeSvg(s) { let o = '<svg width="' + s + '" height="' + s + '" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><g class="pxa">';
-  JEFE.r.forEach((row, y) => row.split("").forEach((c, x) => { if (JEFE.p[c]) o += '<rect x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + JEFE.p[c] + '"></rect>'; })); return o + '</g></svg>'; }
+/* ===== JEFE FINAL (elegido por el usuario): entrada «VS» de pelea + arena estilo Pokémon arriba; las preguntas Duolingo van abajo.
+   Cada acierto: le lanzas una estrella al Rey Cangrejo (−1, chispas, se sacude). Cada fallo: te ataca con la pinza (tiembla la pantalla). Al final: K.O. ===== */
+const JEFE = { n:"Rey Cangrejo", p:{ r:"#E5484D", y:"#F5C542", w:"#F4F6FA", e:"#111", k:"#5A0F12", o:"#B8333A" },
+  r:["......y.y.y.....","......yyyyy.....",".rr...yyyyy...rr","rr.r........r.rr","rrrr..w..w..rrrr",".rr...e..e...rr.","..r..rrrrrr..r..","...rrrrrrrrrr...","..rrrrrrrrrrrr..","..rrrrkkkkrrrr..","..rorrrrrrrrorr.","...rrrrrrrrrr...","..r.r.r..r.r.r..",".r..r..r.r..r..r","................","................"] };
+const JSTAR = '<svg width="26" height="26" viewBox="0 0 7 7" shape-rendering="crispEdges"><path d="M3 0h1v2h1v1h2v1H6v1h1v2H5V6H2v1H0V5h1V4H0V3h2V2h1z" fill="#FFE27A" stroke="#FF8A3D" stroke-width=".3"/></svg>';
+let JHP = 0, JMAX = 0, JPOSE = "cool";
+function jefeSvg(s) { let o = '<svg width="' + s + '" height="' + s + '" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true">';
+  JEFE.r.forEach((row, y) => row.split("").forEach((c, x) => { if (JEFE.p[c]) o += '<rect x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + JEFE.p[c] + '"></rect>'; })); return o + '</svg>'; }
+function jAnim(el, c) { if (!el) return; el.classList.remove(c); void el.offsetWidth; el.classList.add(c); }
+function jAdd(par, html, ms) { const d = document.createElement("div"); d.innerHTML = html; const n = d.firstChild; par.appendChild(n); setTimeout(() => n.remove(), ms || 1000); return n; }
+function jYo(pose) { const y = $("jfY"); if (y) y.innerHTML = GAL(pose, 54); }
+function jChispas(par, x, y, col) { for (let i = 0; i < 12; i++) { const a = Math.random() * 6.28, r = 30 + Math.random() * 34; jAdd(par, '<i class="ar-pt" style="left:' + x + 'px;top:' + y + 'px;background:' + col + ';--dx:' + Math.cos(a) * r + 'px;--dy:' + Math.sin(a) * r + 'px"></i>', 800); } }
 function jefeBar() { let el = $("jefe");
-  if (!el) { el = document.createElement("div"); el.id = "jefe"; el.className = "jf";
-    el.innerHTML = '<div class="jf-s" id="jfS">' + jefeSvg(54) + '</div><div class="jf-i"><div class="jf-n"><b>' + JEFE.n + '</b><span id="jfN"></span></div><div class="jf-b"><i id="jfB"></i></div><p class="jf-t" id="jfT">¡Cada respuesta buena le quita vida!</p></div>';
-    $("v").parentNode.insertBefore(el, $("v")); }
-  $("jfN").textContent = JHP + " / " + JMAX; $("jfB").style.width = (JMAX ? JHP / JMAX * 100 : 100) + "%"; }
+  if (!el) { el = document.createElement("div"); el.id = "jefe"; el.className = "ar";
+    el.innerHTML = '<div class="ar-sol"></div><div class="ar-pl ar-pb"></div><div class="ar-pl ar-pp"></div>' +
+      '<div class="ar-cb"><div class="ar-cn"><b>REY CANGREJO</b><span id="jfN"></span></div><div class="jf-b"><i id="jfB"></i></div></div>' +
+      '<div class="ar-boss"><div class="ar-bi" id="jfS">' + jefeSvg(76) + '</div></div><div class="ar-yo" id="jfY"></div>';
+    $("v").parentNode.insertBefore(el, $("v")); jYo("cool"); }
+  $("jfN").textContent = JHP + "/" + JMAX; $("jfB").style.width = (JMAX ? JHP / JMAX * 100 : 100) + "%"; }
+function jefeVS() { let v = $("jvs"); if (!v) { v = document.createElement("div"); v.id = "jvs"; document.body.appendChild(v); }
+  v.className = "jvs on"; sonido("click");
+  v.innerHTML = '<div class="jvs-h jvs-l">' + GAL("cool", 96) + '<span>TÚ</span></div><div class="jvs-h jvs-r">' + jefeSvg(120) + '<span>REY CANGREJO</span></div><div class="jvs-vs">VS</div>';
+  setTimeout(() => { v.innerHTML = '<div class="jvs-t">JEFE FINAL</div>'; }, 1900);
+  setTimeout(() => { v.innerHTML = '<div class="jvs-t jvs-p">¡PELEA!</div>'; sonido("ok", 0); }, 2700);
+  setTimeout(() => { v.className = "jvs"; v.innerHTML = ""; }, 3400); }
+function jefeKO() { let v = $("jvs"); if (!v) { v = document.createElement("div"); v.id = "jvs"; document.body.appendChild(v); }
+  v.className = "jvs on ko"; v.innerHTML = '<div class="jvs-t jvs-ko">K.O.</div>'; setTimeout(() => { v.className = "jvs"; v.innerHTML = ""; }, 1700); }
 const _jPant = pantalla; pantalla = function (c, r) { _jPant(c, r); if (!JMAX) { JMAX = PLAN.filter(p => p.t !== "nueva").length; JHP = JMAX; } jefeBar(); };
-const _jReac = reaccion; reaccion = function (ok) { _jReac(ok); const s = $("jfS"); if (!s) return;
-  s.classList.remove("hit", "rie"); void s.offsetWidth;
-  if (ok) { JHP = Math.max(0, JHP - 1); jefeBar(); s.classList.add("hit"); $("jfT").textContent = JHP ? "¡Le diste! Le quedan " + JHP + " de vida." : "¡Lo venciste!"; if (!JHP) $("jefe").classList.add("ko"); }
-  else { s.classList.add("rie"); $("jfT").textContent = "El Rey Cangrejo se ríe… ¡sigue!"; } };
-const _jEmp = empezar; empezar = function () { JMAX = 0; const j = $("jefe"); if (j) { j.classList.remove("ko"); const t = $("jfT"); if (t) t.textContent = "¡Cada respuesta buena le quita vida!"; } _jEmp(); };
+const _jReac = reaccion; reaccion = function (ok) { _jReac(ok); const ar = $("jefe"); if (!ar) return; const W = ar.clientWidth;
+  if (ok) { jYo("super"); jAdd(ar, '<div class="ar-bala" style="--tx:' + (W - 150) + 'px">' + JSTAR + '</div>', 500);
+    setTimeout(() => { JHP = Math.max(0, JHP - 1); jefeBar(); jAnim($("jfS"), "hit"); jAdd(ar, '<div class="ar-dmg" style="right:46px;top:20px">−1</div>', 1000); jChispas(ar, W - 62, 66, "#FFE27A"); if (!JHP) ar.classList.add("ko"); }, 420);
+    setTimeout(() => jYo("cool"), 950); }
+  else { jAnim($("jfS"), "lunge");
+    setTimeout(() => { jAdd(ar, '<div class="ar-slash"></div>', 400); jAdd(ar, '<div class="ar-red"></div>', 500); jAnim(document.body, "jshake"); jYo("ups"); jAdd(ar, '<div class="ar-dmg r" style="left:40px;top:60px">−♥</div>', 1000); }, 230);
+    setTimeout(() => jYo("cool"), 1150); } };
+const _jEmp = empezar; empezar = function () { JMAX = 0; const j = $("jefe"); if (j) j.classList.remove("ko"); _jEmp(); jefeVS(); };
+const _jGan = ganar; ganar = function () { const a = arguments; jefeKO(); setTimeout(() => _jGan.apply(null, a), 1600); };
 const OB1 = (n, s) => typeof ESC_D !== "undefined" && ESC_D[n] ? escena(n, s) : dib(n, 12).replace('width="12" height="12"', 'width="' + s + '" height="' + s + '"');
 const OB = (n, s) => (Array.isArray(n) ? n : [n]).map(x => OB1(x, s)).join("");
 
