@@ -551,6 +551,91 @@ body.jugando nav{display:none}
 .rp-cor{top:-30px}.rp-cor svg{display:block}
 .nv-go .li,.btn .li{flex:none}.nv-go{display:flex;align-items:center;justify-content:center;gap:8px}
 
+
+/* ===== DUELOS v4 (12 nov 2026) ===== */
+/* textos centrados en las opciones (pedido del usuario) */
+.o4{justify-content:center;text-align:center;padding:10px 38px}
+.o4 i{position:absolute;left:10px;top:50%;transform:translateY(-50%)}
+.o4 span{flex:1;text-align:center}
+.nv-tm button{display:flex;align-items:center;justify-content:center;text-align:center;padding:0 6px;line-height:1.15}
+.vg-row .i,.vg-reto .i{text-align:left}
+/* modos */
+.md3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.md3 button{min-height:70px;border-radius:18px;border:2px solid transparent;background:var(--chip);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font:900 13px Nunito,sans-serif;text-align:center;cursor:pointer;padding:6px}
+.md3 button.on{border-color:#FF8A3D;background:color-mix(in srgb,#FF8A3D 16%,var(--card));color:#FF8A3D}
+.md3 b{color:var(--ink)}
+/* equipos */
+.nv-eq{position:relative;display:flex;align-items:center;justify-content:space-between;gap:6px;padding:14px 10px 52px;border-radius:26px;background:linear-gradient(110deg,#5A2A0C 0 50%,#123A7A 50%);border:1px solid #2A2A44;min-height:186px}
+.nv-eq.todos{flex-direction:column;justify-content:flex-start;background:linear-gradient(160deg,#3A1F5E,#141416)}
+.nv-eq.todos>small,.eqc small{font-size:10.5px;font-weight:900;letter-spacing:.14em;color:#fff;opacity:.85}
+.eqc{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.eqv{display:flex;flex-direction:column;align-items:center;gap:3px;color:#fff}.eqv b{font-size:12.5px;font-weight:900;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.eqv .nv-q{width:50px;height:50px;font-size:22px}
+.eq-vs{font-size:30px;font-weight:900;font-style:italic;color:#FFD166;text-shadow:0 3px 0 #000}
+.eq-fila{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:6px}
+.nv-bu.sel.comp .lmini{box-shadow:0 0 0 3px var(--bg),0 0 0 6px #5DD879}
+.nv-bu.sel.comp::after{content:"EQUIPO";position:absolute;top:-4px;left:50%;transform:translateX(-50%);padding:1px 6px;border-radius:99px;background:#5DD879;color:#000;font-size:9px;font-weight:900}
+.nv-bu.sel.riv::after{content:"RIVAL";position:absolute;top:-4px;left:50%;transform:translateX(-50%);padding:1px 6px;border-radius:99px;background:#FF8A3D;color:#000;font-size:9px;font-weight:900}
+/* juegos */
+.jsel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.jsel button{min-height:84px;border-radius:18px;border:2px solid transparent;background:var(--chip);color:var(--mu);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px 4px;font:900 12.5px/1.15 Nunito,sans-serif;text-align:center;cursor:pointer}
+.jsel button b{color:var(--ink)}
+.jsel button.on{border-color:#FF8A3D;background:color-mix(in srgb,#FF8A3D 16%,var(--card));color:#FF8A3D}
+.jdesc{margin:-2px 0 0;text-align:center;font-size:13px;font-weight:800;color:var(--mu)}
+/* minijuegos */
+.mj{display:flex;flex-direction:column;gap:12px}
+.mj-hud{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:22px;background:var(--card);border:1px solid var(--bd)}
+.mj-hud>span{display:flex;align-items:center;gap:8px}.mj-hud b{font-size:24px;font-weight:900}
+.mj-t{font-size:22px;font-weight:900;color:#FFD166;font-variant-numeric:tabular-nums}.mj-t.urg{color:#FF6B6B;animation:late .5s infinite alternate}
+.mj-n{text-align:center}.mj-n b{display:block;font-size:19px;font-weight:900}.mj-n small{font-size:13px;font-weight:700;color:var(--mu)}
+.pop{animation:mjPop .35s}@keyframes mjPop{40%{transform:scale(1.4);color:#5DD879}}
+.shk{animation:igshk .3s}
+.sp-g{display:grid;gap:4px;grid-auto-rows:auto;max-width:360px;width:100%;margin:0 auto}
+.sp-c{min-width:0;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:0;border-radius:10px;background:var(--chip);color:var(--ink);font:900 17px Nunito,sans-serif;cursor:pointer;padding:0;touch-action:manipulation}
+.sp-c.sel{background:#FFD166;color:#2A1408;transform:scale(1.08)}.sp-c.ok{background:#FF8A3D;color:#1A0F05}
+.sp-l,.pw-l{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.sp-l span,.pw-l i{font-style:normal;padding:6px 11px;border-radius:12px;background:var(--chip);font-size:14px;font-weight:900;color:var(--mu)}
+.sp-l span.ok{background:color-mix(in srgb,#5DD879 22%,var(--card));color:#5DD879}
+.pw-l i{color:var(--ink)}.pw-l i.nw{animation:mjPop .4s}.pw-l.fin{padding:10px 12px}.pw-l i.dos{background:color-mix(in srgb,#FFD166 22%,var(--card));color:#FFD166}
+.cz-g{display:grid;gap:3px;width:100%;margin:0 auto}
+.cz-c{position:relative;aspect-ratio:1;border-radius:7px;background:#F4F4F5;color:#111;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900}
+.cz-c i{position:absolute;left:3px;top:1px;font-style:normal;font-size:9px;color:#666}.cz-c.act{background:#FFE7A0}.cz-c.ok{background:#B8F5C8}
+.cz-p{display:flex;flex-direction:column;gap:6px}
+.cz-p button{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;border:2px solid transparent;background:var(--chip);color:var(--ink);font:800 15px Nunito,sans-serif;text-align:left;cursor:pointer}
+.cz-p button b{flex:none;width:24px;height:24px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:12px}
+.cz-p button small{color:var(--mu)}.cz-p button.on{border-color:#FFD166}.cz-p button.ok{opacity:.55;text-decoration:line-through}
+.mj-in{display:flex;gap:8px}
+.mj-in input{flex:1;min-width:0;height:54px;border-radius:16px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:900 20px Nunito,sans-serif;text-align:center}
+.mj-in input:focus{outline:none;border-color:#FFD166}
+.mj-in button{flex:none;width:72px;border:0;border-radius:16px;background:#FF8A3D;color:#1A0F05;font:900 17px Nunito,sans-serif;cursor:pointer}
+.mm-g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mm-c{height:76px;display:flex;align-items:center;justify-content:center;text-align:center;border:0;border-radius:16px;background:linear-gradient(135deg,#5B3FA8,#2E1F66);color:#fff;font:900 15px Nunito,sans-serif;cursor:pointer;padding:6px;transition:transform .2s}
+.mm-c.v{background:#F4F4F5;color:#111;transform:rotateY(180deg) scaleX(-1)}.mm-c.v.en{background:#E7F1FF;color:#123A7A}
+.mm-c.ok,.mm-c.ok.en{background:#5DD879;color:#0B2A12}
+.mj-sub{margin:0;text-align:center;font-size:13.5px;font-weight:800;color:var(--mu)}
+.vb-q{text-align:center;padding:18px;border-radius:22px;background:var(--card);border:1px solid var(--bd)}
+.vb-q small{display:block;font-size:11.5px;font-weight:900;letter-spacing:.14em;color:#FFD166}.vb-q b{display:block;margin-top:4px;font-size:32px;font-weight:900}
+.mj-skip{align-self:center;padding:8px 20px;border-radius:99px;border:2px solid var(--bd);background:none;color:var(--mu);font:900 14px Nunito,sans-serif;cursor:pointer}
+.vb-h{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-height:120px;overflow:hidden}
+.vb-h span{padding:5px 10px;border-radius:12px;font-size:13px;font-weight:900}.vb-h .ok{background:color-mix(in srgb,#5DD879 20%,var(--card));color:#5DD879}.vb-h .no{background:color-mix(in srgb,#FF6B6B 18%,var(--card));color:#FF6B6B}
+.mj-msg{margin:0;min-height:20px;text-align:center;font-size:14px;font-weight:900}.mj-msg.ok{color:#5DD879}.mj-msg.mal{color:#FF6B6B}
+/* anuncio */
+.adb{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:20px;border:2px solid #FFD166;background:color-mix(in srgb,#FFD166 12%,var(--card));color:var(--ink);text-align:left;cursor:pointer;font-family:inherit}
+.adb .li{flex:none;color:#FFD166}.adb b{display:block;font-size:15px}.adb small{font-size:12.5px;color:var(--mu);font-weight:700}
+.adx{position:fixed;inset:0;z-index:999;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-family:Nunito,sans-serif}
+.adx small{font-weight:900;letter-spacing:.2em;color:#FFD166}.adx .adc{width:110px;height:110px;border-radius:50%;border:4px solid #FFD166;display:flex;align-items:center;justify-content:center}.adx b{font-size:44px}
+/* esperando a varios */
+.fs-pjs{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:6px 0}
+.fs-pj{display:flex;flex-direction:column;align-items:center;gap:2px;opacity:.6}.fs-pj.ya{opacity:1}.fs-pj b{font-size:13px}.fs-pj small{font-size:11px;font-weight:800;color:var(--mu)}.fs-pj.ya small{color:#5DD879}.fs-pj.no small{color:#FF6B6B}
+/* resultados con equipos y podio de 3 */
+.rp-eqs{position:relative;display:flex;gap:8px;margin-top:16px}
+.rp-eq{position:relative;flex:1;border-radius:20px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;filter:grayscale(.55)}
+.rp-eq.top{filter:none}.rp-eq.nar{background:rgba(255,138,61,.18);border:2px solid #FF8A3D}.rp-eq.azu{background:rgba(63,169,245,.16);border:2px solid #3FA9F5}
+.rp-eq small{font-size:10.5px;font-weight:900;letter-spacing:.14em}.rp-eq .rp-cor{position:absolute;top:-18px}
+.rp-eqp{display:flex;gap:8px}.rp-eqp span{display:flex;flex-direction:column;align-items:center;gap:2px}.rp-eqp b{font-size:12px;max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rp-eqp i{font-style:normal;font-weight:900}
+.rp-eqs-t{font-size:30px;font-weight:900;line-height:1}.rp-eqs-t small{display:block;text-align:center;font-size:12px;opacity:.8}
+.rp-pod.tres .rp-base{width:86px}
+.rp-4{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;padding:8px;border-radius:14px;background:rgba(0,0,0,.25)}.rp-4 span{font-weight:800;opacity:.85}
 </style>
 </head>
 <body>
@@ -580,8 +665,6 @@ const CREADOR = "tZfZSV8kJ8emISaSpmVwsNzrueD2";   // solo esta cuenta puede usar
 /* ================= TUS DATOS: edita solo esta parte ================= */
 const PREGUNTAS = 10;                 // preguntas por duelo
 const PLAZO_H = 24;                   // horas que tiene el amigo para jugar
-const APUESTAS = [0, 50, 100];        // Aura que se puede apostar
-const PREMIO = { gana:30, empate:15 };// Aura extra por ganar o empatar (además de la apuesta)
 const TIEMPO_P = 15;                  // segundos para responder cada pregunta
 const NAV = [
   { nombre:"Inicio", url:"go:inicio", i:"home" }, { nombre:"Mapa", url:"go:MAPA", i:"map" }, { nombre:"Tienda", url:"go:tienda", i:"shop" },
@@ -723,20 +806,97 @@ function crearPreguntas(tema, seed) {
   });
 }
 
+/* ================= DUELOS v4 (12 nov 2026) =================
+   Modos: 1 vs 1, 2 vs 2 (equipos) y todos contra todos (3 o 4).
+   Juegos: Reto rápido, Sopa contrarreloj, Crucigrama exprés, Memoria, Rey de los verbos y ¿Quién sabe más palabras?
+   Apuestas 0 / 25 / 50 / 100. La app solo da +10 de Aura por participar (y +10 más viendo un anuncio).
+   Todo es asincrónico: cada uno juega cuando quiera las MISMAS preguntas (misma semilla). */
+const JUEGOS = [
+  { id:"rapido",   n:"Reto rápido",           d:"10 preguntas · 15 s cada una",        t:"temas", i:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>' },
+  { id:"sopa",     n:"Sopa contrarreloj",     d:"60 s para encontrar 6 palabras",      t:"temas", i:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>' },
+  { id:"cruci",    n:"Crucigrama exprés",     d:"5 palabras · 2 minutos",               t:"temas", i:'<path d="M4 4h6v6H4zM10 10h6v6h-6zM10 4h6v6h-6zM16 10h4v6h-4zM10 16h6v4h-6z"/>' },
+  { id:"memo",     n:"Memoria",               d:"6 parejas · gana el de menos errores", t:"temas", i:'<rect x="3" y="5" width="11" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/>' },
+  { id:"verbos",   n:"Rey de los verbos",     d:"60 s · escribe verbos en inglés",      t:"",      i:'<path d="M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12"/>' },
+  { id:"palabras", n:"¿Quién sabe más palabras?", d:"60 s · todas las de una categoría", t:"cats", i:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 8h6M9 12h4"/>' }
+];
+const JUEGO = id => JUEGOS.find(j => j.id === id) || JUEGOS[0];
+const MODOS = [
+  { id:"1v1",   n:"1 vs 1",             d:"Tú contra un amigo",                 i:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>' },
+  { id:"2v2",   n:"2 vs 2",             d:"Tu equipo contra otro. Se suman los puntos.", i:'<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20a6 6 0 0 1 12 0M10 20a6 6 0 0 1 12 0"/>' },
+  { id:"todos", n:"Todos contra todos", d:"3 o 4 jugadores, cada uno por su cuenta", i:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>' }
+];
+const MODO = id => MODOS.find(m => m.id === id) || MODOS[0];
+const VERBOS = [["comer","eat"],["beber","drink"],["dormir","sleep"],["correr","run"],["saltar","jump"],["nadar","swim"],["cantar","sing"],["bailar","dance"],["leer","read"],["escribir","write"],
+  ["hablar","speak|talk"],["escuchar","listen|hear"],["mirar","look|watch"],["ver","see|watch"],["jugar","play"],["trabajar","work"],["estudiar","study"],["cocinar","cook"],["caminar","walk"],["abrir","open"],
+  ["cerrar","close|shut"],["comprar","buy"],["vender","sell"],["ir","go"],["venir","come"],["hacer","do|make"],["tener","have"],["dar","give"],["tomar","take|drink"],["pensar","think"],
+  ["saber","know"],["querer","want"],["amar","love"],["ayudar","help"],["llorar","cry"],["reír","laugh"],["manejar","drive"],["volar","fly"],["sentarse","sit|sit down"],["lavar","wash"],
+  ["limpiar","clean"],["pintar","paint"],["dibujar","draw"],["aprender","learn"],["enseñar","teach"],["empezar","start|begin"],["terminar","finish|end"],["llamar","call"],["esperar","wait|hope"],["vivir","live"],
+  ["usar","use"],["encontrar","find|meet"],["perder","lose"],["ganar","win|earn"],["necesitar","need"],["gustar","like"],["montar","ride"],["despertarse","wake up|wake"],["lanzar","throw"],["traer","bring"],
+  ["decir","say|tell"],["preguntar","ask"],["responder","answer"],["viajar","travel"],["llegar","arrive|get"],["olvidar","forget"],["recordar","remember"],["sonreír","smile"],["empujar","push"],["jalar","pull"]];
+const CATS = [
+  { n:"Animales", w:"dog cat fish bird horse cow pig sheep goat duck chicken hen rooster rabbit mouse rat lion tiger bear wolf fox monkey elephant giraffe zebra snake frog turtle shark whale dolphin penguin owl eagle bee ant spider butterfly camel deer hippo kangaroo panda koala crocodile parrot donkey octopus bat squirrel puppy kitten bull" },
+  { n:"Colores", w:"red blue green yellow black white pink brown gray grey orange purple violet gold silver beige turquoise navy" },
+  { n:"Comida", w:"apple banana orange pear grape grapes lemon lime mango peach cherry cherries strawberry watermelon pineapple fig melon kiwi coconut bread rice egg eggs milk cheese meat chicken fish soup salad pizza pasta cake cookie cookies juice water coffee tea sugar salt butter potato potatoes tomato carrot onion corn beans sandwich hamburger burger chocolate candy cereal yogurt honey" },
+  { n:"Familia", w:"mom mother mum dad father sister brother son daughter baby grandma grandmother grandpa grandfather aunt uncle cousin wife husband parents parent kids children child family niece nephew grandson granddaughter" },
+  { n:"Ropa", w:"shirt tshirt t-shirt pants jeans dress skirt shoes shoe socks sock hat cap jacket coat sweater scarf gloves boots shorts belt tie pajamas sneakers uniform" },
+  { n:"Cuerpo", w:"head hair face eye eyes ear ears nose mouth teeth tooth tongue neck arm arms hand hands finger fingers leg legs foot feet knee back stomach shoulder lips chin toe toes" },
+  { n:"Casa", w:"house home kitchen bedroom bathroom garden garage door window table chair bed sofa lamp fridge stove sink toilet shower mirror tv wall floor roof stairs desk closet" },
+  { n:"Números", w:"zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty thirty forty fifty sixty seventy eighty ninety hundred thousand" }
+];
+const APUESTAS = [0, 25, 50, 100];
+const PARTICIPAR = 10;                // Aura por participar (lo único que da la app)
+const ANUNCIO_URL = "";               // sección de App Creator con el anuncio con premio (vacío = anuncio de prueba)
+
 /* ================= ESTADO ================= */
 let ME = null, YO = null, AMIGOS = [], DUELOS = [], cargando = true, error = "";
-let vista = "lista", sel = { amigo:"", tema:-1, ap:0 }, actual = null, partida = null, ocupado = false;
+let vista = "lista", sel = null, actual = null, partida = null, ocupado = false;
 const JUG = {};
-const vencido = d => !d.rb && Date.now() > (+d.vence || 0);
-const soyA = d => d.a === ME.uid;
-const otroDe = d => soyA(d) ? { uid:d.b, n:d.bn, av:d.bav, lsk:d.bl && d.bl[0], lmc:d.bl && d.bl[1], lmp:d.bl && d.bl[2] } : { uid:d.a, n:d.an, av:d.aav, lsk:d.al && d.al[0], lmc:d.al && d.al[1], lmp:d.al && d.al[2] };
-function resultado(d) {   // "gana" | "pierde" | "empate" | null (sin terminar), desde MI punto de vista
-  if (d.est === "rech") return soyA(d) ? "rech" : "rechYo";
-  if (!d.rb) return vencido(d) ? (soyA(d) ? "gana" : "vencido") : null;
-  const yo = soyA(d) ? d.ra : d.rb, el = soyA(d) ? d.rb : d.ra;
-  if (yo.p !== el.p) return yo.p > el.p ? "gana" : "pierde";
-  if (Math.abs(yo.ms - el.ms) < 500) return "empate";
-  return yo.ms < el.ms ? "gana" : "pierde";
+const nuevoSel = () => ({ modo:"1v1", juego:"rapido", tema:-1, ap:0, comp:"", riv:[] });
+sel = nuevoSel();
+
+/* ---- un duelo viejo (a/b) se convierte al formato nuevo (js/p/res) para mostrarlo igual ---- */
+function norm(x) {
+  if (x.v === 2) { x.res = x.res || {}; x.rech = x.rech || {}; x.p = x.p || {}; x.juego = x.juego || "rapido"; return x; }
+  const p = {}; p[x.a] = { n:x.an, av:x.aav, l:x.al || [] }; p[x.b] = { n:x.bn, av:x.bav, l:x.bl || [] };
+  const res = {}; if (x.ra) res[x.a] = x.ra; if (x.rb) res[x.b] = x.rb;
+  const rech = {}; if (x.est === "rech") rech[x.b] = true;
+  return Object.assign(x, { leg:true, v:1, modo:"1v1", juego:"rapido", js:[x.a, x.b], eq:[0, 1], p, res, rech });
+}
+const jugador = (d, u) => { const q = d.p[u] || {}, l = q.l || []; return { uid:u, n:String(q.n || "Jugador"), av:+q.av || 0, lsk:+l[0] || 0, lmc:+l[1] || 0, lmp:+l[2] || 0 }; };
+const soyCreador = d => d.a === ME.uid;
+const vencido = d => Date.now() > (+d.vence || 0);
+const activos = d => d.js.filter(u => !d.rech[u]);
+const jugaron = d => activos(d).filter(u => d.res[u]);
+const faltan = d => activos(d).filter(u => !d.res[u]);
+const rivales = d => d.js.filter(u => u !== ME.uid).map(u => jugador(d, u));
+const otroDe = d => { const r = d.modo === "2v2" ? d.js.filter((u, k) => d.eq[k] !== d.eq[d.js.indexOf(ME.uid)]) : d.js.filter(u => u !== ME.uid); return jugador(d, r[0] || d.a); };
+const nombresRiv = d => { const r = rivales(d).map(j => j.n); return r.length > 2 ? r.slice(0, 2).join(", ") + " y " + (r.length - 2) + " más" : r.join(" y "); };
+const resuelto = d => d.rech[ME.uid] ? "rechYo" : (d.est === "rech" || activos(d).length < 2) ? "rech" : (!faltan(d).length || vencido(d)) ? "fin" : null;
+const mejor = (x, y) => (y.p - x.p) || (x.ms - y.ms);   // para ordenar: más puntos, luego menos tiempo
+/* Reparto del bote. Cada uno puso la apuesta al jugar. Devuelve { pos:[{uid,p,ms,lugar}], gan:{uid:Aura que recibe}, estado:{uid:"gana"|"pierde"|"empate"} } */
+function liquidar(d) {
+  const ap = +d.ap || 0, J = jugaron(d), bote = ap * J.length, gan = {}, estado = {};
+  const R = J.map(u => ({ uid:u, p:+d.res[u].p || 0, ms:+d.res[u].ms || 0 })).sort(mejor);
+  R.forEach((x, k) => x.lugar = k + 1);
+  if (J.length < 2) { J.forEach(u => { gan[u] = ap; estado[u] = "empate"; }); return { pos:R, gan, estado, solo:true }; }
+  if (d.modo === "2v2") {
+    const sum = e => { const m = J.filter(u => d.eq[d.js.indexOf(u)] === e); return { u:m, p:m.reduce((s, u) => s + (+d.res[u].p || 0), 0), ms:m.reduce((s, u) => s + (+d.res[u].ms || 0), 0) }; };
+    const A = sum(0), B = sum(1);
+    const emp = A.p === B.p && Math.abs(A.ms - B.ms) < 500, gA = A.p !== B.p ? A.p > B.p : A.ms < B.ms;
+    if (emp || !A.u.length || !B.u.length) { J.forEach(u => { gan[u] = ap; estado[u] = "empate"; }); }
+    else { const W = gA ? A : B, L = gA ? B : A; W.u.forEach(u => { gan[u] = Math.floor(bote / W.u.length); estado[u] = "gana"; }); L.u.forEach(u => { gan[u] = 0; estado[u] = "pierde"; }); }
+    return { pos:R, gan, estado, eq:[A, B] };
+  }
+  const a = R[0], b = R[1];
+  if (a.p === b.p && Math.abs(a.ms - b.ms) < 500) { J.forEach(u => { gan[u] = ap; estado[u] = "empate"; }); return { pos:R, gan, estado }; }
+  R.forEach((x, k) => { gan[x.uid] = 0; estado[x.uid] = k === 0 ? "gana" : "pierde"; });
+  if (d.modo === "todos" && J.length >= 4) { gan[a.uid] = bote - ap; gan[b.uid] = ap; } else gan[a.uid] = bote;
+  return { pos:R, gan, estado };
+}
+function resultado(d) {   // "gana" | "pierde" | "empate" | "rech" | "rechYo" | "vencido" | null (sin terminar), desde MI punto de vista
+  const r = resuelto(d); if (!r) return null; if (r === "rechYo" || r === "rech") return r;
+  if (!d.res[ME.uid]) return "vencido";
+  return liquidar(d).estado[ME.uid] || "pierde";
 }
 
 /* ---- cobrar los duelos terminados (una sola vez por duelo, en este teléfono) ---- */
@@ -744,12 +904,13 @@ function cobrar() {
   const R = REG(); let msg = "";
   DUELOS.forEach(d => {
     if (R.cob.indexOf(d.id) > -1) return;
-    const res = resultado(d), ap = +d.ap || 0, pague = soyA(d) || R.pag.indexOf(d.id) > -1;
-    if (!res || res === "vencido" || res === "rechYo") { if (res) R.cob.push(d.id); return; }
-    if (res === "rech") { if (ap) moverAura(ap, 0, "Duelo rechazado: devuelto"); }
-    else if (res === "gana") { moverAura((pague ? ap : 0) + ap * (d.rb ? 1 : 0) + PREMIO.gana, ap * (d.rb ? 1 : 0) + PREMIO.gana, "Duelo ganado vs " + otroDe(d).n); R.g++; msg = "¡Ganaste el duelo contra " + otroDe(d).n + "!"; }
-    else if (res === "empate") { moverAura((pague ? ap : 0) + PREMIO.empate, PREMIO.empate, "Duelo empatado"); R.e++; }
-    else if (res === "pierde") { R.p++; }
+    const res = resultado(d), ap = +d.ap || 0, pague = soyCreador(d) || R.pag.indexOf(d.id) > -1;
+    if (!res) return;
+    if (res === "rechYo" || res === "vencido") { R.cob.push(d.id); return; }
+    if (res === "rech") { if (ap && pague) moverAura(ap, 0, "Duelo rechazado: devuelto"); R.cob.push(d.id); return; }
+    const L = liquidar(d), g = pague ? (L.gan[ME.uid] || 0) : 0;
+    if (g) moverAura(g, Math.max(0, g - ap), res === "gana" ? "Duelo ganado" : "Duelo: apuesta devuelta");
+    if (res === "gana") { R.g++; msg = "¡Ganaste el duelo contra " + nombresRiv(d) + "!"; } else if (res === "empate") R.e++; else R.p++;
     R.cob.push(d.id);
   });
   R.cob = R.cob.slice(-200); R.pag = R.pag.slice(-200); guardar("ingles_gamer_duelos", R);
@@ -767,23 +928,27 @@ async function cargarAmigos() {
 }
 async function cargarDuelos() {
   const col = collection(db, "duelos"), m = {};
-  const [a, b] = await Promise.all([getDocs(query(col, where("a", "==", ME.uid), limit(40))), getDocs(query(col, where("b", "==", ME.uid), limit(40)))]);
-  a.forEach(d => { m[d.id] = Object.assign({ id:d.id }, d.data()); }); b.forEach(d => { m[d.id] = Object.assign({ id:d.id }, d.data()); });
-  DUELOS = Object.values(m).sort((x, y) => (+y.t || 0) - (+x.t || 0));
+  const add = s => s.forEach(d => { m[d.id] = Object.assign({ id:d.id }, d.data()); });
+  const [a, b, c] = await Promise.all([
+    getDocs(query(col, where("a", "==", ME.uid), limit(40))).catch(() => []),
+    getDocs(query(col, where("b", "==", ME.uid), limit(40))).catch(() => []),
+    getDocs(query(col, where("js", "array-contains", ME.uid), limit(40))).catch(() => [])]);
+  add(a); add(b); add(c);
+  DUELOS = Object.values(m).map(norm).sort((x, y) => (+y.t || 0) - (+x.t || 0));
 }
 async function iniciar() {
   cargando = true; error = ""; pintar();
   try { await Promise.all([cargarAmigos(), cargarDuelos()]); cobrar(); } catch (e) { error = e.code || e.message || "error"; }
   cargando = false;
   const con = leer("ig_duelo_con"); try { localStorage.removeItem("ig_duelo_con"); } catch (e) {}
-  if (con && con.u && AMIGOS.some(x => x.uid === con.u)) { sel = { amigo:con.u, tema:-1, ap:0 }; vista = "nuevo"; }
+  if (con && con.u && AMIGOS.some(x => x.uid === con.u)) { sel = nuevoSel(); sel.riv = [con.u]; vista = "nuevo"; }
   pintar();
 }
 
 /* ================= VS · CHOQUE DE RAYOS (antes de jugar) ================= */
 function mostrarVS(o, info, boton, puede, alJugar, secundario, alSecundario) {
   const R = REG(), ov = document.createElement("div"); ov.className = "vsov";
-  ov.innerHTML = '<div class="vs-izq"></div><div class="vs-l">' + look(miLook(), 96) + '<b>Tú</b><small>' + R.g + (R.g === 1 ? ' GANADO' : ' GANADOS') + '</small></div>' +
+  ov.innerHTML = '<div class="vs-izq"></div><div class="vs-l">' + look(miLook(), 96) + '<b>' + esc(info.yo || "Tú") + '</b><small>' + R.g + (R.g === 1 ? ' GANADO' : ' GANADOS') + '</small></div>' +
     '<div class="vs-r">' + look(o, 96) + '<b>' + esc(o.n) + '</b><small>' + esc(info.rol) + '</small></div>' +
     '<svg class="vs-rayo" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="62" y1="0" x2="38" y2="100" vector-effect="non-scaling-stroke"/></svg><div class="vs-txt">VS</div><div class="vs-flash"></div>' +
     '<div class="vs-info">' + info.filas.map(f => '<div class="vs-c"><span>' + f[0] + '</span><b>' + f[1] + '</b></div>').join("") + '</div>' +
@@ -796,160 +961,295 @@ function mostrarVS(o, info, boton, puede, alJugar, secundario, alSecundario) {
   ov.querySelector(".vs-x").onclick = cerrar;
   const no = ov.querySelector(".vs-no"); if (no) no.onclick = () => { cerrar(); alSecundario && alSecundario(); };
 }
+const filasDuelo = (d, extra) => [["JUEGO", esc(JUEGO(d.juego).n)], ["MODO", esc(MODO(d.modo).n)]].concat(JUEGO(d.juego).t ? [["TEMA", esc(temaDe(d.juego, d.tema))]] : [])
+  .concat([["APUESTA", d.ap ? llama(16) + " " + d.ap : "Sin apuesta"]]).concat(extra || []);
 function abrirReto(d) {
-  const o = otroDe(d), ok = !(d.ap > saldo());
-  mostrarVS(o, { rol:"TE RETÓ", filas:[["TEMA", esc(temaN(d.tema))], ["APUESTA", d.ap ? llama(16) + " " + d.ap : "Sin apuesta"], ["QUEDAN", quedan(d)]] },
-    ok ? "¡A LUCHAR!" : "No tienes Aura suficiente", ok, () => aceptarReto(d), "Rechazar", () => rechazarReto(d));
+  const o = jugador(d, d.a), ok = !(d.ap > saldo());
+  const rol = d.modo === "2v2" ? "TE INVITÓ A UN 2 VS 2" : d.modo === "todos" ? "RETÓ A " + (d.js.length - 1) + " AMIGOS" : "TE RETÓ";
+  mostrarVS(o, { rol, filas:filasDuelo(d, [["QUEDAN", quedan(d)]]) }, ok ? "¡A LUCHAR!" : "No tienes Aura suficiente", ok, () => aceptarReto(d), "Rechazar", () => rechazarReto(d));
 }
 function aceptarReto(d) {
   if (vencido(d)) { say("Este reto ya venció"); pintar(); return; }
-  if (d.ap) { if (d.ap > saldo()) return say("No tienes Aura suficiente"); const R = REG(); if (R.pag.indexOf(d.id) < 0) { moverAura(-d.ap, 0, "Apuesta duelo vs " + d.an); R.pag.push(d.id); guardar("ingles_gamer_duelos", R); } }
-  actual = d.id; empezar(d.tema, d.seed, d);
+  if (d.ap) { if (d.ap > saldo()) return say("No tienes Aura suficiente"); const R = REG(); if (R.pag.indexOf(d.id) < 0) { moverAura(-d.ap, 0, "Apuesta duelo vs " + jugador(d, d.a).n); R.pag.push(d.id); guardar("ingles_gamer_duelos", R); } }
+  actual = d.id; empezar(d.juego, d.tema, d.seed, d);
 }
 async function rechazarReto(d) {
   ocupado = true;
-  try { await updateDoc(doc(db, "duelos", d.id), { est:"rech" }); d.est = "rech"; vista = "lista"; say("Reto rechazado"); } catch (x) { say("No se pudo: " + (x.code || "error")); }
+  try {
+    if (d.leg) { await updateDoc(doc(db, "duelos", d.id), { est:"rech" }); d.est = "rech"; }
+    else { await updateDoc(doc(db, "duelos", d.id), { ["rech." + ME.uid]:true }); d.rech[ME.uid] = true; }
+    vista = "lista"; say("Reto rechazado");
+  } catch (x) { say("No se pudo: " + (x.code || "error")); }
   ocupado = false; pintar();
 }
 
 /* ================= VISTAS ================= */
 const temaN = t => t >= 0 && TEMAS[t] ? TEMAS[t].n : "Al azar";
+const temaDe = (juego, t) => JUEGO(juego).t === "cats" ? (t >= 0 && CATS[t] ? CATS[t].n : "Al azar") : JUEGO(juego).t ? temaN(t) : "Verbos";
 const quedan = d => { const ms = Math.max(0, (+d.vence || 0) - Date.now()), h = Math.floor(ms / 36e5); return h ? h + " h" : Math.max(1, Math.round(ms / 6e4)) + " min"; };
-function filaDuelo(d, extra, boton) {
-  const o = otroDe(d);
-  return '<button type="button" class="fila card" data-duelo="' + esc(d.id) + '">' + look(o, 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(o.n) + '</span><span class="dsub">' + esc(temaN(d.tema)) + (d.ap ? ' · ' + llama(13) + d.ap : '') + ' · ' + extra + '</span></span>' + (boton || '') + '</button>';
-}
-function vistaLista() {
-  if (cargando) return '<div class="card vacio">Cargando duelos…</div>';
-  if (error) return '<div class="card vacio"><b>No se pudieron cargar los duelos</b>' + esc(error) + '<div style="margin-top:14px"><button type="button" class="btn" data-acc="reintentar">Reintentar</button></div></div>';
-  const R = REG(), m = miLook(), tot = R.g + R.p + R.e, pct = tot ? Math.round(R.g / tot * 100) : 0;
-  const turno = DUELOS.filter(d => !soyA(d) && !d.rb && d.est !== "rech" && !vencido(d));
-  const espera = DUELOS.filter(d => soyA(d) && !d.rb && d.est !== "rech" && !vencido(d));
-  const fin = DUELOS.filter(d => resultado(d) && resultado(d) !== "rechYo").slice(0, 15);
-  const hero = '<div class="vg"><div class="vg-r"><div class="vg-ring"><svg width="92" height="92" viewBox="0 0 92 92"><circle class="t" cx="46" cy="46" r="42"/><circle class="p" cx="46" cy="46" r="42" style="stroke-dashoffset:' + (263.9 * (1 - pct / 100)).toFixed(1) + '"/></svg>' + look(m, 72) + '<span class="vg-pct">' + pct + '%</span></div>' +
-    '<div class="vg-tx"><small>TU RÉCORD</small><b class="vg-nm">' + esc(m.n) + '</b><div class="vg-rec"><span><b>' + R.g + '</b>Ganados</span><span><b>' + R.p + '</b>Perdidos</span><span><b>' + R.e + '</b>Empates</span></div></div></div>' +
-    '<button type="button" class="vg-btn" data-acc="nuevo">' + ic("bolt", 20) + ' Nuevo reto</button></div>';
-  const tarjetaReto = d => { const o = otroDe(d); return '<button type="button" class="vg-reto" data-duelo="' + esc(d.id) + '">' + look(o, 46) + '<span class="i"><b>' + esc(o.n) + ' te retó</b><small>' + esc(temaE(d.tema)) + (d.ap ? ' · ' + d.ap + ' Aura' : '') + ' · quedan ' + quedan(d) + '</small></span><span class="go">Jugar</span></button>'; };
-  const cara2 = d => '<span class="vg-vs">' + look(m, 36) + look(otroDe(d), 36) + '</span>';
-  const filaEsp = d => { const o = otroDe(d); return '<button type="button" class="vg-row k-e" data-duelo="' + esc(d.id) + '">' + cara2(d) + '<span class="i"><b>' + esc(o.n) + '</b><small>' + esc(temaE(d.tema)) + ' · quedan ' + quedan(d) + '</small></span><span class="vg-bd"><b>' + (d.ra ? d.ra.p : 0) + '–?</b><small>ESPERANDO</small></span></button>'; };
-  const filaFin = d => {
-    const o = otroDe(d), res = resultado(d), yo = soyA(d) ? d.ra : d.rb, el = soyA(d) ? d.rb : d.ra;
-    const k = "k-" + ({ gana:"w", pierde:"l", empate:"t", vencido:"l", rech:"t" }[res] || "t");
-    const et = { gana:"GANASTE", pierde:"PERDISTE", empate:"EMPATE", vencido:"NO JUGASTE", rech:"RECHAZADO" }[res] || "";
-    const tiempoT = yo && el && yo.p === el.p && res !== "empate" ? ' · por tiempo' : (res === "gana" && !el ? ' · no jugó' : '');
-    const marc = yo && el ? yo.p + '–' + el.p : yo ? yo.p + '–0' : '—';
-    return '<button type="button" class="vg-row ' + k + '" data-duelo="' + esc(d.id) + '">' + cara2(d) + '<span class="i"><b>' + esc(o.n) + '</b><small>' + esc(temaE(d.tema)) + tiempoT + '</small></span><span class="vg-bd"><b>' + marc + '</b><small>' + et + '</small></span></button>';
-  };
-  return hero +
-    (turno.length ? '<div class="sec"><span>TE RETARON</span><b class="vg-num">' + turno.length + '</b></div>' + turno.map(tarjetaReto).join("") : "") +
-    (espera.length ? '<div class="sec"><span>ESPERANDO A TU AMIGO</span><b>' + espera.length + '</b></div>' + espera.map(filaEsp).join("") : "") +
-    (fin.length ? '<div class="sec"><span>TERMINADOS</span></div>' + fin.map(filaFin).join("") : "") +
-    (!turno.length && !espera.length && !fin.length ? '<div class="card vacio"><b>Aún no tienes duelos</b>Reta a un amigo: juegas 10 preguntas y él tiene ' + PLAZO_H + ' h para superarte.</div>' : "");
-}
-/* iconos de línea (sin emojis) */
+const etiqueta = d => JUEGO(d.juego).n + (d.modo !== "1v1" ? " · " + MODO(d.modo).n : "");
 const LI = (p, z) => '<svg class="li" width="' + (z || 18) + '" height="' + (z || 18) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
 const IC2 = {
   espadas: '<path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M9.5 6.5L14 2h3v3l-4.5 4.5"/><path d="M5 14l4 4M7 17l-3 3M3 19l2 2"/>',
   diana: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
   reloj: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/>',
   arena: '<path d="M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9"/>',
-  rayo: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'
+  rayo: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+  play: '<path d="M7 4v16l13-8z"/>', estrella: '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'
 };
 const CORONA = '<svg class="corona" width="34" height="26" viewBox="0 0 34 26" aria-hidden="true"><path d="M3 22 1 6l9 7 7-11 7 11 9-7-2 16z" fill="#FFD166" stroke="#8A5A00" stroke-width="2" stroke-linejoin="round"/><circle cx="17" cy="15" r="2.5" fill="#E5483C"/><circle cx="9" cy="17" r="1.8" fill="#4DA3FF"/><circle cx="25" cy="17" r="1.8" fill="#5DD879"/></svg>';
-const temaE = t => temaN(t);
+function caras(d, s) { return '<span class="vg-vs">' + d.js.slice(0, 4).map(u => u === ME.uid ? look(miLook(), s) : look(jugador(d, u), s)).join("") + '</span>'; }
+function vistaLista() {
+  if (cargando) return '<div class="card vacio">Cargando duelos…</div>';
+  if (error) return '<div class="card vacio"><b>No se pudieron cargar los duelos</b>' + esc(error) + '<div style="margin-top:14px"><button type="button" class="btn" data-acc="reintentar">Reintentar</button></div></div>';
+  const R = REG(), m = miLook(), tot = R.g + R.p + R.e, pct = tot ? Math.round(R.g / tot * 100) : 0;
+  const turno = DUELOS.filter(d => !resuelto(d) && !d.res[ME.uid] && !vencido(d));
+  const espera = DUELOS.filter(d => !resuelto(d) && d.res[ME.uid]);
+  const fin = DUELOS.filter(d => { const r = resultado(d); return r && r !== "rechYo"; }).slice(0, 15);
+  const hero = '<div class="vg"><div class="vg-r"><div class="vg-ring"><svg width="92" height="92" viewBox="0 0 92 92"><circle class="t" cx="46" cy="46" r="42"/><circle class="p" cx="46" cy="46" r="42" style="stroke-dashoffset:' + (263.9 * (1 - pct / 100)).toFixed(1) + '"/></svg>' + look(m, 72) + '<span class="vg-pct">' + pct + '%</span></div>' +
+    '<div class="vg-tx"><small>TU RÉCORD</small><b class="vg-nm">' + esc(m.n) + '</b><div class="vg-rec"><span><b>' + R.g + '</b>Ganados</span><span><b>' + R.p + '</b>Perdidos</span><span><b>' + R.e + '</b>Empates</span></div></div></div>' +
+    '<button type="button" class="vg-btn" data-acc="nuevo">' + ic("bolt", 20) + ' Nuevo reto</button></div>';
+  const tarjetaReto = d => { const o = jugador(d, d.a); return '<button type="button" class="vg-reto" data-duelo="' + esc(d.id) + '">' + look(o, 46) + '<span class="i"><b>' + esc(o.n) + (d.modo === "2v2" ? ' te invitó' : ' te retó') + '</b><small>' + esc(etiqueta(d)) + (d.ap ? ' · ' + d.ap + ' Aura' : '') + ' · quedan ' + quedan(d) + '</small></span><span class="go">Jugar</span></button>'; };
+  const filaEsp = d => '<button type="button" class="vg-row k-e" data-duelo="' + esc(d.id) + '">' + caras(d, 34) + '<span class="i"><b>' + esc(nombresRiv(d)) + '</b><small>' + esc(etiqueta(d)) + ' · quedan ' + quedan(d) + '</small></span><span class="vg-bd"><b>' + jugaron(d).length + '/' + activos(d).length + '</b><small>JUGARON</small></span></button>';
+  const filaFin = d => {
+    const res = resultado(d), k = "k-" + ({ gana:"w", pierde:"l", empate:"t", vencido:"l", rech:"t" }[res] || "t");
+    const et = { gana:"GANASTE", pierde:"PERDISTE", empate:"EMPATE", vencido:"NO JUGASTE", rech:"RECHAZADO" }[res] || "";
+    const yo = d.res[ME.uid], L = res === "rech" ? null : liquidar(d), me = L && L.pos.find(x => x.uid === ME.uid);
+    const marc = d.modo === "1v1" ? (yo ? yo.p : 0) + '–' + (d.res[otroDe(d).uid] ? d.res[otroDe(d).uid].p : 0) : me ? me.lugar + '.º' : '—';
+    return '<button type="button" class="vg-row ' + k + '" data-duelo="' + esc(d.id) + '">' + caras(d, 34) + '<span class="i"><b>' + esc(nombresRiv(d)) + '</b><small>' + esc(etiqueta(d)) + '</small></span><span class="vg-bd"><b>' + marc + '</b><small>' + et + '</small></span></button>';
+  };
+  return hero +
+    (turno.length ? '<div class="sec"><span>TE RETARON</span><b class="vg-num">' + turno.length + '</b></div>' + turno.map(tarjetaReto).join("") : "") +
+    (espera.length ? '<div class="sec"><span>ESPERANDO A TUS AMIGOS</span><b>' + espera.length + '</b></div>' + espera.map(filaEsp).join("") : "") +
+    (fin.length ? '<div class="sec"><span>TERMINADOS</span></div>' + fin.map(filaFin).join("") : "") +
+    (!turno.length && !espera.length && !fin.length ? '<div class="card vacio"><b>Aún no tienes duelos</b>Reta a tus amigos en 6 juegos distintos: 1 vs 1, 2 vs 2 o todos contra todos. Tienen ' + PLAZO_H + ' h para jugar.</div>' : "");
+}
+
+/* ---- Nuevo reto ---- */
+const listo = () => sel.modo === "1v1" ? sel.riv.length === 1 : sel.modo === "2v2" ? !!sel.comp && sel.riv.length === 2 : sel.riv.length >= 2;
+const elegidos = () => (sel.comp ? [sel.comp] : []).concat(sel.riv);
+function tocarAmigo(u) {
+  if (sel.modo === "1v1") { sel.riv = sel.riv[0] === u ? [] : [u]; return; }
+  if (sel.comp === u) { sel.comp = ""; return; }
+  if (sel.riv.indexOf(u) > -1) { sel.riv = sel.riv.filter(x => x !== u); return; }
+  if (sel.modo === "2v2") { if (!sel.comp) sel.comp = u; else if (sel.riv.length < 2) sel.riv.push(u); else say("Ya están los 4. Toca a uno para quitarlo."); return; }
+  if (sel.riv.length < 3) sel.riv.push(u); else say("Máximo 4 jugadores (tú y 3 amigos)");
+}
+function panelVS() {
+  const m = miLook(), J = u => JUG[u], hueco = t => '<span class="eqv"><span class="nv-q">?</span><b>' + t + '</b></span>';
+  const tags = '<div class="nv-tags"><span>' + esc(JUEGO(sel.juego).n) + '</span><span>' + (sel.ap ? llama(14) + ' ' + sel.ap : 'Sin apuesta') + '</span></div>';
+  if (sel.modo === "1v1") { const j = J(sel.riv[0]);
+    return '<div class="nv-vs' + (j ? " listo" : "") + '"><div class="nv-izq"></div><svg class="nv-rayo" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="58" y1="0" x2="42" y2="100" vector-effect="non-scaling-stroke"/></svg>' +
+      '<div class="nv-l">' + look(m, 76) + '<b>Tú</b></div><div class="nv-r" id="nvR">' + (j ? look(j, 76) + '<b>' + esc(j.n) + '</b>' : '<span class="nv-q">?</span><b>Elige rival</b>') + '</div><div class="nv-x">VS</div>' + tags + '</div>'; }
+  const p = (u, t) => u && J(u) ? '<span class="eqv">' + look(J(u), 50) + '<b>' + esc(J(u).n) + '</b></span>' : hueco(t);
+  if (sel.modo === "2v2")
+    return '<div class="nv-eq"><div class="eqc nar"><small>TU EQUIPO</small><span class="eqv">' + look(m, 50) + '<b>Tú</b></span>' + p(sel.comp, "Compañero") + '</div><div class="eq-vs">VS</div>' +
+      '<div class="eqc azu"><small>RIVALES</small>' + p(sel.riv[0], "Rival 1") + p(sel.riv[1], "Rival 2") + '</div>' + tags + '</div>';
+  return '<div class="nv-eq todos"><small>TODOS CONTRA TODOS</small><div class="eq-fila"><span class="eqv">' + look(m, 50) + '<b>Tú</b></span>' + p(sel.riv[0], "Rival") + p(sel.riv[1], "Rival") + p(sel.riv[2], "Opcional") + '</div>' + tags + '</div>';
+}
+function notaReglas() {
+  const ap = sel.ap, n = 1 + elegidos().length;
+  let t = sel.modo === "1v1" ? "El ganador se lleva el bote" : sel.modo === "2v2" ? "El equipo ganador se reparte el bote" : n >= 4 ? "El 1.º se lleva el bote y el 2.º recupera su apuesta" : "El 1.º se lleva todo el bote";
+  return '<p class="nota">' + (ap ? t + ' (' + ap + ' de cada uno). ' : 'Sin apuesta. ') + 'Todos ganan +' + PARTICIPAR + ' de Aura por participar. Tienen ' + PLAZO_H + ' h para jugar.</p>';
+}
 function vistaNuevo() {
   if (!AMIGOS.length) return '<div class="card vacio"><b>Necesitas amigos para retar</b>Agrégalos desde el Ranking con su código.<div style="margin-top:14px"><a class="btn" href="go:ranking">Ir al Ranking</a></div></div>';
-  const s = saldo(), j = JUG[sel.amigo];
-  return '<div class="nv-vs' + (j ? " listo" : "") + '"><div class="nv-izq"></div><svg class="nv-rayo" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="58" y1="0" x2="42" y2="100" vector-effect="non-scaling-stroke"/></svg>' +
-      '<div class="nv-l">' + look(miLook(), 76) + '<b>Tú</b></div>' +
-      '<div class="nv-r" id="nvR">' + (j ? look(j, 76) + '<b>' + esc(j.n) + '</b>' : '<span class="nv-q">?</span><b>Elige rival</b>') + '</div>' +
-      '<div class="nv-x">VS</div><div class="nv-tags"><span>' + temaE(sel.tema) + '</span><span>' + (sel.ap ? llama(14) + ' ' + sel.ap : 'Sin apuesta') + '</span></div></div>' +
-    '<div class="sec"><span>ELIGE RIVAL</span><b>' + AMIGOS.length + '</b></div>' +
-    '<div class="nv-bur">' + AMIGOS.map(a => '<button type="button" class="nv-bu' + (sel.amigo === a.uid ? " sel" : "") + '" data-amigo="' + esc(a.uid) + '">' + look(a, 56) + (Date.now() - (a.ult || 0) < 7 * 6e4 ? '<i class="nv-on"></i>' : '') + '<span>' + esc(a.n) + '</span></button>').join("") +
+  const s = saldo(), Jg = JUEGO(sel.juego), ok = listo();
+  const pos = u => sel.comp === u ? "comp" : sel.riv.indexOf(u) > -1 ? "riv" : "";
+  const temas = Jg.t === "cats" ? CATS.map((c, i) => i).concat([-1]) : Jg.t ? [0, 1, 2, 3, 4].filter(i => TEMAS[i]).concat([-1]) : [];
+  const btnTxt = !ok ? (sel.modo === "1v1" ? "Elige a quién retar" : sel.modo === "2v2" ? "Elige compañero y 2 rivales" : "Elige al menos 2 rivales")
+    : sel.modo === "1v1" ? "¡RETAR A " + esc((JUG[sel.riv[0]] || { n:"" }).n.toUpperCase()) + "!" : "¡RETAR A " + elegidos().length + " AMIGOS!";
+  return '<div class="sec"><span>MODO</span></div>' +
+    '<div class="md3">' + MODOS.map(m => '<button type="button" class="' + (sel.modo === m.id ? "on" : "") + '" data-modo="' + m.id + '">' + LI(m.i, 22) + '<b>' + m.n + '</b></button>').join("") + '</div>' +
+    panelVS() +
+    '<div class="sec"><span>' + (sel.modo === "2v2" ? (!sel.comp ? "ELIGE TU COMPAÑERO" : "ELIGE 2 RIVALES") : sel.modo === "todos" ? "ELIGE 2 O 3 RIVALES" : "ELIGE RIVAL") + '</span><b>' + AMIGOS.length + '</b></div>' +
+    '<div class="nv-bur">' + AMIGOS.map(a => '<button type="button" class="nv-bu' + (pos(a.uid) ? " sel " + pos(a.uid) : "") + '" data-amigo="' + esc(a.uid) + '">' + look(a, 56) + (Date.now() - (a.ult || 0) < 7 * 6e4 ? '<i class="nv-on"></i>' : '') + '<span>' + esc(a.n) + '</span></button>').join("") +
       '<a class="nv-bu" href="go:ranking"><span class="nv-mas">+</span><span>Agregar</span></a></div>' +
-    '<div class="sec"><span>TEMA</span></div>' +
-    '<div class="nv-tm">' + [0, 1, 2, 3, 4, -1].filter(i => i < 0 || TEMAS[i]).map(i => '<button type="button" class="' + (sel.tema === i ? "on" : "") + '" data-tema="' + i + '">' + temaE(i) + '</button>').join("") + '</div>' +
+    '<div class="sec"><span>JUEGO</span></div>' +
+    '<div class="jsel">' + JUEGOS.map(j => '<button type="button" class="' + (sel.juego === j.id ? "on" : "") + '" data-juego="' + j.id + '">' + LI(j.i, 24) + '<b>' + esc(j.n) + '</b></button>').join("") + '</div>' +
+    '<p class="jdesc">' + esc(Jg.d) + '</p>' +
+    (temas.length ? '<div class="sec"><span>' + (Jg.t === "cats" ? "CATEGORÍA" : "TEMA") + '</span></div><div class="nv-tm">' + temas.map(i => '<button type="button" class="' + (sel.tema === i ? "on" : "") + '" data-tema="' + i + '">' + esc(temaDe(sel.juego, i)) + '</button>').join("") + '</div>' : '') +
     '<div class="sec"><span>APUESTA</span><b>Tienes ' + s + '</b></div>' +
     '<div class="nv-seg">' + APUESTAS.map(a => '<button type="button" class="' + (sel.ap === a ? "on" : "") + '" data-ap="' + a + '"' + (a > s ? " disabled" : "") + '>' + (a ? llama(15) + ' ' + a : 'Nada') + '</button>').join("") + '</div>' +
-    '<p class="nota">El ganador se lleva la apuesta de los dos + ' + PREMIO.gana + ' de Aura. Tu amigo tendrá ' + PLAZO_H + ' h para jugar.</p>' +
-    '<button type="button" class="nv-go" data-acc="jugarNuevo"' + (j ? "" : " disabled") + '>' + LI(IC2.espadas, 20) + ' ' + (j ? '¡RETAR A ' + esc(j.n.toUpperCase()) + '!' : 'Elige a quién retar') + '</button>';
+    notaReglas() +
+    '<button type="button" class="nv-go" data-acc="jugarNuevo"' + (ok ? "" : " disabled") + '>' + LI(IC2.espadas, 20) + ' ' + btnTxt + '</button>';
 }
+
+/* ================= JUEGOS ================= */
+const norma = t => String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/^to /, "").replace(/[^a-z ]/g, "").replace(/\s+/g, " ").trim();
+const bancoDe = tema => { const b = tema >= 0 && TEMAS[tema] ? TEMAS[tema].w : TEMAS.flatMap(t => t.w), v = {}; return b.filter(w => !v[w[0]] && (v[w[0]] = 1)); };
+function crearSopa(tema, seed) {
+  const r = azar((seed ^ 0x5017) >>> 0), N = 8, g = Array(N * N).fill(""), pal = [];
+  for (const w of mezclar(bancoDe(tema).filter(w => /^[a-z]{3,8}$/.test(w[0])), r)) {
+    if (pal.length >= 6) break; const W = w[0].toUpperCase();
+    for (let t = 0; t < 60; t++) {
+      const h = r() < .5, f = Math.floor(r() * (h ? N : N - W.length + 1)), c = Math.floor(r() * (h ? N - W.length + 1 : N)), cel = [];
+      let ok = true;
+      for (let k = 0; k < W.length; k++) { const i = (f + (h ? 0 : k)) * N + c + (h ? k : 0); if (g[i] && g[i] !== W[k]) { ok = false; break; } cel.push(i); }
+      if (!ok) continue; cel.forEach((i, k) => g[i] = W[k]); pal.push({ en:W, es:w[1], cel }); break;
+    }
+  }
+  const AB = "ABCDEFGHIJKLMNOPRSTUVWY"; for (let i = 0; i < g.length; i++) if (!g[i]) g[i] = AB[Math.floor(r() * AB.length)];
+  return { N, g, pal };
+}
+function crearCruci(tema, seed) {
+  for (let intento = 0; intento < 12; intento++) {
+    const r = azar((seed ^ 0xC2C1) + intento * 7919 >>> 0), occ = {}, pl = [];
+    const K = (f, c) => f + "," + c, banco = mezclar(bancoDe(tema).filter(w => /^[a-z]{3,7}$/.test(w[0])), r);
+    const puede = (W, f, c, h) => {
+      if (occ[K(f - (h ? 0 : 1), c - (h ? 1 : 0))] || occ[K(f + (h ? 0 : W.length), c + (h ? W.length : 0))]) return false;
+      let cruza = 0;
+      for (let k = 0; k < W.length; k++) { const ff = f + (h ? 0 : k), cc = c + (h ? k : 0), x = occ[K(ff, cc)];
+        if (x) { if (x !== W[k]) return false; cruza++; continue; }
+        if (h ? (occ[K(ff - 1, cc)] || occ[K(ff + 1, cc)]) : (occ[K(ff, cc - 1)] || occ[K(ff, cc + 1)])) return false; }
+      return cruza > 0 || !pl.length;
+    };
+    const poner = (w, f, c, h) => { const W = w[0].toUpperCase(); for (let k = 0; k < W.length; k++) occ[K(f + (h ? 0 : k), c + (h ? k : 0))] = W[k]; pl.push({ en:W, es:w[1], f, c, h }); };
+    for (const w of banco) {
+      if (pl.length >= 5) break; const W = w[0].toUpperCase(); if (pl.some(p => p.en === W)) continue;
+      if (!pl.length) { poner(w, 0, 0, true); continue; }
+      let hecho = false;
+      for (const p of mezclar(pl, r)) { if (hecho) break;
+        for (let i = 0; i < W.length && !hecho; i++) for (let j = 0; j < p.en.length && !hecho; j++) {
+          if (W[i] !== p.en[j]) continue; const h = !p.h, f = p.h ? p.f - i : p.f + j, c = p.h ? p.c + j : p.c - i;
+          if (puede(W, f, c, h)) { poner(w, f, c, h); hecho = true; } } }
+    }
+    if (pl.length >= 4 || intento === 11) {
+      const fs = pl.flatMap(p => [p.f, p.f + (p.h ? 0 : p.en.length - 1)]), cs = pl.flatMap(p => [p.c, p.c + (p.h ? p.en.length - 1 : 0)]);
+      const f0 = Math.min.apply(null, fs), c0 = Math.min.apply(null, cs);
+      pl.forEach(p => { p.f -= f0; p.c -= c0; });
+      pl.sort((a, b) => a.f - b.f || a.c - b.c).forEach((p, k) => p.num = k + 1);
+      return { F:Math.max.apply(null, fs) - f0 + 1, C:Math.max.apply(null, cs) - c0 + 1, pl };
+    }
+  }
+}
+function crearMemo(tema, seed) {
+  const r = azar((seed ^ 0x3E30) >>> 0), w = mezclar(bancoDe(tema), r).slice(0, 6);
+  return { pares:w, cartas:mezclar(w.flatMap((x, k) => [{ k, t:x[0], en:1 }, { k, t:x[1], en:0 }]), r) };
+}
+const crearVerbos = seed => mezclar(VERBOS, azar((seed ^ 0x7E2B) >>> 0));
+const catDe = (tema, seed) => tema >= 0 && CATS[tema] ? tema : Math.floor(azar((seed ^ 0xCA75) >>> 0)() * CATS.length);
+const LIM = { sopa:60, cruci:120, memo:90, verbos:60, palabras:60 };
+
+function empezar(juego, tema, seed, d) {
+  juego = juego || "rapido";
+  partida = { juego, tema, seed, d, t0:Date.now(), r:"", p:0, i:0, bloq:false, racha:0, hecho:{} };
+  const P = partida;
+  if (juego === "rapido") P.qs = crearPreguntas(tema, seed);
+  if (juego === "sopa") { P.s = crearSopa(tema, seed); P.sel = -1; }
+  if (juego === "cruci") { P.cz = crearCruci(tema, seed); P.act = 0; P.err = 0; }
+  if (juego === "memo") { P.m = crearMemo(tema, seed); P.vol = []; P.ok = {}; P.err = 0; }
+  if (juego === "verbos") { P.vb = crearVerbos(seed); P.ult = 0; }
+  if (juego === "palabras") { P.cat = catDe(tema, seed); P.w = []; P.ult = 0; P.set = new Set(CATS[P.cat].w.split(" ")); }
+  vista = "juego"; pintar();
+  if (juego === "rapido") arrancarPregunta(); else arrancarReloj();
+}
+let tReloj = null, tPreg = null;
+function arrancarReloj() {
+  clearInterval(tReloj); const P = partida, lim = LIM[P.juego]; let ult = lim;
+  tReloj = setInterval(() => {
+    if (!partida || partida !== P) return clearInterval(tReloj);
+    const q = Math.max(0, lim - (Date.now() - P.t0) / 1000), n = Math.ceil(q), e = $("mjT");
+    if (e) { e.textContent = Math.floor(n / 60) + ":" + String(n % 60).padStart(2, "0"); e.classList.toggle("urg", n <= 10); }
+    if (n < ult && n <= 5 && n > 0) snd("tic"); ult = n;
+    if (q <= 0) { clearInterval(tReloj); finJuego(true); }
+  }, 250);
+}
+function rivalDe(P) { if (P.d) return P.d.modo === "1v1" ? (P.d.a === ME.uid ? otroDe(P.d) : jugador(P.d, P.d.a)) : { n:P.d.modo === "2v2" ? "Rivales" : "Todos", av:jugador(P.d, P.d.js.find(u => u !== ME.uid)).av };
+  const u = sel.riv[0]; return JUG[u] || { n:"Amigo" }; }
 const cuenta1 = r => String(r || "").split("").filter(c => c === "1").length;
-function rivalDe(P) { return P.d ? otroDe(P.d) : (JUG[sel.amigo] || { n:"Amigo" }); }
+function hudMini() {
+  const P = partida, lim = LIM[P.juego], riv = rivalDe(P);
+  return '<div class="mj-hud"><span class="mj-yo">' + look(miLook(), 40) + '<b id="mjP">' + P.p + '</b></span><span class="mj-t" id="mjT">' + Math.floor(lim / 60) + ':' + String(lim % 60).padStart(2, "0") + '</span><span class="mj-el"><b>?</b>' + look(riv, 40) + '</span></div>' +
+    '<div class="mj-n"><b>' + esc(JUEGO(P.juego).n) + '</b><small>' + esc({ sopa:"Toca la primera y la última letra de cada palabra", cruci:"Toca una pista y escribe la palabra en inglés", memo:"Une cada palabra en inglés con su traducción", verbos:"Escribe el verbo en inglés", palabras:"Escribe todas las palabras que sepas de la categoría" }[P.juego]) + '</small></div>';
+}
 function vistaJuego() {
-  const P = partida, q = P.qs[P.i], riv = rivalDe(P), rr = P.d && P.d.ra ? P.d.ra.r : null;
-  const mios = cuenta1(P.r), suyos = rr ? cuenta1(rr.slice(0, P.i)) : 0;
-  const LET = ["A", "B", "C", "D"];
+  const P = partida;
+  if (P.juego === "sopa") return '<div class="mj">' + hudMini() + '<div class="sp-g" style="grid-template-columns:repeat(' + P.s.N + ',minmax(0,1fr))">' + P.s.g.map((c, i) => '<button type="button" class="sp-c' + (P.s.pal.some(p => p.ok && p.cel.indexOf(i) > -1) ? " ok" : "") + (P.sel === i ? " sel" : "") + '" data-sc="' + i + '">' + c + '</button>').join("") + '</div>' +
+    '<div class="sp-l">' + P.s.pal.map(p => '<span class="' + (p.ok ? "ok" : "") + '">' + (p.ok ? p.en : esc(p.es)) + '</span>').join("") + '</div></div>';
+  if (P.juego === "cruci") { const cz = P.cz, celdas = {};
+    cz.pl.forEach(p => { for (let k = 0; k < p.en.length; k++) { const key = (p.f + (p.h ? 0 : k)) * cz.C + p.c + (p.h ? k : 0); celdas[key] = celdas[key] || { l:p.en[k], ok:false, n:0, act:false }; if (p.ok) celdas[key].ok = true; if (k === 0) celdas[key].n = p.num; if (cz.pl.indexOf(p) === P.act) celdas[key].act = true; } });
+    const act = cz.pl[P.act];
+    return '<div class="mj">' + hudMini() + '<div class="cz-g" style="grid-template-columns:repeat(' + cz.C + ',1fr);max-width:' + Math.min(340, cz.C * 40) + 'px">' + Array.from({ length:cz.F * cz.C }, (_, i) => { const c = celdas[i]; return c ? '<span class="cz-c' + (c.ok ? " ok" : "") + (c.act ? " act" : "") + '">' + (c.n ? '<i>' + c.n + '</i>' : '') + (c.ok ? c.l : '') + '</span>' : '<span class="cz-v"></span>'; }).join("") + '</div>' +
+      '<div class="cz-p">' + cz.pl.map((p, k) => '<button type="button" class="' + (k === P.act ? "on " : "") + (p.ok ? "ok" : "") + '" data-cz="' + k + '"><b>' + p.num + '</b>' + esc(p.es) + ' <small>(' + p.en.length + ')</small></button>').join("") + '</div>' +
+      (act && !act.ok ? '<form class="mj-in" id="mjF"><input id="mjI" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="' + act.num + '. ' + esc(act.es) + ' en inglés" maxlength="12"><button type="submit">OK</button></form>' : '') + '</div>'; }
+  if (P.juego === "memo") return '<div class="mj">' + hudMini() + '<div class="mm-g">' + P.m.cartas.map((c, i) => { const v = P.ok[c.k] || P.vol.indexOf(i) > -1; return '<button type="button" class="mm-c' + (v ? " v" : "") + (P.ok[c.k] ? " ok" : "") + (c.en ? " en" : "") + '" data-mm="' + i + '"' + (P.ok[c.k] ? " disabled" : "") + '><span>' + (v ? esc(c.t) : "") + '</span></button>'; }).join("") + '</div>' +
+    '<p class="mj-sub">Errores: <b id="mmE">' + P.err + '</b> · cada pareja +3, cada error −1</p></div>';
+  if (P.juego === "verbos") { const v = P.vb[P.i] || ["—", ""];
+    return '<div class="mj">' + hudMini() + '<div class="vb-q"><small>VERBO ' + (P.i + 1) + '</small><b id="vbQ">' + esc(v[0]) + '</b></div>' +
+      '<form class="mj-in" id="mjF"><input id="mjI" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="En inglés…" maxlength="20"><button type="submit">OK</button></form>' +
+      '<button type="button" class="mj-skip" data-acc="saltar">Saltar</button><div class="vb-h" id="vbH"></div></div>'; }
+  if (P.juego === "palabras") return '<div class="mj">' + hudMini() + '<div class="vb-q"><small>CATEGORÍA</small><b>' + esc(CATS[P.cat].n) + '</b></div>' +
+    '<form class="mj-in" id="mjF"><input id="mjI" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Una palabra en inglés…" maxlength="20"><button type="submit">OK</button></form>' +
+    '<p class="mj-msg" id="mjM"></p><div class="pw-l" id="pwL">' + P.w.map(w => '<i>' + esc(w) + '</i>').join("") + '</div></div>';
+  /* Reto rápido (el de siempre) */
+  const q = P.qs[P.i], riv = rivalDe(P), rr = P.d && P.d.modo === "1v1" && P.d.res[riv.uid] ? P.d.res[riv.uid].r : null;
+  const mios = cuenta1(P.r), suyos = rr ? cuenta1(rr.slice(0, P.i)) : 0, LET = ["A", "B", "C", "D"];
+  P.rr = rr;
   return '<div class="ar">' +
     '<div class="hud"><span class="hav" id="avYo">' + look(miLook(), 42) + '</span><b class="pts" id="ptsYo">' + mios + '</b>' +
     '<span class="hbar b1"><i id="barYo" style="width:' + mios * 10 + '%"></i></span><span class="hbar b2' + (rr ? '' : ' oculto') + '"><i id="barEl" style="width:' + suyos * 10 + '%"></i></span>' +
     '<b class="pts" id="ptsEl">' + (rr ? suyos : "?") + '</b><span class="hav" id="avEl">' + look(riv, 42) + '</span></div>' +
-    '<div class="hnom"><span>Tú</span><span>' + esc(riv.n) + (rr ? '' : ' · juega después') + '</span></div>' +
+    '<div class="hnom"><span>Tú</span><span>' + esc(riv.n) + (rr ? '' : ' · juega aparte') + '</span></div>' +
     '<div class="qnum">' + Array.from({ length:PREGUNTAS }, (_, k) => '<i class="' + (k < P.r.length ? (P.r[k] === "1" ? "s" : "n") : k === P.i ? "c" : "") + '"></i>').join("") + '</div>' +
     '<div class="ring"><svg width="78" height="78" viewBox="0 0 78 78"><circle class="t" cx="39" cy="39" r="34"/><circle class="p" id="ringP" cx="39" cy="39" r="34" style="animation-duration:' + TIEMPO_P + 's"/></svg><b id="ringN">' + TIEMPO_P + '</b></div>' +
     '<div class="preg"><small>' + esc(q.q) + '</small><b>' + esc(q.h) + '</b><span class="golpe" id="golpe"></span></div>' +
     '<div class="opts4">' + q.op.map((o, i) => '<button type="button" class="o4 c' + i + '" data-op="' + i + '" style="animation-delay:' + i * .07 + 's"><i>' + LET[i] + '</i><span>' + esc(o) + '</span></button>').join("") + '</div>' +
     '</div>';
 }
-const reloj = () => { const s = Math.floor((Date.now() - partida.t0) / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
-const tiempo = ms => { const s = Math.round(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
-function tiras(r, anim) { return '<div class="tira">' + String(r || "").split("").map((c, k) => '<i class="' + (c === "1" ? "si" : "no") + '"' + (anim ? ' style="animation-delay:' + (.9 + k * .12).toFixed(2) + 's"' : '') + '></i>').join("") + '</div>'; }
-const ANIM = {};
-const mejorRacha = r => { let m = 0, c = 0; String(r || "").split("").forEach(x => { c = x === "1" ? c + 1 : 0; m = Math.max(m, c); }); return m; };
-function statsHTML(yo) {
-  return '<div class="fs-st"><div><i>' + LI(IC2.diana, 22) + '</i><b>' + yo.p + '/' + PREGUNTAS + '</b><small>ACIERTOS</small></div><div><i>' + LI(IC2.reloj, 22) + '</i><b>' + tiempo(yo.ms) + '</b><small>TIEMPO</small></div><div><i>' + llama(22) + '</i><b>x' + mejorRacha(yo.r) + '</b><small>MEJOR RACHA</small></div></div>';
+const ponerP = () => { const e = $("mjP"); if (e) { e.textContent = partida.p; e.classList.remove("pop"); void e.offsetWidth; e.classList.add("pop"); } };
+const temblar = el => { if (!el) return; el.classList.remove("shk"); void el.offsetWidth; el.classList.add("shk"); };
+const enfocar = () => setTimeout(() => { const i = $("mjI"); if (i) try { i.focus(); } catch (e) {} }, 60);
+/* sopa: toca inicio y final */
+function tocarSopa(i) {
+  const P = partida, S = P.s, N = S.N;
+  if (P.sel < 0) { P.sel = i; snd("boton"); pintar(); return; }
+  if (P.sel === i) { P.sel = -1; pintar(); return; }
+  const a = P.sel, f1 = Math.floor(a / N), c1 = a % N, f2 = Math.floor(i / N), c2 = i % N; P.sel = -1;
+  if (f1 !== f2 && c1 !== c2) { P.sel = i; snd("boton"); pintar(); return; }
+  const cel = [], st = f1 === f2 ? (c2 > c1 ? 1 : -1) : (f2 > f1 ? N : -N); for (let x = a; ; x += st) { cel.push(x); if (x === i) break; }
+  const k = cel.map(x => x).join(","), kr = cel.slice().reverse().join(",");
+  const w = S.pal.find(p => !p.ok && (p.cel.join(",") === k || p.cel.join(",") === kr));
+  if (w) { w.ok = true; P.p++; P.ult = Date.now() - P.t0; snd("ok", P.p - 1); pintar(); ponerP(); if (S.pal.every(p => p.ok)) setTimeout(() => finJuego(false), 600); }
+  else { snd("mal"); pintar(); temblar(document.querySelector(".sp-g")); }
 }
-function listaHTML(d, yo, el, nombre, anim) {
-  let qs = []; try { qs = crearPreguntas(d.tema, d.seed); } catch (e) {}
-  const ck = c => '<span class="fs-ck ' + (c === "1" ? "s" : "n") + '">' + (c === "1" ? "✓" : "✗") + '</span>';
-  return '<div class="fs-li' + (anim ? " anim" : "") + '"><div class="fs-h"><span>' + (el ? "PREGUNTA" : "TUS RESPUESTAS") + '</span><span>' + (el ? "TÚ · " + esc(nombre.toUpperCase()) : yo.p + "/" + PREGUNTAS) + '</span></div>' +
-    qs.map((q, i) => '<div class="fs-q" style="animation-delay:' + (1.2 + i * .1).toFixed(2) + 's"><span class="fs-n">' + (i + 1) + '</span><span class="fs-w">' + esc(q.h.replace(/[«»?]/g, "")) + ' <small>→ ' + esc(q.ok) + '</small></span>' + ck((yo.r || "")[i]) + (el ? ck((el.r || "")[i]) : '') + '</div>').join("") + '</div>';
+function enviarTexto(v) {
+  const P = partida; if (!P) return; const t = norma(v); if (!t) return;
+  if (P.juego === "cruci") { const p = P.cz.pl[P.act]; if (!p || p.ok) return;
+    if (t === p.en.toLowerCase()) { p.ok = true; P.p++; P.ult = Date.now() - P.t0; snd("ok", P.p - 1);
+      const sig = P.cz.pl.findIndex(x => !x.ok); if (sig < 0) { pintar(); return setTimeout(() => finJuego(false), 600); } P.act = sig; pintar(); ponerP(); enfocar(); }
+    else { P.err++; snd("mal"); const i = $("mjI"); if (i) { i.value = ""; temblar(i); } } return; }
+  if (P.juego === "verbos") { const v = P.vb[P.i]; if (!v) return; const ok = v[1].split("|").indexOf(t) > -1;
+    if (ok) { P.r += "1"; P.p++; P.ult = Date.now() - P.t0; P.i++; snd("ok", Math.min(7, P.p)); const h = $("vbH"); if (h) h.innerHTML = '<span class="ok">' + esc(v[0]) + ' → ' + esc(v[1].split("|")[0]) + '</span>' + h.innerHTML;
+      const q = $("vbQ"); if (q) q.textContent = (P.vb[P.i] || ["—"])[0]; const sm = q && q.previousElementSibling; if (sm) sm.textContent = "VERBO " + (P.i + 1); const i = $("mjI"); if (i) i.value = ""; ponerP(); if (P.i >= P.vb.length) finJuego(false); }
+    else { snd("mal"); const i = $("mjI"); if (i) { i.value = ""; temblar(i); } } return; }
+  if (P.juego === "palabras") { const m = $("mjM");
+    if (P.w.indexOf(t) > -1) { if (m) { m.textContent = "Ya escribiste «" + t + "»"; m.className = "mj-msg mal"; } snd("mal"); }
+    else if (P.set.has(t) || P.set.has(t.replace(/ /g, ""))) { P.w.push(t); P.p++; P.ult = Date.now() - P.t0; snd("ok", Math.min(7, P.p)); if (m) { m.textContent = "¡+1!"; m.className = "mj-msg ok"; } const l = $("pwL"); if (l) l.insertAdjacentHTML("afterbegin", '<i class="nw">' + esc(t) + '</i>'); ponerP(); }
+    else { if (m) { m.textContent = "«" + t + "» no está en " + CATS[P.cat].n; m.className = "mj-msg mal"; } snd("mal"); temblar($("mjI")); }
+    const i = $("mjI"); if (i) i.value = ""; }
 }
-
-function vistaDuelo() {
-  const d = DUELOS.find(x => x.id === actual); if (!d) return vistaLista();
-  const o = otroDe(d), yo = soyA(d) ? d.ra : d.rb, el = soyA(d) ? d.rb : d.ra, res = resultado(d), m = miLook();
-  if (!soyA(d) && !d.rb && d.est !== "rech" && !vencido(d)) { setTimeout(() => abrirReto(d), 0); vista = "lista"; return vistaLista(); }
-  if (!res) {   // esperando al amigo
-    const ms = Math.max(0, (+d.vence || 0) - Date.now()), hh = Math.floor(ms / 36e5), mm = Math.floor(ms % 36e5 / 6e4);
-    return '<div class="fs-esp"><div class="fs-duo">' + look(m, 56) + '<span class="fs-reloj">' + LI(IC2.arena, 34) + '</span>' + look(o, 56) + '</div><h2>Esperando a ' + esc(o.n) + '</h2>' +
-        '<small>' + (yo ? 'Hiciste ' + yo.p + '/' + PREGUNTAS + ' en ' + tiempo(yo.ms) + ' · ' : '') + esc(temaE(d.tema)) + '</small>' +
-        '<div class="fs-cd"><span><b>' + hh + '</b><small>HORAS</small></span><span><b>' + String(mm).padStart(2, "0") + '</b><small>MIN</small></span></div>' +
-        '<p>Te avisamos en el Inicio cuando juegue. Si no juega a tiempo, ganas tú.</p></div>' +
-      (yo ? statsHTML(yo) + listaHTML(d, yo, null, o.n, false) : '') +
-      '<button type="button" class="btn out" data-acc="volver">Mis duelos</button>';
-  }
-  const R = REG(); if (R.vis.indexOf(d.id) < 0) { R.vis.push(d.id); R.vis = R.vis.slice(-200); guardar("ingles_gamer_duelos", R); }
-  const anim = !ANIM[d.id]; ANIM[d.id] = true;
-  const gane = res === "gana", emp = res === "empate";
-  const tit = { gana:"¡GANASTE!", pierde:"PERDISTE", empate:"¡EMPATE!", rech:"RECHAZADO", vencido:"SE ACABÓ EL TIEMPO" }[res];
-  const yoC = { j:m, n:"Tú", p:yo ? yo.p : 0, t:yo ? tiempo(yo.ms) : "" }, elC = { j:o, n:o.n, p:el ? el.p : 0, t:el ? tiempo(el.ms) : (d.rb ? "" : "no jugó") };
-  const prim = res === "pierde" || res === "vencido" ? elC : yoC, seg = prim === yoC ? elC : yoC;
-  const col = (c, top) => '<div class="rp-col' + (top ? " top" : "") + '">' + (top && !emp ? '<span class="rp-cor">' + CORONA + '</span>' : '') + look(c.j, top ? 86 : 66) + '<b>' + esc(c.n) + '</b><div class="rp-base"><span>' + c.p + '</span><small>' + esc(c.t) + '</small></div></div>';
-  const premio = gane ? '+' + ((+d.ap || 0) * (d.rb ? 1 : 0) + PREMIO.gana) + ' ' + llama(18) + ' Aura' : emp ? '+' + PREMIO.empate + ' ' + llama(18) + ' Aura' : res === "pierde" && d.ap ? '−' + d.ap + ' ' + llama(18) + ' · ¡Recupéralo!' : res === "rech" && d.ap ? 'Te devolvimos ' + d.ap + ' ' + llama(18) : res === "pierde" ? '¡La próxima es tuya!' : '';
-  const nota = gane && !d.rb ? '<p class="nota" style="text-align:center">' + esc(o.n) + ' no jugó a tiempo.</p>' : '';
-  const det = yo ? statsHTML(yo) + listaHTML(d, yo, el, o.n, anim) : '';
-  if (anim && (gane || emp) && window.IGFinal) setTimeout(() => IGFinal.mostrar({ aura:gane ? (+d.ap || 0) * (d.rb ? 1 : 0) + PREMIO.gana : PREMIO.empate, estrellas:0, titulo:gane ? "¡Ganaste el duelo!" : "¡Empate!", sub:"Duelo vs " + o.n }), 4200);   /* final con la liga semanal */
-  if (anim) setTimeout(() => { const z = document.querySelector(".rp"); if (!z) return; if (gane || emp) { snd("gano"); setTimeout(() => { snd("corona"); chispas(document.body, 40, 0, 0, true); }, 1250); } else snd("perdio"); }, 120);
-  return '<div class="rp ' + (gane ? "win" : emp ? "emp" : "lose") + (anim ? " go" : " ya") + '"><div class="rp-rays"></div><small class="rp-k">DUELO · ' + esc(temaN(d.tema).toUpperCase()) + '</small><h2 class="rp-tt">' + tit + '</h2>' +
-    '<div class="rp-pod">' + col(prim, true) + col(seg, emp) + '</div>' + (premio ? '<div class="rp-aura">' + premio + '</div>' : '') + nota + '</div>' + det +
-    (res !== "rech" || true ? '<button type="button" class="btn or big" data-acc="revancha" data-u="' + esc(o.uid) + '">' + LI(IC2.espadas, 20) + ' ' + (res === "pierde" ? "Revancha" : "Retar otra vez") + '</button>' : '') +
-    '<button type="button" class="btn out" data-acc="volver">Mis duelos</button>';
+function tocarMemo(i) {
+  const P = partida, c = P.m.cartas[i]; if (P.bloq || P.ok[c.k] || P.vol.indexOf(i) > -1) return;
+  P.vol.push(i); snd("boton");
+  if (P.vol.length < 2) { pintar(); return; }
+  const [a, b] = P.vol.map(x => P.m.cartas[x]); pintar();
+  if (a.k === b.k && a.en !== b.en) { P.ok[a.k] = true; P.vol = []; P.p = Object.keys(P.ok).length * 3 - P.err; P.ult = Date.now() - P.t0; snd("ok", Object.keys(P.ok).length); setTimeout(() => { pintar(); ponerP(); if (Object.keys(P.ok).length === P.m.pares.length) setTimeout(() => finJuego(false), 500); }, 250); }
+  else { P.bloq = true; P.err++; snd("mal"); setTimeout(() => { P.vol = []; P.bloq = false; P.p = Math.max(0, Object.keys(P.ok).length * 3 - P.err); pintar(); }, 850); }
 }
-function pintar() {
-  const t = { lista:"Duelos", nuevo:"Nuevo reto", juego:"Duelo", duelo:"Duelo" }[vista];
-  $("titulo").textContent = t;
-  $("btnVolver").hidden = vista === "lista";
-  $("cont").innerHTML = vista === "nuevo" ? vistaNuevo() : vista === "juego" ? vistaJuego() : vista === "duelo" ? vistaDuelo() : vistaLista();
-  document.body.classList.toggle("jugando", vista === "juego");
+function finJuego(porTiempo) {
+  const P = partida; if (!P || P.fin) return; P.fin = true; clearInterval(tReloj);
+  let res;
+  if (P.juego === "sopa") res = { p:P.p, ms:porTiempo ? LIM.sopa * 1000 : Date.now() - P.t0, r:P.s.pal.map(p => p.ok ? "1" : "0").join("") };
+  else if (P.juego === "cruci") res = { p:P.p, ms:porTiempo ? LIM.cruci * 1000 : Date.now() - P.t0, r:P.cz.pl.map(p => p.ok ? "1" : "0").join("") };
+  else if (P.juego === "memo") res = { p:Math.max(0, Object.keys(P.ok).length * 3 - P.err), ms:porTiempo ? LIM.memo * 1000 : Date.now() - P.t0, r:P.m.pares.map((x, k) => P.ok[k] ? "1" : "0").join(""), e:P.err };
+  else if (P.juego === "verbos") res = { p:P.p, ms:P.ult || LIM.verbos * 1000, r:P.r };
+  else res = { p:P.p, ms:P.ult || LIM.palabras * 1000, r:"1".repeat(Math.min(P.p, 60)), w:P.w.slice(0, 60) };
+  snd(porTiempo ? "perdio" : "gano");
+  $("cont").innerHTML = '<div class="card vacio"><b>' + (porTiempo ? "¡Se acabó el tiempo!" : "¡Terminaste!") + '</b>' + res.p + ' puntos</div>';
+  setTimeout(() => terminar(res), 900);
 }
-
-/* ================= JUEGO ================= */
-let tReloj = null, tPreg = null;
-function empezar(tema, seed, d) {
-  partida = { qs:crearPreguntas(tema, seed), i:0, r:"", t0:Date.now(), tema, seed, d, bloq:false, racha:0 };
-  vista = "juego"; pintar(); arrancarPregunta();
-}
+/* Reto rápido */
 function arrancarPregunta() {
   clearInterval(tPreg); const P = partida; if (!P) return; P.tq = Date.now(); let ult = TIEMPO_P;
   tPreg = setInterval(() => {
@@ -978,27 +1278,132 @@ function responder(i) {
   else { snd("mal"); if (i < 0) { const n = $("ringN"); if (n) n.textContent = "0"; } }
   efecto(ok);
   const yoB = $("barYo"), yoP = $("ptsYo"); if (yoB) yoB.style.width = cuenta1(P.r) * 10 + "%"; if (yoP) yoP.textContent = cuenta1(P.r);
-  const rr = P.d && P.d.ra ? P.d.ra.r : null;
+  const rr = P.rr;
   if (rr) setTimeout(() => { const eB = $("barEl"), eP = $("ptsEl"), n = cuenta1(rr.slice(0, P.i + 1)); if (eB) eB.style.width = n * 10 + "%"; if (eP) eP.textContent = n; }, 380);
-  setTimeout(() => { P.i++; P.bloq = false; if (P.i >= PREGUNTAS) terminar(); else { pintar(); arrancarPregunta(); } }, ok ? 1000 : 1500);
+  setTimeout(() => { P.i++; P.bloq = false; if (P.i >= PREGUNTAS) terminar({ p:cuenta1(P.r), ms:Date.now() - P.t0, r:P.r }); else { pintar(); arrancarPregunta(); } }, ok ? 1000 : 1500);
 }
-async function terminar() {
+
+/* ================= RESULTADOS ================= */
+const reloj = () => { const s = Math.floor((Date.now() - partida.t0) / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+const tiempo = ms => { const s = Math.round(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+const ANIM = {};
+const mejorRacha = r => { let m = 0, c = 0; String(r || "").split("").forEach(x => { c = x === "1" ? c + 1 : 0; m = Math.max(m, c); }); return m; };
+const maxP = d => ({ rapido:PREGUNTAS, sopa:6, cruci:5, memo:18 }[d.juego] || 0);
+function statsHTML(d, yo) {
+  const mx = maxP(d), t3 = d.juego === "memo" ? [IC2.estrella, (yo.e || 0), "ERRORES"] : d.juego === "rapido" ? null : d.juego === "verbos" ? [IC2.rayo, (yo.r || "").length, "INTENTADOS"]
+    : d.juego === "palabras" ? [IC2.estrella, '<span style="font-size:15px">' + esc(CATS[catDe(d.tema, d.seed)].n) + '</span>', "CATEGORÍA"] : [IC2.estrella, Math.max(0, mx - yo.p), "FALTARON"];
+  return '<div class="fs-st"><div><i>' + LI(IC2.diana, 22) + '</i><b>' + yo.p + (mx ? '/' + mx : '') + '</b><small>PUNTOS</small></div><div><i>' + LI(IC2.reloj, 22) + '</i><b>' + tiempo(yo.ms) + '</b><small>TIEMPO</small></div>' +
+    (t3 ? '<div><i>' + LI(t3[0], 22) + '</i><b>' + t3[1] + '</b><small>' + t3[2] + '</small></div>' : '<div><i>' + llama(22) + '</i><b>x' + mejorRacha(yo.r) + '</b><small>MEJOR RACHA</small></div>') + '</div>';
+}
+function listaHTML(d, yo, el, nombre, anim) {
+  const ck = c => '<span class="fs-ck ' + (c === "1" ? "s" : "n") + '">' + (c === "1" ? "✓" : "✗") + '</span>';
+  const fila = (i, w, a, b) => '<div class="fs-q" style="animation-delay:' + (1.2 + i * .08).toFixed(2) + 's"><span class="fs-n">' + (i + 1) + '</span><span class="fs-w">' + w + '</span>' + ck(a) + (el ? ck(b) : '') + '</div>';
+  const cab = t => '<div class="fs-li' + (anim ? " anim" : "") + '"><div class="fs-h"><span>' + t + '</span><span>' + (el ? "TÚ · " + esc(nombre.toUpperCase()) : yo.p + " PUNTOS") + '</span></div>';
+  let items = [];
+  try {
+    if (d.juego === "rapido") items = crearPreguntas(d.tema, d.seed).map(q => esc(q.h.replace(/[«»?]/g, "")) + ' <small>→ ' + esc(q.ok) + '</small>');
+    else if (d.juego === "sopa") items = crearSopa(d.tema, d.seed).pal.map(p => esc(p.es) + ' <small>→ ' + p.en + '</small>');
+    else if (d.juego === "cruci") items = crearCruci(d.tema, d.seed).pl.map(p => esc(p.es) + ' <small>→ ' + p.en + '</small>');
+    else if (d.juego === "memo") items = crearMemo(d.tema, d.seed).pares.map(p => esc(p[0]) + ' <small>→ ' + esc(p[1]) + '</small>');
+    else if (d.juego === "verbos") items = crearVerbos(d.seed).slice(0, Math.max((yo.r || "").length, el ? (el.r || "").length : 0)).map(v => esc(v[0]) + ' <small>→ ' + esc(v[1].split("|")[0]) + '</small>');
+  } catch (e) {}
+  if (d.juego === "palabras") {
+    const ch = (w, o) => '<div class="pw-l fin">' + (w || []).map(x => '<i' + (o && o.indexOf(x) > -1 ? ' class="dos"' : '') + '>' + esc(x) + '</i>').join("") + '</div>';
+    return '<div class="fs-li"><div class="fs-h"><span>TUS PALABRAS · ' + esc(CATS[catDe(d.tema, d.seed)].n.toUpperCase()) + '</span><span>' + yo.p + '</span></div>' + ch(yo.w, el && el.w) +
+      (el ? '<div class="fs-h"><span>' + esc(nombre.toUpperCase()) + '</span><span>' + el.p + '</span></div>' + ch(el.w, yo.w) : '') + '</div>';
+  }
+  return cab({ rapido:"PREGUNTA", sopa:"PALABRA", cruci:"PISTA", memo:"PAREJA", verbos:"VERBO" }[d.juego] || "") + items.map((w, i) => fila(i, w, (yo.r || "")[i], el && (el.r || "")[i])).join("") + '</div>';
+}
+/* anuncio con premio: +10 de Aura más por duelo (una vez) */
+function verAnuncio(id) {
+  const dar = () => { const R = REG(); R.ad = R.ad || []; if (R.ad.indexOf(id) > -1) return; R.ad.push(id); R.ad = R.ad.slice(-200); guardar("ingles_gamer_duelos", R); moverAura(PARTICIPAR, PARTICIPAR, "Anuncio en duelo"); snd("gano"); say("¡+" + PARTICIPAR + " de Aura!"); pintar(); };
+  if (window.IGAnuncio && IGAnuncio.disponible()) { IGAnuncio.recompensa().then(r => { if (r === "ok") dar(); else if (r === "error") say("No hay anuncios ahora. Intenta más tarde"); }); return; }
+  if (ANUNCIO_URL) { guardar("ig_duelo_ad", { id, t:Date.now() }); location.href = igURL(ANUNCIO_URL); return; }
+  const ov = document.createElement("div"); ov.className = "adx"; let t = 5;
+  ov.innerHTML = '<small>ANUNCIO DE PRUEBA</small><div class="adc"><b id="adT">5</b></div><p>Aquí va el anuncio con premio</p>'; document.body.appendChild(ov);
+  const iv = setInterval(() => { t--; const b = ov.querySelector("#adT"); if (b) b.textContent = t; if (t <= 0) { clearInterval(iv); ov.remove(); dar(); } }, 1000);
+}
+function revisarAnuncio() { const a = leer("ig_duelo_ad"); if (!a || !a.id) return; try { localStorage.removeItem("ig_duelo_ad"); } catch (e) {} if (Date.now() - (+a.t || 0) < 30 * 6e4) { const R = REG(); R.ad = R.ad || []; if (R.ad.indexOf(a.id) < 0) { R.ad.push(a.id); guardar("ingles_gamer_duelos", R); moverAura(PARTICIPAR, PARTICIPAR, "Anuncio en duelo"); say("¡+" + PARTICIPAR + " de Aura!"); } } }
+function bloqueAnuncio(d) {
+  const R = REG(); if (!d.res[ME.uid] || (R.ad || []).indexOf(d.id) > -1) return '';
+  return '<button type="button" class="adb" data-acc="anuncio">' + LI(IC2.play, 22) + '<span><b>Mira un anuncio y gana +' + PARTICIPAR + ' de Aura</b><small>Duplica tu premio por participar en este duelo</small></span></button>';
+}
+
+function vistaDuelo() {
+  const d = DUELOS.find(x => x.id === actual); if (!d) return vistaLista();
+  const yo = d.res[ME.uid], res = resultado(d), m = miLook(), riv1 = otroDe(d);
+  if (!res && !yo && !d.rech[ME.uid] && !vencido(d)) { setTimeout(() => abrirReto(d), 0); vista = "lista"; return vistaLista(); }
+  if (!res) {   // esperando a los demás
+    const ms = Math.max(0, (+d.vence || 0) - Date.now()), hh = Math.floor(ms / 36e5), mm = Math.floor(ms % 36e5 / 6e4);
+    const est = d.js.filter(u => u !== ME.uid).map(u => { const j = jugador(d, u); return '<span class="fs-pj' + (d.res[u] ? " ya" : d.rech[u] ? " no" : "") + '">' + look(j, 40) + '<b>' + esc(j.n) + '</b><small>' + (d.res[u] ? "Ya jugó" : d.rech[u] ? "Rechazó" : "Pendiente") + '</small></span>'; }).join("");
+    return '<div class="fs-esp"><div class="fs-duo">' + look(m, 56) + '<span class="fs-reloj">' + LI(IC2.arena, 34) + '</span>' + look(riv1, 56) + '</div><h2>Esperando a ' + esc(faltan(d).filter(u => u !== ME.uid).map(u => jugador(d, u).n).join(", ") || "tus amigos") + '</h2>' +
+        '<small>' + (yo ? 'Hiciste ' + yo.p + ' puntos en ' + tiempo(yo.ms) + ' · ' : '') + esc(etiqueta(d)) + '</small>' +
+        '<div class="fs-cd"><span><b>' + hh + '</b><small>HORAS</small></span><span><b>' + String(mm).padStart(2, "0") + '</b><small>MIN</small></span></div>' +
+        (d.js.length > 2 ? '<div class="fs-pjs">' + est + '</div>' : '') +
+        '<p>Te avisamos en el Inicio cuando terminen. Si alguien no juega a tiempo, pierde.</p></div>' +
+      bloqueAnuncio(d) + (yo ? statsHTML(d, yo) + listaHTML(d, yo, null, riv1.n, false) : '') +
+      '<button type="button" class="btn out" data-acc="volver">Mis duelos</button>';
+  }
+  const R = REG(); if (R.vis.indexOf(d.id) < 0) { R.vis.push(d.id); R.vis = R.vis.slice(-200); guardar("ingles_gamer_duelos", R); }
+  const anim = !ANIM[d.id]; ANIM[d.id] = true;
+  const gane = res === "gana", emp = res === "empate", L = res === "rech" ? null : liquidar(d), ap = +d.ap || 0;
+  const g = L ? (L.gan[ME.uid] || 0) : 0, neto = g - (yo ? ap : 0);
+  const tit = { gana:d.modo === "2v2" ? "¡TU EQUIPO GANÓ!" : "¡GANASTE!", pierde:d.modo === "2v2" ? "TU EQUIPO PERDIÓ" : "PERDISTE", empate:"¡EMPATE!", rech:"RECHAZADO", vencido:"SE ACABÓ EL TIEMPO" }[res];
+  const col = (c, top, lugar) => '<div class="rp-col' + (top ? " top" : "") + '">' + (top && !emp ? '<span class="rp-cor">' + CORONA + '</span>' : '') + look(c.j, top ? 86 : 62) + '<b>' + esc(c.n) + '</b><div class="rp-base"><span>' + c.p + '</span><small>' + esc(c.t) + '</small></div></div>';
+  const cj = u => { const r = d.res[u]; return { j:u === ME.uid ? m : jugador(d, u), n:u === ME.uid ? "Tú" : jugador(d, u).n, p:r ? r.p : 0, t:r ? tiempo(r.ms) : "no jugó" }; };
+  let pod = '';
+  if (d.modo === "2v2" && L && L.eq) {
+    const miEq = d.eq[d.js.indexOf(ME.uid)];
+    pod = '<div class="rp-eqs">' + [0, 1].map(e => { const S = L.eq[e], gana = (miEq === e) === gane && !emp;
+      return '<div class="rp-eq ' + (e === 0 ? "nar" : "azu") + (gana ? " top" : "") + '">' + (gana ? '<span class="rp-cor">' + CORONA + '</span>' : '') + '<small>' + (e === miEq ? "TU EQUIPO" : "RIVALES") + '</small><div class="rp-eqp">' +
+        d.js.filter((u, k) => d.eq[k] === e).map(u => { const c = cj(u); return '<span>' + look(c.j, 46) + '<b>' + esc(c.n) + '</b><i>' + c.p + '</i></span>'; }).join("") + '</div><div class="rp-eqs-t">' + S.p + '<small>' + tiempo(S.ms) + '</small></div></div>'; }).join("") + '</div>';
+  } else {
+    const orden = (L ? L.pos.map(x => x.uid) : []).concat(d.js.filter(u => !(L && L.pos.some(x => x.uid === u))));
+    if (d.modo === "1v1") { const prim = orden[0] || ME.uid, seg = d.js.find(u => u !== prim); pod = '<div class="rp-pod">' + col(cj(prim), true) + col(cj(seg), emp) + '</div>'; }
+    else { const t3 = orden.slice(0, 3), ord = [t3[1], t3[0], t3[2]].filter(Boolean);
+      pod = '<div class="rp-pod tres">' + ord.map(u => col(cj(u), u === t3[0])).join("") + '</div>' +
+        (orden[3] ? '<div class="rp-4">' + look(cj(orden[3]).j, 34) + '<b>' + esc(cj(orden[3]).n) + '</b><span>' + cj(orden[3]).p + ' · 4.º</span></div>' : ''); }
+  }
+  const premio = (res === "rech" ? (ap && soyCreador(d) ? 'Te devolvimos ' + ap + ' ' + llama(18) : '') :
+    (neto > 0 ? '+' + neto + ' ' + llama(18) + ' del bote · ' : neto < 0 ? '−' + (-neto) + ' ' + llama(18) + ' · ' : '') + (yo ? '+' + PARTICIPAR + ' por participar' : ''));
+  const det = yo ? statsHTML(d, yo) + listaHTML(d, yo, d.modo === "1v1" ? d.res[riv1.uid] : null, riv1.n, anim) : '';
+  if (anim && gane && neto > 0 && window.IGFinal) setTimeout(() => IGFinal.mostrar({ aura:neto, estrellas:0, titulo:"¡Ganaste el duelo!", sub:JUEGO(d.juego).n }), 4200);
+  if (anim) setTimeout(() => { const z = document.querySelector(".rp"); if (!z) return; if (gane || emp) { snd("gano"); setTimeout(() => { snd("corona"); chispas(document.body, 40, 0, 0, true); }, 1250); } else snd("perdio"); }, 120);
+  return '<div class="rp ' + (gane ? "win" : emp ? "emp" : "lose") + (anim ? " go" : " ya") + '"><div class="rp-rays"></div><small class="rp-k">' + esc(etiqueta(d).toUpperCase()) + '</small><h2 class="rp-tt">' + tit + '</h2>' +
+    pod + (premio ? '<div class="rp-aura">' + premio + '</div>' : '') + '</div>' + bloqueAnuncio(d) + det +
+    '<button type="button" class="btn or big" data-acc="revancha" data-id="' + esc(d.id) + '">' + LI(IC2.espadas, 20) + ' ' + (res === "pierde" ? "Revancha" : "Retar otra vez") + '</button>' +
+    '<button type="button" class="btn out" data-acc="volver">Mis duelos</button>';
+}
+function pintar() {
+  const t = { lista:"Duelos", nuevo:"Nuevo reto", juego:"Duelo", duelo:"Duelo" }[vista];
+  $("titulo").textContent = t;
+  $("btnVolver").hidden = vista === "lista";
+  $("cont").innerHTML = vista === "nuevo" ? vistaNuevo() : vista === "juego" ? vistaJuego() : vista === "duelo" ? vistaDuelo() : vistaLista();
+  document.body.classList.toggle("jugando", vista === "juego");
+}
+
+/* ================= GUARDAR ================= */
+let pendiente = null;
+async function terminar(res) {
   clearInterval(tReloj); clearInterval(tPreg);
-  const P = partida, res = { p:P.r.split("").filter(c => c === "1").length, ms:Date.now() - P.t0, r:P.r };
+  const P = partida; res = res || pendiente; pendiente = res;
   $("cont").innerHTML = '<div class="card vacio">Enviando…</div>';
   try {
     if (P.d) {   // respondo a un reto
-      await updateDoc(doc(db, "duelos", P.d.id), { rb:res, est:"fin" });
-      P.d.rb = res; P.d.est = "fin"; actual = P.d.id;
+      if (P.d.leg) { await updateDoc(doc(db, "duelos", P.d.id), { rb:res, est:"fin" }); P.d.rb = res; P.d.est = "fin"; }
+      else await updateDoc(doc(db, "duelos", P.d.id), { ["res." + ME.uid]:res });
+      P.d.res[ME.uid] = res; actual = P.d.id;
     } else {     // creo un reto nuevo
-      const m = miLook(), j = JUG[sel.amigo], ref = doc(collection(db, "duelos")), ahora = Date.now();
-      const d = { a:ME.uid, b:j.uid, an:m.n, bn:j.n, aav:m.av, bav:j.av, al:[m.lsk, m.lmc, m.lmp], bl:[j.lsk, j.lmc, j.lmp],
-        tema:P.tema, seed:P.seed, ap:sel.ap, ra:res, rb:null, est:"esp", t:ahora, vence:ahora + PLAZO_H * 36e5 };
+      const m = miLook(), ids = [ME.uid].concat(elegidos()), ref = doc(collection(db, "duelos")), ahora = Date.now(), p = {};
+      ids.forEach(u => { const j = u === ME.uid ? m : JUG[u]; p[u] = { n:j.n, av:+j.av || 0, l:[+j.lsk || 0, +j.lmc || 0, +j.lmp || 0] }; });
+      const d = { v:2, a:ME.uid, js:ids, eq:sel.modo === "2v2" ? [0, 0, 1, 1] : ids.map((u, k) => k), modo:sel.modo, juego:P.juego, p,
+        tema:P.tema, seed:P.seed, ap:sel.ap, res:{ [ME.uid]:res }, rech:{}, t:ahora, vence:ahora + PLAZO_H * 36e5 };
       await setDoc(ref, d);
-      if (sel.ap) { moverAura(-sel.ap, 0, "Apuesta duelo vs " + j.n); const R = REG(); R.pag.push(ref.id); guardar("ingles_gamer_duelos", R); }
-      DUELOS.unshift(Object.assign({ id:ref.id }, d)); actual = ref.id;
+      if (sel.ap) { moverAura(-sel.ap, 0, "Apuesta duelo"); const R = REG(); R.pag.push(ref.id); guardar("ingles_gamer_duelos", R); }
+      DUELOS.unshift(norm(Object.assign({ id:ref.id }, d))); actual = ref.id;
     }
-    partida = null; cobrar(); vista = "duelo"; pintar();
+    moverAura(PARTICIPAR, PARTICIPAR, "Participar en duelo");
+    pendiente = null; partida = null; cobrar(); vista = "duelo"; pintar(); say("+" + PARTICIPAR + " de Aura por participar");
     try { if (window.IGNube && IGNube.subirYa) IGNube.subirYa().then(() => { try { if (window.IGFicha) IGFicha.publicar(); } catch (e) {} }); } catch (e) {}
   } catch (e) {
     $("cont").innerHTML = '<div class="card vacio"><b>No se pudo enviar</b>' + esc(e.code || e.message || "error") + '<div style="margin-top:14px"><button type="button" class="btn" data-acc="reenviar">Reintentar</button></div></div>';
@@ -1006,38 +1411,51 @@ async function terminar() {
 }
 
 /* ================= EVENTOS ================= */
+document.addEventListener("submit", e => { if (e.target.id !== "mjF") return; e.preventDefault(); const i = $("mjI"); if (i) { enviarTexto(i.value); enfocar(); } });
 document.addEventListener("click", async e => {
   const b = e.target.closest("button,[data-duelo]"); if (!b || b.disabled) return;
   if (b.id === "btnVolver") { if (vista === "juego" && !confirm("¿Salir del duelo? Perderás esta partida.")) return; clearInterval(tReloj); clearInterval(tPreg); partida = null; vista = "lista"; pintar(); return; }
   if (b.dataset.op !== undefined) return responder(+b.dataset.op);
-  if (b.dataset.duelo) { snd("boton"); actual = b.dataset.duelo; const d0 = DUELOS.find(x => x.id === actual); if (d0 && !soyA(d0) && !d0.rb && d0.est !== "rech" && !vencido(d0)) { abrirReto(d0); return; } vista = "duelo"; pintar(); return; }
-  if (b.dataset.amigo) { const cambio = sel.amigo !== b.dataset.amigo; sel.amigo = b.dataset.amigo; snd(cambio ? "swoosh" : "boton"); pintar(); if (cambio) { const r = $("nvR"); if (r) r.classList.add("entra"); setTimeout(() => snd("vs"), 180); } return; }
+  if (b.dataset.sc !== undefined) return tocarSopa(+b.dataset.sc);
+  if (b.dataset.mm !== undefined) return tocarMemo(+b.dataset.mm);
+  if (b.dataset.cz !== undefined) { const k = +b.dataset.cz; if (partida.cz.pl[k].ok) return; partida.act = k; snd("boton"); pintar(); enfocar(); return; }
+  if (b.dataset.duelo) { snd("boton"); actual = b.dataset.duelo; const d0 = DUELOS.find(x => x.id === actual); if (d0 && !resuelto(d0) && !d0.res[ME.uid] && !vencido(d0)) { abrirReto(d0); return; } vista = "duelo"; pintar(); return; }
+  if (b.dataset.modo) { sel.modo = b.dataset.modo; if (sel.modo === "1v1") { sel.riv = sel.riv.concat(sel.comp ? [sel.comp] : []).slice(0, 1); sel.comp = ""; } else if (sel.modo === "todos") { sel.riv = (sel.comp ? [sel.comp] : []).concat(sel.riv).slice(0, 3); sel.comp = ""; } else { const t = (sel.comp ? [sel.comp] : []).concat(sel.riv); sel.comp = t[0] || ""; sel.riv = t.slice(1, 3); } snd("boton"); pintar(); return; }
+  if (b.dataset.juego) { const t0 = JUEGO(sel.juego).t; sel.juego = b.dataset.juego; if (JUEGO(sel.juego).t !== t0) sel.tema = -1; snd("boton"); pintar(); return; }
+  if (b.dataset.amigo) { const antes = elegidos().length; tocarAmigo(b.dataset.amigo); const nuevo = elegidos().length > antes; snd(nuevo ? "swoosh" : "boton"); pintar(); if (nuevo && sel.modo === "1v1") { const r = $("nvR"); if (r) r.classList.add("entra"); setTimeout(() => snd("vs"), 180); } return; }
   if (b.dataset.tema !== undefined) { sel.tema = +b.dataset.tema; snd("boton"); pintar(); return; }
   if (b.dataset.ap !== undefined) { sel.ap = +b.dataset.ap; snd("boton"); pintar(); return; }
   const a = b.dataset.acc; if (!a || ocupado) return;
   if (a === "reintentar") return iniciar();
   if (a === "reenviar") return terminar();
+  if (a === "saltar") { const P = partida; if (!P || P.juego !== "verbos") return; const v = P.vb[P.i]; P.r += "0"; P.i++; snd("mal"); const h = $("vbH"); if (h && v) h.innerHTML = '<span class="no">' + esc(v[0]) + ' → ' + esc(v[1].split("|")[0]) + '</span>' + h.innerHTML; const q = $("vbQ"); if (q) q.textContent = (P.vb[P.i] || ["—"])[0]; const sm = q && q.previousElementSibling; if (sm) sm.textContent = "VERBO " + (P.i + 1); enfocar(); if (P.i >= P.vb.length) finJuego(false); return; }
+  if (a === "anuncio") { verAnuncio(actual); return; }
   if (a === "volver") { vista = "lista"; pintar(); return; }
-  if (a === "nuevo") { sel = { amigo:AMIGOS[0] && AMIGOS.length === 1 ? AMIGOS[0].uid : "", tema:-1, ap:0 }; vista = "nuevo"; pintar(); return; }
-  if (a === "revancha") { sel = { amigo:b.dataset.u, tema:-1, ap:0 }; vista = "nuevo"; pintar(); return; }
-  if (a === "jugarNuevo") { if (sel.ap > saldo()) return say("No tienes Aura suficiente"); const j = JUG[sel.amigo] || { n:"Amigo" };
-    mostrarVS(j, { rol:"RIVAL", filas:[["TEMA", esc(temaN(sel.tema))], ["APUESTA", sel.ap ? llama(16) + " " + sel.ap : "Sin apuesta"], ["PLAZO", "Tiene " + PLAZO_H + " h para responder"]] }, "¡A LUCHAR!", true, () => empezar(sel.tema, Math.floor(Math.random() * 1e9), null));
+  if (a === "nuevo") { sel = nuevoSel(); if (AMIGOS.length === 1) sel.riv = [AMIGOS[0].uid]; vista = "nuevo"; pintar(); return; }
+  if (a === "revancha") { const d = DUELOS.find(x => x.id === b.dataset.id); sel = nuevoSel(); if (d) { sel.modo = d.modo; sel.juego = d.juego; sel.tema = d.tema;
+      const otros = d.js.filter(u => u !== ME.uid && JUG[u]); if (d.modo === "2v2") { const miEq = d.eq[d.js.indexOf(ME.uid)]; sel.comp = d.js.find((u, k) => u !== ME.uid && d.eq[k] === miEq && JUG[u]) || ""; sel.riv = d.js.filter((u, k) => d.eq[k] !== miEq && JUG[u]); } else sel.riv = otros.slice(0, sel.modo === "1v1" ? 1 : 3); }
+    vista = "nuevo"; pintar(); return; }
+  if (a === "jugarNuevo") { if (sel.ap > saldo()) return say("No tienes Aura suficiente"); if (!listo()) return;
+    const r0 = JUG[sel.riv[0]] || { n:"Amigo" }, o = sel.modo === "1v1" ? r0 : Object.assign({}, r0, { n:sel.modo === "2v2" ? "Rivales" : elegidos().length + " rivales" });
+    const fake = { juego:sel.juego, modo:sel.modo, tema:sel.tema, ap:sel.ap };
+    mostrarVS(o, { rol:sel.modo === "1v1" ? "RIVAL" : elegidos().map(u => (JUG[u] || {}).n).join(" · ").toUpperCase(), filas:filasDuelo(fake, [["PLAZO", PLAZO_H + " h para jugar"]]) }, "¡A LUCHAR!", true, () => empezar(sel.juego, sel.tema, Math.floor(Math.random() * 1e9), null));
     return; }
   const d = DUELOS.find(x => x.id === actual); if (!d) return;
   if (a === "aceptar") { aceptarReto(d); return; }
   if (a === "rechazar") { rechazarReto(d); return; }
 });
-window.addEventListener("pageshow", () => { if (ME && vista === "lista") iniciar(); });
+window.addEventListener("pageshow", () => { revisarAnuncio(); if (ME && vista === "lista") iniciar(); });
 document.addEventListener("visibilitychange", () => { if (!document.hidden && ME && vista === "lista") iniciar(); });
 
 /* arranque */
 $("btnVolver").innerHTML = ic("back", 22, 2.4);
 $("navbar").innerHTML = NAV.map(n => '<a' + (n.activo ? ' class="on" aria-current="page"' : '') + ' href="' + n.url + '">' + ic(n.i, 26) + n.nombre + '</a>').join("");
+revisarAnuncio();
 onAuthStateChanged(auth, u => {
   if (!u) { location.href = igURL("go:acceso"); return; }
   ME = u; iniciar();
 });
-window.IGDuelo = { partida: () => partida };
+window.IGDuelo = { partida: () => partida, juegos: { crearSopa, crearCruci, crearMemo, crearVerbos, liquidar, norm }, _set: (me, ds, am) => { ME = me; DUELOS = ds.map(norm); (am || []).forEach(a => JUG[a.uid] = a); AMIGOS = am || []; cargando = false; }, pintar: () => pintar(), vista: v => { if (v) vista = v; return vista; }, sel: () => sel, empezar, actual: id => { actual = id; } };
 </script>
 
 <script type="module">

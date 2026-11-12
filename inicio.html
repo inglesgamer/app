@@ -2115,12 +2115,18 @@ async function cargar(forzar) {
   if (!uid || (!forzar && Date.now() - t0 < CADA_MS)) return; t0 = Date.now();
   try {
     const col = collection(db, "duelos"), ahora = Date.now();
-    const [rb, ra, am1, am2] = await Promise.all([
+    const [rb, ra, am1, am2, rv] = await Promise.all([
       getDocs(query(col, where("b", "==", uid), limit(40))), getDocs(query(col, where("a", "==", uid), limit(40))),
-      getDocs(query(collection(db, "amistades"), where("de", "==", uid))), getDocs(query(collection(db, "amistades"), where("para", "==", uid)))]);
+      getDocs(query(collection(db, "amistades"), where("de", "==", uid))), getDocs(query(collection(db, "amistades"), where("para", "==", uid))),
+      getDocs(query(col, where("js", "array-contains", uid), limit(40))).catch(() => ({ forEach(){} }))]);
     const retos = [], esp = [];
+    /* Duelos v4 (v == 2): js = jugadores, res = resultados por uid, rech = rechazos */
+    const v2 = []; rv.forEach(d => { const v = d.data(); if (v.v === 2) v2.push(Object.assign({ id:d.id }, v)); });
+    v2.forEach(v => { const res = v.res || {}, rech = v.rech || {}, act = v.js.filter(u => !rech[u]), falta = act.filter(u => !res[u]);
+      if (!res[uid] && !rech[uid] && v.a !== uid && +v.vence > ahora && act.length > 1) { const c = (v.p || {})[v.a] || {}; retos.push({ n:c.n || "Amigo", av:c.av, mp:c.l && c.l[2], t:+v.t || 0 }); }
+      else if (res[uid] && falta.length && +v.vence > ahora) { const o = (v.p || {})[falta[0]] || {}; esp.push({ n:o.n || "Amigo", t:+v.t || 0 }); } });
     rb.forEach(d => { const v = d.data(); if (!v.rb && v.est !== "rech" && +v.vence > ahora) retos.push({ n:v.an || "Amigo", av:v.aav, mp:v.al && v.al[2], t:+v.t || 0 }); });
-    ra.forEach(d => { const v = d.data(); if (!v.rb && v.est !== "rech" && +v.vence > ahora) esp.push({ n:v.bn || "Amigo", t:+v.t || 0 }); });
+    ra.forEach(d => { const v = d.data(); if (v.v !== 2 && !v.rb && v.est !== "rech" && +v.vence > ahora) esp.push({ n:v.bn || "Amigo", t:+v.t || 0 }); });
     retos.sort((x, y) => y.t - x.t); esp.sort((x, y) => y.t - x.t);
     const ids = []; am1.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().para); }); am2.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().de); });
     const caras = (await Promise.all(ids.slice(0, 3).map(async u => { try { const s = await getDoc(doc(db, "jugadores", u)); if (!s.exists()) return null; const x = s.data(); return { av:x.av, mp:x.lmp }; } catch (e) { return null; } }))).filter(Boolean);
@@ -2129,8 +2135,11 @@ async function cargar(forzar) {
     pintar(D);
     /* duelos terminados que todavía no has visto → animación de resultado */
     const fin = [];
-    ra.forEach(d => { const v = d.data(); if (v.est !== "rech" && (v.rb || +v.vence <= ahora)) fin.push(Object.assign({ id:d.id, yoA:true }, v)); });
+    ra.forEach(d => { const v = d.data(); if (v.v !== 2 && v.est !== "rech" && (v.rb || +v.vence <= ahora)) fin.push(Object.assign({ id:d.id, yoA:true }, v)); });
     rb.forEach(d => { const v = d.data(); if (v.rb) fin.push(Object.assign({ id:d.id, yoA:false }, v)); });
+    v2.forEach(v => { const res = v.res || {}, rech = v.rech || {}; if (v.modo !== "1v1" || !res[uid] || rech[uid]) return; const o = v.js.find(u => u !== uid), P = v.p || {};
+      if (!res[o] && !(+v.vence <= ahora) || rech[o]) return; const yoA = v.a === uid, A = yoA ? uid : o, B = yoA ? o : uid;
+      fin.push({ id:v.id, yoA, ra:res[A] || null, rb:res[B] || null, an:(P[A] || {}).n, bn:(P[B] || {}).n, aav:(P[A] || {}).av, bav:(P[B] || {}).av, al:(P[A] || {}).l, bl:(P[B] || {}).l, ap:v.ap, tema:-1, t:v.t, est:"fin" }); });
     finDuelo(fin);
   } catch (e) { if (!cache) el.hidden = true; }
 }
@@ -2168,7 +2177,7 @@ function finDuelo(lista) {
   const rN = d.yoA ? (d.bn || "Amigo") : (d.an || "Amigo"), rAv = d.yoA ? d.bav : d.aav, rL = (d.yoA ? d.bl : d.al) || [];
   const temas = ["Colores", "Animales", "Frutas", "Familia", "Números"], tema = d.tema >= 0 && temas[d.tema] ? temas[d.tema] : "Al azar";
   const fl = (() => { try { return sprite("llama", 18); } catch (e) { return ""; } })();
-  const premio = res === "gana" ? '+' + (ap * (d.rb ? 1 : 0) + 30) + ' ' + fl + ' Aura' : res === "empate" ? '+15 ' + fl + ' Aura' : ap ? '−' + ap + ' ' + fl + ' · ¡Recupéralo!' : '';
+  const premio = res === "gana" ? (ap && d.rb ? '+' + ap + ' ' + fl + ' Aura' : '¡Ganaste!') : res === "empate" ? (ap ? 'Te devolvimos ' + ap + ' ' + fl : '¡Empate!') : ap ? '−' + ap + ' ' + fl + ' · ¡Recupéralo!' : '';   /* duelos v4: la app solo da +10 por participar */
   const tit = { gana:"¡GANASTE!", pierde:"PERDISTE", empate:"¡EMPATE!" }[res];
   const sub = res === "gana" && !elr ? esc(rN) + " no jugó a tiempo" : "Duelo de " + tema + " contra " + esc(rN);
   const o = document.createElement("div"); o.className = "dfin " + res;
