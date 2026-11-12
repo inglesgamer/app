@@ -97,6 +97,17 @@ nav .inner{max-width:520px;margin:0 auto;display:flex;padding:8px 6px max(12px,e
 nav a{flex:1;min-width:0;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mu);font-size:11px;font-weight:700}
 nav a.on{color:var(--hi)}
 
+/* camino dividido por isla */
+.isla{margin-top:18px}
+.isla-hd{display:flex;align-items:center;gap:12px;margin:0 16px;padding:12px 14px;border-radius:22px;background:var(--card);border:1px solid var(--bd);border-left:6px solid var(--isla)}
+.isla-ic{flex:none;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--isla);background:color-mix(in srgb,var(--isla) 16%,transparent)}
+.isla-tx{flex:1;min-width:0}.isla-tx b{display:block;font:900 18px Nunito,sans-serif}.isla-tx small{font:700 13px Nunito,sans-serif;color:var(--mu)}
+.isla-lk{flex:none;display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;background:var(--chip);color:var(--mu);font:800 12px Nunito,sans-serif}
+.isla-path{position:relative;margin-top:14px}
+.isla-path svg.lines{position:absolute;inset:0;pointer-events:none}
+.isla .cur .node{box-shadow:0 0 0 5px var(--toff),0 0 0 10px color-mix(in srgb,var(--isla) 35%,transparent)}
+.isla.cerrada .isla-hd{opacity:.8}
+
 /* lecciones bloqueadas */
 .lock .node{background:var(--card);border:2px dashed var(--toff);color:var(--mu)}
 .lock .lab{background:var(--chip);color:var(--mu);opacity:.75}
@@ -166,6 +177,17 @@ const NIVELES = [
   { id:"verbos1", t:"Verbos básicos", url:"go:32", isla:"verano", nivel:"verbos", nn:"Verbos básicos" },
   { id:"fechas1", t:"Días y meses", url:"go:33", isla:"verano", nivel:"fechas", nn:"Días y meses" },
   { id:"ordinales1",  t:"Números ordinales",    url:"go:3",  isla:"verano", nivel:"fechas",     nn:"Días y meses" },
+  { id:"invierno1", t:"Ropa de invierno", url:"go:34", isla:"nieve", nivel:"vocab1", nn:"Vocabulario 3" },
+  { id:"preposiciones1", t:"Preposiciones", url:"go:35", isla:"nieve", nivel:"preposiciones", nn:"Preposiciones" },
+  { id:"adjetivos1", t:"Adjetivos", url:"go:36", isla:"nieve", nivel:"adjetivos", nn:"Adjetivos" },
+  { id:"gustos1", t:"Gustos y necesidades", url:"go:37", isla:"nieve", nivel:"gustos", nn:"Gustos y necesidades" },
+  { id:"conectores1", t:"Conectores", url:"go:38", isla:"nieve", nivel:"conectores", nn:"Conectores" },
+  { id:"comparativos1", t:"Comparativos", url:"go:39", isla:"nieve", nivel:"comparativos", nn:"Comparativos" },
+  { id:"futuro1", t:"Futuro con will", url:"go:40", isla:"nieve", nivel:"futuro", nn:"Futuro (will)" },
+  { id:"situaciones1", t:"Situaciones reales", url:"go:41", isla:"nieve", nivel:"situaciones", nn:"Situaciones reales" },
+  { id:"lugares1", t:"Lugares de la ciudad", url:"go:42", isla:"nieve", nivel:"vocab2", nn:"Vocabulario 4" },
+  { id:"profesiones1", t:"Profesiones", url:"go:43", isla:"nieve", nivel:"profesiones", nn:"Profesiones" },
+  { id:"cuerpo1", t:"Partes del cuerpo", url:"go:44", isla:"nieve", nivel:"cuerpo", nn:"Partes del cuerpo" },
   { id:"pronombres1", t:"Pronombres",           url:"go:13", isla:"fuego",  nivel:"pronombres", nn:"Pronombres y posesivos" },
   { id:"posesivos1",  t:"Posesivos",            url:"go:11", isla:"fuego",  nivel:"pronombres", nn:"Pronombres y posesivos" },
   { id:"tobe1",       t:"Verbo To Be",          url:"go:1",  isla:"fuego",  nivel:"tobe",       nn:"Verbo To be" },
@@ -210,6 +232,7 @@ const posY = i => TOP + i * PASO;
 /* ---- Desbloqueo: una lección se abre cuando LLEGAS a su nivel en el mapa (mismas reglas que los mapas) ---- */
 const MAPAS = {
   verano: { clave:"ingles_gamer_a1_repaso", orden:["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3"] },
+  nieve:  { clave:"ingles_gamer_nieve_repaso", orden:["vocab1","preposiciones","adjetivos","gustos","esc1","conectores","comparativos","futuro","situaciones","esc2","vocab2","profesiones","cuerpo"] },
   fuego:  { clave:"ingles_gamer_fuego_repaso", orden:["pronombres","tobe","thereis","escf1","articulos","wh","vocab5","psimple","frecuencia","escf2","canimp","pcont","pasado","pasado2","escf3"] }
 };
 const estMapa = c => { try { const g = JSON.parse(localStorage.getItem(c) || "null"); return (g && g.est) || {}; } catch (e) { return {}; } };
@@ -222,11 +245,12 @@ const estrellasVerano = () => {
 };
 const llegaste = n => {
   const m = MAPAS[n.isla]; if (!m) return true;
-  if (n.isla === "fuego" && estrellasVerano() < 51) return false;
+  if (n.isla === "fuego" && estrellasVerano() < 51) return false;   /* islas: Nieve con 40 y Fuego con 51 estrellas de Verano */
+  if (n.isla === "nieve" && estrellasVerano() < 40) return false;
   const e = estMapa(m.clave), i = m.orden.indexOf(n.nivel);
   return i <= 0 || (+e[m.orden[i - 1]] || 0) >= 1 || (+e[n.nivel] || 0) >= 1;
 };
-const ISLA_N = { verano:"Isla de Verano", fuego:"Isla de Fuego" };
+const ISLA_N = { verano:"Isla de Verano", nieve:"Isla de Nieve", fuego:"Isla de Fuego" };
 
 const leerVistos = () => { try { return JSON.parse(localStorage.getItem(KEY_VISTOS) || "[]"); } catch (e) { return []; } };
 const esVisto = n => leerVistos().indexOf(n.id) !== -1;
@@ -255,28 +279,38 @@ function dibuja() {
   bar.setAttribute("aria-valuenow", String(h));
 }
 
+const ISLAS_R = [
+  { k:"verano", n:"Isla de Verano", c:"#FFB020", ic:'<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>' },
+  { k:"nieve",  n:"Isla de Nieve",  c:"#5CC8FF", ic:'<path d="M12 2v20M4 7l16 10M4 17L20 7"></path><path d="M9 3.5 12 6l3-2.5M9 20.5 12 18l3 2.5"></path>' },
+  { k:"fuego",  n:"Isla de Fuego",  c:"#FF6A1F", ic:'<path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-3 3-5 5-5 8 0 4 3 7 7 7z"></path>' }
+];
 function dibujaCamino() {
-  var cont = $("path"), w = cont.clientWidth || 520, total = NIVELES.length, cur = actual();
-  var alto = TOP + (total - 1) * PASO + 80;
-  cont.style.height = alto + "px";
-
-  var lineas = "";
-  for (var i = 0; i < total - 1; i++) {
-    var x1 = colX(i, w), y1 = posY(i), x2 = colX(i + 1, w), y2 = posY(i + 1), dy = (y2 - y1) * 0.55;
-    var d = "M" + x1 + " " + y1 + " C" + x1 + " " + (y1 + dy) + " " + x2 + " " + (y2 - dy) + " " + x2 + " " + y2;
-    lineas += '<path class="' + (i + 1 <= cur ? "ln-on" : "ln-off") + '" d="' + d + '"></path>';
-  }
-
-  var paradas = NIVELES.map(function (n, i) {
-    var abierta = llegaste(n);
-    var estado = !abierta ? "lock" : esVisto(n) ? "done" : (i === cur ? "cur" : "next");
-    var contenido = estado === "lock" ? svg(CANDADO, 26) : estado === "done" ? CHECK : (estado === "cur" ? PLAY : String(i + 1));
-    var aqui = estado === "cur" ? '<span class="aqui">¡AQUÍ!</span>' : "";
-    return '<a class="stop ' + estado + '" href="' + (abierta ? esc(n.url) : "#") + '"' + (abierta ? "" : ' data-i="' + i + '" aria-label="' + esc(n.t) + ', bloqueada"') + ' style="left:' + colX(i, w) + 'px;top:' + posY(i) + 'px">' +
-      '<span class="node">' + contenido + aqui + '</span><span class="lab">' + esc(n.t) + '</span></a>';
-  }).join("");
-
-  cont.innerHTML = '<svg class="lines" width="' + w + '" height="' + alto + '" viewBox="0 0 ' + w + ' ' + alto + '" aria-hidden="true">' + lineas + '</svg>' + paradas;
+  var cont = $("path"), w = cont.clientWidth || 520, cur = actual(), html = "";
+  ISLAS_R.forEach(function (isla) {
+    var idx = []; NIVELES.forEach(function (n, i) { if (n.isla === isla.k) idx.push(i); });
+    if (!idx.length) return;
+    var vistas = idx.filter(function (i) { return esVisto(NIVELES[i]); }).length;
+    var abierta = idx.some(function (i) { return llegaste(NIVELES[i]); });
+    var alto = TOP + (idx.length - 1) * PASO + 80, lineas = "", paradas = "";
+    idx.forEach(function (i, k) {
+      var n = NIVELES[i], ok = llegaste(n), x = colX(k, w), y = posY(k);
+      if (k < idx.length - 1) {
+        var x2 = colX(k + 1, w), y2 = posY(k + 1), dy = (y2 - y) * 0.55;
+        lineas += '<path class="' + (llegaste(NIVELES[idx[k + 1]]) ? "ln-on" : "ln-off") + '" d="M' + x + " " + y + " C" + x + " " + (y + dy) + " " + x2 + " " + (y2 - dy) + " " + x2 + " " + y2 + '"></path>';
+      }
+      var estado = !ok ? "lock" : esVisto(n) ? "done" : (i === cur ? "cur" : "next");
+      var contenido = estado === "lock" ? svg(CANDADO, 26) : estado === "done" ? CHECK : (estado === "cur" ? PLAY : String(k + 1));
+      var aqui = estado === "cur" ? '<span class="aqui">¡AQUÍ!</span>' : "";
+      paradas += '<a class="stop ' + estado + '" href="' + (ok ? esc(n.url) : "#") + '"' + (ok ? "" : ' data-i="' + i + '" aria-label="' + esc(n.t) + ', bloqueada"') + ' style="left:' + x + 'px;top:' + y + 'px">' +
+        '<span class="node">' + contenido + aqui + '</span><span class="lab">' + esc(n.t) + '</span></a>';
+    });
+    html += '<section class="isla' + (abierta ? "" : " cerrada") + '" style="--isla:' + isla.c + '">' +
+      '<div class="isla-hd"><span class="isla-ic">' + svg(isla.ic, 24) + '</span><span class="isla-tx"><b>' + isla.n + '</b><small>' + vistas + ' de ' + idx.length + ' lecciones vistas</small></span>' +
+      (abierta ? '' : '<span class="isla-lk">' + svg(CANDADO, 15) + 'Bloqueada</span>') + '</div>' +
+      '<div class="isla-path" style="height:' + alto + 'px"><svg class="lines" width="' + w + '" height="' + alto + '" viewBox="0 0 ' + w + ' ' + alto + '" aria-hidden="true">' + lineas + '</svg>' + paradas + '</div></section>';
+  });
+  cont.style.height = "auto";
+  cont.innerHTML = html;
 }
 
 /* personaje haciendo ejercicio (pixel art) */

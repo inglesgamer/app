@@ -440,6 +440,10 @@ svg{display:block}
 .ev input:focus{outline:none;border-color:var(--gold)}.ev input.ok{border-color:var(--ok)}.ev input.mal{border-color:var(--mal)}
 .ev-l{display:flex;gap:6px}.ev-l i{width:20px;height:4px;border-radius:2px;background:var(--bd)}.ev-l i.f{background:var(--gold)}.ev-l b{width:10px}
 </style>
+<style>/* LECCION_VERANO_V1 */
+.lec-btn{width:100%;max-width:360px;height:52px;margin-top:10px;border-radius:99px;cursor:pointer;background:transparent;color:var(--ink);border:2px solid var(--bd);font:900 16px Nunito,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px}
+.lec-btn svg{color:var(--gold,#F5C542)}
+</style>
 </head>
 <body>
 <div class="app" id="app">
@@ -575,8 +579,8 @@ function pantallaAprende(i, lista, dibujo, alTerminar) {
   tVoz(() => oir(w.audio, w.en), 350);
 }
 function pantallaIntro(titulo, texto, boton, pj, cb) {
-  $("v").innerHTML = '<section class="intro"><div class="pj">' + pj + '</div><h2>' + esc(titulo) + '</h2><p>' + texto + '</p><button type="button" class="lase" id="bGo">' + esc(boton) + '</button></section>';
-  on("bGo", cb); window.scrollTo(0, 0);
+  $("v").innerHTML = '<section class="intro"><div class="pj">' + pj + '</div><h2>' + esc(titulo) + '</h2><p>' + texto + '</p><button type="button" class="lase" id="bGo">' + esc(boton) + '</button><button type="button" class="lec-btn" id="bLec"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7M8 11h5"/></svg>Ver lección</button></section>';
+  on("bGo", cb); on("bLec", () => { try { localStorage.setItem("ig:volver", JSON.stringify({ u:"go:nieve_preposiciones", t:Date.now() })); } catch (e) {} try { callar(); } catch (e) {} location.href = igURL("go:35"); }); window.scrollTo(0, 0);
 }
 
 /* ===== pantalla final · MEDALLA con rayos ===== */
