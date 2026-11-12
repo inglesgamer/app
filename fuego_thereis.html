@@ -953,7 +953,7 @@ function abrirLeccion(cb) { sonido("click");
 
 function pantallaIntro(titulo, texto, boton, pj, cb) {
   $("v").innerHTML = '<section class="intro"><div class="pj">' + pj + '</div><h2>' + esc(titulo) + '</h2><p>' + texto + '</p><button type="button" class="lase" id="bGo">' + esc(boton) + '</button><button type="button" class="lec-btn" id="bLec"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7M8 11h5"/></svg>Ver lección</button></section>';
-  on("bGo", cb); on("bLec", () => abrirLeccion(cb));
+  on("bGo", cb); on("bLec", () => { try { localStorage.setItem("ig:volver", JSON.stringify({ u:"go:fuego_thereis", t:Date.now() })); } catch (e) {} try { callar(); } catch (e) {} location.href = igURL("go:9"); });
 }
 
 /* ===== pantalla final · MEDALLA con rayos ===== */

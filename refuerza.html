@@ -136,16 +136,15 @@ nav a.on{color:var(--hi)}
 /* ================= TUS DATOS: edita solo esta parte ================= */
 /* El ID que va después de "go:" debe ser igual a la Referencia de la sección en AppCreator24. */
 const NIVEL_ACTUAL = "A1";                       /* nivel activo */
-const NOMBRE_NIVEL = "Principiante";             /* título grande de la tarjeta (igual que en Temas) */
+const NOMBRE_NIVEL = "Básico";                   /* título grande de la tarjeta */
 const NIVELES_BLOQUEADOS = ["A2", "B1", "B2"];   /* se ven con candado */
 
-/* Las lecciones guardan lo que marcas como "vista" en "ig:vistos" (clave vieja).
-   Aquí se copia todo a "ingles_gamer_vistos", que SÍ se guarda en la nube con tu cuenta. No las cambies. */
-const KEY_VIEJA = "ig:vistos";
-const KEY_VISTOS = "ingles_gamer_vistos";
+/* Clave donde las lecciones guardan lo que marcas como "vista". No la cambies. */
+const KEY_VISTOS = "ig:vistos";
 
 /* El "id" de cada tema debe ser IGUAL al LECCION_ID que tiene esa lección. */
 const NIVELES = [
+  { id:"pronombres1", t:"Pronombres",           url:"go:13" },
   { id:"tobe1",       t:"Verbo To Be",          url:"go:1" },
   { id:"thisthat1",   t:"This y That",          url:"go:2" },
   { id:"ordinales1",  t:"Números ordinales",    url:"go:3" },
@@ -157,11 +156,17 @@ const NIVELES = [
   { id:"thereis1",    t:"There is y There are", url:"go:9" },
   { id:"continuo1",   t:"Presente continuo",    url:"go:10" },
   { id:"posesivos1",  t:"Posesivos",            url:"go:11" },
-  { id:"wh1",         t:"Preguntas WH",         url:"go:12" }
+  { id:"wh1",         t:"Preguntas WH",         url:"go:12" },
+  { id:"rutina1",     t:"Rutina diaria",        url:"go:14" },
+  { id:"psimple1",    t:"Present Simple",       url:"go:15" },
+  { id:"frecuencia1", t:"Frecuencia",           url:"go:16" },
+  { id:"imperativo1", t:"Imperativo",           url:"go:17" },
+  { id:"was1",        t:"Pasado: was y were",   url:"go:18" },
+  { id:"pasado1",     t:"Pasado simple",        url:"go:19" }
 ];
 const NAV = [
   { nombre:"Inicio", url:"go:inicio", icono:'<path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path>' },
-  { nombre:"Mapa", url:"go:MAPA", icono:'<path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7z"></path><path d="M9 4v13M15 7v12.5"></path>' },
+  { nombre:"Mapa", url:"go:repaso", activo:true, icono:'<path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7z"></path><path d="M9 4v13M15 7v12.5"></path>' },
   { nombre:"Tienda", url:"go:tienda", icono:'<path d="M4 9h16l-1 11H5L4 9z"></path><path d="M8 9V7a4 4 0 0 1 8 0v2"></path>' },
   { nombre:"Ranking", url:"go:ranking", icono:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"></path>' },
   { nombre:"Perfil", url:"go:perfil", icono:'<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>' }
@@ -181,15 +186,7 @@ const colX = (i, w) => COLS[i % 4] * w;
 const posY = i => TOP + i * PASO;
 
 /* ---- Lee qué lecciones marcaste como vistas ---- */
-const leerLista = k => { try { const v = JSON.parse(localStorage.getItem(k) || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
-/* junta las dos claves (sin repetir) y deja todo guardado en la nueva */
-function unirVistos() {
-  const nueva = leerLista(KEY_VISTOS), vieja = leerLista(KEY_VIEJA), u = nueva.slice();
-  vieja.forEach(id => { if (u.indexOf(id) < 0) u.push(id); });
-  if (u.length !== nueva.length) { try { localStorage.setItem(KEY_VISTOS, JSON.stringify(u)); } catch (e) {} }
-  return u;
-}
-const leerVistos = () => unirVistos();
+const leerVistos = () => { try { return JSON.parse(localStorage.getItem(KEY_VISTOS) || "[]"); } catch (e) { return []; } };
 const esVisto = n => leerVistos().indexOf(n.id) !== -1;
 const hechos = () => NIVELES.filter(esVisto).length;
 const actual = () => { for (let i = 0; i < NIVELES.length; i++) if (!esVisto(NIVELES[i])) return i; return NIVELES.length; };
@@ -268,122 +265,16 @@ function personaje() {
 $("pj").innerHTML = personaje();
 $("navbar").innerHTML = NAV.map(n => '<a' + (n.activo ? ' class="on" aria-current="page"' : '') + ' href="' + n.url + '">' + svg(n.icono, 23) + esc(n.nombre) + '</a>').join("");
 
+/* Si entras a Refuerza, las lecciones ya no muestran «Volver al nivel» (eso es solo desde «Ver lección» de un nivel) */
+try { localStorage.removeItem("ig:volver"); } catch (e) {}
+
 /* Se redibuja al abrir, al volver de una lección y cuando cambian los "vistos" */
 function refresca() { dibuja(); dibujaCamino(); }
 refresca();
 window.addEventListener("resize", dibujaCamino);
 window.addEventListener("pageshow", refresca);
 document.addEventListener("visibilitychange", function () { if (!document.hidden) refresca(); });
-window.addEventListener("storage", function (e) { if (e.key === KEY_VISTOS || e.key === KEY_VIEJA) refresca(); });
-</script>
-<script type="module">
-/* ===== SESIÓN: sin cuenta se vuelve a la pantalla de acceso ===== */
-import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-const CONFIG = { apiKey:"AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE", authDomain:"inglesgamer-5a3a9.firebaseapp.com", projectId:"inglesgamer-5a3a9", storageBucket:"inglesgamer-5a3a9.firebasestorage.app", messagingSenderId:"599532765222", appId:"1:599532765222:web:38fe3a7348b3c38e3426e7" };
-const app = getApps().length ? getApp() : initializeApp(CONFIG);
-onAuthStateChanged(getAuth(app), u => { if (!u) location.href = igURL("go:acceso"); });
-</script>
-
-<script type="module">
-/* ===== NUBE: guarda tu progreso en tu cuenta y lo recupera. Este MISMO bloque (versión corregida) va en TODAS las pantallas, justo antes de </body>. ===== */
-import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const CONFIG = {
-  apiKey: "AIzaSyDrBReVK9v1ioWfBIyMCnvtuUgbbWPcxTE",
-  authDomain: "inglesgamer-5a3a9.firebaseapp.com",
-  projectId: "inglesgamer-5a3a9",
-  storageBucket: "inglesgamer-5a3a9.firebasestorage.app",
-  messagingSenderId: "599532765222",
-  appId: "1:599532765222:web:38fe3a7348b3c38e3426e7"
-};
-
-(function () {
-  try {
-    const PREF = "ingles_gamer_", META = "ig_nube_meta";
-    const SKIP = /_(sesion|tema|sonido|buzon|buzon_pausa|acceso_modo)$/;
-    const app = getApps().length ? getApp() : initializeApp(CONFIG);
-    const auth = getAuth(app), db = getFirestore(app);
-    let user = null, ocupado = false;
-
-    const dormir = ms => new Promise(r => setTimeout(r, ms));
-    const estado = (ok, e) => { try { localStorage.setItem("ig_nube_estado", JSON.stringify({ ok: !!ok, t: Date.now(), c: ok ? "" : String((e && (e.code || e.message)) || "error") })); } catch (x) {} };
-    const ref = () => doc(db, "progreso", user.uid);
-    const claves = () => { const k = []; try { for (let i = 0; i < localStorage.length; i++) { const n = localStorage.key(i); if (n.indexOf(PREF) === 0 && !SKIP.test(n)) k.push(n); } } catch (e) {} return k; };
-    const snap = () => { const o = {}; claves().forEach(k => { o[k] = localStorage.getItem(k); }); return o; };
-    const ser = o => JSON.stringify(Object.keys(o).sort().map(k => [k, o[k]]));
-    const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return h; };
-    const getMeta = () => { try { return JSON.parse(localStorage.getItem(META)) || {}; } catch (e) { return {}; } };
-    const setMeta = m => { try { localStorage.setItem(META, JSON.stringify(m)); } catch (e) {} };
-    /* CORREGIDO: "vacío" = sin progreso real (solo el apodo/perfil no cuenta) */
-    const vacio = o => !o || !(o.ingles_gamer_a1_repaso || o.ingles_gamer_aura || o.ingles_gamer_tienda);
-    const limpiar = () => claves().forEach(k => localStorage.removeItem(k));
-    const cambios = () => !!user && getMeta().uid === user.uid && hash(ser(snap())) !== getMeta().h;
-    const puntos = d => {
-      try {
-        const a = JSON.parse(d.ingles_gamer_aura || "null") || {}, r = JSON.parse(d.ingles_gamer_a1_repaso || "null") || {};
-        return (+a.t || 0) + Object.values(r.est || {}).reduce((x, y) => x + (+y || 0), 0);
-      } catch (e) { return 0; }
-    };
-
-    async function subir() {
-      const o = snap(), t = Date.now();
-      await setDoc(ref(), { datos: o, t: t, v: 1 });
-      setMeta({ uid: user.uid, t: t, h: hash(ser(o)) });
-      estado(true);
-    }
-    function bajar(c) {
-      limpiar();
-      const d = c.datos || {};
-      for (const k in d) if (k.indexOf(PREF) === 0 && !SKIP.test(k) && typeof d[k] === "string") localStorage.setItem(k, d[k]);
-      setMeta({ uid: user.uid, t: c.t || Date.now(), h: hash(ser(snap())) });
-    }
-
-    async function sync(lanzar) {
-      if (!user || ocupado) return "igual";
-      ocupado = true;
-      let res = "igual";
-      try {
-        const m = getMeta(), o = snap(), h = hash(ser(o)), s = await getDoc(ref()), c = s.exists() ? s.data() : null, cd = (c && c.datos) || {};
-        if (m.uid && m.uid !== user.uid) {
-          limpiar();
-          if (c) bajar(c); else await subir();
-          res = "bajado"; location.reload();
-        } else if (m.uid !== user.uid) {
-          if (c && (vacio(o) || puntos(cd) >= puntos(o))) { bajar(c); res = "bajado"; location.reload(); }
-          else { await subir(); res = "subido"; }
-        } else if (c && vacio(o) && !vacio(cd)) {
-          bajar(c); res = "bajado"; location.reload();
-        } else if (!c || h !== m.h) { await subir(); res = "subido"; }
-        else if (c.t > m.t) { bajar(c); res = "bajado"; location.reload(); }
-        else estado(true);
-      } catch (e) { ocupado = false; estado(false, e); if (lanzar) throw e; return "igual"; }
-      ocupado = false;
-      return res;
-    }
-
-    const guardarYa = () => { if (cambios()) sync(); };
-    onAuthStateChanged(auth, u => { user = u; if (u) sync(); });
-    document.addEventListener("visibilitychange", () => { if (document.hidden) guardarYa(); else sync(); });
-    addEventListener("pagehide", guardarYa);
-    setInterval(guardarYa, 45000);
-
-    window.IGNube = {
-      listo: true,
-      sincronizar: () => sync(),
-      usuario: () => user,
-      async subirYa() {
-        for (let i = 0; i < 40 && !user; i++) await dormir(250);
-        if (!user) throw new Error("sin-sesion");
-        while (ocupado) await dormir(200);
-        const r = await sync(true);
-        if (r === "bajado") throw new Error("recargando");
-      }
-    };
-  } catch (e) { console.error("[nube]", e); }
-})();
+window.addEventListener("storage", function (e) { if (e.key === KEY_VISTOS) refresca(); });
 </script>
 </body>
 </html>
