@@ -714,7 +714,7 @@ body.auto .u-btn:disabled{visibility:hidden}
 <script>
 /* =====================================================================
    TUS DATOS · Isla de Nieve: Repaso 2 (escucha) — repasa Conectores, Comparativos, Futuro y Situaciones
-   TONO (pedido del usuario, 11 nov): con confianza, como entre amigos, con recocha y bromas suaves (de ahora en adelante).
+   TONO: normal, frases con lógica, sin chistes (pedido del usuario, 11 nov).
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
 const URL_SIGUIENTE = "";
@@ -733,27 +733,27 @@ const LOS4 = [];
 const GLOS = { "i":"yo", "like":"gusta", "i like":"me gusta", "her":"ella (a ella)", "but":"pero", "she":"ella", "likes":"le gusta", "pizza":"pizza",
   "can i have":"¿me das…?", "ice cream":"helado", "please":"por favor", "i am":"estoy", "am":"estoy", "sad":"triste", "my":"mi", "cat":"gato",
   "dog":"perro", "is":"es / está", "than":"que", "it":"(él / eso)", "eats":"come", "a lot":"mucho", "tomorrow":"mañana", "will":"(futuro: -ré)",
-  "study":"estudiar", "maybe":"tal vez", "bread":"pan", "pizza":"pizza", "tea":"té" };
-/* Todo es repaso, con confianza y recocha. dicta = Escribe lo que oyes (chip + chiste en "dice") · oye = Toca lo que oyes (4) · memoriza · parejas · sopa · habla · completa */
+  "drink":"tomar", "tea":"té", "cold":"frío", "because":"porque", "the":"el / la", "bigger":"más grande", "help":"ayudar", "you":"tú / te", "bread":"pan", "pizza":"pizza", "tea":"té" };
+/* Todo es repaso. dicta = Escribe lo que oyes (chip) · oye = Toca lo que oyes (4) · memoriza · parejas · sopa · habla · completa */
 const C = { cat:"CONECTORES", col:"#3FD8C8" }, CO = { cat:"COMPARATIVOS", col:"#FF8A3D" }, F = { cat:"FUTURO", col:"#8E5BD6" }, S = { cat:"SITUACIONES", col:"#FF6FB5" };
 const DI = (en, es, c, dice) => Object.assign({ t:"dicta", en, es, dice }, c);
 const PLAN = [
-  DI("because", "porque", C, "La palabra de las excusas: «No hice la tarea <b>____</b>… mi perro se la comió»."),
-  DI("bigger", "más grande", CO, "Como tu hambre a la medianoche: ¡<b>____</b>!"),
+  DI("because", "porque", C),
+  DI("bigger", "más grande", CO),
   { t:"oye", en:"bread", es:"pan", ops:["bread", "tea", "coffee", "milk"] },
-  { t:"habla", pj:"triste", ob:["g_lloron", "pizza"], en:"I like her, but she likes pizza.", ops:["Me gusta ella, pero a ella le gusta la pizza.", "A ella le gusto yo y la pizza.", "No me gusta la pizza."], nota:"Tranqui, la pizza nunca te va a dejar en visto. (but = pero)" },
-  DI("will", "(futuro)", F, "Lo que dices cada lunes: «I <b>____</b> study»… y no estudias."),
-  DI("please", "por favor", S, "La palabra mágica para que te presten el cargador."),
+  { t:"habla", pj:"pienso", ob:["g_frio", "te"], en:"I will drink tea because I am cold.", ops:["Tomaré té porque tengo frío.", "Tomo café porque tengo calor.", "No me gusta el té."], nota:"will = futuro · because = porque" },
+  DI("will", "(futuro)", F),
+  DI("please", "por favor", S),
   { t:"memoriza", ver:["te", "pan", "helado"], otras:["cafe", "leche", "pizza"] },
-  { t:"completa", pj:"sorpresa", ob:"c_gatog", en:"My cat is ___ than my dog. It eats a lot.", es:"Mi gato es más grande que mi perro. Come mucho.", ok:"bigger", ops:["bigger", "smaller", "colder"], nota:"Gato bien comido, gato feliz. (bigger = más grande)" },
-  DI("colder", "más frío", CO, "Así te responde tu ex: <b>____</b> than ice cream."),
+  { t:"completa", pj:"sorpresa", ob:"c_gatog", en:"The cat is ___ than the dog.", es:"El gato es más grande que el perro.", ok:"bigger", ops:["bigger", "smaller", "colder"], nota:"bigger = más grande" },
+  DI("colder", "más frío", CO),
   { t:"oye", en:"pizza", es:"pizza", ops:["pizza", "ice cream", "dog", "cat"] },
-  DI("help", "ayuda / ayudar", S, "Lo que gritas cuando tu mamá ve tus notas: <b>____</b>!"),
-  { t:"completa", pj:"dormido", ob:"f_sol", en:"Tomorrow I ___ study… maybe.", es:"Mañana estudiaré… tal vez.", ok:"will", ops:["will", "am", "but"], nota:"Todos decimos lo mismo, no te preocupes. (will = -ré)" },
+  DI("help", "ayuda / ayudar", S),
+  { t:"completa", pj:"pulgar", ob:"f_sol", en:"Tomorrow I ___ help you.", es:"Mañana te ayudaré.", ok:"will", ops:["will", "am", "but"], nota:"will = futuro (-ré)" },
   { t:"parejas", pares:[["because", "porque"], ["but", "pero"], ["bigger", "más grande"], ["please", "por favor"], ["tomorrow", "mañana"]] },
-  DI("where", "dónde", S, "Lo que preguntas cada mañana: <b>____</b> is my phone?"),
-  { t:"habla", pj:"triste", ob:["helado", "g_triste"], en:"Can I have ice cream, please? I am sad.", ops:["¿Me das helado, por favor? Estoy triste.", "Tengo helado. Estoy feliz.", "¿Quieres helado? Estoy cansado."], nota:"Helado: el mejor amigo del corazón roto." },
-  DI("tomorrow", "mañana", F, "Cuándo empiezas la dieta: «<b>____</b>»."),
+  DI("where", "dónde", S),
+  { t:"habla", pj:"alegre", ob:["helado", "g_alegre"], en:"Can I have ice cream, please?", ops:["¿Me das helado, por favor?", "Tengo helado.", "¿Quieres helado?"], nota:"Can I have…, please? = ¿Me das…, por favor?" },
+  DI("tomorrow", "mañana", F),
   { t:"sopa", pal:[["BUT", "pero"], ["WILL", "futuro"], ["HELP", "ayuda"], ["PLEASE", "por favor"]] }
 ];
 
@@ -1626,13 +1626,13 @@ function nombreRango() { let st = 0; try { const L = JSON.parse(localStorage.get
 const auraE = () => { try { return +(JSON.parse(localStorage.getItem("ingles_gamer_aura") || "{}").e) || 0; } catch (e) { return 0; } };
 function terminar() {
   const nd = Object.keys(dudas).length;
-  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Lo lograste, crack!", "Repasaste todo y sin llorar (bueno, casi).", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Repaso 2 superado!", "Repasaste conectores, comparativos, futuro y situaciones.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
 }
 
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Repaso 2", "Repaso con recocha: conectores, comparativos, futuro y situaciones. Rel\u00e1jate, esto es entre amigos.", "Empezar", PJ("cool"), empezar);
+pantallaIntro("Repaso 2", "Repaso de todo: escucha, escribe, memoriza y encuentra.", "Empezar", PJ("pienso"), empezar);
 
 </script>
 <script>
