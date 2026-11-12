@@ -771,12 +771,12 @@ body.jshake .app{animation:jshk .45s}@keyframes jshk{20%{transform:translate(-6p
 <script>
 /* =====================================================================
    TUS DATOS · Mapa de Verano A1 · JEFE FINAL (id final, go:final) · "Rey del A1"
-   Repasa los 19 niveles. Arriba el Rey Cangrejo con barra de vida: cada acierto le quita 1.
+   Repasa los 19 niveles en 17 preguntas. Da 100 de aura. Entrada VS + arena: cada acierto le quita 1 de vida al Rey Cangrejo.
    ===================================================================== */
 const URL_MAPA = "go:veranoa1";      // X y "Volver al mapa"
 const URL_SIGUIENTE = "";
-const AURA_EST = { 3:35, 2:25, 1:15 };   // Aura según las estrellas (solo se paga lo que falte)
-const AURA_NIVEL_ANT = 35;               // 3 estrellas = 35 · 2 = 25 · 1 = 15
+const AURA_EST = { 3:100, 2:70, 1:40 };   // Aura según las estrellas (solo se paga lo que falte)
+const AURA_NIVEL_ANT = 100;              // JEFE FINAL: 3 estrellas = 100 · 2 = 70 · 1 = 40 (pedido del usuario)
 const DIAGNOSTICO = false;
 const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // sin botón Comprobar
@@ -785,9 +785,9 @@ const AUDIO_DATA = {};
 const NIVEL = {
   id:"final", nombre:"Jefe final",
   tarjetas:[
-    {cat:"SALUDOS",col:"#FFC83D",en:"Goodbye",es:"adiós"},{cat:"PAÍSES",col:"#3FA0FF",en:"Spanish",es:"español"},
+    {cat:"SALUDOS",col:"#FFC83D",en:"Goodbye",es:"adiós"},
     {cat:"NÚMEROS",col:"#FFC83D",en:"Twenty",es:"veinte"},{cat:"FAMILIA",col:"#FF6FB5",en:"Grandmother",es:"abuela"},
-    {cat:"CASA Y HOGAR",col:"#4CC38A",en:"Bedroom",es:"habitación"},{cat:"RESTAURANTE",col:"#E0703A",en:"Water",es:"agua"},
+    {cat:"RESTAURANTE",col:"#E0703A",en:"Water",es:"agua"},
     {cat:"DÍAS Y MESES",col:"#6A7CFF",en:"Friday",es:"viernes"}
   ]
 };
@@ -820,18 +820,11 @@ const PLAN = [
   DI("Grandmother"),
   { t:"parejas",  pares:[["hello", "hola"], ["seven", "siete"], ["kitchen", "cocina"], ["cow", "vaca"], ["Monday", "lunes"]] },
   { t:"completa", pj:"hambre",  ob:"g_hambre", en:"I ___ pizza.", es:"Como pizza.", ok:"eat", ops:["eat", "sleep", "drive"], nota:"Verbos: eat = comer" },
-  DI("Bedroom"),
   { t:"oye", en:"Ticket", ops:["Ticket", "Passport", "Suitcase", "Plane"] },
   { t:"frase",    ob:"boleto", en:"ticket", antes:"I have a", es:"Tengo un <b>boleto</b>." },
-  { t:"habla",    pj:"hambre",  ob:["banana"], en:"Can I have a banana, please?", ops:["¿Me das una banana, por favor?", "Tengo una banana.", "La banana es amarilla."] },
   DI("Water"),
-  { t:"escucha",  pj:"alegre",  en:"My birthday is in June.", es:"Mi cumpleaños es en junio." },
-  { t:"completa", pj:"dormido", ob:"g_dormido", en:"I sleep a lot on ___.", es:"Duermo mucho el domingo.", ok:"Sunday", ops:["Sunday", "March", "seven"], nota:"Días: Sunday = domingo" },
   DI("Friday"),
   { t:"frase",    ob:"g_baile", en:"dance", antes:"I", despues:" with my friends.", es:"Yo <b>bailo</b> con mis amigos." },
-  { t:"oye", en:"Strawberry", ops:["Strawberry", "Apple", "Grapes", "Banana"] },
-  DI("Spanish"),
-  { t:"parejas",  pares:[["father", "padre"], ["socks", "medias"], ["passport", "pasaporte"], ["March", "marzo"], ["pear", "pera"]] },
   { t:"sopa", n:8, pal:[["HELLO", "hola"], ["SEVEN", "siete"], ["KITCHEN", "cocina"], ["LION", "león"], ["TICKET", "boleto"], ["FRIDAY", "viernes"]] }
 ];
 
@@ -1430,7 +1423,8 @@ const _jReac = reaccion; reaccion = function (ok) { _jReac(ok); const ar = $("je
   else { jAnim($("jfS"), "lunge");
     setTimeout(() => { jAdd(ar, '<div class="ar-slash"></div>', 400); jAdd(ar, '<div class="ar-red"></div>', 500); jAnim(document.body, "jshake"); jYo("ups"); jAdd(ar, '<div class="ar-dmg r" style="left:40px;top:60px">−♥</div>', 1000); }, 230);
     setTimeout(() => jYo("cool"), 1150); } };
-const _jEmp = empezar; empezar = function () { JMAX = 0; const j = $("jefe"); if (j) j.classList.remove("ko"); _jEmp(); jefeVS(); };
+/* primero la entrada VS (sin audio) y cuando termina arrancan las preguntas: así el audio suena cuando ya se ve el ejercicio */
+const _jEmp = empezar; empezar = function () { JMAX = 0; const j = $("jefe"); if (j) j.classList.remove("ko"); try { callar(); } catch (e) {} jefeVS(); setTimeout(_jEmp, 3450); };
 const _jGan = ganar; ganar = function () { const a = arguments; jefeKO(); setTimeout(() => _jGan.apply(null, a), 1600); };
 const OB1 = (n, s) => typeof ESC_D !== "undefined" && ESC_D[n] ? escena(n, s) : dib(n, 12).replace('width="12" height="12"', 'width="' + s + '" height="' + s + '"');
 const OB = (n, s) => (Array.isArray(n) ? n : [n]).map(x => OB1(x, s)).join("");
