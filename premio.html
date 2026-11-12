@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Premio | InglésGamer</title>
+<meta name="theme-color" content="#000000">
+<script>
+/* ===== PALETAS: una sola fuente de colores. La elección se guarda en "ingles_gamer_tema". ===== */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+window.addEventListener("pageshow", function () { aplicarTema(temaActual()); });
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--hi:#FFFFFF;--on-hi:#000000}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+.p{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(30px + env(safe-area-inset-top)) 22px calc(30px + env(safe-area-inset-bottom));position:relative;overflow:hidden}
+.rayos{position:absolute;left:50%;top:38%;width:620px;height:620px;margin:-310px 0 0 -310px;background:repeating-conic-gradient(rgba(255,194,61,.13) 0 12deg,transparent 12deg 24deg);border-radius:50%;animation:gira 18s linear infinite;pointer-events:none}
+@keyframes gira{to{transform:rotate(360deg)}}
+.ic{position:relative;animation:llega .8s cubic-bezier(.3,1.6,.5,1) both;filter:drop-shadow(0 0 24px rgba(255,170,40,.55))}
+.ic.cor{filter:drop-shadow(0 0 24px rgba(255,90,106,.55))}
+@keyframes llega{from{transform:scale(0) rotate(-25deg);opacity:0}}
+.k{position:relative;margin-top:18px;font-size:12px;font-weight:900;letter-spacing:.22em;color:var(--mu)}
+h1{position:relative;margin:6px 0 0;font-size:44px;font-weight:900;line-height:1;color:#FFC23D;animation:pop .6s .5s both}
+h1.cor{color:#FF5A6A}
+@keyframes pop{from{transform:scale(.4);opacity:0}}
+.t{position:relative;margin:10px 0 0;font-size:16px;font-weight:800;color:var(--mu);max-width:320px;line-height:1.4}
+.b{position:relative;width:100%;max-width:360px;height:58px;margin-top:34px;border:0;border-radius:18px;background:var(--hi);color:var(--on-hi);font:900 18px Nunito,sans-serif;box-shadow:0 5px 0 rgba(128,128,128,.5);cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.chis{pointer-events:none;position:absolute;width:8px;height:8px;border-radius:2px;top:-10px;animation:cae linear forwards}
+@keyframes cae{to{transform:translateY(110vh) rotate(720deg)}}
+</style>
+</head>
+<body>
+<div class="p" id="p"></div>
+<script>
+/* ================= PREMIO DEL ANUNCIO ================= */
+const VIGENCIA = 15 * 60 * 1000;   // el premio vale 15 minutos desde que se pidió
+const $ = id => document.getElementById(id);
+const leer = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
+const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"\x26amp;", "<":"\x26lt;", ">":"\x26gt;", '"':"\x26quot;" }[c]));
+function sumarAura(n, txt) {
+  const a = leer("ingles_gamer_aura") || {}; a.t = Math.max(0, +a.t || 0) + n; a.e = Math.max(0, +a.e || 0) + n; a.g = a.g || {};
+  a.l = [[n, txt, Date.now()]].concat(Array.isArray(a.l) ? a.l : []).slice(0, 20); guardar("ingles_gamer_aura", a);
+  try { if (window.IGNube && IGNube.subirYa) IGNube.subirYa(); } catch (e) {}
+}
+function sonar() {
+  try { if (localStorage.getItem("ingles_gamer_sonido") === "0") return; const C = new (window.AudioContext || window.webkitAudioContext)();
+    [523, 659, 784, 1047].forEach((f, i) => { const o = C.createOscillator(), g = C.createGain(); o.type = "triangle"; o.frequency.value = f; g.gain.setValueAtTime(.0001, C.currentTime + i * .1);
+      g.gain.exponentialRampToValueAtTime(.08, C.currentTime + i * .1 + .02); g.gain.exponentialRampToValueAtTime(.0001, C.currentTime + i * .1 + .35); o.connect(g).connect(C.destination); o.start(C.currentTime + i * .1); o.stop(C.currentTime + i * .1 + .4); }); } catch (e) {}
+}
+function confeti() { const c = ["#FFC23D", "#FF7A1A", "#5FBF4A", "#3FA9F5", "#FF5A6A"]; for (let i = 0; i < 40; i++) { const s = document.createElement("i"); s.className = "chis"; s.style.left = Math.random() * 100 + "%"; s.style.background = c[i % 5]; s.style.animationDuration = 1.6 + Math.random() * 1.6 + "s"; s.style.animationDelay = Math.random() * .6 + "s"; $("p").appendChild(s); } }
+function pantalla(icono, cor, k, tit, txt, boton, url) {
+  $("p").innerHTML = '<div class="rayos"></div><div class="ic' + (cor ? " cor" : "") + '">' + icono + '</div><div class="k">' + k + '</div><h1' + (cor ? ' class="cor"' : '') + '>' + tit + '</h1><p class="t">' + txt + '</p>' +
+    '<a class="b" href="' + esc(url) + '">' + esc(boton) + '</a>';
+}
+const LLAMA = '<svg viewBox="0 0 12 12" width="120" height="120" shape-rendering="crispEdges" aria-hidden="true"><path d="M5 0h1v1h1v2h1v1h1v1h1v4H9v1H8v1H3v-1H2V9H1V5h1V4h1v1h1V2h1z" fill="#FF7A1A"/><path d="M5 4h1v1h1v1h1v3H7v1H4V9H3V7h1V5h1z" fill="#FFC23D"/></svg>', COR = '<svg viewBox="0 0 11 10" width="120" height="110" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 0h3v1h1v1h1V1h1V0h3v1h1v4h-1v1H9v1H8v1H7v1H6v1H5V9H4V8H3V7H2V6H1V5H0V1h1z" fill="#FF5A6A"/><path d="M1 1h2v1H1z" fill="#fff" opacity=".6"/></svg>';
+(function () {
+  const pr = leer("ig_premio");
+  try { localStorage.removeItem("ig_premio"); } catch (e) {}        // un premio = una vez
+  if (!pr || !pr.tipo || Date.now() - (+pr.t || 0) > VIGENCIA) {
+    pantalla(LLAMA, false, "PREMIO", "Nada por ahora", "No tienes premios pendientes. Gánalos al final de un nivel o en los duelos.", "Ir al inicio", "go:inicio");
+    return;
+  }
+  const n = Math.max(0, Math.min(500, +pr.gan || 0));
+  if (pr.tipo === "x2") {
+    sumarAura(n, "Aura x2 (anuncio)");
+    pantalla(LLAMA, false, "AURA X2", "+" + n, "¡Duplicaste el Aura del nivel! Ya está en tu cuenta y suma a tu liga.", "Volver al mapa", pr.volver || "go:inicio");
+  } else if (pr.tipo === "cor") {
+    const r = leer("ig_revivir"); if (r) { r.ok = true; r.t = Date.now(); guardar("ig_revivir", r); }
+    pantalla(COR, true, "¡SIGUES JUGANDO!", "+1 corazón", "Vuelves al nivel en la misma pregunta donde ibas.", "Volver al nivel", pr.volver || "go:inicio");
+  } else if (pr.tipo === "duelo") {
+    sumarAura(n, "Anuncio en duelo");
+    const R = leer("ingles_gamer_duelos") || {}; R.ad = Array.isArray(R.ad) ? R.ad : []; if (pr.id && R.ad.indexOf(pr.id) < 0) R.ad.push(pr.id); guardar("ingles_gamer_duelos", R);
+    pantalla(LLAMA, false, "DUELO", "+" + n, "Duplicaste tu premio por participar.", "Volver a los duelos", pr.volver || "go:duelo");
+  } else { pantalla(LLAMA, false, "PREMIO", "Nada por ahora", "No tienes premios pendientes.", "Ir al inicio", "go:inicio"); return; }
+  sonar(); confeti();
+})();
+</script>
+</body>
+</html>

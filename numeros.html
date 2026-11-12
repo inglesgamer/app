@@ -1655,16 +1655,16 @@ function sinCorazones() {
   $("v").innerHTML = '<div class="sc"><div class="sc-roto"><span class="a">' + SC_MITAD(0) + '</span><span class="b">' + SC_MITAD(1) + '</span></div><div class="sc-pj">' + pj + '</div>' +
     '<h2>¡Sin corazones!</h2><p class="t2">Te quedaste sin vidas en este nivel.</p>' +
     '<div class="sc-bt"><button type="button" class="sc-b sc-ad" id="scAd">' + '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="#1A1206"/><path d="M10 9v6l5-3z" fill="#F5C542"/></svg>' + 'Ver anuncio y seguir <span class="tag">+1 ' + SC_COR(12) + '</span></button>' +
-    '<button type="button" class="sc-b sc-plus" id="scPlus">Plus: corazones ilimitados</button>' +
+    
     '<button type="button" class="sc-b sc-out" id="scOut">Salir del nivel</button></div></div>';
   window.scrollTo(0, 0); try { sonido("mal"); } catch (e) {}
-  $("scAd").onclick = () => igAnuncio(ok => {
+  $("scAd").onclick = () => { if (!(window.IGAnuncio && IGAnuncio.disponible())) { try { localStorage.setItem("ig_revivir", JSON.stringify({ u:IG_YO, pos, dudas, t:Date.now() })); } catch (e) {} igPremio({ tipo:"cor", volver:IG_YO }); return; }
+  igAnuncio(ok => {
     if (!ok) return;
     const p = document.createElement("div"); p.className = "sc-premio"; p.innerHTML = '<span class="cr">' + SC_COR(90) + '</span><b>+1 corazón</b><small>¡Sigue en la misma pregunta!</small>'; document.body.appendChild(p);
     try { sonido("ok", 2); } catch (e) {}
     setTimeout(() => { p.remove(); SC_ON = false; vidas = 1; PERDIO = false; try { Racha.revivir(1); } catch (e) {} pintar(); }, 1500);
-  });
-  $("scPlus").onclick = () => { location.href = igURL("go:plus"); };
+  }); };
   $("scOut").onclick = () => { SC_ON = false; PERDIO = true; perdido(); };
 }
 function perdidoYa() { if (PERDIO || SC_ON) return; if (!AD_COR && !APRENDE) { AD_COR = true; sinCorazones(); return; } PERDIO = true; perdido(); }
@@ -2362,7 +2362,9 @@ async function mostrar(o) {
   }, 1700);
   /* ANUNCIOS_V1: x2 de Aura con un anuncio (una vez) */
   const bX = ov.querySelector("#igfX2");
-  if (bX) bX.addEventListener("click", () => { if (bX.dataset.ok || typeof igAnuncio !== "function") return;
+  if (bX) bX.addEventListener("click", () => { if (bX.dataset.ok) return;
+    if (!(window.IGAnuncio && IGAnuncio.disponible())) { bX.dataset.ok = "1"; igPremio({ tipo:"x2", gan, volver:(typeof URL_MAPA === "string" ? URL_MAPA : "go:inicio") }); return; }
+    if (typeof igAnuncio !== "function") return;
     igAnuncio(ok => { if (!ok || bX.dataset.ok) return; bX.dataset.ok = "1";
       const a = leer("ingles_gamer_aura") || {}; a.t = Math.max(0, +a.t || 0) + gan; a.e = Math.max(0, +a.e || 0) + gan; a.g = a.g || {};
       a.l = [[gan, "Aura x2 (anuncio)", Date.now()]].concat(Array.isArray(a.l) ? a.l : []).slice(0, 20); guardar("ingles_gamer_aura", a);
@@ -2411,4 +2413,23 @@ function igAnuncio(cb) {
   const iv = setInterval(() => { n--; const b = ov.querySelector(".cnt b"); if (b) b.textContent = n; if (n <= 0) { clearInterval(iv); ov.remove(); cb(true); } }, 1000);
 }
 function igAvisoAd(t) { const p = document.createElement("div"); p.textContent = t; p.style.cssText = "position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:99999;background:#fff;color:#000;padding:10px 16px;border-radius:14px;font:800 14px Nunito,sans-serif"; document.body.appendChild(p); setTimeout(() => p.remove(), 2600); }
+</script>
+<script>/* ANUNCIOS_V2 */
+const IG_YO = "go:numeros";   /* la sección de App Creator de este nivel (para volver después del anuncio) */
+function igPremio(t) {   /* App Creator: el anuncio sale al abrir la sección «premio» (Ver vídeo para acceder: Sí) */
+  t.nivel = IG_YO; t.t = Date.now(); try { localStorage.setItem("ig_premio", JSON.stringify(t)); } catch (e) {}
+  try { callar(); } catch (e) {} location.href = igURL("go:premio");
+}
+function igRevivir() {   /* volviste de ver el anuncio por un corazón: sigues en la misma pregunta con 1 corazón */
+  let r = null; try { r = JSON.parse(localStorage.getItem("ig_revivir") || "null"); } catch (e) {}
+  if (!r || !r.ok || r.u !== IG_YO || Date.now() - (+r.t || 0) > 15 * 60e3) return;
+  try { localStorage.removeItem("ig_revivir"); } catch (e) {}
+  try { callar(); } catch (e) {}
+  PERDIO = false; SC_ON = false; AD_COR = true; pos = Math.max(0, +r.pos || 0); dudas = r.dudas || {}; vidas = 1;
+  try { Racha.reiniciar(); Racha.revivir(1); } catch (e) {} try { setCC(COLOR); } catch (e) {}
+  pintar();
+}
+setTimeout(igRevivir, 60);
+window.addEventListener("pageshow", () => setTimeout(igRevivir, 60));
+document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(igRevivir, 60); });
 </script>

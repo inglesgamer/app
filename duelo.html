@@ -845,7 +845,7 @@ const CATS = [
 ];
 const APUESTAS = [0, 25, 50, 100];
 const PARTICIPAR = 10;                // Aura por participar (lo único que da la app)
-const ANUNCIO_URL = "";               // sección de App Creator con el anuncio con premio (vacío = anuncio de prueba)
+const ANUNCIO_URL = "go:premio";      // sección «premio» de App Creator (Ver vídeo para acceder: Sí) → premio.html da el +10
 
 /* ================= ESTADO ================= */
 let ME = null, YO = null, AMIGOS = [], DUELOS = [], cargando = true, error = "";
@@ -1318,7 +1318,7 @@ function listaHTML(d, yo, el, nombre, anim) {
 function verAnuncio(id) {
   const dar = () => { const R = REG(); R.ad = R.ad || []; if (R.ad.indexOf(id) > -1) return; R.ad.push(id); R.ad = R.ad.slice(-200); guardar("ingles_gamer_duelos", R); moverAura(PARTICIPAR, PARTICIPAR, "Anuncio en duelo"); snd("gano"); say("¡+" + PARTICIPAR + " de Aura!"); pintar(); };
   if (window.IGAnuncio && IGAnuncio.disponible()) { IGAnuncio.recompensa().then(r => { if (r === "ok") dar(); else if (r === "error") say("No hay anuncios ahora. Intenta más tarde"); }); return; }
-  if (ANUNCIO_URL) { guardar("ig_duelo_ad", { id, t:Date.now() }); location.href = igURL(ANUNCIO_URL); return; }
+  if (ANUNCIO_URL) { guardar("ig_premio", { tipo:"duelo", gan:PARTICIPAR, id, volver:"go:duelo", t:Date.now() }); location.href = igURL(ANUNCIO_URL); return; }
   const ov = document.createElement("div"); ov.className = "adx"; let t = 5;
   ov.innerHTML = '<small>ANUNCIO DE PRUEBA</small><div class="adc"><b id="adT">5</b></div><p>Aquí va el anuncio con premio</p>'; document.body.appendChild(ov);
   const iv = setInterval(() => { t--; const b = ov.querySelector("#adT"); if (b) b.textContent = t; if (t <= 0) { clearInterval(iv); ov.remove(); dar(); } }, 1000);
