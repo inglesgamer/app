@@ -1521,7 +1521,7 @@ function reaccion(ok) {
   const L = PJ_FB[ok ? "ok" : "mal"].filter(x => ACC[x[0]]), x = L.length ? L[nFb[ok ? "ok" : "mal"]++ % L.length] : [ok ? "pulgar" : "pienso", ok ? "¡Muy bien!" : "¡Ups!"];
   ic.innerHTML = '<span class="gb">' + x[1] + '</span>' + PJ(x[0]);
 }
-listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") { b.disabled = !v; if (v && typeof AUTO !== "undefined" && AUTO) setTimeout(() => { if (b.textContent === "Comprobar" && !b.disabled) b.click(); }, 160); } };
+listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") { b.disabled = !v; if (v && typeof AUTO !== "undefined" && AUTO && !(P && P.t === "escucha")) setTimeout(() => { if (b.textContent === "Comprobar" && !b.disabled) b.click(); }, 160); } };
 if (typeof AUTO !== "undefined" && AUTO) document.body.classList.add("auto");
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
 function pintar() { P = PLAN[pos]; ({ los4:exLos4, sopa:exSopa, nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas, oye:exOye, dicta:exDicta, memoriza:exMemoriza, frase:exFrase })[P.t](); }
@@ -1695,7 +1695,7 @@ function exEscucha() {
   pantalla('<p class="u-t">Escribe lo que escuchas</p><div class="u-hab" style="justify-content:center;gap:14px">' + PJ(P.pj) +
     '<div style="display:flex;align-items:center;gap:10px;margin-bottom:40px"><button type="button" class="u-bigb" id="bAu" aria-label="Escuchar">' + AUG + '</button><button type="button" class="u-bigb lento" id="bLe" aria-label="Escuchar lento">' + LENTO + '</button></div></div>' +
     '<textarea class="u-ta" id="ta" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Escribe lo que escuchas"></textarea>',
-    () => { const v = $("ta").value.trim().toLowerCase().replace(/[.!?]/g, "").replace(/’/g, "'").replace(/\s+/g, " "); const m = enLimpio(P.en).toLowerCase(); return [v === m || v === m.replace("don't", "dont"), P.en + " = " + P.es, P.en]; });
+    () => { const v = $("ta").value.trim().toLowerCase().replace(/[.!?]/g, "").replace(/’/g, "'").replace(/\s+/g, " "); const m = enLimpio(P.en).toLowerCase().replace(/[.,!?]/g, "").replace(/\s+/g, " ").trim(); return [v.replace(/,/g, "").replace(/\s+/g, " ") === m || v === m.replace("don't", "dont"), P.en + " = " + P.es, P.en]; });
   on("bAu", () => voz(P.en, .9)); on("bLe", () => voz(P.en, .55)); tVoz(() => voz(P.en, .9), 300);
   $("ta").addEventListener("input", () => listo($("ta").value.trim()));
 }
