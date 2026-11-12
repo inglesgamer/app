@@ -704,6 +704,32 @@ body.auto .u-btn:disabled{visibility:hidden}
 .lec-btn{width:100%;max-width:360px;height:52px;margin-top:10px;border-radius:99px;cursor:pointer;background:transparent;color:var(--ink);border:2px solid var(--bd);font:900 16px Nunito,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px}
 .lec-btn svg{color:var(--gold,#F5C542)}
 </style>
+<style>/* ANUNCIOS_V1 */
+.igf-x2{width:100%;min-height:60px;margin:6px 0 4px;border:0;border-radius:20px;background:linear-gradient(#FFE07A,#FFB627);color:#1A1206;display:flex;align-items:center;gap:12px;padding:8px 14px;text-align:left;cursor:pointer;box-shadow:0 5px 0 #A0661A;font-family:inherit;animation:igfLate 1.2s ease-in-out infinite alternate}
+.igf-x2 span{flex:1}.igf-x2 b{display:block;font-size:17px;font-weight:900}.igf-x2 small{font-size:12.5px;font-weight:800;opacity:.75}
+.igf-x2 em{font-style:normal;font-size:24px;font-weight:900;background:#1A1206;color:#FFC23D;border-radius:12px;padding:2px 10px}
+.igf-x2.ok{animation:none;opacity:1;transform:none;background:#1F3A27;color:#7BE3A8;box-shadow:none;cursor:default}
+@keyframes igfLate{to{transform:scale(1.03)}}
+.igf-a.sube #igfAu{animation:igfSube .7s}@keyframes igfSube{40%{transform:scale(1.45);color:#7BE3A8}}
+.adt{position:fixed;inset:0;z-index:99999;background:#111;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-family:Nunito,system-ui,sans-serif}
+.adt .cnt{position:absolute;top:calc(16px + env(safe-area-inset-top));right:16px;background:#000a;border-radius:99px;padding:6px 12px;font-weight:900;font-size:13px}
+.adt .fake{width:240px;height:150px;border-radius:16px;background:linear-gradient(135deg,#3FA9F5,#8E5BD6);display:grid;place-items:center;font-weight:900;font-size:20px}
+.adt p{margin:0;color:#9AA3B2;font-weight:800;font-size:13px}
+.sc{display:flex;flex-direction:column;align-items:center;text-align:center;min-height:calc(100vh - 140px);padding:18px 4px calc(20px + env(safe-area-inset-bottom))}
+.sc-roto{position:relative;width:120px;height:110px;margin-top:10px}
+.sc-roto .a,.sc-roto .b{position:absolute;top:0}.sc-roto .a{left:0;animation:scA 2.4s ease-in-out infinite}.sc-roto .b{right:0;animation:scB 2.4s ease-in-out infinite}
+@keyframes scA{0%,30%{transform:none}50%,90%{transform:translate(-8px,6px) rotate(-10deg)}}@keyframes scB{0%,30%{transform:none}50%,90%{transform:translate(8px,6px) rotate(10deg)}}
+.sc-pj{margin-top:6px;line-height:0}
+.sc h2{margin:10px 0 0;font-size:26px;font-weight:900}.sc .t2{margin:6px 0 0;color:var(--mu,#9AA3B2);font-weight:800;font-size:15px}
+.sc-bt{width:100%;margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:22px}
+.sc-b{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:58px;border-radius:16px;font:900 17px Nunito,sans-serif;letter-spacing:.02em;border:0;border-bottom:5px solid;cursor:pointer}
+.sc-ad{background:#F5C542;color:#2A1A00;border-color:#B8860B}.sc-ad .tag{background:#2A1A00;color:#F5C542;border-radius:8px;padding:2px 8px;font-size:12px;display:inline-flex;align-items:center;gap:3px}
+.sc-plus{background:transparent;color:#B98AFF;border:2px solid #4A3A6A;border-bottom:5px solid #4A3A6A;height:52px;font-size:15px}
+.sc-out{background:transparent;color:var(--mu,#9AA3B2);border:0;height:44px;font-size:15px}
+.sc-premio{position:fixed;inset:0;z-index:99998;background:rgba(5,5,5,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;font-family:Nunito,system-ui,sans-serif}
+.sc-premio .cr{animation:scLlega .7s cubic-bezier(.3,1.6,.5,1)}@keyframes scLlega{from{transform:scale(0) rotate(-30deg)}}
+.sc-premio b{font-size:24px}.sc-premio small{color:#9AA3B2;font-weight:800}
+</style>
 </head>
 <body>
 <div class="app" id="app">
@@ -1040,6 +1066,7 @@ const Racha = (() => {
   iniciar(el) { raiz = el; mock = el.querySelector(".mock") || el; L = el.querySelector(".fxl"); pr = el.querySelector(".prog"); timers = []; pintarCorazones(); },
   acierto() { racha++; const nv = NIVELES.find(n => n.n === racha); if (nv) encender(nv); return racha; },
   error() { if (vidas <= 0) return false; apagar(); racha = 0; vidas--; pum(); return true; },
+  revivir(n) { apagar(); vidas = n; pintarCorazones(); },
   reiniciar() { apagar(); racha = 0; vidas = 3; pintarCorazones(); },
   get racha() { return racha; },
   get vidas() { return vidas; }
@@ -1390,8 +1417,30 @@ const PLAN_N = PLAN.length;
 if (APRENDE) document.body.classList.add("aprende");
 /*ARREGLO_VIDAS_V1: sin corazones = fin del intento, no se puede seguir */
 let PERDIO = false;
-function perdidoYa() { if (PERDIO) return; PERDIO = true; perdido(); }
-function empezar() { PERDIO = false; if (APRENDE) { PLAN.length = PLAN_N; document.body.classList.add("aprende"); } pos = 0; dudas = {}; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
+/* ANUNCIOS_V1 · Sin corazones (diseño 1 «Corazón roto», con el personaje que llora) */
+let AD_COR = false, SC_ON = false;
+const SC_MITAD = lado => '<svg width="60" height="110" viewBox="0 0 5.5 10" shape-rendering="crispEdges"><g transform="' + (lado ? 'translate(-5.5 0)' : '') + '"><path d="M1 0h3v1h1v1h1V1h1V0h3v1h1v4h-1v1H9v1H8v1H7v1H6v1H5V9H4V8H3V7H2V6H1V5H0V1h1z" fill="#FF5A6A"/></g></svg>';
+const SC_COR = s => '<svg width="' + s + '" height="' + Math.round(s * .9) + '" viewBox="0 0 11 10" shape-rendering="crispEdges"><path d="M1 0h3v1h1v1h1V1h1V0h3v1h1v4h-1v1H9v1H8v1H7v1H6v1H5V9H4V8H3V7H2V6H1V5H0V1h1z" fill="#FF5A6A"/><path d="M1 1h2v1H1z" fill="#fff" opacity=".6"/></svg>';
+function sinCorazones() {
+  SC_ON = true; try { callar(); } catch (e) {}
+  let pj = ""; try { pj = GAL("lloron", 96); } catch (e) {}
+  $("v").innerHTML = '<div class="sc"><div class="sc-roto"><span class="a">' + SC_MITAD(0) + '</span><span class="b">' + SC_MITAD(1) + '</span></div><div class="sc-pj">' + pj + '</div>' +
+    '<h2>¡Sin corazones!</h2><p class="t2">Te quedaste sin vidas en este nivel.</p>' +
+    '<div class="sc-bt"><button type="button" class="sc-b sc-ad" id="scAd">' + '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="#1A1206"/><path d="M10 9v6l5-3z" fill="#F5C542"/></svg>' + 'Ver anuncio y seguir <span class="tag">+1 ' + SC_COR(12) + '</span></button>' +
+    '<button type="button" class="sc-b sc-plus" id="scPlus">Plus: corazones ilimitados</button>' +
+    '<button type="button" class="sc-b sc-out" id="scOut">Salir del nivel</button></div></div>';
+  window.scrollTo(0, 0); try { sonido("mal"); } catch (e) {}
+  $("scAd").onclick = () => igAnuncio(ok => {
+    if (!ok) return;
+    const p = document.createElement("div"); p.className = "sc-premio"; p.innerHTML = '<span class="cr">' + SC_COR(90) + '</span><b>+1 corazón</b><small>¡Sigue en la misma pregunta!</small>'; document.body.appendChild(p);
+    try { sonido("ok", 2); } catch (e) {}
+    setTimeout(() => { p.remove(); SC_ON = false; vidas = 1; PERDIO = false; try { Racha.revivir(1); } catch (e) {} pintar(); }, 1500);
+  });
+  $("scPlus").onclick = () => { location.href = igURL("go:plus"); };
+  $("scOut").onclick = () => { SC_ON = false; PERDIO = true; perdido(); };
+}
+function perdidoYa() { if (PERDIO || SC_ON) return; if (!AD_COR && !APRENDE) { AD_COR = true; sinCorazones(); return; } PERDIO = true; perdido(); }
+function empezar() { PERDIO = false; AD_COR = false; if (APRENDE) { PLAN.length = PLAN_N; document.body.classList.add("aprende"); } pos = 0; dudas = {}; vidas = 3; Racha.reiniciar(); setCC(COLOR); pintar(); }
 function pantalla(cuerpo, rev) {
   revisar = rev; setBarra(pos / PLAN.length * 100);
   const pis = P && P.pista ? '<div class="u-pista"><span class="k">NUEVO</span><button type="button" class="u-au" id="bPis" aria-label="Escuchar">' + AU + '</button><b>' + esc(P.pista[0]) + '</b><span class="eq">=</span><span class="es">' + esc(P.pista[1]) + '</span></div>' : '';
@@ -2064,7 +2113,7 @@ async function mostrar(o) {
     '<div class="igf-sub" id="igfSub" hidden></div></div>';
   ov.innerHTML = '<div class="igf-in">' + (est ? '<div class="igf-st">' + [0, 1, 2].map(i => '<span class="' + (i === 1 ? "m " : "") + (i < est ? "" : "no") + '">' + estrella().replace("<svg ", '<svg style="animation-delay:' + (.2 + i * .22) + 's" ') + '</span>').join("") + '</div>' : '') +
     '<p class="igf-t igf-ap" style="animation-delay:.8s">' + esc(o.titulo || "¡Nivel completado!") + '</p>' + (o.sub ? '<p class="igf-s igf-ap" style="animation-delay:.9s">' + esc(o.sub) + '</p>' : '') +
-    '<div class="igf-a igf-ap" style="animation-delay:1s">' + llama(28) + '<span id="igfAu">+0</span><small>AURA</small></div>' + (gan ? '' : '<p class="igf-ya">Ya ganaste el Aura de esto. ¡Igual sumaste práctica!</p>') +
+    '<div class="igf-a igf-ap" style="animation-delay:1s">' + llama(28) + '<span id="igfAu">+0</span><small>AURA</small></div>' + (gan ? '' : '<p class="igf-ya">Ya ganaste el Aura de esto. ¡Igual sumaste práctica!</p>') + (gan && o.multi !== false ? '<button type="button" class="igf-x2 igf-ap" style="animation-delay:1.1s" id="igfX2">' + '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="#1A1206"/><path d="M10 9v6l5-3z" fill="#F5C542"/></svg>' + '<span><b>Multiplica tu Aura</b><small>Mira un anuncio</small></span><em>x2</em></button>' : '') + 
     rango + '<div class="igf-lh igf-ap" style="animation-delay:1.4s"><span>LIGA SEMANAL</span><b>' + esc(RANGOS_REINO[reinoDe(lg0.st)].n) + '</b></div><div class="igf-ls" id="igfLs"><p class="igf-nota">Buscando tu liga…</p></div>' +
     (o.extra || '') + '<button type="button" class="igf-btn' + (o.extra ? ' igf-sec' : '') + '" id="igfOk">Continuar</button></div>';
   document.body.appendChild(ov); void ov.offsetWidth; ov.classList.add("on");
@@ -2085,6 +2134,18 @@ async function mostrar(o) {
       [523, 659, 784, 1047].forEach((f, i) => tono(f, i * .1, .3, "square", .04));
     }, 1300);
   }, 1700);
+  /* ANUNCIOS_V1: x2 de Aura con un anuncio (una vez) */
+  const bX = ov.querySelector("#igfX2");
+  if (bX) bX.addEventListener("click", () => { if (bX.dataset.ok || typeof igAnuncio !== "function") return;
+    igAnuncio(ok => { if (!ok || bX.dataset.ok) return; bX.dataset.ok = "1";
+      const a = leer("ingles_gamer_aura") || {}; a.t = Math.max(0, +a.t || 0) + gan; a.e = Math.max(0, +a.e || 0) + gan; a.g = a.g || {};
+      a.l = [[gan, "Aura x2 (anuncio)", Date.now()]].concat(Array.isArray(a.l) ? a.l : []).slice(0, 20); guardar("ingles_gamer_aura", a);
+      try { avanzarLiga(gan); } catch (e) {}
+      const e = ov.querySelector("#igfAu"), t0 = performance.now(); const f = t => { const k = Math.min(1, (t - t0) / 800); e.textContent = "+" + Math.round(gan + gan * k); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f);
+      ov.querySelector(".igf-a").classList.add("sube"); [523, 659, 784, 1047].forEach((q, i) => tono(q, i * .1, .3, "triangle", .06));
+      bX.classList.add("ok"); bX.innerHTML = '<span><b>¡Aura x2!</b><small>+' + gan * 2 + ' de Aura en este nivel</small></span>';
+      try { if (window.IGNube && IGNube.subirYa) IGNube.subirYa(); } catch (e) {} });
+  });
   ov.querySelector("#igfOk").addEventListener("click", () => { ov.classList.remove("on"); setTimeout(() => ov.remove(), 300); if (typeof o.alSalir === "function") o.alSalir(); });
   const bO = ov.querySelector("#igfOtra"); if (bO) bO.addEventListener("click", () => { ov.classList.remove("on"); setTimeout(() => ov.remove(), 300); if (typeof o.alOtra === "function") o.alOtra(); });
   /* liga semanal */
@@ -2113,3 +2174,16 @@ async function mostrar(o) {
 window.IGFinal = { mostrar };
 </script>
 <!-- ===== fin FINAL CON LIGA SEMANAL ===== -->
+<script>/* ANUNCIOS_V1 */
+/* ANUNCIOS_V1: anuncio con premio. App nativa → AdMob (IGAnuncio). Si no hay, anuncio de prueba de 5 s. */
+function igAnuncio(cb) {
+  if (window.IGAnuncio && IGAnuncio.disponible()) {
+    IGAnuncio.recompensa().then(r => { if (r === "ok") cb(true); else { cb(false); if (r === "error") igAvisoAd("No hay anuncios ahora. Intenta más tarde"); } });
+    return;
+  }
+  const ov = document.createElement("div"); ov.className = "adt"; let n = 5;
+  ov.innerHTML = '<span class="cnt">Anuncio · <b>5</b></span><div class="fake">Tu anuncio aquí</div><p>(Anuncio de prueba)</p>'; document.body.appendChild(ov);
+  const iv = setInterval(() => { n--; const b = ov.querySelector(".cnt b"); if (b) b.textContent = n; if (n <= 0) { clearInterval(iv); ov.remove(); cb(true); } }, 1000);
+}
+function igAvisoAd(t) { const p = document.createElement("div"); p.textContent = t; p.style.cssText = "position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:99999;background:#fff;color:#000;padding:10px 16px;border-radius:14px;font:800 14px Nunito,sans-serif"; document.body.appendChild(p); setTimeout(() => p.remove(), 2600); }
+</script>
