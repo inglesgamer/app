@@ -380,6 +380,14 @@ function jugar(id) {
 }
 /* ===== ANUNCIO para abrir el 2.º minijuego ===== */
 function verAnuncio() {
+  /* App nativa (Capacitor): anuncio con premio de AdMob. Solo se desbloquea si lo vio completo. */
+  if (window.IGAnuncio && IGAnuncio.disponible()) {
+    IGAnuncio.recompensa().then(r => {
+      if (r === "ok") { const g = prog(); g.adp = g.d; guardarProg(g); revisarAnuncio(); }
+      else if (r === "error") aviso("No hay anuncios ahora. Intenta más tarde");
+    });
+    return;
+  }
   const g = prog(); g.adp = g.d; guardarProg(g);
   if (ANUNCIO_URL) { location.href = (window.igURL ? igURL(ANUNCIO_URL) : ANUNCIO_URL); return; }
   const ov = document.createElement("div"); ov.className = "adx"; let t = 5;
