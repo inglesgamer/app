@@ -25,7 +25,7 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Vocabulario 3 · InglésGamer</title>
+<title>Vocabulario 4 · InglésGamer</title>
 <meta name="theme-color" content="#000000">
 <script>
 /* Paletas: las mismas del Inicio, Perfil y Ranking (se lee "ingles_gamer_tema") */
@@ -697,7 +697,7 @@ svg{display:block}
 </div>
 <script>
 /* =====================================================================
-   TUS DATOS · Isla de Nieve: Vocabulario 3 (lugares de la ciudad)
+   TUS DATOS · Isla de Nieve: Vocabulario 4 (lugares de la ciudad)
    De a poco, 3 corazones, voz Puck. ~30 % repasa Situaciones.
    ===================================================================== */
 const URL_MAPA = "go:mapanieve";
@@ -708,7 +708,7 @@ const DIAGNOSTICO = true;
 const APRENDE = false;               // false = con los 3 corazones
 const AUDIO_CARPETA = "https://inglesgamer.github.io/app/audios/puck/";   // voz natural PUCK (Isla de Nieve) en tu GitHub
 const AUDIO_DATA = {};
-const NIVEL = { id:"vocab2", nombre:"Vocabulario 3" };
+const NIVEL = { id:"vocab2", nombre:"Vocabulario 4" };
 const TEMA = "LUGARES", COLOR = "#3FA9F5";
 const PALABRAS = [];
 const LOS4 = [];
@@ -1596,13 +1596,13 @@ function nombreRango() { let st = 0; try { const L = JSON.parse(localStorage.get
 const auraE = () => { try { return +(JSON.parse(localStorage.getItem("ingles_gamer_aura") || "{}").e) || 0; } catch (e) { return 0; } };
 function terminar() {
   const nd = Object.keys(dudas).length;
-  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Vocabulario 3 superado!", "Ya sabes los lugares de la ciudad.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
+  ganar(nd, EVAL(), nd === 0 ? "¡Perfecto!" : "\u00a1Vocabulario 4 superado!", "Ya sabes los lugares de la ciudad.", "Repasa las palabras difíciles para ganar más estrellas.", nd ? repaso() : "", empezar);
 }
 
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-pantallaIntro("Vocabulario 3", "Lugares de la ciudad: escuela, parque, tienda, hospital, banco, biblioteca y ba\u00f1o.", "Empezar", PJ("saludo"), empezar);
+pantallaIntro("Vocabulario 4", "Lugares de la ciudad: escuela, parque, tienda, hospital, banco, biblioteca y ba\u00f1o.", "Empezar", PJ("saludo"), empezar);
 
 </script>
 <script>
