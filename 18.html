@@ -242,6 +242,9 @@ const AUDIO_BASE = "https://inglesgamer.github.io/app/audios/bella/";
 const AUDIOS = {};
 
 /* ID de esta lección: debe ser igual al "id" de este tema en la página Refuerza tu inglés. */
+/* Nivel del mapa que abre el botón «Jugar» al final de la lección */
+const JUGAR = "go:fuego_pasado";
+
 const LECCION_ID = "was1";
 
 const CONTENIDO = [
@@ -374,7 +377,7 @@ function bloque(b) {
   if (b.tipo === "flip")
     return '<p class="hint">Toca una tarjeta para ver la respuesta.</p><div class="flips">' + b.items.map(f => '<button type="button" class="flip" aria-label="Voltear tarjeta"><span class="in"><span class="f">' + f[0] + '</span><span class="b">' + f[1] + "</span></span></button>").join("") + "</div>";
   if (b.tipo === "siguiente")
-    return '<div class="card fin"><div class="pj">' + personaje(b.pj || "pulgar") + '</div><strong>' + b.titulo + '</strong><p>' + b.texto + '</p><button type="button" class="btn marca" id="visto">☐ Marcar como vista</button><a class="btn main" href="go:refuerza">Volver a Refuerza tu inglés</a></div>';
+    return '<div class="card fin"><div class="pj">' + personaje(b.pj || "pulgar") + '</div><strong>' + b.titulo + '</strong><p>' + b.texto + '</p><button type="button" class="btn marca" id="visto">☐ Marcar como vista</button><a class="btn main" id="jugar" href="' + esc(JUGAR) + '">Jugar</a></div>';
   return "<p>" + b.texto + "</p>";
 }
 
@@ -444,15 +447,14 @@ if (vb) {
 }
 
 $("navbar").innerHTML = NAV.map(n => '<a' + (n.activo ? ' class="on" aria-current="page"' : '') + ' href="' + n.url + '"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + n.icono + '</svg>' + n.nombre + '</a>').join("");
-/* «Volver al nivel»: si llegaste desde «Ver lección» de un nivel, los botones de volver te regresan a ese nivel */
+/* Si llegaste desde «Ver lección» de un nivel, la flecha de atrás te regresa a ese nivel */
 (function () {
   let v = null; try { v = JSON.parse(localStorage.getItem("ig:volver") || "null"); } catch (e) {}
   if (!v || !v.u || Date.now() - (v.t || 0) > 3 * 3600e3) return;
-  document.querySelectorAll('a[href="go:refuerza"]').forEach(a => {
-    a.setAttribute("href", v.u); if (a.classList.contains("btn")) a.textContent = "Volver al nivel";
-    a.addEventListener("click", () => { try { localStorage.removeItem("ig:volver"); } catch (e) {} });
-  });
+  document.querySelectorAll('a.bk[href="go:refuerza"]').forEach(a => a.setAttribute("href", v.u));
 })();
+/* Al ir a jugar ya no hace falta recordar el nivel */
+document.addEventListener("click", e => { if (e.target.closest("#jugar, a.bk")) { try { localStorage.removeItem("ig:volver"); } catch (x) {} } });
 </script>
 </body>
 </html>
