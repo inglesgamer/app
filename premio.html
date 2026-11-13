@@ -91,7 +91,7 @@ function pantalla(icono, cor, k, tit, txt, boton, url) {
   $("p").innerHTML = '<div class="rayos"></div><div class="ic' + (cor ? " cor" : "") + '">' + icono + '</div><div class="k">' + k + '</div><h1' + (cor ? ' class="cor"' : '') + '>' + tit + '</h1><p class="t">' + txt + '</p>' +
     '<a class="b" href="' + esc(url) + '">' + esc(boton) + '</a>';
 }
-const LLAMA = '<svg viewBox="0 0 12 12" width="120" height="120" shape-rendering="crispEdges" aria-hidden="true"><path d="M5 0h1v1h1v2h1v1h1v1h1v4H9v1H8v1H3v-1H2V9H1V5h1V4h1v1h1V2h1z" fill="#FF7A1A"/><path d="M5 4h1v1h1v1h1v3H7v1H4V9H3V7h1V5h1z" fill="#FFC23D"/></svg>', COR = '<svg viewBox="0 0 11 10" width="120" height="110" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 0h3v1h1v1h1V1h1V0h3v1h1v4h-1v1H9v1H8v1H7v1H6v1H5V9H4V8H3V7H2V6H1V5H0V1h1z" fill="#FF5A6A"/><path d="M1 1h2v1H1z" fill="#fff" opacity=".6"/></svg>';
+const LLAMA = '<svg viewBox="0 0 12 12" width="120" height="120" shape-rendering="crispEdges" aria-hidden="true"><path d="M5 0h1v1h1v2h1v1h1v1h1v4H9v1H8v1H3v-1H2V9H1V5h1V4h1v1h1V2h1z" fill="#FF7A1A"/><path d="M5 4h1v1h1v1h1v3H7v1H4V9H3V7h1V5h1z" fill="#FFC23D"/></svg>', COR = '<svg viewBox="0 0 11 10" width="120" height="110" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 0h3v1h1v1h1V1h1V0h3v1h1v4h-1v1H9v1H8v1H7v1H6v1H5V9H4V8H3V7H2V6H1V5H0V1h1z" fill="#FF5A6A"/><path d="M1 1h2v1H1z" fill="#fff" opacity=".6"/></svg>', SALTO = '<svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#F5C542" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4l9 8-9 8M13 4l6 8-6 8"/></svg>';
 (function () {
   const pr = leer("ig_premio");
   try { localStorage.removeItem("ig_premio"); } catch (e) {}        // un premio = una vez
@@ -110,6 +110,11 @@ const LLAMA = '<svg viewBox="0 0 12 12" width="120" height="120" shape-rendering
     sumarAura(n, "Anuncio en duelo");
     const R = leer("ingles_gamer_duelos") || {}; R.ad = Array.isArray(R.ad) ? R.ad : []; if (pr.id && R.ad.indexOf(pr.id) < 0) R.ad.push(pr.id); guardar("ingles_gamer_duelos", R);
     pantalla(LLAMA, false, "DUELO", "+" + n, "Duplicaste tu premio por participar.", "Volver a los duelos", pr.volver || "go:duelo");
+  } else if (pr.tipo === "salto" && pr.clave && pr.id && /^ingles_gamer_[a-z0-9_]+$/.test(pr.clave)) {
+    let S = leer(pr.clave); if (!S || typeof S !== "object" || !S.est) S = Object.assign(S && typeof S === "object" ? S : {}, { est:{} });
+    S.est[pr.id] = Math.max(+S.est[pr.id] || 0, 1); guardar(pr.clave, S);
+    try { if (window.IGNube && IGNube.subirYa) IGNube.subirYa(); } catch (e) {}
+    pantalla(SALTO, false, "NIVEL SALTADO", "¡Listo!", (pr.nombre ? "«" + esc(pr.nombre) + "» " : "El nivel ") + "quedó superado con 1 estrella. Ya puedes seguir con el siguiente. Juégalo cuando quieras para ganar el Aura.", "Volver al mapa", pr.volver || "go:inicio");
   } else { pantalla(LLAMA, false, "PREMIO", "Nada por ahora", "No tienes premios pendientes.", "Ir al inicio", "go:inicio"); return; }
   sonar(); confeti();
 })();
