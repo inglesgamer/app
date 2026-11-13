@@ -110,6 +110,13 @@ const LLAMA = '<svg viewBox="0 0 12 12" width="120" height="120" shape-rendering
     sumarAura(n, "Anuncio en duelo");
     const R = leer("ingles_gamer_duelos") || {}; R.ad = Array.isArray(R.ad) ? R.ad : []; if (pr.id && R.ad.indexOf(pr.id) < 0) R.ad.push(pr.id); guardar("ingles_gamer_duelos", R);
     pantalla(LLAMA, false, "DUELO", "+" + n, "Duplicaste tu premio por participar.", "Volver a los duelos", pr.volver || "go:duelo");
+  } else if (pr.tipo === "ref" && pr.ref && /^[a-z0-9_]+$/.test(pr.ref)) {
+    /* Refuerza tu inglés: +35 de Aura una sola vez por lección (ingles_gamer_ref_aura = {lección: fecha}) */
+    const RA = leer("ingles_gamer_ref_aura") || {};
+    if (RA[pr.ref]) { pantalla(LLAMA, false, "REFUERZA", "Ya lo ganaste", "El Aura de esta lección ya está en tu cuenta. Sigue con la siguiente lección para ganar más.", "Volver a la lección", pr.volver || "go:refuerza"); return; }
+    RA[pr.ref] = Date.now(); guardar("ingles_gamer_ref_aura", RA);
+    sumarAura(n, "Refuerza: " + (pr.nombre || "lección"));
+    pantalla(LLAMA, false, "REFUERZA TU INGLÉS", "+" + n, "¡Ganaste Aura por repasar " + (pr.nombre ? "«" + esc(pr.nombre) + "»" : "esta lección") + "! Ya está en tu cuenta y suma a tu liga.", "Volver a la lección", pr.volver || "go:refuerza");
   } else if (pr.tipo === "salto" && pr.clave && pr.id && /^ingles_gamer_[a-z0-9_]+$/.test(pr.clave)) {
     let S = leer(pr.clave); if (!S || typeof S !== "object" || !S.est) S = Object.assign(S && typeof S === "object" ? S : {}, { est:{} });
     S.est[pr.id] = Math.max(+S.est[pr.id] || 0, 3); guardar(pr.clave, S);

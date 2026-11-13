@@ -360,5 +360,45 @@ window.addEventListener("pageshow", refresca);
 document.addEventListener("visibilitychange", function () { if (!document.hidden) refresca(); });
 window.addEventListener("storage", function (e) { if (e.key === KEY_VISTOS || e.key === "ingles_gamer_fuego_repaso" || e.key === "ingles_gamer_a1_repaso") refresca(); });
 </script>
+<style>
+/* AURA REFUERZA PAGINA (13 nov) */
+.rap{display:flex;align-items:center;gap:12px;margin:14px 16px 0;padding:14px 16px;border-radius:22px;background:linear-gradient(135deg,rgba(255,138,61,.16),rgba(255,200,61,.08));border:2px solid rgba(255,170,61,.4)}
+.rap-ic{flex:none;width:48px;height:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:rgba(255,138,61,.18)}
+.rap-tx{flex:1;min-width:0}.rap-tx b{display:block;font:900 17px Nunito,sans-serif}.rap-tx small{display:block;margin-top:2px;font:700 13px Nunito,sans-serif;color:var(--mu);line-height:1.35}
+.rap-n{flex:none;text-align:center;padding:6px 10px;border-radius:14px;background:var(--card)}.rap-n b{display:block;font:900 18px Nunito,sans-serif;color:#FF8A3D}.rap-n small{font:800 10.5px Nunito,sans-serif;color:var(--mu);letter-spacing:.06em}
+.rap-bar{height:8px;margin-top:8px;border-radius:99px;background:var(--chip);overflow:hidden}.rap-bar i{display:block;height:100%;background:#FF8A3D;border-radius:99px}
+.ra35{position:absolute;top:-8px;right:-14px;display:flex;align-items:center;gap:2px;padding:2px 7px 2px 5px;border-radius:99px;background:#FF8A3D;color:#1E0F02;font:900 11.5px Nunito,sans-serif;box-shadow:0 2px 0 #B85A1C;z-index:2;animation:raLat 1.6s ease-in-out infinite}
+.cur .ra35{right:auto;left:-18px}
+@keyframes raLat{50%{transform:translateY(-3px)}}
+@media (prefers-reduced-motion:reduce){.ra35{animation:none}}
+</style>
+<script>
+/* AURA REFUERZA PAGINA (13 nov) */
+(function () {
+  const AURA_REF = 35;
+  const LL = s => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z" fill="#FF8A3D"/><path d="M12 12c1 2 3 3 3 5a3 3 0 0 1-6 0c0-1 .5-2 1-2.5.3 1 .8 1.5 1.5 1.5 0-1.5-.3-2.5.5-4z" fill="#FFD166"/></svg>';
+  const cobradas = () => { try { return JSON.parse(localStorage.getItem("ingles_gamer_ref_aura") || "{}") || {}; } catch (e) { return {}; } };
+  function pintar() {
+    const RA = cobradas(), total = NIVELES.length, hechas = NIVELES.filter(n => RA[n.id]).length;
+    let box = document.getElementById("rap");
+    if (!box) { box = document.createElement("div"); box.id = "rap"; box.className = "rap"; const path = document.getElementById("path"); path.parentNode.insertBefore(box, path); }
+    box.innerHTML = '<span class="rap-ic">' + LL(30) + '</span><span class="rap-tx"><b>Gana +' + AURA_REF + ' de Aura en cada lección</b>' +
+      '<small>Al final de cada lección mira un anuncio corto y cobra tu premio. Una vez por lección.</small><div class="rap-bar"><i style="width:' + Math.round(hechas / total * 100) + '%"></i></div></span>' +
+      '<span class="rap-n"><b>' + hechas + '/' + total + '</b><small>COBRADAS</small></span>';
+    /* etiqueta «+35» en las lecciones abiertas que aún no se cobran */
+    document.querySelectorAll("#path a.stop").forEach(a => {
+      const n = NIVELES.find(x => x.url === a.getAttribute("href")), node = a.querySelector(".node"); if (!n || !node) return;
+      const old = node.querySelector(".ra35"); if (old) old.remove();
+      if (!a.classList.contains("lock") && !RA[n.id]) node.insertAdjacentHTML("beforeend", '<span class="ra35">' + LL(12) + '+' + AURA_REF + '</span>');
+    });
+  }
+  const viejo = refresca;
+  refresca = function () { viejo(); try { pintar(); } catch (e) {} };
+  try { pintar(); } catch (e) {}
+  window.addEventListener("pageshow", () => { try { pintar(); } catch (e) {} });
+  window.addEventListener("resize", () => setTimeout(() => { try { pintar(); } catch (e) {} }, 50));
+})();
+/* FIN AURA REFUERZA PAGINA */
+</script>
 </body>
 </html>
