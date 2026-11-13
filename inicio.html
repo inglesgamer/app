@@ -479,7 +479,7 @@ main{overflow-x:hidden;touch-action:pan-y}
       <div id="retos"></div>
     </section>
 
-    <section id="secRef"><a class="refuerza" id="refuerza"></a></section>
+    <section id="secRef"><div class="refuerza" id="refuerza"></div></section>
 
     <section id="ayuda" aria-label="Sugerencias y peticiones">
       <h2 class="t">Ayúdanos a mejorar</h2>
@@ -2056,7 +2056,7 @@ const LECCIONES = [
   { id:"thereis1", t:"There is y There are", url:"go:9" }, { id:"continuo1", t:"Presente continuo", url:"go:10" },
   { id:"posesivos1", t:"Posesivos", url:"go:11" }, { id:"wh1", t:"Preguntas WH", url:"go:12" }
 ];
-function pintarRefuerza() {
+function pintarRefuerzaViejo() {
   const lista = k => { try { const v = JSON.parse(localStorage.getItem(k) || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
   const vis = lista("ingles_gamer_vistos").concat(lista("ig:vistos"));
   const hechas = LECCIONES.filter(l => vis.indexOf(l.id) >= 0).length;
@@ -2070,8 +2070,6 @@ function pintarRefuerza() {
     '<div class="seg">' + LECCIONES.map(l => '<i class="' + (vis.indexOf(l.id) >= 0 ? "on" : l === sig ? "sg" : "") + '"></i>').join("") + '</div>' +
     '<span class="btn">' + ic("play", 16) + (sig ? (hechas ? "Continuar" : "Empezar") : "Ver lecciones") + '</span>';
 }
-pintarRefuerza();
-window.addEventListener("pageshow", pintarRefuerza);
 </script>
 
 <script type="module">
@@ -2193,6 +2191,115 @@ function finDuelo(lista) {
 onAuthStateChanged(getAuth(app), u => { if (u) { uid = u.uid; cargar(true); } });
 document.addEventListener("visibilitychange", () => { if (!document.hidden) cargar(false); });
 window.addEventListener("pageshow", e => { if (e.persisted) cargar(true); });
+</script>
+<style>
+/* REFUERZA B (13 nov) */
+.rfB{display:block;min-height:0;padding:4px 4px 0;border-radius:0;background:none;color:var(--ink)}
+.rfB::after{display:none}
+.rfB .rw{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.rfB small{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.rfB b{display:block;font-size:28px;font-weight:900;line-height:1.08;margin-top:6px}
+.rfB em{display:block;font-style:normal;font-weight:800;font-size:14px;color:var(--mu);margin-top:6px}
+.rfB .pjr{width:64px;flex:none}.rfB .pjr svg{width:100%;height:auto;display:block;overflow:visible}
+.rfB .bar{height:10px;margin:16px 0;border-radius:99px;background:var(--chip);overflow:hidden}
+.rfB .bar i{display:block;height:100%;border-radius:99px;background:#58CC02}
+.rfB .bts{display:flex;gap:10px}
+.rfB .bts a{display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:99px;font-weight:900;font-size:16px;text-decoration:none}
+.rfB .b1{flex:1;background:var(--hi);color:var(--on-hi);box-shadow:0 4px 0 rgba(128,128,128,.35)}
+.rfB .b2{flex:1.25;background:var(--card);border:2px solid var(--bd);color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.3);font-size:14.5px!important;white-space:nowrap;padding:0 10px}
+.rfB .bts a:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(128,128,128,.35)}
+</style>
+<script>
+/* REFUERZA B (13 nov) */
+/* Mismas 44 lecciones y mismo desbloqueo que la página Refuerza (sale de refuerza/hacer_refuerza.py) */
+const RF_NIV = [
+  { id:"saludos1", t:"Saludos", url:"go:20", isla:"verano", nivel:"saludos", nn:"Saludos" },
+  { id:"presentarte1", t:"Preséntate", url:"go:21", isla:"verano", nivel:"vocab", nn:"Vocabulario" },
+  { id:"paises1", t:"Países e idiomas", url:"go:22", isla:"verano", nivel:"paises", nn:"Países e idiomas" },
+  { id:"numeros1", t:"Números", url:"go:23", isla:"verano", nivel:"numeros", nn:"Números" },
+  { id:"colores1", t:"Colores", url:"go:24", isla:"verano", nivel:"colores", nn:"Colores" },
+  { id:"familia1", t:"Familia", url:"go:25", isla:"verano", nivel:"familia", nn:"Familia" },
+  { id:"hogar1", t:"Casa y hogar", url:"go:26", isla:"verano", nivel:"hogar", nn:"Casa y hogar" },
+  { id:"ropa1", t:"Ropa", url:"go:27", isla:"verano", nivel:"objetos", nn:"Ropa" },
+  { id:"animales1", t:"Animales", url:"go:28", isla:"verano", nivel:"animales", nn:"Animales" },
+  { id:"frutas1", t:"Frutas", url:"go:29", isla:"verano", nivel:"comidas", nn:"Frutas" },
+  { id:"restaurante1", t:"Restaurante", url:"go:30", isla:"verano", nivel:"restaurante", nn:"Restaurante" },
+  { id:"viajes1", t:"Viajes", url:"go:31", isla:"verano", nivel:"viajes", nn:"Viajes" },
+  { id:"verbos1", t:"Verbos básicos", url:"go:32", isla:"verano", nivel:"verbos", nn:"Verbos básicos" },
+  { id:"fechas1", t:"Días y meses", url:"go:33", isla:"verano", nivel:"fechas", nn:"Días y meses" },
+  { id:"ordinales1",  t:"Números ordinales",    url:"go:3",  isla:"verano", nivel:"fechas",     nn:"Días y meses" },
+  { id:"invierno1", t:"Ropa de invierno", url:"go:34", isla:"nieve", nivel:"vocab1", nn:"Vocabulario 3" },
+  { id:"preposiciones1", t:"Preposiciones", url:"go:35", isla:"nieve", nivel:"preposiciones", nn:"Preposiciones" },
+  { id:"adjetivos1", t:"Adjetivos", url:"go:36", isla:"nieve", nivel:"adjetivos", nn:"Adjetivos" },
+  { id:"gustos1", t:"Gustos y necesidades", url:"go:37", isla:"nieve", nivel:"gustos", nn:"Gustos y necesidades" },
+  { id:"conectores1", t:"Conectores", url:"go:38", isla:"nieve", nivel:"conectores", nn:"Conectores" },
+  { id:"comparativos1", t:"Comparativos", url:"go:39", isla:"nieve", nivel:"comparativos", nn:"Comparativos" },
+  { id:"futuro1", t:"Futuro con will", url:"go:40", isla:"nieve", nivel:"futuro", nn:"Futuro (will)" },
+  { id:"situaciones1", t:"Situaciones reales", url:"go:41", isla:"nieve", nivel:"situaciones", nn:"Situaciones reales" },
+  { id:"lugares1", t:"Lugares de la ciudad", url:"go:42", isla:"nieve", nivel:"vocab2", nn:"Vocabulario 4" },
+  { id:"profesiones1", t:"Profesiones", url:"go:43", isla:"nieve", nivel:"profesiones", nn:"Profesiones" },
+  { id:"cuerpo1", t:"Partes del cuerpo", url:"go:44", isla:"nieve", nivel:"cuerpo", nn:"Partes del cuerpo" },
+  { id:"pronombres1", t:"Pronombres",           url:"go:13", isla:"fuego",  nivel:"pronombres", nn:"Pronombres y posesivos" },
+  { id:"posesivos1",  t:"Posesivos",            url:"go:11", isla:"fuego",  nivel:"pronombres", nn:"Pronombres y posesivos" },
+  { id:"tobe1",       t:"Verbo To Be",          url:"go:1",  isla:"fuego",  nivel:"tobe",       nn:"Verbo To be" },
+  { id:"thereis1",    t:"There is y There are", url:"go:9",  isla:"fuego",  nivel:"thereis",    nn:"There is / There are" },
+  { id:"aan1",        t:"A y An",               url:"go:4",  isla:"fuego",  nivel:"articulos",  nn:"A / an, this / that" },
+  { id:"thisthat1",   t:"This y That",          url:"go:2",  isla:"fuego",  nivel:"articulos",  nn:"A / an, this / that" },
+  { id:"thesethose1", t:"These y Those",        url:"go:5",  isla:"fuego",  nivel:"articulos",  nn:"A / an, this / that" },
+  { id:"wh1",         t:"Preguntas WH",         url:"go:12", isla:"fuego",  nivel:"wh",         nn:"Preguntas WH" },
+  { id:"rutina1",     t:"Rutina diaria",        url:"go:14", isla:"fuego",  nivel:"vocab5",     nn:"Vocabulario 5" },
+  { id:"psimple1",    t:"Present Simple",       url:"go:15", isla:"fuego",  nivel:"psimple",    nn:"Present Simple" },
+  { id:"dodoes1",     t:"Do y Does",            url:"go:8",  isla:"fuego",  nivel:"psimple",    nn:"Present Simple" },
+  { id:"havehas1",    t:"Have y Has",           url:"go:6",  isla:"fuego",  nivel:"psimple",    nn:"Present Simple" },
+  { id:"frecuencia1", t:"Frecuencia",           url:"go:16", isla:"fuego",  nivel:"frecuencia", nn:"Frecuencia" },
+  { id:"can1",        t:"Can",                  url:"go:7",  isla:"fuego",  nivel:"canimp",     nn:"Can e imperativo" },
+  { id:"imperativo1", t:"Imperativo",           url:"go:17", isla:"fuego",  nivel:"canimp",     nn:"Can e imperativo" },
+  { id:"continuo1",   t:"Presente continuo",    url:"go:10", isla:"fuego",  nivel:"pcont",      nn:"Presente continuo" },
+  { id:"was1",        t:"Pasado: was y were",   url:"go:18", isla:"fuego",  nivel:"pasado",     nn:"Pasado: was / were" },
+  { id:"pasado1",     t:"Pasado simple",        url:"go:19", isla:"fuego",  nivel:"pasado2",    nn:"Pasado: -ed e irregulares" }
+];
+const MAPAS = {
+  verano: { clave:"ingles_gamer_a1_repaso", orden:["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3"] },
+  nieve:  { clave:"ingles_gamer_nieve_repaso", orden:["vocab1","preposiciones","adjetivos","gustos","esc1","conectores","comparativos","futuro","situaciones","esc2","vocab2","profesiones","cuerpo"] },
+  fuego:  { clave:"ingles_gamer_fuego_repaso", orden:["pronombres","tobe","thereis","escf1","articulos","wh","vocab5","psimple","frecuencia","escf2","canimp","pcont","pasado","pasado2","escf3"] }
+};
+const estMapa = c => { try { const g = JSON.parse(localStorage.getItem(c) || "null"); return (g && g.est) || {}; } catch (e) { return {}; } };
+/* La Isla de Fuego se abre con 51 estrellas de Verano (igual que en la pantalla de islas) */
+const estrellasVerano = () => {
+  const e = estMapa(MAPAS.verano.clave), ids = MAPAS.verano.orden.concat(["final"]);
+  let t = 0; if (Object.keys(e).length) ids.forEach(id => { t += Math.min(3, Math.max(0, +e[id] || 0)); });
+  else { try { t = Number(localStorage.getItem("ingles_gamer_estrellas_total")) || 0; } catch (x) {} }
+  return t;
+};
+const llegaste = n => {
+  const m = MAPAS[n.isla]; if (!m) return true;
+  if (n.isla === "fuego" && estrellasVerano() < 51) return false;   /* islas: Nieve con 40 y Fuego con 51 estrellas de Verano */
+  if (n.isla === "nieve" && estrellasVerano() < 40) return false;
+  const e = estMapa(m.clave), i = m.orden.indexOf(n.nivel);
+  return i <= 0 || (+e[m.orden[i - 1]] || 0) >= 1 || (+e[n.nivel] || 0) >= 1;
+};
+
+const RF_ISLA = { verano:"Isla de Verano", nieve:"Isla de Nieve", fuego:"Isla de Fuego" };
+function pintarRefuerza() {
+  const lista = k => { try { const v = JSON.parse(localStorage.getItem(k) || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
+  const vis = lista("ig:vistos").concat(lista("ingles_gamer_vistos")), visto = n => vis.indexOf(n.id) >= 0;
+  const abiertas = RF_NIV.filter(llegaste), hechas = RF_NIV.filter(visto).length;
+  const sig = abiertas.find(n => !visto(n)), prox = RF_NIV.find(n => !llegaste(n));
+  const el = $("refuerza"); if (!el) return;
+  el.className = "refuerza rfB"; el.removeAttribute("href");
+  const pct = Math.round(hechas / RF_NIV.length * 100);
+  el.innerHTML = '<div class="rw"><div><small>REFUERZA TU INGLÉS · ' + hechas + ' DE ' + RF_NIV.length + '</small>' +
+    (sig ? '<b>' + (hechas ? 'Sigue con:' : 'Empieza con:') + '<br>' + esc(sig.t) + '</b><em>' + RF_ISLA[sig.isla] + ' · Lección corta · 3 min</em>'
+         : '<b>¡Vas al día!</b><em>' + (prox ? 'La próxima se abre al llegar a «' + esc(prox.nn) + '»' : 'Ya viste todas las lecciones') + '</em>') +
+    '</div><div class="pjr">' + carro() + '</div></div>' +
+    '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
+    '<div class="bts">' + (sig ? '<a class="b1" href="' + esc(sig.url) + '">' + ic("play", 16) + (hechas ? "Continuar" : "Empezar") + '</a>' : '') +
+    '<a class="' + (sig ? "b2" : "b1") + '" href="go:refuerza">Ver todos los temas</a></div>';
+}
+pintarRefuerza();
+window.addEventListener("pageshow", pintarRefuerza);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) pintarRefuerza(); });
+/* FIN REFUERZA B */
 </script>
 </body>
 </html>
