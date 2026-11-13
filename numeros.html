@@ -1943,7 +1943,8 @@ function terminar() {
 /* ===== arranque ===== */
 document.title = NIVEL.nombre + " · InglésGamer";
 Racha.iniciar(document.querySelector(".top"));
-if (MODO_SALTO) saltar(); else introPase();
+/* Pase VIP quitado (12 nov): ahora se salta con «Saltar nivel» (anuncio, premio4) */
+if (MODO_SALTO) saltar(); else pantallaIntro(NIVEL.nombre, "Aprende a contar en inglés.", "Empezar", PJ("saludo"), empezar);
 
 </script>
 <script>
