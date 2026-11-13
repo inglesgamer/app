@@ -2301,5 +2301,38 @@ window.addEventListener("pageshow", pintarRefuerza);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) pintarRefuerza(); });
 /* FIN REFUERZA B */
 </script>
+<style>
+/* RETOS B (13 nov) */
+.rt{position:relative}
+.rt.n1 .rt-ic{background:#3FA9F5;color:#fff}.rt.n2 .rt-ic{background:#C08BFF;color:#fff}.rt.n3 .rt-ic{background:#FF8A3D;color:#fff}
+.rt-tm{display:block;margin-top:2px;font-size:11.5px;font-weight:800;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.rt-tx{min-width:0;max-width:100%}
+.rt.hecho{opacity:.75}.rt-hc{display:inline-flex;align-items:center;gap:4px;margin-top:2px;font-size:12px;font-weight:900;color:#58CC02}
+.rt-lu{margin:-4px 4px 0;font-size:12.5px;font-weight:800;color:var(--mu)}
+</style>
+<script>
+/* RETOS B (13 nov) */
+function pintarRetos() {
+  const RT = [
+    { n:1, t:"Vocabulario", ic:'<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"></path><path d="M4 19V5M8 7h6M8 11h6"></path>' },
+    { n:2, t:"Gramática", ic:'<path d="M5 5h14v10H10l-5 4z"></path><path d="M9 9h6"></path>' },
+    { n:3, t:"Escucha", ic:'<path d="M11 5 6 9H2v6h4l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path>' } ];
+  const d = new Date(), x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+  const z = n => String(n).padStart(2, "0"), sem = x.getFullYear() + "-" + z(x.getMonth() + 1) + "-" + z(x.getDate());
+  let R = null; try { R = JSON.parse(localStorage.getItem("ingles_gamer_retos") || "null"); } catch (e) {}
+  if (!R || R.sem !== sem) R = { t:{}, h:{} };
+  const hechos = RT.filter(r => R.h && R.h[r.n]).length, dia = d.getDay(), faltan = dia === 1 ? 7 : (8 - dia) % 7 || 7;
+  const el = $("retos"); if (!el) return;
+  el.innerHTML = '<div class="rt-list">' + RT.map(r => { const h = R.h && R.h[r.n], tm = R.t && R.t[r.n] && R.t[r.n].nm;
+    return '<a class="card rt n' + r.n + (h ? ' hecho' : '') + '" href="go:reto' + r.n + '"><span class="rt-ic">' + svg(h ? '<path d="M20 6 9 17l-5-5"></path>' : r.ic, 22) + '</span><span class="rt-tx"><b>' + r.t + '</b>' +
+      (tm ? '<span class="rt-tm">' + esc(tm) + '</span>' : '') +
+      (h ? '<span class="rt-hc">Hecho</span>' : '<span class="rt-au">' + sprite("llama", 14) + '+' + AURA_RETO + ' Aura</span>') + '</span></a>'; }).join("") + '</div>' +
+    '<p class="rt-lu">' + hechos + ' de 3 esta semana · Cambian en ' + faltan + (faltan === 1 ? ' día' : ' días') + '</p>';
+}
+pintarRetos();
+window.addEventListener("pageshow", pintarRetos);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) pintarRetos(); });
+/* FIN RETOS B */
+</script>
 </body>
 </html>
