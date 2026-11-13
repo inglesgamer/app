@@ -292,13 +292,8 @@ nav a.on{color:var(--hi);font-weight:700}
 </div>
 
 <script>
-/* Si algo falla en el Perfil, se muestra abajo un aviso pequeño con el error (para poder arreglarlo). */
-function igErrPerfil(e) {
-  try { console.error(e); const m = (e && (e.message || e.reason && e.reason.message)) || String(e); let d = document.getElementById("igErr");
-    if (!d) { d = document.createElement("div"); d.id = "igErr"; d.style.cssText = "position:fixed;left:10px;right:10px;bottom:96px;z-index:99999;background:#3A1F22;color:#FFB4B4;border:1px solid #FF6B6B;border-radius:12px;padding:8px 10px;font:700 11px/1.35 monospace;word-break:break-word"; (document.body || document.documentElement).appendChild(d); }
-    d.textContent = "Error en Perfil: " + m + (e && e.lineno ? " (línea " + e.lineno + ")" : ""); } catch (x) {}
-}
-window.addEventListener("error", ev => igErrPerfil({ message:ev.message, lineno:ev.lineno }));
+/* Si algo falla en el Perfil, se anota en la consola y el resto de la pantalla sigue funcionando. */
+function igErrPerfil(e) { try { console.error(e); } catch (x) {} }
 /* ===== TUS DATOS (mismos ids y orden que el Mapa y el Inicio) ===== */
 const TEMAS = [["esc1","Escucha: Presentaciones"],["saludos","Saludos"],["vocab","Vocabulario"],["infopers","Info personal"],["paises","Países e idiomas"],["numeros","Números"],["colores","Colores"],["familia","Familia"],["hogar","Casa y hogar"],["objetos","Objetos y ropa"],["animales","Animales"],["comidas","Comidas"],["restaurante","Restaurante"],["esc2","Escucha: Números"],["viajes","Viajes"],["verbos","Verbos básicos"],["vocab2","Vocabulario 2"],["fechas","Días y meses"],["esc3","Escucha: Mi día"]];
 const VERBOS = ["verbos"];
@@ -653,6 +648,13 @@ function pintarLogros() {
 .lmore svg{transition:transform .3s}#logros.open .lmore svg{transform:rotate(180deg)}
 @media (prefers-reduced-motion:reduce){.lfold,.lc{transition:none}}
 `; document.head.appendChild(s); })();
+function celebrar(lista, i) {
+  if (i >= lista.length) { lgVistos(lista.map(x => x.id)); window.LG_CELEB = 0; pintarLogros(); return; }
+  try { sonido("magia"); } catch (e) {}
+  const x = lista[i], tt = x.tt != null && !tengoTitulo(x.tt);
+  const h = lgHoja(x, true, tt ? '<a class="bt" href="go:tienda">Reclamar el título</a>' : "");
+  h.fin(() => setTimeout(() => celebrar(lista, i + 1), 150));
+}
 /* Si hay varios logros nuevos de una vez, una sola hoja con todos */
 function celebrarVarios(lista) {
   try { sonido("magia"); } catch (e) {}

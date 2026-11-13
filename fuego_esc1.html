@@ -2531,7 +2531,7 @@ window.addEventListener("pageshow", () => setTimeout(igRevivir, 60));
 document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(igRevivir, 60); });
 </script>
 <script>/* ANUNCIOS_V4 · Saltar nivel con un anuncio */
-const IG_ES_JEFE = false;
+const IG_ES_JEFE = true;
 function igYaPaso() { try { return (+cargarS().est[NIVEL.id] || 0) >= 3; } catch (e) { return true; } }
 function igBotonSalto() { return (IG_ES_JEFE || igYaPaso()) ? '' : '<button type="button" class="salto-btn" id="bSalto">¿Ya sabes este tema? Saltar nivel</button>'; }
 function igSaltar() {
