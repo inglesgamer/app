@@ -857,7 +857,8 @@ body.auto .u-btn:disabled{visibility:hidden}
    ===================================================================== */
 const URL_MAPA = "go:veranoa1";
 const URL_SIGUIENTE = "go:tobe";
-const AURA_NIVEL = 30;               // Aura con 3 estrellas (nunca se cobra doble)
+const AURA_EST = { 3:35, 2:25, 1:15 };   // Aura según las estrellas (solo se paga lo que falte)
+const AURA_NIVEL_ANT = 30;               // Aura con 3 estrellas (nunca se cobra doble)
 const DIAGNOSTICO = false;
 const APRENDE = false;               // false = con los 3 corazones
 const AUTO = true;                   // true = sin botón Comprobar: al responder se revisa sola
@@ -1015,10 +1016,11 @@ function mostrarFinal(d, otra) {
 /* gana: guarda estrellas, racha y Aura, y sube a la nube */
 function ganar(errores, total, titulo, msg3, msgMenos, rep, otra) {
   const est = errores <= 1 ? 3 : errores <= 3 ? 2 : 1, e = subirEstrellas(est); marcarDia();
-  const dar = darAura(Math.round(AURA_NIVEL * e / 3)), ya = dar === 0;
+  const dar = darAura(AURA_EST[e] || 0), ya = dar === 0, falta = e < 3 ? AURA_EST[3] - (AURA_EST[e] || 0) : 0;
   setBarra(100); mandarNube(DIAGNOSTICO ? nubeDiag : null); setCC("#5FA8E8");
   mostrarFinal({ gano:true, est, titulo, n1:Math.max(0, total - errores) + "/" + total, t1:"a la primera", aura:dar, ya, msg:est === 3 ? msg3 : msgMenos, rep }, otra);
-  if (window.IGFinal) IGFinal.mostrar({ aura:dar, estrellas:est, titulo, sub:NIVEL.nombre });   /* final con la liga semanal */
+  if (window.IGFinal) IGFinal.mostrar({ aura:dar, estrellas:est, titulo, sub:NIVEL.nombre, alOtra:falta ? otra : null,
+    extra:falta ? '<div class="igf-mas3"><b>¡Te faltan +' + falta + ' de Aura!</b><span>Complétalo con las 3 estrellas (máximo 1 error) para ganarlos.</span><button type="button" class="igf-btn igf-otra" id="igfOtra">Intentar las 3 estrellas</button></div>' : '' });   /* final con la liga semanal */
 }
 function perder(n1, t1, msg, rep, otra) {
   setCC("#FF6B6B");
@@ -2129,6 +2131,9 @@ const CONFIG = {
      - Muestra tu liga de esta semana (Firestore: jugadores con lgw = semana|rango) con tu fila subiendo. -->
 <style>
 .igf{position:fixed;inset:0;z-index:9000;display:flex;justify-content:center;overflow-y:auto;background:var(--bg,#000);color:var(--ink,#F4F4F5);font-family:Nunito,system-ui,sans-serif;opacity:0;transition:opacity .3s}
+.igf-mas3{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px;border-radius:18px;border:2px solid var(--gold,#FFD166);background:color-mix(in srgb,var(--gold,#FFD166) 12%,transparent);text-align:center}
+.igf-mas3 b{font-size:19px;font-weight:900;color:var(--gold,#FFD166)}.igf-mas3 span{font-size:14px;font-weight:700;color:var(--mu,#B8B8C0)}.igf-mas3 .igf-btn{width:100%;margin-top:4px}
+.igf-btn.igf-sec{background:transparent!important;color:var(--ink,#F4F4F5)!important;border:2px solid var(--bd,#2A2A2E)!important;box-shadow:none!important}
 .igf.on{opacity:1}.igf *{box-sizing:border-box}.igf-in>*{flex-shrink:0}
 .igf-in{width:100%;max-width:480px;min-height:100%;display:flex;flex-direction:column;gap:12px;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom))}
 .igf-st{display:flex;justify-content:center;align-items:flex-end;gap:6px;margin-top:6px}
@@ -2320,7 +2325,7 @@ async function mostrar(o) {
     '<p class="igf-t igf-ap" style="animation-delay:.8s">' + esc(o.titulo || "¡Nivel completado!") + '</p>' + (o.sub ? '<p class="igf-s igf-ap" style="animation-delay:.9s">' + esc(o.sub) + '</p>' : '') +
     '<div class="igf-a igf-ap" style="animation-delay:1s">' + llama(28) + '<span id="igfAu">+0</span><small>AURA</small></div>' + (gan ? '' : '<p class="igf-ya">Ya ganaste el Aura de esto. ¡Igual sumaste práctica!</p>') + (gan && o.multi !== false ? '<button type="button" class="igf-x2 igf-ap" style="animation-delay:1.1s" id="igfX2">' + '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="#1A1206"/><path d="M10 9v6l5-3z" fill="#F5C542"/></svg>' + '<span><b>Multiplica tu Aura</b><small>Mira un anuncio</small></span><em>x2</em></button>' : '') + 
     rango + '<div class="igf-lh igf-ap" style="animation-delay:1.4s"><span>LIGA SEMANAL</span><b>' + esc(RANGOS_REINO[reinoDe(lg0.st)].n) + '</b></div><div class="igf-ls" id="igfLs"><p class="igf-nota">Buscando tu liga…</p></div>' +
-    '<button type="button" class="igf-btn" id="igfOk">Continuar</button></div>';
+    (o.extra || '') + '<button type="button" class="igf-btn' + (o.extra ? ' igf-sec' : '') + '" id="igfOk">Continuar</button></div>';
   document.body.appendChild(ov); void ov.offsetWidth; ov.classList.add("on");
   setTimeout(() => (() => { const e = ov.querySelector("#igfAu"); const t0 = performance.now(); const f = t => { const k = Math.min(1, (t - t0) / 900); e.textContent = "+" + Math.round(gan * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); })(), 1000);
   [523, 659, 784].forEach((f, i) => tono(f, .2 + i * .22, .35, "triangle", .06));
@@ -2354,6 +2359,7 @@ async function mostrar(o) {
       try { if (window.IGNube && IGNube.subirYa) IGNube.subirYa(); } catch (e) {} });
   });
   ov.querySelector("#igfOk").addEventListener("click", () => { ov.classList.remove("on"); setTimeout(() => ov.remove(), 300); if (typeof o.alSalir === "function") o.alSalir(); });
+  const bO = ov.querySelector("#igfOtra"); if (bO) bO.addEventListener("click", () => { ov.classList.remove("on"); setTimeout(() => ov.remove(), 300); if (typeof o.alOtra === "function") o.alOtra(); });
   /* liga semanal */
   const box = ov.querySelector("#igfLs");
   let r = null; try { r = await Promise.race([cargarLiga(reinoDe(lg0.st)), new Promise(ok => setTimeout(() => ok(null), 9000))]); } catch (e) { r = null; }
