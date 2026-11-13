@@ -479,7 +479,7 @@ main{overflow-x:hidden;touch-action:pan-y}
       <div id="retos"></div>
     </section>
 
-    <section id="secRef"><a class="refuerza" id="refuerza"></a></section>
+    <section id="secRef"><div class="refuerza" id="refuerza"></div></section>
 
     <section id="ayuda" aria-label="Sugerencias y peticiones">
       <h2 class="t">Ayúdanos a mejorar</h2>
@@ -2056,7 +2056,7 @@ const LECCIONES = [
   { id:"thereis1", t:"There is y There are", url:"go:9" }, { id:"continuo1", t:"Presente continuo", url:"go:10" },
   { id:"posesivos1", t:"Posesivos", url:"go:11" }, { id:"wh1", t:"Preguntas WH", url:"go:12" }
 ];
-function pintarRefuerza() {
+function pintarRefuerzaViejo() {
   const lista = k => { try { const v = JSON.parse(localStorage.getItem(k) || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
   const vis = lista("ingles_gamer_vistos").concat(lista("ig:vistos"));
   const hechas = LECCIONES.filter(l => vis.indexOf(l.id) >= 0).length;
@@ -2070,8 +2070,6 @@ function pintarRefuerza() {
     '<div class="seg">' + LECCIONES.map(l => '<i class="' + (vis.indexOf(l.id) >= 0 ? "on" : l === sig ? "sg" : "") + '"></i>').join("") + '</div>' +
     '<span class="btn">' + ic("play", 16) + (sig ? (hechas ? "Continuar" : "Empezar") : "Ver lecciones") + '</span>';
 }
-pintarRefuerza();
-window.addEventListener("pageshow", pintarRefuerza);
 </script>
 
 <script type="module">
@@ -2115,12 +2113,18 @@ async function cargar(forzar) {
   if (!uid || (!forzar && Date.now() - t0 < CADA_MS)) return; t0 = Date.now();
   try {
     const col = collection(db, "duelos"), ahora = Date.now();
-    const [rb, ra, am1, am2] = await Promise.all([
+    const [rb, ra, am1, am2, rv] = await Promise.all([
       getDocs(query(col, where("b", "==", uid), limit(40))), getDocs(query(col, where("a", "==", uid), limit(40))),
-      getDocs(query(collection(db, "amistades"), where("de", "==", uid))), getDocs(query(collection(db, "amistades"), where("para", "==", uid)))]);
+      getDocs(query(collection(db, "amistades"), where("de", "==", uid))), getDocs(query(collection(db, "amistades"), where("para", "==", uid))),
+      getDocs(query(col, where("js", "array-contains", uid), limit(40))).catch(() => ({ forEach(){} }))]);
     const retos = [], esp = [];
+    /* Duelos v4 (v == 2): js = jugadores, res = resultados por uid, rech = rechazos */
+    const v2 = []; rv.forEach(d => { const v = d.data(); if (v.v === 2) v2.push(Object.assign({ id:d.id }, v)); });
+    v2.forEach(v => { const res = v.res || {}, rech = v.rech || {}, act = v.js.filter(u => !rech[u]), falta = act.filter(u => !res[u]);
+      if (!res[uid] && !rech[uid] && v.a !== uid && +v.vence > ahora && act.length > 1) { const c = (v.p || {})[v.a] || {}; retos.push({ n:c.n || "Amigo", av:c.av, mp:c.l && c.l[2], t:+v.t || 0 }); }
+      else if (res[uid] && falta.length && +v.vence > ahora) { const o = (v.p || {})[falta[0]] || {}; esp.push({ n:o.n || "Amigo", t:+v.t || 0 }); } });
     rb.forEach(d => { const v = d.data(); if (!v.rb && v.est !== "rech" && +v.vence > ahora) retos.push({ n:v.an || "Amigo", av:v.aav, mp:v.al && v.al[2], t:+v.t || 0 }); });
-    ra.forEach(d => { const v = d.data(); if (!v.rb && v.est !== "rech" && +v.vence > ahora) esp.push({ n:v.bn || "Amigo", t:+v.t || 0 }); });
+    ra.forEach(d => { const v = d.data(); if (v.v !== 2 && !v.rb && v.est !== "rech" && +v.vence > ahora) esp.push({ n:v.bn || "Amigo", t:+v.t || 0 }); });
     retos.sort((x, y) => y.t - x.t); esp.sort((x, y) => y.t - x.t);
     const ids = []; am1.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().para); }); am2.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().de); });
     const caras = (await Promise.all(ids.slice(0, 3).map(async u => { try { const s = await getDoc(doc(db, "jugadores", u)); if (!s.exists()) return null; const x = s.data(); return { av:x.av, mp:x.lmp }; } catch (e) { return null; } }))).filter(Boolean);
@@ -2129,8 +2133,11 @@ async function cargar(forzar) {
     pintar(D);
     /* duelos terminados que todavía no has visto → animación de resultado */
     const fin = [];
-    ra.forEach(d => { const v = d.data(); if (v.est !== "rech" && (v.rb || +v.vence <= ahora)) fin.push(Object.assign({ id:d.id, yoA:true }, v)); });
+    ra.forEach(d => { const v = d.data(); if (v.v !== 2 && v.est !== "rech" && (v.rb || +v.vence <= ahora)) fin.push(Object.assign({ id:d.id, yoA:true }, v)); });
     rb.forEach(d => { const v = d.data(); if (v.rb) fin.push(Object.assign({ id:d.id, yoA:false }, v)); });
+    v2.forEach(v => { const res = v.res || {}, rech = v.rech || {}; if (v.modo !== "1v1" || !res[uid] || rech[uid]) return; const o = v.js.find(u => u !== uid), P = v.p || {};
+      if (!res[o] && !(+v.vence <= ahora) || rech[o]) return; const yoA = v.a === uid, A = yoA ? uid : o, B = yoA ? o : uid;
+      fin.push({ id:v.id, yoA, ra:res[A] || null, rb:res[B] || null, an:(P[A] || {}).n, bn:(P[B] || {}).n, aav:(P[A] || {}).av, bav:(P[B] || {}).av, al:(P[A] || {}).l, bl:(P[B] || {}).l, ap:v.ap, tema:-1, t:v.t, est:"fin" }); });
     finDuelo(fin);
   } catch (e) { if (!cache) el.hidden = true; }
 }
@@ -2168,7 +2175,7 @@ function finDuelo(lista) {
   const rN = d.yoA ? (d.bn || "Amigo") : (d.an || "Amigo"), rAv = d.yoA ? d.bav : d.aav, rL = (d.yoA ? d.bl : d.al) || [];
   const temas = ["Colores", "Animales", "Frutas", "Familia", "Números"], tema = d.tema >= 0 && temas[d.tema] ? temas[d.tema] : "Al azar";
   const fl = (() => { try { return sprite("llama", 18); } catch (e) { return ""; } })();
-  const premio = res === "gana" ? '+' + (ap * (d.rb ? 1 : 0) + 30) + ' ' + fl + ' Aura' : res === "empate" ? '+15 ' + fl + ' Aura' : ap ? '−' + ap + ' ' + fl + ' · ¡Recupéralo!' : '';
+  const premio = res === "gana" ? (ap && d.rb ? '+' + ap + ' ' + fl + ' Aura' : '¡Ganaste!') : res === "empate" ? (ap ? 'Te devolvimos ' + ap + ' ' + fl : '¡Empate!') : ap ? '−' + ap + ' ' + fl + ' · ¡Recupéralo!' : '';   /* duelos v4: la app solo da +10 por participar */
   const tit = { gana:"¡GANASTE!", pierde:"PERDISTE", empate:"¡EMPATE!" }[res];
   const sub = res === "gana" && !elr ? esc(rN) + " no jugó a tiempo" : "Duelo de " + tema + " contra " + esc(rN);
   const o = document.createElement("div"); o.className = "dfin " + res;
@@ -2184,6 +2191,148 @@ function finDuelo(lista) {
 onAuthStateChanged(getAuth(app), u => { if (u) { uid = u.uid; cargar(true); } });
 document.addEventListener("visibilitychange", () => { if (!document.hidden) cargar(false); });
 window.addEventListener("pageshow", e => { if (e.persisted) cargar(true); });
+</script>
+<style>
+/* REFUERZA B (13 nov) */
+.rfB{display:block;min-height:0;padding:4px 4px 0;border-radius:0;background:none;color:var(--ink)}
+.rfB::after{display:none}
+.rfB .rw{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.rfB small{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.rfB b{display:block;font-size:28px;font-weight:900;line-height:1.08;margin-top:6px}
+.rfB em{display:block;font-style:normal;font-weight:800;font-size:14px;color:var(--mu);margin-top:6px}
+.rfB .pjr{width:64px;flex:none}.rfB .pjr svg{width:100%;height:auto;display:block;overflow:visible}
+.rfB .bar{height:10px;margin:16px 0;border-radius:99px;background:var(--chip);overflow:hidden}
+.rfB .bar i{display:block;height:100%;border-radius:99px;background:#58CC02}
+.rfB .bts{display:flex;gap:10px}
+.rfB .bts a{display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:99px;font-weight:900;font-size:16px;text-decoration:none}
+.rfB .b1{flex:1;background:var(--hi);color:var(--on-hi);box-shadow:0 4px 0 rgba(128,128,128,.35)}
+.rfB .b2{flex:1.25;background:var(--card);border:2px solid var(--bd);color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.3);font-size:14.5px!important;white-space:nowrap;padding:0 10px}
+.rfB .bts a:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(128,128,128,.35)}
+</style>
+<script>
+/* REFUERZA B (13 nov) */
+/* Mismas 44 lecciones y mismo desbloqueo que la página Refuerza (sale de refuerza/hacer_refuerza.py) */
+const RF_NIV = [
+  { id:"saludos1", t:"Saludos", url:"go:20", isla:"verano", nivel:"saludos", nn:"Saludos" },
+  { id:"presentarte1", t:"Preséntate", url:"go:21", isla:"verano", nivel:"vocab", nn:"Vocabulario" },
+  { id:"paises1", t:"Países e idiomas", url:"go:22", isla:"verano", nivel:"paises", nn:"Países e idiomas" },
+  { id:"numeros1", t:"Números", url:"go:23", isla:"verano", nivel:"numeros", nn:"Números" },
+  { id:"colores1", t:"Colores", url:"go:24", isla:"verano", nivel:"colores", nn:"Colores" },
+  { id:"familia1", t:"Familia", url:"go:25", isla:"verano", nivel:"familia", nn:"Familia" },
+  { id:"hogar1", t:"Casa y hogar", url:"go:26", isla:"verano", nivel:"hogar", nn:"Casa y hogar" },
+  { id:"ropa1", t:"Ropa", url:"go:27", isla:"verano", nivel:"objetos", nn:"Ropa" },
+  { id:"animales1", t:"Animales", url:"go:28", isla:"verano", nivel:"animales", nn:"Animales" },
+  { id:"frutas1", t:"Frutas", url:"go:29", isla:"verano", nivel:"comidas", nn:"Frutas" },
+  { id:"restaurante1", t:"Restaurante", url:"go:30", isla:"verano", nivel:"restaurante", nn:"Restaurante" },
+  { id:"viajes1", t:"Viajes", url:"go:31", isla:"verano", nivel:"viajes", nn:"Viajes" },
+  { id:"verbos1", t:"Verbos básicos", url:"go:32", isla:"verano", nivel:"verbos", nn:"Verbos básicos" },
+  { id:"fechas1", t:"Días y meses", url:"go:33", isla:"verano", nivel:"fechas", nn:"Días y meses" },
+  { id:"ordinales1",  t:"Números ordinales",    url:"go:3",  isla:"verano", nivel:"fechas",     nn:"Días y meses" },
+  { id:"invierno1", t:"Ropa de invierno", url:"go:34", isla:"nieve", nivel:"vocab1", nn:"Vocabulario 3" },
+  { id:"preposiciones1", t:"Preposiciones", url:"go:35", isla:"nieve", nivel:"preposiciones", nn:"Preposiciones" },
+  { id:"adjetivos1", t:"Adjetivos", url:"go:36", isla:"nieve", nivel:"adjetivos", nn:"Adjetivos" },
+  { id:"gustos1", t:"Gustos y necesidades", url:"go:37", isla:"nieve", nivel:"gustos", nn:"Gustos y necesidades" },
+  { id:"conectores1", t:"Conectores", url:"go:38", isla:"nieve", nivel:"conectores", nn:"Conectores" },
+  { id:"comparativos1", t:"Comparativos", url:"go:39", isla:"nieve", nivel:"comparativos", nn:"Comparativos" },
+  { id:"futuro1", t:"Futuro con will", url:"go:40", isla:"nieve", nivel:"futuro", nn:"Futuro (will)" },
+  { id:"situaciones1", t:"Situaciones reales", url:"go:41", isla:"nieve", nivel:"situaciones", nn:"Situaciones reales" },
+  { id:"lugares1", t:"Lugares de la ciudad", url:"go:42", isla:"nieve", nivel:"vocab2", nn:"Vocabulario 4" },
+  { id:"profesiones1", t:"Profesiones", url:"go:43", isla:"nieve", nivel:"profesiones", nn:"Profesiones" },
+  { id:"cuerpo1", t:"Partes del cuerpo", url:"go:44", isla:"nieve", nivel:"cuerpo", nn:"Partes del cuerpo" },
+  { id:"pronombres1", t:"Pronombres",           url:"go:13", isla:"fuego",  nivel:"pronombres", nn:"Pronombres y posesivos" },
+  { id:"posesivos1",  t:"Posesivos",            url:"go:11", isla:"fuego",  nivel:"pronombres", nn:"Pronombres y posesivos" },
+  { id:"tobe1",       t:"Verbo To Be",          url:"go:1",  isla:"fuego",  nivel:"tobe",       nn:"Verbo To be" },
+  { id:"thereis1",    t:"There is y There are", url:"go:9",  isla:"fuego",  nivel:"thereis",    nn:"There is / There are" },
+  { id:"aan1",        t:"A y An",               url:"go:4",  isla:"fuego",  nivel:"articulos",  nn:"A / an, this / that" },
+  { id:"thisthat1",   t:"This y That",          url:"go:2",  isla:"fuego",  nivel:"articulos",  nn:"A / an, this / that" },
+  { id:"thesethose1", t:"These y Those",        url:"go:5",  isla:"fuego",  nivel:"articulos",  nn:"A / an, this / that" },
+  { id:"wh1",         t:"Preguntas WH",         url:"go:12", isla:"fuego",  nivel:"wh",         nn:"Preguntas WH" },
+  { id:"rutina1",     t:"Rutina diaria",        url:"go:14", isla:"fuego",  nivel:"vocab5",     nn:"Vocabulario 5" },
+  { id:"psimple1",    t:"Present Simple",       url:"go:15", isla:"fuego",  nivel:"psimple",    nn:"Present Simple" },
+  { id:"dodoes1",     t:"Do y Does",            url:"go:8",  isla:"fuego",  nivel:"psimple",    nn:"Present Simple" },
+  { id:"havehas1",    t:"Have y Has",           url:"go:6",  isla:"fuego",  nivel:"psimple",    nn:"Present Simple" },
+  { id:"frecuencia1", t:"Frecuencia",           url:"go:16", isla:"fuego",  nivel:"frecuencia", nn:"Frecuencia" },
+  { id:"can1",        t:"Can",                  url:"go:7",  isla:"fuego",  nivel:"canimp",     nn:"Can e imperativo" },
+  { id:"imperativo1", t:"Imperativo",           url:"go:17", isla:"fuego",  nivel:"canimp",     nn:"Can e imperativo" },
+  { id:"continuo1",   t:"Presente continuo",    url:"go:10", isla:"fuego",  nivel:"pcont",      nn:"Presente continuo" },
+  { id:"was1",        t:"Pasado: was y were",   url:"go:18", isla:"fuego",  nivel:"pasado",     nn:"Pasado: was / were" },
+  { id:"pasado1",     t:"Pasado simple",        url:"go:19", isla:"fuego",  nivel:"pasado2",    nn:"Pasado: -ed e irregulares" }
+];
+const MAPAS = {
+  verano: { clave:"ingles_gamer_a1_repaso", orden:["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3"] },
+  nieve:  { clave:"ingles_gamer_nieve_repaso", orden:["vocab1","preposiciones","adjetivos","gustos","esc1","conectores","comparativos","futuro","situaciones","esc2","vocab2","profesiones","cuerpo"] },
+  fuego:  { clave:"ingles_gamer_fuego_repaso", orden:["pronombres","tobe","thereis","escf1","articulos","wh","vocab5","psimple","frecuencia","escf2","canimp","pcont","pasado","pasado2","escf3"] }
+};
+const estMapa = c => { try { const g = JSON.parse(localStorage.getItem(c) || "null"); return (g && g.est) || {}; } catch (e) { return {}; } };
+/* La Isla de Fuego se abre con 51 estrellas de Verano (igual que en la pantalla de islas) */
+const estrellasVerano = () => {
+  const e = estMapa(MAPAS.verano.clave), ids = MAPAS.verano.orden.concat(["final"]);
+  let t = 0; if (Object.keys(e).length) ids.forEach(id => { t += Math.min(3, Math.max(0, +e[id] || 0)); });
+  else { try { t = Number(localStorage.getItem("ingles_gamer_estrellas_total")) || 0; } catch (x) {} }
+  return t;
+};
+const llegaste = n => {
+  const m = MAPAS[n.isla]; if (!m) return true;
+  if (n.isla === "fuego" && estrellasVerano() < 51) return false;   /* islas: Nieve con 40 y Fuego con 51 estrellas de Verano */
+  if (n.isla === "nieve" && estrellasVerano() < 40) return false;
+  const e = estMapa(m.clave), i = m.orden.indexOf(n.nivel);
+  return i <= 0 || (+e[m.orden[i - 1]] || 0) >= 1 || (+e[n.nivel] || 0) >= 1;
+};
+
+const RF_ISLA = { verano:"Isla de Verano", nieve:"Isla de Nieve", fuego:"Isla de Fuego" };
+function pintarRefuerza() {
+  const lista = k => { try { const v = JSON.parse(localStorage.getItem(k) || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
+  const vis = lista("ig:vistos").concat(lista("ingles_gamer_vistos")), visto = n => vis.indexOf(n.id) >= 0;
+  const abiertas = RF_NIV.filter(llegaste), hechas = RF_NIV.filter(visto).length;
+  const sig = abiertas.find(n => !visto(n)), prox = RF_NIV.find(n => !llegaste(n));
+  const el = $("refuerza"); if (!el) return;
+  el.className = "refuerza rfB"; el.removeAttribute("href");
+  const pct = Math.round(hechas / RF_NIV.length * 100);
+  el.innerHTML = '<div class="rw"><div><small>REFUERZA TU INGLÉS · ' + hechas + ' DE ' + RF_NIV.length + '</small>' +
+    (sig ? '<b>' + (hechas ? 'Sigue con:' : 'Empieza con:') + '<br>' + esc(sig.t) + '</b><em>' + RF_ISLA[sig.isla] + ' · Lección corta · 3 min</em>'
+         : '<b>¡Vas al día!</b><em>' + (prox ? 'La próxima se abre al llegar a «' + esc(prox.nn) + '»' : 'Ya viste todas las lecciones') + '</em>') +
+    '</div><div class="pjr">' + carro() + '</div></div>' +
+    '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
+    '<div class="bts">' + (sig ? '<a class="b1" href="' + esc(sig.url) + '">' + ic("play", 16) + (hechas ? "Continuar" : "Empezar") + '</a>' : '') +
+    '<a class="' + (sig ? "b2" : "b1") + '" href="go:refuerza">Ver todos los temas</a></div>';
+}
+pintarRefuerza();
+window.addEventListener("pageshow", pintarRefuerza);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) pintarRefuerza(); });
+/* FIN REFUERZA B */
+</script>
+<style>
+/* RETOS B (13 nov) */
+.rt{position:relative}
+.rt.n1 .rt-ic{background:#3FA9F5;color:#fff}.rt.n2 .rt-ic{background:#C08BFF;color:#fff}.rt.n3 .rt-ic{background:#FF8A3D;color:#fff}
+.rt-tm{display:block;margin-top:2px;font-size:11.5px;font-weight:800;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.rt-tx{min-width:0;max-width:100%}
+.rt.hecho{opacity:.75}.rt-hc{display:inline-flex;align-items:center;gap:4px;margin-top:2px;font-size:12px;font-weight:900;color:#58CC02}
+.rt-lu{margin:-4px 4px 0;font-size:12.5px;font-weight:800;color:var(--mu)}
+</style>
+<script>
+/* RETOS B (13 nov) */
+function pintarRetos() {
+  const RT = [
+    { n:1, t:"Vocabulario", ic:'<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"></path><path d="M4 19V5M8 7h6M8 11h6"></path>' },
+    { n:2, t:"Gramática", ic:'<path d="M5 5h14v10H10l-5 4z"></path><path d="M9 9h6"></path>' },
+    { n:3, t:"Escucha", ic:'<path d="M11 5 6 9H2v6h4l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path>' } ];
+  const d = new Date(), x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+  const z = n => String(n).padStart(2, "0"), sem = x.getFullYear() + "-" + z(x.getMonth() + 1) + "-" + z(x.getDate());
+  let R = null; try { R = JSON.parse(localStorage.getItem("ingles_gamer_retos") || "null"); } catch (e) {}
+  if (!R || R.sem !== sem) R = { t:{}, h:{} };
+  const hechos = RT.filter(r => R.h && R.h[r.n]).length, dia = d.getDay(), faltan = dia === 1 ? 7 : (8 - dia) % 7 || 7;
+  const el = $("retos"); if (!el) return;
+  el.innerHTML = '<div class="rt-list">' + RT.map(r => { const h = R.h && R.h[r.n], tm = R.t && R.t[r.n] && R.t[r.n].nm;
+    return '<a class="card rt n' + r.n + (h ? ' hecho' : '') + '" href="go:reto' + r.n + '"><span class="rt-ic">' + svg(h ? '<path d="M20 6 9 17l-5-5"></path>' : r.ic, 22) + '</span><span class="rt-tx"><b>' + r.t + '</b>' +
+      (tm ? '<span class="rt-tm">' + esc(tm) + '</span>' : '') +
+      (h ? '<span class="rt-hc">Hecho</span>' : '<span class="rt-au">' + sprite("llama", 14) + '+' + AURA_RETO + ' Aura</span>') + '</span></a>'; }).join("") + '</div>' +
+    '<p class="rt-lu">' + hechos + ' de 3 esta semana · Cambian en ' + faltan + (faltan === 1 ? ' día' : ' días') + '</p>';
+}
+pintarRetos();
+window.addEventListener("pageshow", pintarRetos);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) pintarRetos(); });
+/* FIN RETOS B */
 </script>
 </body>
 </html>
