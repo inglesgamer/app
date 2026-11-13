@@ -292,6 +292,13 @@ nav a.on{color:var(--hi);font-weight:700}
 </div>
 
 <script>
+/* Si algo falla en el Perfil, se muestra abajo un aviso pequeño con el error (para poder arreglarlo). */
+function igErrPerfil(e) {
+  try { console.error(e); const m = (e && (e.message || e.reason && e.reason.message)) || String(e); let d = document.getElementById("igErr");
+    if (!d) { d = document.createElement("div"); d.id = "igErr"; d.style.cssText = "position:fixed;left:10px;right:10px;bottom:96px;z-index:99999;background:#3A1F22;color:#FFB4B4;border:1px solid #FF6B6B;border-radius:12px;padding:8px 10px;font:700 11px/1.35 monospace;word-break:break-word"; (document.body || document.documentElement).appendChild(d); }
+    d.textContent = "Error en Perfil: " + m + (e && e.lineno ? " (línea " + e.lineno + ")" : ""); } catch (x) {}
+}
+window.addEventListener("error", ev => igErrPerfil({ message:ev.message, lineno:ev.lineno }));
 /* ===== TUS DATOS (mismos ids y orden que el Mapa y el Inicio) ===== */
 const TEMAS = [["esc1","Escucha: Presentaciones"],["saludos","Saludos"],["vocab","Vocabulario"],["infopers","Info personal"],["paises","Países e idiomas"],["numeros","Números"],["colores","Colores"],["familia","Familia"],["hogar","Casa y hogar"],["objetos","Objetos y ropa"],["animales","Animales"],["comidas","Comidas"],["restaurante","Restaurante"],["esc2","Escucha: Números"],["viajes","Viajes"],["verbos","Verbos básicos"],["vocab2","Vocabulario 2"],["fechas","Días y meses"],["esc3","Escucha: Mi día"]];
 const VERBOS = ["verbos"];
@@ -343,6 +350,7 @@ function sprite(d, h) {
   return o + "</svg>";
 }
 const ico = (p, s, c) => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="' + (c || "currentColor") + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+try { $("navbar").innerHTML = NAV.map(n => '<a' + (n[3] ? ' class="on" aria-current="page"' : '') + ' href="' + n[1] + '">' + ico(n[2], 24, "currentColor") + n[0] + '</a>').join(""); } catch (e) {}
 const I_STAR = '<path d="m12 3 2.7 5.8 6.3.8-4.6 4.4 1.2 6.3L12 17.2 6.4 20.3l1.2-6.3L3 9.6l6.3-.8z"></path>';
 const I_RAYO = '<path d="M13 3 5 14h6l-1 7 8-11h-6z"></path>';
 const I_FLAG = '<path d="M6 21V4"></path><path d="M6 4h11l-2 4 2 4H6"></path>';
@@ -748,8 +756,8 @@ $("coleccion").addEventListener("click", e => {
 });
 const _pintarBaseCol = pintar;
 pintar = function () { _pintarBaseCol(); try { pintarColeccion(); } catch (e) { console.error(e); } };
-pintar();
-$("navbar").innerHTML = NAV.map(n => '<a' + (n[3] ? ' class="on" aria-current="page"' : '') + ' href="' + n[1] + '">' + ico(n[2], 24, "currentColor") + n[0] + '</a>').join("");
+try { pintar(); } catch (e) { igErrPerfil(e); }   /* si algo falla al pintar, el menú y el sonido igual salen */
+try { $("navbar").innerHTML = NAV.map(n => '<a' + (n[3] ? ' class="on" aria-current="page"' : '') + ' href="' + n[1] + '">' + ico(n[2], 24, "currentColor") + n[0] + '</a>').join(""); } catch (e) { igErrPerfil(e); }
 
 /* ===== sonidos ===== */
 const CLAVE_SON = "ingles_gamer_sonido";
