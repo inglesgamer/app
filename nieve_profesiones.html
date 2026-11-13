@@ -2234,7 +2234,7 @@ function igSaltar() {
   const ov = document.createElement("div"); ov.className = "salto-ov";
   ov.innerHTML = '<div class="salto-c"><div class="ic"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#F5C542" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l9 8-9 8M13 4l6 8-6 8"/></svg></div>' +
     '<h3>Saltar este nivel</h3><p>Si ya sabes este tema, mira un anuncio y pasa directo al siguiente.</p>' +
-    '<ul><li class="si"><b>✓</b>El nivel queda superado con 1 estrella</li><li class="si"><b>✓</b>Se abre el siguiente nivel del mapa</li>' +
+    '<ul><li class="si"><b>✓</b>El nivel queda superado con 3 estrellas</li><li class="si"><b>✓</b>Se abre el siguiente nivel del mapa</li>' +
     '<li class="no"><b>✗</b>No da Aura (juégalo después para ganarla)</li></ul>' +
     '<button type="button" class="salto-go" id="saltoGo"><svg width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3" fill="#2A1A00"/><path d="M10 9v6l5-3z" fill="#F5C542"/></svg>Ver anuncio y saltar</button>' +
     '<button type="button" class="salto-no" id="saltoNo">Mejor lo juego</button></div>';
@@ -2244,7 +2244,7 @@ function igSaltar() {
   ov.querySelector("#saltoGo").onclick = () => {
     if (window.IGAnuncio && IGAnuncio.disponible()) {
       IGAnuncio.recompensa().then(r => { if (r !== "ok") { if (r === "error") igAvisoAd("No hay anuncios ahora. Intenta más tarde"); return; }
-        try { subirEstrellas(1); } catch (e) {} ov.remove(); try { callar(); } catch (e) {} location.href = igURL(URL_MAPA); });
+        try { subirEstrellas(3); } catch (e) {} ov.remove(); try { callar(); } catch (e) {} location.href = igURL(URL_MAPA); });
       return;
     }
     try { localStorage.setItem("ig_premio", JSON.stringify({ tipo:"salto", clave:CLAVE, id:NIVEL.id, nombre:(NIVEL.nombre || ""), volver:URL_MAPA, nivel:IG_YO, t:Date.now() })); } catch (e) {}

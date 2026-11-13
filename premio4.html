@@ -112,9 +112,9 @@ const LLAMA = '<svg viewBox="0 0 12 12" width="120" height="120" shape-rendering
     pantalla(LLAMA, false, "DUELO", "+" + n, "Duplicaste tu premio por participar.", "Volver a los duelos", pr.volver || "go:duelo");
   } else if (pr.tipo === "salto" && pr.clave && pr.id && /^ingles_gamer_[a-z0-9_]+$/.test(pr.clave)) {
     let S = leer(pr.clave); if (!S || typeof S !== "object" || !S.est) S = Object.assign(S && typeof S === "object" ? S : {}, { est:{} });
-    S.est[pr.id] = Math.max(+S.est[pr.id] || 0, 1); guardar(pr.clave, S);
+    S.est[pr.id] = Math.max(+S.est[pr.id] || 0, 3); guardar(pr.clave, S);
     try { if (window.IGNube && IGNube.subirYa) IGNube.subirYa(); } catch (e) {}
-    pantalla(SALTO, false, "NIVEL SALTADO", "¡Listo!", (pr.nombre ? "«" + esc(pr.nombre) + "» " : "El nivel ") + "quedó superado con 1 estrella. Ya puedes seguir con el siguiente. Juégalo cuando quieras para ganar el Aura.", "Volver al mapa", pr.volver || "go:inicio");
+    pantalla(SALTO, false, "NIVEL SALTADO", "¡Listo!", (pr.nombre ? "«" + esc(pr.nombre) + "» " : "El nivel ") + "quedó superado con 3 estrellas. Ya puedes seguir con el siguiente. Juégalo cuando quieras para ganar el Aura.", "Volver al mapa", pr.volver || "go:inicio");
   } else { pantalla(LLAMA, false, "PREMIO", "Nada por ahora", "No tienes premios pendientes.", "Ir al inicio", "go:inicio"); return; }
   sonar(); confeti();
 })();
