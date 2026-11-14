@@ -1241,7 +1241,7 @@ function exDicta() { const W = P.en, ok = s => [W].concat(P.alt || []).some(x =>
     () => { const b = ok($("evi").value); $("evi").classList.add(b ? "ok" : "mal"); return [b, W + " = " + P.es, W]; });
   on("bAu", () => voz(W, .9)); on("bLe", () => voz(W, .55)); tVoz(() => voz(W, .9), 400);
   const inp = $("evi"); setTimeout(() => { try { inp.focus(); } catch (e) {} }, 300);
-  inp.addEventListener("input", () => { const v = inp.value.trim(); $("evl").querySelectorAll("i").forEach((i, k) => i.classList.toggle("f", k < v.length)); if (v.length >= W.length) listo(1); });
+  inp.addEventListener("input", () => { const v = inp.value.trim(); $("evl").querySelectorAll("i").forEach((i, k) => i.classList.toggle("f", k < v.length)); listo(v.length > 0, 1); });
 }
 /* MEMORIZA Y RECUERDA (aprobado): mira 3 cosas unos segundos; luego toca las 3 que había */
 function exMemoriza() { const sel = [], NOM = k => PALABRAS.find(x => x.ob === k);
@@ -1671,7 +1671,7 @@ function reaccion(ok) {
   const L = PJ_FB[ok ? "ok" : "mal"].filter(x => ACC[x[0]]), x = L.length ? L[nFb[ok ? "ok" : "mal"]++ % L.length] : [ok ? "pulgar" : "pienso", ok ? "¡Muy bien!" : "¡Ups!"];
   ic.innerHTML = '<span class="gb">' + x[1] + '</span>' + PJ(x[0]);
 }
-listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") { b.disabled = !v; if (v && typeof AUTO !== "undefined" && AUTO) setTimeout(() => { if (b.textContent === "Comprobar" && !b.disabled) b.click(); }, 160); } };
+listo = (v, manual) => { const b = $("bChk"); if (b && b.textContent === "Comprobar") { b.disabled = !v; if (v && !manual && typeof AUTO !== "undefined" && AUTO) setTimeout(() => { if (b.textContent === "Comprobar" && !b.disabled) b.click(); }, 160); } };
 if (typeof AUTO !== "undefined" && AUTO) document.body.classList.add("auto");
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
 function pintar() { P = PLAN[pos]; ({ los4:exLos4, sopa:exSopa, nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas, oye:exOye, dicta:exDicta, memoriza:exMemoriza })[P.t](); }
@@ -1699,7 +1699,7 @@ function exPalabra() {
     () => { const ins = [...document.querySelectorAll("#pal input")]; let ok = true; ins.forEach(x => { const b = x.value.toLowerCase() === P.en[+x.dataset.i]; x.classList.add(b ? "ok" : "mal"); if (!b) ok = false; }); return [ok, P.en + " = " + P.es, P.en]; });
   on("bAu", () => voz(P.en, .85)); tVoz(() => voz(P.en, .85), 300);
   const ins = [...document.querySelectorAll("#pal input")];
-  ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value)); }));
+  ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value), 1); }));
   setTimeout(() => ins[0].focus(), 400);
 }
 /* 10 · PÁSALA A NEGATIVA (I like → I don't like) */
@@ -1847,7 +1847,7 @@ function exEscucha() {
     '<textarea class="u-ta" id="ta" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Escribe lo que escuchas"></textarea>',
     () => { const v = $("ta").value.trim().toLowerCase().replace(/[.!?]/g, "").replace(/’/g, "'").replace(/\s+/g, " "); const m = enLimpio(P.en).toLowerCase(); return [v === m || v === m.replace("don't", "dont"), P.en + " = " + P.es, P.en]; });
   on("bAu", () => voz(P.en, .9)); on("bLe", () => voz(P.en, .55)); tVoz(() => voz(P.en, .9), 300);
-  $("ta").addEventListener("input", () => listo($("ta").value.trim()));
+  $("ta").addEventListener("input", () => listo($("ta").value.trim(), 1));
 }
 /* 6 · une las parejas */
 function exParejas() { let sel = null, n = 0;
@@ -2437,25 +2437,25 @@ document.addEventListener("click", e => { if (e.target.closest && e.target.close
 (function () { const l = document.getElementById("bLec"); if (l && !document.getElementById("bSalto")) l.insertAdjacentHTML("afterend", igBotonSalto()); })();
 </script>
 <style>/* ARRIBA GRANDE (13 nov) */
-#v>.u-body{justify-content:flex-start;padding-top:22px;padding-bottom:24px}
-.u-body .u-t{font-size:31px;line-height:1.15;margin-bottom:14px}
-.u-body .dc-cat{font-size:14px;padding:8px 16px;letter-spacing:.12em}
-.oye-top{margin:34px 0 30px;gap:18px}
-.oye-big{width:168px;height:168px;box-shadow:0 8px 0 rgba(128,128,128,.35)}
-.oye-big svg{width:72px;height:72px}
-.u-body .lento2{height:56px;padding:0 26px;font-size:19px}
-.u-body .lento2 svg{width:24px;height:24px}
-.ev{gap:18px}
-.ev-l{gap:9px}.ev-l i{width:30px;height:6px;border-radius:3px}
-.ev input{max-width:100%;height:76px;border-radius:22px;font-size:32px;border-width:3px}
-.u-body .u-o{min-height:78px;font-size:23px;border-radius:20px}
-.u-body .u-ops{gap:14px}
-.u-body .u-nuevo{font-size:13px;padding:7px 14px}
-.u-body .u-nw .pal{font-size:44px}
-.u-body .u-nw .tra{font-size:22px}
-.u-body .u-au{width:56px;height:56px}
-.u-pie .u-btn{height:62px;font-size:19px}
-.u-par{gap:12px;margin-top:24px}.u-par .u-ch{height:70px;font-size:21px;border-radius:18px}
-.ev-sub{font-size:17px}
-.mz-m{min-height:190px;padding:30px 12px;gap:20px;margin-top:10px}.mz-m>span svg{width:84px;height:84px}.mz-m.off b{width:84px;height:84px;font-size:34px}
+#v>.u-body{justify-content:flex-start;padding-top:20px;padding-bottom:22px}
+.u-body .u-t{font-size:28px;line-height:1.18;margin-bottom:14px}
+.u-body .dc-cat{font-size:12.5px;padding:7px 14px;letter-spacing:.11em}
+.oye-top{margin:26px 0 24px;gap:15px}
+.oye-big{width:140px;height:140px;box-shadow:0 7px 0 rgba(128,128,128,.35)}
+.oye-big svg{width:58px;height:58px}
+.u-body .lento2{height:50px;padding:0 22px;font-size:17px}
+.u-body .lento2 svg{width:22px;height:22px}
+.ev{gap:16px}
+.ev-l{gap:8px}.ev-l i{width:25px;height:5px;border-radius:3px}
+.ev input{max-width:100%;height:66px;border-radius:19px;font-size:28px;border-width:3px}
+.u-body .u-o{min-height:70px;font-size:21px;border-radius:18px}
+.u-body .u-ops{gap:13px}
+.u-body .u-nuevo{font-size:12.5px;padding:6px 13px}
+.u-body .u-au{width:50px;height:50px}
+.u-pie .u-btn{height:58px;font-size:18px}
+.u-par{gap:11px;margin-top:22px}.u-par .u-ch{height:62px;font-size:19px;border-radius:16px}
+.ev-sub{font-size:16px}
+.u-body .u-ch{height:56px;padding:0 18px;font-size:20px;border-radius:15px}
+.u-body .u-o{padding-top:6px;padding-bottom:6px}
+.mz-m{min-height:156px;padding:26px 12px;gap:17px;margin-top:8px}.mz-m>span svg{width:74px;height:74px}.mz-m.off b{width:74px;height:74px;font-size:31px}
 </style>

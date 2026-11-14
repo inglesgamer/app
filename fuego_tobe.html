@@ -1772,7 +1772,7 @@ function exPalabra() {
     () => { const ins = [...document.querySelectorAll("#pal input")]; let ok = true; ins.forEach(x => { const b = x.value.toLowerCase() === P.en[+x.dataset.i]; x.classList.add(b ? "ok" : "mal"); if (!b) ok = false; }); return [ok, P.en + " = " + P.es, P.en]; });
   on("bAu", () => voz(P.en, .85)); tVoz(() => voz(P.en, .85), 300);
   const ins = [...document.querySelectorAll("#pal input")];
-  ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value)); }));
+  ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value), 1); }));
   setTimeout(() => ins[0].focus(), 400);
 }
 /* 10 · PÁSALA A NEGATIVA (I like → I don't like) */
@@ -1920,7 +1920,7 @@ function exEscucha() {
     '<textarea class="u-ta" id="ta" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Escribe lo que escuchas"></textarea>',
     () => { const v = $("ta").value.trim().toLowerCase().replace(/[.!?]/g, "").replace(/’/g, "'").replace(/\s+/g, " "); const m = enLimpio(P.en).toLowerCase(); return [v === m || v === m.replace("don't", "dont"), P.en + " = " + P.es, P.en]; });
   on("bAu", () => voz(P.en, .9)); on("bLe", () => voz(P.en, .55)); tVoz(() => voz(P.en, .9), 300);
-  $("ta").addEventListener("input", () => listo($("ta").value.trim()));
+  $("ta").addEventListener("input", () => listo($("ta").value.trim(), 1));
 }
 /* 6 · une las parejas */
 function exParejas() { let sel = null, n = 0;

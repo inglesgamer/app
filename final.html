@@ -1412,7 +1412,7 @@ function exDicta() { const W = P.en, ok = s => [W].concat(P.alt || []).some(x =>
     () => { const b = ok($("evi").value); $("evi").classList.add(b ? "ok" : "mal"); return [b, W + " = " + P.es, W]; });
   on("bAu", () => voz(W, .9)); on("bLe", () => voz(W, .55)); tVoz(() => voz(W, .9), 400);
   const inp = $("evi"); setTimeout(() => { try { inp.focus(); } catch (e) {} }, 300);
-  inp.addEventListener("input", () => { const v = inp.value.trim(); $("evl").querySelectorAll("i").forEach((i, k) => i.classList.toggle("f", k < v.length)); if (v.length >= W.length) listo(1); });
+  inp.addEventListener("input", () => { const v = inp.value.trim(); $("evl").querySelectorAll("i").forEach((i, k) => i.classList.toggle("f", k < v.length)); listo(v.length > 0, 1); });
 }
 /* MEMORIZA Y RECUERDA (aprobado): mira 3 cosas unos segundos; luego toca las 3 que había */
 function exMemoriza() { const sel = [], NOM = k => PALABRAS.find(x => x.ob === k);
@@ -1601,7 +1601,7 @@ function reaccion(ok) {
   const L = PJ_FB[ok ? "ok" : "mal"].filter(x => ACC[x[0]]), x = L.length ? L[nFb[ok ? "ok" : "mal"]++ % L.length] : [ok ? "pulgar" : "pienso", ok ? "¡Muy bien!" : "¡Ups!"];
   ic.innerHTML = '<span class="gb">' + x[1] + '</span>' + PJ(x[0]);
 }
-listo = v => { const b = $("bChk"); if (b && b.textContent === "Comprobar") { b.disabled = !v; if (v && typeof AUTO !== "undefined" && AUTO && !(P && P.t === "escucha")) setTimeout(() => { if (b.textContent === "Comprobar" && !b.disabled) b.click(); }, 160); } };
+listo = (v, manual) => { const b = $("bChk"); if (b && b.textContent === "Comprobar") { b.disabled = !v; if (v && !manual && typeof AUTO !== "undefined" && AUTO && !(P && P.t === "escucha")) setTimeout(() => { if (b.textContent === "Comprobar" && !b.disabled) b.click(); }, 160); } };
 if (typeof AUTO !== "undefined" && AUTO) document.body.classList.add("auto");
 function siguiente() { pos++; if (pos >= PLAN.length) terminar(); else pintar(); }
 function pintar() { P = PLAN[pos]; ({ los4:exLos4, sopa:exSopa, nueva:exNueva, error:exError, charla:exCharla, palabra:exPalabra, negativa:exNegativa, relampago:exRelampago, habla:exHabla, completa:exCompleta, quien:exQuien, traduce:exTraduce, escucha:exEscucha, parejas:exParejas, oye:exOye, dicta:exDicta, memoriza:exMemoriza, frase:exFrase })[P.t](); }
@@ -1629,7 +1629,7 @@ function exPalabra() {
     () => { const ins = [...document.querySelectorAll("#pal input")]; let ok = true; ins.forEach(x => { const b = x.value.toLowerCase() === P.en[+x.dataset.i]; x.classList.add(b ? "ok" : "mal"); if (!b) ok = false; }); return [ok, P.en + " = " + P.es, P.en]; });
   on("bAu", () => voz(P.en, .85)); tVoz(() => voz(P.en, .85), 300);
   const ins = [...document.querySelectorAll("#pal input")];
-  ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value)); }));
+  ins.forEach((x, k) => x.addEventListener("input", () => { x.value = x.value.slice(-1).toLowerCase(); if (x.value && ins[k + 1]) ins[k + 1].focus(); listo(ins.every(y => y.value), 1); }));
   setTimeout(() => ins[0].focus(), 400);
 }
 /* 10 · PÁSALA A NEGATIVA (I like → I don't like) */
@@ -1777,7 +1777,7 @@ function exEscucha() {
     '<textarea class="u-ta" id="ta" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Escribe lo que escuchas"></textarea>',
     () => { const v = $("ta").value.trim().toLowerCase().replace(/[.!?]/g, "").replace(/’/g, "'").replace(/\s+/g, " "); const m = enLimpio(P.en).toLowerCase().replace(/[.,!?]/g, "").replace(/\s+/g, " ").trim(); return [v.replace(/,/g, "").replace(/\s+/g, " ") === m || v === m.replace("don't", "dont"), P.en + " = " + P.es, P.en]; });
   on("bAu", () => voz(P.en, .9)); on("bLe", () => voz(P.en, .55)); tVoz(() => voz(P.en, .9), 300);
-  $("ta").addEventListener("input", () => listo($("ta").value.trim()));
+  $("ta").addEventListener("input", () => listo($("ta").value.trim(), 1));
 }
 /* 6 · une las parejas */
 function exParejas() { let sel = null, n = 0;
