@@ -32,6 +32,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui
 .aura b{position:absolute;right:-20px;top:-6px;transform:rotate(-45deg);padding:2px 8px;border-radius:99px;background:#fff;color:#C2410C;font:900 13px Nunito,sans-serif}
 .aura.ya{background:var(--toff);box-shadow:0 5px 0 var(--track);animation:none;opacity:.7}
 @keyframes auraB{50%{box-shadow:0 5px 0 #A33A10,0 0 34px rgba(255,138,61,.9)}}
+.aurE{position:relative;display:flex;flex-direction:column;align-items:center;width:84px;height:74px;justify-content:flex-end}
+.aurE .fl{animation:auF 2.2s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,107,0,.85));line-height:0}
+@keyframes auF{50%{transform:translateY(-8px)}}
+.aurE .ped{width:72px;height:20px;border-radius:50%;background:linear-gradient(#FF8A3D,#C2410C);box-shadow:0 5px 0 #8A2C06;margin-top:-8px}
+.aurE b{position:absolute;right:-14px;top:2px;padding:2px 8px;border-radius:99px;background:#fff;color:#C2410C;font:900 13px Nunito,sans-serif;border:1px solid #F2C5A8}
+.aurE.ya .fl{filter:grayscale(1) opacity(.45);animation:none}.aurE.ya .ped{background:var(--toff);box-shadow:0 5px 0 var(--track)}.aurE.ya b{display:none}
 .lbl{white-space:nowrap;padding:4px 12px;border-radius:99px;background:var(--card);border:1px solid var(--bd);color:var(--ink);font:800 13px Nunito,sans-serif}
 .lbl.l{color:var(--mu)}
 .est{display:flex;gap:2px}
@@ -672,7 +678,7 @@ ISLAS.forEach((I, ii) => {
   P.forEach((p, k) => { const it = p.it, el = document.createElement("div"); el.style.left = p.x + "px"; el.style.top = p.y + "px";
     if (it[0] === "e") { el.className = "esc"; el.innerHTML = '<span class="ci">' + IC.oido + '</span><span><small>ESCUCHA</small><b>' + it[2] + '</b></span>'; num++; }
     else if (it[0] === "n") { num++; const st = it[1]; el.className = "nodo"; el.innerHTML = (st === "act" ? '<span class="tg" style="top:22px;transform:none;animation:none;' + (p.x <= CX ? 'left:calc(50% + 50px)' : 'left:auto;right:calc(50% + 50px)') + '">EMPIEZA AQUÍ</span>' : '') + '<span class="nA ' + (st === "ok" ? "done" : st === "act" ? "act" : "lock") + '">' + (st === "lk" ? IC.lock : IC[it[2]]) + '</span><span class="lbl' + (st === "lk" ? " l" : "") + '">' + (ii ? "" : num + " · ") + it[3] + '</span>'; }
-    else if (it[0] === "a") { el.className = "nodo"; el.innerHTML = '<span class="aura' + (it[1] ? " ya" : "") + '">' + LLAMA.replace(/width="24" height="24"/, 'width="40" height="40"') + '<b>+' + it[2] + '</b></span><span class="lbl' + (it[1] ? "" : " l") + '">' + (it[1] ? "Aura reclamada" : "Regalo de Aura") + '</span>'; }
+    else if (it[0] === "a") { el.className = "nodo"; el.innerHTML = '<span class="aurE' + (it[1] ? " ya" : "") + '"><span class="fl">' + LLAMA.replace(/width="24" height="24"/, 'width="56" height="56"') + '</span><span class="ped"></span><b>+' + it[2] + '</b></span><span class="lbl' + (it[1] ? "" : " l") + '">' + (it[1] ? "Aura reclamada" : "Regalo de Aura") + '</span>'; }
     else if (it[0] === "c") { el.className = "nodo"; el.innerHTML = '<div class="' + (it[1] ? "" : "flota") + '">' + COFRE(it[1], I.c) + '</div>'; }
     else if (it[0] === "t") { el.className = "nodo"; el.innerHTML = '<span class="nA big lock" style="background:rgba(20,20,22,.8)">' + IC.crown + '</span><span class="lbl l">Jefe · ' + I.nom.replace("Isla de ", "") + '</span>'; el.style.top = (p.y - 10) + "px"; 
       const tr = document.createElement("div"); tr.className = "nodo"; tr.style.left = (p.x >= CX ? p.x - 110 : p.x + 110) + "px"; tr.style.top = (p.y + 6) + "px"; tr.innerHTML = '<div class="flota">' + TROFEO("#6B6B78", it[1]) + '</div>'; z.appendChild(tr); }
