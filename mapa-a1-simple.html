@@ -43,8 +43,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui
 .ext{position:absolute;z-index:3;display:flex;flex-direction:column;align-items:center;gap:5px;transform:translate(-50%,-30px)}
 .ext .b{width:58px;height:58px;border-radius:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 0 rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.25)}
 .ext span{font:900 11px Nunito,sans-serif;padding:3px 9px;border-radius:99px;background:#141416;border:1px solid #2A2A2E;white-space:nowrap}
-.pj{position:absolute;z-index:2;width:96px;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-50%)}
-.pj .prac{margin-top:2px;padding:7px 14px;border-radius:99px;background:var(--c);color:#fff;font:900 13px Nunito,sans-serif;box-shadow:0 4px 0 var(--c2)}
+.pj{position:absolute;z-index:2;width:90px;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-50%)}
+.pj .prac{margin-top:4px;padding:6px 12px;font-size:12px!important;border-radius:99px;background:var(--c);color:#fff;font:900 13px Nunito,sans-serif;box-shadow:0 4px 0 var(--c2)}
 .pj .gl{box-shadow:0 2px 0 rgba(0,0,0,.12);border:1px solid var(--bd);max-width:110px;text-align:center;white-space:normal!important;margin-bottom:4px;padding:5px 10px;border-radius:12px;background:#fff;color:#000;font:900 12px Nunito,sans-serif;white-space:nowrap}
 .cab{position:relative;z-index:4;margin:0 14px;padding:22px 0 8px;display:flex;align-items:center;gap:12px;color:var(--mu);font:900 14px Nunito,sans-serif;letter-spacing:.06em}
 .cab::before,.cab::after{content:"";flex:1;height:2px;background:var(--bd)}
@@ -647,12 +647,12 @@ const COFRE = (abierto, c) => '<svg width="76" height="64" viewBox="0 0 76 64"><
 const TROFEO = (c, n) => '<svg width="92" height="92" viewBox="0 0 92 92"><path d="M24 12h44v22a22 22 0 0 1-44 0z" fill="' + c + '"/><path d="M24 18H12a12 12 0 0 0 14 16M68 18h12a12 12 0 0 1-14 16" fill="none" stroke="' + c + '" stroke-width="6"/><rect x="40" y="54" width="12" height="14" fill="' + c + '"/><rect x="28" y="68" width="36" height="12" rx="4" fill="' + c + '"/><path d="M30 16h6v20a12 12 0 0 1-6-8z" fill="#fff" opacity=".35"/><text x="46" y="42" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="20" fill="#fff">' + n + '</text></svg>';
 
 const ISLAS = [
- { nom:"Isla de Verano", fx:"sol", c:"#FF9600", c2:"#C46F00", gl:"rgba(255,150,0,.35)", suelo:["#E9C98A","#DDB877"], cam:["#FFF6DD","#C9A464"], deco:["palma","somb"], items:[
-   ["e","ok","Presentaciones"],["n","ok","chat","Saludos",3],["n","ok","book","Vocabulario",2],["a",1,20],["n","act","id","Info personal",0],["n","lk","globo","Países",0],["n","lk","star","Números",0],["a",0,20],["n","lk","star","Colores",0],["n","lk","star","Familia",0],["t",1]], pj:[["saludo","¡Repasemos!",1],["nerd","¿Practicamos?",4],["musica","¡Escucha!",7]] },
- { nom:"Isla de Nieve", fx:"nieve", c:"#1CB0F6", c2:"#1287BF", gl:"rgba(28,176,246,.35)", suelo:["#E3F2FD","#CFE6F7"], cam:["#FFFFFF","#A9CBE3"], deco:["pino","mun"], items:[
-   ["n","lk","book","Ropa de invierno",0],["n","lk","star","Preposiciones",0],["n","lk","chat","Adjetivos",0],["a",0,30],["n","lk","star","Gustos",0],["t",2]], pj:[["frio","¡A practicar!",1]] },
- { nom:"Isla de Fuego", fx:"brasa", c:"#FF4B4B", c2:"#C23030", gl:"rgba(255,75,75,.35)", suelo:["#3A1A12","#4A2219"], cam:["#FF8A3D","#7A2A18"], deco:["volc","roca"], items:[
-   ["n","lk","id","Pronombres",0],["n","lk","star","To be",0],["n","lk","chat","There is",0],["n","lk","book","A / an",0],["t",3]], pj:[["super","¡Tú puedes!",2]] }
+ { nom:"Isla de Verano", fx:"sol", c:"#FF6B00", c2:"#B84A00", gl:"rgba(255,107,0,.35)", suelo:["#E9C98A","#DDB877"], cam:["#FFF6DD","#C9A464"], deco:["palma","somb"], items:[
+   ["e","ok","Presentaciones"],["n","ok","chat","Saludos",3],["n","ok","book","Vocabulario",2],["a",1,20],["n","act","id","Info personal",0],["n","lk","globo","Países",0],["n","lk","star","Números",0],["a",0,20],["n","lk","star","Colores",0],["n","lk","star","Familia",0],["t",1]], pj:[["saludo","Practicar",1],["nerd","Repasar",4],["musica","Escuchar",7]] },
+ { nom:"Isla de Nieve", fx:"nieve", c:"#1E6FE0", c2:"#1250A8", gl:"rgba(30,111,224,.35)", suelo:["#E3F2FD","#CFE6F7"], cam:["#FFFFFF","#A9CBE3"], deco:["pino","mun"], items:[
+   ["n","lk","book","Ropa de invierno",0],["n","lk","star","Preposiciones",0],["n","lk","chat","Adjetivos",0],["a",0,30],["n","lk","star","Gustos",0],["t",2]], pj:[["frio","Practicar",1]] },
+ { nom:"Isla de Fuego", fx:"brasa", c:"#E0262F", c2:"#A0141B", gl:"rgba(224,38,47,.35)", suelo:["#3A1A12","#4A2219"], cam:["#FF8A3D","#7A2A18"], deco:["volc","roca"], items:[
+   ["n","lk","id","Pronombres",0],["n","lk","star","To be",0],["n","lk","chat","There is",0],["n","lk","book","A / an",0],["t",3]], pj:[["super","Escuchar",2]] }
 ];
 const XS = [0, -46, -72, -46, 0, 46, 72, 46].map(d => CX + d);
 const M = document.getElementById("mapa"), SECS = [];
@@ -678,7 +678,7 @@ ISLAS.forEach((I, ii) => {
       const tr = document.createElement("div"); tr.className = "nodo"; tr.style.left = (p.x >= CX ? p.x - 110 : p.x + 110) + "px"; tr.style.top = (p.y + 6) + "px"; tr.innerHTML = '<div class="flota">' + TROFEO("#6B6B78", it[1]) + '</div>'; z.appendChild(tr); }
     else if (it[0] === "x") { el.className = "ext"; el.innerHTML = '<div class="b ' + (it[1] === "rayo" ? "brilla" : "") + '" style="background:' + it[3] + '">' + IC[it[1]] + '</div><span>' + it[2] + '</span>'; }
     z.appendChild(el); });
-  I.pj.forEach(pj => { const p = P[pj[2]], el = document.createElement("div"); el.className = "pj"; el.style.left = (p.x >= CX ? 50 : W - 50) + "px"; el.style.top = (p.y + 30) + "px"; el.innerHTML = '<span class="gl">' + pj[1] + '</span><div class="flota">' + GAL(pj[0], 84) + '</div><span class="prac">Practicar</span>'; z.appendChild(el); });
+  I.pj.forEach(pj => { const p = P[pj[2]], el = document.createElement("div"); el.className = "pj"; el.style.left = (p.x >= CX ? 66 : W - 66) + "px"; el.style.top = (p.y + 30) + "px"; el.innerHTML = '<div class="flota">' + GAL(pj[0], 62) + '</div><span class="prac">' + pj[1] + '</span>'; z.appendChild(el); });
   SECS.push({ z, I, hechos: ii ? 0 : 3, total: I.items.filter(x => x[0] === "n" || x[0] === "e").length });
 });
 document.getElementById("perfil").innerHTML = '<span class="av">' + GAL("saludo", 56) + '</span><div class="tx"><b>ivansvega</b><span class="rg">NOVATO</span><div class="br"><i></i></div><small>Te faltan 4 ★ para Aprendiz · Ver perfil ›</small></div><div class="st"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD43B"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>11</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF8A3D"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z"/></svg>4</span></div>';
