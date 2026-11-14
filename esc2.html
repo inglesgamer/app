@@ -1234,15 +1234,31 @@ function escena(n, s) { const d = PX[n], N = d.r.length, del = (PXN++ % 7) * .37
   d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect' + (c === "e" && N === 16 ? ' class="pxe" style="animation-delay:-' + del + 's"' : '') + ' x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + d.p[c] + '"></rect>'; }));
   return o + '</g></svg>'; }
 /* ESCUCHA Y ESCRIBE (el de siempre de este repaso, aprobado): suena la palabra y la escribes; se revisa sola al completar las letras */
+/* DICTA D (13 nov) */
 function exDicta() { const W = P.en, ok = s => [W].concat(P.alt || []).some(x => x.toLowerCase() === s.trim().toLowerCase());
+  const FOCO = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>';
+  const letras = W.replace(/ /g, "").length, maxP = Math.max(1, Math.floor(letras / 2)); let pistas = 0;
   pantalla('<p class="u-t">Escribe lo que oyes</p><span class="dc-cat" style="--cc:' + P.col + '">REPASO · ' + esc(P.cat) + '</span>' +
-    '<div class="oye-top"><button type="button" class="oye-big" id="bAu" aria-label="Escuchar">' + AU.replace(/22/g, "38") + '</button><button type="button" class="lento2" id="bLe">' + LENTO.replace(/28/g, "18") + 'Lento</button></div>' +
-    '<div class="ev"><div class="ev-l" id="evl">' + W.split("").map(() => '<i></i>').join("") + '</div><input id="evi" placeholder="Escribe en inglés" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Escribe lo que oyes"></div>',
-    () => { const b = ok($("evi").value); $("evi").classList.add(b ? "ok" : "mal"); return [b, W + " = " + P.es, W]; });
+    '<div class="dd-top"><button type="button" class="oye-big" id="bAu" aria-label="Escuchar">' + AU.replace(/22/g, "38") + '</button>' +
+    '<div class="dd-side"><button type="button" class="lento2" id="bLe">' + LENTO.replace(/28/g, "18") + 'Lento</button><button type="button" class="dd-pis" id="bPi">' + FOCO + 'Pista <small id="ddPn">' + maxP + '</small></button></div></div>' +
+    '<p class="dd-n">' + letras + ' LETRAS</p><label class="dd-cj" id="ddc">' + W.split("").map(c => c === " " ? '<s></s>' : '<i></i>').join("") +
+    '<input id="evi" maxlength="' + W.length + '" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Escribe lo que oyes"></label>',
+    () => { const b = ok($("evi").value); $("ddc").classList.add(b ? "ok" : "mal"); $("evi").blur(); return [b, W + " = " + P.es, W]; });
   on("bAu", () => voz(W, .9)); on("bLe", () => voz(W, .55)); tVoz(() => voz(W, .9), 400);
-  const inp = $("evi"); setTimeout(() => { try { inp.focus(); } catch (e) {} }, 300);
-  inp.addEventListener("input", () => { const v = inp.value.trim(); $("evl").querySelectorAll("i").forEach((i, k) => i.classList.toggle("f", k < v.length)); listo(v.length > 0, 1); });
+  const inp = $("evi"), cajas = () => $("ddc").querySelectorAll("i");
+  const pintarC = () => { const v = inp.value.replace(/ /g, ""), cs = cajas();
+    cs.forEach((i, k) => { const c = v[k] || ""; if (i.textContent !== c.toUpperCase()) { i.textContent = c.toUpperCase(); i.classList.toggle("f", !!c); if (c) { i.classList.remove("ddpop"); void i.offsetWidth; i.classList.add("ddpop"); } }
+      i.classList.toggle("cur", k === v.length && document.activeElement === inp); });
+    listo(v.length > 0, 1); };
+  setTimeout(() => { try { inp.focus(); pintarC(); } catch (e) {} }, 300);
+  inp.addEventListener("input", () => { $("ddc").classList.remove("mal"); pintarC(); });
+  inp.addEventListener("focus", pintarC); inp.addEventListener("blur", () => setTimeout(pintarC, 0));
+  inp.addEventListener("keydown", e => { if (e.key === "Enter") { const b = $("bChk"); if (b && !b.disabled) b.click(); } });
+  on("bPi", () => { if (pistas >= maxP) return; const v = inp.value.toLowerCase(), w = W.toLowerCase(); let k = 0; while (k < v.length && v[k] === w[k]) k++;
+    if (k >= W.length) return; let n = k + 1; if (W[k] === " ") n++; inp.value = W.slice(0, n); pistas++; $("ddPn").textContent = maxP - pistas;
+    if (pistas >= maxP) $("bPi").disabled = true; try { inp.focus(); } catch (e) {} pintarC(); });
 }
+/* FIN DICTA D */
 /* MEMORIZA Y RECUERDA (aprobado): mira 3 cosas unos segundos; luego toca las 3 que había */
 function exMemoriza() { const sel = [], NOM = k => PALABRAS.find(x => x.ob === k);
   pantalla('<p class="u-t">Memoriza y recuerda</p><p class="ev-sub" id="mzS">Mira bien estas 3 cosas…</p><div class="mz-m" id="mz">' + P.ver.map(k => '<span>' + OB(k, 72) + '</span>').join("") + '<b class="mz-t" id="mzt">' + (P.seg || 4) + '</b></div><div id="mzq"></div>',
@@ -2458,4 +2474,26 @@ document.addEventListener("click", e => { if (e.target.closest && e.target.close
 .u-body .u-ch{height:56px;padding:0 18px;font-size:20px;border-radius:15px}
 .u-body .u-o{padding-top:6px;padding-bottom:6px}
 .mz-m{min-height:156px;padding:26px 12px;gap:17px;margin-top:8px}.mz-m>span svg{width:74px;height:74px}.mz-m.off b{width:74px;height:74px;font-size:31px}
+</style>
+<style>/* DICTA D (13 nov) */
+.dd-top{display:flex;align-items:center;justify-content:center;gap:16px;margin:22px 0 14px}
+.dd-top .oye-big{width:126px;height:126px}
+.dd-side{display:flex;flex-direction:column;gap:10px}
+.dd-pis{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:48px;padding:0 18px;border-radius:99px;border:2px solid var(--line2);border-bottom-width:4px;background:none;color:var(--ink);font:900 16px Nunito,sans-serif;cursor:pointer}
+.dd-pis svg{color:var(--gold)}.dd-pis small{min-width:22px;height:22px;border-radius:99px;background:var(--gold);color:#1A1000;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+.dd-pis:disabled{opacity:.4;cursor:default}
+.dd-n{margin:6px 0 10px;text-align:center;font-size:13px;font-weight:900;letter-spacing:.14em;color:var(--mu)}
+.dd-cj{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:7px;cursor:text}
+.dd-cj i{width:48px;height:58px;border-radius:13px;border:3px solid var(--line2);display:flex;align-items:center;justify-content:center;font:900 27px Nunito,sans-serif;font-style:normal;background:var(--card);color:var(--ink)}
+.dd-cj s{width:14px}
+.dd-cj i.f{border-color:var(--gold);color:var(--gold)}
+.dd-cj i.ddpop{animation:ddPop .22s ease}
+.dd-cj i.cur{border-color:var(--ink);animation:ddLat 1s infinite}
+.dd-cj.ok i{border-color:var(--ok);color:var(--ok)}
+.dd-cj.mal i{border-color:var(--mal);color:var(--mal);animation:ddNo .35s}
+.dd-cj input{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;border:0;background:none;color:transparent;caret-color:transparent}
+@keyframes ddPop{50%{transform:scale(1.14)}}
+@keyframes ddLat{50%{border-color:var(--line2)}}
+@keyframes ddNo{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media (max-width:380px){.dd-cj i{width:40px;height:50px;font-size:23px}}
 </style>
