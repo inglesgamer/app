@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Verano · diseños de decoración</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<script>var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+
+const DECO = {
+ noche:{ h1:"#2FA85C", h2:"#1E7A43", tr:"#9A6438", tr2:"#6E4424", sol:"#FFB020", sol2:"#FF7A00", ar:"#5C4A26", ag:"#173B5C", ag2:"#2A5E8C", nu:"rgba(255,255,255,.10)", co:"#6B3E1E" },
+ dia:  { h1:"#3DC46E", h2:"#24994D", tr:"#B07840", tr2:"#875628", sol:"#FFC23D", sol2:"#FF8A00", ar:"#F6E2AE", ag:"#9FDCF5", ag2:"#62C2EC", nu:"rgba(255,255,255,.9)",  co:"#7A4A22" },
+ rosa: { h1:"#58C98C", h2:"#36A56A", tr:"#B9825C", tr2:"#93603E", sol:"#FFB46B", sol2:"#FF7F7F", ar:"#FAD9CB", ag:"#F9C9DC", ag2:"#F29BBE", nu:"rgba(255,255,255,.85)", co:"#8A5236" },
+ azul: { h1:"#3BBE82", h2:"#26925E", tr:"#A9744A", tr2:"#7E5232", sol:"#FFCB4D", sol2:"#FF9A2E", ar:"#E6D6A8", ag:"#B6D6F7", ag2:"#7FB2EE", nu:"rgba(255,255,255,.8)",  co:"#734726" }
+};
+function tema(t){ aplicarTema(t); const d=DECO[t]; for(const k in d) document.documentElement.style.setProperty("--d-"+k,d[k]);
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); }
+</script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+.wrap{max-width:430px;margin:0 auto;padding:12px 12px 40px}
+h1{font-size:20px;margin:6px 0 2px}p.s{margin:0 0 10px;color:var(--mu);font-weight:700;font-size:14px}
+.tabs{position:sticky;top:0;z-index:9;display:flex;gap:6px;padding:8px 0;background:var(--bg)}
+.tabs button{flex:1;padding:9px 0;border-radius:14px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:800 13px Nunito}
+.tabs button.on{background:var(--hi);color:var(--on-hi);border-color:var(--hi)}
+.op{margin:18px 0 6px;display:flex;align-items:center;gap:10px}.op b{width:38px;height:38px;border-radius:50%;background:#FF6B00;color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900}
+.op span{font-size:17px;font-weight:900}.op small{display:block;color:var(--mu);font-size:13px;font-weight:700}
+.esc{position:relative;height:560px;border-radius:24px;overflow:hidden;border:2px solid var(--bd);background:var(--bg)}
+.esc svg.f{position:absolute;inset:0;width:100%;height:100%}
+.n{position:absolute;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;background:#FF6B00;box-shadow:0 5px 0 #B84A00;display:flex;align-items:center;justify-content:center;z-index:3}
+.n.l{background:var(--toff);box-shadow:0 5px 0 var(--track)}
+.n.a{box-shadow:0 5px 0 #B84A00,0 0 0 7px var(--bg),0 0 0 12px #FF6B00}
+.lb{position:absolute;transform:translateX(-50%);z-index:3;padding:3px 11px;border-radius:99px;background:var(--card);border:1px solid var(--bd);font-size:12px;font-weight:800;white-space:nowrap}
+/* animaciones */
+.gira{transform-box:fill-box;transform-origin:center;animation:gira 30s linear infinite}@keyframes gira{to{transform:rotate(360deg)}}
+.late{transform-box:fill-box;transform-origin:center;animation:late 3s ease-in-out infinite}@keyframes late{50%{transform:scale(1.08);opacity:.75}}
+.mece{transform-box:fill-box;transform-origin:50% 100%;animation:mece 4s ease-in-out infinite}@keyframes mece{50%{transform:rotate(3deg)}}
+.mece2{transform-box:fill-box;transform-origin:50% 100%;animation:mece 5s ease-in-out infinite reverse}
+.ola{animation:ola 4s ease-in-out infinite}@keyframes ola{50%{transform:translateX(-14px)}}
+.nube{animation:nube 26s linear infinite}@keyframes nube{from{transform:translateX(-120px)}to{transform:translateX(460px)}}
+.vuela{animation:vuela 14s linear infinite}@keyframes vuela{from{transform:translate(-60px,0)}50%{transform:translate(200px,-14px)}to{transform:translate(460px,0)}}
+.bota{transform-box:fill-box;transform-origin:center;animation:bota 2.4s ease-in-out infinite}@keyframes bota{50%{transform:translateY(-8px) rotate(20deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body><div class="wrap">
+<h1>Isla de Verano · decoración</h1><p class="s">4 opciones. Toca una paleta para ver cómo cambian los colores.</p>
+<div class="tabs"><button data-t="noche">Noche</button><button data-t="dia">Día</button><button data-t="rosa">Rosa</button><button data-t="azul">Azul</button></div>
+<div id="ops"></div></div>
+<script>
+const V = k => "var(--d-" + k + ")";
+/* ---- piezas ---- */
+function palmaCurva(x, y, s, flip, cls){ // tronco curvo con anillos + 6 hojas + cocos
+  const f = flip ? -1 : 1; let t = "";
+  for (let i = 0; i < 7; i++) { const yy = -i * 14, xx = Math.sin(i / 7 * 1.4) * 22 * f; t += '<ellipse cx="' + xx + '" cy="' + yy + '" rx="' + (9 - i * .4) + '" ry="8" fill="' + (i % 2 ? V("tr") : V("tr2")) + '"/>'; }
+  const tx = Math.sin(6 / 7 * 1.4) * 22 * f, ty = -88;
+  const hoja = (a, l, c) => '<path transform="translate(' + tx + ' ' + ty + ') rotate(' + a + ')" d="M0 0 C' + l * .3 + ' -18 ' + l * .7 + ' -16 ' + l + ' 8 C' + l * .7 + ' -4 ' + l * .3 + ' -2 0 0z" fill="' + c + '"/>';
+  return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><g class="' + (cls || "mece") + '">' + t +
+    [[-160,62,V("h2")],[-120,58,V("h1")],[-60,58,V("h1")],[-20,62,V("h2")],[-90,50,V("h2")],[200,48,V("h1")],[-200,48,V("h1")]].map(h => hoja(h[0], h[1], h[2])).join("") +
+    '<circle cx="' + (tx - 6) + '" cy="' + (ty + 6) + '" r="6" fill="' + V("co") + '"/><circle cx="' + (tx + 6) + '" cy="' + (ty + 7) + '" r="6" fill="' + V("co") + '"/></g></g>';
+}
+function palmaRecta(x, y, s){ // tronco recto fino + hojas colgantes en abanico
+  let h = ""; for (let i = 0; i < 8; i++) { const a = -170 + i * 23; h += '<path transform="rotate(' + a + ')" d="M0 0 Q30 -14 52 6 Q30 -2 0 0z" fill="' + (i % 2 ? V("h1") : V("h2")) + '"/>'; }
+  return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><g class="mece2"><path d="M-5 0 Q-2 -60 4 -110 L10 -110 Q6 -60 5 0z" fill="' + V("tr") + '"/><g transform="translate(7 -110)">' + h + '</g></g></g>';
+}
+function solRayos(x, y, r){ let ry = ""; for (let i = 0; i < 12; i++) ry += '<path transform="rotate(' + i * 30 + ')" d="M-5 ' + -(r + 8) + ' L0 ' + -(r + 24) + ' L5 ' + -(r + 8) + 'z" fill="' + V("sol") + '"/>';
+  return '<g transform="translate(' + x + ' ' + y + ')"><g class="gira">' + ry + '</g><circle r="' + r + '" fill="' + V("sol") + '"/><circle r="' + (r - 8) + '" fill="' + V("sol2") + '" opacity=".35"/></g>'; }
+function solHalo(x, y, r){ return '<g transform="translate(' + x + ' ' + y + ')"><circle class="late" r="' + (r + 26) + '" fill="' + V("sol") + '" opacity=".18"/><circle class="late" r="' + (r + 12) + '" fill="' + V("sol") + '" opacity=".3" style="animation-delay:.5s"/><circle r="' + r + '" fill="' + V("sol") + '"/></g>'; }
+function solAtardecer(x, y, r){ // medio sol con franjas
+  let s = '<clipPath id="cs' + x + '"><rect x="' + (x - r) + '" y="' + (y - r) + '" width="' + 2 * r + '" height="' + r + '"/></clipPath><g clip-path="url(#cs' + x + ')"><circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + V("sol") + '"/>';
+  for (let i = 1; i < 5; i++) s += '<rect x="' + (x - r) + '" y="' + (y - i * 12) + '" width="' + 2 * r + '" height="' + (2 + i) + '" fill="var(--bg)"/>';
+  return s + '</g><rect x="' + (x - r - 20) + '" y="' + y + '" width="' + (2 * r + 40) + '" height="4" rx="2" fill="' + V("ag2") + '"/>'; }
+function olas(y, w, c, cls){ let d = "M-30 " + y; for (let x = -30; x < w + 40; x += 40) d += " q10 -9 20 0 t20 0"; return '<path class="' + (cls || "ola") + '" d="' + d + ' V' + (y + 400) + ' H-30z" fill="' + c + '"/>'; }
+function nube(x, y, s){ return '<g class="nube" style="animation-delay:' + (-x / 18) + 's"><g transform="translate(0 ' + y + ') scale(' + s + ')"><ellipse cx="0" cy="0" rx="34" ry="13" fill="' + V("nu") + '"/><circle cx="-10" cy="-8" r="14" fill="' + V("nu") + '"/><circle cx="12" cy="-6" r="11" fill="' + V("nu") + '"/></g></g>'; }
+function gaviota(y, d){ return '<g class="vuela" style="animation-delay:' + d + 's"><path transform="translate(0 ' + y + ')" d="M-12 0 Q-6 -8 0 0 Q6 -8 12 0" fill="none" stroke="var(--mu)" stroke-width="2.5" stroke-linecap="round"/></g>'; }
+function islote(x, y, s){ return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><ellipse cx="0" cy="6" rx="60" ry="12" fill="' + V("ag2") + '" opacity=".5"/><ellipse cx="0" cy="0" rx="48" ry="14" fill="' + V("ar") + '"/></g>' + palmaCurva(x - 6, y - 4, s * .62, x > 200); }
+function pelota(x, y){ return '<g transform="translate(' + x + ' ' + y + ')"><g class="bota"><circle r="14" fill="#fff"/><path d="M0 -14 A14 14 0 0 1 14 0 L0 0z" fill="#E0262F"/><path d="M0 14 A14 14 0 0 1 -14 0 L0 0z" fill="#1E6FE0"/><path d="M-14 0 A14 14 0 0 1 0 -14 L0 0z" fill="' + V("sol") + '"/><circle r="3" fill="#fff"/></g></g>'; }
+function sombrilla(x, y){ return '<g transform="translate(' + x + ' ' + y + ')"><ellipse cx="0" cy="2" rx="34" ry="7" fill="' + V("ar") + '"/><path d="M2 0 L-6 -66" stroke="' + V("tr2") + '" stroke-width="4"/><path d="M-46 -60 Q-6 -100 34 -66 Q24 -60 14 -64 Q4 -56 -6 -62 Q-16 -54 -26 -60 Q-36 -54 -46 -60z" fill="#E0262F"/><path d="M-26 -60 Q-12 -96 -6 -62 M14 -64 Q2 -96 -6 -62" fill="#fff" opacity=".85"/></g>'; }
+/* ---- camino de ejemplo (igual al mapa) ---- */
+const NOD = [[195,80,"Presentaciones",""],[149,200,"Saludos",""],[123,320,"Vocabulario","a"],[149,440,"Info personal","l"]];
+function camino(){ let d = "M" + NOD[0][0] + " " + NOD[0][1]; for (let j = 1; j < NOD.length; j++) { const a = NOD[j - 1], b = NOD[j], m = (a[1] + b[1]) / 2; d += " C" + a[0] + " " + m + " " + b[0] + " " + m + " " + b[0] + " " + b[1]; }
+  return '<path d="' + d + '" fill="none" stroke="var(--toff)" stroke-width="10" stroke-linecap="round" stroke-dasharray="0.1 20"/>'; }
+const ICO = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M4 4h16v11H9l-5 5z"/></svg>', LCK = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+function nodos(){ return NOD.map(n => '<div class="n ' + n[3] + '" style="left:' + n[0] + 'px;top:' + n[1] + 'px;color:var(--mu)">' + (n[3] === "l" ? LCK : ICO) + '</div><div class="lb" style="left:' + n[0] + 'px;top:' + (n[1] + 42) + 'px">' + n[2] + '</div>').join(""); }
+/* ---- opciones ---- */
+const OPS = [
+ ["A","Palmeras a los lados y sol grande","Sol con rayos que giran despacio, palmeras curvas que se mecen y nubes.", () =>
+   solRayos(330, 70, 30) + nube(60, 150, 1) + nube(260, 260, .8) + palmaCurva(40, 300, 1.1, false) + palmaCurva(350, 470, 1, true) + palmaCurva(20, 540, .8, false)],
+ ["B","Playa con mar abajo","Medio sol de atardecer, palmeras rectas, sombrilla, pelota y olas que se mueven.", () =>
+   solAtardecer(320, 150, 50) + gaviota(60, 0) + gaviota(90, -6) + palmaRecta(330, 380, 1) + palmaRecta(360, 400, .75) + sombrilla(50, 360) + pelota(320, 470) +
+   olas(490, 400, V("ag2"), "ola") + olas(510, 400, V("ag"), "ola")],
+ ["C","Islitas flotando","Pequeñas islas de arena con palmera a los lados, sol con brillo y gaviotas.", () =>
+   solHalo(60, 70, 26) + gaviota(130, -2) + gaviota(150, -8) + islote(330, 220, 1) + islote(55, 420, .9) + islote(330, 520, .8)],
+ ["D","Sencillo: solo detalles","Un sol pequeño arriba y palmeras pequeñas sueltas. Casi como ahora, sin recargar.", () =>
+   solRayos(345, 50, 18) + palmaCurva(45, 230, .6, false) + palmaCurva(345, 360, .55, true) + palmaRecta(40, 520, .5)]
+];
+document.getElementById("ops").innerHTML = OPS.map(o => '<div class="op"><b>' + o[0] + '</b><div><span>' + o[1] + '</span><small>' + o[2] + '</small></div></div>' +
+  '<div class="esc"><svg class="f" viewBox="0 0 390 560" preserveAspectRatio="xMidYMid slice">' + o[3]() + camino() + '</svg>' + nodos() + '</div>').join("");
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => tema(b.dataset.t));
+tema((location.search.match(/tema=([a-z]+)/) || [])[1] || (function(){ try { return localStorage.getItem(TEMA_KEY) || "noche"; } catch (e) { return "noche"; } })());
+</script></body></html>
