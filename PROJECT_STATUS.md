@@ -108,6 +108,8 @@ Decisiones ya tomadas para el mapa nuevo: fondo liso (sin paisaje), ícono propi
 
 ## 6. Tareas del usuario (recordar en cada respuesta hasta que confirme)
 
+0. **Cambiar el mapa en App Creator:** pegar `MAPA.html` en `MAPA`, `mapaa1.html` en `mapaa1` (sección nueva), `redir_mapa.html` en `veranoa1`, `mapanieve` y `mapafuego`; borrar `islaa1`.
+
 1. **Pasar los refuerzos a App Creator:** crear sección `premio5` («Ver vídeo para acceder: Sí», «Incluir en menú: No») y pegar lecciones 1–44 + `refuerza.html` (zip `out/refuerza_aura_sonido.zip`). *(Hay recordatorio diario 9:00 a. m. en su celular.)*
 2. Crear secciones `premio2`, `premio3`, `premio4` y `reto1`–`reto3` si no existen.
 3. **Publicar reglas de Firestore** (`firestore-reglas-duelos-v4.txt`); sin eso, crear duelos da «permission-denied».
@@ -131,5 +133,6 @@ Decisiones ya tomadas para el mapa nuevo: fondo liso (sin paisaje), ícono propi
 - Regalos guardados en clave `ingles_gamer_mapa_regalos`. Niveles que no existen salen «Pronto».
 - Zona de Verano con la **misma escena del mapa de Verano** (cielo con sol/luna, mar, olas, barco, arena, palmeras, sombrillas, camino de arena). Nieve y Fuego también con su escena original (montañas, aurora, pinos, muñecos, nieve cayendo / volcán, mar de lava, rocas, cristales, brasas). Las escenas se sacan de los mapas viejos con `mapa/escenas.py`. Demo con todo pasado: `mapaa1.html?demo=1`.
 - Descartado: `verano-deco.html` (4 decoraciones nuevas); el usuario quiere la escena original.
+- 17 nov: al reclamar un regalo de Aura el mapa guarda en la nube y publica la ficha (liga semanal) con los mismos bloques NUBE/FICHA de los niveles. Animación al reclamar: 4 diseños en `aura-reclamar.html`, esperando elección.
 - **17 nov: el mapa completo reemplaza a las islas.** MAPA → Principiante → `mapaa1`. Las secciones `veranoa1`, `mapanieve`, `mapafuego` e `islaa1` ahora solo redirigen a `mapaa1` (archivo `out/redir_mapa.html`), así los niveles vuelven al mapa completo sin tocarlos. Copias de los mapas viejos: `/home/claude/mapa/originales/` (de ahí salen las escenas) y en el historial de git.
 - (antes) Los mapas viejos (veranoa1, mapanieve, mapafuego, islaa1) **no se tocaron**. Falta que el usuario apruebe para cambiar el botón Mapa.

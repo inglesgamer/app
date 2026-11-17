@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Reclamar Aura · diseños</title><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<script>var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+</script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+.wrap{max-width:430px;margin:0 auto;padding:12px}
+h1{font-size:20px;margin:4px 0}p.s{margin:0 0 8px;color:var(--mu);font-weight:700;font-size:14px}
+.tabs{display:flex;gap:6px;margin:8px 0}.tabs button{flex:1;padding:9px 0;border-radius:14px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:800 14px Nunito,sans-serif}
+.tabs button.on{background:var(--hi);color:var(--on-hi);border-color:var(--hi)}
+.desc{min-height:58px;padding:10px 12px;border-radius:16px;background:var(--card);border:1px solid var(--bd);font-size:14px;font-weight:700}
+.desc b{display:block;font-size:16px;font-weight:900}
+.tel{position:relative;height:560px;margin-top:10px;border-radius:28px;border:2px solid var(--bd);overflow:hidden;background:linear-gradient(var(--bg),var(--card))}
+.chip{position:absolute;right:14px;top:14px;display:flex;align-items:center;gap:6px;padding:5px 12px 5px 8px;border-radius:99px;background:var(--card);border:1px solid var(--bd);font-weight:900;font-size:16px;z-index:5}
+.chip small{font-size:12px;color:var(--mu)}
+.chip.pulso{animation:pulso .5s ease}@keyframes pulso{40%{transform:scale(1.25);box-shadow:0 0 0 6px rgba(255,138,61,.35)}}
+.reg{position:absolute;left:50%;top:300px;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;cursor:pointer;border:0;background:none;color:inherit}
+.reg .fl{animation:auF 2.2s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,107,0,.85));line-height:0}@keyframes auF{50%{transform:translateY(-8px)}}
+.reg .ped{width:84px;height:22px;border-radius:50%;background:linear-gradient(#FF8A3D,#C2410C);box-shadow:0 5px 0 #8A2C06;margin-top:-8px}
+.reg b{position:absolute;right:-16px;top:0;padding:2px 8px;border-radius:99px;background:#fff;color:#C2410C;font-size:14px;font-weight:900}
+.reg.ya .fl{filter:grayscale(1) opacity(.45);animation:none}.reg.ya .ped{background:var(--toff);box-shadow:0 5px 0 var(--track)}.reg.ya b{display:none}
+.lb{margin-top:10px;padding:4px 12px;border-radius:99px;background:var(--card);border:1px solid var(--bd);font-size:13px;font-weight:800}
+.probar{display:block;width:100%;height:54px;margin:12px 0 30px;border:0;border-radius:99px;background:#FF6B00;color:#fff;font:900 17px Nunito;box-shadow:0 5px 0 #B84A00}
+/* A: llamas al contador */
+.vuela{position:absolute;z-index:6;line-height:0;pointer-events:none}
+.liga-tag{position:absolute;right:14px;top:56px;z-index:5;padding:4px 10px;border-radius:99px;background:#1F9D55;color:#fff;font-size:12px;font-weight:900;opacity:0;transform:translateY(-6px);transition:.35s}
+.liga-tag.on{opacity:1;transform:none}
+/* B: tarjeta de liga */
+.velo{position:absolute;inset:0;z-index:8;background:rgba(0,0,0,.55);opacity:0;transition:opacity .3s}.velo.on{opacity:1}
+.hoja{position:absolute;left:0;right:0;bottom:0;z-index:9;padding:20px 18px 18px;border-radius:28px 28px 0 0;background:var(--card);border-top:2px solid var(--bd);transform:translateY(105%);transition:transform .45s cubic-bezier(.2,1.3,.4,1)}
+.hoja.on{transform:none}
+.hoja .big{display:flex;align-items:center;justify-content:center;gap:8px;font-size:34px;font-weight:900;color:#FF6B00}
+.hoja .big .fl2{line-height:0;animation:gira2 1s ease}@keyframes gira2{from{transform:scale(.2) rotate(-40deg)}to{transform:none}}
+.hoja h3{margin:4px 0 12px;text-align:center;font-size:15px;color:var(--mu)}
+.fila{display:flex;align-items:center;gap:10px;height:46px;padding:0 12px;margin-bottom:6px;border-radius:14px;background:var(--chip);font-weight:800;transition:transform .6s cubic-bezier(.3,1.4,.5,1)}
+.fila.yo{background:#FF6B00;color:#fff}.fila i{font-style:normal;width:22px;font-weight:900}.fila span{flex:1}
+.seguir{width:100%;height:52px;margin-top:8px;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font:900 16px Nunito,sans-serif}
+/* C: estallido */
+.chis{position:absolute;z-index:6;width:10px;height:10px;border-radius:50%;pointer-events:none}
+.gran{position:absolute;left:50%;top:200px;z-index:7;transform:translate(-50%,-50%) scale(0);font-size:64px;font-weight:900;color:#FF6B00;text-shadow:0 5px 0 #8A2C06,0 0 30px rgba(255,138,61,.7);animation:gran 1.6s ease forwards}
+@keyframes gran{25%{transform:translate(-50%,-50%) scale(1.25)}40%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-90%) scale(1)}}
+.aviso{position:absolute;left:50%;top:-60px;z-index:7;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:99px;background:#1F9D55;color:#fff;font-weight:900;font-size:14px;white-space:nowrap;transition:top .45s cubic-bezier(.2,1.4,.4,1)}
+.aviso.on{top:62px}
+/* D: banner de puesto */
+.ban{position:absolute;left:12px;right:12px;top:-120px;z-index:7;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:22px;background:var(--card);border:2px solid #1F9D55;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:top .5s cubic-bezier(.2,1.3,.4,1)}
+.ban.on{top:60px}
+.ban .pt{flex:none;width:58px;height:58px;border-radius:16px;background:#1F9D55;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.ban .pt small{font-size:9px;font-weight:900;letter-spacing:.1em}.ban .num{height:30px;overflow:hidden}.ban .num div{transition:transform .9s cubic-bezier(.3,1.3,.5,1)}.ban .num b{display:block;height:30px;font-size:26px;line-height:30px;text-align:center}
+.ban .tx small{display:block;font-size:11px;font-weight:900;letter-spacing:.1em;color:var(--mu)}.ban .tx b{font-size:17px}.ban .tx span{display:block;font-size:13px;font-weight:800;color:#1F9D55}
+.ban .fle{animation:fle 1s ease-in-out infinite}@keyframes fle{50%{transform:translateY(-5px)}}
+</style></head><body><div class="wrap">
+<h1>Reclamar Aura · animación</h1><p class="s">Toca una opción y luego «Probar». En todas el Aura se suma también a tu liga semanal.</p>
+<div class="tabs" id="ops"></div>
+<div class="desc" id="desc"></div>
+<div class="tel" id="tel"></div>
+<button class="probar" id="probar">Probar</button>
+<div class="tabs" id="pals"></div>
+</div>
+<script>
+const LL = '<svg width="24" height="24" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="0" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="7" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="6" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="7" width="1" height="1" fill="#FFC83D"></rect></svg>';
+const ll = s => LL.replace(/width="\d+" height="\d+"/, 'width="' + s + '" height="' + s + '"');
+const OPS = {
+ A:["Llamas al contador","Salen llamitas del regalo y vuelan hasta tu Aura de arriba. El número sube contando y aparece «Liga semanal +30»."],
+ B:["Tarjeta de la liga","Sube una tarjeta con +30 y tu grupo de la liga semanal: tu fila sube de puesto. Botón «Seguir»."],
+ C:["Estallido","El regalo estalla en chispas, sale un +30 grande y baja un aviso verde: «Ranking semanal actualizado»."],
+ D:["Subiste de puesto","Baja un aviso arriba con tu puesto de la liga cambiando (6 → 4) y el Aura que ganaste. No tapa el mapa."]
+};
+let OP = "A", AU = 120, corriendo = false;
+const $ = id => document.getElementById(id);
+function base() {
+  $("tel").innerHTML = '<div class="chip" id="chip">' + ll(22) + '<b id="au">' + AU + '</b><small>Aura</small></div><div class="liga-tag" id="lt">Liga semanal +30</div>' +
+    '<button class="reg" id="reg"><span class="fl">' + ll(70) + '</span><span class="ped"></span><b>+30</b><span class="lb">Regalo de Aura</span></button>';
+  $("reg").onclick = probar;
+}
+function contar(a, b, ms) { const t0 = performance.now(); (function f(t) { const k = Math.min(1, (t - t0) / ms); $("au").textContent = Math.round(a + (b - a) * k); if (k < 1) requestAnimationFrame(f); })(t0); }
+const dormir = ms => new Promise(r => setTimeout(r, ms));
+async function probar() {
+  if (corriendo) return; corriendo = true; base(); const T = $("tel"), r = $("reg"), rc = r.getBoundingClientRect(), tc = T.getBoundingClientRect(), ch = $("chip").getBoundingClientRect();
+  const ox = rc.left - tc.left + rc.width / 2, oy = rc.top - tc.top + 30, cx = ch.left - tc.left + 18, cy = ch.top - tc.top + 14;
+  r.classList.add("ya");
+  if (OP === "A") {
+    for (let i = 0; i < 8; i++) { const v = document.createElement("div"); v.className = "vuela"; v.innerHTML = ll(26); T.appendChild(v);
+      const dx = (Math.random() - .5) * 160, dy = -40 - Math.random() * 80;
+      v.animate([{ transform:`translate(${ox - 13}px,${oy}px) scale(.4)`, opacity:0 }, { transform:`translate(${ox - 13 + dx}px,${oy + dy}px) scale(1.1)`, opacity:1, offset:.35 }, { transform:`translate(${cx - 13}px,${cy - 13}px) scale(.5)`, opacity:1 }],
+        { duration:900 + i * 70, easing:"cubic-bezier(.5,0,.6,1)", fill:"forwards" }).onfinish = () => { v.remove(); $("chip").classList.remove("pulso"); void $("chip").offsetWidth; $("chip").classList.add("pulso"); }; }
+    await dormir(900); contar(AU, AU + 30, 700); AU += 30; await dormir(500); $("lt").classList.add("on"); await dormir(2000); $("lt").classList.remove("on");
+  } else if (OP === "B") {
+    const v = document.createElement("div"); v.className = "velo"; const h = document.createElement("div"); h.className = "hoja";
+    const L = [["Sofía", 190], ["Mateo", 160], ["Tú", AU], ["Valen", 140]];
+    h.innerHTML = '<div class="big"><span class="fl2">' + ll(48) + '</span>+30 Aura</div><h3>Liga semanal · tu grupo</h3><div id="lis"></div><button class="seguir">Seguir</button>';
+    T.append(v, h); const lis = h.querySelector("#lis");
+    const pintarL = () => { const o = L.slice().sort((a, b) => b[1] - a[1]); lis.innerHTML = o.map((x, i) => '<div class="fila' + (x[0] === "Tú" ? " yo" : "") + '" data-n="' + x[0] + '"><i>' + (i + 1) + '</i><span>' + x[0] + '</span><b>' + x[1] + '</b></div>').join(""); };
+    pintarL(); await dormir(30); v.classList.add("on"); h.classList.add("on"); await dormir(900);
+    const antes = {}; lis.querySelectorAll(".fila").forEach(f => antes[f.dataset.n] = f.getBoundingClientRect().top);
+    L[2][1] = AU + 30; pintarL(); lis.querySelectorAll(".fila").forEach(f => { const d = antes[f.dataset.n] - f.getBoundingClientRect().top; f.style.transition = "none"; f.style.transform = `translateY(${d}px)`; void f.offsetWidth; f.style.transition = ""; f.style.transform = ""; });
+    contar(AU, AU + 30, 600); AU += 30;
+    await new Promise(res => { h.querySelector(".seguir").onclick = res; v.onclick = res; });
+    h.classList.remove("on"); v.classList.remove("on"); await dormir(400); v.remove(); h.remove();
+  } else if (OP === "C") {
+    const cols = ["#FF6B00", "#FFC83D", "#FF3D3D", "#FFE08A"];
+    for (let i = 0; i < 22; i++) { const c = document.createElement("div"); c.className = "chis"; c.style.background = cols[i % 4]; T.appendChild(c); const a = i / 22 * Math.PI * 2, d = 90 + Math.random() * 60;
+      c.animate([{ transform:`translate(${ox - 5}px,${oy}px) scale(1)`, opacity:1 }, { transform:`translate(${ox - 5 + Math.cos(a) * d}px,${oy + Math.sin(a) * d}px) scale(.2)`, opacity:0 }], { duration:800, easing:"cubic-bezier(.1,.8,.3,1)", fill:"forwards" }).onfinish = () => c.remove(); }
+    const g = document.createElement("div"); g.className = "gran"; g.textContent = "+30"; T.appendChild(g);
+    await dormir(500); contar(AU, AU + 30, 700); AU += 30; $("chip").classList.add("pulso");
+    const av = document.createElement("div"); av.className = "aviso"; av.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Ranking semanal actualizado'; T.appendChild(av);
+    await dormir(600); av.classList.add("on"); await dormir(2200); av.classList.remove("on"); await dormir(500); av.remove(); g.remove();
+  } else {
+    const b = document.createElement("div"); b.className = "ban";
+    b.innerHTML = '<div class="pt"><small>PUESTO</small><div class="num"><div id="nm"><b>6</b><b>5</b><b>4</b></div></div></div><div class="tx" style="flex:1"><small>LIGA SEMANAL</small><b>¡Subiste de puesto!</b><span>+30 Aura esta semana</span></div>' +
+      '<svg class="fle" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1F9D55" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V5M5 12l7-7 7 7"/></svg>';
+    T.appendChild(b); contar(AU, AU + 30, 700); AU += 30; $("chip").classList.add("pulso"); await dormir(30); b.classList.add("on"); await dormir(700);
+    b.querySelector("#nm").style.transform = "translateY(-60px)"; await dormir(2600); b.classList.remove("on"); await dormir(500); b.remove();
+  }
+  corriendo = false;
+}
+$("ops").innerHTML = Object.keys(OPS).map(k => '<button data-k="' + k + '">' + k + '</button>').join("");
+$("ops").onclick = e => { const b = e.target.closest("button"); if (!b || corriendo) return; OP = b.dataset.k; sel(); base(); };
+function sel() { document.querySelectorAll("#ops button").forEach(b => b.classList.toggle("on", b.dataset.k === OP)); $("desc").innerHTML = "<b>" + OP + ". " + OPS[OP][0] + "</b>" + OPS[OP][1]; }
+$("probar").onclick = probar;
+const PL = [["noche","Noche"],["dia","Día"],["rosa","Rosa"],["azul","Azul"]];
+$("pals").innerHTML = PL.map(p => '<button data-t="' + p[0] + '">' + p[1] + '</button>').join("");
+$("pals").onclick = e => { const b = e.target.closest("button"); if (!b) return; aplicarTema(b.dataset.t); document.querySelectorAll("#pals button").forEach(x => x.classList.toggle("on", x === b)); };
+const t0 = (location.search.match(/tema=([a-z]+)/) || [])[1] || (function () { try { return localStorage.getItem(TEMA_KEY) || "noche"; } catch (e) { return "noche"; } })();
+aplicarTema(t0); document.querySelectorAll("#pals button").forEach(x => x.classList.toggle("on", x.dataset.t === t0));
+const op0 = (location.search.match(/op=([A-D])/) || [])[1]; if (op0) OP = op0;
+sel(); base();
+</script></body></html>
