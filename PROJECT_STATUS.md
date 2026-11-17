@@ -61,7 +61,7 @@ Leyenda: ✅ terminado y comprobado en archivo · 🟡 en desarrollo / en prueba
 
 | Qué | Estado real | Archivos |
 |---|---|---|
-| **Niveles «más grandes y arriba»** | Solo aplicado en `esc2` y `saludos`. Falta aprobación final para el resto | `tools/arriba.py` |
+| **Niveles «más grandes y arriba»** | ✅ 17 nov: aplicado a los 40 niveles (contenido arriba y más grande, audio del globo al lado de la frase, botón Continuar/Comprobar siempre abajo también en Nieve y Fuego, «Lento» con estilo) | `tools/arriba.py` |
 | **«Escribe lo que oyes» diseño D** | Solo en `esc2` (Repaso 1). Falta: `esc3`, `final`, `fuego_esc1`, `nieve_repaso1`, `nieve_repaso2` | `tools/dicta_d.py` |
 | **Mapa A1 nuevo en una sola hilera** (Verano→Nieve→Fuego) | **Solo vista previa** con datos de ejemplo, no conectado a estrellas reales | `app/mapa-a1-simple.html` (gen. `/tmp/dz/mapa/gen8.py`, ⚠️ en /tmp) |
 

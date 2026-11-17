@@ -2420,3 +2420,32 @@ function igSaltar() {
 document.addEventListener("click", e => { if (e.target.closest && e.target.closest("#bSalto")) igSaltar(); });
 (function () { const l = document.getElementById("bLec"); if (l && !document.getElementById("bSalto")) l.insertAdjacentHTML("afterend", igBotonSalto()); })();
 </script>
+<style>/* ARRIBA GRANDE (13 nov) */
+.app{display:flex;flex-direction:column}
+#v{flex:1;display:flex;flex-direction:column}
+#v>.u-body{flex:1;display:flex;flex-direction:column}
+#v>.u-pie{margin-top:auto;margin-bottom:calc(-28px - env(safe-area-inset-bottom))}
+#v>.u-body{justify-content:flex-start;padding-top:20px;padding-bottom:22px}
+.u-body .u-t{font-size:28px;line-height:1.18;margin-bottom:14px}
+.u-body .dc-cat{font-size:12.5px;padding:7px 14px;letter-spacing:.11em}
+.oye-top{margin:26px 0 24px;gap:15px}
+.oye-big{width:140px;height:140px;box-shadow:0 7px 0 rgba(128,128,128,.35)}
+.oye-big svg{width:58px;height:58px}
+.u-body .lento2{appearance:none;-webkit-appearance:none;display:inline-flex;flex-direction:row;align-items:center;justify-content:center;gap:7px;height:50px;padding:0 22px;border-radius:99px;border:2px solid color-mix(in srgb,var(--gold) 55%,var(--line2));border-bottom-width:4px;background:color-mix(in srgb,var(--gold) 12%,var(--card));color:var(--ink);font:900 17px Nunito,sans-serif;opacity:1;filter:none}
+.u-body .lento2 svg{color:var(--gold);flex:none}
+.u-body .lento2 svg{width:22px;height:22px}
+.ev{gap:16px}
+.ev-l{gap:8px}.ev-l i{width:25px;height:5px;border-radius:3px}
+.ev input{max-width:100%;height:66px;border-radius:19px;font-size:28px;border-width:3px}
+.u-body .u-o{min-height:70px;font-size:21px;border-radius:18px}
+.u-body .u-ops{gap:13px}
+.u-body .u-nuevo{font-size:12.5px;padding:6px 13px}
+.u-body .u-au{width:50px;height:50px}
+.u-pie .u-btn{height:58px;font-size:18px}
+.u-par{gap:11px;margin-top:22px}.u-par .u-ch{height:62px;font-size:19px;border-radius:16px}
+.ev-sub{font-size:16px}
+.u-body .u-ch{height:56px;padding:0 18px;font-size:20px;border-radius:15px}
+.u-body .u-o{padding-top:6px;padding-bottom:6px}
+.u-body .u-glo .u-au,.u-body .u-pista .u-au,.u-body .u-ejs .u-au{width:auto;height:auto}   /* el audio del globo queda al lado de la frase */
+.mz-m{min-height:156px;padding:26px 12px;gap:17px;margin-top:8px}.mz-m>span svg{width:74px;height:74px}.mz-m.off b{width:74px;height:74px;font-size:31px}
+</style>
