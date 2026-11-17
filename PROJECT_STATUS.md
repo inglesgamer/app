@@ -131,4 +131,5 @@ Decisiones ya tomadas para el mapa nuevo: fondo liso (sin paisaje), ícono propi
 - Regalos guardados en clave `ingles_gamer_mapa_regalos`. Niveles que no existen salen «Pronto».
 - Zona de Verano con la **misma escena del mapa de Verano** (cielo con sol/luna, mar, olas, barco, arena, palmeras, sombrillas, camino de arena). Nieve y Fuego también con su escena original (montañas, aurora, pinos, muñecos, nieve cayendo / volcán, mar de lava, rocas, cristales, brasas). Las escenas se sacan de los mapas viejos con `mapa/escenas.py`. Demo con todo pasado: `mapaa1.html?demo=1`.
 - Descartado: `verano-deco.html` (4 decoraciones nuevas); el usuario quiere la escena original.
-- Los mapas viejos (veranoa1, mapanieve, mapafuego, islaa1) **no se tocaron**. Falta que el usuario apruebe para cambiar el botón Mapa.
+- **17 nov: el mapa completo reemplaza a las islas.** MAPA → Principiante → `mapaa1`. Las secciones `veranoa1`, `mapanieve`, `mapafuego` e `islaa1` ahora solo redirigen a `mapaa1` (archivo `out/redir_mapa.html`), así los niveles vuelven al mapa completo sin tocarlos. Copias de los mapas viejos: `/home/claude/mapa/originales/` (de ahí salen las escenas) y en el historial de git.
+- (antes) Los mapas viejos (veranoa1, mapanieve, mapafuego, islaa1) **no se tocaron**. Falta que el usuario apruebe para cambiar el botón Mapa.
