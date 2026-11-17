@@ -123,3 +123,9 @@ Decisiones ya tomadas para el mapa nuevo: fondo liso (sin paisaje), ícono propi
 3. Fuego nivel 8: Present Simple.
 4. Mover los generadores a un lugar con respaldo (por ejemplo, un repo privado) — **pedir permiso antes**.
 5. Actualizar los docs desactualizados (§4.3 y §4.4).
+
+### 17 nov 2026 · Mapa A1 en una sola hilera (vista previa)
+- Nueva pantalla `mapaa1` (generador `/home/claude/mapa/hacer_mapa_a1.py`): Verano → Jefe → Nieve → Jefe → Fuego → Jefe, todo seguido.
+- Datos reales: mismas claves de estrellas y reglas de desbloqueo. Una isla se abre con 40 / 51 ★ de Verano **o** venciendo al jefe anterior.
+- Regalos de Aura (+20, una vez) en clave `ingles_gamer_mapa_regalos`. Niveles que no existen salen «Pronto».
+- Los mapas viejos (veranoa1, mapanieve, mapafuego, islaa1) **no se tocaron**. Falta que el usuario apruebe para cambiar el botón Mapa.
