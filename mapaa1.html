@@ -109,6 +109,22 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-conte
 nav .in{display:flex;width:100%;max-width:520px}
 nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;color:var(--mu);text-decoration:none;font-size:12px;font-weight:800}
 nav a.on{color:var(--ink)}
+/* ESCENA VERANO (copiada de veranoa1, 17 nov 2026) */
+:root{--vpg:#F4F4F5;--p1:#3B3224;--p2:#241E14;--sa:#2B2418;--sb:#1F1A11;--fo:rgba(255,255,255,.22);--sk1:#03070A;--sk2:#0B2028;--se1:#0A3036;--se2:#05181C;--tr:#5A4128;--l1:#124D2A;--l2:#1E6B3A;--co:#3A2A18;--umb:#B84A38;--bt1:#3A3A3A;--bt2:#9A9AA2}
+html[data-tema="dia"]{--vpg:#FF6B4A;--p1:#FFF4D0;--p2:#E4C98A;--sa:#F6E1AB;--sb:#EACB8A;--fo:rgba(255,255,255,.9);--sk1:#4FC3FF;--sk2:#CDF1FF;--se1:#2FC1D4;--se2:#168FB5;--tr:#9A6A3A;--l1:#1E8F4C;--l2:#2FB264;--co:#6B4423;--umb:#FF6B4A;--bt1:#FF6B4A;--bt2:#fff}
+html[data-tema="rosa"]{--vpg:#D63B7A;--p1:#FFF3F7;--p2:#F2B5CB;--sa:#FFE2EB;--sb:#F6BFD1;--fo:rgba(255,255,255,.9);--sk1:#FF9EC2;--sk2:#FFE3EE;--se1:#F58DB4;--se2:#D95D8E;--tr:#9A6A3A;--l1:#1E8F4C;--l2:#2FB264;--co:#6B4423;--umb:#D63B7A;--bt1:#D63B7A;--bt2:#fff}
+html[data-tema="azul"]{--vpg:#1C6FD6;--p1:#F6FAFF;--p2:#B7D1EE;--sa:#E4EFFB;--sb:#C4DAF2;--fo:rgba(255,255,255,.9);--sk1:#5FB2FF;--sk2:#DCEFFF;--se1:#2F8FE3;--se2:#1757B0;--tr:#9A6A3A;--l1:#1E8F4C;--l2:#2FB264;--co:#6B4423;--umb:#1C6FD6;--bt1:#1C6FD6;--bt2:#fff}
+.tr{stroke:var(--tr)}.l1{fill:var(--l1)}.l2{fill:var(--l2)}.co{fill:var(--co)}
+.s-k1{stop-color:var(--sk1)}.s-k2{stop-color:var(--sk2)}.s-e1{stop-color:var(--se1)}.s-e2{stop-color:var(--se2)}
+.only-d{display:none}
+html[data-tema="dia"] .only-d,html[data-tema="rosa"] .only-d,html[data-tema="azul"] .only-d{display:inline}
+html[data-tema="dia"] .only-n,html[data-tema="rosa"] .only-n,html[data-tema="azul"] .only-n{display:none}
+.ond{animation:ond 7s linear infinite}.ond.b{animation-duration:11s;animation-direction:reverse}
+@keyframes ond{from{transform:translateX(0)}to{transform:translateX(60px)}}
+.barco{animation:mece 5s ease-in-out infinite alternate}@keyframes mece{from{transform:translate(0,0)}to{transform:translate(18px,1.5px)}}
+.nb{animation:deriva 30s ease-in-out infinite alternate}@keyframes deriva{from{transform:translateX(-10px)}to{transform:translateX(30px)}}
+.est{animation:tw 3.2s ease-in-out infinite alternate}@keyframes tw{from{opacity:.35}to{opacity:.9}}
+.isla.ver .lbl{box-shadow:0 2px 0 rgba(0,0,0,.12)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 .ga-oc,.ga-bo,.ga-r1,.ga-r2,.ga-l1,.ga-l2{opacity:0}
 .ga-oc{animation:gaparp 4s infinite}
@@ -765,6 +781,63 @@ function abierto(k, i) {   /* mismas reglas que los mapas de cada isla */
 }
 const regalos = () => leer("ingles_gamer_mapa_regalos") || {};
 
+
+/* ===== ESCENA DE VERANO: la misma del mapa de Verano (cielo, sol/luna, mar, olas, barco, arena, palmeras, sombrillas, camino de arena) ===== */
+function onda(y) { return "M-70 " + y + " q15 -7 30 0" + " t30 0".repeat(30); }
+function hojaV(r, c) { return '<path class="' + c + '" transform="rotate(' + r + ')" d="M0 0C14 -17 40 -16 54 2C38 -5 14 -4 0 0Z"></path>'; }
+function escenaVerano(W, H, P, CX, I, k, libres) {
+  const sx = W - 78;
+  let s = '<svg class="sc" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><defs>' +
+    '<linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-k1"></stop><stop offset="1" class="s-k2"></stop></linearGradient>' +
+    '<linearGradient id="gm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-e1"></stop><stop offset="1" class="s-e2"></stop></linearGradient>' +
+    '<radialGradient id="gs"><stop offset="0" stop-color="#FFE98A" stop-opacity=".8"></stop><stop offset="1" stop-color="#FFE98A" stop-opacity="0"></stop></radialGradient>' +
+    '<symbol id="palma" viewBox="0 0 100 130"><path class="tr" d="M48 128C46 100 54 82 52 56" fill="none" stroke-width="9" stroke-linecap="round"></path>' +
+      '<path d="M45 112l10-1M45 98l10-1M47 84l9-1M49 70l8-1" stroke="rgba(0,0,0,.25)" stroke-width="2"></path>' +
+      '<g transform="translate(52 56)">' + hojaV(-175, "l1") + hojaV(-140, "l2") + hojaV(-100, "l1") + hojaV(-60, "l2") + hojaV(-20, "l1") + hojaV(22, "l2") + hojaV(160, "l1") +
+      '<circle class="co" cx="-4" cy="7" r="5"></circle><circle class="co" cx="6" cy="8" r="5"></circle></g></symbol>' +
+    '<symbol id="sombrilla" viewBox="0 0 80 92"><path class="tr" d="M40 28V90" fill="none" stroke-width="4" stroke-linecap="round"></path>' +
+      '<path d="M4 34A36 34 0 0 1 76 34Z" style="fill:var(--umb)"></path><path d="M40 0L27 34H53Z" fill="#fff" opacity=".9"></path>' +
+      '<path d="M4 34Q14 40 22 34Q31 40 40 34Q49 40 58 34Q67 40 76 34" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="2"></path></symbol></defs>';
+  /* cielo */
+  s += '<rect width="' + W + '" height="140" fill="url(#gk)"></rect>';
+  s += '<g class="only-n"><g fill="#fff" class="est">' + [[30,24,1.4],[80,60,1],[130,20,1.2],[190,50,1.4],[240,24,1],[60,100,1],[160,95,1.2],[W-40,28,1.2],[W-120,90,1]].map(e => '<circle cx="' + e[0] + '" cy="' + e[1] + '" r="' + e[2] + '"></circle>').join("") + '</g>' +
+    '<circle cx="' + sx + '" cy="68" r="24" fill="#F4F4F5"></circle><circle cx="' + (sx + 10) + '" cy="61" r="21" fill="#050A0E"></circle>' +
+    '<g fill="#fff" opacity=".12" class="nb"><ellipse cx="90" cy="84" rx="34" ry="9"></ellipse><ellipse cx="112" cy="76" rx="20" ry="10"></ellipse></g></g>';
+  let rayos = ""; for (let q = 0; q < 8; q++) rayos += '<path d="M' + sx + ' 26L' + sx + ' 16" transform="rotate(' + (q * 45) + ' ' + sx + ' 66)"></path>';
+  s += '<g class="only-d"><circle cx="' + sx + '" cy="66" r="62" fill="url(#gs)"></circle><circle cx="' + sx + '" cy="66" r="25" fill="#FFD34D"></circle>' +
+    '<g stroke="#FFD34D" stroke-width="3" stroke-linecap="round">' + rayos + '</g>' +
+    '<g fill="#fff" opacity=".95" class="nb"><ellipse cx="80" cy="60" rx="34" ry="10"></ellipse><ellipse cx="102" cy="50" rx="22" ry="12"></ellipse><ellipse cx="60" cy="52" rx="16" ry="9"></ellipse></g>' +
+    '<g fill="#fff" opacity=".8" class="nb"><ellipse cx="200" cy="100" rx="24" ry="7"></ellipse><ellipse cx="214" cy="93" rx="14" ry="8"></ellipse></g></g>';
+  /* mar, olas y barco */
+  s += '<rect y="130" width="' + W + '" height="180" fill="url(#gm)"></rect><rect y="129" width="' + W + '" height="2" fill="#fff" opacity=".35"></rect>';
+  s += '<g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path class="ond" opacity=".28" d="' + onda(160) + '"></path><path class="ond b" opacity=".28" d="' + onda(194) + '"></path>' +
+    '<path class="ond" opacity=".28" d="' + onda(228) + '"></path><path class="ond b" opacity=".28" d="' + onda(262) + '"></path></g>';
+  s += '<g class="barco"><g transform="translate(70 132)"><path d="M0 0H30L25 8H5Z" style="fill:var(--bt1)"></path><path d="M14 -3V-30L28 -3Z" style="fill:var(--bt2)"></path></g></g>';
+  /* arena */
+  const q = W / 4;
+  s += '<path d="M0 300 Q' + q / 2 + ' 284 ' + q + ' 300 T' + 2 * q + ' 300 T' + 3 * q + ' 300 T' + W + ' 300 V' + H + ' H0Z" style="fill:var(--sa);stroke:var(--fo)" stroke-width="6"></path>';
+  s += '<path d="M0 314 Q' + q / 2 + ' 298 ' + q + ' 314 T' + 2 * q + ' 314 T' + 3 * q + ' 314 T' + W + ' 314" fill="none" style="stroke:var(--sb)" stroke-width="2" opacity=".5"></path><g style="fill:var(--sb)" opacity=".7">';
+  for (let z = 0, y = 340; y < H - 30; z++, y += 83) s += '<circle cx="' + (20 + (97 * z) % (W - 40)) + '" cy="' + y + '" r="2.2"></circle><circle cx="' + (20 + (97 * z + 300) % (W - 40)) + '" cy="' + (y + 15) + '" r="2.2"></circle>';
+  s += '</g>';
+  /* palmeras y sombrillas, del lado contrario al nivel (no donde hay personaje ni tarjeta de escucha) */
+  let j = 0;
+  P.forEach((p, idx) => {
+    if (!libres[idx]) return;
+    const som = (j % 3 === 1), yc = p.y + 20; j++;
+    const w = som ? 54 : 92, h = som ? 62 : 120, y = yc - h / 2, id = som ? "sombrilla" : "palma";
+    if (p.x < CX) s += '<g transform="translate(' + (W + (som ? -10 : 24)) + ' 0) scale(-1 1)"><use href="#' + id + '" x="0" y="' + y + '" width="' + w + '" height="' + h + '"></use></g>';
+    else s += '<use href="#' + id + '" x="' + (som ? 10 : -20) + '" y="' + y + '" width="' + w + '" height="' + h + '"></use>';
+  });
+  /* camino de arena + guía: llena hasta donde vas, punteada después */
+  let base = "", guia = "";
+  for (let i = 0; i < P.length - 1; i++) {
+    const a = P[i], b = P[i + 1], m = (a.y + b.y) / 2, d = 'M' + a.x + ' ' + a.y + ' C' + a.x + ' ' + m + ' ' + b.x + ' ' + m + ' ' + b.x + ' ' + b.y;
+    base += '<path d="' + d + '" fill="none" style="stroke:var(--p2)" stroke-width="46" stroke-linecap="round"></path><path d="' + d + '" fill="none" style="stroke:var(--p1)" stroke-width="38" stroke-linecap="round"></path>';
+    guia += (i < libres.hasta) ? '<path d="' + d + '" fill="none" stroke="' + I.c + '" stroke-width="9" stroke-linecap="round"></path>'
+                               : '<path d="' + d + '" fill="none" style="stroke:var(--p2)" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 12"></path>';
+  }
+  return s + base + guia + '</svg>';
+}
 /* ===== pintar ===== */
 const W = () => Math.min(document.documentElement.clientWidth || 390, 520);
 let ACT = null;
@@ -782,7 +855,7 @@ function pintar() {
     z.style.setProperty("--c", I.c); z.style.setProperty("--c2", I.c2); z.style.setProperty("--gl", I.gl);
     /* lista: niveles + regalos intercalados */
     const L = []; I.N.forEach((n, i) => { L.push({ t:"n", i }); if (I.regalos.indexOf(i) > -1) L.push({ t:"a", i }); });
-    const DY = 142, top = 80, H = top + L.length * DY + 40; z.style.height = H + "px";
+    const DY = 142, top = k === 0 ? 400 : 80, H = top + L.length * DY + 40; z.style.height = H + "px";
     const P = L.map((e, j) => Object.assign(e, { x: XS[j % 8], y: top + j * DY }));
     /* cuál es el actual: el primer nivel abierto sin estrellas */
     let ia = -1; I.N.forEach((n, i) => { if (ia < 0 && abierto(k, i) && est(I, n[0]) < 1 && !PRONTO[n[4]]) ia = i; });
@@ -790,7 +863,11 @@ function pintar() {
     let d = "M" + P[0].x + " " + P[0].y; for (let j = 1; j < P.length; j++) { const a = P[j - 1], b = P[j], my = (a.y + b.y) / 2; d += " C" + a.x + " " + my + " " + b.x + " " + my + " " + b.x + " " + b.y; }
     let hj = -1; if (abiertaI) { if (ia < 0) hj = P.length - 1; else hj = P.findIndex(p => p.t === "n" && p.i === ia); }
     let d2 = ""; if (hj > 0) { d2 = "M" + P[0].x + " " + P[0].y; for (let j = 1; j <= hj; j++) { const a = P[j - 1], b = P[j], my = (a.y + b.y) / 2; d2 += " C" + a.x + " " + my + " " + b.x + " " + my + " " + b.x + " " + b.y; } }
-    z.innerHTML = '<svg class="sc" width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '"><path d="' + d + '" fill="none" stroke="var(--toff)" stroke-width="10" stroke-linecap="round" stroke-dasharray="0.1 20"/>' + (d2 ? '<path d="' + d2 + '" fill="none" stroke="' + I.c + '" stroke-width="11" stroke-linecap="round" stroke-dasharray="0.1 20"/>' : '') + '</svg>';
+    if (k === 0) { z.classList.add("ver");
+      const pjIdx = {}; I.pj.forEach(pj => pjIdx[Math.min(pj[2], P.length - 1)] = 1);
+      const libres = P.map((p, j) => !pjIdx[j] && !(p.t === "n" && I.N[p.i][1] === "escucha") && !(p.t === "n" && I.N[p.i][1] === "final") && Math.abs(p.x - CX) > 10);
+      libres.hasta = hj; z.innerHTML = escenaVerano(w, H, P, CX, I, k, libres); }
+    else z.innerHTML = '<svg class="sc" width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '"><path d="' + d + '" fill="none" stroke="var(--toff)" stroke-width="10" stroke-linecap="round" stroke-dasharray="0.1 20"/>' + (d2 ? '<path d="' + d2 + '" fill="none" stroke="' + I.c + '" stroke-width="11" stroke-linecap="round" stroke-dasharray="0.1 20"/>' : '') + '</svg>';
     P.forEach(p => {
       const el = document.createElement("button"); el.type = "button"; el.style.left = p.x + "px"; el.style.top = p.y + "px";
       if (p.t === "n") {
