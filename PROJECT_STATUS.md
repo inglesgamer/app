@@ -128,4 +128,6 @@ Decisiones ya tomadas para el mapa nuevo: fondo liso (sin paisaje), ícono propi
 - Nueva pantalla `mapaa1` (generador `/home/claude/mapa/hacer_mapa_a1.py`): Verano → Jefe → Nieve → Jefe → Fuego → Jefe, todo seguido.
 - Datos reales: mismas claves de estrellas y reglas de desbloqueo. Una isla se abre con 40 / 51 ★ de Verano **o** venciendo al jefe anterior.
 - Regalos de Aura (+20, una vez) en clave `ingles_gamer_mapa_regalos`. Niveles que no existen salen «Pronto».
+- Zona de Verano con la **misma escena del mapa de Verano** (cielo con sol/luna, mar, olas, barco, arena, palmeras, sombrillas, camino de arena). Nieve y Fuego siguen con fondo liso.
+- Descartado: `verano-deco.html` (4 decoraciones nuevas); el usuario quiere la escena original.
 - Los mapas viejos (veranoa1, mapanieve, mapafuego, islaa1) **no se tocaron**. Falta que el usuario apruebe para cambiar el botón Mapa.
