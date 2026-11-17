@@ -108,7 +108,8 @@ Decisiones ya tomadas para el mapa nuevo: fondo liso (sin paisaje), ícono propi
 
 ## 6. Tareas del usuario (recordar en cada respuesta hasta que confirme)
 
-0. **Cambiar el mapa en App Creator:** pegar `MAPA.html` en `MAPA`, `mapaa1.html` en `mapaa1` (sección nueva), `redir_mapa.html` en `veranoa1`, `mapanieve` y `mapafuego`; borrar `islaa1`.
+0. **Pegar en App Creator lo del 17 nov (zip `out/ac24_17nov.zip`):** los 40 niveles (sin liga al final), `ranking`, `mapaa1` (podio), `MAPA`, y `redir_mapa.html` en `veranoa1`, `mapanieve`, `mapafuego`; borrar `islaa1`.
+   (antes) **Cambiar el mapa en App Creator:** pegar `MAPA.html` en `MAPA`, `mapaa1.html` en `mapaa1` (sección nueva), `redir_mapa.html` en `veranoa1`, `mapanieve` y `mapafuego`; borrar `islaa1`.
 
 1. **Pasar los refuerzos a App Creator:** crear sección `premio5` («Ver vídeo para acceder: Sí», «Incluir en menú: No») y pegar lecciones 1–44 + `refuerza.html` (zip `out/refuerza_aura_sonido.zip`). *(Hay recordatorio diario 9:00 a. m. en su celular.)*
 2. Crear secciones `premio2`, `premio3`, `premio4` y `reto1`–`reto3` si no existen.
@@ -133,6 +134,7 @@ Decisiones ya tomadas para el mapa nuevo: fondo liso (sin paisaje), ícono propi
 - Regalos guardados en clave `ingles_gamer_mapa_regalos`. Niveles que no existen salen «Pronto».
 - Zona de Verano con la **misma escena del mapa de Verano** (cielo con sol/luna, mar, olas, barco, arena, palmeras, sombrillas, camino de arena). Nieve y Fuego también con su escena original (montañas, aurora, pinos, muñecos, nieve cayendo / volcán, mar de lava, rocas, cristales, brasas). Las escenas se sacan de los mapas viejos con `mapa/escenas.py`. Demo con todo pasado: `mapaa1.html?demo=1`.
 - Descartado: `verano-deco.html` (4 decoraciones nuevas); el usuario quiere la escena original.
+- 17 nov (2): **eligió C1**. Al reclamar un regalo sale el podio C1 con la liga real (Firestore, máx. 7 s), con el Aura acumulada desde la última vez (`ingles_gamer_liga_visto`). Final de los 40 niveles sin rango ni liga (`tools/final_sin_liga.py`); retos, duelos y sopa siguen igual. Ranking más rápido: abre con la última lista guardada (`ig_rank_cache`) y no espera amigos/ficha (`tools/ranking_rapido.py`). ⚠️ No probado con Firebase real (bloqueado en el entorno de pruebas).
 - 17 nov: al reclamar un regalo de Aura el mapa guarda en la nube y publica la ficha (liga semanal) con los mismos bloques NUBE/FICHA de los niveles. Animación al reclamar: el usuario eligió el estilo B (tarjeta de liga). Variantes con la liga real (rango del Reino, tarjetas, personajes) en `aura-liga.html` (B1 rango+liga, B2 solo rango, B3 podio, B4 pantalla final de nivel). Eligió **B3 (podio)** con 4.º y 5.º: 4 diseños en `aura-podio.html` (C1 podio+tarjetas, C2 podio de 5, C3 podio+fichas, C4 escalera), esperando elección. Gen. `mapa/hacer_aura_podio.py`. Generador `mapa/hacer_aura_liga.py` (usa el bloque IGFinal de familia.html).
 - **17 nov: el mapa completo reemplaza a las islas.** MAPA → Principiante → `mapaa1`. Las secciones `veranoa1`, `mapanieve`, `mapafuego` e `islaa1` ahora solo redirigen a `mapaa1` (archivo `out/redir_mapa.html`), así los niveles vuelven al mapa completo sin tocarlos. Copias de los mapas viejos: `/home/claude/mapa/originales/` (de ahí salen las escenas) y en el historial de git.
 - (antes) Los mapas viejos (veranoa1, mapanieve, mapafuego, islaa1) **no se tocaron**. Falta que el usuario apruebe para cambiar el botón Mapa.

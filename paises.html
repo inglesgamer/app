@@ -2334,6 +2334,8 @@ function fila(j, pos, top, esYo, gan) {
     '<span class="n"><b>' + esc(j.n) + (esYo ? ' · Tú<span class="igf-up"></span>' : '') + '</b>' + (j.ltt ? '<span class="igf-tt">' + esc(LOOK_TT[j.ltt] || "") + '</span>' : '') + '</span>' +
     '<span class="d"><span class="igf-au">' + llama(16) + '<span class="v">' + j.ls + '</span></span>' + (esYo && gan > 0 ? '<span class="igf-mas">▲ +' + gan + '</span>' : '') + '</span></div>';
 }
+/* FINAL_SIN_LIGA (17 nov 2026) */
+const SIN_LIGA = true;
 async function mostrar(o) {
   o = o || {};
   const gan = Math.max(0, Math.round(+o.aura || 0)), est = Math.max(0, Math.min(3, o.estrellas == null ? 3 : +o.estrellas));
@@ -2347,13 +2349,13 @@ async function mostrar(o) {
   ov.innerHTML = '<div class="igf-in">' + (est ? '<div class="igf-st">' + [0, 1, 2].map(i => '<span class="' + (i === 1 ? "m " : "") + (i < est ? "" : "no") + '">' + estrella().replace("<svg ", '<svg style="animation-delay:' + (.2 + i * .22) + 's" ') + '</span>').join("") + '</div>' : '') +
     '<p class="igf-t igf-ap" style="animation-delay:.8s">' + esc(o.titulo || "¡Nivel completado!") + '</p>' + (o.sub ? '<p class="igf-s igf-ap" style="animation-delay:.9s">' + esc(o.sub) + '</p>' : '') +
     '<div class="igf-a igf-ap" style="animation-delay:1s">' + llama(28) + '<span id="igfAu">+0</span><small>AURA</small></div>' + (gan ? '' : '<p class="igf-ya">Ya ganaste el Aura de esto. ¡Igual sumaste práctica!</p>') + (gan && o.multi !== false ? '<button type="button" class="igf-x2 igf-ap" style="animation-delay:1.1s" id="igfX2">' + '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="#1A1206"/><path d="M10 9v6l5-3z" fill="#F5C542"/></svg>' + '<span><b>Multiplica tu Aura</b><small>Mira un anuncio</small></span><em>x2</em></button>' : '') + 
-    rango + '<div class="igf-lh igf-ap" style="animation-delay:1.4s"><span>LIGA SEMANAL</span><b>' + esc(RANGOS_REINO[reinoDe(lg0.st)].n) + '</b></div><div class="igf-ls" id="igfLs"><p class="igf-nota">Buscando tu liga…</p></div>' +
+    (SIN_LIGA ? '<p class="igf-nota igf-ap" style="animation-delay:1.2s">Tu Aura se suma a la liga semanal. Mírala al reclamar un regalo del mapa.</p>' : rango + '<div class="igf-lh igf-ap" style="animation-delay:1.4s"><span>LIGA SEMANAL</span><b>' + esc(RANGOS_REINO[reinoDe(lg0.st)].n) + '</b></div><div class="igf-ls" id="igfLs"><p class="igf-nota">Buscando tu liga…</p></div>') +
     (o.extra || '') + '<button type="button" class="igf-btn' + (o.extra ? ' igf-sec' : '') + '" id="igfOk">Continuar</button></div>';
   document.body.appendChild(ov); void ov.offsetWidth; ov.classList.add("on");
   setTimeout(() => (() => { const e = ov.querySelector("#igfAu"); const t0 = performance.now(); const f = t => { const k = Math.min(1, (t - t0) / 900); e.textContent = "+" + Math.round(gan * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); })(), 1000);
   [523, 659, 784].forEach((f, i) => tono(f, .2 + i * .22, .35, "triangle", .06));
   /* barra de rango */
-  setTimeout(() => {
+  setTimeout(() => { if (SIN_LIGA) return;
     if (lg0.antes.st >= PASO_MAX) { contar(ov.querySelector("#igfPt"), lg0.antes.pt, lg0.pt, 900); return; }
     const sube = lg0.subio, g = ov.querySelector("#igfG"), fin = sube ? 100 - pctA() : Math.max(0, Math.min(100, Math.round(lg0.pt / Math.max(1, meta0) * 100)) - pctA());
     g.style.width = fin + "%"; contar(ov.querySelector("#igfPt"), lg0.antes.pt, sube ? meta0 : lg0.pt, 900);
@@ -2384,7 +2386,7 @@ async function mostrar(o) {
   ov.querySelector("#igfOk").addEventListener("click", () => { ov.classList.remove("on"); setTimeout(() => ov.remove(), 300); if (typeof o.alSalir === "function") o.alSalir(); });
   const bO = ov.querySelector("#igfOtra"); if (bO) bO.addEventListener("click", () => { ov.classList.remove("on"); setTimeout(() => ov.remove(), 300); if (typeof o.alOtra === "function") o.alOtra(); });
   /* liga semanal */
-  const box = ov.querySelector("#igfLs");
+  const box = ov.querySelector("#igfLs"); if (!box) return;
   let r = null; try { r = await Promise.race([cargarLiga(reinoDe(lg0.st)), new Promise(ok => setTimeout(() => ok(null), 9000))]); } catch (e) { r = null; }
   const mio = { uid:"__yo", n:me.n, av:me.av, lmp:me.lmp, lsk:me.lsk, ltt:me.ltt, ls:semana };
   let lista = r && r.lista ? r.lista.filter(x => x.uid !== r.yo) : [];

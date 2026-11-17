@@ -696,19 +696,35 @@ async function cargarAmigos() {
   } catch (e) { DPEND = 0; }
 }
 let DPEND = 0;
+/* RANKING_RAPIDO (17 nov 2026) */
+const CACHE_RK = "ig_rank_cache";
+const claveRk = () => per + "|" + cat + "|" + (per === "liga" ? SEM() + "|" + ligaVista() : per === "mes" ? MES() : "");
+function usarCacheRk() {   /* muestra al instante la última lista que se vio con estos filtros */
+  const C = leer(CACHE_RK) || {}, x = C[claveRk()];
+  if (!x || !Array.isArray(x.l) || (ME && x.u !== ME.uid)) return false;
+  LISTA = x.l; miPuesto = x.p; return true;
+}
+function guardarCacheRk() {
+  const C = leer(CACHE_RK) || {}, k = claveRk(); C[k] = { l:LISTA.slice(0, 60), p:miPuesto, u:ME && ME.uid, t:Date.now() };
+  const ks = Object.keys(C).sort((x, y) => C[y].t - C[x].t); ks.slice(8).forEach(z => delete C[z]);   /* máximo 8 listas guardadas */
+  guardar(CACHE_RK, C);
+}
 async function iniciar() {
-  cargando = true; error = ""; pintar();
-  try {
-    const s = await getDoc(doc(db, "jugadores", ME.uid)); MI = s.exists() ? s.data() : null;
-    await revisarLiga();
-    await Promise.all([cargarLista(), cargarAmigos()]);
-  } catch (e) { error = e.code || e.message || "error"; }
-  cargando = false; refrescarTodo(); avisoLiga();
+  error = "";
+  try { await revisarLiga(); } catch (e) {}
+  if (usarCacheRk()) { cargando = false; refrescarTodo(); } else { cargando = true; pintar(); }
+  const pMi = getDoc(doc(db, "jugadores", ME.uid)).then(s => { MI = s.exists() ? s.data() : null; }).catch(() => {});
+  const pAm = cargarAmigos().then(() => { if (!cargando) refrescarTodo(); }).catch(() => {});
+  try { await cargarLista(); guardarCacheRk(); }
+  catch (e) { if (cargando) error = e.code || e.message || "error"; }
+  cargando = false; refrescarTodo();
+  await Promise.all([pMi, pAm]);
+  refrescarTodo(); avisoLiga();
 }
 async function actualizarSilencioso() {
   if (!ME || document.hidden || cargando) return;
   try {
-    if (tab === "global") { if (Date.now() - tLista > 60000) await cargarLista(); }
+    if (tab === "global") { if (Date.now() - tLista > 60000) { await cargarLista(); guardarCacheRk(); } }
     else if (Date.now() - tAmigos > 60000) await cargarAmigos();
     refrescarTodo();
   } catch (e) {}
@@ -1102,10 +1118,10 @@ document.addEventListener("click", async e => {
     if (nuevo === verLg) return;
     verLg = nuevo; cargando = false;
     const c = $("cont"); c.querySelectorAll(".rc").forEach(x => x.classList.toggle("sel", +x.dataset.lg === lg));
-    try { await cargarLista(); } catch (er) {} pintar(); centrarRango(true); return;
+    if (usarCacheRk()) pintar(); try { await cargarLista(); guardarCacheRk(); } catch (er) {} pintar(); centrarRango(true); return;
   }
-  if ((el = t.closest("[data-cat]"))) { cat = el.dataset.cat; try { await cargarLista(); } catch (er) {} pintar(); return; }
-  if ((el = t.closest("[data-per]"))) { tab = "global"; per = el.dataset.per; try { await cargarLista(); } catch (er) {} pintar(); return; }
+  if ((el = t.closest("[data-cat]"))) { cat = el.dataset.cat; if (usarCacheRk()) pintar(); try { await cargarLista(); guardarCacheRk(); } catch (er) {} pintar(); return; }
+  if ((el = t.closest("[data-per]"))) { tab = "global"; per = el.dataset.per; if (usarCacheRk()) pintar(); try { await cargarLista(); guardarCacheRk(); } catch (er) {} pintar(); return; }
   if (t.closest("[data-reintentar]")) { iniciar(); return; }
   if ((el = t.closest("[data-abrir]"))) { abrir(el.dataset.abrir); return; }
   if (t.closest("#btnAgregar")) { abrir("agregar"); return; }
