@@ -109,11 +109,19 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-conte
 nav .in{display:flex;width:100%;max-width:520px}
 nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;color:var(--mu);text-decoration:none;font-size:12px;font-weight:800}
 nav a.on{color:var(--ink)}
-/* ESCENA VERANO (copiada de veranoa1, 17 nov 2026) */
-:root{--vpg:#F4F4F5;--p1:#3B3224;--p2:#241E14;--sa:#2B2418;--sb:#1F1A11;--fo:rgba(255,255,255,.22);--sk1:#03070A;--sk2:#0B2028;--se1:#0A3036;--se2:#05181C;--tr:#5A4128;--l1:#124D2A;--l2:#1E6B3A;--co:#3A2A18;--umb:#B84A38;--bt1:#3A3A3A;--bt2:#9A9AA2}
-html[data-tema="dia"]{--vpg:#FF6B4A;--p1:#FFF4D0;--p2:#E4C98A;--sa:#F6E1AB;--sb:#EACB8A;--fo:rgba(255,255,255,.9);--sk1:#4FC3FF;--sk2:#CDF1FF;--se1:#2FC1D4;--se2:#168FB5;--tr:#9A6A3A;--l1:#1E8F4C;--l2:#2FB264;--co:#6B4423;--umb:#FF6B4A;--bt1:#FF6B4A;--bt2:#fff}
-html[data-tema="rosa"]{--vpg:#D63B7A;--p1:#FFF3F7;--p2:#F2B5CB;--sa:#FFE2EB;--sb:#F6BFD1;--fo:rgba(255,255,255,.9);--sk1:#FF9EC2;--sk2:#FFE3EE;--se1:#F58DB4;--se2:#D95D8E;--tr:#9A6A3A;--l1:#1E8F4C;--l2:#2FB264;--co:#6B4423;--umb:#D63B7A;--bt1:#D63B7A;--bt2:#fff}
-html[data-tema="azul"]{--vpg:#1C6FD6;--p1:#F6FAFF;--p2:#B7D1EE;--sa:#E4EFFB;--sb:#C4DAF2;--fo:rgba(255,255,255,.9);--sk1:#5FB2FF;--sk2:#DCEFFF;--se1:#2F8FE3;--se2:#1757B0;--tr:#9A6A3A;--l1:#1E8F4C;--l2:#2FB264;--co:#6B4423;--umb:#1C6FD6;--bt1:#1C6FD6;--bt2:#fff}
+/* ESCENAS de las 3 islas (variables por isla y paleta) */
+.isla.ver{--p1:#3B3224;--p2:#241E14;--sa:#2B2418;--sb:#1F1A11;--fo:rgba(255,255,255,.22);--sk1:#03070A;--sk2:#0B2028;--se1:#0A3036;--se2:#05181C;--tr:#5A4128;--l1:#124D2A;--l2:#1E6B3A;--co:#3A2A18;--umb:#B84A38;--bt1:#3A3A3A;--bt2:#9A9AA2}
+html[data-tema="dia"] .isla.ver{--p1:#FFF4D0;--p2:#E4C98A;--sa:#F6E1AB;--sb:#EACB8A;--fo:rgba(255,255,255,.9);--sk1:#4FC3FF;--sk2:#CDF1FF;--se1:#2FC1D4;--se2:#168FB5;--tr:#9A6A3A;--l1:#1E8F4C;--l2:#2FB264;--co:#6B4423;--umb:#FF6B4A;--bt1:#FF6B4A;--bt2:#fff}
+html[data-tema="rosa"] .isla.ver{--p1:#FFF3F7;--p2:#F2B5CB;--sa:#FFE2EB;--sb:#F6BFD1;--fo:rgba(255,255,255,.9);--sk1:#FF9EC2;--sk2:#FFE3EE;--se1:#F58DB4;--se2:#D95D8E;--tr:#9A6A3A;--l1:#1E8F4C;--l2:#2FB264;--co:#6B4423;--umb:#D63B7A;--bt1:#D63B7A;--bt2:#fff}
+html[data-tema="azul"] .isla.ver{--p1:#F6FAFF;--p2:#B7D1EE;--sa:#E4EFFB;--sb:#C4DAF2;--fo:rgba(255,255,255,.9);--sk1:#5FB2FF;--sk2:#DCEFFF;--se1:#2F8FE3;--se2:#1757B0;--tr:#9A6A3A;--l1:#1E8F4C;--l2:#2FB264;--co:#6B4423;--umb:#1C6FD6;--bt1:#1C6FD6;--bt2:#fff}
+.isla.nie{--p1:#34496C;--p2:#1E2D49;--sa:#24334F;--sb:#17223A;--fo:rgba(190,225,255,.35);--sk1:#040A1C;--sk2:#14305A;--se1:#1D5078;--se2:#0A2540;--m1:#1B2E52;--m2:#27406B;--fl:#FFFFFF;--tr:#6B4A2E;--l1:#0F4A45;--l2:#1A6B5E;--umb:#FF5A5A;--bt1:#E6F6FF;--bt2:#8CC4E4}
+html[data-tema="dia"] .isla.nie{--p1:#FFFFFF;--p2:#BCD7E8;--sa:#F2F9FF;--sb:#CFE4F2;--fo:rgba(255,255,255,.95);--sk1:#7CC8FF;--sk2:#E6F6FF;--se1:#7CC4E6;--se2:#3E8DBA;--m1:#A9CBE0;--m2:#C6DEEC;--fl:#8CC4E4;--tr:#8A5A32;--l1:#1E7A5A;--l2:#2FA074;--umb:#E5483C;--bt1:#FFFFFF;--bt2:#9FD0EA}
+html[data-tema="rosa"] .isla.nie{--p1:#FFFFFF;--p2:#F2B5CB;--sa:#FFF5F9;--sb:#F6CCDB;--fo:rgba(255,255,255,.95);--sk1:#FF9EC2;--sk2:#FFE8F1;--se1:#F58DB4;--se2:#D95D8E;--m1:#F0B5CB;--m2:#F8D3E1;--fl:#F2A3C0;--tr:#9A6A3A;--l1:#1E7A5A;--l2:#2FA074;--umb:#D63B7A;--bt1:#FFFFFF;--bt2:#F2B5CB}
+html[data-tema="azul"] .isla.nie{--p1:#FFFFFF;--p2:#B7D1EE;--sa:#F4F9FF;--sb:#C4DAF2;--fo:rgba(255,255,255,.95);--sk1:#5FB2FF;--sk2:#DCEFFF;--se1:#2F8FE3;--se2:#1757B0;--m1:#9EC2E6;--m2:#BFD8F0;--fl:#8CB8E6;--tr:#9A6A3A;--l1:#1E7A5A;--l2:#2FA074;--umb:#1C6FD6;--bt1:#FFFFFF;--bt2:#9EC6EE}
+.isla.fue{--p1:#4A2A26;--p2:#24120F;--sa:#2A1716;--sb:#170B0A;--fo:rgba(255,120,50,.45);--sk1:#0B0306;--sk2:#5A1410;--se1:#E8561C;--se2:#5A140C;--m1:#2E1517;--m2:#1E0B0B;--fl:#FF8A3D;--tr:#FF6A1F;--l1:#3A2226;--l2:#55363A;--umb:#FF8A3D;--bt1:#6A4A46;--bt2:#3A2226}
+html[data-tema="dia"] .isla.fue{--p1:#E9CBAE;--p2:#B9876A;--sa:#E3C2A4;--sb:#B9876A;--fo:rgba(255,255,255,.7);--sk1:#FFA866;--sk2:#FFE7CC;--se1:#FF7A2A;--se2:#C2361A;--m1:#8A5244;--m2:#6E3C32;--fl:#FF6A1F;--tr:#FF6A1F;--l1:#6E4A44;--l2:#8E6A60;--umb:#FF6A1F;--bt1:#A07A70;--bt2:#7A5248}
+html[data-tema="rosa"] .isla.fue{--p1:#F6D3DE;--p2:#D99AB1;--sa:#F3CFDB;--sb:#D99AB1;--fo:rgba(255,255,255,.75);--sk1:#FF9EC2;--sk2:#FFE8F1;--se1:#FF7A5A;--se2:#C23A4A;--m1:#9A5A6E;--m2:#7E4458;--fl:#FF6A8A;--tr:#FF6A3D;--l1:#7A5060;--l2:#9A7080;--umb:#FF6A3D;--bt1:#B08290;--bt2:#8A5A6A}
+html[data-tema="azul"] .isla.fue{--p1:#D9E4F0;--p2:#9FB4CC;--sa:#D3DFEC;--sb:#9FB4CC;--fo:rgba(255,255,255,.75);--sk1:#5FB2FF;--sk2:#FFE2C8;--se1:#FF7A2A;--se2:#C2361A;--m1:#4E5E78;--m2:#3A4860;--fl:#FF6A1F;--tr:#FF6A1F;--l1:#56607A;--l2:#76809A;--umb:#FF6A1F;--bt1:#8A94AA;--bt2:#626C84}
 .tr{stroke:var(--tr)}.l1{fill:var(--l1)}.l2{fill:var(--l2)}.co{fill:var(--co)}
 .s-k1{stop-color:var(--sk1)}.s-k2{stop-color:var(--sk2)}.s-e1{stop-color:var(--se1)}.s-e2{stop-color:var(--se2)}
 .only-d{display:none}
@@ -124,7 +132,23 @@ html[data-tema="dia"] .only-n,html[data-tema="rosa"] .only-n,html[data-tema="azu
 .barco{animation:mece 5s ease-in-out infinite alternate}@keyframes mece{from{transform:translate(0,0)}to{transform:translate(18px,1.5px)}}
 .nb{animation:deriva 30s ease-in-out infinite alternate}@keyframes deriva{from{transform:translateX(-10px)}to{transform:translateX(30px)}}
 .est{animation:tw 3.2s ease-in-out infinite alternate}@keyframes tw{from{opacity:.35}to{opacity:.9}}
-.isla.ver .lbl{box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.isla .lbl{box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.mt1{fill:var(--m1)}.mt2{fill:var(--m2)}
+.hielo{animation:mece 6s ease-in-out infinite alternate}
+.aurora{animation:aurora 7s ease-in-out infinite alternate}@keyframes aurora{from{transform:translateX(-14px);opacity:.35}to{transform:translateX(14px);opacity:.8}}
+.bri{animation:tw 2.4s ease-in-out infinite alternate}
+.glw{animation:glw 1.4s ease-in-out infinite alternate}@keyframes glw{from{opacity:.45}to{opacity:1}}
+.humo{animation:humo 6s ease-out infinite;animation-delay:var(--d,0s)}@keyframes humo{0%{transform:translate(0,0);opacity:0}20%{opacity:.55}100%{transform:translate(var(--dx,14px),-40px);opacity:0}}
+.chi{animation:chi var(--t,2.4s) ease-out infinite;animation-delay:var(--d,0s)}@keyframes chi{0%{transform:translate(0,0);opacity:0}10%{opacity:1}100%{transform:translate(var(--dx),var(--dy));opacity:0}}
+.nv{position:absolute;left:0;right:0;top:0;bottom:0;z-index:1;pointer-events:none;overflow:hidden}
+.nv::before,.nv::after{content:"";position:absolute;inset:0}
+.isla.nie .nv::before{background:radial-gradient(circle,var(--fl) 0 2.2px,transparent 3px) 0 0/64px 64px,radial-gradient(circle,var(--fl) 0 1.6px,transparent 2.4px) 30px 30px/96px 96px;opacity:.85;animation:cae 9s linear infinite}
+.isla.nie .nv::after{background:radial-gradient(circle,var(--fl) 0 1.3px,transparent 2px) 12px 0/48px 52px;opacity:.6;animation:cae 6s linear infinite}
+@keyframes cae{from{background-position:0 0,30px 30px}to{background-position:-14px 192px,16px 222px}}
+.isla.fue .nv::before{background:radial-gradient(circle,var(--fl) 0 2px,transparent 3px) 0 0/70px 90px,radial-gradient(circle,#FFC83D 0 1.4px,transparent 2.2px) 30px 40px/110px 120px;opacity:.75;animation:sube1 7s linear infinite}
+.isla.fue .nv::after{background:radial-gradient(circle,var(--fl) 0 1.2px,transparent 2px) 14px 10px/54px 70px;opacity:.5;animation:sube2 5s linear infinite}
+@keyframes sube1{from{background-position:0 0,30px 40px}to{background-position:18px -270px,10px -200px}}
+@keyframes sube2{from{background-position:14px 10px}to{background-position:0 -200px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 .ga-oc,.ga-bo,.ga-r1,.ga-r2,.ga-l1,.ga-l2{opacity:0}
 .ga-oc{animation:gaparp 4s infinite}
@@ -744,7 +768,7 @@ const ISLAS = [
       ["finalf","final","Jefe de Fuego","corona","go:fuego_final"]] }
 ];
 /* niveles que todavía no existen (sale «Próximamente» y no se abre) */
-const PRONTO = { "go:nieve_final":1, "go:fuego_psimple":1, "go:fuego_frecuencia":1, "go:fuego_esc2":1, "go:fuego_canimp":1, "go:fuego_pcont":1, "go:fuego_pasado":1, "go:fuego_pasado2":1, "go:fuego_esc3":1, "go:fuego_final":1 };
+const PRONTO = /[?&]demo=1/.test(location.search) ? {} : { "go:nieve_final":1, "go:fuego_psimple":1, "go:fuego_frecuencia":1, "go:fuego_esc2":1, "go:fuego_canimp":1, "go:fuego_pcont":1, "go:fuego_pasado":1, "go:fuego_pasado2":1, "go:fuego_esc3":1, "go:fuego_final":1 };
 
 const IC = (() => { const L = p => '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
  return { oido:L('<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="5" height="7" rx="2" fill="currentColor"/><rect x="16" y="14" width="5" height="7" rx="2" fill="currentColor"/>'),
@@ -769,7 +793,8 @@ const IC = (() => { const L = p => '<svg width="30" height="30" viewBox="0 0 24 
   lock:L('<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>') }; })();
 
 /* ===== estado ===== */
-const est = (isla, id) => { const g = leer(isla.clave); return Math.min(3, Math.max(0, +(g && g.est && g.est[id]) || 0)); };
+const DEMO = /[?&]demo=1/.test(location.search);
+const est = (isla, id) => { if (DEMO) return 3; const g = leer(isla.clave); return Math.min(3, Math.max(0, +(g && g.est && g.est[id]) || 0)); };
 const estrellasIsla = isla => isla.N.reduce((t, n) => t + est(isla, n[0]), 0);
 const estVerano = () => ISLAS[0].N.filter(n => n[1] !== "final").reduce((t, n) => t + est(ISLAS[0], n[0]), 0);   // igual que islaa1 / Perfil
 /* una isla se abre con las estrellas de siempre (40 / 51 de Verano) o al derrotar al jefe de la isla anterior */
@@ -782,53 +807,163 @@ function abierto(k, i) {   /* mismas reglas que los mapas de cada isla */
 const regalos = () => leer("ingles_gamer_mapa_regalos") || {};
 
 
-/* ===== ESCENA DE VERANO: la misma del mapa de Verano (cielo, sol/luna, mar, olas, barco, arena, palmeras, sombrillas, camino de arena) ===== */
+/* ===== ESCENAS ORIGINALES de cada isla (sacadas de veranoa1 / mapanieve / mapafuego al generar) ===== */
 function onda(y) { return "M-70 " + y + " q15 -7 30 0" + " t30 0".repeat(30); }
-function hojaV(r, c) { return '<path class="' + c + '" transform="rotate(' + r + ')" d="M0 0C14 -17 40 -16 54 2C38 -5 14 -4 0 0Z"></path>'; }
-function escenaVerano(W, H, P, CX, I, k, libres) {
-  const sx = W - 78;
-  let s = '<svg class="sc" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><defs>' +
-    '<linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-k1"></stop><stop offset="1" class="s-k2"></stop></linearGradient>' +
-    '<linearGradient id="gm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-e1"></stop><stop offset="1" class="s-e2"></stop></linearGradient>' +
-    '<radialGradient id="gs"><stop offset="0" stop-color="#FFE98A" stop-opacity=".8"></stop><stop offset="1" stop-color="#FFE98A" stop-opacity="0"></stop></radialGradient>' +
-    '<symbol id="palma" viewBox="0 0 100 130"><path class="tr" d="M48 128C46 100 54 82 52 56" fill="none" stroke-width="9" stroke-linecap="round"></path>' +
+function hoja(r, c) { return '<path class="' + c + '" transform="rotate(' + r + ')" d="M0 0C14 -17 40 -16 54 2C38 -5 14 -4 0 0Z"></path>'; }
+const ESC = {};
+ESC.ver = { defs: function () { return '<linearGradient id="gk_ver" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-k1"></stop><stop offset="1" class="s-k2"></stop></linearGradient>' +
+    '<linearGradient id="gm_ver" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-e1"></stop><stop offset="1" class="s-e2"></stop></linearGradient>' +
+    '<radialGradient id="gs_ver"><stop offset="0" stop-color="#FFE98A" stop-opacity=".8"></stop><stop offset="1" stop-color="#FFE98A" stop-opacity="0"></stop></radialGradient>' +
+    '<symbol id="palma_ver" viewBox="0 0 100 130"><path class="tr" d="M48 128C46 100 54 82 52 56" fill="none" stroke-width="9" stroke-linecap="round"></path>' +
       '<path d="M45 112l10-1M45 98l10-1M47 84l9-1M49 70l8-1" stroke="rgba(0,0,0,.25)" stroke-width="2"></path>' +
-      '<g transform="translate(52 56)">' + hojaV(-175, "l1") + hojaV(-140, "l2") + hojaV(-100, "l1") + hojaV(-60, "l2") + hojaV(-20, "l1") + hojaV(22, "l2") + hojaV(160, "l1") +
+      '<g transform="translate(52 56)">' + hoja(-175, "l1") + hoja(-140, "l2") + hoja(-100, "l1") + hoja(-60, "l2") + hoja(-20, "l1") + hoja(22, "l2") + hoja(160, "l1") +
       '<circle class="co" cx="-4" cy="7" r="5"></circle><circle class="co" cx="6" cy="8" r="5"></circle></g></symbol>' +
-    '<symbol id="sombrilla" viewBox="0 0 80 92"><path class="tr" d="M40 28V90" fill="none" stroke-width="4" stroke-linecap="round"></path>' +
+    '<symbol id="sombrilla_ver" viewBox="0 0 80 92"><path class="tr" d="M40 28V90" fill="none" stroke-width="4" stroke-linecap="round"></path>' +
       '<path d="M4 34A36 34 0 0 1 76 34Z" style="fill:var(--umb)"></path><path d="M40 0L27 34H53Z" fill="#fff" opacity=".9"></path>' +
-      '<path d="M4 34Q14 40 22 34Q31 40 40 34Q49 40 58 34Q67 40 76 34" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="2"></path></symbol></defs>';
-  /* cielo */
-  s += '<rect width="' + W + '" height="140" fill="url(#gk)"></rect>';
-  s += '<g class="only-n"><g fill="#fff" class="est">' + [[30,24,1.4],[80,60,1],[130,20,1.2],[190,50,1.4],[240,24,1],[60,100,1],[160,95,1.2],[W-40,28,1.2],[W-120,90,1]].map(e => '<circle cx="' + e[0] + '" cy="' + e[1] + '" r="' + e[2] + '"></circle>').join("") + '</g>' +
-    '<circle cx="' + sx + '" cy="68" r="24" fill="#F4F4F5"></circle><circle cx="' + (sx + 10) + '" cy="61" r="21" fill="#050A0E"></circle>' +
+      '<path d="M4 34Q14 40 22 34Q31 40 40 34Q49 40 58 34Q67 40 76 34" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="2"></path></symbol>'; }, top: function () { let s = '';
+/* cielo */
+  s += '<rect x="-400" width="1200" height="140" fill="url(#gk_ver)"></rect>';
+  /* noche: estrellas, luna y nubes tenues */
+  s += '<g class="only-n"><g fill="#fff" class="est">' +
+    '<circle cx="30" cy="24" r="1.4"></circle><circle cx="80" cy="60" r="1"></circle><circle cx="130" cy="20" r="1.2"></circle><circle cx="190" cy="50" r="1.4"></circle><circle cx="240" cy="24" r="1"></circle><circle cx="60" cy="100" r="1"></circle><circle cx="160" cy="95" r="1.2"></circle><circle cx="350" cy="28" r="1.2"></circle><circle cx="270" cy="90" r="1"></circle></g>' +
+    '<circle cx="312" cy="68" r="24" fill="#F4F4F5"></circle><circle cx="322" cy="61" r="21" fill="#050A0E"></circle>' +
     '<g fill="#fff" opacity=".12" class="nb"><ellipse cx="90" cy="84" rx="34" ry="9"></ellipse><ellipse cx="112" cy="76" rx="20" ry="10"></ellipse></g></g>';
-  let rayos = ""; for (let q = 0; q < 8; q++) rayos += '<path d="M' + sx + ' 26L' + sx + ' 16" transform="rotate(' + (q * 45) + ' ' + sx + ' 66)"></path>';
-  s += '<g class="only-d"><circle cx="' + sx + '" cy="66" r="62" fill="url(#gs)"></circle><circle cx="' + sx + '" cy="66" r="25" fill="#FFD34D"></circle>' +
+  /* día: sol, rayos y nubes */
+  let rayos = "";
+  for (let k = 0; k < 8; k++) rayos += '<path d="M312 26L312 16" transform="rotate(' + (k * 45) + ' 312 66)"></path>';
+  s += '<g class="only-d"><circle cx="312" cy="66" r="62" fill="url(#gs_ver)"></circle><circle cx="312" cy="66" r="25" fill="#FFD34D"></circle>' +
     '<g stroke="#FFD34D" stroke-width="3" stroke-linecap="round">' + rayos + '</g>' +
     '<g fill="#fff" opacity=".95" class="nb"><ellipse cx="80" cy="60" rx="34" ry="10"></ellipse><ellipse cx="102" cy="50" rx="22" ry="12"></ellipse><ellipse cx="60" cy="52" rx="16" ry="9"></ellipse></g>' +
     '<g fill="#fff" opacity=".8" class="nb"><ellipse cx="200" cy="100" rx="24" ry="7"></ellipse><ellipse cx="214" cy="93" rx="14" ry="8"></ellipse></g></g>';
-  /* mar, olas y barco */
-  s += '<rect y="130" width="' + W + '" height="180" fill="url(#gm)"></rect><rect y="129" width="' + W + '" height="2" fill="#fff" opacity=".35"></rect>';
-  s += '<g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path class="ond" opacity=".28" d="' + onda(160) + '"></path><path class="ond b" opacity=".28" d="' + onda(194) + '"></path>' +
+
+  /* mar, horizonte, olas y barco */
+  s += '<rect y="130" x="-400" width="1200" height="180" fill="url(#gm_ver)"></rect><rect y="129" x="-400" width="1200" height="2" fill="#fff" opacity=".35"></rect>';
+  s += '<g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">' +
+    '<path class="ond" opacity=".28" d="' + onda(160) + '"></path><path class="ond b" opacity=".28" d="' + onda(194) + '"></path>' +
     '<path class="ond" opacity=".28" d="' + onda(228) + '"></path><path class="ond b" opacity=".28" d="' + onda(262) + '"></path></g>';
   s += '<g class="barco"><g transform="translate(70 132)"><path d="M0 0H30L25 8H5Z" style="fill:var(--bt1)"></path><path d="M14 -3V-30L28 -3Z" style="fill:var(--bt2)"></path></g></g>';
-  /* arena */
+
+  
+return s; } };
+ESC.nie = { defs: function () { return '<linearGradient id="gk_nie" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-k1"></stop><stop offset="1" class="s-k2"></stop></linearGradient>' +
+    '<linearGradient id="gm_nie" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-e1"></stop><stop offset="1" class="s-e2"></stop></linearGradient>' +
+    '<linearGradient id="ga_nie" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5DFFB0" stop-opacity="0"></stop><stop offset=".5" stop-color="#5DFFB0" stop-opacity=".55"></stop><stop offset="1" stop-color="#8E5BD6" stop-opacity="0"></stop></linearGradient>' +
+    '<radialGradient id="gs_nie"><stop offset="0" stop-color="#FFF6C8" stop-opacity=".85"></stop><stop offset="1" stop-color="#FFF6C8" stop-opacity="0"></stop></radialGradient>' +
+    /* pino nevado */
+    '<symbol id="pino_nie" viewBox="0 0 100 130"><rect class="tr" x="45" y="104" width="10" height="22" rx="2" style="fill:var(--tr);stroke:none"></rect>' +
+      '<path class="l1" d="M50 36L16 82H84Z"></path><path class="l2" d="M50 18L22 58H78Z"></path><path class="l1" d="M50 62L8 108H92Z"></path><path class="l2" d="M50 4L28 36H72Z"></path>' +
+      '<path fill="#fff" d="M50 4L40 18Q50 22 60 18Z"></path><path fill="#fff" d="M50 18L36 38Q50 43 64 38Z" opacity=".95"></path><path fill="#fff" d="M50 36L30 62Q50 68 70 62Z" opacity=".95"></path><path fill="#fff" d="M50 62L22 92Q50 100 78 92Z" opacity=".95"></path></symbol>' +
+    /* muñeco de nieve */
+    '<symbol id="muneco_nie" viewBox="0 0 80 100"><g stroke="var(--sb)" stroke-width="2.5"><circle cx="40" cy="72" r="24" fill="#fff"></circle><circle cx="40" cy="42" r="18" fill="#fff"></circle><circle cx="40" cy="18" r="13" fill="#fff"></circle></g>' +
+      '<path d="M18 40Q40 52 62 40" fill="none" style="stroke:var(--umb)" stroke-width="6" stroke-linecap="round"></path><path d="M54 44l4 14" style="stroke:var(--umb)" stroke-width="6" stroke-linecap="round"></path>' +
+      '<path d="M22 56L6 46M58 56L74 46" class="tr" stroke-width="3" stroke-linecap="round" fill="none"></path>' +
+      '<path d="M40 18L52 21L40 24Z" fill="#FF8A3D"></path><circle cx="35" cy="14" r="1.8" fill="#0B0B0D"></circle><circle cx="45" cy="14" r="1.8" fill="#0B0B0D"></circle>' +
+      '<circle cx="40" cy="38" r="2" fill="#0B0B0D"></circle><circle cx="40" cy="48" r="2" fill="#0B0B0D"></circle><circle cx="40" cy="70" r="2" fill="#0B0B0D"></circle><circle cx="40" cy="80" r="2" fill="#0B0B0D"></circle>' +
+      '<path d="M28 6h24v5H28z" fill="#2B2B33"></path><path d="M33 -4h14v10H33z" fill="#2B2B33" transform="translate(0 4)"></path></symbol>'; }, top: function () { let s = '';
+/* cielo */
+  s += '<rect x="-400" width="1200" height="140" fill="url(#gk_nie)"></rect>';
+  /* noche: estrellas, luna, aurora */
+  s += '<g class="only-n"><g fill="#fff" class="est">' +
+    '<circle cx="30" cy="24" r="1.4"></circle><circle cx="80" cy="60" r="1"></circle><circle cx="130" cy="20" r="1.2"></circle><circle cx="190" cy="50" r="1.4"></circle><circle cx="240" cy="24" r="1"></circle><circle cx="60" cy="100" r="1"></circle><circle cx="160" cy="95" r="1.2"></circle><circle cx="350" cy="28" r="1.2"></circle><circle cx="270" cy="90" r="1"></circle></g>' +
+    '<g class="aurora"><path d="M0 50Q80 14 160 44T320 34T390 48L390 92Q320 102 240 84T80 94T0 88Z" fill="url(#ga_nie)"></path></g>' +
+    '<circle cx="312" cy="68" r="24" fill="#F4F4F5"></circle><circle cx="322" cy="61" r="21" fill="#0A1A36"></circle></g>';
+  /* día: sol pálido y nubes */
+  let rayos = "";
+  for (let k = 0; k < 8; k++) rayos += '<path d="M312 28L312 18" transform="rotate(' + (k * 45) + ' 312 66)"></path>';
+  s += '<g class="only-d"><circle cx="312" cy="66" r="60" fill="url(#gs_nie)"></circle><circle cx="312" cy="66" r="24" fill="#FFF3B0"></circle>' +
+    '<g stroke="#FFF3B0" stroke-width="3" stroke-linecap="round">' + rayos + '</g>' +
+    '<g fill="#fff" opacity=".95" class="nb"><ellipse cx="80" cy="60" rx="34" ry="10"></ellipse><ellipse cx="102" cy="50" rx="22" ry="12"></ellipse><ellipse cx="60" cy="52" rx="16" ry="9"></ellipse></g>' +
+    '<g fill="#fff" opacity=".8" class="nb"><ellipse cx="200" cy="100" rx="24" ry="7"></ellipse><ellipse cx="214" cy="93" rx="14" ry="8"></ellipse></g></g>';
+
+  /* montañas nevadas */
+  s += '<path class="mt1" d="M0 132L52 84L84 112L134 66L186 116L228 92L280 132Z"></path>' +
+       '<path class="mt2" d="M200 132L292 62L324 94L350 76L392 132Z"></path>' +
+       '<path fill="#fff" opacity=".95" d="M134 66L117 90L128 86L135 97L144 88L152 93Z"></path>' +
+       '<path fill="#fff" opacity=".95" d="M292 62L274 86L285 82L293 93L302 83L311 89Z"></path>' +
+       '<path fill="#fff" opacity=".9" d="M350 76L338 92L346 89L351 96L358 90Z"></path>';
+
+  /* mar helado, horizonte y olas */
+  s += '<rect y="130" x="-400" width="1200" height="180" fill="url(#gm_nie)"></rect><rect y="129" x="-400" width="1200" height="2" fill="#fff" opacity=".4"></rect>';
+  s += '<g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">' +
+    '<path class="ond" opacity=".28" d="' + onda(160) + '"></path><path class="ond b" opacity=".28" d="' + onda(194) + '"></path>' +
+    '<path class="ond" opacity=".28" d="' + onda(228) + '"></path><path class="ond b" opacity=".28" d="' + onda(262) + '"></path></g>';
+  /* destellos de hielo */
+  s += '<g fill="#fff" class="bri"><path d="M60 176l3-8 3 8-8-3 8-3z" transform="translate(0 0)"></path><circle cx="300" cy="212" r="2"></circle><circle cx="170" cy="250" r="2"></circle><circle cx="40" cy="270" r="1.6"></circle></g>';
+  /* témpano flotante */
+  s += '<g class="hielo"><g transform="translate(80 138)"><path d="M0 10L9 -8L17 2L26 -14L40 10Z" style="fill:var(--bt2)"></path><path d="M26 -14L19 -2L27 0L33 -6Z" style="fill:var(--bt1)"></path><path d="M9 -8L4 2L13 0Z" style="fill:var(--bt1)"></path></g></g>';
+
+  
+return s; } };
+ESC.fue = { defs: function () { return '<linearGradient id="gk_fue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-k1"></stop><stop offset="1" class="s-k2"></stop></linearGradient>' +
+    '<linearGradient id="gm_fue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-e1"></stop><stop offset="1" class="s-e2"></stop></linearGradient>' +
+    '<radialGradient id="gs_fue"><stop offset="0" stop-color="#FFB070" stop-opacity=".8"></stop><stop offset=".45" stop-color="#FF6A1F" stop-opacity=".3"></stop><stop offset="1" stop-color="#FF6A1F" stop-opacity="0"></stop></radialGradient>' +
+    /* volcancito */
+    '<symbol id="volc_fue" viewBox="0 0 100 80"><path class="l1" d="M0 78L36 16H64L100 78Z"></path><path class="l2" d="M64 16L100 78H74Z" opacity=".8"></path>' +
+      '<ellipse cx="50" cy="16" rx="15" ry="4" fill="#FF8A3D"></ellipse><ellipse cx="50" cy="16" rx="8" ry="2" fill="#FFD36B"></ellipse>' +
+      '<path class="glw" d="M46 18L42 36L48 52L44 70M55 18L60 38L56 56" fill="none" stroke="#FF6A1F" stroke-width="4" stroke-linecap="round"></path></symbol>' +
+    /* roca con grietas de lava */
+    '<symbol id="roca_fue" viewBox="0 0 90 60"><path class="l1" d="M4 58L14 24L36 8L62 14L82 34L88 58Z"></path><path class="l2" d="M36 8L62 14L56 30L32 26Z" opacity=".9"></path>' +
+      '<path class="glw" d="M22 56L30 40L26 30M50 58L54 42L66 34" fill="none" stroke="#FF6A1F" stroke-width="3.5" stroke-linecap="round"></path></symbol>' +
+    /* cristal rojo */
+    '<symbol id="cris_fue" viewBox="0 0 60 70"><path d="M30 2L44 22L38 68H22L16 22Z" fill="#E5484D"></path><path d="M30 2L16 22L22 68L28 22Z" fill="#FF8A8F"></path>' +
+      '<path d="M48 26L58 40L52 68H42Z" fill="#B8333A"></path><path d="M12 30L2 44L8 68H18Z" fill="#C93D44"></path></symbol>'; }, top: function () { let s = '';
+/* cielo */
+  s += '<rect x="-400" width="1200" height="140" fill="url(#gk_fue)"></rect>';
+  /* noche: luna roja, estrellas tenues y nubes de ceniza */
+  s += '<g class="only-n"><g fill="#FFB89A" class="est"><circle cx="30" cy="24" r="1.2"></circle><circle cx="130" cy="18" r="1"></circle><circle cx="200" cy="44" r="1.2"></circle><circle cx="60" cy="96" r="1"></circle><circle cx="160" cy="92" r="1"></circle></g>' +
+    '<circle cx="78" cy="62" r="56" fill="url(#gs_fue)" opacity=".5"></circle><circle cx="78" cy="62" r="18" fill="#C9402A" opacity=".85"></circle>' +
+    '<g fill="#2A1216" opacity=".85" class="nb"><ellipse cx="70" cy="36" rx="34" ry="9"></ellipse><ellipse cx="92" cy="29" rx="22" ry="10"></ellipse><ellipse cx="50" cy="31" rx="18" ry="8"></ellipse></g></g>';
+  /* día: sol entre humo */
+  s += '<g class="only-d"><circle cx="78" cy="58" r="56" fill="url(#gs_fue)"></circle><circle cx="78" cy="58" r="22" fill="#FFE08A"></circle>' +
+    '<g fill="#fff" opacity=".7" class="nb"><ellipse cx="150" cy="40" rx="30" ry="9"></ellipse><ellipse cx="170" cy="32" rx="18" ry="10"></ellipse></g></g>';
+
+  /* volcán grande en erupción */
+  let ch = "";
+  for (let k = 0; k < 9; k++) ch += '<rect x="' + (300 + ((k * 37) % 13) - 6) + '" y="46" width="3.4" height="3.4" fill="' + (k % 2 ? "#FFC83D" : "#FF6A1F") + '" class="chi" style="--dx:' + (((k * 53) % 90) - 45) + 'px;--dy:' + (-32 - (k * 17) % 34) + 'px;--t:' + (1.8 + (k % 4) * .35) + 's;--d:-' + ((k * 0.41) % 3).toFixed(2) + 's"></rect>';
+  s += '<path class="mt1" d="M0 132L56 86L84 96L140 132Z"></path>' +
+       '<path class="mt2" d="M180 132L272 52L290 58L306 48L324 54L392 132Z"></path>' +
+       '<circle cx="300" cy="52" r="62" fill="url(#gs_fue)" class="glw"></circle>' +
+       '<ellipse cx="298" cy="51" rx="17" ry="4.5" fill="#FF8A3D"></ellipse><ellipse cx="298" cy="51" rx="9" ry="2.2" fill="#FFD36B"></ellipse>' +
+       '<g class="glw" fill="none" stroke="#FF6A1F" stroke-width="3" stroke-linecap="round"><path d="M292 56L286 80L293 104L285 132"></path><path d="M305 56L313 84L307 110L316 132"></path></g>' +
+       '<g fill="#4A3034"><circle class="humo" cx="294" cy="44" r="7" style="--dx:-16px"></circle><circle class="humo" cx="302" cy="42" r="6" style="--dx:12px;--d:-2s"></circle><circle class="humo" cx="298" cy="44" r="8" style="--dx:2px;--d:-4s"></circle></g>' + ch;
+
+  /* mar de lava y olas brillantes */
+  s += '<rect y="130" x="-400" width="1200" height="180" fill="url(#gm_fue)"></rect><rect y="129" x="-400" width="1200" height="2" fill="#FFC83D" opacity=".6"></rect>';
+  s += '<g fill="none" stroke="#FFC83D" stroke-width="2" stroke-linecap="round">' +
+    '<path class="ond" opacity=".35" d="' + onda(160) + '"></path><path class="ond b" opacity=".3" d="' + onda(194) + '"></path>' +
+    '<path class="ond" opacity=".3" d="' + onda(228) + '"></path><path class="ond b" opacity=".25" d="' + onda(262) + '"></path></g>';
+  s += '<g fill="#FFD36B" class="bri"><circle cx="60" cy="176" r="2.2"></circle><circle cx="300" cy="212" r="2"></circle><circle cx="170" cy="250" r="2.2"></circle><circle cx="40" cy="270" r="1.6"></circle></g>';
+  /* roca flotando en la lava */
+  s += '<g class="hielo"><g transform="translate(80 140)"><path d="M0 10L8 -6L18 -2L26 -12L40 10Z" style="fill:var(--bt2)"></path><path d="M26 -12L20 -2L28 0L33 -5Z" style="fill:var(--bt1)"></path><path d="M6 10L12 2L16 10" fill="none" stroke="#FF8A3D" stroke-width="2"></path></g></g>';
+
+  
+return s; } };
+
+/* adornos al lado contrario del nivel: [símbolo, ancho, alto, x a la izquierda, se voltea] */
+const DECO = { ver:[["palma",92,120,-20,1],["sombrilla",54,62,10,1],["palma",92,120,-20,1]],
+               nie:[["pino",92,120,-20,1],["muneco",56,70,10,1],["pino",92,120,-20,1]],
+               fue:[["volc",100,80,6,0],["roca",84,56,6,0],["cris",52,62,6,0]] };
+function escena(key, W, H, P, CX, I, libres) {
+  const off = (W - 390) / 2, E = ESC[key];
+  let s = '<svg class="sc" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><defs>' + E.defs() + '</defs>';
+  s += '<g transform="translate(' + off + ' 0)">' + E.top() + '</g>';
+  /* suelo (arena / nieve / roca volcánica) */
   const q = W / 4;
   s += '<path d="M0 300 Q' + q / 2 + ' 284 ' + q + ' 300 T' + 2 * q + ' 300 T' + 3 * q + ' 300 T' + W + ' 300 V' + H + ' H0Z" style="fill:var(--sa);stroke:var(--fo)" stroke-width="6"></path>';
   s += '<path d="M0 314 Q' + q / 2 + ' 298 ' + q + ' 314 T' + 2 * q + ' 314 T' + 3 * q + ' 314 T' + W + ' 314" fill="none" style="stroke:var(--sb)" stroke-width="2" opacity=".5"></path><g style="fill:var(--sb)" opacity=".7">';
   for (let z = 0, y = 340; y < H - 30; z++, y += 83) s += '<circle cx="' + (20 + (97 * z) % (W - 40)) + '" cy="' + y + '" r="2.2"></circle><circle cx="' + (20 + (97 * z + 300) % (W - 40)) + '" cy="' + (y + 15) + '" r="2.2"></circle>';
   s += '</g>';
-  /* palmeras y sombrillas, del lado contrario al nivel (no donde hay personaje ni tarjeta de escucha) */
+  if (key === "fue") { s += '<g fill="#FF6A1F" class="glw">'; for (let z = 0, y = 420; y < H - 60; z++, y += 260) s += '<ellipse cx="' + (z % 2 ? W - 60 : 60) + '" cy="' + y + '" rx="26" ry="6" opacity=".55"></ellipse>'; s += '</g>'; }
+  /* adornos */
   let j = 0;
   P.forEach((p, idx) => {
     if (!libres[idx]) return;
-    const som = (j % 3 === 1), yc = p.y + 20; j++;
-    const w = som ? 54 : 92, h = som ? 62 : 120, y = yc - h / 2, id = som ? "sombrilla" : "palma";
-    if (p.x < CX) s += '<g transform="translate(' + (W + (som ? -10 : 24)) + ' 0) scale(-1 1)"><use href="#' + id + '" x="0" y="' + y + '" width="' + w + '" height="' + h + '"></use></g>';
-    else s += '<use href="#' + id + '" x="' + (som ? 10 : -20) + '" y="' + y + '" width="' + w + '" height="' + h + '"></use>';
+    const d = DECO[key][j % 3], w = d[1], h = d[2], y = p.y + 20 - h / 2, id = d[0] + "_" + key; j++;
+    if (p.x < CX) s += d[4] ? '<g transform="translate(' + W + ' 0) scale(-1 1)"><use href="#' + id + '" x="' + d[3] + '" y="' + y + '" width="' + w + '" height="' + h + '"></use></g>'
+                           : '<use href="#' + id + '" x="' + (W - w - d[3]) + '" y="' + y + '" width="' + w + '" height="' + h + '"></use>';
+    else s += '<use href="#' + id + '" x="' + d[3] + '" y="' + y + '" width="' + w + '" height="' + h + '"></use>';
   });
-  /* camino de arena + guía: llena hasta donde vas, punteada después */
+  /* camino: llena con el color de la isla hasta donde vas, punteada después */
   let base = "", guia = "";
   for (let i = 0; i < P.length - 1; i++) {
     const a = P[i], b = P[i + 1], m = (a.y + b.y) / 2, d = 'M' + a.x + ' ' + a.y + ' C' + a.x + ' ' + m + ' ' + b.x + ' ' + m + ' ' + b.x + ' ' + b.y;
@@ -836,7 +971,7 @@ function escenaVerano(W, H, P, CX, I, k, libres) {
     guia += (i < libres.hasta) ? '<path d="' + d + '" fill="none" stroke="' + I.c + '" stroke-width="9" stroke-linecap="round"></path>'
                                : '<path d="' + d + '" fill="none" style="stroke:var(--p2)" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 12"></path>';
   }
-  return s + base + guia + '</svg>';
+  return s + base + guia + '</svg>' + (key === "ver" ? "" : '<div class="nv"></div>');
 }
 /* ===== pintar ===== */
 const W = () => Math.min(document.documentElement.clientWidth || 390, 520);
@@ -855,7 +990,7 @@ function pintar() {
     z.style.setProperty("--c", I.c); z.style.setProperty("--c2", I.c2); z.style.setProperty("--gl", I.gl);
     /* lista: niveles + regalos intercalados */
     const L = []; I.N.forEach((n, i) => { L.push({ t:"n", i }); if (I.regalos.indexOf(i) > -1) L.push({ t:"a", i }); });
-    const DY = 142, top = k === 0 ? 400 : 80, H = top + L.length * DY + 40; z.style.height = H + "px";
+    const DY = 142, top = 400, H = top + L.length * DY + 40; z.style.height = H + "px";
     const P = L.map((e, j) => Object.assign(e, { x: XS[j % 8], y: top + j * DY }));
     /* cuál es el actual: el primer nivel abierto sin estrellas */
     let ia = -1; I.N.forEach((n, i) => { if (ia < 0 && abierto(k, i) && est(I, n[0]) < 1 && !PRONTO[n[4]]) ia = i; });
@@ -863,11 +998,11 @@ function pintar() {
     let d = "M" + P[0].x + " " + P[0].y; for (let j = 1; j < P.length; j++) { const a = P[j - 1], b = P[j], my = (a.y + b.y) / 2; d += " C" + a.x + " " + my + " " + b.x + " " + my + " " + b.x + " " + b.y; }
     let hj = -1; if (abiertaI) { if (ia < 0) hj = P.length - 1; else hj = P.findIndex(p => p.t === "n" && p.i === ia); }
     let d2 = ""; if (hj > 0) { d2 = "M" + P[0].x + " " + P[0].y; for (let j = 1; j <= hj; j++) { const a = P[j - 1], b = P[j], my = (a.y + b.y) / 2; d2 += " C" + a.x + " " + my + " " + b.x + " " + my + " " + b.x + " " + b.y; } }
-    if (k === 0) { z.classList.add("ver");
+    { z.classList.add(["ver", "nie", "fue"][k]);
       const pjIdx = {}; I.pj.forEach(pj => pjIdx[Math.min(pj[2], P.length - 1)] = 1);
       const libres = P.map((p, j) => !pjIdx[j] && !(p.t === "n" && I.N[p.i][1] === "escucha") && !(p.t === "n" && I.N[p.i][1] === "final") && Math.abs(p.x - CX) > 10);
-      libres.hasta = hj; z.innerHTML = escenaVerano(w, H, P, CX, I, k, libres); }
-    else z.innerHTML = '<svg class="sc" width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '"><path d="' + d + '" fill="none" stroke="var(--toff)" stroke-width="10" stroke-linecap="round" stroke-dasharray="0.1 20"/>' + (d2 ? '<path d="' + d2 + '" fill="none" stroke="' + I.c + '" stroke-width="11" stroke-linecap="round" stroke-dasharray="0.1 20"/>' : '') + '</svg>';
+      libres.hasta = hj; z.innerHTML = escena(["ver", "nie", "fue"][k], w, H, P, CX, I, libres); }
+    if (0) z.innerHTML = '<svg class="sc" width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '"><path d="' + d + '" fill="none" stroke="var(--toff)" stroke-width="10" stroke-linecap="round" stroke-dasharray="0.1 20"/>' + (d2 ? '<path d="' + d2 + '" fill="none" stroke="' + I.c + '" stroke-width="11" stroke-linecap="round" stroke-dasharray="0.1 20"/>' : '') + '</svg>';
     P.forEach(p => {
       const el = document.createElement("button"); el.type = "button"; el.style.left = p.x + "px"; el.style.top = p.y + "px";
       if (p.t === "n") {
