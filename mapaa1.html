@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es"><head><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Mapa A1 | InglésGamer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<script>var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+
+aplicarTema((function () { try { return localStorage.getItem(TEMA_KEY) || "noche"; } catch (e) { return "noche"; } })());
+</script>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+button{font-family:inherit;cursor:pointer}
+.app{max-width:520px;margin:0 auto;position:relative;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+/* perfil */
+.perfil{display:flex;align-items:center;gap:12px;margin:calc(12px + env(safe-area-inset-top)) 12px 0;padding:12px;border-radius:22px;background:var(--card);border:2px solid var(--bd);text-decoration:none;color:inherit}
+.perfil .av{flex:none;width:62px;height:62px;border-radius:50%;background:var(--chip);border:3px solid var(--rc,#8C8C96);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.perfil .tx{flex:1;min-width:0}.perfil b{display:block;font-size:18px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.perfil .rg{display:inline-block;margin-top:3px;padding:3px 10px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:11px;font-weight:900;letter-spacing:.08em}
+.perfil .br{height:6px;margin-top:8px;border-radius:99px;background:var(--track);overflow:hidden}.perfil .br i{display:block;height:100%;border-radius:99px;background:var(--rc,#8C8C96)}
+.perfil small{display:block;margin-top:4px;color:var(--mu);font-size:12px;font-weight:800}
+.perfil .st{flex:none;display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:900}.perfil .st span{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:12px;background:var(--chip)}
+/* barra fija */
+.top{position:sticky;top:0;z-index:20;padding:10px 12px;background:var(--bg)}
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:16px;font-weight:900}
+.aur{display:flex;align-items:center;gap:6px;padding:5px 12px 5px 8px;border-radius:99px;background:var(--card);border:1px solid var(--bd)}.aur small{font-size:12px;color:var(--mu);font-weight:800}
+.uni{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:20px;background:var(--card);border:2px solid var(--c);transition:border-color .4s}
+.uni .ic{flex:none;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c);transition:background .4s}
+.uni small{display:block;font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu)}.uni b{font-size:18px;font-weight:900}
+.uni .bar{height:6px;border-radius:99px;background:var(--track);margin-top:6px;overflow:hidden}.uni .bar i{display:block;height:100%;border-radius:99px;background:var(--c);transition:width .4s}
+/* camino */
+.isla{position:relative}
+.isla svg.sc{position:absolute;left:0;top:0;pointer-events:none}
+.cab{margin:26px 14px 0;display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:22px;background:var(--card);border:2px dashed var(--c)}
+.cab .ic{flex:none;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c)}
+.cab small{display:block;font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu)}.cab b{display:block;font-size:19px;font-weight:900}
+.cab p{margin:3px 0 0;font-size:13px;font-weight:700;color:var(--mu)}
+.cab.lk{border-color:var(--bd)}.cab.lk .ic{background:var(--toff)}
+.nodo{position:absolute;z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;transform:translate(-50%,-37px);background:none;border:0;padding:0;color:inherit}
+.nA{position:relative;width:74px;height:74px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .1s}
+.nodo:active .nA{transform:translateY(4px)}
+.nA.done{background:var(--c);color:#fff;box-shadow:0 5px 0 var(--c2)}
+.nA.act{background:var(--c);color:#fff;box-shadow:0 5px 0 var(--c2),0 0 0 8px var(--bg),0 0 0 13px var(--c);animation:glow 1.8s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 5px 0 var(--c2),0 0 0 8px var(--bg),0 0 0 18px var(--gl)}}
+.nA.lock{background:var(--toff);box-shadow:0 5px 0 var(--track);color:var(--mu)}
+.nA.big{width:94px;height:94px}
+.lbl{white-space:nowrap;padding:4px 12px;border-radius:99px;background:var(--card);border:1px solid var(--bd);font-size:13px;font-weight:800}
+.lbl.l{color:var(--mu)}
+.tg{position:absolute;top:-30px;z-index:2;left:50%;transform:translateX(-50%);padding:5px 12px;border-radius:99px;background:#fff;color:#000;border:2px solid var(--bd);font-size:11px;font-weight:900;letter-spacing:.1em;white-space:nowrap}
+.esc{position:absolute;z-index:3;transform:translate(-50%,-35px);display:flex;align-items:center;gap:12px;width:240px;max-width:calc(100% - 24px);height:70px;padding:0 14px;border-radius:24px;background:var(--card);border:2px solid var(--c);box-shadow:0 5px 0 var(--c2);color:inherit;text-align:left}
+.esc.lock{border-color:var(--bd);box-shadow:0 5px 0 var(--track)}
+.esc.act{animation:glow2 1.8s ease-in-out infinite}@keyframes glow2{50%{box-shadow:0 5px 0 var(--c2),0 0 0 8px var(--gl)}}
+.esc .ci{flex:none;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c);color:#fff}
+.esc.lock .ci{background:var(--toff);color:var(--mu)}
+.esc small{display:block;font-size:10px;font-weight:900;letter-spacing:.12em;color:var(--mu)}.esc b{font-size:16px;font-weight:900}
+.aurE{position:relative;display:flex;flex-direction:column;align-items:center;width:84px;height:74px;justify-content:flex-end}
+.aurE .fl{animation:auF 2.2s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,107,0,.85));line-height:0}
+@keyframes auF{50%{transform:translateY(-8px)}}
+.aurE .ped{width:72px;height:20px;border-radius:50%;background:linear-gradient(#FF8A3D,#C2410C);box-shadow:0 5px 0 #8A2C06;margin-top:-8px}
+.aurE b{position:absolute;right:-14px;top:2px;padding:2px 8px;border-radius:99px;background:#fff;color:#C2410C;font-size:13px;font-weight:900;border:1px solid #F2C5A8}
+.aurE.ya .fl,.aurE.no .fl{filter:grayscale(1) opacity(.45);animation:none}.aurE.ya .ped,.aurE.no .ped{background:var(--toff);box-shadow:0 5px 0 var(--track)}.aurE.ya b{display:none}
+.pj{position:absolute;z-index:2;width:90px;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-50%)}
+.pj .prac{margin-top:4px;padding:6px 12px;border-radius:99px;border:0;background:var(--c);color:#fff;font-size:12px;font-weight:900;box-shadow:0 4px 0 var(--c2)}
+.pj.lk{opacity:.45}.pj.lk .prac{background:var(--toff);color:var(--mu);box-shadow:0 4px 0 var(--track)}
+.trof{position:absolute;z-index:2;transform:translate(-50%,-50%)}
+.flota{animation:flota 2.6s ease-in-out infinite}@keyframes flota{50%{transform:translateY(-6px)}}
+/* aviso */
+.toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;max-width:88%;padding:12px 18px;border-radius:16px;background:var(--hi);color:var(--on-hi);font-size:14px;font-weight:800;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.toast[hidden]{display:none}
+.auT{position:fixed;left:50%;top:40%;z-index:61;display:flex;align-items:center;gap:6px;padding:10px 18px;border-radius:99px;background:#FF8A3D;color:#1E0F02;font-size:22px;font-weight:900;box-shadow:0 6px 0 #B85A1C;transform:translateX(-50%);animation:auT 1.7s ease forwards;pointer-events:none}
+@keyframes auT{0%{opacity:0;transform:translate(-50%,20px) scale(.7)}15%{opacity:1;transform:translate(-50%,0) scale(1.08)}25%{transform:translate(-50%,0) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-40px)}}
+/* barra inferior */
+nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:center;background:var(--nav);border-top:1px solid var(--bd);padding:6px 0 calc(6px + env(safe-area-inset-bottom));transform:translateZ(0)}
+nav .in{display:flex;width:100%;max-width:520px}
+nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;color:var(--mu);text-decoration:none;font-size:12px;font-weight:800}
+nav a.on{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+.ga-oc,.ga-bo,.ga-r1,.ga-r2,.ga-l1,.ga-l2{opacity:0}
+.ga-oc{animation:gaparp 4s infinite}
+@keyframes gaparp{0%,92%,100%{opacity:0}94%,97%{opacity:1}}
+.ga-sp{transform-box:fill-box;transform-origin:center;animation:gabrilla 1s ease-in-out infinite}
+@keyframes gabrilla{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes gaua{0%{opacity:1}50%{opacity:0}}
+@keyframes gaub{0%{opacity:0}50%{opacity:1}}
+.ga-saludo .ga-mov{animation:garesp 2.4s ease-in-out infinite}
+@keyframes garesp{0%,100%{transform:translateY(0)}50%{transform:translateY(-.25px)}}
+.ga-saludo .ga-rd{animation:gasd 7s step-end infinite}
+.ga-saludo .ga-r1{animation:gas1 7s step-end infinite}
+.ga-saludo .ga-r2{animation:gas2 7s step-end infinite}
+.ga-saludo .ga-bo{animation:gasb 7s step-end infinite}
+@keyframes gasd{0%{opacity:1}10%{opacity:0}50%{opacity:1}100%{opacity:1}}
+@keyframes gas1{0%{opacity:0}10%{opacity:1}15%{opacity:0}20%{opacity:1}25%{opacity:0}30%{opacity:1}35%{opacity:0}40%{opacity:1}45%{opacity:0}100%{opacity:0}}
+@keyframes gas2{0%{opacity:0}15%{opacity:1}20%{opacity:0}25%{opacity:1}30%{opacity:0}35%{opacity:1}40%{opacity:0}45%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes gasb{0%{opacity:0}10%{opacity:1}13%{opacity:0}15%{opacity:1}18%{opacity:0}20%{opacity:1}23%{opacity:0}25%{opacity:1}28%{opacity:0}30%{opacity:1}33%{opacity:0}35%{opacity:1}38%{opacity:0}40%{opacity:1}43%{opacity:0}45%{opacity:1}48%{opacity:0}100%{opacity:0}}
+.ga-alegre .ga-mov{animation:gasalta .6s ease-in-out infinite alternate}
+@keyframes gasalta{from{transform:translateY(0)}to{transform:translateY(-1px)}}
+.ga-alegre .ga-rd,.ga-alegre .ga-ld{opacity:0}
+.ga-alegre .ga-r1,.ga-alegre .ga-l1{animation:gaua .6s step-end infinite}
+.ga-alegre .ga-r2,.ga-alegre .ga-l2{animation:gaub .6s step-end infinite}
+.ga-alegre .ga-bo{animation:gaua .3s step-end infinite}
+.ga-triste .ga-cab{animation:ganod 3s ease-in-out infinite alternate}
+@keyframes ganod{from{transform:translateY(.4px)}to{transform:translateY(.8px)}}
+.ga-triste .ga-mov{animation:gasollozo 1.4s ease-in-out infinite}
+@keyframes gasollozo{0%,60%,100%{transform:translateY(0)}70%{transform:translateY(.25px)}80%{transform:translateY(0)}90%{transform:translateY(.25px)}}
+.ga-triste .ga-rd{animation:gawd 6s step-end infinite}
+.ga-triste .ga-r1{animation:gaw1 6s step-end infinite}
+.ga-triste .ga-r2{animation:gaw2 6s step-end infinite}
+@keyframes gawd{0%{opacity:1}20%{opacity:0}70%{opacity:1}100%{opacity:1}}
+@keyframes gaw1{0%{opacity:0}20%{opacity:1}30%{opacity:0}40%{opacity:1}50%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes gaw2{0%{opacity:0}30%{opacity:1}40%{opacity:0}50%{opacity:1}60%{opacity:0}100%{opacity:0}}
+.ga-tA,.ga-tB{opacity:0;animation:gatA 1.8s step-end infinite}
+.ga-tB{animation-name:gatB}
+@keyframes gatA{0%{opacity:1}33%{opacity:0}100%{opacity:0}}
+@keyframes gatB{0%{opacity:0}33%{opacity:1}66%{opacity:0}100%{opacity:0}}
+.ga-brava .ga-mov{animation:gatiembla .12s linear infinite alternate}
+@keyframes gatiembla{from{transform:translateX(-.1px)}to{transform:translateX(.1px)}}
+.ga-brava .ga-rd{animation:gaub 1s step-end infinite}
+.ga-brava .ga-r1{animation:gaua 1s step-end infinite}
+.ga-brava .ga-bo{animation:gaua .5s step-end infinite}
+.ga-rojo,.ga-vena{animation:galate 1s ease-in-out infinite alternate}
+.ga-rojo{opacity:.15}
+@keyframes galate{from{opacity:.15}to{opacity:.5}}
+.ga-humo{animation:gasube 1.2s linear infinite}
+@keyframes gasube{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(-2px);opacity:0}}
+.ga-gu,.ga-gl{opacity:0}
+@keyframes gawink{0%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes galadea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+@keyframes gaflota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+@keyframes gasigue{from{transform:translateX(0)}to{transform:translateX(.3px)}}
+@keyframes gabalanceo{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
+@keyframes gasube2{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
+.ga-cor{opacity:0;animation:gasube2 2.4s linear infinite}
+.ga-q{animation:gaflota 1.6s ease-in-out infinite alternate}
+.ga-pulgar .ga-mov{animation:gasalta 1s ease-in-out infinite alternate}
+.ga-pulgar .ga-rd{opacity:0}
+.ga-pulgar .ga-r1{animation:gaua .8s step-end infinite}
+.ga-pulgar .ga-r2{animation:gaub .8s step-end infinite}
+.ga-pulgar .ga-gu{animation:gawink 3s step-end infinite}
+.ga-animo .ga-mov{animation:gasalta .5s ease-in-out infinite alternate}
+.ga-animo .ga-rd{animation:gaub .5s step-end infinite}
+.ga-animo .ga-r1{animation:gaua .5s step-end infinite}
+.ga-animo .ga-bo{animation:gaua .25s step-end infinite}
+.ga-pienso .ga-cab{animation:galadea 2s ease-in-out infinite alternate}
+.ga-pienso .ga-rd{opacity:0}
+.ga-pienso .ga-r1{animation:gaua 1.2s step-end infinite}
+.ga-pienso .ga-r2{animation:gaub 1.2s step-end infinite}
+.ga-copion .ga-mov{animation:gasigue 1.8s ease-in-out infinite alternate}
+.ga-copion .ga-rd{opacity:0}
+.ga-copion .ga-r1{animation:gaua .9s step-end infinite}
+.ga-copion .ga-r2{animation:gaub .9s step-end infinite}
+.ga-copion .ga-gl{animation:gaua 2.4s step-end infinite}
+.ga-amor .ga-mov{animation:gabalanceo 1.6s ease-in-out infinite alternate}
+.ga-amor .ga-rd{opacity:0}
+.ga-amor .ga-r1{animation:gaua 1.2s step-end infinite}
+.ga-amor .ga-r2{animation:gaub 1.2s step-end infinite}
+.ga-ups .ga-mov{animation:gatiembla .1s linear infinite alternate}
+.ga-ups .ga-rd,.ga-ups .ga-ld{opacity:0}
+.ga-ups .ga-r1,.ga-ups .ga-l1{opacity:1}
+.ga-card.ancha{grid-column:1/-1}
+.ga-card.ancha svg{width:300px}
+@keyframes gavibra{from{transform:translateY(0)}to{transform:translateY(.15px)}}
+@keyframes gacorre{from{transform:translateY(-3px);opacity:0}30%{opacity:.8}to{transform:translateY(5px);opacity:0}}
+@keyframes gagalopa{from{transform:translateY(0)}to{transform:translateY(-.5px)}}
+@keyframes gapez{0%,60%{opacity:0;transform:translate(0,2px)}65%{opacity:1;transform:translate(1px,-1.5px)}75%{transform:translate(2px,-2.5px)}85%{transform:translate(3px,-1px)}90%{opacity:1;transform:translate(3.5px,2px)}100%{opacity:0}}
+.ga-linea{animation:gacorre .5s linear infinite}
+.ga-moto .ga-mov{animation:gavibra .12s linear infinite alternate}
+.ga-moto .ga-ra{animation:gaua .08s step-end infinite}
+.ga-moto .ga-rb{animation:gaub .08s step-end infinite}
+.ga-caballo .ga-mov,.ga-caballo .ga-atras,.ga-caballo .ga-fuera{animation:gagalopa .35s ease-in-out infinite alternate}
+.ga-caballo .ga-hA{animation:gaua .35s step-end infinite}
+.ga-caballo .ga-hB{animation:gaub .35s step-end infinite}
+.ga-pesca .ga-rd{opacity:0}
+.ga-pesca .ga-r1{animation:gaua 2s step-end infinite}
+.ga-pesca .ga-r2{animation:gaub 2s step-end infinite}
+.ga-pesca .ga-wA{animation:gaua .8s step-end infinite}
+.ga-pesca .ga-wB{animation:gaub .8s step-end infinite}
+.ga-bob{animation:gaflota 1s ease-in-out infinite alternate}
+.ga-pez{opacity:0;animation:gapez 3.5s ease-in-out infinite}
+.ga-baile .ga-mov{animation:gasalta .3s ease-in-out infinite alternate}
+.ga-baile .ga-rd{animation:gaub .6s step-end infinite}
+.ga-baile .ga-r1{animation:gaua .6s step-end infinite}
+.ga-baile .ga-ld{animation:gaua .6s step-end infinite}
+.ga-baile .ga-l1{animation:gaub .6s step-end infinite}
+.ga-dormido .ga-oc{animation:none}
+.ga-dormido .ga-cab{animation:ganod 3s ease-in-out infinite alternate}
+.ga-dormido .ga-mov{animation:garesp 3s ease-in-out infinite}
+.ga-dormido .ga-bo{animation:gaua 2.4s step-end infinite}
+@keyframes gaq1{0%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes gaq2{0%{opacity:0}25%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes gaq3{0%,25%{opacity:0}50%{opacity:1}75%{opacity:0}100%{opacity:0}}
+@keyframes gaq4{0%,50%{opacity:0}75%{opacity:1}100%{opacity:0}}
+@keyframes gavuela{0%,50%{opacity:0;transform:translate(0,0)}55%{opacity:1}100%{opacity:0;transform:translate(3px,-2px)}}
+@keyframes gavuela2{0%,100%{transform:translate(0,0)}25%{transform:translate(2px,-2px)}50%{transform:translate(0,2px)}75%{transform:translate(3px,0)}}
+@keyframes gasusto{0%,70%,100%{transform:translateY(0)}75%{transform:translateY(-1px)}85%{transform:translateY(0)}}
+@keyframes gacj{0%,20%{opacity:0}30%,80%{opacity:1}90%,100%{opacity:0}}
+.ga-t1,.ga-t2,.ga-t3,.ga-t4,.ga-beso,.ga-mari{opacity:0}
+.ga-t1{animation:gaq1 1s step-end infinite}.ga-t2{animation:gaq2 1s step-end infinite}.ga-t3{animation:gaq3 1s step-end infinite}.ga-t4{animation:gaq4 1s step-end infinite}
+.ga-beso{animation:gavuela 1.6s linear infinite}
+.ga-mari{opacity:1;animation:gavuela2 6s ease-in-out infinite}
+.ga-m1{animation:gaua .2s step-end infinite}.ga-m2{opacity:0;animation:gaub .2s step-end infinite}
+.ga-ceja .ga-cab{animation:galadea 2s ease-in-out infinite alternate}
+.ga-ceja .ga-gu{animation:gacj 3s step-end infinite}
+.ga-lloron .ga-oc,.ga-sorpresa .ga-oc,.ga-amoroso .ga-oc,.ga-cool .ga-oc{animation:none}
+.ga-lloron .ga-mov{animation:gasollozo .5s ease-in-out infinite}
+.ga-lloron .ga-cab{animation:ganod .5s ease-in-out infinite alternate}
+.ga-lloron .ga-rd,.ga-lloron .ga-ld,.ga-sorpresa .ga-rd,.ga-sorpresa .ga-ld{opacity:0}
+.ga-lloron .ga-r1{animation:gaua .5s step-end infinite}.ga-lloron .ga-r2{animation:gaub .5s step-end infinite}
+.ga-lloron .ga-l1{animation:gaub .5s step-end infinite}.ga-lloron .ga-l2{animation:gaua .5s step-end infinite}
+.ga-lloron .ga-bo{animation:gaua .4s step-end infinite}
+.ga-amoroso .ga-mov{animation:gabalanceo 1.6s ease-in-out infinite alternate}
+.ga-amoroso .ga-rd{opacity:0}
+.ga-amoroso .ga-r1{animation:gaua 1.6s step-end infinite}.ga-amoroso .ga-r2{animation:gaub 1.6s step-end infinite}
+.ga-tonto .ga-cab{animation:galadea .4s ease-in-out infinite alternate}
+.ga-tonto .ga-gl{animation:gaua .6s step-end infinite}
+.ga-tonto .ga-bo{animation:gaua .4s step-end infinite}
+.ga-tonto .ga-rd{animation:gaub .4s step-end infinite}.ga-tonto .ga-r1{animation:gaua .4s step-end infinite}
+.ga-tonto .ga-ld{animation:gaua .4s step-end infinite}.ga-tonto .ga-l1{animation:gaub .4s step-end infinite}
+.ga-carro .ga-mov,.ga-carro .ga-fuera{animation:gavibra .12s linear infinite alternate}
+.ga-carro .ga-ra{animation:gaua .08s step-end infinite}.ga-carro .ga-rb{animation:gaub .08s step-end infinite}
+.ga-distraido .ga-cab{animation:galadea 3s ease-in-out infinite alternate}
+.ga-distraido .ga-gl{animation:gaua 4s step-end infinite}
+.ga-sorpresa .ga-mov{animation:gasusto 1.6s ease-in-out infinite}
+.ga-sorpresa .ga-r1,.ga-sorpresa .ga-l1{opacity:1}
+.ga-cool .ga-rd{opacity:0}
+.ga-cool .ga-r1{animation:gaua 3s step-end infinite}.ga-cool .ga-r2{animation:gaub 3s step-end infinite}
+.ga-cool .ga-gu{animation:gawink 3s step-end infinite}
+@keyframes ganono{0%,100%{transform:translateX(0)}25%{transform:translateX(-.5px)}75%{transform:translateX(.5px)}}
+@keyframes gasino{0%,100%{transform:translateY(0)}50%{transform:translateY(.55px)}}
+@keyframes gacae2{0%{transform:translateY(-1px);opacity:0}15%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+.ga-nieve{opacity:0;animation:gacae2 2.2s linear infinite}
+.ga-b1{animation:gaua .5s step-end infinite}.ga-b2{opacity:0;animation:gaub .5s step-end infinite}
+.ga-neg .ga-cab{animation:ganono .6s ease-in-out infinite}
+.ga-neg .ga-rd{opacity:0}.ga-neg .ga-r1{animation:gaua .3s step-end infinite}.ga-neg .ga-r2{animation:gaub .3s step-end infinite}
+.ga-afirma .ga-cab{animation:gasino .5s ease-in-out infinite}
+.ga-miedo .ga-mov{animation:gatiembla .08s linear infinite alternate}
+.ga-miedo .ga-bo{animation:gaua .1s step-end infinite}
+.ga-miedo .ga-gl{animation:gaua .5s step-end infinite}
+.ga-miedo .ga-rd,.ga-miedo .ga-ld{opacity:0}.ga-miedo .ga-r1,.ga-miedo .ga-l1{opacity:1}
+.ga-ansiedad .ga-mov{animation:gavibra .1s linear infinite alternate}
+.ga-ansiedad .ga-rd{opacity:0}.ga-ansiedad .ga-r1{animation:gaua .15s step-end infinite}.ga-ansiedad .ga-r2{animation:gaub .15s step-end infinite}
+.ga-ansiedad .ga-gl{animation:gaua .3s step-end infinite}
+.ga-nube{animation:gatiembla .1s linear infinite alternate}
+.ga-frio .ga-mov{animation:gatiembla .08s linear infinite alternate}
+.ga-frio .ga-rd,.ga-frio .ga-ld{opacity:0}
+.ga-frio .ga-bo{animation:gaua .1s step-end infinite}
+.ga-frio .ga-oc{animation:none}
+.ga-enfermo .ga-oc{animation:none}
+.ga-enfermo .ga-mov{animation:gasusto 2.4s ease-in-out infinite}
+.ga-enfermo .ga-cab{animation:ganod 2.4s ease-in-out infinite alternate}
+.ga-enfermo .ga-rd{opacity:0}.ga-enfermo .ga-r1{opacity:1}
+.ga-hambre .ga-mov{animation:gasollozo 1s ease-in-out infinite}
+.ga-hambre .ga-rd{opacity:0}.ga-hambre .ga-r1{animation:gaua .8s step-end infinite}.ga-hambre .ga-r2{animation:gaub .8s step-end infinite}
+.ga-idea .ga-mov{animation:gasalta .5s ease-in-out infinite alternate}
+.ga-idea .ga-rd{opacity:0}.ga-idea .ga-r1{animation:gaua .5s step-end infinite}.ga-idea .ga-r2{animation:gaub .5s step-end infinite}
+@keyframes gahd{0%{opacity:1}10%{opacity:0}100%{opacity:0}}
+@keyframes gah2{0%{opacity:0}10%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes gah1{0%{opacity:0}25%{opacity:1}100%{opacity:1}}
+.ga-heroe .ga-rd{animation:gahd 5s step-end infinite}
+.ga-heroe .ga-r2{animation:gah2 5s step-end infinite}
+.ga-heroe .ga-r1{animation:gah1 5s step-end infinite}
+.ga-heroe .ga-gu{animation:gah1 5s step-end infinite}
+.ga-ejer .ga-mov{animation:gavibra .1s linear infinite alternate}
+.ga-ejer .ga-rd,.ga-ejer .ga-ld{opacity:0}
+.ga-ejer .ga-r1,.ga-ejer .ga-l1{animation:gaua .8s step-end infinite}
+.ga-ejer .ga-r2,.ga-ejer .ga-l2{animation:gaub .8s step-end infinite}
+.ga-copa .ga-mov{animation:gasalta .4s ease-in-out infinite alternate}
+.ga-copa .ga-rd,.ga-copa .ga-ld{opacity:0}
+.ga-copa .ga-r1,.ga-copa .ga-l2{animation:gaua .4s step-end infinite}
+.ga-copa .ga-r2,.ga-copa .ga-l1{animation:gaub .4s step-end infinite}
+.ga-super .ga-mov{animation:gasalta 1s ease-in-out infinite alternate}
+.ga-super .ga-cab{animation:gatiembla .06s linear infinite alternate}
+.ga-super .ga-oc{animation:none}
+.ga-super .ga-bo{animation:gaua .3s step-end infinite}
+@keyframes gabost{0%{opacity:0}60%{opacity:1}85%{opacity:0}100%{opacity:0}}
+@keyframes gae1{0%{opacity:0}10%{opacity:1}90%{opacity:0}100%{opacity:0}}
+@keyframes gae2{0%{opacity:0}35%{opacity:1}90%{opacity:0}100%{opacity:0}}
+@keyframes gae3{0%{opacity:0}60%{opacity:1}90%{opacity:0}100%{opacity:0}}
+@keyframes gaf1{0%{opacity:0}80%{opacity:1}85%{opacity:0}100%{opacity:0}}
+@keyframes gaf2{0%{opacity:0}85%{opacity:1}90%{opacity:0}100%{opacity:0}}
+@keyframes gaf3{0%{opacity:0}90%{opacity:1}95%{opacity:0}100%{opacity:0}}
+@keyframes gagarab{from{transform:translate(0,0)}to{transform:translate(-.5px,.3px)}}
+@keyframes gabrillo{0%{opacity:.12}50%{opacity:.3}}
+@keyframes gafoco{from{opacity:.08}to{opacity:.22}}
+@keyframes gaflash{0%,60%{opacity:0}61%{opacity:.9}70%{opacity:0}100%{opacity:0}}
+.ga-e1,.ga-e2,.ga-e3{opacity:0;animation:gae1 6s step-end infinite}.ga-e2{animation-name:gae2}.ga-e3{animation-name:gae3}
+.ga-f1,.ga-f2,.ga-f3{opacity:0;animation:gaf1 4s step-end infinite}.ga-f2{animation-name:gaf2}.ga-f3{animation-name:gaf3}
+.ga-xa{animation:gaua 1.6s step-end infinite}.ga-xb{opacity:0;animation:gaub 1.6s step-end infinite}
+.ga-pa{animation:gaua .25s step-end infinite}.ga-pb{opacity:0;animation:gaub .25s step-end infinite}
+.ga-lapiz{animation:gagarab .25s ease-in-out infinite alternate}
+.ga-brillo{opacity:.15;animation:gabrillo .4s step-end infinite}
+.ga-foco{opacity:.12;animation:gafoco 1.2s ease-in-out infinite alternate}
+.ga-flash{opacity:0;animation:gaflash 3s linear infinite}
+.ga-aburrido .ga-cab{animation:ganod 3s ease-in-out infinite alternate}
+.ga-aburrido .ga-rd{opacity:0}.ga-aburrido .ga-r1{opacity:1}
+.ga-aburrido .ga-bo,.ga-aburrido .ga-gu{animation:gabost 5s step-end infinite}
+.ga-ensena .ga-mov{animation:garesp 2.4s ease-in-out infinite}
+.ga-ensena .ga-rd{opacity:0}
+.ga-ensena .ga-r1{animation:gaua 1.2s step-end infinite}.ga-ensena .ga-r2{animation:gaub 1.2s step-end infinite}
+.ga-ensena .ga-bo{animation:gaua .3s step-end infinite}
+.ga-leer .ga-rd,.ga-leer .ga-ld{opacity:0}
+.ga-leer .ga-cab{animation:ganod 3s ease-in-out infinite alternate}
+.ga-leer .ga-gl{animation:gaua 2s step-end infinite}
+.ga-nerd .ga-oc{animation:none}
+.ga-nerd .ga-mov{animation:garesp 2.4s ease-in-out infinite}
+.ga-nerd .ga-rd{opacity:0}
+.ga-nerd .ga-r1{animation:gaua 1.6s step-end infinite}.ga-nerd .ga-r2{animation:gaub 1.6s step-end infinite}
+.ga-nerd .ga-gu{animation:gawink 2.8s step-end infinite}
+.ga-escribir .ga-rd,.ga-escribir .ga-ld{opacity:0}
+.ga-escribir .ga-cab{animation:ganod 2s ease-in-out infinite alternate}
+.ga-mano .ga-mov{animation:gasalta .35s ease-in-out infinite alternate}
+.ga-mano .ga-rd{opacity:0}
+.ga-mano .ga-r1{animation:gaua .7s step-end infinite}.ga-mano .ga-r2{animation:gaub .7s step-end infinite}
+.ga-mano .ga-bo{animation:gaua .35s step-end infinite}
+.ga-detective .ga-mov{animation:gasigue 1.8s ease-in-out infinite alternate}
+.ga-detective .ga-rd{opacity:0}.ga-detective .ga-r1{opacity:1}
+.ga-gamer .ga-rd,.ga-gamer .ga-ld{opacity:0}
+.ga-gamer .ga-mov{animation:gavibra .15s linear infinite alternate}
+.ga-gamer .ga-cab{animation:galadea .6s ease-in-out infinite alternate}
+.ga-musica .ga-oc{animation:none}
+.ga-musica .ga-cab{animation:gasino .5s ease-in-out infinite}
+.ga-musica .ga-mov{animation:gabalanceo 1s ease-in-out infinite alternate}
+.ga-cantar .ga-oc{animation:none}
+.ga-cantar .ga-mov{animation:gabalanceo 1.4s ease-in-out infinite alternate}
+.ga-cantar .ga-rd{opacity:0}.ga-cantar .ga-r1{opacity:1}
+.ga-cantar .ga-ld{animation:gaub 1s step-end infinite}.ga-cantar .ga-l1{animation:gaua 1s step-end infinite}
+.ga-cantar .ga-bo{animation:gaua .4s step-end infinite}
+.ga-selfie .ga-mov{animation:garesp 2.4s ease-in-out infinite}
+.ga-selfie .ga-cab{animation:galadea 1.5s ease-in-out infinite alternate}
+.ga-selfie .ga-rd,.ga-selfie .ga-ld{opacity:0}.ga-selfie .ga-r1,.ga-selfie .ga-l1{opacity:1}
+.ga-selfie .ga-gu{animation:gawink 3s step-end infinite}
+.gax{display:inline-block;line-height:0}.gax svg{display:block;width:100%;height:auto;overflow:visible}
+@media (prefers-reduced-motion:reduce){.gax *{animation:none!important}}
+
+</style></head><body>
+<div class="app">
+  <a class="perfil" id="perfil" href="go:perfil"></a>
+  <div class="top"><div class="hud"><span>Principiante · A1</span><span class="aur"><svg width="24" height="24" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="0" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="7" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="6" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="7" width="1" height="1" fill="#FFC83D"></rect></svg><b id="aura">0</b><small>Aura</small></span></div>
+    <div class="uni" id="uni"><div class="ic" id="uIc"></div><div style="flex:1;min-width:0"><small id="uS"></small><b id="uB"></b><div class="bar"><i id="uBar"></i></div></div></div></div>
+  <div id="mapa"></div>
+</div>
+<div class="toast" id="toast" hidden></div>
+<nav aria-label="Navegación principal"><div class="in" id="nav"></div></nav>
+<script>const GAL = (function () {
+/* Cuadrícula (12 columnas x 16 filas). Cada letra es un color de la paleta */
+const BASE = [
+"...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..",
+"ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss",
+"..ppp..ppp..","..fff..fff.."
+];
+const PAL = { k:"#151518", w:"#F2F4F8", h:"#8A5A33", e:"#3A2414", s:"#F2B98F", m:"#B8704F", M:"#7A1F1F", g:"#5A5A5E", l:"#C4C4C8", q:"#A0A0A5", z:"#0B0B0D", p:"#1A1A1E", f:"#F2F4F8", W:"#FFFFFF", r:"#FF8FA3", t:"#6EC6FF", v:"#FF2D2D", S:"#E3A67C", H:"#FF4D8D", y:"#FFC83D", R:"#E5322B", N:"#2B1B12", B:"#8B5A2B", b:"#5E3E22", C:"#C98F6B", U:"#2E86DE", O:"#FF8A3D", T:"#FF6B5E", G:"#44444A", c:"#3FD8C8", A:"#2F6B3F", K:"#6B4423", D:"#1E1E24", P:"#8E5BD6", V:"#5E3A99" };
+
+const solo = (r1, r2, c1, c2, k) => { const o = []; for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) o.push([r, c, k]); return o; };
+const rects = l => l.map(x => '<rect x="' + x[1] + '" y="' + x[0] + '" width="1" height="1" fill="' + PAL[x[2]] + '"></rect>').join("");
+// brazo levantado (lado "R" o "L"), top = fila donde empieza la mano
+const arriba = (lado, top) => { const a = lado === "R" ? 10 : 0; return solo(top, top + 1, a, a + 1, "s").concat(solo(top + 2, top + 2, a, a + 1, "l"), solo(top + 3, 8, a, a + 1, "g")); };
+// brazo ladeado (para el saludo)
+const lado = top => solo(top, top + 1, 11, 12, "s").concat(solo(top + 2, top + 2, 11, 12, "l"), solo(top + 3, 8, 10, 11, "g"));
+// mano en la cara (para limpiarse las lágrimas)
+const cara = () => solo(4, 5, 9, 10, "s").concat(solo(6, 6, 10, 11, "l"), solo(7, 8, 10, 11, "g"));
+const chispa = (x, y, d) => '<g class="sp" style="animation-delay:' + d + 's"><rect x="' + (x + 1) + '" y="' + y + '" width="1" height="3" fill="#FFC83D"></rect><rect x="' + x + '" y="' + (y + 1) + '" width="3" height="1" fill="#FFC83D"></rect></g>';
+
+const papel = x => [[3,x,"W"],[3,x+1,"W"],[4,x,"q"],[4,x+1,"W"]];
+const corazon = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"H"],[y,x+2,"H"],[y+1,x,"H"],[y+1,x+1,"H"],[y+1,x+2,"H"],[y+2,x+1,"H"]]) + '</g>';
+const interrog = '<g class="q">' + rects([[-2,10,"y"],[-2,11,"y"],[-2,12,"y"],[-1,12,"y"],[0,11,"y"],[2,11,"y"]]) + '</g>';
+const sudor = (a, b, d) => '<g class="tA" style="animation-delay:' + d + 's">' + rects([[a[0],a[1],"t"]]) + '</g><g class="tB" style="animation-delay:' + d + 's">' + rects([[b[0],b[1],"t"]]) + '</g>';
+const SONRISA = [[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"]];
+
+const nota = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x+1,"y"],[y+1,x+1,"y"],[y+2,x,"y"],[y+2,x+1,"y"]]) + '</g>';
+const zeta = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x,"W"],[y,x+1,"W"],[y,x+2,"W"],[y+1,x+1,"W"],[y+2,x,"W"],[y+2,x+1,"W"],[y+2,x+2,"W"]]) + '</g>';
+const lineas = x => [0, .17, .34].map((d, i) => '<g class="linea" style="animation-delay:' + d + 's">' + rects([[2 + i * 3, x, "q"], [3 + i * 3, x, "q"]]) + '</g>').join("");
+const SIN_PIERNAS = [[13,2,9,"."],[14,2,9,"."],[15,2,9,"."]];
+
+const caraL = () => solo(4, 5, 1, 2, "s").concat(solo(6, 6, 0, 1, "l"), solo(7, 8, 0, 1, "g"));
+const cara2 = () => solo(5, 6, 9, 10, "s").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g"));
+const caraL2 = () => solo(5, 6, 1, 2, "s").concat(solo(7, 7, 0, 1, "l"), solo(8, 8, 0, 1, "g"));
+const excl = x => '<g class="vena">' + rects([[-2,x,"v"],[-1,x,"v"],[0,x,"v"],[2,x,"v"]]) + '</g>';
+const mariposa = '<g class="mari"><g class="m1">' + rects([[1,10,"H"],[1,12,"H"],[2,11,"z"],[3,10,"H"],[3,12,"H"]]) + '</g><g class="m2">' + rects([[2,10,"H"],[2,12,"H"],[2,11,"z"]]) + '</g></g>';
+const lagrimas = '<g class="t1">' + rects([[5,3,"t"],[5,8,"t"]]) + '</g><g class="t2">' + rects([[6,3,"t"],[6,8,"t"]]) + '</g><g class="t3">' + rects([[7,3,"t"],[7,8,"t"]]) + '</g><g class="t4">' + rects([[8,3,"t"],[8,8,"t"]]) + '</g>';
+const OJOS_CERRADOS = [[4,3,4,"e"],[4,7,8,"e"]];
+
+const MANOBOCA = [[6,7,"S"],[6,8,"S"],[7,7,"S"],[7,8,"S"],[7,9,"l"],[8,9,"l"],[7,10,"g"],[7,11,"g"],[8,10,"g"],[8,11,"g"]];
+const MANOBOCA2 = [[6,8,"S"],[6,9,"S"],[7,8,"S"],[7,9,"S"],[7,10,"l"],[8,10,"l"],[7,11,"g"],[8,11,"g"]];
+const copo = x => '<g class="nieve" style="left:0;animation-delay:' + (-x * .3) + 's">' + rects([[-2,x,"W"]]) + '</g>';
+const fantasma = '<g class="q">' + rects([[0,11,"W"],[0,12,"W"],[0,13,"W"]].concat(solo(1, 1, 10, 14, "W"), [[2,10,"W"],[2,11,"z"],[2,12,"W"],[2,13,"z"],[2,14,"W"]], solo(3, 3, 10, 14, "W"), [[4,10,"W"],[4,12,"W"],[4,14,"W"]])) + '</g>';
+const pizza = '<g class="q">' + rects(solo(1, 1, 11, 15, "B").concat([[2,11,"y"],[2,12,"R"],[2,13,"y"],[2,14,"R"],[2,15,"y"],[3,12,"y"],[3,13,"y"],[3,14,"y"],[4,13,"y"]])) + '</g>';
+const bombilla = '<g class="b1">' + rects(solo(-3, -2, 4, 6, "y").concat([[-1,5,"q"]])) + '</g><g class="b2">' + rects(solo(-3, -2, 4, 6, "W").concat([[-1,5,"q"],[-3,3,"y"],[-3,7,"y"],[-2,2,"y"],[-2,8,"y"]])) + '</g>';
+
+const barra = y => solo(y, y, -1, 12, "q").concat(solo(y - 2, y + 2, -1, -1, "z"), solo(y - 2, y + 2, 12, 12, "z"));
+const copaC = y => solo(y, y, 10, 13, "y").concat([[y+1,10,"y"],[y+1,11,"W"],[y+1,12,"y"],[y+1,13,"y"]], solo(y + 2, y + 3, 11, 12, "y"), [[y,9,"y"],[y+1,9,"y"],[y,14,"y"],[y+1,14,"y"]]);
+const confeti = (x, col, d) => '<g class="nieve" style="animation-delay:' + d + 's"><rect x="' + x + '" y="-3" width=".8" height=".8" fill="' + col + '"></rect></g>';
+const llamas = hs => [-1, 0, 11, 12].reduce((o, x, i) => { for (let k = 0; k < hs[i]; k++) o.push([14 - k, x, k < 2 ? "O" : "y"]); return o; }, []);
+const CAPA_A = solo(13, 16, 1, 10, "R").concat(solo(15, 16, 11, 12, "R"));
+const CAPA_B = solo(13, 16, 1, 10, "R").concat(solo(15, 16, -1, 0, "R"));
+
+const ACCIONES = [
+  { id:"saludo", n:"Saludar", d:"Saluda con la mano y mueve la boca al decir hola.", g:"¡Hola!", mod:[],
+    bo:solo(5, 6, 5, 6, "M"), r1:arriba("R", 3), r2:lado(3), extra:"" },
+  { id:"alegre", n:"Alegre", d:"Salta con los dos brazos arriba, se ríe y le salen destellos.", g:"¡Yupi!",
+    mod:[[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"],[5,2,2,"r"],[5,9,9,"r"]],
+    bo:solo(6, 6, 5, 6, "W"), r1:arriba("R", 3), r2:arriba("R", 4), l1:arriba("L", 3), l2:arriba("L", 4),
+    extra:"", fuera:chispa(-1, 0, 0) + chispa(11, 0, .4) + chispa(5, -2, .8) },
+  { id:"triste", n:"Triste", d:"Cabeza baja, llora y se limpia las lágrimas.", g:"Buaaa...",
+    mod:[[6,5,6,"s"],[5,5,6,"m"],[6,4,4,"m"],[6,7,7,"m"]],
+    bo:[], r1:arriba("R", 4), r2:cara(),
+    extra:'<g class="tA">' + rects([[5,3,"t"],[5,8,"t"]]) + '</g><g class="tB">' + rects([[6,3,"t"],[6,8,"t"]]) + '</g>' +
+          '<g class="tA" style="animation-delay:-.9s">' + rects([[5,8,"t"]]) + '</g>' },
+  { id:"brava", n:"Brava", d:"Se pone roja, tiembla, saca humo y levanta el puño.", g:"¡Grrr!",
+    mod:[[3,3,8,"e"],[6,4,7,"M"],[6,5,6,"W"]],
+    bo:solo(5, 5, 4, 7, "M"), r1:arriba("R", 3),
+    extra:'<rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect>',
+    fuera:'<g class="vena">' + rects([[1,10,"v"],[1,12,"v"],[2,11,"v"],[3,10,"v"],[3,12,"v"]]) + '</g>' +
+          '<g class="humo">' + rects([[1,0,"W"],[0,1,"W"],[1,1,"W"]]).replace(/fill="#FFFFFF"/g, 'fill="#E8E8EE"') + '</g>' },
+  { eval:true, id:"pulgar", n:"Pulgar arriba", d:"Guiña el ojo y sube el pulgar para decir 'vas muy bien'.", g:"¡Muy bien!",
+    mod:SONRISA, bo:[], gu:[[4,7,"e"],[4,8,"e"]],
+    r1:arriba("R", 5).concat(solo(3, 4, 11, 11, "s")), r2:arriba("R", 5).concat(solo(2, 3, 11, 11, "s")),
+    extra:"", fuera:chispa(11, -2, 0) + chispa(-1, 1, .5) },
+  { eval:true, id:"animo", n:"Ánimo", d:"Levanta el puño y grita para darle fuerzas a quien está en el examen.", g:"¡Tú puedes!",
+    mod:SONRISA, bo:solo(6, 6, 5, 6, "W"), r1:arriba("R", 3), extra:"", fuera:chispa(-1, 0, 0) + chispa(11, -1, .5) },
+  { eval:true, id:"pienso", n:"Pensando", d:"Mano en la barbilla, mueve la cabeza y le sale un signo de pregunta.", g:"Hmm...",
+    mod:[[6,5,6,"s"],[6,6,7,"m"]], bo:[],
+    r1:solo(5, 6, 9, 10, "S").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g")),
+    r2:solo(6, 7, 9, 10, "S").concat(solo(8, 8, 10, 11, "l")), extra:"", fuera:interrog },
+  { eval:true, id:"copion", n:"Copión", d:"Mira de lado, susurra y pasa un papelito con la respuesta.", g:"Psst... 🤫",
+    mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,"e"],[4,4,"w"],[4,7,"e"],[4,8,"w"]],
+    r1:arriba("R", 5).concat(papel(10)), r2:lado(5).concat(papel(11)),
+    extra:sudor([3,1], [4,1], 0) },
+  { eval:true, id:"amor", n:"Enamorado", d:"Ojos de corazón, mejillas rosadas y corazones que flotan.", g:"Ay, qué lindo 😍",
+    mod:[[4,3,4,"H"],[4,7,8,"H"],[5,2,3,"r"],[5,8,9,"r"],[6,4,7,"m"]], bo:[],
+    r1:arriba("R", 4), r2:cara(), extra:"", fuera:corazon(10, 2, 0) + corazon(-1, 1, .8) + corazon(10, -2, 1.6) },
+  { eval:true, id:"ups", n:"¡Ups!", d:"Se equivocó: tiembla, suda y levanta las manos del susto.", g:"¡Ups!",
+    mod:[[5,5,6,"M"],[6,5,6,"M"]], bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:sudor([1,1], [2,1], 0),
+    fuera:'<g class="vena">' + rects([[-2,10,"v"],[-1,10,"v"],[0,10,"v"],[2,10,"v"]]) + '</g>' },
+  { rand:true, id:"moto", n:"En moto", d:"Maneja una moto a toda velocidad: la rueda gira y se ven las líneas de velocidad.", g:"¡Brum brum!",
+    vb:"-1 -2 14 21", sy:18, mod:SIN_PIERNAS.concat(SONRISA, [[14,2,3,"p"],[14,8,9,"p"],[15,2,3,"f"],[15,8,9,"f"]]), bo:[],
+    atras:rects(solo(13, 13, -1, 12, "q").concat([[13,-1,"z"],[13,12,"z"],[14,4,"q"],[14,5,"y"],[14,6,"y"],[14,7,"q"]], solo(15, 15, 4, 7, "R"))) +
+          '<g class="ra">' + rects([[16,5,"z"],[16,6,"q"],[17,5,"q"],[17,6,"z"]]) + '</g><g class="rb">' + rects([[16,5,"q"],[16,6,"z"],[17,5,"z"],[17,6,"q"]]) + '</g>',
+    extra:"", fuera:lineas(-1) + lineas(12) },
+  { rand:true, id:"caballo", n:"A caballo", d:"Galopa montado en su caballo: sube y baja y las pezuñas se alternan.", g:"¡Arre!",
+    vb:"-1 -2 14 22", sy:19, mod:SIN_PIERNAS.concat(SONRISA, [[13,2,3,"p"],[13,8,9,"p"],[14,2,2,"p"],[14,9,9,"p"],[15,2,2,"f"],[15,9,9,"f"]]), bo:[],
+    atras:rects(solo(14, 16, 1, 10, "B").concat([[17,2,"B"],[17,3,"B"],[17,8,"B"],[17,9,"B"]])) +
+          '<g class="hA">' + rects([[18,2,"b"],[18,3,"b"]]) + '</g><g class="hB">' + rects([[18,8,"b"],[18,9,"b"]]) + '</g>',
+    extra:"", fuera:rects(solo(14, 16, 4, 7, "B").concat([[13,4,"b"],[13,7,"b"],[13,5,"R"],[13,6,"R"],[14,3,"N"],[14,8,"N"],[15,3,"N"],[15,8,"N"],[15,4,"z"],[15,7,"z"],[15,5,"W"],[15,6,"W"],[16,5,"W"],[16,6,"W"]], solo(17, 17, 4, 7, "C"), [[17,4,"z"],[17,7,"z"]])) },
+  { rand:true, ancha:true, id:"pesca", n:"Pescando", d:"Sostiene la caña, el flotador se mece y de vez en cuando salta un pez.", g:"¡Algo picó!",
+    vb:"-1 -2 19 18.8", mod:SONRISA, bo:[], r1:arriba("R", 5), r2:arriba("R", 6),
+    extra:"", fuera:rects([[4,12,"N"],[3,12,"N"],[2,13,"N"],[1,14,"N"],[0,14,"N"],[-1,15,"N"],[-2,16,"N"]]) +
+          '<rect x="16.4" y="-1.5" width=".2" height="14.5" fill="#F2F4F8"></rect>' +
+          rects(solo(15, 16, 12, 17, "U")) + '<g class="wA">' + rects([[15,12,"t"],[15,14,"t"],[15,16,"t"]]) + '</g><g class="wB">' + rects([[15,13,"t"],[15,15,"t"],[15,17,"t"]]) + '</g>' +
+          '<g class="bob">' + rects([[13,16,"W"],[14,16,"v"]]) + '</g>' +
+          '<g class="pez">' + rects([[14,12,"O"],[14,13,"O"],[14,14,"y"]]) + '</g>' },
+  { rand:true, id:"baile", n:"Bailando", d:"Salta al ritmo, alterna los brazos arriba y sueltan notas musicales.", g:"¡Qué ritmo! 🎵",
+    mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:"", fuera:nota(10, 1, 0) + nota(-1, 0, .8) + nota(10, -2, 1.6) },
+  { rand:true, id:"dormido", n:"Dormido", d:"Se queda dormido: respira lento, ronca y le salen las Zzz.", g:"Zzz...",
+    mod:[[4,3,4,"e"],[4,7,8,"e"]], bo:solo(5, 6, 5, 6, "M"), extra:"", fuera:zeta(10, 2, 0) + zeta(10, -2, 1.2) },
+  { mas:true, id:"ceja", n:"Ceja levantada", d:"Mira de lado con una ceja arriba y media sonrisa, como dudando.", g:"¿En serio? 🤨",
+    mod:[[3,3,8,"e"],[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"m"],[5,7,7,"m"]], bo:[], gu:[[3,6,8,"h"],[2,6,8,"e"]], extra:"", fuera:interrog },
+  { mas:true, id:"lloron", n:"Llorón", d:"Llora a mares con las manos en los ojos, la boca abierta y un charco en el piso.", g:"¡Buaaaa!",
+    vb:"-1 -2 14 19.8", sy:17, mod:OJOS_CERRADOS.concat([[5,4,7,"M"],[6,4,7,"M"]]), bo:[[5,4,"s"],[5,7,"s"],[6,4,"s"],[6,7,"s"]],
+    r1:cara(), r2:cara2(), l1:caraL(), l2:caraL2(), extra:lagrimas, fuera:rects(solo(16, 16, 1, 10, "U")) },
+  { mas:true, id:"amoroso", n:"Amoroso", d:"Cierra los ojos, se sonroja y manda un beso volado con la mano.", g:"Muac 😘",
+    vb:"-1 -2 16 18.8", mod:OJOS_CERRADOS.concat([[5,2,3,"r"],[5,8,9,"r"],[6,5,6,"H"]]), bo:[],
+    r1:[[6,7,"S"],[6,8,"S"],[7,7,"S"],[7,8,"S"],[7,9,"l"],[8,9,"l"],[7,10,"g"],[7,11,"g"],[8,10,"g"],[8,11,"g"]], r2:lado(5),
+    extra:"", fuera:'<g class="beso">' + rects([[2,12,"H"],[2,14,"H"],[3,12,"H"],[3,13,"H"],[3,14,"H"],[4,13,"H"]]) + '</g>' + corazon(-1, 1, .6) },
+  { mas:true, id:"tonto", n:"Tonto", d:"Pone ojos locos, saca la lengua y agita los brazos sin sentido.", g:"¡Bleeeh! 🤪",
+    mod:[[6,4,7,"M"],[7,5,6,"H"]], bo:[[8,5,"H"],[8,6,"H"]], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"w"],[4,8,8,"e"]],
+    r1:arriba("R", 4), l1:arriba("L", 4), extra:"" },
+  { mas:true, id:"carro", n:"En carro", d:"Maneja un carro rojo con volante, faros y llantas que giran.", g:"¡Piii piii!",
+    vb:"-1 -2 14 19.8", sy:17, mod:SIN_PIERNAS.concat(SONRISA), bo:[], extra:"",
+    fuera:rects(solo(-2, -1, -1, 12, "R").concat(solo(0, 10, -1, -1, "R"), solo(0, 10, 12, 12, "R"),
+            [[8,4,"z"],[8,5,"z"],[8,6,"z"],[8,7,"z"],[9,3,"s"],[9,8,"s"],[10,4,"z"],[10,5,"z"],[10,6,"z"],[10,7,"z"]],
+            solo(11, 13, -1, 12, "R"), solo(11, 11, 0, 11, "T"), [[12,0,"y"],[12,1,"y"],[12,10,"y"],[12,11,"y"]],
+            solo(12, 12, 4, 7, "q"), solo(13, 13, 4, 7, "z"), solo(14, 14, -1, 12, "q"),
+            solo(14, 16, -1, 1, "z"), solo(14, 16, 10, 12, "z"))) +
+          '<g class="ra">' + rects([[15,0,"q"],[15,11,"z"]]) + '</g><g class="rb">' + rects([[15,0,"z"],[15,11,"q"]]) + '</g>' },
+  { mas:true, id:"distraido", n:"Distraído", d:"Silba mirando para todos lados, siguiendo una mariposa que pasa.", g:"Mmm... ¿qué?",
+    vb:"-1 -2 16 18.8", mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"e"],[4,8,8,"w"]],
+    extra:"", fuera:mariposa + nota(-1, 1, 0) },
+  { mas:true, id:"sorpresa", n:"Sorprendido", d:"Se asusta: ojos enormes, boca abierta, manos en la cara y signos de exclamación.", g:"¡¿Qué?!",
+    mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,5,6,"M"]], bo:[],
+    r1:cara(), l1:caraL(), extra:"", fuera:excl(10) + excl(0) },
+  { mas:true, id:"cool", n:"Cool", d:"Con lentes oscuros, sonrisa de lado y se acomoda los lentes con la mano.", g:"Qué cool 😎",
+    mod:[[4,3,8,"z"],[6,4,7,"m"],[5,8,8,"m"]], bo:[], gu:[[4,4,"W"],[4,7,"W"]],
+    r1:arriba("R", 4), r2:cara(), extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 0, .7) },
+  { rx:true, id:"neg", n:"Diciendo no", d:"Mueve la cabeza de lado a lado y el dedo, con cara seria.", g:"¡No, no, no!",
+    mod:[[3,3,8,"e"],[6,4,7,"m"]], bo:[], r1:arriba("R", 4), r2:lado(4), extra:"" },
+  { rx:true, id:"afirma", n:"Diciendo sí", d:"Asiente con la cabeza una y otra vez con una gran sonrisa.", g:"¡Sí, sí, sí!",
+    mod:SONRISA, bo:[], extra:"", fuera:chispa(11, -1, 0) },
+  { rx:true, id:"miedo", n:"Con miedo", d:"Tiembla con los dientes castañeando, mira para todos lados y lo asusta un fantasma.", g:"¡Aaah! 😱",
+    vb:"-1 -2 16 18.8", mod:[[4,3,4,"w"],[4,7,8,"w"],[5,3,4,"w"],[5,7,8,"w"],[5,4,4,"e"],[5,7,7,"e"],[6,4,4,"M"],[6,5,5,"m"],[6,6,6,"M"],[6,7,7,"m"]],
+    bo:[[6,4,4,"m"],[6,5,5,"M"],[6,6,6,"m"],[6,7,7,"M"]], gl:[[5,3,3,"e"],[5,4,4,"w"],[5,7,7,"e"],[5,8,8,"w"]],
+    r1:cara2(), l1:caraL2(), extra:sudor([3,1], [4,1], 0), fuera:fantasma },
+  { rx:true, id:"ansiedad", n:"Ansiedad", d:"Se come las uñas, mira nervioso a todos lados y una nube lo sigue.", g:"Uy, uy, uy...",
+    mod:[[4,7,7,"w"],[4,8,8,"e"],[6,5,6,"M"]], bo:[], gl:[[4,3,3,"e"],[4,4,4,"w"],[4,7,7,"e"],[4,8,8,"w"]],
+    r1:MANOBOCA, r2:MANOBOCA2, extra:sudor([3,1], [4,1], 0) + sudor([2,10], [3,10], .5),
+    fuera:'<g class="nube">' + rects(solo(-2, -2, 4, 7, "q").concat(solo(-1, -1, 3, 8, "q"))) + '</g>' },
+  { rx:true, id:"frio", n:"Con frío", d:"Se abraza, le castañean los dientes, tiene la nariz roja y cae nieve.", g:"Brrr... 🥶",
+    mod:OJOS_CERRADOS.concat([[5,5,6,"T"],[6,4,7,"M"],[10,2,9,"G"],[11,2,9,"G"],[10,2,2,"s"],[11,9,9,"s"]]), bo:[[6,4,7,"W"]],
+    extra:"", fuera:copo(-1) + copo(3) + copo(7) + copo(11) },
+  { rx:true, id:"enfermo", n:"Enfermo", d:"Está verde, con termómetro en la boca, la mano en la frente y muy decaído.", g:"Achú... 🤒",
+    mod:OJOS_CERRADOS.concat([[5,5,6,"T"],[6,5,6,"M"]]), bo:[], r1:cara(),
+    extra:'<rect class="rojo" x="2" y="3" width="8" height="4" fill="#7BC96F"></rect>' + rects([[6,7,"W"],[6,8,"W"],[6,9,"W"],[6,10,"v"]]) + sudor([3,1], [4,1], 0) },
+  { rx:true, id:"hambre", n:"Con hambre", d:"Se le hace agua la boca, estira la mano hacia una pizza y le ruge la panza.", g:"¡Tengo hambre! 🍕",
+    vb:"-1 -2 16 18.8", mod:[[6,4,7,"M"]], bo:[], r1:lado(6), r2:lado(5), extra:sudor([7,4], [8,4], 0), fuera:pizza },
+  { rx:true, id:"idea", n:"¡Una idea!", d:"Levanta el dedo y se le prende un foco sobre la cabeza.", g:"¡Ya sé!",
+    vb:"-1 -3 14 19.8", mod:SONRISA, bo:[], r1:arriba("R", 1), r2:arriba("R", 2), extra:"", fuera:bombilla },
+  { her:true, id:"ejer", n:"Haciendo ejercicio", d:"Levanta una pesa con los dos brazos, aprieta los dientes y se pone rojo del esfuerzo.", g:"¡Uno más! 💪",
+    vb:"-1 -4 14 20.8", mod:[[3,3,8,"e"],[6,4,7,"W"]], bo:[],
+    r1:arriba("R", 0).concat(barra(-1)), r2:arriba("R", 3).concat(barra(2)), l1:arriba("L", 0), l2:arriba("L", 3),
+    extra:'<rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect>' },
+  { her:true, id:"copa", n:"Ganando la copa", d:"Levanta un trofeo dorado, salta de alegría y le cae confeti.", g:"¡Campeón! 🏆",
+    vb:"-1 -3 16 19.8", mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[],
+    r1:arriba("R", 3).concat(copaC(-1)), r2:arriba("R", 2).concat(copaC(-2)), l1:arriba("L", 3), l2:arriba("L", 4),
+    extra:"", fuera:confeti(-1, "#FF4D4D", 0) + confeti(2, "#3FD8C8", .5) + confeti(5, "#FFC83D", 1) + confeti(8, "#8E5BD6", 1.5) + confeti(12, "#5DB33A", .3) + confeti(14, "#FF4D8D", 1.1) },
+  { her:true, id:"super", n:"Poder máximo", d:"Se le para el pelo dorado, lo rodea un aura de fuego con rayos y grita levitando.", g:"¡Poder máximo! ⚡",
+    vb:"-1 -4 14 20.8", mod:[[0,3,8,"y"],[1,2,9,"y"],[2,2,9,"y"],[3,2,9,"y"],[4,4,4,"c"],[4,7,7,"c"],[6,4,7,"W"]], bo:solo(5, 6, 5, 6, "M"),
+    atras:'<rect class="rojo" x="-1" y="-4" width="14" height="20.8" fill="#FFC83D"></rect>' +
+          '<g class="m1">' + rects(llamas([7,5,5,7])) + '</g><g class="m2">' + rects(llamas([5,8,8,5])) + '</g>' +
+          '<g class="b1">' + rects([[2,-1,"c"],[3,0,"c"],[4,-1,"c"],[5,0,"c"],[4,12,"c"],[5,11,"c"],[6,12,"c"],[7,11,"c"]]) + '</g>' +
+          '<g class="b2">' + rects([[6,-1,"c"],[7,0,"c"],[8,-1,"c"],[9,0,"c"],[1,12,"c"],[2,11,"c"],[3,12,"c"],[4,11,"c"]]) + '</g>',
+    extra:'<g class="m1">' + rects([[-1,3,"y"],[-1,5,"y"],[-1,6,"y"],[-1,8,"y"],[-2,4,"y"],[-2,7,"y"],[-3,5,"y"]]) + '</g><g class="m2">' + rects([[-1,3,"y"],[-1,4,"y"],[-1,7,"y"],[-1,8,"y"],[-2,3,"y"],[-2,6,"y"],[-2,8,"y"],[-3,4,"y"],[-3,7,"y"]]) + '</g>' },
+  { her:true, id:"heroe", n:"Superhéroe", d:"Se pone el antifaz con la mano y levanta el puño con la capa al viento.", g:"¡Súper Gamer! 🦸",
+    mod:SONRISA.concat([[9,5,6,"y"],[10,5,6,"y"]]), bo:[], gu:[[4,2,"R"],[4,5,"R"],[4,6,"R"],[4,9,"R"]],
+    r1:arriba("R", 3), r2:cara(),
+    atras:'<g class="m1">' + rects(CAPA_A) + '</g><g class="m2">' + rects(CAPA_B) + '</g>', extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 1, .6) }
+];
+
+// acepta [fila, col, color] o [fila, col1, col2, color]
+const px = l => rects(l.reduce((o, x) => o.concat(x.length === 4 ? solo(x[0], x[0], x[1], x[2], x[3]) : [x]), []));
+const mosca = '<g class="mari"><g class="m1">' + rects([[1,12,"z"],[0,11,"W"],[0,13,"W"]]) + '</g><g class="m2">' + rects([[1,12,"z"],[1,11,"W"],[1,13,"W"]]) + '</g></g>';
+const simbolo = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x+1,"c"],[y+1,x,"c"],[y+1,x+1,"c"],[y+1,x+2,"c"],[y+2,x+1,"c"]]) + '</g>';
+const TABLERO = '<rect x="14" y="16" width="7" height=".6" fill="#000" opacity=".4"></rect>' +
+  rects(solo(1, 10, 14, 20, "K").concat(solo(2, 9, 15, 19, "A"), solo(11, 15, 15, 15, "K"), solo(11, 15, 19, 19, "K"), [[10,17,"W"],[10,18,"W"]])) +
+  '<g class="e1">' + rects(solo(3, 7, 15, 15, "W").concat([[5,16,"W"]])) + '</g>' +
+  '<g class="e2">' + rects(solo(3, 7, 17, 17, "W")) + '</g>' +
+  '<g class="e3">' + rects([[3,19,"W"]].concat(solo(5, 7, 19, 19, "W"))) + '</g>';
+const LIBRO = rects(solo(7, 8, 0, 1, "g").concat(solo(7, 8, 10, 11, "g"), solo(9, 9, 0, 1, "l"), solo(9, 9, 10, 11, "l"),
+    solo(10, 13, 1, 10, "R"), solo(9, 12, 2, 5, "W"), solo(9, 12, 6, 9, "W"), [[12,5,"q"],[12,6,"q"]],
+    [[10,3,"q"],[10,4,"q"],[11,3,"q"],[10,7,"q"],[10,8,"q"],[11,7,"q"],[11,8,"q"]],
+    solo(10, 11, 0, 1, "s"), solo(10, 11, 10, 11, "s"))) +
+  '<g class="f1">' + rects(solo(8, 12, 7, 8, "W").concat(solo(8, 12, 9, 9, "q"))) + '</g>' +
+  '<g class="f2">' + rects(solo(7, 12, 5, 6, "W").concat([[7,5,"q"]])) + '</g>' +
+  '<g class="f3">' + rects(solo(8, 12, 3, 4, "W").concat(solo(8, 12, 2, 2, "q"))) + '</g>';
+const CUADERNO = rects(solo(7, 9, 0, 1, "g").concat(solo(10, 10, 0, 1, "l"), solo(7, 9, 10, 11, "g"), solo(10, 10, 10, 11, "l"),
+    solo(10, 13, 1, 8, "W"), [[10,2,"q"],[10,4,"q"],[10,6,"q"],[10,8,"q"]], solo(11, 12, 0, 1, "s"))) +
+  '<g class="e1">' + rects(solo(11, 11, 2, 6, "U")) + '</g>' +
+  '<g class="e2">' + rects(solo(12, 12, 2, 7, "U")) + '</g>' +
+  '<g class="e3">' + rects(solo(13, 13, 2, 5, "U")) + '</g>' +
+  '<g class="lapiz">' + rects(solo(11, 12, 9, 10, "s").concat([[12,8,"N"],[10,10,"y"],[9,11,"y"],[8,12,"H"]])) + '</g>';
+const CONTROL = rects(solo(7, 9, 0, 1, "g").concat(solo(7, 9, 10, 11, "g"), solo(10, 10, 0, 1, "l"), solo(10, 10, 10, 11, "l"),
+    solo(10, 12, 2, 9, "D"), [[13,2,"D"],[13,3,"D"],[13,8,"D"],[13,9,"D"]],
+    [[10,4,"q"],[11,3,"q"],[11,4,"q"],[11,5,"q"],[12,4,"q"]], [[10,7,"y"],[11,8,"U"],[12,7,"R"]],
+    solo(11, 12, 1, 2, "s"), solo(11, 12, 9, 10, "s"))) +
+  '<g class="pa">' + rects([[11,4,"s"]]) + '</g><g class="pb">' + rects([[11,8,"s"],[10,7,"W"]]) + '</g>';
+const AUDIFONOS = rects(solo(-1, -1, 3, 8, "G").concat([[0,2,"G"],[0,9,"G"],[1,1,"G"],[1,10,"G"],[2,1,"G"],[2,10,"G"]],
+    solo(3, 5, 1, 2, "R"), solo(3, 5, 9, 10, "R"), [[4,1,"T"],[4,10,"T"]]));
+const LUPA = solo(7, 8, 10, 11, "g").concat(solo(9, 10, 10, 11, "s"), [[7,9,"K"],[8,10,"K"]],
+    [[3,7,"y"],[3,8,"y"],[4,6,"y"],[4,9,"y"],[5,6,"y"],[5,9,"y"],[6,7,"y"],[6,8,"y"]],
+    [[4,7,"W"],[4,8,"W"],[5,7,"W"],[5,8,"W"]]);
+
+const NUEVAS = [
+  { clase:true, id:"aburrido", n:"Aburrido", d:"Apoya la cara en la mano, bosteza cada rato y mira una mosca que da vueltas.", g:"Qué aburrido... 😑",
+    vb:"-1 -2 16 18.8", mod:[[4,3,3,"S"],[4,8,8,"S"],[6,4,7,"m"]],
+    bo:[[5,5,"M"],[5,6,"M"],[6,5,"M"],[6,6,"M"]], gu:[[4,3,4,"e"],[4,7,8,"e"]],
+    r1:cara(), extra:"", fuera:mosca },
+  { clase:true, ancha:true, id:"ensena", n:"Enseñando", d:"Explica señalando el tablero con un puntero mientras aparece escrito 'Hi' con tiza.", g:"Repeat after me! 👩‍🏫",
+    vb:"-1 -2 22 18.8", mod:SONRISA, bo:solo(5, 6, 5, 6, "M"),
+    r1:lado(4).concat([[4,13,"B"],[4,14,"B"],[4,15,"R"]]), r2:lado(5).concat([[6,13,"B"],[6,14,"B"],[6,15,"R"]]),
+    atras:TABLERO, extra:"" },
+  { clase:true, id:"leer", n:"Leyendo", d:"Sostiene un libro abierto, sus ojos siguen las líneas y de vez en cuando pasa la página.", g:"Once upon a time... 📖",
+    mod:[], bo:[], gl:[[4,3,"e"],[4,4,"w"],[4,7,"e"],[4,8,"w"]], dentro:LIBRO, extra:"" },
+  { clase:true, id:"nerd", n:"Nerd", d:"Gafas gruesas que brillan, corbatín y lápices en el bolsillo; se acomoda las gafas y levanta el dedo.", g:"Well, actually... 🤓",
+    mod:[[3,2,9,"z"],[4,2,2,"z"],[4,3,4,"W"],[4,5,6,"z"],[4,7,8,"W"],[4,9,9,"z"],
+         [5,2,2,"z"],[5,3,3,"W"],[5,4,4,"e"],[5,5,6,"z"],[5,7,7,"e"],[5,8,8,"W"],[5,9,9,"z"],[6,4,7,"M"],[6,5,6,"W"],
+         [7,4,4,"P"],[7,7,7,"P"],[7,5,6,"V"],[7,8,8,"U"],[7,9,9,"R"],[8,8,9,"W"]],
+    bo:[], gu:[[5,4,"W"],[5,7,"W"],[4,3,"t"],[4,8,"t"]],
+    r1:cara(), r2:arriba("R", 5).concat(solo(3, 4, 11, 11, "s")), extra:"", fuera:simbolo(-1, 1, 0) + simbolo(10, -1, 1.2) },
+  { clase:true, id:"escribir", n:"Escribiendo", d:"Toma apuntes en su cuaderno: el lápiz garabatea y van apareciendo las palabras.", g:"Taking notes ✏️",
+    mod:[[6,7,7,"H"]], bo:[], dentro:CUADERNO, extra:"" },
+  { clase:true, id:"mano", n:"Levanta la mano", d:"Sabe la respuesta: salta y estira la mano bien alto para que lo escojan.", g:"Me! Me! 🙋",
+    mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:solo(6, 6, 5, 6, "W"),
+    r1:arriba("R", 0), r2:arriba("R", 1), extra:"", fuera:excl(0) },
+  { clase:true, id:"detective", n:"Detective", d:"Con gorro de investigador, mira por la lupa con un ojo gigante buscando pistas.", g:"A clue! 🔍",
+    mod:[[0,3,8,"B"],[0,4,4,"b"],[0,6,6,"b"],[0,8,8,"b"],[1,2,9,"b"],[1,3,3,"B"],[1,5,5,"B"],[1,7,7,"B"],[1,9,9,"B"],[2,1,10,"N"],[4,3,4,"e"],[6,4,6,"m"]],
+    bo:[], r1:LUPA, dentro:'<g class="xa">' + rects([[5,7,"e"],[5,8,"e"]]) + '</g><g class="xb">' + rects([[4,8,"e"],[5,8,"e"]]) + '</g>',
+    extra:rects([[-1,5,"b"],[-1,6,"b"]]), fuera:interrog },
+  { libre:true, id:"gamer", n:"Jugando", d:"Aprieta los botones del control a toda velocidad, saca la lengua y la pantalla le ilumina la cara.", g:"GG! 🎮",
+    mod:[[3,3,4,"e"],[3,7,8,"e"],[6,4,7,"M"],[6,7,7,"H"]], bo:[], dentro:CONTROL,
+    extra:'<rect class="brillo" x="2" y="3" width="8" height="4" fill="#6EC6FF"></rect>',
+    fuera:'<g class="cor">' + rects([[1,11,"y"],[1,12,"y"],[2,11,"y"],[2,12,"O"]]) + '</g>' + chispa(-1, 0, .6) },
+  { libre:true, id:"musica", n:"Con audífonos", d:"Cierra los ojos, mueve la cabeza al ritmo y le salen notas musicales.", g:"Listening... 🎧",
+    mod:OJOS_CERRADOS.concat(SONRISA), bo:[], extra:AUDIFONOS, fuera:nota(10, 1, 0) + nota(-1, 0, .8) + nota(10, -2, 1.6) },
+  { libre:true, id:"cantar", n:"Cantando", d:"Canta con un micrófono, abre el brazo con emoción y lo ilumina un reflector.", g:"La la la 🎤",
+    mod:OJOS_CERRADOS.concat([[5,2,2,"r"],[5,9,9,"r"],[6,4,7,"M"]]), bo:solo(5, 6, 5, 6, "M"),
+    r1:solo(7, 8, 11, 11, "g").concat(solo(9, 10, 10, 11, "g"), solo(7, 8, 9, 10, "s"), [[5,7,"q"],[5,8,"G"],[6,7,"G"],[6,8,"G"],[7,8,"z"],[8,8,"z"]]),
+    l1:arriba("L", 3), atras:'<polygon class="foco" points="4,-2 8,-2 12,16 0,16" fill="#FFC83D"></polygon>',
+    extra:"", fuera:nota(10, 0, 0) + nota(-1, -1, 1) },
+  { libre:true, id:"selfie", n:"Selfie", d:"Levanta el celular, hace el signo de paz, guiña el ojo y ¡flash! se toma una foto.", g:"Say cheese! 📸",
+    mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[], gu:[[4,7,"e"],[4,8,"e"]],
+    r1:arriba("R", 3).concat(solo(0, 2, 10, 11, "D"), [[0,11,"q"]]),
+    l1:arriba("L", 4).concat([[3,0,"s"],[3,1,"s"],[2,-1,"s"],[2,1,"s"]]), extra:"",
+    fuera:'<g class="flash">' + rects([[-2,11,"y"],[-1,10,"y"],[-1,11,"W"],[-1,12,"y"]]) + '</g>' +
+          '<rect class="flash" x="-1" y="-2" width="14" height="18.8" fill="#FFFFFF"></rect>' }
+];
+ACCIONES.push(...NUEVAS);
+
+function dibujar(a) {
+  const g = BASE.map(f => f.split(""));
+  a.mod.forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [], rd = [], ld = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => {
+    if (k === ".") return;
+    const x = [r, c, k];
+    if (r <= 6) cab.push(x); else if (r <= 13 && c >= 10) rd.push(x); else if (r <= 13 && c <= 1) ld.push(x); else cue.push(x);
+  }));
+  const ojos = [[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]];
+  return '<svg class="' + a.id + '" viewBox="' + (a.vb || "-1 -2 14 18.8") + '" shape-rendering="crispEdges" role="img" aria-label="' + a.n + '">' +
+    '<rect x="2" y="' + (a.sy || 16) + '" width="8" height=".6" fill="#000" opacity=".4"></rect><g class="atras">' + (a.atras || "") + '</g>' +
+    '<g class="mov">' + rects(cue) +
+    '<g class="cab">' + rects(cab) + '<g class="oc">' + rects(ojos) + '</g><g class="gu">' + px(a.gu || []) + '</g><g class="gl">' + px(a.gl || []) + '</g><g class="bo">' + rects(a.bo) + '</g>' + a.extra + '</g>' +
+    '<g class="ld">' + rects(ld) + '</g><g class="l1">' + rects(a.l1 || []) + '</g><g class="l2">' + rects(a.l2 || []) + '</g>' +
+    '<g class="rd">' + rects(rd) + '</g><g class="r1">' + rects(a.r1 || []) + '</g><g class="r2">' + rects(a.r2 || []) + '</g>' + (a.dentro || "") +
+    '</g><g class="fuera">' + (a.fuera || "") + '</g></svg>';
+}
+
+  const M = {}; ACCIONES.forEach(a => { M[a.id] = a; });
+  return (id, w) => { const a = M[id]; if (!a) return ""; const s = dibujar(a).replace(/class="([^"]+)"/g, (m, c) => 'class="' + c.split(" ").map(x => "ga-" + x).join(" ") + '"');
+    return '<span class="gax" style="width:' + (w || 80) + 'px">' + s + '</span>'; };
+})();
+
+const SPR = {
+  slime:{p:{g:"#5DB33A",l:"#8EE66A",k:"#0B0B0D"},r:["........","..gggg..",".gllggg.","gglggggg","gkggggkg","gggggggg","gggggggg",".gggggg."]},
+  gato:{p:{o:"#FF8A3D",k:"#0B0B0D",w:"#F2F4F8",p:"#FFB4B4"},r:["o......o","oo....oo","oooooooo","okooooko","oooppooo","owwoowwo",".oooooo.","..o..o.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},
+    r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},
+    r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},
+    r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},
+    r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},
+    r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},
+    r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},
+    r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},
+    r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},
+    r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]}
+};
+function sprite(n, size) {
+  const d = SPR[n]; if (!d) return "";
+  const N = d.r.length;
+  let o = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + N + ' ' + N + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach(function (row, y) { row.split("").forEach(function (c, x) { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }); });
+  return o + "</svg>";
+}
+const $ = id => document.getElementById(id);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const leer = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
+const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const LLAMA = '<svg width="24" height="24" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="0" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="7" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="6" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="7" width="1" height="1" fill="#FFC83D"></rect></svg>';
+const AURA_REGALO = 20;
+
+/* ===== DATOS: los mismos niveles de veranoa1, mapanieve y mapafuego (mismo orden, ids y secciones) ===== */
+const ISLAS = [
+ { id:"verano", nom:"Isla de Verano", sub:"Repasa los temas básicos", clave:"ingles_gamer_a1_repaso", c:"#FF6B00", c2:"#B84A00", gl:"rgba(255,107,0,.35)", req:0,
+   ico:'<svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4M4 4l3 3M17 17l3 3M4 20l3-3M17 7l3-3" stroke="#fff" stroke-width="2"/></svg>',
+   regalos:[3, 8, 13], pj:[["saludo","Practicar",2],["nerd","Repasar",7],["musica","Escuchar",12],["cool","Practicar",16]],
+   N:[["esc1","escucha","Presentaciones","oido","go:escucha1"],["saludos","","Saludos","chat","go:saludos"],["vocab","","Vocabulario","libro","go:vocab"],["infopers","","Info personal","carnet","go:infopers"],
+      ["paises","","Países e idiomas","mundo","go:paises"],["numeros","","Números","dado","go:numeros"],["colores","","Colores","paleta","go:colores"],["familia","","Familia","casa","go:familia"],
+      ["hogar","","Casa y hogar","sofa","go:hogar"],["objetos","","Ropa","camiseta","go:ropa"],["animales","","Animales","huella","go:animales"],["comidas","","Frutas","manzana","go:frutas"],
+      ["restaurante","","Restaurante","plato","go:restaurant"],["esc2","escucha","Repaso 1","oido","go:esc2"],["viajes","","Viajes","avion","go:viajes"],["verbos","","Verbos básicos","rayo","go:verbosbasc"],
+      ["vocab2","","Vocabulario 2","libro","go:vocab2"],["fechas","","Días y meses","calendario","go:fechas"],["esc3","escucha","Repaso 2","oido","go:esc3"],["final","final","Jefe de Verano","corona","go:final"]] },
+ { id:"nieve", nom:"Isla de Nieve", sub:"Vocabulario y gramática", clave:"ingles_gamer_nieve_repaso", c:"#1E6FE0", c2:"#1250A8", gl:"rgba(30,111,224,.35)", req:40,
+   ico:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M12 2v20M3 7l18 10M21 7 3 17M9 3l3 3 3-3M9 21l3-3 3 3"/></svg>',
+   regalos:[4, 9], pj:[["frio","Practicar",2],["detective","Repasar",7],["musica","Escuchar",11]],
+   N:[["vocab1","","Vocabulario 3","libro","go:nieve_vocab1"],["preposiciones","","Preposiciones","bandera","go:nieve_preposiciones"],["adjetivos","","Adjetivos","paleta","go:nieve_adjetivos"],
+      ["gustos","","Gustos y necesidades","corazon","go:nieve_gustos"],["esc1","escucha","Repaso 3","oido","go:nieve_repaso1"],["conectores","","Conectores","llave","go:nieve_conectores"],
+      ["comparativos","","Comparativos","medalla","go:nieve_comparativos"],["futuro","","Futuro (will)","cohete","go:nieve_futuro"],["situaciones","","Situaciones reales","mundo","go:nieve_situaciones"],
+      ["esc2","escucha","Repaso 4","oido","go:nieve_repaso2"],["vocab2","","Vocabulario 4","libro","go:nieve_vocab2"],["profesiones","","Profesiones","maletin","go:nieve_profesiones"],
+      ["cuerpo","","Partes del cuerpo","persona","go:nieve_cuerpo"],["finaln","final","Jefe de Nieve","corona","go:nieve_final"]] },
+ { id:"fuego", nom:"Isla de Fuego", sub:"Gramática base", clave:"ingles_gamer_fuego_repaso", c:"#E0262F", c2:"#A0141B", gl:"rgba(224,38,47,.35)", req:51,
+   ico:'<svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z" fill="#fff"/></svg>',
+   regalos:[3, 9], pj:[["ensena","Practicar",1],["musica","Escuchar",5],["super","Repasar",11]],
+   N:[["pronombres","","Pronombres y posesivos","carnet","go:fuego_pronombres"],["tobe","","Verbo To be","gema","go:fuego_tobe"],["thereis","","There is / There are","cofre","go:fuego_thereis"],
+      ["escf1","escucha","Repaso 5","oido","go:fuego_esc1"],["articulos","","A / an, this / that","libro","go:fuego_articulos"],["wh","","Preguntas WH","pregunta","go:fuego_wh"],
+      ["vocab5","","Vocabulario 5","chat","go:fuego_vocab5"],["psimple","","Present Simple","reloj","go:fuego_psimple"],["frecuencia","","Frecuencia","calendario","go:fuego_frecuencia"],
+      ["escf2","escucha","Repaso 6","oido","go:fuego_esc2"],["canimp","","Can e imperativo","espada","go:fuego_canimp"],["pcont","","Presente continuo","cohete","go:fuego_pcont"],
+      ["pasado","","Pasado: was / were","pocion","go:fuego_pasado"],["pasado2","","Pasado: -ed e irregulares","llave","go:fuego_pasado2"],["escf3","escucha","Repaso 7","oido","go:fuego_esc3"],
+      ["finalf","final","Jefe de Fuego","corona","go:fuego_final"]] }
+];
+/* niveles que todavía no existen (sale «Próximamente» y no se abre) */
+const PRONTO = { "go:nieve_final":1, "go:fuego_psimple":1, "go:fuego_frecuencia":1, "go:fuego_esc2":1, "go:fuego_canimp":1, "go:fuego_pcont":1, "go:fuego_pasado":1, "go:fuego_pasado2":1, "go:fuego_esc3":1, "go:fuego_final":1 };
+
+const IC = (() => { const L = p => '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+ return { oido:L('<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="5" height="7" rx="2" fill="currentColor"/><rect x="16" y="14" width="5" height="7" rx="2" fill="currentColor"/>'),
+  chat:L('<path d="M4 4h16v11H9l-5 5z"/>'), libro:L('<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>'),
+  carnet:L('<rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="8.5" cy="11" r="2"/><path d="M13 10h5M13 14h5M6 15h5"/>'), mundo:L('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>'),
+  dado:L('<rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="15" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/><circle cx="9" cy="15" r="1" fill="currentColor"/>'),
+  paleta:L('<path d="M12 3a9 9 0 0 0 0 18c1.5 0 2-1 2-2s-1-2 0-3 2-1 3-1a4 4 0 0 0 4-4c0-4.5-4-8-9-8z"/><circle cx="7.5" cy="11" r="1" fill="currentColor"/><circle cx="10" cy="7" r="1" fill="currentColor"/><circle cx="15" cy="7.5" r="1" fill="currentColor"/>'),
+  casa:L('<path d="m3 11 9-7.5 9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>'), sofa:L('<path d="M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><path d="M2 12a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v5H2z"/><path d="M5 17v2M19 17v2"/>'),
+  camiseta:L('<path d="M8 3 3 6l2 4 3-1v12h8V9l3 1 2-4-5-3a4 4 0 0 1-8 0z"/>'), huella:L('<circle cx="7" cy="9" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="9" r="2"/><path d="M8 17c0-3 2-5 4-5s4 2 4 5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"/>'),
+  manzana:L('<path d="M12 7c-2-2-7-1-7 5 0 5 3 9 5 9 1 0 1.5-.5 2-.5s1 .5 2 .5c2 0 5-4 5-9 0-6-5-7-7-5z"/><path d="M12 7c0-2 1-4 3-4"/>'),
+  plato:L('<circle cx="12" cy="13" r="7"/><circle cx="12" cy="13" r="3"/><path d="M3 4v6M5 4v6M3 7h2M21 4c-2 0-2 3-2 5h2v11"/>'), avion:L('<path d="M2 13l8-2 4-8 2 1-2 7 6 1 2-2 1 1-2 4-4 1-6 3-1-2 3-3z"/>'),
+  rayo:L('<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'), calendario:L('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+  corona:L('<path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z" fill="currentColor"/>'), bandera:L('<path d="M5 21V4M5 4h12l-2 4 2 4H5"/>'),
+  corazon:L('<path d="M12 20s-7-4.5-9-9C1.5 7.5 4 4 7.5 4c2 0 3.4 1 4.5 2.6C13.1 5 14.5 4 16.5 4 20 4 22.5 7.5 21 11c-2 4.5-9 9-9 9z"/>'),
+  llave:L('<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/>'), medalla:L('<circle cx="12" cy="15" r="6"/><path d="M8 3l4 6 4-6M12 12v6M10 15h4"/>'),
+  cohete:L('<path d="M12 2c4 3 5 8 4 13H8C7 10 8 5 12 2z"/><circle cx="12" cy="9" r="2"/><path d="M8 15l-3 4h4M16 15l3 4h-4M10 19l2 3 2-3"/>'),
+  maletin:L('<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M9 7V5h6v2M3 12h18"/>'), persona:L('<circle cx="12" cy="5" r="3"/><path d="M6 21v-7l-2-4 8-1 8 1-2 4v7M10 21v-6h4v6"/>'),
+  gema:L('<path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M9 3l3 18 3-18"/>'), cofre:L('<rect x="3" y="9" width="18" height="11" rx="2"/><path d="M3 9a9 6 0 0 1 18 0M3 13h18"/><rect x="10" y="11" width="4" height="4" rx="1"/>'),
+  pregunta:L('<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7v.5"/><circle cx="12" cy="17" r=".8" fill="currentColor"/>'),
+  reloj:L('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/>'), espada:L('<path d="M14 3h7v7L9 22l-3-3z"/><path d="M5 15l4 4M3 21l3-3"/>'),
+  pocion:L('<path d="M10 3h4M10 3v5L5 18a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-10V3"/><path d="M7 15h10"/>'),
+  lock:L('<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>') }; })();
+
+/* ===== estado ===== */
+const est = (isla, id) => { const g = leer(isla.clave); return Math.min(3, Math.max(0, +(g && g.est && g.est[id]) || 0)); };
+const estrellasIsla = isla => isla.N.reduce((t, n) => t + est(isla, n[0]), 0);
+const estVerano = () => ISLAS[0].N.filter(n => n[1] !== "final").reduce((t, n) => t + est(ISLAS[0], n[0]), 0);   // igual que islaa1 / Perfil
+/* una isla se abre con las estrellas de siempre (40 / 51 de Verano) o al derrotar al jefe de la isla anterior */
+const islaAbierta = k => k === 0 || estVerano() >= ISLAS[k].req || est(ISLAS[k - 1], ISLAS[k - 1].N[ISLAS[k - 1].N.length - 1][0]) >= 1;
+function abierto(k, i) {   /* mismas reglas que los mapas de cada isla */
+  const I = ISLAS[k], n = I.N[i]; if (!islaAbierta(k)) return false;
+  if (n[1] === "final") return I.N.every(x => x[1] === "final" || est(I, x[0]) >= 1);
+  return i === 0 || est(I, I.N[i - 1][0]) >= 1 || est(I, n[0]) >= 1;
+}
+const regalos = () => leer("ingles_gamer_mapa_regalos") || {};
+
+/* ===== pintar ===== */
+const W = () => Math.min(document.documentElement.clientWidth || 390, 520);
+let ACT = null;
+function pintar() {
+  const M = $("mapa"); M.innerHTML = ""; ACT = null;
+  const w = W(), CX = w / 2, XS = [0, -46, -72, -46, 0, 46, 72, 46].map(d => CX + d), R = regalos();
+  ISLAS.forEach((I, k) => {
+    const abiertaI = islaAbierta(k);
+    const cab = document.createElement("div"); cab.className = "cab" + (abiertaI ? "" : " lk");
+    cab.style.setProperty("--c", I.c);
+    cab.innerHTML = '<span class="ic">' + (abiertaI ? I.ico : IC.lock.replace('stroke="currentColor"', 'stroke="#fff"')) + '</span><div><small>' + (abiertaI ? "NUEVA ISLA" : "BLOQUEADA") + '</small><b>' + I.nom + '</b><p>' +
+      (abiertaI ? I.sub : 'Vence al jefe anterior o junta ' + I.req + ' ★ en Verano (llevas ' + estVerano() + ')') + '</p></div>';
+    if (k) M.appendChild(cab);
+    const z = document.createElement("div"); z.className = "isla"; z.dataset.k = k; M.appendChild(z);
+    z.style.setProperty("--c", I.c); z.style.setProperty("--c2", I.c2); z.style.setProperty("--gl", I.gl);
+    /* lista: niveles + regalos intercalados */
+    const L = []; I.N.forEach((n, i) => { L.push({ t:"n", i }); if (I.regalos.indexOf(i) > -1) L.push({ t:"a", i }); });
+    const DY = 142, top = 80, H = top + L.length * DY + 40; z.style.height = H + "px";
+    const P = L.map((e, j) => Object.assign(e, { x: XS[j % 8], y: top + j * DY }));
+    /* cuál es el actual: el primer nivel abierto sin estrellas */
+    let ia = -1; I.N.forEach((n, i) => { if (ia < 0 && abierto(k, i) && est(I, n[0]) < 1 && !PRONTO[n[4]]) ia = i; });
+    /* camino de puntos: gris completo + color hasta el actual (o todo si ya acabó la isla) */
+    let d = "M" + P[0].x + " " + P[0].y; for (let j = 1; j < P.length; j++) { const a = P[j - 1], b = P[j], my = (a.y + b.y) / 2; d += " C" + a.x + " " + my + " " + b.x + " " + my + " " + b.x + " " + b.y; }
+    let hj = -1; if (abiertaI) { if (ia < 0) hj = P.length - 1; else hj = P.findIndex(p => p.t === "n" && p.i === ia); }
+    let d2 = ""; if (hj > 0) { d2 = "M" + P[0].x + " " + P[0].y; for (let j = 1; j <= hj; j++) { const a = P[j - 1], b = P[j], my = (a.y + b.y) / 2; d2 += " C" + a.x + " " + my + " " + b.x + " " + my + " " + b.x + " " + b.y; } }
+    z.innerHTML = '<svg class="sc" width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '"><path d="' + d + '" fill="none" stroke="var(--toff)" stroke-width="10" stroke-linecap="round" stroke-dasharray="0.1 20"/>' + (d2 ? '<path d="' + d2 + '" fill="none" stroke="' + I.c + '" stroke-width="11" stroke-linecap="round" stroke-dasharray="0.1 20"/>' : '') + '</svg>';
+    P.forEach(p => {
+      const el = document.createElement("button"); el.type = "button"; el.style.left = p.x + "px"; el.style.top = p.y + "px";
+      if (p.t === "n") {
+        const n = I.N[p.i], ab = abierto(k, p.i), e = est(I, n[0]), pronto = PRONTO[n[4]], st = pronto ? "lock" : e >= 1 ? "done" : p.i === ia ? "act" : ab ? "done" : "lock";
+        el.dataset.k = k; el.dataset.i = p.i;
+        if (n[1] === "escucha") { el.className = "esc" + (st === "lock" ? " lock" : st === "act" ? " act" : "");
+          el.innerHTML = '<span class="ci">' + (st === "lock" ? IC.lock : IC.oido) + '</span><span><small>ESCUCHA' + (pronto ? ' · PRÓXIMAMENTE' : '') + '</small><b>' + esc(n[2]) + '</b></span>'; }
+        else { el.className = "nodo";
+          el.innerHTML = (st === "act" ? '<span class="tg">' + (e || p.i ? "SIGUE AQUÍ" : "EMPIEZA AQUÍ") + '</span>' : '') +
+            '<span class="nA ' + st + (n[1] === "final" ? " big" : "") + '">' + (st === "lock" ? IC.lock : IC[n[3]]) + '</span><span class="lbl' + (st === "lock" ? " l" : "") + '">' + esc(n[2]) + (pronto ? " · Pronto" : "") + '</span>'; }
+        if (st === "act") ACT = el;
+        if (n[1] === "final") { const t = document.createElement("div"); t.className = "trof"; t.style.left = (p.x >= CX ? p.x - 110 : p.x + 110) + "px"; t.style.top = (p.y + 4) + "px";
+          const c = e >= 1 ? "#FFC83D" : "var(--toff)"; t.innerHTML = '<div class="' + (e >= 1 ? "flota" : "") + '"><svg width="70" height="70" viewBox="0 0 92 92"><path d="M24 12h44v22a22 22 0 0 1-44 0z" fill="' + c + '"/><path d="M24 18H12a12 12 0 0 0 14 16M68 18h12a12 12 0 0 1-14 16" fill="none" stroke="' + c + '" stroke-width="6"/><rect x="40" y="54" width="12" height="14" fill="' + c + '"/><rect x="28" y="68" width="36" height="12" rx="4" fill="' + c + '"/><text x="46" y="42" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="20" fill="#fff">' + (k + 1) + '</text></svg></div>'; z.appendChild(t); }
+      } else {
+        const id = I.id + "_" + p.i, ya = !!R[id], listo = est(I, I.N[p.i][0]) >= 1;
+        el.className = "nodo"; el.dataset.regalo = id; el.dataset.listo = listo ? 1 : "";
+        el.innerHTML = '<span class="aurE' + (ya ? " ya" : listo ? "" : " no") + '"><span class="fl">' + LLAMA.replace(/width="\d+" height="\d+"/, 'width="56" height="56"') + '</span><span class="ped"></span><b>+' + AURA_REGALO + '</b></span><span class="lbl' + (ya || !listo ? " l" : "") + '">' + (ya ? "Aura reclamada" : "Regalo de Aura") + '</span>';
+      }
+      z.appendChild(el);
+    });
+    /* personajes a los lados */
+    I.pj.forEach(pj => { const p = P[Math.min(pj[2], P.length - 1)], el = document.createElement("div"), ab = abiertaI && abierto(k, Math.min(pj[2], I.N.length - 1));
+      el.className = "pj" + (ab ? "" : " lk"); el.style.left = (p.x >= CX ? 58 : w - 58) + "px"; el.style.top = (p.y + 30) + "px";
+      el.innerHTML = '<div class="flota">' + GAL(pj[0], 62) + '</div><button type="button" class="prac" data-pj="' + k + '|' + pj[1] + '|' + pj[2] + '">' + pj[1] + '</button>'; z.appendChild(el); });
+  });
+  pintarArriba();
+}
+function pintarArriba() {
+  /* perfil */
+  const pf = leer("ingles_gamer_perfil") || {}, nom = (pf.n || "Jugador").toString().slice(0, 18), av = Math.max(0, Math.min(8, +pf.a || 0));
+  const RG = [{n:"Novato",m:0,c:"#8C8C96"},{n:"Aprendiz",m:15,c:"#3FD8C8"},{n:"Campeón",m:35,c:"#FF8A3D"},{n:"Leyenda",m:55,c:"#FF4D4D"}];
+  const ev = estVerano(); let r = 0; RG.forEach((x, i) => { if (ev >= x.m) r = i; }); const sig = RG[r + 1];
+  const g = leer("ingles_gamer_a1_repaso") || {}, dia = g.dia || {}, hoy = new Date(), cl = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+  const racha = (dia.u === cl(hoy) || dia.u === cl(new Date(Date.now() - 864e5))) ? (+dia.r || 0) : 0;
+  const tot = ISLAS.reduce((t, I) => t + estrellasIsla(I), 0);
+  const P = $("perfil"); P.style.setProperty("--rc", RG[r].c);
+  P.innerHTML = '<span class="av">' + sprite("av" + av, 50) + '</span><div class="tx"><b>' + esc(nom) + '</b><span class="rg">' + RG[r].n.toUpperCase() + '</span>' +
+    '<div class="br"><i style="width:' + (sig ? Math.round((ev - RG[r].m) / (sig.m - RG[r].m) * 100) : 100) + '%"></i></div><small>' + (sig ? 'Te faltan ' + (sig.m - ev) + ' ★ para ' + sig.n : 'Rango máximo') + ' · Ver perfil ›</small></div>' +
+    '<div class="st"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD43B"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>' + tot + '</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF8A3D"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z"/></svg>' + racha + '</span></div>';
+  $("aura").textContent = Math.max(0, +((leer("ingles_gamer_aura") || {}).t) || 0);
+  isla();
+}
+function isla() {
+  let a = 0; document.querySelectorAll(".isla").forEach(z => { if (z.getBoundingClientRect().top < 220) a = +z.dataset.k; });
+  const I = ISLAS[a], hechos = I.N.filter(n => est(I, n[0]) >= 1).length, u = $("uni");
+  u.style.setProperty("--c", I.c); $("uIc").innerHTML = I.ico;
+  $("uS").textContent = I.nom.toUpperCase() + " · " + hechos + " DE " + I.N.length; $("uB").textContent = I.sub; $("uBar").style.width = (hechos / I.N.length * 100) + "%";
+}
+/* ===== sonidos y avisos ===== */
+let AC = null;
+function tono(f, t, d, tipo, v) { try { if (localStorage.getItem("ingles_gamer_sonido") === "0") return; AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+  const o = AC.createOscillator(), g = AC.createGain(), t0 = AC.currentTime + t; o.type = tipo || "triangle"; o.frequency.value = f;
+  g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(v || .07, t0 + .02); g.gain.exponentialRampToValueAtTime(.0001, t0 + d); o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0 + d + .05); } catch (e) {} }
+let tT = 0; function aviso(m) { const t = $("toast"); t.textContent = m; t.hidden = false; clearTimeout(tT); tT = setTimeout(() => t.hidden = true, 2600); tono(220, 0, .15, "sawtooth", .05); }
+function ir(u) { tono(523, 0, .08); tono(784, .06, .12); setTimeout(() => { location.href = igURL(u); }, 120); }
+document.addEventListener("click", e => {
+  const pr = e.target.closest(".prac");
+  if (pr) { const [k, que, idx] = pr.dataset.pj.split("|"), I = ISLAS[+k];
+    if (!islaAbierta(+k)) return aviso("Primero abre la " + I.nom);
+    if (que === "Repasar") return ir("go:refuerza");
+    if (que === "Escuchar") { const n = I.N.slice(0, +idx + 2).filter(x => x[1] === "escucha").pop() || I.N.find(x => x[1] === "escucha"), i = I.N.indexOf(n);
+      return abierto(+k, i) && !PRONTO[n[4]] ? ir(n[4]) : aviso("Llega a «" + n[2] + "» para practicar escucha"); }
+    const hechos = I.N.slice(0, +idx + 1).filter(n => est(I, n[0]) >= 1 && n[1] !== "final");   /* Practicar: repetir el último nivel que ya pasaste cerca */
+    return hechos.length ? ir(hechos[hechos.length - 1][4]) : aviso("Pasa un nivel de esta zona para practicarlo");
+  }
+  const b = e.target.closest("button[data-regalo]");
+  if (b) { const id = b.dataset.regalo, R = regalos();
+    if (R[id]) return aviso("Ya reclamaste este regalo");
+    if (!b.dataset.listo) return aviso("Pasa el nivel de arriba para abrir este regalo");
+    R[id] = Date.now(); guardar("ingles_gamer_mapa_regalos", R);
+    const a = leer("ingles_gamer_aura") || {}; a.t = Math.max(0, +a.t || 0) + AURA_REGALO; a.e = Math.max(0, +a.e || 0) + AURA_REGALO;
+    a.l = [[AURA_REGALO, "Regalo del mapa", Date.now()]].concat(Array.isArray(a.l) ? a.l : []).slice(0, 20); guardar("ingles_gamer_aura", a);
+    const d = document.createElement("div"); d.className = "auT"; d.innerHTML = LLAMA + "+" + AURA_REGALO + " de Aura"; document.body.appendChild(d); setTimeout(() => d.remove(), 1800);
+    [523, 659, 784, 1047].forEach((f, i) => tono(f, i * .08, .25)); pintar(); return; }
+  const n = e.target.closest("button[data-i]");
+  if (n) { const k = +n.dataset.k, i = +n.dataset.i, I = ISLAS[k], N = I.N[i];
+    if (PRONTO[N[4]]) return aviso("«" + N[2] + "» llega muy pronto");
+    if (!islaAbierta(k)) return aviso("La " + I.nom + " se abre con " + I.req + " ★ de Verano o venciendo al jefe anterior");
+    if (!abierto(k, i)) return aviso(N[1] === "final" ? "Pasa todos los niveles de la isla para retar al jefe" : "Primero pasa «" + I.N[i - 1][2] + "»");
+    ir(N[4]); }
+});
+/* barra inferior (Mapa activo) */
+$("nav").innerHTML = [["Inicio","go:inicio",'<path d="m3 11 9-7.5 9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/>'],["Mapa","go:mapaa1",'<path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/>'],
+  ["Tienda","go:tienda",'<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'],["Ranking","go:ranking",'<path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M12 14v4m-4 2h8"/>'],
+  ["Perfil","go:perfil",'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>']]
+  .map(x => '<a href="' + x[1] + '"' + (x[0] === "Mapa" ? ' class="on" aria-current="page"' : '') + '><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + x[2] + '</svg>' + x[0] + '</a>').join("");
+pintar();
+setTimeout(() => { if (ACT) ACT.scrollIntoView({ block:"center" }); }, 60);
+addEventListener("scroll", isla, { passive:true });
+addEventListener("resize", () => { clearTimeout(window._rz); window._rz = setTimeout(pintar, 150); });
+addEventListener("pageshow", pintar);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) pintar(); });
+</script></body></html>
