@@ -55,6 +55,49 @@ button{font-family:inherit;cursor:pointer}
 .perfil .br{height:6px;margin-top:8px;border-radius:99px;background:var(--track);overflow:hidden}.perfil .br i{display:block;height:100%;border-radius:99px;background:var(--rc,#8C8C96)}
 .perfil small{display:block;margin-top:4px;color:var(--mu);font-size:12px;font-weight:800}
 .perfil .st{flex:none;display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:900}.perfil .st span{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:12px;background:var(--chip)}
+/* LOOK de la Tienda (copiado de veranoa1, 17 nov 2026) */
+.sk{display:inline-flex}.sk svg{display:block;filter:drop-shadow(0 4px 0 rgba(0,0,0,.3))}
+.arco{animation:hue 3s linear infinite}@keyframes hue{to{filter:hue-rotate(360deg)}}
+.fr{display:inline-flex;align-items:flex-end;justify-content:center;overflow:hidden;border-radius:50%;border:5px solid var(--b,#9A6A3A);background:#0F0F12;box-shadow:0 0 var(--g,0px) var(--b)}
+.m0{--b:#9A6A3A}.m1{--b:#9A9AA6}.m2{--b:#FFC83D;--g:14px}.m3{--b:#3FD8C8;--g:14px}.m5{--b:#E8F7FF;--g:18px}
+.m4{animation:fuego 1s ease-in-out infinite alternate}.m6{animation:arcoB 3s linear infinite}
+@keyframes fuego{from{border-color:#FF4D4D;box-shadow:0 0 8px #FF4D4D}to{border-color:#FFC83D;box-shadow:0 0 22px #FF8A3D}}
+@keyframes arcoB{0%,100%{border-color:#FF4D4D}20%{border-color:#FFC83D}40%{border-color:#5DB33A}60%{border-color:#3FD8C8}80%{border-color:#8E5BD6}}
+.lkfx{position:absolute;inset:0;overflow:hidden;pointer-events:none}.lkfx::before,.lkfx::after{content:"";position:absolute;inset:0}
+.f-mp0::before{background:radial-gradient(circle,#FFF28A 0 2px,transparent 3px) 0 0/70px 60px,radial-gradient(circle,#B6FF8A 0 1.5px,transparent 2.5px) 30px 25px/90px 70px;animation:luci 6s ease-in-out infinite alternate,parp2 1.8s ease-in-out infinite alternate}
+.f-mp0::after{top:12%;height:14%;background:radial-gradient(ellipse at 20% 50%,rgba(255,255,255,.18) 0 40%,transparent 41%) 0 0/160px 100%;animation:nube 28s linear infinite}
+@keyframes luci{from{background-position:0 0,30px 25px}to{background-position:26px -30px,0 -10px}}
+@keyframes parp2{from{opacity:.25}to{opacity:1}}@keyframes nube{from{background-position:0 0}to{background-position:160px 0}}
+.f-mp1::before{background:radial-gradient(circle,#fff 0 1.5px,transparent 2px) 10px 10px/46px 38px;animation:parp2 1.4s ease-in-out infinite alternate}
+.f-mp1::after{left:-80px;top:10%;width:70px;height:2px;inset:auto;background:linear-gradient(90deg,transparent,#fff);transform:rotate(25deg);animation:fugaz 4s ease-in infinite}
+@keyframes fugaz{0%{transform:translate(0,0) rotate(25deg);opacity:0}8%{opacity:1}30%{transform:translate(520px,240px) rotate(25deg);opacity:0}100%{opacity:0}}
+.f-mp2::before{background:repeating-linear-gradient(0deg,transparent 0 14px,rgba(255,235,170,.16) 14px 16px),radial-gradient(circle,rgba(255,240,190,.7) 0 1px,transparent 1.5px) 0 0/30px 22px;animation:viento 1.6s linear infinite}
+.f-mp2::after{background:linear-gradient(transparent 55%,rgba(255,220,140,.22) 70%,transparent 85%);animation:calor 2.2s ease-in-out infinite alternate}
+@keyframes viento{from{background-position:0 0,0 0}to{background-position:-120px 0,-120px 6px}}@keyframes calor{from{transform:translateY(-3px)}to{transform:translateY(3px)}}
+.f-mp3::before{background:radial-gradient(circle,#fff 0 2px,transparent 2.8px) 0 0/40px 40px;animation:nieva 3s linear infinite}
+.f-mp3::after{background:radial-gradient(circle,rgba(255,255,255,.8) 0 1.2px,transparent 2px) 14px 0/24px 28px;animation:nieva 1.8s linear infinite}
+@keyframes nieva{from{background-position-y:0}to{background-position-y:40px}}
+.f-mp4::before{background:radial-gradient(circle,#FFB347 0 2px,transparent 3px) 0 0/44px 50px,radial-gradient(circle,#FF5A2A 0 1.5px,transparent 2.5px) 20px 20px/62px 60px;animation:brasas 2.6s linear infinite}
+.f-mp4::after{top:auto;height:45%;background:linear-gradient(transparent,rgba(255,90,30,.55));animation:late2 1.2s ease-in-out infinite alternate}
+@keyframes brasas{from{background-position:0 0,20px 20px}to{background-position:14px -50px,6px -40px}}@keyframes late2{from{opacity:.35}to{opacity:1}}
+.f-mp5::before{background:radial-gradient(circle,#fff 0 1px,transparent 1.6px) 0 0/30px 26px,radial-gradient(circle,#9FD8FF 0 1.4px,transparent 2px) 12px 8px/50px 44px;animation:viaja 2.4s linear infinite}
+.f-mp5::after{background:radial-gradient(circle at 25% 70%,rgba(63,216,200,.35),transparent 40%),radial-gradient(circle at 80% 25%,rgba(214,91,214,.35),transparent 45%);animation:respira 4s ease-in-out infinite alternate}
+@keyframes viaja{from{background-position:0 0,12px 8px}to{background-position:-60px 26px,-100px 44px}}@keyframes respira{from{opacity:.4;transform:scale(1)}to{opacity:1;transform:scale(1.15)}}
+/* ===== LOOK del jugador: fondo (mapa), marco, skin y título que equipó en la Tienda ===== */
+.lk-sc{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.lk-gr{position:absolute;left:0;right:0;bottom:0;height:22px;z-index:1;opacity:.9}
+.lk-fade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.5))}
+.fr{flex:none;position:relative;z-index:2}
+.lk-tt{position:absolute;z-index:3;padding:3px 4px;border-radius:99px;background:rgba(255,255,255,.92);color:#0B0B0D;font-size:10px;font-weight:800;line-height:1.2;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.perfil.lk{position:relative;overflow:hidden;color:#fff;border:0;min-height:112px;text-shadow:0 1px 2px rgba(0,0,0,.55)}
+.perfil.lk .tx,.perfil.lk .st{position:relative;z-index:2}
+.perfil.lk small{color:rgba(255,255,255,.88)}
+.perfil.lk .br{background:rgba(255,255,255,.25)}
+.perfil.lk .st span{background:rgba(0,0,0,.35);text-shadow:none}
+.perfil.lk .rg{text-shadow:none}
+.perfil .frw{position:relative;z-index:2;flex:none;display:flex;flex-direction:column;align-items:center;margin-bottom:10px}
+.perfil .lk-tt{position:static;margin-top:-10px;max-width:96px;text-shadow:none}
 /* barra fija */
 .top{position:sticky;top:0;z-index:20;padding:10px 12px;background:var(--bg)}
 .hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:16px;font-weight:900}
@@ -741,7 +784,7 @@ const AURA_REGALO = 20;
 
 /* ===== DATOS: los mismos niveles de veranoa1, mapanieve y mapafuego (mismo orden, ids y secciones) ===== */
 const ISLAS = [
- { id:"verano", nom:"Isla de Verano", sub:"Repasa los temas básicos", clave:"ingles_gamer_a1_repaso", c:"#FF6B00", c2:"#B84A00", gl:"rgba(255,107,0,.35)", req:0,
+ { id:"verano", nom:"Isla de Verano", sub:"Repasa los temas básicos", clave:"ingles_gamer_a1_repaso", c:"#FF6B00", c2:"#B84A00", gl:"rgba(255,107,0,.35)", req:0, aura:30, aura:30,
    ico:'<svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4M4 4l3 3M17 17l3 3M4 20l3-3M17 7l3-3" stroke="#fff" stroke-width="2"/></svg>',
    regalos:[3, 8, 13], pj:[["saludo","Practicar",2],["nerd","Repasar",7],["musica","Escuchar",12],["cool","Practicar",16]],
    N:[["esc1","escucha","Presentaciones","oido","go:escucha1"],["saludos","","Saludos","chat","go:saludos"],["vocab","","Vocabulario","libro","go:vocab"],["infopers","","Info personal","carnet","go:infopers"],
@@ -749,7 +792,7 @@ const ISLAS = [
       ["hogar","","Casa y hogar","sofa","go:hogar"],["objetos","","Ropa","camiseta","go:ropa"],["animales","","Animales","huella","go:animales"],["comidas","","Frutas","manzana","go:frutas"],
       ["restaurante","","Restaurante","plato","go:restaurant"],["esc2","escucha","Repaso 1","oido","go:esc2"],["viajes","","Viajes","avion","go:viajes"],["verbos","","Verbos básicos","rayo","go:verbosbasc"],
       ["vocab2","","Vocabulario 2","libro","go:vocab2"],["fechas","","Días y meses","calendario","go:fechas"],["esc3","escucha","Repaso 2","oido","go:esc3"],["final","final","Jefe de Verano","corona","go:final"]] },
- { id:"nieve", nom:"Isla de Nieve", sub:"Vocabulario y gramática", clave:"ingles_gamer_nieve_repaso", c:"#1E6FE0", c2:"#1250A8", gl:"rgba(30,111,224,.35)", req:40,
+ { id:"nieve", nom:"Isla de Nieve", sub:"Vocabulario y gramática", clave:"ingles_gamer_nieve_repaso", c:"#1E6FE0", c2:"#1250A8", gl:"rgba(30,111,224,.35)", req:40, aura:40, aura:40,
    ico:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M12 2v20M3 7l18 10M21 7 3 17M9 3l3 3 3-3M9 21l3-3 3 3"/></svg>',
    regalos:[4, 9], pj:[["frio","Practicar",2],["detective","Repasar",7],["musica","Escuchar",11]],
    N:[["vocab1","","Vocabulario 3","libro","go:nieve_vocab1"],["preposiciones","","Preposiciones","bandera","go:nieve_preposiciones"],["adjetivos","","Adjetivos","paleta","go:nieve_adjetivos"],
@@ -757,7 +800,7 @@ const ISLAS = [
       ["comparativos","","Comparativos","medalla","go:nieve_comparativos"],["futuro","","Futuro (will)","cohete","go:nieve_futuro"],["situaciones","","Situaciones reales","mundo","go:nieve_situaciones"],
       ["esc2","escucha","Repaso 4","oido","go:nieve_repaso2"],["vocab2","","Vocabulario 4","libro","go:nieve_vocab2"],["profesiones","","Profesiones","maletin","go:nieve_profesiones"],
       ["cuerpo","","Partes del cuerpo","persona","go:nieve_cuerpo"],["finaln","final","Jefe de Nieve","corona","go:nieve_final"]] },
- { id:"fuego", nom:"Isla de Fuego", sub:"Gramática base", clave:"ingles_gamer_fuego_repaso", c:"#E0262F", c2:"#A0141B", gl:"rgba(224,38,47,.35)", req:51,
+ { id:"fuego", nom:"Isla de Fuego", sub:"Gramática base", clave:"ingles_gamer_fuego_repaso", c:"#E0262F", c2:"#A0141B", gl:"rgba(224,38,47,.35)", req:51, aura:50, aura:50,
    ico:'<svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z" fill="#fff"/></svg>',
    regalos:[3, 9], pj:[["ensena","Practicar",1],["musica","Escuchar",5],["super","Repasar",11]],
    N:[["pronombres","","Pronombres y posesivos","carnet","go:fuego_pronombres"],["tobe","","Verbo To be","gema","go:fuego_tobe"],["thereis","","There is / There are","cofre","go:fuego_thereis"],
@@ -792,6 +835,21 @@ const IC = (() => { const L = p => '<svg width="30" height="30" viewBox="0 0 24 
   pocion:L('<path d="M10 3h4M10 3v5L5 18a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-10V3"/><path d="M7 15h10"/>'),
   lock:L('<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>') }; })();
 
+const LOOK_SK = ["", "hue-rotate(150deg)", "hue-rotate(-40deg) saturate(1.6)", "hue-rotate(80deg) saturate(1.3)", "grayscale(1) brightness(1.5) opacity(.75)", "hue-rotate(280deg) saturate(2.2) brightness(1.15)", "sepia(1) saturate(3.5) brightness(1.1)", ""]; // la última (Arcoíris) usa la clase .arco
+const LOOK_MP = [
+  { bg:"linear-gradient(#0F1A10,#1E3A22)", g:"#5DB33A" }, { bg:"linear-gradient(#070B1F,#1B1F4A)", g:"#2B3A7A" }, { bg:"linear-gradient(#5A3A18,#B8782E)", g:"#D9A04A" },
+  { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" }
+];
+const LOOK_TT = ["Novato", "Gamer", "Cazador de bugs", "Speaker", "Maestro Have/Has", "Rey del A1", "Leyenda"];
+function lookLeer() {
+  const q = (location.search.match(/[?&]look=(\d+),(\d+),(\d+),(\d+)/) || []);
+  if (q[1] != null) return { mp:+q[1] % 6, mc:+q[2] % 7, sk:+q[3] % 8, tt:+q[4] % 7 };
+  if (/[?&]demo=1/.test(location.search)) return { mp:1, mc:4, sk:0, tt:5 };
+  let t = null; try { t = JSON.parse(localStorage.getItem("ingles_gamer_tienda") || "null"); } catch (e) {}
+  const own = (t && Array.isArray(t.own)) ? t.own : [], eq = (t && t.eq) || {};
+  const pick = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
+  return { sk:pick("sk", 8), mc:pick("mc", 7), tt:pick("tt", 7), mp:pick("mp", 6) };
+}
 /* ===== estado ===== */
 const DEMO = /[?&]demo=1/.test(location.search);
 const est = (isla, id) => { if (DEMO) return 3; const g = leer(isla.clave); return Math.min(3, Math.max(0, +(g && g.est && g.est[id]) || 0)); };
@@ -1019,7 +1077,7 @@ function pintar() {
       } else {
         const id = I.id + "_" + p.i, ya = !!R[id], listo = est(I, I.N[p.i][0]) >= 1;
         el.className = "nodo"; el.dataset.regalo = id; el.dataset.listo = listo ? 1 : "";
-        el.innerHTML = '<span class="aurE' + (ya ? " ya" : listo ? "" : " no") + '"><span class="fl">' + LLAMA.replace(/width="\d+" height="\d+"/, 'width="56" height="56"') + '</span><span class="ped"></span><b>+' + AURA_REGALO + '</b></span><span class="lbl' + (ya || !listo ? " l" : "") + '">' + (ya ? "Aura reclamada" : "Regalo de Aura") + '</span>';
+        el.innerHTML = '<span class="aurE' + (ya ? " ya" : listo ? "" : " no") + '"><span class="fl">' + LLAMA.replace(/width="\d+" height="\d+"/, 'width="56" height="56"') + '</span><span class="ped"></span><b>+' + I.aura + '</b></span><span class="lbl' + (ya || !listo ? " l" : "") + '">' + (ya ? "Aura reclamada" : "Regalo de Aura") + '</span>';
       }
       z.appendChild(el);
     });
@@ -1039,7 +1097,9 @@ function pintarArriba() {
   const racha = (dia.u === cl(hoy) || dia.u === cl(new Date(Date.now() - 864e5))) ? (+dia.r || 0) : 0;
   const tot = ISLAS.reduce((t, I) => t + estrellasIsla(I), 0);
   const P = $("perfil"); P.style.setProperty("--rc", RG[r].c);
-  P.innerHTML = '<span class="av">' + sprite("av" + av, 50) + '</span><div class="tx"><b>' + esc(nom) + '</b><span class="rg">' + RG[r].n.toUpperCase() + '</span>' +
+  const L = lookLeer(), mp = LOOK_MP[L.mp], fl = LOOK_SK[L.sk]; P.classList.add("lk");
+  P.innerHTML = '<div class="lk-sc" style="background:' + mp.bg + '" aria-hidden="true"><b class="lkfx f-mp' + L.mp + '"></b><i class="lk-gr" style="background:' + mp.g + '"></i></div><div class="lk-fade"></div>' +
+    '<span class="frw"><span class="fr m' + L.mc + '" style="width:74px;height:74px"><span class="sk' + (L.sk === 7 ? " arco" : "") + '"' + (fl ? ' style="filter:' + fl + '"' : '') + '>' + sprite("av" + av, 52) + '</span></span><span class="lk-tt">' + LOOK_TT[L.tt] + '</span></span><div class="tx"><b>' + esc(nom) + '</b><span class="rg">' + RG[r].n.toUpperCase() + '</span>' +
     '<div class="br"><i style="width:' + (sig ? Math.round((ev - RG[r].m) / (sig.m - RG[r].m) * 100) : 100) + '%"></i></div><small>' + (sig ? 'Te faltan ' + (sig.m - ev) + ' ★ para ' + sig.n : 'Rango máximo') + ' · Ver perfil ›</small></div>' +
     '<div class="st"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD43B"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>' + tot + '</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="#FF8A3D"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z"/></svg>' + racha + '</span></div>';
   $("aura").textContent = Math.max(0, +((leer("ingles_gamer_aura") || {}).t) || 0);
@@ -1069,7 +1129,7 @@ document.addEventListener("click", e => {
     return hechos.length ? ir(hechos[hechos.length - 1][4]) : aviso("Pasa un nivel de esta zona para practicarlo");
   }
   const b = e.target.closest("button[data-regalo]");
-  if (b) { const id = b.dataset.regalo, R = regalos();
+  if (b) { const id = b.dataset.regalo, R = regalos(), AURA_REGALO = ISLAS.find(x => id.indexOf(x.id + "_") === 0).aura;
     if (R[id]) return aviso("Ya reclamaste este regalo");
     if (!b.dataset.listo) return aviso("Pasa el nivel de arriba para abrir este regalo");
     R[id] = Date.now(); guardar("ingles_gamer_mapa_regalos", R);
