@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video · Colores</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/marca.css"><link rel="stylesheet" href="kit/personajes.css">
+</head><body><div id="lienzo"></div>
+<script src="kit/personajes.js"></script><script src="kit/escena.js"></script>
+<script>
+/* TEMA: Colores (Verano, voz Fenrir). Para otra temática: copiar este archivo y cambiar los datos. */
+IG.video({
+  plantilla: "vocab", tema: "noche",
+  titulo: "Los colores<br><em>en inglés</em>", sub: "5 palabras y un reto", pjIntro: "saludo",
+  etiqueta: "Colores",
+  items: [
+    { en: "red",    es: "rojo",     vis: { color: "#E5322B" } },
+    { en: "blue",   es: "azul",     vis: { color: "#2E86DE" } },
+    { en: "green",  es: "verde",    vis: { color: "#2FA84F" } },
+    { en: "yellow", es: "amarillo", vis: { color: "#FFC83D" } },
+    { en: "purple", es: "morado",   vis: { color: "#8E5BD6" } }
+  ],
+  quiz: { pregunta: "¿Cuál es <em>«verde»</em>?", opciones: [1, 2, 4], bien: 2 },
+  cierre: "Aprende inglés <em>jugando</em>", cierreSub: "Islas, duelos y liga semanal", pjCierre: "baile"
+});
+</script></body></html>

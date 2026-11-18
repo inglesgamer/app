@@ -1,0 +1,256 @@
+/* Personajes pixel InglésGamer (extraído de 4.html, 18 nov) */
+.ga-oc,.ga-bo,.ga-r1,.ga-r2,.ga-l1,.ga-l2{opacity:0}
+.ga-oc{animation:gaparp 4s infinite}
+@keyframes gaparp{0%,92%,100%{opacity:0}94%,97%{opacity:1}}
+.ga-sp{transform-box:fill-box;transform-origin:center;animation:gabrilla 1s ease-in-out infinite}
+@keyframes gabrilla{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes gaua{0%{opacity:1}50%{opacity:0}}
+@keyframes gaub{0%{opacity:0}50%{opacity:1}}
+.ga-saludo .ga-mov{animation:garesp 2.4s ease-in-out infinite}
+@keyframes garesp{0%,100%{transform:translateY(0)}50%{transform:translateY(-.25px)}}
+.ga-saludo .ga-rd{animation:gasd 7s step-end infinite}
+.ga-saludo .ga-r1{animation:gas1 7s step-end infinite}
+.ga-saludo .ga-r2{animation:gas2 7s step-end infinite}
+.ga-saludo .ga-bo{animation:gasb 7s step-end infinite}
+@keyframes gasd{0%{opacity:1}10%{opacity:0}50%{opacity:1}100%{opacity:1}}
+@keyframes gas1{0%{opacity:0}10%{opacity:1}15%{opacity:0}20%{opacity:1}25%{opacity:0}30%{opacity:1}35%{opacity:0}40%{opacity:1}45%{opacity:0}100%{opacity:0}}
+@keyframes gas2{0%{opacity:0}15%{opacity:1}20%{opacity:0}25%{opacity:1}30%{opacity:0}35%{opacity:1}40%{opacity:0}45%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes gasb{0%{opacity:0}10%{opacity:1}13%{opacity:0}15%{opacity:1}18%{opacity:0}20%{opacity:1}23%{opacity:0}25%{opacity:1}28%{opacity:0}30%{opacity:1}33%{opacity:0}35%{opacity:1}38%{opacity:0}40%{opacity:1}43%{opacity:0}45%{opacity:1}48%{opacity:0}100%{opacity:0}}
+.ga-alegre .ga-mov{animation:gasalta .6s ease-in-out infinite alternate}
+@keyframes gasalta{from{transform:translateY(0)}to{transform:translateY(-1px)}}
+.ga-alegre .ga-rd,.ga-alegre .ga-ld{opacity:0}
+.ga-alegre .ga-r1,.ga-alegre .ga-l1{animation:gaua .6s step-end infinite}
+.ga-alegre .ga-r2,.ga-alegre .ga-l2{animation:gaub .6s step-end infinite}
+.ga-alegre .ga-bo{animation:gaua .3s step-end infinite}
+.ga-triste .ga-cab{animation:ganod 3s ease-in-out infinite alternate}
+@keyframes ganod{from{transform:translateY(.4px)}to{transform:translateY(.8px)}}
+.ga-triste .ga-mov{animation:gasollozo 1.4s ease-in-out infinite}
+@keyframes gasollozo{0%,60%,100%{transform:translateY(0)}70%{transform:translateY(.25px)}80%{transform:translateY(0)}90%{transform:translateY(.25px)}}
+.ga-triste .ga-rd{animation:gawd 6s step-end infinite}
+.ga-triste .ga-r1{animation:gaw1 6s step-end infinite}
+.ga-triste .ga-r2{animation:gaw2 6s step-end infinite}
+@keyframes gawd{0%{opacity:1}20%{opacity:0}70%{opacity:1}100%{opacity:1}}
+@keyframes gaw1{0%{opacity:0}20%{opacity:1}30%{opacity:0}40%{opacity:1}50%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes gaw2{0%{opacity:0}30%{opacity:1}40%{opacity:0}50%{opacity:1}60%{opacity:0}100%{opacity:0}}
+.ga-tA,.ga-tB{opacity:0;animation:gatA 1.8s step-end infinite}
+.ga-tB{animation-name:gatB}
+@keyframes gatA{0%{opacity:1}33%{opacity:0}100%{opacity:0}}
+@keyframes gatB{0%{opacity:0}33%{opacity:1}66%{opacity:0}100%{opacity:0}}
+.ga-brava .ga-mov{animation:gatiembla .12s linear infinite alternate}
+@keyframes gatiembla{from{transform:translateX(-.1px)}to{transform:translateX(.1px)}}
+.ga-brava .ga-rd{animation:gaub 1s step-end infinite}
+.ga-brava .ga-r1{animation:gaua 1s step-end infinite}
+.ga-brava .ga-bo{animation:gaua .5s step-end infinite}
+.ga-rojo,.ga-vena{animation:galate 1s ease-in-out infinite alternate}
+.ga-rojo{opacity:.15}
+@keyframes galate{from{opacity:.15}to{opacity:.5}}
+.ga-humo{animation:gasube 1.2s linear infinite}
+@keyframes gasube{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(-2px);opacity:0}}
+.ga-gu,.ga-gl{opacity:0}
+@keyframes gawink{0%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes galadea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+@keyframes gaflota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+@keyframes gasigue{from{transform:translateX(0)}to{transform:translateX(.3px)}}
+@keyframes gabalanceo{from{transform:translateX(-.25px)}to{transform:translateX(.25px)}}
+@keyframes gasube2{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
+.ga-cor{opacity:0;animation:gasube2 2.4s linear infinite}
+.ga-q{animation:gaflota 1.6s ease-in-out infinite alternate}
+.ga-pulgar .ga-mov{animation:gasalta 1s ease-in-out infinite alternate}
+.ga-pulgar .ga-rd{opacity:0}
+.ga-pulgar .ga-r1{animation:gaua .8s step-end infinite}
+.ga-pulgar .ga-r2{animation:gaub .8s step-end infinite}
+.ga-pulgar .ga-gu{animation:gawink 3s step-end infinite}
+.ga-animo .ga-mov{animation:gasalta .5s ease-in-out infinite alternate}
+.ga-animo .ga-rd{animation:gaub .5s step-end infinite}
+.ga-animo .ga-r1{animation:gaua .5s step-end infinite}
+.ga-animo .ga-bo{animation:gaua .25s step-end infinite}
+.ga-pienso .ga-cab{animation:galadea 2s ease-in-out infinite alternate}
+.ga-pienso .ga-rd{opacity:0}
+.ga-pienso .ga-r1{animation:gaua 1.2s step-end infinite}
+.ga-pienso .ga-r2{animation:gaub 1.2s step-end infinite}
+.ga-copion .ga-mov{animation:gasigue 1.8s ease-in-out infinite alternate}
+.ga-copion .ga-rd{opacity:0}
+.ga-copion .ga-r1{animation:gaua .9s step-end infinite}
+.ga-copion .ga-r2{animation:gaub .9s step-end infinite}
+.ga-copion .ga-gl{animation:gaua 2.4s step-end infinite}
+.ga-amor .ga-mov{animation:gabalanceo 1.6s ease-in-out infinite alternate}
+.ga-amor .ga-rd{opacity:0}
+.ga-amor .ga-r1{animation:gaua 1.2s step-end infinite}
+.ga-amor .ga-r2{animation:gaub 1.2s step-end infinite}
+.ga-ups .ga-mov{animation:gatiembla .1s linear infinite alternate}
+.ga-ups .ga-rd,.ga-ups .ga-ld{opacity:0}
+.ga-ups .ga-r1,.ga-ups .ga-l1{opacity:1}
+.ga-card.ancha{grid-column:1/-1}
+.ga-card.ancha svg{width:300px}
+@keyframes gavibra{from{transform:translateY(0)}to{transform:translateY(.15px)}}
+@keyframes gacorre{from{transform:translateY(-3px);opacity:0}30%{opacity:.8}to{transform:translateY(5px);opacity:0}}
+@keyframes gagalopa{from{transform:translateY(0)}to{transform:translateY(-.5px)}}
+@keyframes gapez{0%,60%{opacity:0;transform:translate(0,2px)}65%{opacity:1;transform:translate(1px,-1.5px)}75%{transform:translate(2px,-2.5px)}85%{transform:translate(3px,-1px)}90%{opacity:1;transform:translate(3.5px,2px)}100%{opacity:0}}
+.ga-linea{animation:gacorre .5s linear infinite}
+.ga-moto .ga-mov{animation:gavibra .12s linear infinite alternate}
+.ga-moto .ga-ra{animation:gaua .08s step-end infinite}
+.ga-moto .ga-rb{animation:gaub .08s step-end infinite}
+.ga-caballo .ga-mov,.ga-caballo .ga-atras,.ga-caballo .ga-fuera{animation:gagalopa .35s ease-in-out infinite alternate}
+.ga-caballo .ga-hA{animation:gaua .35s step-end infinite}
+.ga-caballo .ga-hB{animation:gaub .35s step-end infinite}
+.ga-pesca .ga-rd{opacity:0}
+.ga-pesca .ga-r1{animation:gaua 2s step-end infinite}
+.ga-pesca .ga-r2{animation:gaub 2s step-end infinite}
+.ga-pesca .ga-wA{animation:gaua .8s step-end infinite}
+.ga-pesca .ga-wB{animation:gaub .8s step-end infinite}
+.ga-bob{animation:gaflota 1s ease-in-out infinite alternate}
+.ga-pez{opacity:0;animation:gapez 3.5s ease-in-out infinite}
+.ga-baile .ga-mov{animation:gasalta .3s ease-in-out infinite alternate}
+.ga-baile .ga-rd{animation:gaub .6s step-end infinite}
+.ga-baile .ga-r1{animation:gaua .6s step-end infinite}
+.ga-baile .ga-ld{animation:gaua .6s step-end infinite}
+.ga-baile .ga-l1{animation:gaub .6s step-end infinite}
+.ga-dormido .ga-oc{animation:none}
+.ga-dormido .ga-cab{animation:ganod 3s ease-in-out infinite alternate}
+.ga-dormido .ga-mov{animation:garesp 3s ease-in-out infinite}
+.ga-dormido .ga-bo{animation:gaua 2.4s step-end infinite}
+@keyframes gaq1{0%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes gaq2{0%{opacity:0}25%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes gaq3{0%,25%{opacity:0}50%{opacity:1}75%{opacity:0}100%{opacity:0}}
+@keyframes gaq4{0%,50%{opacity:0}75%{opacity:1}100%{opacity:0}}
+@keyframes gavuela{0%,50%{opacity:0;transform:translate(0,0)}55%{opacity:1}100%{opacity:0;transform:translate(3px,-2px)}}
+@keyframes gavuela2{0%,100%{transform:translate(0,0)}25%{transform:translate(2px,-2px)}50%{transform:translate(0,2px)}75%{transform:translate(3px,0)}}
+@keyframes gasusto{0%,70%,100%{transform:translateY(0)}75%{transform:translateY(-1px)}85%{transform:translateY(0)}}
+@keyframes gacj{0%,20%{opacity:0}30%,80%{opacity:1}90%,100%{opacity:0}}
+.ga-t1,.ga-t2,.ga-t3,.ga-t4,.ga-beso,.ga-mari{opacity:0}
+.ga-t1{animation:gaq1 1s step-end infinite}.ga-t2{animation:gaq2 1s step-end infinite}.ga-t3{animation:gaq3 1s step-end infinite}.ga-t4{animation:gaq4 1s step-end infinite}
+.ga-beso{animation:gavuela 1.6s linear infinite}
+.ga-mari{opacity:1;animation:gavuela2 6s ease-in-out infinite}
+.ga-m1{animation:gaua .2s step-end infinite}.ga-m2{opacity:0;animation:gaub .2s step-end infinite}
+.ga-ceja .ga-cab{animation:galadea 2s ease-in-out infinite alternate}
+.ga-ceja .ga-gu{animation:gacj 3s step-end infinite}
+.ga-lloron .ga-oc,.ga-sorpresa .ga-oc,.ga-amoroso .ga-oc,.ga-cool .ga-oc{animation:none}
+.ga-lloron .ga-mov{animation:gasollozo .5s ease-in-out infinite}
+.ga-lloron .ga-cab{animation:ganod .5s ease-in-out infinite alternate}
+.ga-lloron .ga-rd,.ga-lloron .ga-ld,.ga-sorpresa .ga-rd,.ga-sorpresa .ga-ld{opacity:0}
+.ga-lloron .ga-r1{animation:gaua .5s step-end infinite}.ga-lloron .ga-r2{animation:gaub .5s step-end infinite}
+.ga-lloron .ga-l1{animation:gaub .5s step-end infinite}.ga-lloron .ga-l2{animation:gaua .5s step-end infinite}
+.ga-lloron .ga-bo{animation:gaua .4s step-end infinite}
+.ga-amoroso .ga-mov{animation:gabalanceo 1.6s ease-in-out infinite alternate}
+.ga-amoroso .ga-rd{opacity:0}
+.ga-amoroso .ga-r1{animation:gaua 1.6s step-end infinite}.ga-amoroso .ga-r2{animation:gaub 1.6s step-end infinite}
+.ga-tonto .ga-cab{animation:galadea .4s ease-in-out infinite alternate}
+.ga-tonto .ga-gl{animation:gaua .6s step-end infinite}
+.ga-tonto .ga-bo{animation:gaua .4s step-end infinite}
+.ga-tonto .ga-rd{animation:gaub .4s step-end infinite}.ga-tonto .ga-r1{animation:gaua .4s step-end infinite}
+.ga-tonto .ga-ld{animation:gaua .4s step-end infinite}.ga-tonto .ga-l1{animation:gaub .4s step-end infinite}
+.ga-carro .ga-mov,.ga-carro .ga-fuera{animation:gavibra .12s linear infinite alternate}
+.ga-carro .ga-ra{animation:gaua .08s step-end infinite}.ga-carro .ga-rb{animation:gaub .08s step-end infinite}
+.ga-distraido .ga-cab{animation:galadea 3s ease-in-out infinite alternate}
+.ga-distraido .ga-gl{animation:gaua 4s step-end infinite}
+.ga-sorpresa .ga-mov{animation:gasusto 1.6s ease-in-out infinite}
+.ga-sorpresa .ga-r1,.ga-sorpresa .ga-l1{opacity:1}
+.ga-cool .ga-rd{opacity:0}
+.ga-cool .ga-r1{animation:gaua 3s step-end infinite}.ga-cool .ga-r2{animation:gaub 3s step-end infinite}
+.ga-cool .ga-gu{animation:gawink 3s step-end infinite}
+@keyframes ganono{0%,100%{transform:translateX(0)}25%{transform:translateX(-.5px)}75%{transform:translateX(.5px)}}
+@keyframes gasino{0%,100%{transform:translateY(0)}50%{transform:translateY(.55px)}}
+@keyframes gacae2{0%{transform:translateY(-1px);opacity:0}15%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+.ga-nieve{opacity:0;animation:gacae2 2.2s linear infinite}
+.ga-b1{animation:gaua .5s step-end infinite}.ga-b2{opacity:0;animation:gaub .5s step-end infinite}
+.ga-neg .ga-cab{animation:ganono .6s ease-in-out infinite}
+.ga-neg .ga-rd{opacity:0}.ga-neg .ga-r1{animation:gaua .3s step-end infinite}.ga-neg .ga-r2{animation:gaub .3s step-end infinite}
+.ga-afirma .ga-cab{animation:gasino .5s ease-in-out infinite}
+.ga-miedo .ga-mov{animation:gatiembla .08s linear infinite alternate}
+.ga-miedo .ga-bo{animation:gaua .1s step-end infinite}
+.ga-miedo .ga-gl{animation:gaua .5s step-end infinite}
+.ga-miedo .ga-rd,.ga-miedo .ga-ld{opacity:0}.ga-miedo .ga-r1,.ga-miedo .ga-l1{opacity:1}
+.ga-ansiedad .ga-mov{animation:gavibra .1s linear infinite alternate}
+.ga-ansiedad .ga-rd{opacity:0}.ga-ansiedad .ga-r1{animation:gaua .15s step-end infinite}.ga-ansiedad .ga-r2{animation:gaub .15s step-end infinite}
+.ga-ansiedad .ga-gl{animation:gaua .3s step-end infinite}
+.ga-nube{animation:gatiembla .1s linear infinite alternate}
+.ga-frio .ga-mov{animation:gatiembla .08s linear infinite alternate}
+.ga-frio .ga-rd,.ga-frio .ga-ld{opacity:0}
+.ga-frio .ga-bo{animation:gaua .1s step-end infinite}
+.ga-frio .ga-oc{animation:none}
+.ga-enfermo .ga-oc{animation:none}
+.ga-enfermo .ga-mov{animation:gasusto 2.4s ease-in-out infinite}
+.ga-enfermo .ga-cab{animation:ganod 2.4s ease-in-out infinite alternate}
+.ga-enfermo .ga-rd{opacity:0}.ga-enfermo .ga-r1{opacity:1}
+.ga-hambre .ga-mov{animation:gasollozo 1s ease-in-out infinite}
+.ga-hambre .ga-rd{opacity:0}.ga-hambre .ga-r1{animation:gaua .8s step-end infinite}.ga-hambre .ga-r2{animation:gaub .8s step-end infinite}
+.ga-idea .ga-mov{animation:gasalta .5s ease-in-out infinite alternate}
+.ga-idea .ga-rd{opacity:0}.ga-idea .ga-r1{animation:gaua .5s step-end infinite}.ga-idea .ga-r2{animation:gaub .5s step-end infinite}
+@keyframes gahd{0%{opacity:1}10%{opacity:0}100%{opacity:0}}
+@keyframes gah2{0%{opacity:0}10%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes gah1{0%{opacity:0}25%{opacity:1}100%{opacity:1}}
+.ga-heroe .ga-rd{animation:gahd 5s step-end infinite}
+.ga-heroe .ga-r2{animation:gah2 5s step-end infinite}
+.ga-heroe .ga-r1{animation:gah1 5s step-end infinite}
+.ga-heroe .ga-gu{animation:gah1 5s step-end infinite}
+.ga-ejer .ga-mov{animation:gavibra .1s linear infinite alternate}
+.ga-ejer .ga-rd,.ga-ejer .ga-ld{opacity:0}
+.ga-ejer .ga-r1,.ga-ejer .ga-l1{animation:gaua .8s step-end infinite}
+.ga-ejer .ga-r2,.ga-ejer .ga-l2{animation:gaub .8s step-end infinite}
+.ga-copa .ga-mov{animation:gasalta .4s ease-in-out infinite alternate}
+.ga-copa .ga-rd,.ga-copa .ga-ld{opacity:0}
+.ga-copa .ga-r1,.ga-copa .ga-l2{animation:gaua .4s step-end infinite}
+.ga-copa .ga-r2,.ga-copa .ga-l1{animation:gaub .4s step-end infinite}
+.ga-super .ga-mov{animation:gasalta 1s ease-in-out infinite alternate}
+.ga-super .ga-cab{animation:gatiembla .06s linear infinite alternate}
+.ga-super .ga-oc{animation:none}
+.ga-super .ga-bo{animation:gaua .3s step-end infinite}
+@keyframes gabost{0%{opacity:0}60%{opacity:1}85%{opacity:0}100%{opacity:0}}
+@keyframes gae1{0%{opacity:0}10%{opacity:1}90%{opacity:0}100%{opacity:0}}
+@keyframes gae2{0%{opacity:0}35%{opacity:1}90%{opacity:0}100%{opacity:0}}
+@keyframes gae3{0%{opacity:0}60%{opacity:1}90%{opacity:0}100%{opacity:0}}
+@keyframes gaf1{0%{opacity:0}80%{opacity:1}85%{opacity:0}100%{opacity:0}}
+@keyframes gaf2{0%{opacity:0}85%{opacity:1}90%{opacity:0}100%{opacity:0}}
+@keyframes gaf3{0%{opacity:0}90%{opacity:1}95%{opacity:0}100%{opacity:0}}
+@keyframes gagarab{from{transform:translate(0,0)}to{transform:translate(-.5px,.3px)}}
+@keyframes gabrillo{0%{opacity:.12}50%{opacity:.3}}
+@keyframes gafoco{from{opacity:.08}to{opacity:.22}}
+@keyframes gaflash{0%,60%{opacity:0}61%{opacity:.9}70%{opacity:0}100%{opacity:0}}
+.ga-e1,.ga-e2,.ga-e3{opacity:0;animation:gae1 6s step-end infinite}.ga-e2{animation-name:gae2}.ga-e3{animation-name:gae3}
+.ga-f1,.ga-f2,.ga-f3{opacity:0;animation:gaf1 4s step-end infinite}.ga-f2{animation-name:gaf2}.ga-f3{animation-name:gaf3}
+.ga-xa{animation:gaua 1.6s step-end infinite}.ga-xb{opacity:0;animation:gaub 1.6s step-end infinite}
+.ga-pa{animation:gaua .25s step-end infinite}.ga-pb{opacity:0;animation:gaub .25s step-end infinite}
+.ga-lapiz{animation:gagarab .25s ease-in-out infinite alternate}
+.ga-brillo{opacity:.15;animation:gabrillo .4s step-end infinite}
+.ga-foco{opacity:.12;animation:gafoco 1.2s ease-in-out infinite alternate}
+.ga-flash{opacity:0;animation:gaflash 3s linear infinite}
+.ga-aburrido .ga-cab{animation:ganod 3s ease-in-out infinite alternate}
+.ga-aburrido .ga-rd{opacity:0}.ga-aburrido .ga-r1{opacity:1}
+.ga-aburrido .ga-bo,.ga-aburrido .ga-gu{animation:gabost 5s step-end infinite}
+.ga-ensena .ga-mov{animation:garesp 2.4s ease-in-out infinite}
+.ga-ensena .ga-rd{opacity:0}
+.ga-ensena .ga-r1{animation:gaua 1.2s step-end infinite}.ga-ensena .ga-r2{animation:gaub 1.2s step-end infinite}
+.ga-ensena .ga-bo{animation:gaua .3s step-end infinite}
+.ga-leer .ga-rd,.ga-leer .ga-ld{opacity:0}
+.ga-leer .ga-cab{animation:ganod 3s ease-in-out infinite alternate}
+.ga-leer .ga-gl{animation:gaua 2s step-end infinite}
+.ga-nerd .ga-oc{animation:none}
+.ga-nerd .ga-mov{animation:garesp 2.4s ease-in-out infinite}
+.ga-nerd .ga-rd{opacity:0}
+.ga-nerd .ga-r1{animation:gaua 1.6s step-end infinite}.ga-nerd .ga-r2{animation:gaub 1.6s step-end infinite}
+.ga-nerd .ga-gu{animation:gawink 2.8s step-end infinite}
+.ga-escribir .ga-rd,.ga-escribir .ga-ld{opacity:0}
+.ga-escribir .ga-cab{animation:ganod 2s ease-in-out infinite alternate}
+.ga-mano .ga-mov{animation:gasalta .35s ease-in-out infinite alternate}
+.ga-mano .ga-rd{opacity:0}
+.ga-mano .ga-r1{animation:gaua .7s step-end infinite}.ga-mano .ga-r2{animation:gaub .7s step-end infinite}
+.ga-mano .ga-bo{animation:gaua .35s step-end infinite}
+.ga-detective .ga-mov{animation:gasigue 1.8s ease-in-out infinite alternate}
+.ga-detective .ga-rd{opacity:0}.ga-detective .ga-r1{opacity:1}
+.ga-gamer .ga-rd,.ga-gamer .ga-ld{opacity:0}
+.ga-gamer .ga-mov{animation:gavibra .15s linear infinite alternate}
+.ga-gamer .ga-cab{animation:galadea .6s ease-in-out infinite alternate}
+.ga-musica .ga-oc{animation:none}
+.ga-musica .ga-cab{animation:gasino .5s ease-in-out infinite}
+.ga-musica .ga-mov{animation:gabalanceo 1s ease-in-out infinite alternate}
+.ga-cantar .ga-oc{animation:none}
+.ga-cantar .ga-mov{animation:gabalanceo 1.4s ease-in-out infinite alternate}
+.ga-cantar .ga-rd{opacity:0}.ga-cantar .ga-r1{opacity:1}
+.ga-cantar .ga-ld{animation:gaub 1s step-end infinite}.ga-cantar .ga-l1{animation:gaua 1s step-end infinite}
+.ga-cantar .ga-bo{animation:gaua .4s step-end infinite}
+.ga-selfie .ga-mov{animation:garesp 2.4s ease-in-out infinite}
+.ga-selfie .ga-cab{animation:galadea 1.5s ease-in-out infinite alternate}
+.ga-selfie .ga-rd,.ga-selfie .ga-ld{opacity:0}.ga-selfie .ga-r1,.ga-selfie .ga-l1{opacity:1}
+.ga-selfie .ga-gu{animation:gawink 3s step-end infinite}
+.gax{display:inline-block;line-height:0}.gax svg{display:block;width:100%;height:auto;overflow:visible}
+@media (prefers-reduced-motion:reduce){.gax *{animation:none!important}}
