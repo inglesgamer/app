@@ -645,25 +645,14 @@ const leer = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); 
 const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
 const LLAMA = '<svg width="24" height="24" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="0" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="7" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="6" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="7" width="1" height="1" fill="#FFC83D"></rect></svg>';
 const AUDIO_URL = "https://inglesgamer.github.io/app/audios/";
-const CLAVE = "ingles_gamer_hablar", NIVEL = "verano1", AURA_HABLAR = 25;
+const CLAVE = "ingles_gamer_hablar", NIVEL = "verano_h1", TEMAS = "Presentaciones · Saludos · Vocabulario", AURA_HABLAR = 25;
 /* frases básicas de Verano (con su audio de la voz Fenrir) */
-const FRASES = [
-  ["Hello!", "¡Hola!", "hello", "saludo"],
-  ["How are you?", "¿Cómo estás?", "how-are-you", "pienso"],
-  ["Hello, my name is Ana.", "Hola, me llamo Ana.", "hello-my-name-is-ana", "saludo"],
-  ["Nice to meet you.", "Mucho gusto.", "nice-to-meet-you", "alegre"],
-  ["I am from Mexico.", "Soy de México.", "i-am-from-mexico", "cool"],
-  ["I am fifteen years old.", "Tengo quince años.", "i-am-fifteen-years-old", "mano"],
-  ["This is my mother.", "Esta es mi mamá.", "this-is-my-mother", "amor"],
-  ["I have a red car.", "Tengo un carro rojo.", "i-have-a-red-car", "carro"],
-  ["I like apples.", "Me gustan las manzanas.", "i-like-apples", "hambre"],
-  ["Today is Monday.", "Hoy es lunes.", "today-is-monday", "leer"]
-];
+const FRASES = [["Hello, my name is Ana.", "Hola, me llamo Ana.", "hello-my-name-is-ana", "saludo"], ["How are you?", "¿Cómo estás?", "how-are-you", "pienso"], ["I'm fine, thanks.", "Estoy bien, gracias.", "im-fine-thanks", "pulgar"], ["Nice to meet you.", "Mucho gusto.", "nice-to-meet-you", "alegre"], ["Good morning.", "Buenos días.", "good-morning", "saludo"], ["Good night, see you tomorrow.", "Buenas noches, hasta mañana.", "good-night-see-you-tomorrow", "dormido"], ["My name is Alex.", "Me llamo Alex.", "my-name-is-alex", "cool"], ["I'm fifteen years old.", "Tengo quince años.", "im-fifteen-years-old", "mano"]];
 /* ---- comparar lo que dijo con la frase ---- */
 const NUM = { "1":"one","2":"two","3":"three","4":"four","5":"five","6":"six","7":"seven","8":"eight","9":"nine","10":"ten","11":"eleven","12":"twelve","13":"thirteen","14":"fourteen","15":"fifteen","16":"sixteen","17":"seventeen","18":"eighteen","19":"nineteen","20":"twenty" };
 function palabras(t) {
-  return String(t).toLowerCase().replace(/[’']/g, "'").replace(/\bi'm\b/g, "i am").replace(/\bit's\b/g, "it is").replace(/\bthat's\b/g, "that is")
-    .replace(/[^a-z0-9' ]+/g, " ").split(/\s+/).filter(Boolean).map(w => NUM[w] || w).map(w => w === "mom" ? "mother" : w);
+  return String(t).toLowerCase().replace(/[’']/g, "'").replace(/\btshirt\b/g, "t shirt").replace(/\bi'm\b/g, "i am").replace(/\bit's\b/g, "it is").replace(/\bthat's\b/g, "that is")
+    .replace(/[^a-z0-9' ]+/g, " ").split(/\s+/).filter(Boolean).map(w => NUM[w] || w).map(w => ({ mom:"mother", anna:"ana", okay:"ok", thank:"thanks" }[w] || w));
 }
 function comparar(dicho, meta) {   /* palabras en común en orden (LCS) */
   const a = palabras(dicho), b = palabras(meta), n = a.length, m = b.length, T = Array.from({ length:n + 1 }, () => new Array(m + 1).fill(0));
@@ -759,7 +748,7 @@ function fin() {
   const bienN = FRASES.length - errores, dar = g.aura[NIVEL] ? 0 : AURA_HABLAR;
   g.est[NIVEL] = 3; if (dar) g.aura[NIVEL] = Date.now(); guardar(CLAVE, g);   /* superado (abre el camino en el mapa) */
   if (dar) { const a = leer("ingles_gamer_aura") || {}; a.t = Math.max(0, +a.t || 0) + dar; a.e = Math.max(0, +a.e || 0) + dar;
-    a.l = [[dar, "Habla en inglés", Date.now()]].concat(Array.isArray(a.l) ? a.l : []).slice(0, 20); guardar("ingles_gamer_aura", a); }
+    a.l = [[dar, "Habla: " + TEMAS, Date.now()]].concat(Array.isArray(a.l) ? a.l : []).slice(0, 20); guardar("ingles_gamer_aura", a); }
   $("v").innerHTML = '<section class="fin"><div class="pj" style="width:150px;line-height:0">' + GALs(errores <= 1 ? "copa" : "alegre", 150) + '</div>' +
     '<h1 style="margin:14px 0 0;font-size:28px">¡Hablaste en inglés!</h1><div class="chips"><span><b>' + bienN + '</b> de ' + FRASES.length + ' frases bien dichas</span></div>' +
     (dar ? '<div class="aura">' + LLAMA + '+' + dar + ' Aura</div>' : '<p style="color:var(--mu);font-weight:700">Ya ganaste el Aura de este nivel. Repetir es práctica.</p>') +
@@ -772,7 +761,7 @@ function saltar() {
   ov.innerHTML = '<div class="sc"><h3>Saltar este nivel</h3><p>Mira un anuncio y sigue en el mapa.</p><ul><li><b class="si">✓</b>Se abre el siguiente nivel</li><li><b class="no">✗</b>No da Aura (juégalo después para ganarla)</li></ul>' +
     '<button class="btn" id="sg">Ver anuncio y saltar</button><button class="btn alt" id="sn">Mejor lo juego</button></div>';
   document.body.appendChild(ov); ov.onclick = e => { if (e.target === ov) ov.remove(); }; $("sn").onclick = () => ov.remove();
-  $("sg").onclick = () => { guardar("ig_premio", { tipo:"salto", clave:CLAVE, id:NIVEL, nombre:"Habla en inglés", volver:"go:mapaa1", t:Date.now() }); if (AUD) AUD.pause(); location.href = igURL("go:premio4"); };
+  $("sg").onclick = () => { guardar("ig_premio", { tipo:"salto", clave:CLAVE, id:NIVEL, nombre:"Habla: " + TEMAS, volver:"go:mapaa1", t:Date.now() }); if (AUD) AUD.pause(); location.href = igURL("go:premio4"); };
 }
 intro();
 </script></body></html>
