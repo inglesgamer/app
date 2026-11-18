@@ -113,14 +113,14 @@ button{font-family:inherit;cursor:pointer}
 .hab.lock .hA .c{background:var(--toff);box-shadow:0 6px 0 var(--track);color:var(--mu)}.hab.lock .hA i{display:none}
 /* B: tarjeta con personaje cantando */
 .hbB{flex-direction:row;gap:10px;width:262px;max-width:calc(100% - 24px);height:78px;padding:0 12px;border-radius:24px;transform:translate(-50%,-39px);
-  background:linear-gradient(135deg,#8E5BD6,#C2479A);box-shadow:0 6px 0 #4E2596;color:#fff;text-align:left}
+  background:linear-gradient(135deg,var(--h1,#8E5BD6),var(--h2,#C2479A));box-shadow:0 6px 0 var(--hs,#4E2596);color:#fff;text-align:left}
 .hbB .pjm{flex:none;width:52px;height:60px;display:flex;align-items:flex-end;justify-content:center;line-height:0}.hbB .pjm svg{overflow:visible}
 .hbB .tx{flex:1;min-width:0}.hbB small{display:block;font-size:10px;font-weight:900;letter-spacing:.14em;opacity:.85}.hbB b{display:block;font-size:13px;font-weight:900;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .hbB .eq{flex:none;display:flex;align-items:flex-end;gap:3px;height:26px}.hbB .eq i{width:5px;border-radius:3px;background:#FFD166;animation:eq .9s ease-in-out infinite alternate}
 .hbB .eq i:nth-child(2){animation-delay:.2s}.hbB .eq i:nth-child(3){animation-delay:.4s}.hbB .eq i:nth-child(4){animation-delay:.1s}
 @keyframes eq{from{height:6px}to{height:26px}}
 .hbB.lock{background:var(--card);border:2px solid var(--bd);box-shadow:0 6px 0 var(--track);color:var(--mu)}.hbB.lock .pjm{color:var(--mu);align-items:center}
-.hbB.act{animation:glowH 1.8s ease-in-out infinite}@keyframes glowH{50%{box-shadow:0 6px 0 #4E2596,0 0 0 9px rgba(142,91,214,.35)}}
+.hbB.act{animation:glowH 1.8s ease-in-out infinite}@keyframes glowH{50%{box-shadow:0 6px 0 var(--hs,#4E2596),0 0 0 9px var(--hg,rgba(142,91,214,.35))}}
 /* C: escenario con anillo que gira y notas */
 .hC{position:relative;width:118px;height:118px;display:flex;align-items:center;justify-content:center;margin:-17px 0}
 .hC .anillo{position:absolute;inset:0;animation:gira 9s linear infinite}@keyframes gira{to{transform:rotate(360deg)}}
@@ -919,6 +919,9 @@ function lookLeer() {
   return { sk:pick("sk", 8), mc:pick("mc", 7), tt:pick("tt", 7), mp:pick("mp", 6) };
 }
 /* ===== NIVELES DE HABLAR en el mapa: 3 diseños para elegir (?hab=A|B|C) ===== */
+/* colores de la tarjeta de hablar (?hc=1..4) */
+const HC = [null, ["#14B8A6","#0EA5E9","#0B7285","rgba(20,184,166,.35)"], ["#22C55E","#14B8A6","#15803D","rgba(34,197,94,.35)"], ["#EC4899","#F43F5E","#9D174D","rgba(236,72,153,.35)"], ["#334155","#0F172A","#020617","rgba(148,163,184,.35)"]][+((location.search.match(/[?&]hc=(\d)/) || [])[1] || 0)];
+if (HC) ["--h1","--h2","--hs","--hg"].forEach((v, i) => document.documentElement.style.setProperty(v, HC[i]));
 const HAB = ((location.search.match(/[?&]hab=([ABC])/) || [])[1]) || "";
 const MIC_IC = c => '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="' + c + '" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="' + c + '"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg>';
 const NOTA = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD166"><path d="M9 17V5l11-2v12"/><circle cx="6" cy="17" r="3"/><circle cx="17" cy="15" r="3"/><path d="M9 5l11-2v3L9 8z"/></svg>';
