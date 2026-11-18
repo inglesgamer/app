@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="es"><head><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Prueba de micrófono</title><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<script>var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+
+aplicarTema((function () { try { return localStorage.getItem(TEMA_KEY) || "noche"; } catch (e) { return "noche"; } })());
+</script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+.w{max-width:520px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) 16px 40px}
+h1{font-size:22px;margin:0 0 4px}p.s{margin:0 0 14px;color:var(--mu);font-weight:700;font-size:14px}
+.c{margin-bottom:14px;padding:16px;border-radius:22px;background:var(--card);border:2px solid var(--bd)}
+.c h2{margin:0 0 4px;font-size:18px}.c p{margin:0 0 12px;color:var(--mu);font-size:14px;font-weight:700}
+button{width:100%;height:54px;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font:900 17px Nunito,sans-serif;cursor:pointer}
+button:disabled{opacity:.5}
+.r{margin-top:12px;padding:12px;border-radius:14px;background:var(--chip);font-size:15px;font-weight:800;min-height:46px}
+.ok{color:#3FC46A}.no{color:#E5484D}
+audio{width:100%;margin-top:10px}
+.info{font-size:12px;color:var(--mu);font-weight:700;word-break:break-all}
+</style></head><body><div class="w">
+<h1>Prueba de micrófono</h1>
+<p class="s">Haz las dos pruebas y mándame captura de lo que salga.</p>
+<div class="c"><h2>1. Reconocer lo que dices</h2><p>Toca el botón y di en inglés: «Hello, my name is…».</p>
+<button id="b1">Probar reconocimiento</button><div class="r" id="r1">Sin probar</div></div>
+<div class="c"><h2>2. Grabar tu voz</h2><p>Graba 3 segundos y luego escúchate.</p>
+<button id="b2">Grabar 3 segundos</button><div class="r" id="r2">Sin probar</div><div id="au"></div></div>
+<p class="info" id="ua"></p>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+$("ua").textContent = navigator.userAgent;
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (!SR) $("r1").innerHTML = '<span class="no">No disponible aquí</span> (este visor no trae reconocimiento de voz)';
+$("b1").onclick = () => {
+  if (!SR) return;
+  try { const r = new SR(); r.lang = "en-US"; r.interimResults = false; r.maxAlternatives = 1;
+    $("r1").textContent = "Escuchando…"; $("b1").disabled = true;
+    r.onresult = e => { $("r1").innerHTML = '<span class="ok">Funciona.</span> Entendí: «' + e.results[0][0].transcript + '»'; };
+    r.onerror = e => { $("r1").innerHTML = '<span class="no">Error:</span> ' + e.error; };
+    r.onend = () => { $("b1").disabled = false; if ($("r1").textContent === "Escuchando…") $("r1").innerHTML = '<span class="no">No escuchó nada.</span>'; };
+    r.start();
+  } catch (e) { $("r1").innerHTML = '<span class="no">Error:</span> ' + e.message; $("b1").disabled = false; }
+};
+$("b2").onclick = async () => {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { $("r2").innerHTML = '<span class="no">No disponible aquí</span> (no deja usar el micrófono)'; return; }
+  if (!window.MediaRecorder) { $("r2").innerHTML = '<span class="no">No se puede grabar aquí</span> (falta MediaRecorder)'; return; }
+  $("b2").disabled = true; $("r2").textContent = "Pidiendo permiso del micrófono…";
+  try { const st = await navigator.mediaDevices.getUserMedia({ audio:true }), rec = new MediaRecorder(st), partes = [];
+    rec.ondataavailable = e => partes.push(e.data);
+    rec.onstop = () => { st.getTracks().forEach(t => t.stop()); const url = URL.createObjectURL(new Blob(partes, { type: rec.mimeType || "audio/webm" }));
+      $("au").innerHTML = '<audio controls src="' + url + '"></audio>'; $("r2").innerHTML = '<span class="ok">Funciona.</span> Dale play para escucharte.'; $("b2").disabled = false; };
+    rec.start(); $("r2").textContent = "Grabando… habla ahora"; setTimeout(() => rec.stop(), 3000);
+  } catch (e) { $("r2").innerHTML = '<span class="no">No dio permiso:</span> ' + (e.name || "") + " " + (e.message || ""); $("b2").disabled = false; }
+};
+</script></body></html>
