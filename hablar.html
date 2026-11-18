@@ -70,10 +70,13 @@ button{font-family:inherit;cursor:pointer}
 .pie{margin-top:auto;padding-top:14px}
 .btn{display:block;width:100%;height:56px;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:18px;font-weight:900;text-align:center;line-height:56px;text-decoration:none}
 .btn.alt{background:transparent;color:var(--ink);border:2px solid var(--bd);line-height:52px;margin-top:10px}
-.res{padding:14px 16px;border-radius:18px;margin-bottom:12px;font-size:17px;font-weight:900}
+.res{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;margin-bottom:12px;font-size:19px;font-weight:900}
+.res .rpj{flex:none;width:92px;line-height:0}.res .rpj svg{width:100%;height:auto;overflow:visible}
+.res .rtx{flex:1}
+.res{animation:subeR .35s cubic-bezier(.3,1.4,.5,1)}@keyframes subeR{from{transform:translateY(30px);opacity:0}}
 .res.ok{background:rgba(63,196,106,.15);color:#3FC46A;border:2px solid #3FC46A}
 .res.no{background:rgba(229,72,77,.12);color:#FF6B6B;border:2px solid #E5484D}
-.res span{display:block;margin-top:2px;font-size:14px;font-weight:700;color:var(--ink)}
+.res span{display:block;margin-top:4px;font-size:15px;font-weight:700;color:var(--ink)}
 .intro{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:18px}
 .intro .pj{width:150px;line-height:0}.intro .pj svg{width:100%;height:auto;overflow:visible}
 .intro h1{margin:14px 0 6px;font-size:28px}.intro p{margin:0 0 6px;color:var(--mu);font-size:16px;font-weight:700;line-height:1.4}
@@ -83,6 +86,11 @@ button{font-family:inherit;cursor:pointer}
 .est svg{animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}@keyframes pop{from{transform:scale(0)}}
 .aura{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:99px;background:rgba(255,138,61,.15);border:2px solid #FF8A3D;color:#FF8A3D;font-size:20px;font-weight:900}
 .chips{display:flex;gap:8px;margin:10px 0 16px}.chips span{padding:6px 12px;border-radius:99px;background:var(--chip);font-size:14px;font-weight:800}
+.salto{display:block;margin:14px auto 0;border:0;background:none;color:var(--mu);font-size:14px;font-weight:800;text-decoration:underline}
+.sov{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.6)}
+.sc{width:100%;max-width:520px;padding:22px 18px calc(18px + env(safe-area-inset-bottom));border-radius:26px 26px 0 0;background:var(--card);border-top:2px solid var(--bd)}
+.sc h3{margin:0 0 4px;font-size:22px}.sc p{margin:0 0 10px;color:var(--mu);font-weight:700}
+.sc ul{list-style:none;margin:0 0 14px;padding:0;font-weight:800}.sc li{display:flex;gap:8px;padding:5px 0}.si{color:#3FC46A}.sc .no{color:#FF6B6B}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 .ga-oc,.ga-bo,.ga-r1,.ga-r2,.ga-l1,.ga-l2{opacity:0}
 .ga-oc{animation:gaparp 4s infinite}
@@ -637,7 +645,7 @@ const leer = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); 
 const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
 const LLAMA = '<svg width="24" height="24" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="1" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="2" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="4" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="5" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="3" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="4" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="4" width="1" height="1" fill="#FF8A3D"></rect><rect x="0" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="3" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="5" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="6" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="7" y="5" width="1" height="1" fill="#FF8A3D"></rect><rect x="1" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="6" width="1" height="1" fill="#FFC83D"></rect><rect x="6" y="6" width="1" height="1" fill="#FF8A3D"></rect><rect x="2" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="3" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="4" y="7" width="1" height="1" fill="#FFC83D"></rect><rect x="5" y="7" width="1" height="1" fill="#FFC83D"></rect></svg>';
 const AUDIO_URL = "https://inglesgamer.github.io/app/audios/";
-const CLAVE = "ingles_gamer_hablar", NIVEL = "verano1", AURA_EST = { 3:25, 2:15, 1:5 };
+const CLAVE = "ingles_gamer_hablar", NIVEL = "verano1", AURA_HABLAR = 25;
 /* frases básicas de Verano (con su audio de la voz Fenrir) */
 const FRASES = [
   ["Hello!", "¡Hola!", "hello", "saludo"],
@@ -698,9 +706,10 @@ const MIC = '<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke=
 const PARLANTE = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M17 9a4 4 0 0 1 0 6M19.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
 function intro() {
   $("bar").style.width = "0";
-  $("v").innerHTML = '<section class="intro"><div class="pj">' + GALs("cantar", 150) + '</div><h1>Habla en inglés</h1><p>Escucha la frase, toca el micrófono y dila en voz alta.</p><p>Verás lo que entendí, palabra por palabra.</p>' +
+  $("v").innerHTML = '<section class="intro"><div class="pj">' + GALs("cantar", 150) + '</div><h1>Habla en inglés</h1><p>Escucha la frase, toca el micrófono y dila en voz alta.</p><p>Verás lo que entendí, palabra por palabra. Al terminar ganas Aura.</p>' +
     (SR ? '' : '<div class="aviso">Este celular no deja reconocer la voz aquí. Igual puedes practicar: escucha, repite en voz alta y marca si lo dijiste bien.</div>') +
-    '<div class="pie" style="width:100%"><button class="btn" id="go">Empezar</button></div></section>';
+    '<div class="pie" style="width:100%"><button class="btn" id="go">Empezar</button>' + (((leer(CLAVE) || {}).est || {})[NIVEL] ? '' : '<button class="salto" id="salto">¿Ya lo sabes decir? Saltar nivel</button>') + '</div></section>';
+  if ($("salto")) $("salto").onclick = saltar;
   $("go").onclick = () => { pos = 0; errores = 0; ver(); };
 }
 function ver() {
@@ -736,26 +745,34 @@ function autoeval() {
   $("pie").innerHTML = '<button class="btn" id="si">Lo dije bien</button><button class="btn alt" id="otra">Escuchar otra vez</button>';
   $("si").onclick = () => { bien(); siguiente(); }; $("otra").onclick = () => oir(FRASES[pos][2]);
 }
+const OK_PJ = ["alegre", "pulgar", "copa", "baile"], NO_PJ = ["ups", "pienso", "triste"];
+const caja = (ok, t, sub) => '<div class="res ' + (ok ? "ok" : "no") + '"><div class="rpj">' + GALs(ok ? OK_PJ[pos % OK_PJ.length] : NO_PJ[Math.min(intentos, 3) - 1] || "ups", 92) + '</div><div class="rtx">' + esc(t) + '<span>' + esc(sub) + '</span></div></div>';
 function pie(ok, t, s) {
-  if (ok === null) { $("pie").innerHTML = '<div class="res no">' + esc(t) + '<span>' + esc(s) + '</span></div>'; return; }
-  $("pie").innerHTML = '<div class="res ' + (ok ? "ok" : "no") + '">' + esc(t) + '<span>' + esc(s) + '</span></div><button class="btn" id="sig">Continuar</button>';
+  if (ok === null) { $("pie").innerHTML = caja(false, t, s); return; }
+  $("pie").innerHTML = caja(ok, t, s) + '<button class="btn" id="sig">Continuar</button>';
   $("mic").disabled = true; $("sig").onclick = siguiente;
 }
 function siguiente() { pos++; if (pos >= FRASES.length) return fin(); ver(); }
 function fin() {
   $("bar").style.width = "100%";
-  const est = errores <= 1 ? 3 : errores <= 3 ? 2 : 1, g = leer(CLAVE) || { est:{} }, antes = +g.est[NIVEL] || 0;
-  const dar = Math.max(0, (AURA_EST[est] || 0) - (AURA_EST[antes] || 0));
-  if (est > antes) { g.est[NIVEL] = est; guardar(CLAVE, g); }
+  const g = leer(CLAVE) || { est:{}, aura:{} }; g.est = g.est || {}; g.aura = g.aura || {};
+  const bienN = FRASES.length - errores, dar = g.aura[NIVEL] ? 0 : AURA_HABLAR;
+  g.est[NIVEL] = 3; if (dar) g.aura[NIVEL] = Date.now(); guardar(CLAVE, g);   /* superado (abre el camino en el mapa) */
   if (dar) { const a = leer("ingles_gamer_aura") || {}; a.t = Math.max(0, +a.t || 0) + dar; a.e = Math.max(0, +a.e || 0) + dar;
     a.l = [[dar, "Habla en inglés", Date.now()]].concat(Array.isArray(a.l) ? a.l : []).slice(0, 20); guardar("ingles_gamer_aura", a); }
-  const E = '<svg width="54" height="54" viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z" fill="#FFD43B"/></svg>', V = E.replace("#FFD43B", "var(--toff)");
-  $("v").innerHTML = '<section class="fin"><div class="pj" style="width:140px;line-height:0">' + GALs(est === 3 ? "copa" : "alegre", 140) + '</div>' +
-    '<div class="est">' + [0, 1, 2].map(k => '<span style="animation-delay:' + (k * .25) + 's;display:inline-block">' + (k < est ? E : V) + '</span>').join("") + '</div>' +
-    '<h1 style="margin:0;font-size:28px">¡Nivel de hablar superado!</h1><div class="chips"><span><b>' + (FRASES.length - errores) + '</b> de ' + FRASES.length + ' frases</span><span><b>' + est + '</b> estrellas</span></div>' +
-    (dar ? '<div class="aura">' + LLAMA + '+' + dar + ' Aura</div>' : '<p style="color:var(--mu);font-weight:700">Ya ganaste el Aura con estas estrellas. Repetir es práctica.</p>') +
-    '<div class="pie" style="width:100%"><button class="btn" id="otra">Practicar otra vez</button><a class="btn alt" href="go:mapaa1">Mapa</a></div></section>';
+  $("v").innerHTML = '<section class="fin"><div class="pj" style="width:150px;line-height:0">' + GALs(errores <= 1 ? "copa" : "alegre", 150) + '</div>' +
+    '<h1 style="margin:14px 0 0;font-size:28px">¡Hablaste en inglés!</h1><div class="chips"><span><b>' + bienN + '</b> de ' + FRASES.length + ' frases bien dichas</span></div>' +
+    (dar ? '<div class="aura">' + LLAMA + '+' + dar + ' Aura</div>' : '<p style="color:var(--mu);font-weight:700">Ya ganaste el Aura de este nivel. Repetir es práctica.</p>') +
+    '<div class="pie" style="width:100%"><a class="btn" href="go:mapaa1">Seguir en el mapa</a><button class="btn alt" id="otra">Practicar otra vez</button></div></section>';
   $("otra").onclick = intro; [523, 659, 784, 1047].forEach((f, i) => tono(f, i * .1, .3));
+}
+/* saltar con anuncio (igual que los niveles: queda superado y no da Aura) */
+function saltar() {
+  const ov = document.createElement("div"); ov.className = "sov";
+  ov.innerHTML = '<div class="sc"><h3>Saltar este nivel</h3><p>Mira un anuncio y sigue en el mapa.</p><ul><li><b class="si">✓</b>Se abre el siguiente nivel</li><li><b class="no">✗</b>No da Aura (juégalo después para ganarla)</li></ul>' +
+    '<button class="btn" id="sg">Ver anuncio y saltar</button><button class="btn alt" id="sn">Mejor lo juego</button></div>';
+  document.body.appendChild(ov); ov.onclick = e => { if (e.target === ov) ov.remove(); }; $("sn").onclick = () => ov.remove();
+  $("sg").onclick = () => { guardar("ig_premio", { tipo:"salto", clave:CLAVE, id:NIVEL, nombre:"Habla en inglés", volver:"go:mapaa1", t:Date.now() }); if (AUD) AUD.pause(); location.href = igURL("go:premio4"); };
 }
 intro();
 </script></body></html>

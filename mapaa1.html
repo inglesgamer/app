@@ -100,6 +100,36 @@ button{font-family:inherit;cursor:pointer}
 .perfil .frw{position:relative;z-index:2;flex:none;display:flex;flex-direction:column;align-items:center;margin-bottom:10px}
 .perfil .lk-tt{position:static;margin-top:-10px;max-width:96px;text-shadow:none}
 .vol{display:flex;align-items:center;gap:4px;color:var(--ink);text-decoration:none}
+
+/* NIVELES DE HABLAR */
+.hab{position:absolute;z-index:3;background:none;border:0;padding:0;color:inherit;display:flex;flex-direction:column;align-items:center;gap:6px;transform:translate(-50%,-42px)}
+.hab .hl{padding:4px 14px;border-radius:99px;background:#8E5BD6;color:#fff;font-size:13px;font-weight:900;letter-spacing:.04em;box-shadow:0 3px 0 #5E3A99}
+.hab.lock .hl{background:var(--toff);color:var(--mu);box-shadow:0 3px 0 var(--track)}
+/* A: burbuja con ondas */
+.hA{position:relative;width:84px;height:84px;display:flex;align-items:center;justify-content:center}
+.hA .c{position:relative;z-index:2;width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#B58CFF,#7A3FD6 70%);box-shadow:0 6px 0 #4E2596}
+.hA i{position:absolute;inset:0;border-radius:50%;border:4px solid #B58CFF;animation:onda 2s ease-out infinite}.hA .o2{animation-delay:1s}
+@keyframes onda{from{transform:scale(1);opacity:.9}to{transform:scale(1.7);opacity:0}}
+.hab.lock .hA .c{background:var(--toff);box-shadow:0 6px 0 var(--track);color:var(--mu)}.hab.lock .hA i{display:none}
+/* B: tarjeta con personaje cantando */
+.hbB{flex-direction:row;gap:10px;width:262px;max-width:calc(100% - 24px);height:78px;padding:0 12px;border-radius:24px;transform:translate(-50%,-39px);
+  background:linear-gradient(135deg,#8E5BD6,#C2479A);box-shadow:0 6px 0 #4E2596;color:#fff;text-align:left}
+.hbB .pjm{flex:none;width:52px;height:60px;display:flex;align-items:flex-end;justify-content:center;line-height:0}.hbB .pjm svg{overflow:visible}
+.hbB .tx{flex:1;min-width:0}.hbB small{display:block;font-size:10px;font-weight:900;letter-spacing:.14em;opacity:.85}.hbB b{display:block;font-size:13px;font-weight:900;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.hbB .eq{flex:none;display:flex;align-items:flex-end;gap:3px;height:26px}.hbB .eq i{width:5px;border-radius:3px;background:#FFD166;animation:eq .9s ease-in-out infinite alternate}
+.hbB .eq i:nth-child(2){animation-delay:.2s}.hbB .eq i:nth-child(3){animation-delay:.4s}.hbB .eq i:nth-child(4){animation-delay:.1s}
+@keyframes eq{from{height:6px}to{height:26px}}
+.hbB.lock{background:var(--card);border:2px solid var(--bd);box-shadow:0 6px 0 var(--track);color:var(--mu)}.hbB.lock .pjm{color:var(--mu);align-items:center}
+.hbB.act{animation:glowH 1.8s ease-in-out infinite}@keyframes glowH{50%{box-shadow:0 6px 0 #4E2596,0 0 0 9px rgba(142,91,214,.35)}}
+/* C: escenario con anillo que gira y notas */
+.hC{position:relative;width:118px;height:118px;display:flex;align-items:center;justify-content:center;margin:-17px 0}
+.hC .anillo{position:absolute;inset:0;animation:gira 9s linear infinite}@keyframes gira{to{transform:rotate(360deg)}}
+.hC .c{position:relative;z-index:2;width:86px;height:86px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FF4D8D,#8E5BD6);box-shadow:0 6px 0 #5E3A99,inset 0 4px 0 rgba(255,255,255,.25)}
+.hC .n{position:absolute;z-index:3;line-height:0;animation:notaV 2.4s ease-in-out infinite}.hC .n1{left:0;top:10px}.hC .n2{right:2px;top:0;animation-delay:.8s}.hC .n3{right:-6px;bottom:24px;animation-delay:1.6s}
+@keyframes notaV{0%{transform:translateY(6px);opacity:0}30%{opacity:1}100%{transform:translateY(-14px);opacity:0}}
+.hab.lock .hC .c{background:var(--toff);box-shadow:0 6px 0 var(--track);color:var(--mu)}.hab.lock .hC .anillo{opacity:.25;animation:none}
+.hbC .hl{background:linear-gradient(90deg,#FF4D8D,#8E5BD6);box-shadow:0 3px 0 #5E3A99}
+
 /* PODIO_CSS */
 .pv-velo{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.6);opacity:0;transition:opacity .3s}.pv-velo.on{opacity:1}
 .pv-hoja{position:fixed;left:0;right:0;bottom:0;z-index:8001;max-width:480px;margin:0 auto;max-height:92vh;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:18px 16px calc(16px + env(safe-area-inset-bottom));border-radius:28px 28px 0 0;background:var(--bg);border-top:2px solid var(--bd);transform:translateY(105%);transition:transform .45s cubic-bezier(.2,1.25,.4,1)}
@@ -888,6 +918,18 @@ function lookLeer() {
   const pick = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
   return { sk:pick("sk", 8), mc:pick("mc", 7), tt:pick("tt", 7), mp:pick("mp", 6) };
 }
+/* ===== NIVELES DE HABLAR en el mapa: 3 diseños para elegir (?hab=A|B|C) ===== */
+const HAB = ((location.search.match(/[?&]hab=([ABC])/) || [])[1]) || "";
+const MIC_IC = c => '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="' + c + '" stroke-width="2.4" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="' + c + '"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg>';
+const NOTA = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD166"><path d="M9 17V5l11-2v12"/><circle cx="6" cy="17" r="3"/><circle cx="17" cy="15" r="3"/><path d="M9 5l11-2v3L9 8z"/></svg>';
+function HAB_HTML(d, st, temas) {
+  const lk = st === "lock", ic = lk ? IC.lock : MIC_IC("#fff");
+  if (d === "A") return '<span class="hA"><i class="o1"></i><i class="o2"></i><span class="c">' + ic + '</span></span><span class="hl">' + (st === "done" ? "Hablaste" : "Habla") + '</span>';
+  if (d === "B") return '<span class="pjm">' + (lk ? IC.lock : GAL("cantar", 46)) + '</span><span class="tx"><small>HABLA · ' + (st === "done" ? "LISTO" : "NUEVO") + '</small><b>' + esc(temas) + '</b></span>' +
+    (lk ? '' : '<span class="eq"><i></i><i></i><i></i><i></i></span>');
+  return '<span class="hC"><svg class="anillo" width="118" height="118" viewBox="0 0 118 118"><circle cx="59" cy="59" r="55" fill="none" stroke="#FFD166" stroke-width="4" stroke-dasharray="6 9" stroke-linecap="round"/></svg>' +
+    '<span class="c">' + ic + '</span>' + (lk ? '' : '<span class="n n1">' + NOTA + '</span><span class="n n2">' + NOTA + '</span><span class="n n3">' + NOTA + '</span>') + '</span><span class="hl">¡Habla!</span>';
+}
 /* ===== estado ===== */
 const DEMO = /[?&]demo=1/.test(location.search);
 const est = (isla, id) => { if (DEMO) return 3; const g = leer(isla.clave); return Math.min(3, Math.max(0, +(g && g.est && g.est[id]) || 0)); };
@@ -1085,7 +1127,10 @@ function pintar() {
     const z = document.createElement("div"); z.className = "isla"; z.dataset.k = k; M.appendChild(z);
     z.style.setProperty("--c", I.c); z.style.setProperty("--c2", I.c2); z.style.setProperty("--gl", I.gl);
     /* lista: niveles + regalos intercalados */
-    const L = []; I.N.forEach((n, i) => { L.push({ t:"n", i }); if (I.regalos.indexOf(i) > -1) L.push({ t:"a", i }); });
+    const L = []; let cuenta = 0, grupo = 0;
+    I.N.forEach((n, i) => { L.push({ t:"n", i }); if (I.regalos.indexOf(i) > -1) L.push({ t:"a", i });
+      /* HABLAR (18 nov 2026): un nivel de hablar cada 3 niveles, que repasa esos 3 (solo si el diseño está activo) */
+      if (HAB && n[1] !== "final") { cuenta++; if (cuenta % 3 === 0 && i < I.N.length - 1) L.push({ t:"h", i, g:++grupo }); } });
     const DY = 142, top = 400, H = top + L.length * DY + 40; z.style.height = H + "px";
     const P = L.map((e, j) => Object.assign(e, { x: XS[j % 8], y: top + j * DY }));
     /* cuál es el actual: el primer nivel abierto sin estrellas */
@@ -1096,7 +1141,7 @@ function pintar() {
     let d2 = ""; if (hj > 0) { d2 = "M" + P[0].x + " " + P[0].y; for (let j = 1; j <= hj; j++) { const a = P[j - 1], b = P[j], my = (a.y + b.y) / 2; d2 += " C" + a.x + " " + my + " " + b.x + " " + my + " " + b.x + " " + b.y; } }
     { z.classList.add(["ver", "nie", "fue"][k]);
       const pjIdx = {}; I.pj.forEach(pj => pjIdx[Math.min(pj[2], P.length - 1)] = 1);
-      const libres = P.map((p, j) => !pjIdx[j] && !(p.t === "n" && I.N[p.i][1] === "escucha") && !(p.t === "n" && I.N[p.i][1] === "final") && Math.abs(p.x - CX) > 10);
+      const libres = P.map((p, j) => !pjIdx[j] && p.t !== "h" && !(p.t === "n" && I.N[p.i][1] === "escucha") && !(p.t === "n" && I.N[p.i][1] === "final") && Math.abs(p.x - CX) > 10);
       libres.hasta = hj; z.innerHTML = escena(["ver", "nie", "fue"][k], w, H, P, CX, I, libres); }
     if (0) z.innerHTML = '<svg class="sc" width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '"><path d="' + d + '" fill="none" stroke="var(--toff)" stroke-width="10" stroke-linecap="round" stroke-dasharray="0.1 20"/>' + (d2 ? '<path d="' + d2 + '" fill="none" stroke="' + I.c + '" stroke-width="11" stroke-linecap="round" stroke-dasharray="0.1 20"/>' : '') + '</svg>';
     P.forEach(p => {
@@ -1112,6 +1157,11 @@ function pintar() {
         if (st === "act") ACT = el;
         if (n[1] === "final") { const t = document.createElement("div"); t.className = "trof"; t.style.left = (p.x >= CX ? p.x - 110 : p.x + 110) + "px"; t.style.top = (p.y + 4) + "px";
           const c = e >= 1 ? "#FFC83D" : "var(--toff)"; t.innerHTML = '<div class="' + (e >= 1 ? "flota" : "") + '"><svg width="70" height="70" viewBox="0 0 92 92"><path d="M24 12h44v22a22 22 0 0 1-44 0z" fill="' + c + '"/><path d="M24 18H12a12 12 0 0 0 14 16M68 18h12a12 12 0 0 1-14 16" fill="none" stroke="' + c + '" stroke-width="6"/><rect x="40" y="54" width="12" height="14" fill="' + c + '"/><rect x="28" y="68" width="36" height="12" rx="4" fill="' + c + '"/><text x="46" y="42" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="20" fill="#fff">' + (k + 1) + '</text></svg></div>'; z.appendChild(t); }
+      } else if (p.t === "h") {
+        const hid = I.id + "_h" + p.g, hecho = !!(((leer("ingles_gamer_hablar") || {}).est || {})[hid]) || DEMO, abre = est(I, I.N[p.i][0]) >= 1, st = hecho ? "done" : abre ? "act" : "lock";
+        const temas = I.N.slice(Math.max(0, p.i - 2), p.i + 1).map(x => x[2]).join(" · ");
+        el.dataset.hablar = hid; el.dataset.abre = abre ? 1 : "";
+        el.className = "hab hb" + HAB + " " + st; el.innerHTML = HAB_HTML(HAB, st, temas);
       } else {
         const id = I.id + "_" + p.i, ya = !!R[id], listo = est(I, I.N[p.i][0]) >= 1;
         el.className = "nodo"; el.dataset.regalo = id; el.dataset.listo = listo ? 1 : "";
@@ -1171,6 +1221,8 @@ document.addEventListener("click", e => {
     const hechos = I.N.slice(0, +idx + 1).filter(n => est(I, n[0]) >= 1 && n[1] !== "final");   /* Practicar: repetir el último nivel que ya pasaste cerca */
     return hechos.length ? ir(hechos[hechos.length - 1][4]) : aviso("Pasa un nivel de esta zona para practicarlo");
   }
+  const hb = e.target.closest("button[data-hablar]");
+  if (hb) { if (!hb.dataset.abre && !DEMO) return aviso("Pasa los 3 niveles de arriba para hablar"); return ir("go:hablar"); }
   const b = e.target.closest("button[data-regalo]");
   if (b) { const id = b.dataset.regalo, R = regalos(), AURA_REGALO = ISLAS.find(x => id.indexOf(x.id + "_") === 0).aura;
     if (R[id]) return aviso("Ya reclamaste este regalo");
