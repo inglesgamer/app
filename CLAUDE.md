@@ -84,7 +84,7 @@ Voces (nombre del mp3 = slug del texto, sin tildes):
 1. **Flujo de cada cambio:** generador/parche → `out/X.html` → prueba en Playwright → `tools/web.py out/X.html app/X.html` → `git add` / `commit` / `git pull --rebase` / `push` en `/home/claude/app` → enviar archivo al usuario → actualizar docs.
 2. **Nunca forzar push.** Si lo rechaza: `git pull --rebase`. Otra sesión (VS Code/Capacitor) sube `ig-nativo.js` y `pase.html`: **no pisarlos**.
 3. Los parches son **idempotentes** (marca tipo `/* NOMBRE (fecha) */`; si existe, se reemplaza). Correrlos de nuevo no duplica.
-4. **Si se regenera un nivel**, volver a correr en orden: `aura_est.py 35 25 15` → `callar.py` → (Fuego: `fuego_voz.py`) → `verano_leccion.py` / `leccion.py` → `anuncios_niveles.py` → `anuncios_v2.py` → `anuncios_v3.py` → `anuncios_v4.py` → `tools/escribir_comprobar.py` → `tools/final_sin_liga.py` → (si aplica) `tools/arriba.py`, `tools/dicta_d.py`.
+4. **Si se regenera un nivel**, volver a correr en orden: `aura_est.py 35 25 15` → `callar.py` → (Fuego: `fuego_voz.py`) → `verano_leccion.py` / `leccion.py` → `anuncios_niveles.py` → `anuncios_v2.py` → `anuncios_v3.py` → `anuncios_v4.py` → `tools/escribir_comprobar.py` → `tools/final_sin_liga.py` → `tools/aura_valores.py 25 15 5` → `tools/fin_botones.py` → (si aplica) `tools/arriba.py`, `tools/dicta_d.py`.
 5. **Si se regenera una lección de Refuerza:** volver a correr `refuerza/aura_refuerzo.py` y `refuerza/lec_sonido.py`; si se regenera `refuerza.html`: `refuerza/aura_refuerza_pagina.py`.
 6. **Duelos:** solo con `duelo4/aplicar.py`. **No usar `tools/build_duelo.py`** (versión vieja).
 7. Al agregar temas a duelos: **siempre al final** de `TEMAS`/`CATS` (los duelos guardan el número del tema).
@@ -104,6 +104,7 @@ Voces (nombre del mp3 = slug del texto, sin tildes):
 - **«Escribe lo que oyes» = diseño D** (casillas por letra, «N LETRAS», Pista).
 - Personajes: Fuego usa la galería v2 (ensena, nerd, mano, detective, musica, escribir…). Retos y Refuerza también usan `GAL`.
 - **Liga semanal:** ya no sale al final de los niveles; sale como podio (C1, hasta el 5.º) al reclamar un regalo de Aura en el mapa completo, sumando el Aura acumulada desde la última vez.
+- **Final del nivel (al ganar):** «Siguiente nivel» (sin ícono) + «Mapa» al lado (`tools/fin_botones.py`; URL_MAPA = go:mapaa1).
 - **Mapa:** un solo mapa en hilera (`mapaa1`); las secciones de islas solo redirigen.
 - Retos semanales = **mini juegos** (Vocabulario / Gramática / Escucha), con lo que el jugador ya jugó.
 - Refuerza: «Marcar como vista» es gratis (+5); el +35 es opcional con anuncio (nunca bloquear progreso con anuncios).
