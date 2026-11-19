@@ -105,7 +105,7 @@ Voces (nombre del mp3 = slug del texto, sin tildes):
 - Personajes: Fuego usa la galería v2 (ensena, nerd, mano, detective, musica, escribir…). Retos y Refuerza también usan `GAL`.
 - **Liga semanal:** ya no sale al final de los niveles; sale como podio (C1, hasta el 5.º) al reclamar un regalo de Aura en el mapa completo, sumando el Aura acumulada desde la última vez.
 - **Final del nivel (al ganar):** «Siguiente nivel» (sin ícono) + «Mapa» al lado (`tools/fin_botones.py`; URL_MAPA = go:mapaa1).
-- **Niveles de hablar:** cada 3 niveles, repasan esos 3 con el micrófono (reconocimiento de voz del navegador); solo dan Aura (+25 una vez), sin estrellas; saltar con anuncio (`premio4`). En el mapa: tarjeta (diseño B) blanca en Noche y negra en las paletas claras. Gen. `/home/claude/hablar/hacer_hablar.py`.
+- **Niveles de hablar:** cada 5 niveles, repasan esos 5 con el micrófono (reconocimiento de voz del navegador); solo dan Aura (+25 una vez), sin estrellas; saltar con anuncio (`premio4`). En el mapa: tarjeta (diseño B) blanca en Noche y negra en las paletas claras. Gen. `/home/claude/hablar/hacer_hablar.py`.
 - **Mapa:** un solo mapa en hilera (`mapaa1`); las secciones de islas solo redirigen.
 - Retos semanales = **mini juegos** (Vocabulario / Gramática / Escucha), con lo que el jugador ya jugó.
 - Refuerza: «Marcar como vista» es gratis (+5); el +35 es opcional con anuncio (nunca bloquear progreso con anuncios).

@@ -45,7 +45,7 @@ aplicarTema((function () { try { return localStorage.getItem(TEMA_KEY) || "noche
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html:not(.listo) .app{visibility:hidden}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;overflow-x:hidden}
 button{font-family:inherit;cursor:pointer}
 .app{max-width:520px;margin:0 auto;position:relative;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
 /* perfil */
@@ -114,10 +114,10 @@ html[data-tema="dia"],html[data-tema="rosa"],html[data-tema="azul"]{--h1:#0B0B0D
 @keyframes onda{from{transform:scale(1);opacity:.9}to{transform:scale(1.7);opacity:0}}
 .hab.lock .hA .c{background:var(--toff);box-shadow:0 6px 0 var(--track);color:var(--mu)}.hab.lock .hA i{display:none}
 /* B: tarjeta con personaje cantando */
-.hbB{flex-direction:row;gap:10px;width:262px;max-width:calc(100% - 24px);height:78px;padding:0 12px;border-radius:24px;transform:translate(-50%,-39px);
+.hbB{flex-direction:row;gap:8px;width:214px;max-width:calc(100% - 24px);height:70px;padding:0 10px;border-radius:22px;transform:translate(-50%,-35px);
   background:linear-gradient(135deg,var(--h1,#8E5BD6),var(--h2,#C2479A));box-shadow:0 6px 0 var(--hs,#4E2596);color:var(--ht,#fff);text-align:left}
-.hbB .pjm{flex:none;width:52px;height:60px;display:flex;align-items:flex-end;justify-content:center;line-height:0}.hbB .pjm svg{overflow:visible}
-.hbB .tx{flex:1;min-width:0}.hbB small{display:block;font-size:10px;font-weight:900;letter-spacing:.14em;opacity:.85}.hbB b{display:block;font-size:13px;font-weight:900;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.hbB .pjm{flex:none;width:44px;height:54px;display:flex;align-items:flex-end;justify-content:center;line-height:0}.hbB .pjm svg{overflow:visible}
+.hbB .tx{flex:1;min-width:0}.hbB small{display:block;font-size:10px;font-weight:900;letter-spacing:.14em;opacity:.85}.hbB b{display:block;font-size:12px;font-weight:900;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .hbB .eq{flex:none;display:flex;align-items:flex-end;gap:3px;height:26px}.hbB .eq i{width:5px;border-radius:3px;background:#FF6B00;animation:eq .9s ease-in-out infinite alternate}
 .hbB .eq i:nth-child(2){animation-delay:.2s}.hbB .eq i:nth-child(3){animation-delay:.4s}.hbB .eq i:nth-child(4){animation-delay:.1s}
 @keyframes eq{from{height:6px}to{height:26px}}
@@ -177,7 +177,7 @@ html[data-tema="dia"],html[data-tema="rosa"],html[data-tema="azul"]{--h1:#0B0B0D
 .uni small{display:block;font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu)}.uni b{font-size:18px;font-weight:900}
 .uni .bar{height:6px;border-radius:99px;background:var(--track);margin-top:6px;overflow:hidden}.uni .bar i{display:block;height:100%;border-radius:99px;background:var(--c);transition:width .4s}
 /* camino */
-.isla{position:relative}
+.isla{position:relative;overflow-x:clip}
 .isla svg.sc{position:absolute;left:0;top:0;pointer-events:none}
 .cab{margin:26px 14px 0;display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:22px;background:var(--card);border:2px dashed var(--c)}
 .cab .ic{flex:none;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c)}
@@ -930,7 +930,7 @@ const NOTA = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD166"><pa
 function HAB_HTML(d, st, temas) {
   const lk = st === "lock", ic = lk ? IC.lock : MIC_IC("#fff");
   if (d === "A") return '<span class="hA"><i class="o1"></i><i class="o2"></i><span class="c">' + ic + '</span></span><span class="hl">' + (st === "done" ? "Hablaste" : "Habla") + '</span>';
-  if (d === "B") return '<span class="pjm">' + (lk ? IC.lock : GAL("cantar", 46)) + '</span><span class="tx"><small>HABLA · ' + (st === "done" ? "LISTO" : "NUEVO") + '</small><b>' + esc(temas) + '</b></span>' +
+  if (d === "B") return '<span class="pjm">' + (lk ? IC.lock : GAL("cantar", 40)) + '</span><span class="tx"><small>HABLA · ' + (st === "done" ? "LISTO" : "NUEVO") + '</small><b>' + esc(temas) + '</b></span>' +
     (lk ? '' : '<span class="eq"><i></i><i></i><i></i><i></i></span>');
   return '<span class="hC"><svg class="anillo" width="118" height="118" viewBox="0 0 118 118"><circle cx="59" cy="59" r="55" fill="none" stroke="#FFD166" stroke-width="4" stroke-dasharray="6 9" stroke-linecap="round"/></svg>' +
     '<span class="c">' + ic + '</span>' + (lk ? '' : '<span class="n n1">' + NOTA + '</span><span class="n n2">' + NOTA + '</span><span class="n n3">' + NOTA + '</span>') + '</span><span class="hl">¡Habla!</span>';
@@ -1134,8 +1134,8 @@ function pintar() {
     /* lista: niveles + regalos intercalados */
     const L = []; let cuenta = 0, grupo = 0;
     I.N.forEach((n, i) => { L.push({ t:"n", i }); if (I.regalos.indexOf(i) > -1) L.push({ t:"a", i });
-      /* HABLAR (18 nov 2026): un nivel de hablar cada 3 niveles, que repasa esos 3 (solo si el diseño está activo) */
-      if (HAB && k === 0 && n[1] !== "final")   /* por ahora solo Verano */ { cuenta++; if (cuenta % 3 === 0 && i < I.N.length - 1) L.push({ t:"h", i, g:++grupo }); } });
+      /* HABLAR (18 nov 2026; cada 5 desde el 19 nov): un nivel de hablar cada 5 niveles, que repasa esos 5 (solo si el diseño está activo) */
+      if (HAB && k === 0 && n[1] !== "final")   /* por ahora solo Verano */ { cuenta++; if (cuenta % 5 === 0 && i < I.N.length - 1) L.push({ t:"h", i, g:++grupo }); } });
     const DY = 142, top = 400, H = top + L.length * DY + 40; z.style.height = H + "px";
     const P = L.map((e, j) => Object.assign(e, { x: XS[j % 8], y: top + j * DY }));
     /* cuál es el actual: el primer nivel abierto sin estrellas */
@@ -1164,9 +1164,10 @@ function pintar() {
           const c = e >= 1 ? "#FFC83D" : "var(--toff)"; t.innerHTML = '<div class="' + (e >= 1 ? "flota" : "") + '"><svg width="70" height="70" viewBox="0 0 92 92"><path d="M24 12h44v22a22 22 0 0 1-44 0z" fill="' + c + '"/><path d="M24 18H12a12 12 0 0 0 14 16M68 18h12a12 12 0 0 1-14 16" fill="none" stroke="' + c + '" stroke-width="6"/><rect x="40" y="54" width="12" height="14" fill="' + c + '"/><rect x="28" y="68" width="36" height="12" rx="4" fill="' + c + '"/><text x="46" y="42" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="20" fill="#fff">' + (k + 1) + '</text></svg></div>'; z.appendChild(t); }
       } else if (p.t === "h") {
         const hid = I.id + "_h" + p.g, hecho = !!(((leer("ingles_gamer_hablar") || {}).est || {})[hid]) || DEMO, abre = est(I, I.N[p.i][0]) >= 1, st = hecho ? "done" : abre ? "act" : "lock";
-        const temas = I.N.slice(Math.max(0, p.i - 2), p.i + 1).map(x => x[2]).join(" · ");
+        const temas = I.N.slice(Math.max(0, p.i - 4), p.i + 1).map(x => x[2]).join(" · ");
         el.dataset.hablar = hid; el.dataset.abre = abre ? 1 : "";
         el.className = "hab hb" + HAB + " " + st; el.innerHTML = HAB_HTML(HAB, st, temas);
+        if (HAB === "B") el.style.left = Math.max(115, Math.min(w - 115, p.x)) + "px";
       } else {
         const id = I.id + "_" + p.i, ya = !!R[id], listo = est(I, I.N[p.i][0]) >= 1;
         el.className = "nodo"; el.dataset.regalo = id; el.dataset.listo = listo ? 1 : "";
