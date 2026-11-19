@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><script>/* VISTA PREVIA: almacenamiento aparte */(function(){var M={};var S={getItem:function(k){return Object.prototype.hasOwnProperty.call(M,k)?M[k]:null},setItem:function(k,v){M[k]=String(v)},removeItem:function(k){delete M[k]},clear:function(){M={}},key:function(i){return Object.keys(M)[i]||null},get length(){return Object.keys(M).length}};try{Object.defineProperty(window,"localStorage",{value:S,configurable:true})}catch(e){}})();</script><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ranking semanal · diseños</title><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Cinzel:wght@900&display=swap" rel="stylesheet">
+<script>var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+
+aplicarTema((location.search.match(/tema=([a-z]+)/) || [])[1] || "noche");
+</script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+.w{max-width:440px;margin:0 auto;padding:12px 12px 40px}
+h1.t{font-size:20px;margin:4px 0}p.s{margin:0 0 8px;color:var(--mu);font-weight:700;font-size:14px}
+.tabs{position:sticky;top:0;z-index:30;display:flex;gap:6px;padding:8px 0;background:var(--bg)}
+.tabs button{flex:1;padding:10px 0;border-radius:14px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:900 15px Nunito,sans-serif}
+.tabs button.on{background:#FF6B00;color:#fff;border-color:#FF6B00}
+.desc{padding:12px;border-radius:16px;background:var(--card);border:1px solid var(--bd);font-size:14px;font-weight:700;min-height:66px}.desc b{display:block;font-size:17px;font-weight:900}
+.tel{position:relative;height:760px;margin-top:10px;border-radius:30px;border:2px solid var(--bd);overflow:hidden;background:var(--bg)}
+.sc{position:absolute;inset:0;overflow-y:auto;padding:14px 12px 120px}
+.hd{display:flex;align-items:center;gap:8px}.hd h2{flex:1;margin:0;font-size:30px;font-weight:900}
+.ib{width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.cd{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:6px 12px;border-radius:99px;background:var(--chip);font-size:13px;font-weight:900;color:var(--mu)}.cd b{color:var(--ink)}
+.nav{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:10px 0 14px;background:var(--card);border-top:1px solid var(--bd);font-size:11px;font-weight:800;color:var(--mu);z-index:5}
+.nav span{display:flex;flex-direction:column;align-items:center;gap:3px}.nav i{width:24px;height:24px;border-radius:7px;background:var(--chip)}.nav .on{color:var(--ink)}
+.pix{line-height:0;display:inline-flex}.pix svg{overflow:visible}
+.av{flex:none;border-radius:50%;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;border:3px solid #9A6A3A}
+.au{display:inline-flex;align-items:center;gap:4px;font-weight:900;color:#FFB627}
+.yo-b{outline:3px solid #fff;outline-offset:-3px}
+/* A: podio + tarjetas */
+.rk{display:flex;align-items:center;gap:10px;margin:12px 0;padding:12px;border-radius:20px;background:linear-gradient(120deg,#3A2410,#1E140A);border:2px solid #C99A5B;color:#fff}
+.rk small{display:block;font-size:10px;letter-spacing:.14em;font-weight:900;opacity:.8}.rk b{font:900 20px Cinzel,serif}
+.mb{height:8px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden;margin-top:6px}.mb i{display:block;height:100%;width:40%;background:#FFC83D;border-radius:99px}
+.pod{display:flex;align-items:flex-end;justify-content:center;gap:8px;height:220px;margin:6px 0 10px}
+.pd{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}.pd b{font-size:14px}.pd .au{font-size:13px}
+.pd .es{width:100%;display:flex;justify-content:center;padding-top:6px;border-radius:12px 12px 0 0;font-size:22px;font-weight:900;color:#fff}
+.pd.p0 .es{height:80px;background:linear-gradient(#F2B526,#8A5A00)}.pd.p1 .es{height:58px;background:linear-gradient(#C7CDD6,#5A626E)}.pd.p2 .es{height:44px;background:linear-gradient(#E39A62,#7A3A16)}
+.pd.p0 .av{border-color:#FFD166}
+.fi{position:relative;display:flex;align-items:center;gap:10px;height:62px;padding:0 12px;margin-bottom:8px;border-radius:18px;overflow:hidden;isolation:isolate;border:1px solid var(--bd);color:#fff}
+.fi::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--fbg)}.fi::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;z-index:-1;background:var(--fgr);opacity:.8}
+.fi .p{width:22px;text-align:center;font-weight:900}.fi b{flex:1;font-size:16px;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.fi.yo{border:2px solid #fff;box-shadow:0 0 0 3px rgba(255,107,0,.4)}
+.pin{position:absolute;left:12px;right:12px;bottom:74px;z-index:4}
+/* B: encabezado de reino + lista compacta */
+.ban{position:relative;margin:10px -12px 12px;padding:18px 16px;background:linear-gradient(160deg,#5A3A18,#2A1A0A);color:#fff;text-align:center;overflow:hidden}
+.ban::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 0,rgba(255,200,61,.35),transparent 60%)}
+.ban .esb{position:relative;line-height:0}.ban h3{position:relative;margin:6px 0 0;font:900 26px Cinzel,serif}.ban p{position:relative;margin:4px 0 0;font-weight:800;opacity:.9}
+.ban .mb{position:relative;max-width:260px;margin:10px auto 0}
+.cl{display:flex;align-items:center;gap:10px;padding:8px 6px;border-bottom:1px solid var(--bd)}.cl .p{width:26px;text-align:center;font-weight:900;color:var(--mu)}
+.cl .tx{flex:1;min-width:0}.cl .tx b{display:block;font-size:15px}.cl .br{height:6px;border-radius:99px;background:var(--track);margin-top:4px;overflow:hidden}.cl .br i{display:block;height:100%;background:#FF6B00;border-radius:99px}
+.cl.top .p{color:#FFC83D}.cl.yo{background:color-mix(in srgb,#FF6B00 16%,transparent);border-radius:14px;border-bottom:0}
+/* C: carrera */
+.car{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.ln{position:relative;height:52px;border-radius:16px;background:var(--card);border:1px solid var(--bd);overflow:hidden}
+.ln .fill{position:absolute;left:0;top:0;bottom:0;border-radius:16px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 25%,transparent),color-mix(in srgb,var(--c) 70%,transparent));transition:width 1.2s cubic-bezier(.3,1,.4,1)}
+.ln .run{position:absolute;top:50%;transform:translate(-100%,-50%);line-height:0;transition:left 1.2s cubic-bezier(.3,1,.4,1)}
+.ln .lb{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-weight:900;font-size:14px;text-shadow:0 1px 2px var(--bg)}
+.ln .lb small{color:var(--mu);margin-right:6px}
+.ln .au{position:absolute;right:10px;top:50%;transform:translateY(-50%)}
+.ln.yo{border:2px solid #FF6B00}
+.meta{display:flex;justify-content:space-between;margin-top:4px;font-size:12px;font-weight:900;color:var(--mu)}
+/* D: tu tarjeta fija + lista */
+.tu{position:sticky;top:0;z-index:3;margin:10px 0 12px;padding:14px;border-radius:22px;background:linear-gradient(120deg,#FF6B00,#E5484D);color:#fff;box-shadow:0 6px 0 #9E2226}
+.tu .r1{display:flex;align-items:center;gap:12px}.tu .pp{font-size:40px;font-weight:900;line-height:1}.tu .pp small{display:block;font-size:11px;letter-spacing:.12em}
+.tu .tx b{display:block;font-size:17px}.tu .tx span{font-size:13px;font-weight:800;opacity:.92}
+.tu .gap{margin-top:10px;padding:8px 12px;border-radius:14px;background:rgba(0,0,0,.2);font-size:13px;font-weight:800;display:flex;align-items:center;gap:8px}
+.amg{position:relative;display:inline-flex;align-items:center;gap:7px;height:44px;padding:0 16px 0 12px;border-radius:99px;background:var(--card);border:1px solid var(--bd);font-weight:900;font-size:15px;color:var(--ink)}
+.amg i{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:99px;background:#E5484D;color:#fff;font-style:normal;font-size:11px;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
+.pd.p0 .av{animation:corA 2.4s ease-in-out infinite}@keyframes corA{50%{transform:translateY(-6px)}}
+.cor{display:block;margin-bottom:-8px;animation:corA 2.4s ease-in-out infinite;line-height:0}
+.pd.p0 .es{position:relative;overflow:hidden}.pd.p0 .es::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:brillo 2.6s ease-in-out infinite}
+@keyframes brillo{to{left:130%}}
+.onl{position:absolute;right:-1px;bottom:2px;width:12px;height:12px;border-radius:50%;background:#3FC46A;border:2px solid var(--bg)}
+/* animaciones */
+.capa{position:absolute;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.7);opacity:0;transition:opacity .3s}.capa.on{opacity:1}
+.cel{text-align:center;color:#fff;padding:20px}
+.cel .eW{position:relative;display:inline-block;line-height:0}
+.cel .e1,.cel .e2{transition:transform .5s cubic-bezier(.3,1.6,.5,1),opacity .4s}
+.cel .e2{position:absolute;left:0;top:0;transform:scale(0) rotate(-30deg);opacity:0}
+.cel.sube .e1{transform:scale(0) rotate(30deg);opacity:0}.cel.sube .e2{transform:none;opacity:1}
+.cel h3{margin:14px 0 4px;font:900 28px Cinzel,serif}.cel p{margin:0 0 16px;font-weight:800;opacity:.9}
+.cel .ok{height:50px;padding:0 30px;border:0;border-radius:99px;background:#FFC83D;color:#3A2400;font:900 17px Nunito,sans-serif}
+.rayos{position:absolute;left:50%;top:50%;width:420px;height:420px;margin:-210px 0 0 -210px;background:repeating-conic-gradient(rgba(255,200,61,.22) 0 10deg,transparent 10deg 20deg);border-radius:50%;animation:gira 12s linear infinite;pointer-events:none}
+@keyframes gira{to{transform:rotate(360deg)}}
+.conf{position:absolute;top:-20px;width:8px;height:14px;border-radius:2px;pointer-events:none;z-index:21}
+.sube-tag{position:absolute;right:58px;top:50%;transform:translateY(-50%);padding:3px 9px;border-radius:99px;background:#3FC46A;color:#06290F;font-size:12px;font-weight:900;animation:tagP .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes tagP{from{transform:translateY(-50%) scale(0)}}
+.res{width:100%;max-width:360px;padding:20px;border-radius:26px;background:var(--card);border:2px solid #FFC83D;text-align:center;color:var(--ink);transform:translateY(30px);transition:transform .45s cubic-bezier(.2,1.3,.4,1)}.capa.on .res{transform:none}
+.res h3{margin:6px 0 2px;font-size:24px}.res .big{font-size:56px;font-weight:900;color:#FFC83D;line-height:1}.res .chips{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:12px 0}
+.res .chips span{padding:6px 11px;border-radius:99px;background:var(--chip);font-size:13px;font-weight:900}
+.res .ok{width:100%;height:50px;border:0;border-radius:99px;background:#FF6B00;color:#fff;font:900 17px Nunito,sans-serif}
+.foco{position:absolute;left:50%;top:-40px;width:200px;height:300px;margin-left:-100px;background:radial-gradient(ellipse at 50% 0,rgba(255,240,180,.55),transparent 70%);pointer-events:none;animation:foco 1.6s ease-out forwards}
+@keyframes foco{from{opacity:0}30%{opacity:1}to{opacity:.6}}
+.bot{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.bot button{height:48px;border-radius:14px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:900 14px Nunito,sans-serif}
+.probar{display:block;width:100%;height:52px;margin:12px 0;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font:900 17px Nunito,sans-serif}
+</style></head><body><div class="w">
+<h1 class="t">Ranking A + animaciones</h1><p class="s">Toca cada botón para ver la animación. Jugadores de ejemplo.</p>
+<div class="desc" id="desc"></div><div class="bot" id="bot"></div>
+<div class="tel"><div class="sc" id="sc"></div><div class="nav" id="nav"></div></div>
+<button class="probar" id="probar">Ver otra vez</button><div class="tabs" id="pals"></div>
+</div>
+<script>const RANGOS_REINO = [
+  { n:"Campesino", m:"madera", g:"horca" }, { n:"Soldado", m:"cobre", g:"escudo" }, { n:"Caballero", m:"hierro", g:"espada" },
+  { n:"Noble", m:"oro", g:"leon" }, { n:"Rey", m:"real", g:"corona", rey:true } ];
+/* LIGA POR METAS (desde 2026-11-10): cada escalón pide una meta de Aura ganada; al llegar subes en ese momento
+   (lo que sobra pasa al siguiente). Cada lunes se descuentan puntos; si quedas en menos de 0, bajas un escalón
+   y quedas a la mitad de esa meta (en Campesino III no se baja). */
+const METAS = [150, 250, 400, 600], DESC_LUNES = [80, 130, 210, 320, 400];
+const metaDe = st => METAS[reinoDe(st)] || 0, descDe = st => DESC_LUNES[reinoDe(st)] || 0;
+const PASO_MAX = (RANGOS_REINO.length - 1) * 3;
+const reinoDe = st => Math.min(RANGOS_REINO.length - 1, Math.floor(st / 3));
+const divDe = st => st >= PASO_MAX ? "" : ["III", "II", "I"][st % 3];
+const nombreRango = st => RANGOS_REINO[reinoDe(st)].n + (divDe(st) ? " " + divDe(st) : "");
+const SPR = {
+  huevo:{"p": {"w": "#F5EFD8", "g": "#5DB33A"}, "r": ["...ww...", "..wwww..", ".wgwwgw.", ".wwwwww.", "wwwwgwww", "wgwwwwgw", ".wwwgww.", "..wwww.."]},
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+  av9:{p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]},
+  av10:{"p": {"r": "#E8343B", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#6B3A1E", "m": "#B5574A", "w": "#F2F4F8", "b": "#2F5BD6", "l": "#3A3A42", "y": "#FFC83D"}, "r": ["....rrrr....", "..rrrrrrrr.r", "..rrrrrrrrr.", "..ssssssss..", "..skssskkk..", "..ssssssss..", "..hhsmmshh..", "...hhhhhh...", "..wbwbwbwb..", ".swbwbwbwbs.", "..lll..lll..", "..kkk..kkk.."]},
+  av11:{"p": {"w": "#F2F4F8", "c": "#3FA9F5", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#FF4D4D", "b": "#2F5BD6", "g": "#8C8C96"}, "r": ["...wwwwww...", "..wwwwwwww..", ".wwccccccww.", ".wcskssksccw", ".wcssmmsscw.", ".wwccccccww.", "..wwwwwwww..", ".wwwrwwbwww.", "w.wwwwwwww.w", "..wwwwwwww..", "..ww....ww..", "..gg....gg.."]},
+  av12:{"p": {"y": "#FFC83D", "g": "#A0AAB8", "d": "#5A6270", "r": "#FF4D4D", "b": "#3F7FD8", "c": "#3FD8C8"}, "r": [".....yy.....", ".....gg.....", "..gggggggg..", "..gddddddg..", "..gdyddydg..", "..gddddddg..", "..gdrrrrdg..", "...gggggg...", ".bbbbbbbbbb.", "g.bbbccbbb.g", "..bbbbbbbb..", "..gg....gg.."]},
+  av13:{"p": {"h": "#8B5A2B", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#E8343B", "p": "#E07A3A", "j": "#3F6FB5", "b": "#5E3E22"}, "r": ["...hhhhhh...", "...hhhhhh...", "hhhhhhhhhhhh", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..rrrrrrrr..", ".spppppppps.", "..jjjjjjjj..", "..jjj..jjj..", "..bbb..bbb.."]},
+  av14:{"p": {"w": "#F2F4F8", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#3A2414", "m": "#B5574A", "r": "#E8343B", "l": "#3A3A42"}, "r": ["...wwwwww...", "..wwwwwwww..", "..wwwwwwww..", "...wwwwww...", "..ssssssss..", "..skssssks..", "..sshhhhss..", "...ssmmss...", ".swwwwwwwws.", "..wwrrwwww..", "..lll..lll..", "..kkk..kkk.."]},
+  av15:{"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},
+  av16:{"p": {"k": "#1A1A22", "p": "#E6E1F0", "r": "#E8343B", "w": "#FFFFFF", "c": "#8E1B2B"}, "r": ["...kkkkkk...", "..kkkkkkkk..", "..kppppppk..", "..prpppprp..", "..pppppppp..", "...pwppwp...", "cc.kkkkkk.cc", "cckkwwwwkkcc", "cckkkkkkkkcc", "c.kkkkkkkk.c", "..kk....kk..", "..kk....kk.."]},
+  av17:{"p": {"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"}, "r": ["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]},
+  av18:{"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
+  av19:{"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]}
+};
+Object.assign(SPR,{"rex": {"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},"raptor": {"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},"trice": {"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]},"huevo": {"p": {"w": "#F5EFD8", "g": "#5DB33A"}, "r": ["...ww...", "..wwww..", ".wgwwgw.", ".wwwwww.", "wwwwgwww", "wgwwwwgw", ".wwwgww.", "..wwww.."]},"hueso": {"p": {"w": "#F5EFD8", "s": "#C9BFA0"}, "r": ["........", "ww....ww", "wwwwwwww", ".wwwwww.", "wwwwwwws", "ww....ww", "........", "........"]}});
+function sprite(n, s) {
+  const d = SPR[n]; if (!d) return "";
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+const ESCUDO = ["bbbbbbbb","bffffffb","bffssffb","bfssssfb","bffssffb",".bffffb.","..bffb..","...bb..."];
+function escudo(c, s) { SPR._e = { p:{ b:c, f:"#1E1E24", s:"#F2F4F8" }, r:ESCUDO }; return sprite("_e", s); }
+
+const MATERIAL = { madera:["#C99A5B","#7A4E22","#4A2C10"], cobre:["#F2A36B","#B4582A","#5E2A10"], hierro:["#C7CDD6","#6E7783","#2E343C"], oro:["#FFF0A8","#F2B526","#8A5A00"], real:["#FFF6C8","#FFC83D","#9A5B00"] };
+const GLIFO = {
+  horca:'<path d="M50 34v36M40 34v12a10 10 0 0 0 20 0V34" stroke-width="6" fill="none"/>',
+  escudo:'<path d="M50 32l14 6v12c0 10-6 16-14 20-8-4-14-10-14-20V38z" stroke-width="5" fill="none"/>',
+  espada:'<path d="M50 28v34M40 56h20M50 62v8" stroke-width="6" fill="none"/>',
+  leon:'<path d="M40 64c0-14 6-24 16-26 2 4 1 8-2 10 6 0 9 4 8 9l-4 1 3 6H40z" stroke-width="4.5" fill="none"/>',
+  corona:'<path d="M36 62l-2-22 10 9 6-13 6 13 10-9-2 22z" stroke-width="5" fill="none"/>' };
+let escN = 0;
+function escudoRango(st, s) {
+  const r = RANGOS_REINO[reinoDe(st)], m = MATERIAL[r.m], id = "esc" + (++escN), claro = r.m === "oro" || r.m === "real";
+  return '<svg class="escr' + (r.rey ? " rey" : "") + '" width="' + s + '" height="' + Math.round(s * 1.12) + '" viewBox="0 -4 100 116" aria-hidden="true"><defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + m[0] + '"/><stop offset=".55" stop-color="' + m[1] + '"/><stop offset="1" stop-color="' + m[2] + '"/></linearGradient></defs>' +
+    (r.rey ? '<path d="M28 18l-2-14 10 7 14-11 14 11 10-7-2 14z" fill="url(#' + id + ')" stroke="' + m[2] + '" stroke-width="2.5"/><circle cx="50" cy="10" r="3.5" fill="#E0213A"/>' : '') +
+    '<path d="M50 18l34 12v26c0 24-16 38-34 46C32 94 16 80 16 56V30z" fill="url(#' + id + ')" stroke="' + m[2] + '" stroke-width="3"/>' +
+    '<path d="M50 26l26 9v21c0 19-12 30-26 37-14-7-26-18-26-37V35z" fill="rgba(0,0,0,.22)"/><path d="M24 34l26-9 26 9" stroke="rgba(255,255,255,.55)" stroke-width="2.5" fill="none"/>' +
+    '<g stroke="' + (claro ? "#3A2400" : "#FFF4DE") + '" stroke-linecap="round" stroke-linejoin="round">' + GLIFO[r.g] + '</g>' + (r.rey ? '<circle cx="50" cy="83" r="4" fill="#E0213A" stroke="#7A0010" stroke-width="1.5"/>' : '') + '</svg>';
+}
+
+const LOOK_MP =  [
+  { bg:"linear-gradient(#0F1A10,#1E3A22)", g:"#5DB33A" }, { bg:"linear-gradient(#070B1F,#1B1F4A)", g:"#2B3A7A" }, { bg:"linear-gradient(#5A3A18,#B8782E)", g:"#D9A04A" },
+  { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" },
+  { bg:"linear-gradient(#0B1640,#2A3470)", g:"#141A36" }, { bg:"linear-gradient(#E8692A,#FFC977)", g:"#5E8F35" }, { bg:"radial-gradient(circle at 70% 15%,#4A2290,#0A0620 70%)", g:"#2A1458" }, { bg:"linear-gradient(#1B8BD2,#0B3A73)", g:"#E8D49A" }, { bg:"linear-gradient(#4A2E8E,#E58FC7)", g:"#2E1A55" }, { bg:"linear-gradient(#0B3A22,#1E7A3E)", g:"#0A2E1A" }, { bg:"linear-gradient(#1E222E,#4A5266)", g:"#2A3040" }, { bg:"linear-gradient(#FF9FD2,#FFE7F3)", g:"#FF6FB5" }, { bg:"linear-gradient(#030B16,#0B2A3A)", g:"#DDEFF5" }
+];
+
+const $ = id => document.getElementById(id);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const LL = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#FF8A3D"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z"/></svg>';
+const J = [["Sofía",3,4,520],["Mateo",5,1,480],["Valen",7,3,410],["Juanes",12,0,350],["Lu",11,5,300],["Caro",14,2,260],["Tú",2,9,230,1],["Pipe",6,9,210],["Dani",10,6,180],["Majo",8,7,140],["Tomi",15,8,90],["Sara",1,0,60]]
+  .map(x => ({ n:x[0], av:x[1], mp:x[2], a:x[3], yo:!!x[4] }));
+const ST = 1;   /* Campesino II */
+const av = (j, s, b) => '<span class="av" style="width:' + (s + 14) + 'px;height:' + (s + 14) + 'px;background:' + (LOOK_MP[j.mp] || LOOK_MP[0]).bg + (b ? ';border-color:' + b : '') + '"><span class="pix">' + sprite("av" + j.av, s) + '</span></span>';
+const au = v => '<span class="au">' + LL + v + '</span>';
+const IC = { am:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14a5 5 0 0 1 6 6"/></svg>' };
+const hd = '<div class="hd"><h2>Liga semanal</h2><span class="amg">' + IC.am + 'Amigos<i>2</i></span></div><span class="cd">Termina en <b>3 d 11 h</b> · se reinicia el lunes</span>';
+const yo = J.find(x => x.yo), py = J.indexOf(yo), arriba = J[py - 1];
+const OPS = {
+ A:["Podio + tarjetas", "Arriba tu rango del reino con la barra. Luego el podio del 1 al 3 con sus personajes, y abajo las tarjetas con el fondo de cada uno. Tu tarjeta queda fija abajo si no se ve.", () => {
+   const pod = '<div class="pod" id="pod">' + [1, 0, 2].map(i => { const j = J[i]; return '<div class="pd p' + i + '" data-n="' + j.n + '">' + (i === 0 ? '<span class="cor"><svg width="34" height="24" viewBox="0 0 34 24"><path d="M3 22L1 6l9 7 7-12 7 12 9-7-2 16z" fill="#FFC83D" stroke="#8A5A00" stroke-width="2"/></svg></span>' : '') + '<span style="position:relative;display:inline-flex">' + av(j, i ? 40 : 50) + (i !== 2 ? '<i class="onl"></i>' : '') + '</span><b>' + esc(j.n) + '</b>' + au(j.a) + '<div class="es">' + (i + 1) + '</div></div>'; }).join("") + '</div>';
+   const fil = J.slice(3).map((j, k) => '<div class="fi' + (j.yo ? ' yo' : '') + '" data-n="' + j.n + '" style="--fbg:' + (LOOK_MP[j.mp] || LOOK_MP[0]).bg + ';--fgr:' + (LOOK_MP[j.mp] || LOOK_MP[0]).g + '"><span class="p">' + (k + 4) + '</span>' + av(j, 30) + '<b>' + esc(j.n) + '</b>' + au(j.a) + '</div>').join("");
+   $("sc").innerHTML = hd + '<div class="rk">' + escudoRango(ST, 46) + '<div style="flex:1"><small>TU RANGO</small><b>' + nombreRango(ST) + '</b><div class="mb"><i></i></div></div></div>' + pod + fil; }],
+ B:["Reino arriba + lista limpia", "Un encabezado grande con el escudo de tu rango, su nombre y la barra de la meta. Debajo una lista sencilla con el puesto, el personaje y una barrita que compara con el primero.", () => {
+   const mx = J[0].a;
+   $("sc").innerHTML = hd + '<div class="ban"><span class="esb">' + escudoRango(ST, 70) + '</span><h3>' + nombreRango(ST) + '</h3><p>60 / 150 Aura para Campesino I</p><div class="mb"><i></i></div></div>' +
+     J.map((j, k) => '<div class="cl' + (k < 3 ? ' top' : '') + (j.yo ? ' yo' : '') + '"><span class="p">' + (k + 1) + '</span>' + av(j, 26, k === 0 ? "#FFD166" : null) + '<div class="tx"><b>' + esc(j.n) + '</b><div class="br"><i style="width:' + Math.round(j.a / mx * 100) + '%"></i></div></div>' + au(j.a) + '</div>').join(""); }],
+ C:["Carrera de la semana", "Cada jugador es una pista y su personaje corre según el Aura que lleva esta semana. Se ve de una quién va adelante y cuánto te falta.", () => {
+   const mx = J[0].a, col = ["#FFC83D","#C7CDD6","#E39A62"];
+   $("sc").innerHTML = hd + '<div class="car">' + J.map((j, k) => '<div class="ln' + (j.yo ? ' yo' : '') + '" style="--c:' + (col[k] || (j.yo ? "#FF6B00" : "#5A6A8A")) + '"><span class="fill" style="width:0"></span><span class="run" style="left:12%">' + '<span class="pix">' + sprite("av" + j.av, 34) + '</span></span><span class="lb"><small>' + (k + 1) + '</small>' + esc(j.n) + '</span>' + au(j.a) + '</div>').join("") + '</div><div class="meta"><span>Salida</span><span>Va ganando: ' + J[0].n + '</span></div>';
+   setTimeout(() => document.querySelectorAll(".ln").forEach((l, k) => { const p = Math.max(18, Math.round(J[k].a / mx * 78)); l.querySelector(".fill").style.width = p + "%"; l.querySelector(".run").style.left = p + "%"; }), 80); }],
+ D:["Tu puesto siempre arriba", "Tu tarjeta naranja queda fija arriba: tu puesto, tu Aura de la semana y cuánto te falta para pasar al de arriba. Debajo, la lista con fondos.", () => {
+   $("sc").innerHTML = hd + '<div class="tu"><div class="r1"><div class="pp"><small>PUESTO</small>' + (py + 1) + '</div>' + av(yo, 40, "#fff") + '<div class="tx"><b>' + nombreRango(ST) + '</b><span>' + yo.a + ' de Aura esta semana</span></div></div>' +
+     '<div class="gap">' + sprite("av" + arriba.av, 22) + 'Te faltan <b>' + (arriba.a - yo.a + 1) + '</b> para pasar a ' + esc(arriba.n) + '</div></div>' +
+     J.map((j, k) => '<div class="fi' + (j.yo ? ' yo' : '') + '" style="--fbg:' + (LOOK_MP[j.mp] || LOOK_MP[0]).bg + ';--fgr:' + (LOOK_MP[j.mp] || LOOK_MP[0]).g + '"><span class="p">' + (k + 1) + '</span>' + av(j, 30) + '<b>' + esc(j.n) + '</b>' + au(j.a) + '</div>').join(""); }]
+};
+$("nav").innerHTML = ["Inicio","Mapa","Tienda","Ranking","Perfil"].map(x => '<span' + (x === "Ranking" ? ' class="on"' : '') + '><i></i>' + x + '</span>').join("");
+
+const dormir = ms => new Promise(r => setTimeout(r, ms));
+let AC = null; function tono(f, t, d, v) { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const o = AC.createOscillator(), g = AC.createGain(), t0 = AC.currentTime + t; o.type = "triangle"; o.frequency.value = f; g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(v || .07, t0 + .02); g.gain.exponentialRampToValueAtTime(.0001, t0 + d); o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0 + d + .05); } catch (e) {} }
+const fanfarria = () => [523, 659, 784, 1047, 1319].forEach((f, i) => tono(f, i * .11, .35));
+function confeti(cont, n) { const C = ["#FFC83D","#FF6B00","#3FC46A","#3FA9FF","#FF4D8D"]; for (let i = 0; i < n; i++) { const c = document.createElement("i"); c.className = "conf"; c.style.left = Math.random() * 100 + "%"; c.style.background = C[i % 5]; cont.appendChild(c);
+  c.animate([{ transform:"translateY(0) rotate(0)", opacity:1 }, { transform:"translateY(" + (700 + Math.random() * 200) + "px) rotate(" + (Math.random() * 720 - 360) + "deg)", opacity:.9 }], { duration:1800 + Math.random() * 1200, delay:Math.random() * 400, easing:"cubic-bezier(.3,.6,.5,1)", fill:"forwards" }).onfinish = () => c.remove(); } }
+const tel = () => document.querySelector(".tel");
+function capa(html) { const c = document.createElement("div"); c.className = "capa"; c.innerHTML = html; tel().appendChild(c); requestAnimationFrame(() => c.classList.add("on")); return c; }
+const ANIM = {
+ r:["Subir de rango", async () => {   /* el escudo cambia de Campesino II a Campesino I, rayos y confeti */
+   const c = capa('<div class="rayos"></div><div class="cel" id="cel"><span class="eW"><span class="e1">' + escudoRango(1, 110) + '</span><span class="e2">' + escudoRango(2, 110) + '</span></span><h3 id="cn">' + nombreRango(1) + '</h3><p id="cp">Llegaste a la meta de 150 de Aura</p><button class="ok">¡Vamos!</button></div>');
+   await dormir(900); c.querySelector("#cel").classList.add("sube"); c.querySelector("#cn").textContent = "¡" + nombreRango(2) + "!"; c.querySelector("#cp").textContent = "Subiste de rango en el reino"; fanfarria(); confeti(c, 60);
+   c.querySelector(".ok").onclick = () => { c.classList.remove("on"); setTimeout(() => c.remove(), 300); }; }],
+ p:["Pasar a alguien", async () => {   /* tu tarjeta sube por encima de Caro */
+   OPS.A[2](); await dormir(400); const sc = $("sc"), yo = sc.querySelector('.fi.yo'), ca = sc.querySelector('.fi[data-n="Caro"]'); yo.scrollIntoView({ block:"center" }); await dormir(400);
+   const dy = ca.getBoundingClientRect().top - yo.getBoundingClientRect().top;
+   yo.animate([{ transform:"none" }, { transform:"translateY(" + dy / 2 + "px) scale(1.06)", offset:.5 }, { transform:"translateY(" + dy + "px)" }], { duration:700, easing:"cubic-bezier(.3,.9,.4,1)", fill:"forwards" });
+   ca.animate([{ transform:"none" }, { transform:"translateY(" + (-dy) + "px)" }], { duration:700, easing:"ease-in-out", fill:"forwards" });
+   await dormir(720); yo.querySelector(".p").textContent = "6"; ca.querySelector(".p").textContent = "7"; const t = document.createElement("span"); t.className = "sube-tag"; t.textContent = "▲ 1"; yo.appendChild(t); tono(784, 0, .2); tono(1047, .1, .3); }],
+ o:["Entrar al podio", async () => {   /* foco de luz y tu personaje llega al 3.er puesto */
+   OPS.A[2](); $("sc").scrollTop = 0; await dormir(300); const p3 = document.querySelector('.pd.p2'), f = document.createElement("div"); f.className = "foco"; p3.style.position = "relative"; p3.appendChild(f);
+   const a = p3.querySelector(".av"); a.animate([{ transform:"scale(1)" }, { transform:"scale(0)" }], { duration:250, fill:"forwards" }); await dormir(260);
+   a.style.background = LOOK_MP[yo.mp].bg; a.querySelector(".pix").innerHTML = sprite("av" + yo.av, 40); p3.querySelector("b").textContent = "Tú"; p3.querySelector(".au").innerHTML = LL + 415;
+   a.animate([{ transform:"translateY(-80px) scale(1.3)" }, { transform:"translateY(6px) scale(.95)", offset:.7 }, { transform:"none" }], { duration:700, easing:"ease-out", fill:"forwards" }); fanfarria(); confeti(tel(), 40); }],
+ l:["Resumen del lunes", async () => {   /* al empezar la semana: cómo te fue */
+   const c = capa('<div class="res"><p style="margin:0;font-size:12px;font-weight:900;letter-spacing:.14em;color:var(--mu)">RESULTADO DE LA SEMANA</p><div class="big">3.º</div><h3>¡Terminaste en el podio!</h3>' +
+     '<div class="chips"><span>' + LL + ' 415 de Aura</span><span>▲ 4 puestos</span><span>Mejor semana</span></div><p style="margin:0 0 14px;color:var(--mu);font-weight:700">Esta semana se descuentan 80 puntos de tu rango. ¡A jugar!</p><button class="ok">Ver la nueva semana</button></div>');
+   fanfarria(); confeti(c, 40); c.querySelector(".ok").onclick = () => { c.classList.remove("on"); setTimeout(() => c.remove(), 300); }; }]
+};
+$("bot").innerHTML = Object.keys(ANIM).map(k => '<button data-a="' + k + '">' + ANIM[k][0] + '</button>').join("");
+$("bot").onclick = e => { const b = e.target.closest("button"); if (b) ANIM[b.dataset.a][1](); };
+$("desc").innerHTML = "<b>Diseño A + extras</b>Botón «Amigos» largo con el número de solicitudes, corona saltando sobre el primero, brillo en el 1.er escalón y punto verde a quien está en línea. Abajo, 4 animaciones para probar.";
+OPS.A[2]();
+$("probar").onclick = () => { OPS.A[2](); $("sc").scrollTop = 0; };
+$("pals").innerHTML = [["noche","Noche"],["dia","Día"],["rosa","Rosa"],["azul","Azul"]].map(p => '<button data-t="' + p[0] + '">' + p[1] + '</button>').join("");
+$("pals").onclick = e => { const b = e.target.closest("button"); if (b) { aplicarTema(b.dataset.t); OPS.A[2](); } };
+</script></body></html>
