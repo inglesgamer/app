@@ -43,8 +43,8 @@ function aplicarTema(id) {
   var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
 }
 function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
-aplicarTema(temaActual());
-window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+aplicarTema("noche");   /* el Ranking se ve siempre igual, sin importar la paleta */
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema("noche"); });
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap&family=Cinzel:wght@900" rel="stylesheet">
 <style>
@@ -434,7 +434,7 @@ nav a.on{color:var(--hi)}
 .lpod .ped{color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.25);border:0}.lpod .p1 .ped{background:linear-gradient(#F2C94C,#B8860B)}.lpod .p2 .ped{background:linear-gradient(#D5DBE3,#8E99A6)}.lpod .p3 .ped{background:linear-gradient(#E8A66C,#9A5A2A)}
 html[data-tema] .lpod .p2 .ped{color:#fff}
 #btnAmigos{width:auto;padding:0 16px 0 12px;gap:7px;border-radius:99px;font:900 15px Nunito,sans-serif;display:inline-flex;align-items:center;margin-left:auto}
-.pst{display:flex;gap:6px;margin-top:10px}.pst>span{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;padding:6px 4px;border-radius:12px;background:rgba(0,0,0,.35);color:#FFF3D6;font-size:14px;font-weight:900}
+.pst{display:flex;gap:6px;margin-top:10px}.pst>span{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;padding:6px 4px;border-radius:12px;background:rgba(0,0,0,.3);color:#fff;font-size:14px;font-weight:900}
 .pst em{font-style:normal;font-size:11px;opacity:.8}.pst svg{width:15px;height:15px}
 .hoyl{font-size:13px;font-weight:900;color:#7CFFA0;text-shadow:0 1px 2px rgba(0,0,0,.6)}.hoyl.no{color:rgba(255,255,255,.65)}
 .podio .hoyl{color:var(--ok);text-shadow:none}.podio .hoyl.no{color:var(--mu)}
@@ -461,6 +461,30 @@ html[data-tema] .lpod .p2 .ped{color:#fff}
 .lfin .pr span{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:99px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);font-weight:900;animation:lprA .4s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes lprA{from{transform:scale(0) translateY(20px)}}
 .lfin .ok{margin-top:16px;height:54px;padding:0 36px;border:0;border-radius:99px;background:#FFC83D;color:#3A2400;font:900 17px Nunito,sans-serif;opacity:0;transition:opacity .3s}.lfin .ok.v{opacity:1}
+.lcd{display:inline-flex;align-items:center;gap:6px;margin:0 0 4px;padding:6px 12px;border-radius:99px;background:var(--chip);font-size:13px;font-weight:900;color:var(--mu)}.lcd b{color:var(--ink)}
+.rcar .lrc{position:relative;padding:14px;border-radius:24px;color:#fff;background:linear-gradient(135deg,var(--m1),var(--m2));border:2px solid var(--m0);box-shadow:0 6px 0 var(--m2);overflow:hidden;margin-bottom:8px}
+.rcar .lrc.sel{box-shadow:0 6px 0 var(--m2)}
+.lrc::before{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.25),transparent 70%);pointer-events:none}
+.lrc .rw{position:relative;display:flex;align-items:center;gap:12px}.lrc small{display:block;font-size:11px;font-weight:900;letter-spacing:.14em;opacity:.85}
+.lrc b.nr{display:block;font:900 26px Cinzel,serif;text-shadow:0 2px 0 rgba(0,0,0,.35);line-height:1.1}
+.lrc .mt2{font-size:13px;font-weight:800;opacity:.92}
+.lrc .bar{position:relative;height:10px;border-radius:99px;background:rgba(0,0,0,.3);margin-top:10px;overflow:hidden}.lrc .bar i{display:block;height:100%;border-radius:99px;background:#FFE08A}
+.lrc.dark{color:#2A1800}.lrc.dark b.nr{text-shadow:0 2px 0 rgba(255,255,255,.4)}
+.lrc .pst{position:relative}
+.lti{margin:8px 2px 6px;font-weight:900;color:var(--mu);font-size:13px}
+.lau{display:inline-flex;align-items:center;gap:4px;font-weight:900;color:#fff}.lau svg{flex:none}
+.lpod{display:flex;align-items:flex-end;justify-content:center;gap:8px;min-height:250px;margin:6px 0 10px}
+.lpd{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;cursor:pointer;color:var(--ink)}.lpd b{font-size:15px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.lpd .lau{font-size:14px}
+.lpd .lmini{margin-top:2px}.lpd .hoyl{color:#3FD877;text-shadow:none}.lpd .hoyl.no{color:var(--mu)}
+.lcor{display:block;margin-bottom:-6px;line-height:0;animation:lcorA 2.4s ease-in-out infinite}
+.les{width:100%;display:flex;justify-content:center;padding-top:6px;margin-top:4px;border-radius:12px 12px 0 0;font-size:24px;font-weight:900;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.lpd.p0 .les{height:84px;background:linear-gradient(#F2B526,#8A5A00);position:relative;overflow:hidden}.lpd.p1 .les{height:60px;background:linear-gradient(#C7CDD6,#5A626E)}.lpd.p2 .les{height:46px;background:linear-gradient(#E39A62,#7A3A16)}
+.lpd.p0 .les::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:lbri 2.8s ease-in-out infinite}
+.lfi{position:relative;display:flex;align-items:center;gap:10px;min-height:64px;padding:0 14px 0 12px;margin-bottom:8px;border-radius:18px;overflow:hidden;isolation:isolate;border:1px solid var(--bd);color:#fff;cursor:pointer}
+.lfi::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--fbg)}.lfi::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;z-index:-1;background:var(--fgr);opacity:.8}
+.lfi .p{width:24px;text-align:center;font-weight:900;font-size:17px}.lfi .nm{flex:1;display:flex;flex-direction:column;min-width:0}.lfi .nm b{font-size:17px;text-shadow:0 1px 3px rgba(0,0,0,.6);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lfi .lau{font-size:17px;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.lfi.yo{border:2px solid #fff;box-shadow:0 0 0 3px rgba(255,107,0,.4)}
 /* /LIGA_SEMANAL */
 .rdots{display:flex;justify-content:center;gap:6px;margin-top:-4px}.rdots i{width:7px;height:7px;border-radius:99px;background:var(--bd);transition:width .25s}.rdots i.on{width:20px;background:var(--hi)}.rdots i.mio:not(.on){background:var(--mu)}
 </style>
@@ -820,7 +844,7 @@ function escudoRango(st, s) {
 }
 const pipsDiv = st => st >= PASO_MAX ? '<span class="rpips rey">RANGO MÁXIMO</span>' : '<span class="rpips">' + [0, 1, 2].map(i => '<i class="' + (i <= st % 3 ? "on" : "") + '"></i>').join("") + '</span>';
 /* CARRUSEL de rangos: tu tarjeta de rango y, deslizando, los demás rangos del reino. Al tocar uno se ve su liga. */
-function carruselRangos(L, m) {
+function carruselRangosViejo(L, m) {
   const mio = L.lg, vista = ligaVista();
   const cards = RANGOS_REINO.map((r, lg) => {
     const sel = lg === vista ? " sel" : "";
@@ -843,12 +867,26 @@ function centrarRango(suave) {
 const PREM_LIGA = [[60, 40, 20], [90, 60, 30], [120, 80, 40], [160, 110, 60], [220, 150, 80]];   /* Aura del 1.º, 2.º y 3.º por rango */
 const hoyHTML = v => '<span class="hoyl' + (v > 0 ? '' : ' no') + '">' + (v > 0 ? '+' + v + ' hoy' : 'sin jugar hoy') + '</span>';
 const franjaPremio = lg => '<div class="pst">' + PREM_LIGA[lg].map((v, i) => '<span><em>' + (i + 1) + '.º</em>' + llama(15) + v + '</span>').join("") + '</div>';
-const _carr = carruselRangos;
-carruselRangos = function (L, m) {
-  const t = document.createElement("template"); t.innerHTML = _carr(L, m);
-  t.content.querySelectorAll(".rc").forEach(c => { const f = franjaPremio(+c.dataset.lg || 0), d = c.querySelector(".dsc, .rc-ver"); d ? d.insertAdjacentHTML("beforebegin", f) : c.insertAdjacentHTML("beforeend", f); });
-  return t.innerHTML;
-};
+const auL = v => '<span class="lau">' + llama(16) + v + '</span>';
+function carruselRangos(L) {
+  const vista = ligaVista(), pt = Math.max(0, Math.floor(+L.pt || 0));
+  return '<div class="rcar" id="rcar">' + RANGOS_REINO.map((r, lg) => {
+    const m = MATERIAL[r.m], mio = lg === L.lg, dark = r.m === "oro" || r.m === "real" || r.m === "hierro";
+    const est = mio ? "TU RANGO" : lg === L.lg + 1 ? "EL SIGUIENTE RANGO" : lg > L.lg ? "MÁS ARRIBA" : "YA LO PASASTE";
+    const sub = mio ? (L.st >= PASO_MAX ? pt + " puntos de Rey" : pt + " / " + metaDe(L.st) + " de Aura para subir") : r.rey ? "El rango más alto" : "Meta: " + METAS[lg] + " de Aura por escalón";
+    return '<div class="rc lrc' + (dark ? " dark" : "") + (lg === vista ? " sel" : "") + '" data-lg="' + lg + '" role="button" tabindex="0" style="--m0:' + m[0] + ';--m1:' + m[1] + ';--m2:' + m[2] + '"><div class="rw">' + escudoRango(mio ? L.st : lg * 3, 62) +
+      '<div><small>' + est + '</small><b class="nr">' + (mio ? nombreRango(L.st) : r.n) + '</b><span class="mt2">' + sub + '</span></div></div>' +
+      (mio && L.st < PASO_MAX ? '<div class="bar"><i style="width:' + Math.min(100, Math.round(pt / metaDe(L.st) * 100)) + '%"></i></div>' : '') + franjaPremio(lg) + '</div>';
+  }).join("") + '</div><div class="rdots">' + RANGOS_REINO.map((r, lg) => '<i class="' + (lg === vista ? "on" : "") + (lg === L.lg ? " mio" : "") + '"></i>').join("") + '</div>';
+}
+function swipeRangos() {   /* al deslizar la tarjeta, se ve la liga de ese rango */
+  const c = $("rcar"); if (!c || c._sw) return; c._sw = 1; let tm;
+  c.addEventListener("scroll", () => { clearTimeout(tm); tm = setTimeout(() => {
+    const cr = c.getBoundingClientRect(), mid = cr.left + cr.width / 2; let k = null, best = 1e9;
+    c.querySelectorAll(".rc").forEach(el => { const r = el.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - mid); if (d < best) { best = d; k = el; } });
+    if (k && +k.dataset.lg !== ligaVista()) k.click();
+  }, 140); }, { passive:true });
+}
 function podioLiga(top) {
   const cols = [[1, "p2", "#C9CED6", 64], [0, "p1", "#FFC83D", 84], [2, "p3", "#D08A4A", 64]];
   return '<div class="card podio lpod">' + cols.map(c => { const j = top[c[0]]; if (!j) return "<div></div>";
@@ -988,7 +1026,7 @@ const conPunto = (j, s, d) => lookMini(j.av, j, s, { punto: esAmigo(j.uid) ? j.o
 function pintarTabs() {   /* arriba: Liga · Temporada · Siempre. Amigos y Solicitudes van en el botón redondo de la esquina */
   const n = FR.recibidas.length, b = $("bdgAm");
   if (b) { b.hidden = !n; b.textContent = n; }
-  $("btnAmigos").classList.toggle("on", tab !== "global");
+  $("btnAmigos").classList.toggle("on", tab !== "global"); $("btnAgregar").hidden = tab === "global";
   $("tabs").innerHTML = tab === "global"
     ? ''
     : '<div class="seg-am"><button type="button" class="ib" data-tab="global" aria-label="Volver al ranking">' + ic("back", 22) + '</button><div class="seg" role="tablist">' +
@@ -1015,14 +1053,18 @@ function vistaGlobal() {
   const banner = "";   /* la Temporada tiene su propia vista (vistaTemporada) */
   const perBtns = '<div class="per" role="group" aria-label="Periodo">' + PER.map(p => '<button type="button" class="pc' + (per === p[0] ? " on" : "") + '" data-per="' + p[0] + '" aria-pressed="' + (per === p[0]) + '">' + p[1] + '</button>').join("") + '</div>';
   if (per === "liga") {
-    const L = miLiga(), mia = ligaVista() === L.lg, lg = ligaVista(), n = LISTA.length;
-    let filas = "";
-    if (n) filas += podioLiga(LISTA.slice(0, 3));
-    LISTA.slice(3, MAX_LISTA).forEach((j, i) => { filas += filaJugador(j, i + 4, j.liga, "", lg); });
+    const L = miLiga(), lg = ligaVista(), mia = lg === L.lg, n = LISTA.length, top = LISTA.slice(0, 3);
+    const cd = '<span class="lcd">Termina en <b>' + finSemana() + '</b> · se reinicia el lunes</span>';
+    const titulo = '<div class="lti">' + (mia ? "Tu liga · " : "Liga ") + RANGOS_REINO[lg].n + (n ? " · " + n + (n === 1 ? " jugador" : " jugadores") : "") + '</div>';
+    const pod = n ? '<div class="lpod">' + [1, 0, 2].map(i => { const j = top[i]; if (!j) return '<div class="lpd"></div>';
+      return '<div class="lpd p' + i + '" data-ver="' + esc(j.uid) + '" role="button" tabindex="0">' + (i === 0 ? '<span class="lcor"><svg width="34" height="24" viewBox="0 0 34 24"><path d="M3 22L1 6l9 7 7-12 7 12 9-7-2 16z" fill="#FFC83D" stroke="#8A5A00" stroke-width="2"/></svg></span>' : '') +
+        lookMini(j.av, j, i ? 56 : 68, { ring:i === 0 ? "#FFD166" : "#9A6A3A", rw:3, punto:esAmigo(j.uid) ? j.on : undefined, d:14 }) + '<b>' + esc(j.n) + '</b>' + auL(j.liga) + hoyHTML(j.hoy) + '<div class="les">' + (i + 1) + '</div></div>'; }).join("") + '</div>' : "";
+    const fila = (j, p) => { const mp = LOOK_MP[j.lmp] || LOOK_MP[0]; return '<div class="lfi' + (ME && j.uid === ME.uid ? " yo" : "") + '" data-ver="' + esc(j.uid) + '" role="button" tabindex="0" style="--fbg:' + mp.bg + ';--fgr:' + mp.g + '"><span class="p">' + p + '</span>' + lookMini(j.av, j, 44) + '<span class="nm"><b>' + esc(j.n) + '</b>' + hoyHTML(j.hoy) + '</span>' + auL(j.liga) + '</div>'; };
+    let filas = LISTA.slice(3, MAX_LISTA).map((j, i) => fila(j, i + 4)).join("");
+    const enLista = ME && LISTA.slice(0, MAX_LISTA).some(j => j.uid === ME.uid);
+    if (mia && !enLista && m.liga > 0) filas += fila(Object.assign({}, miLook(), { uid:ME ? ME.uid : "", n:m.n + " · Tú", av:m.av, hoy:Math.max(m.hoy, ((ME && JUG[ME.uid]) || {}).hoy || 0), liga:m.liga }), miPuesto);
     const vac = n ? "" : '<div class="card vacio" style="margin:0"><b>' + (mia ? "Nadie más de tu rango ha jugado esta semana" : "Nadie de " + RANGOS_REINO[lg].n + " ha jugado esta semana") + '</b>' + (mia ? "Gana Aura jugando y serás el primero." : "Cuando alguien de este rango gane Aura, aparecerá aquí.") + '</div>';
-    const titulo = '<div class="sec"><span>' + (mia ? "TU LIGA · ESTA SEMANA" : "LIGA " + RANGOS_REINO[lg].n.toUpperCase() + " · ESTA SEMANA") + '</span><b>' + (n ? n + (n === 1 ? " jugador" : " jugadores") : "") + '</b></div>';
-    return carruselRangos(L, m) + titulo + filas + vac + (mia ?
-      '<div class="fila card yo ftj" style="--fbg:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).bg + ';--fgr:' + (LOOK_MP[miLook().lmp] || LOOK_MP[0]).g + '"><i class="ftj-bg"></i><span class="pos">' + miPuesto + '</span>' + lookMini(m.av, miLook(), 52) + '<span class="info"><span class="nombre" style="display:block">' + esc(m.n) + ' · Tú</span><span class="rgl">' + hoyHTML(Math.max(m.hoy, (JUG[ME.uid] || {}).hoy || 0)) + tituloHTML(miLook()) + '</span></span><span class="der">' + auraHTML(m.liga) + '</span></div>' : "");
+    return cd + carruselRangos(L) + titulo + pod + filas + vac;
   }
   if (per === "tmp") return vistaTemporada(m, hoy);
   return banner +
@@ -1092,7 +1134,7 @@ function pintar() {
   else if (error) c.innerHTML = '<div class="card vacio"><b>No se pudo cargar</b>Revisa tu internet e inténtalo otra vez. (' + esc(error) + ')<div style="margin-top:14px"><button type="button" class="btn" data-reintentar>Reintentar</button></div></div>';
   else c.innerHTML = tab === "global" ? vistaGlobal() : tab === "amigos" ? vistaAmigos() : vistaSolicitudes();
   c.scrollTop = y;
-  if (tab === "global" && per === "liga") centrarRango(false);
+  if (tab === "global" && per === "liga") { centrarRango(false); swipeRangos(); }
 }
 
 /* ================= AGREGAR AMIGO ================= */
