@@ -56,15 +56,16 @@ button{font-family:inherit;cursor:pointer}
 .perfil .br{height:6px;margin-top:8px;border-radius:99px;background:var(--track);overflow:hidden}.perfil .br i{display:block;height:100%;border-radius:99px;background:var(--rc,#8C8C96)}
 .perfil small{display:block;margin-top:4px;color:var(--mu);font-size:12px;font-weight:800}
 .perfil .st{flex:none;display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:900}.perfil .st span{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:12px;background:var(--chip)}
-/* LOOK de la Tienda (copiado de veranoa1, 17 nov 2026) */
+/* LOOK de la Tienda: el MISMO del Inicio (19 nov 2026) */
 .sk{display:inline-flex}.sk svg{display:block;filter:drop-shadow(0 4px 0 rgba(0,0,0,.3))}
 .arco{animation:hue 3s linear infinite}@keyframes hue{to{filter:hue-rotate(360deg)}}
 .fr{display:inline-flex;align-items:flex-end;justify-content:center;overflow:hidden;border-radius:50%;border:5px solid var(--b,#9A6A3A);background:#0F0F12;box-shadow:0 0 var(--g,0px) var(--b)}
 .m0{--b:#9A6A3A}.m1{--b:#9A9AA6}.m2{--b:#FFC83D;--g:14px}.m3{--b:#3FD8C8;--g:14px}.m5{--b:#E8F7FF;--g:18px}
+.m7{--b:#C9BFA0;border-style:dashed!important}
 .m4{animation:fuego 1s ease-in-out infinite alternate}.m6{animation:arcoB 3s linear infinite}
 @keyframes fuego{from{border-color:#FF4D4D;box-shadow:0 0 8px #FF4D4D}to{border-color:#FFC83D;box-shadow:0 0 22px #FF8A3D}}
 @keyframes arcoB{0%,100%{border-color:#FF4D4D}20%{border-color:#FFC83D}40%{border-color:#5DB33A}60%{border-color:#3FD8C8}80%{border-color:#8E5BD6}}
-.lkfx{position:absolute;inset:0;overflow:hidden;pointer-events:none}.lkfx::before,.lkfx::after{content:"";position:absolute;inset:0}
+.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none}.fx::before,.fx::after{content:"";position:absolute;inset:0}
 .f-mp0::before{background:radial-gradient(circle,#FFF28A 0 2px,transparent 3px) 0 0/70px 60px,radial-gradient(circle,#B6FF8A 0 1.5px,transparent 2.5px) 30px 25px/90px 70px;animation:luci 6s ease-in-out infinite alternate,parp2 1.8s ease-in-out infinite alternate}
 .f-mp0::after{top:12%;height:14%;background:radial-gradient(ellipse at 20% 50%,rgba(255,255,255,.18) 0 40%,transparent 41%) 0 0/160px 100%;animation:nube 28s linear infinite}
 @keyframes luci{from{background-position:0 0,30px 25px}to{background-position:26px -30px,0 -10px}}
@@ -90,6 +91,33 @@ button{font-family:inherit;cursor:pointer}
 .lk-fade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,.5))}
 .fr{flex:none;position:relative;z-index:2}
 .lk-tt{position:absolute;z-index:3;padding:3px 4px;border-radius:99px;background:rgba(255,255,255,.92);color:#0B0B0D;font-size:10px;font-weight:800;line-height:1.2;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (prefers-reduced-motion:reduce){.fx::before,.fx::after,.fr,.arco{animation:none!important}}
+/* ===== NUEVOS FONDOS ===== */
+.f-mp6::before{top:auto;bottom:20px;height:62%;background:linear-gradient(#141C40,#141C40) 4% 100%/16% 70% no-repeat,linear-gradient(#18214A,#18214A) 22% 100%/12% 100% no-repeat,linear-gradient(#141C40,#141C40) 38% 100%/18% 55% no-repeat,linear-gradient(#18214A,#18214A) 60% 100%/14% 85% no-repeat,linear-gradient(#141C40,#141C40) 78% 100%/12% 62% no-repeat,linear-gradient(#18214A,#18214A) 96% 100%/14% 92% no-repeat}
+.f-mp6::after{top:auto;bottom:24px;height:50%;background:radial-gradient(circle,#FFD95A 0 1.4px,transparent 2px) 6px 4px/13px 12px;-webkit-mask:linear-gradient(90deg,#000 0 20%,transparent 20% 22%,#000 22% 34%,transparent 34% 38%,#000 38% 56%,transparent 56% 60%,#000 60% 74%,transparent 74% 78%,#000 78% 90%,transparent 90% 96%,#000 96%);animation:parp2 1.6s ease-in-out infinite alternate}
+.f-mp7::before{top:auto;bottom:20px;height:58%;background:linear-gradient(#7A3A20,#4A2414);clip-path:polygon(4% 100%,26% 22%,32% 30%,38% 20%,62% 100%)}
+.f-mp7::after{background:radial-gradient(circle,#FFB347 0 1.8px,transparent 2.6px) 0 0/34px 40px,radial-gradient(circle,#FF6A2B 0 1.4px,transparent 2.2px) 16px 20px/46px 52px;animation:humo 2.6s linear infinite}
+@keyframes humo{from{background-position:0 0,16px 20px}to{background-position:10px -40px,4px -32px}}
+.f-mp8::before{background:radial-gradient(circle,#fff 0 1.2px,transparent 1.8px) 8px 6px/36px 30px;animation:parp2 1.2s ease-in-out infinite alternate}
+.f-mp8::after{left:-60px;top:14%;right:auto;bottom:auto;width:54px;height:60px;background:radial-gradient(ellipse 50% 22% at 50% 22%,#A8FFE0 0 60%,transparent 62%),radial-gradient(ellipse 50% 16% at 50% 36%,#A0AAB8 0 96%,transparent 100%);filter:drop-shadow(0 6px 8px rgba(168,255,224,.6));animation:ovni 6s linear infinite}
+@keyframes ovni{from{transform:translateX(0)}to{transform:translateX(480px)}}
+.f-mp9::before{background:radial-gradient(circle,transparent 0 2.4px,rgba(200,240,255,.7) 2.6px 3.6px,transparent 4px) 0 0/40px 46px,radial-gradient(circle,transparent 0 1.5px,rgba(200,240,255,.6) 1.7px 2.6px,transparent 3px) 18px 12px/30px 34px;animation:burbu 3s linear infinite}
+@keyframes burbu{from{background-position:0 0,18px 12px}to{background-position:4px -46px,14px -56px}}
+.f-mp9::after{background:repeating-linear-gradient(105deg,rgba(255,255,255,.08) 0 18px,transparent 18px 46px);animation:respira 4s ease-in-out infinite alternate}
+.f-mp10::before{top:auto;bottom:20px;height:56%;background:linear-gradient(#2A1650,#2A1650) 50% 100%/40% 64% no-repeat,linear-gradient(#2A1650,#2A1650) 31% 100%/9% 100% no-repeat,linear-gradient(#2A1650,#2A1650) 69% 100%/9% 100% no-repeat,linear-gradient(#1A0D33,#1A0D33) 50% 100%/8% 26% no-repeat}
+.f-mp10::after{background:radial-gradient(circle,#FFF6C0 0 1.4px,transparent 2px) 0 0/28px 26px;animation:parp2 1s ease-in-out infinite alternate}
+.f-mp11::before{background:radial-gradient(circle,#EFFF8A 0 2px,transparent 3px) 0 0/60px 50px,radial-gradient(circle,#B6FF8A 0 1.5px,transparent 2.5px) 30px 25px/80px 64px;animation:luci 5s ease-in-out infinite alternate,parp2 1.4s ease-in-out infinite alternate}
+.f-mp11::after{bottom:45%;background:repeating-linear-gradient(90deg,transparent 0 26px,#2EA05A 26px 30px,transparent 30px 64px);-webkit-mask:linear-gradient(#000,transparent);transform-origin:top;animation:liana 3s ease-in-out infinite alternate}
+@keyframes liana{from{transform:skewX(-4deg)}to{transform:skewX(4deg)}}
+.f-mp12::before{background:repeating-linear-gradient(110deg,transparent 0 10px,rgba(180,200,230,.35) 10px 11px,transparent 11px 22px);background-size:100% 40px;animation:lluvia .5s linear infinite}
+@keyframes lluvia{from{background-position:0 0}to{background-position:-14px 40px}}
+.f-mp12::after{background:#fff;animation:relam 4s infinite}
+@keyframes relam{0%,86%,100%{opacity:0}88%{opacity:.55}90%{opacity:0}92%{opacity:.35}}
+.f-mp13::before{background:radial-gradient(circle,#FF4FA3 0 3px,transparent 3.5px) 0 0/46px 40px,radial-gradient(circle,#7CC8FF 0 2.6px,transparent 3.2px) 20px 18px/52px 46px,radial-gradient(circle,#FFE45A 0 2.4px,transparent 3px) 34px 6px/40px 50px;animation:nieva 4s linear infinite}
+.f-mp13::after{top:10%;height:20%;background:radial-gradient(ellipse at 30% 50%,#fff 0 40%,transparent 41%) 0 0/150px 100%;animation:nube 22s linear infinite}
+.f-mp14::before{top:0;height:62%;background:linear-gradient(170deg,transparent 20%,rgba(80,255,170,.5) 35%,rgba(90,180,255,.35) 50%,transparent 62%);filter:blur(6px);animation:aurora 5s ease-in-out infinite alternate}
+@keyframes aurora{from{transform:translateX(-12%) skewY(-6deg)}to{transform:translateX(12%) skewY(6deg)}}
+.f-mp14::after{background:radial-gradient(circle,#fff 0 1px,transparent 1.6px) 6px 4px/32px 28px;animation:parp2 1.6s ease-in-out infinite alternate}
 
 .perfil.lk{position:relative;overflow:hidden;color:#fff;border:0;min-height:112px;text-shadow:0 1px 2px rgba(0,0,0,.55)}
 .perfil.lk .tx,.perfil.lk .st{position:relative;z-index:2}
@@ -817,34 +845,38 @@ function dibujar(a) {
 })();
 
 const SPR = {
-  slime:{p:{g:"#5DB33A",l:"#8EE66A",k:"#0B0B0D"},r:["........","..gggg..",".gllggg.","gglggggg","gkggggkg","gggggggg","gggggggg",".gggggg."]},
-  gato:{p:{o:"#FF8A3D",k:"#0B0B0D",w:"#F2F4F8",p:"#FFB4B4"},r:["o......o","oo....oo","oooooooo","okooooko","oooppooo","owwoowwo",".oooooo.","..o..o.."]},
-  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},
-    r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
-  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},
-    r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
-  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},
-    r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
-  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},
-    r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
-  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},
-    r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
-  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},
-    r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
-  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},
-    r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
-  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},
-    r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
-  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},
-    r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]}
+  av18:{"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
+  av19:{"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]},
+  av10:{"p": {"r": "#E8343B", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#6B3A1E", "m": "#B5574A", "w": "#F2F4F8", "b": "#2F5BD6", "l": "#3A3A42", "y": "#FFC83D"}, "r": ["....rrrr....", "..rrrrrrrr.r", "..rrrrrrrrr.", "..ssssssss..", "..skssskkk..", "..ssssssss..", "..hhsmmshh..", "...hhhhhh...", "..wbwbwbwb..", ".swbwbwbwbs.", "..lll..lll..", "..kkk..kkk.."]},
+  av11:{"p": {"w": "#F2F4F8", "c": "#3FA9F5", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#FF4D4D", "b": "#2F5BD6", "g": "#8C8C96"}, "r": ["...wwwwww...", "..wwwwwwww..", ".wwccccccww.", ".wcskssksccw", ".wcssmmsscw.", ".wwccccccww.", "..wwwwwwww..", ".wwwrwwbwww.", "w.wwwwwwww.w", "..wwwwwwww..", "..ww....ww..", "..gg....gg.."]},
+  av12:{"p": {"y": "#FFC83D", "g": "#A0AAB8", "d": "#5A6270", "r": "#FF4D4D", "b": "#3F7FD8", "c": "#3FD8C8"}, "r": [".....yy.....", ".....gg.....", "..gggggggg..", "..gddddddg..", "..gdyddydg..", "..gddddddg..", "..gdrrrrdg..", "...gggggg...", ".bbbbbbbbbb.", "g.bbbccbbb.g", "..bbbbbbbb..", "..gg....gg.."]},
+  av13:{"p": {"h": "#8B5A2B", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#E8343B", "p": "#E07A3A", "j": "#3F6FB5", "b": "#5E3E22"}, "r": ["...hhhhhh...", "...hhhhhh...", "hhhhhhhhhhhh", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..rrrrrrrr..", ".spppppppps.", "..jjjjjjjj..", "..jjj..jjj..", "..bbb..bbb.."]},
+  av14:{"p": {"w": "#F2F4F8", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#3A2414", "m": "#B5574A", "r": "#E8343B", "l": "#3A3A42"}, "r": ["...wwwwww...", "..wwwwwwww..", "..wwwwwwww..", "...wwwwww...", "..ssssssss..", "..skssssks..", "..sshhhhss..", "...ssmmss...", ".swwwwwwwws.", "..wwrrwwww..", "..lll..lll..", "..kkk..kkk.."]},
+  av15:{"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},
+  av16:{"p": {"k": "#1A1A22", "p": "#E6E1F0", "r": "#E8343B", "w": "#FFFFFF", "c": "#8E1B2B"}, "r": ["...kkkkkk...", "..kkkkkkkk..", "..kppppppk..", "..prpppprp..", "..pppppppp..", "...pwppwp...", "cc.kkkkkk.cc", "cckkwwwwkkcc", "cckkkkkkkkcc", "c.kkkkkkkk.c", "..kk....kk..", "..kk....kk.."]},
+  av17:{"p": {"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"}, "r": ["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]},
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+  av9:{p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]}
 };
-function sprite(n, size) {
+function sprite(n, s) {
   const d = SPR[n]; if (!d) return "";
-  const N = d.r.length;
-  let o = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + N + ' ' + N + '" shape-rendering="crispEdges" aria-hidden="true">';
-  d.r.forEach(function (row, y) { row.split("").forEach(function (c, x) { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }); });
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
   return o + "</svg>";
 }
+/* escudo del rango (mismo dibujo que en el Perfil): c = color del rango */
+const ESCUDO = ["bbbbbbbb","bffffffb","bffssffb","bfssssfb","bffssffb",".bffffb.","..bffb..","...bb..."];
+
 const $ = id => document.getElementById(id);
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
 const leer = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
@@ -905,21 +937,24 @@ const IC = (() => { const L = p => '<svg width="30" height="30" viewBox="0 0 24 
   pocion:L('<path d="M10 3h4M10 3v5L5 18a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-10V3"/><path d="M7 15h10"/>'),
   lock:L('<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>') }; })();
 
-const LOOK_SK = ["", "hue-rotate(150deg)", "hue-rotate(-40deg) saturate(1.6)", "hue-rotate(80deg) saturate(1.3)", "grayscale(1) brightness(1.5) opacity(.75)", "hue-rotate(280deg) saturate(2.2) brightness(1.15)", "sepia(1) saturate(3.5) brightness(1.1)", ""]; // la última (Arcoíris) usa la clase .arco
+const LOOK_SK = ["", "hue-rotate(150deg)", "hue-rotate(-40deg) saturate(1.6)", "hue-rotate(80deg) saturate(1.3)", "grayscale(1) brightness(1.5) opacity(.75)", "hue-rotate(280deg) saturate(2.2) brightness(1.15)", "sepia(1) saturate(3.5) brightness(1.1)", "", "sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05)"]; // la última (Arcoíris) usa la clase .arco
 const LOOK_MP = [
   { bg:"linear-gradient(#0F1A10,#1E3A22)", g:"#5DB33A" }, { bg:"linear-gradient(#070B1F,#1B1F4A)", g:"#2B3A7A" }, { bg:"linear-gradient(#5A3A18,#B8782E)", g:"#D9A04A" },
-  { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" }
+  { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" },
+  { bg:"linear-gradient(#0B1640,#2A3470)", g:"#141A36" }, { bg:"linear-gradient(#E8692A,#FFC977)", g:"#5E8F35" }, { bg:"radial-gradient(circle at 70% 15%,#4A2290,#0A0620 70%)", g:"#2A1458" }, { bg:"linear-gradient(#1B8BD2,#0B3A73)", g:"#E8D49A" }, { bg:"linear-gradient(#4A2E8E,#E58FC7)", g:"#2E1A55" }, { bg:"linear-gradient(#0B3A22,#1E7A3E)", g:"#0A2E1A" }, { bg:"linear-gradient(#1E222E,#4A5266)", g:"#2A3040" }, { bg:"linear-gradient(#FF9FD2,#FFE7F3)", g:"#FF6FB5" }, { bg:"linear-gradient(#030B16,#0B2A3A)", g:"#DDEFF5" }
 ];
-const LOOK_TT = ["Novato", "Gamer", "Cazador de bugs", "Speaker", "Maestro Have/Has", "Rey del A1", "Leyenda"];
+const LOOK_TT = ["Novato", "Gamer", "Cazador de bugs", "Speaker", "Maestro Have/Has", "Rey del A1", "Leyenda", "Cazador de dinos", "Perfeccionista", "Constante", "Imparable", "Duelista", "Gladiador", "Caballero del Reino", "Su Majestad", "Rey del Hielo", "Coleccionista"];
+/* Animaciones de la Tienda (mismo orden que la pestaña Animaciones) */
+var LOOK_AN = ["flt", "jmp", "ale", "pen", "dor", "bai", "emo", "gir", "sup"];
+var LOOK_SYM = { ale:"✦", pen:"?", dor:"z", bai:"♪", emo:"!", sup:"★" };
 function lookLeer() {
-  const q = (location.search.match(/[?&]look=(\d+),(\d+),(\d+),(\d+)/) || []);
-  if (q[1] != null) return { mp:+q[1] % 6, mc:+q[2] % 7, sk:+q[3] % 8, tt:+q[4] % 7 };
-  if (/[?&]demo=1/.test(location.search)) return { mp:1, mc:4, sk:0, tt:5 };
   let t = null; try { t = JSON.parse(localStorage.getItem("ingles_gamer_tienda") || "null"); } catch (e) {}
   const own = (t && Array.isArray(t.own)) ? t.own : [], eq = (t && t.eq) || {};
   const pick = (k, max) => { const id = String(eq[k] || ""), n = id.indexOf(k) === 0 ? Number(id.slice(2)) : 0; return (n > 0 && n < max && own.indexOf(k + n) > -1) ? n : 0; };
-  return { sk:pick("sk", 8), mc:pick("mc", 7), tt:pick("tt", 7), mp:pick("mp", 6) };
+  return { sk:pick("sk", 9), mc:pick("mc", 8), tt:pick("tt", 17), mp:pick("mp", 15), an:pick("an", 9) };
 }
+
+const AVATARES_N = 20;
 /* ===== NIVELES DE HABLAR en el mapa: 3 diseños para elegir (?hab=A|B|C) ===== */
 /* colores de la tarjeta de hablar (?hc=1..4) */
 const HC = [null, ["#14B8A6","#0EA5E9","#0B7285","rgba(20,184,166,.35)"], ["#22C55E","#14B8A6","#15803D","rgba(34,197,94,.35)"], ["#EC4899","#F43F5E","#9D174D","rgba(236,72,153,.35)"], ["#334155","#0F172A","#020617","rgba(148,163,184,.35)"]][+((location.search.match(/[?&]hc=(\d)/) || [])[1] || 0)];
@@ -1184,7 +1219,7 @@ function pintar() {
 }
 function pintarArriba() {
   /* perfil */
-  const pf = leer("ingles_gamer_perfil") || {}, nom = (pf.n || "Jugador").toString().slice(0, 18), av = Math.max(0, Math.min(8, +pf.a || 0));
+  const pf = leer("ingles_gamer_perfil") || {}, nom = (pf.n || "Jugador").toString().slice(0, 18), av0 = Math.max(0, Math.min(AVATARES_N - 1, +pf.a || 0)), tiendaY = leer("ingles_gamer_tienda") || {}, ownY = Array.isArray(tiendaY.own) ? tiendaY.own : [], av = (av0 > 1 && ownY.indexOf("av" + av0) < 0) ? 0 : av0;   /* igual que el Inicio */
   const RG = [{n:"Novato",m:0,c:"#8C8C96"},{n:"Aprendiz",m:15,c:"#3FD8C8"},{n:"Campeón",m:35,c:"#FF8A3D"},{n:"Leyenda",m:55,c:"#FF4D4D"}];
   const ev = estVerano(); let r = 0; RG.forEach((x, i) => { if (ev >= x.m) r = i; }); const sig = RG[r + 1];
   const g = leer("ingles_gamer_a1_repaso") || {}, dia = g.dia || {}, hoy = new Date(), cl = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
@@ -1192,7 +1227,7 @@ function pintarArriba() {
   const tot = ISLAS.reduce((t, I) => t + estrellasIsla(I), 0);
   const P = $("perfil"); P.style.setProperty("--rc", RG[r].c);
   const L = lookLeer(), mp = LOOK_MP[L.mp], fl = LOOK_SK[L.sk]; P.classList.add("lk");
-  P.innerHTML = '<div class="lk-sc" style="background:' + mp.bg + '" aria-hidden="true"><b class="lkfx f-mp' + L.mp + '"></b><i class="lk-gr" style="background:' + mp.g + '"></i></div><div class="lk-fade"></div>' +
+  P.innerHTML = '<div class="lk-sc" style="background:' + mp.bg + '" aria-hidden="true"><b class="fx f-mp' + L.mp + '"></b><i class="lk-gr" style="background:' + mp.g + '"></i></div><div class="lk-fade"></div>' +
     '<span class="frw"><span class="fr m' + L.mc + '" style="width:74px;height:74px"><span class="sk' + (L.sk === 7 ? " arco" : "") + '"' + (fl ? ' style="filter:' + fl + '"' : '') + '>' + sprite("av" + av, 52) + '</span></span><span class="lk-tt">' + LOOK_TT[L.tt] + '</span></span><div class="tx"><b>' + esc(nom) + '</b><span class="rg">' + RG[r].n.toUpperCase() + '</span>' +
     '<div class="br"><i style="width:' + (sig ? Math.round((ev - RG[r].m) / (sig.m - RG[r].m) * 100) : 100) + '%"></i></div><small>' + (sig ? 'Te faltan ' + (sig.m - ev) + ' ★ para ' + sig.n : 'Rango máximo') + ' · Ver perfil ›</small></div>' +
     '<div class="st"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD43B"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>' + tot + '</span><span><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC83D" aria-label="Racha"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>' + racha + '</span></div>';
@@ -1232,6 +1267,7 @@ document.addEventListener("click", e => {
   const b = e.target.closest("button[data-regalo]");
   if (b) { const id = b.dataset.regalo, R = regalos(), AURA_REGALO = ISLAS.find(x => id.indexOf(x.id + "_") === 0).aura;
     if (R[id]) return aviso("Ya reclamaste este regalo");
+    if (DEMO) { aviso("Demo: en el juego real aquí ganas +" + AURA_REGALO + " de Aura"); return; }
     if (!b.dataset.listo) return aviso("Pasa el nivel de arriba para abrir este regalo");
     R[id] = Date.now(); guardar("ingles_gamer_mapa_regalos", R);
     const a = leer("ingles_gamer_aura") || {}; a.t = Math.max(0, +a.t || 0) + AURA_REGALO; a.e = Math.max(0, +a.e || 0) + AURA_REGALO;

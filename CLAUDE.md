@@ -91,7 +91,8 @@ Voces (nombre del mp3 = slug del texto, sin tildes):
 8. No usar la clase CSS `.pop` en niveles (ya existe con `position:absolute`).
 9. Audio: nunca leer español con la voz del celular; si falta un mp3, generarlo. El audio se corta al cambiar de pantalla.
 10. Commits terminan con las líneas de atribución de la sesión.
-11. Seguridad: el correo del usuario y claves (OneSignal REST, etc.) son privados; no ponerlos en archivos públicos.
+11. **Vistas previas (páginas de diseños) NUNCA escriben claves reales** (`ingles_gamer_*`, `ig_*`): usan almacenamiento de mentiras. GitHub Pages comparte el localStorage con el juego real.
+12. Seguridad: el correo del usuario y claves (OneSignal REST, etc.) son privados; no ponerlos en archivos públicos.
 
 ## 7. Decisiones importantes ya tomadas
 
