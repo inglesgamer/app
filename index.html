@@ -409,6 +409,37 @@ main{overflow-x:hidden;touch-action:pan-y}
 .dt-btn{flex:none;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:99px;background:#FF8A3D;color:#1A0B02;font-size:14px;font-weight:900}
 .dtira.reto .dt-btn{animation:dtLate 1.6s ease-in-out infinite}@keyframes dtLate{50%{transform:scale(1.06);box-shadow:0 0 0 6px rgba(255,138,61,.2)}}
 @media (prefers-reduced-motion:reduce){.dtira.reto .dt-btn{animation:none}}
+/* INICIO_DUELOS (19 nov 2026) */
+header .dchip{gap:8px;padding:0 14px 0 5px;color:var(--ink);text-decoration:none;position:relative}
+.dchip .dc-ic{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#FF6B00;color:#fff;flex:none}
+.dchip .dc-n{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:#E5484D;color:#fff;font-style:normal;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);animation:dcN 1.3s ease-in-out infinite}
+.dchip .dc-n[hidden]{display:none}@keyframes dcN{50%{transform:scale(1.15)}}
+@media (max-width:400px){header .dchip{padding:0 10px 0 4px;gap:6px}.dchip .dc-ic{width:30px;height:30px}}
+.p-au{margin-left:6px;color:#FF8A3D}.p-au svg{vertical-align:-2px;margin-right:2px}
+.dfila{margin-top:2px}.dfila[hidden]{display:none}
+.dh-t{display:flex;justify-content:space-between;align-items:center;margin:0 4px 8px;font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--mu)}.dh-t .rojo{color:#E5484D}
+.dh-fila{display:flex;align-items:flex-start;gap:12px;overflow-x:auto;padding:4px 2px 6px;scrollbar-width:none}.dh-fila::-webkit-scrollbar{display:none}
+.dh{flex:none;width:74px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--ink);text-decoration:none;text-align:center}
+.dh b{margin-top:6px;font-size:13px;font-weight:900;max-width:74px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dh small{font-size:11px;font-weight:800;color:var(--mu)}
+.dh-r{position:relative;width:70px;height:70px;border-radius:50%;padding:3px;background:conic-gradient(#FF6B00 var(--p),var(--track) 0)}
+.dh-r .dh-c{width:100%;height:100%;border:3px solid var(--bg);align-items:flex-end}
+.dh-r .dh-c svg{width:46px!important;height:46px!important}
+.dh.dhn .dh-r{animation:dhR 1.4s ease-in-out infinite}@keyframes dhR{50%{transform:scale(1.07)}}
+.dh-tg{position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);padding:1px 7px;border-radius:99px;background:#E5484D;color:#fff;font-style:normal;font-size:10px;font-weight:900;border:2px solid var(--bg);white-space:nowrap}
+.dh-tg.e{background:var(--chip);color:var(--ink)}
+.dh-mas{width:70px;height:70px;border-radius:50%;border:2px dashed var(--bd);display:flex;align-items:center;justify-content:center;color:#FF6B00}
+.dh-tx{align-self:center;margin:0;font-size:14px;font-weight:700;color:var(--mu);line-height:1.35}
+.dvn{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.66);opacity:0;transition:opacity .25s}.dvn.on{opacity:1}
+.dvn-b{width:100%;max-width:420px;padding:20px 18px;border-radius:28px;background:var(--card);border:2px solid #FF6B00;text-align:center;transform:scale(.85);transition:transform .35s cubic-bezier(.3,1.5,.5,1)}.dvn.on .dvn-b{transform:none}
+.dvn-k{margin:0;font-size:12px;font-weight:900;letter-spacing:.14em;color:var(--mu)}
+.dvn-vs{display:flex;align-items:center;justify-content:center;gap:12px;margin:8px 0 10px}
+.dvn-vs .dvn-c{width:86px;height:86px;border:3px solid #FF4D8D}.dvn-vs .dvn-c.y{border-color:#FFC83D}.dvn-vs .dvn-c svg{width:62px!important;height:62px!important}
+.dvn-x{font-size:28px;font-weight:900;color:#FF6B00;animation:dvnX 1s ease-in-out infinite}@keyframes dvnX{50%{transform:scale(1.25) rotate(-8deg)}}
+.dvn-b h3{margin:0;font-size:23px}.dvn-s{margin:4px 0 12px;color:var(--mu);font-weight:800}
+.dvn-ch{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}.dvn-ch span{padding:6px 11px;border-radius:99px;background:var(--chip);font-size:13px;font-weight:900}.dvn-ch .t{background:rgba(229,72,77,.15);color:#FF6B6B}
+.dvn-go{display:block;height:54px;line-height:54px;border-radius:99px;background:#FF6B00;color:#fff;font-size:17px;font-weight:900;text-decoration:none;box-shadow:0 5px 0 #B84A00}
+.dvn-no{width:100%;height:46px;margin-top:8px;border-radius:99px;border:2px solid var(--bd);background:transparent;color:var(--mu);font:900 15px Nunito,sans-serif}
+@media (prefers-reduced-motion:reduce){.dh.dhn .dh-r,.dvn-x,.dchip .dc-n{animation:none}}
 /* ===== DUELO TERMINADO: pantalla dividida al volver al Inicio ===== */
 .dfin{position:fixed;inset:0;z-index:150;overflow:hidden;background:#000;font-family:Nunito,sans-serif;color:#fff;opacity:0;animation:dfIn .2s forwards}
 .dfin.sale{animation:dfOut .25s forwards}
@@ -451,7 +482,7 @@ main{overflow-x:hidden;touch-action:pan-y}
 <div class="app">
   <header>
     <h1 class="logo">Inglés<span>Gamer</span></h1>
-    <div class="chip" id="chip"></div>
+    <a class="chip dchip" id="dchip" href="go:duelo" aria-label="Duelos"><span class="dc-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/></svg></span>Duelos<i class="dc-n" id="dcN" hidden></i></a><div id="chip" hidden></div>
     <a class="menu-btn bell" id="campana" href="go:novedades" aria-label="Novedades">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
       <i class="punto" id="punto" hidden></i>
@@ -464,7 +495,7 @@ main{overflow-x:hidden;touch-action:pan-y}
 
   <main>
     <div class="card player" id="player"></div>
-    <a class="dtira" id="duelos" href="go:duelo" hidden></a>
+    <section class="dfila" id="duelos" hidden aria-label="Duelos"></section>
     <a class="seguir" id="seguir" href="go:MAPA"></a>
     <a class="sopaI" id="sopa" href="go:sopa"></a>
     <section class="card racha" id="racha" aria-label="Tu racha"></section>
@@ -926,7 +957,7 @@ function pintarJugador() {
   const nm = AVATARES[av].oro ? '<span class="dor">' + esc(nombre) + '</span>' : esc(nombre);
   const nx = sigR ? 'Faltan <b>' + (minR(ri + 1) - totE) + ' ★</b> para ser <b>' + sigR.n + '</b>' : '¡Rango máximo alcanzado!';
   $("player").innerHTML = lookHTML(sprite("av" + av, 64), 100, 14, 14) + '<div class="p-info">' +
-    '<div class="p-row"><span class="p-nm">' + nm + '</span><span class="p-st">' + estrella("f", 14).replace('class="f"', 'style="fill:currentColor"') + totE + '/' + maxE + '</span></div>' +
+    '<div class="p-row"><span class="p-nm">' + nm + '</span><span class="p-st">' + estrella("f", 14).replace('class="f"', 'style="fill:currentColor"') + totE + '/' + maxE + '</span><span class="p-st p-au">' + sprite("llama", 14) + aura + '</span></div>' +
     '<span class="rk">' + escudo(rk.c, 16) + rk.n.toUpperCase() + '</span>' +
     '<div class="bar" role="img" aria-label="' + pct + ' por ciento hacia el siguiente rango"><i style="width:' + pct + '%"></i></div><div class="p-nx">' + nx + '</div></div>';
 }
@@ -2213,23 +2244,44 @@ function cara(j) {
   let sp = ""; try { sp = sprite("av" + (+j.av || 0), 21); } catch (e) {}
   return '<span class="dt-av" style="background:' + bg + '">' + sp + '</span>';
 }
+/* INICIO_DUELOS (19 nov 2026) */
+const VISTOS = "ig_retos_vistos";
+const quedan = ve => { const m = Math.max(0, ve - Date.now()), h = Math.round(m / 36e5); return h >= 48 ? Math.round(h / 24) + " d" : h >= 1 ? h + " h" : Math.max(1, Math.round(m / 6e4)) + " min"; };
 function pintar(D) {
+  const n = D && D.retos ? D.retos.length : 0, N = document.getElementById("dcN");
+  if (N) { N.hidden = !n; N.textContent = n > 9 ? "9+" : n; }
   if (!D) { el.hidden = true; return; }
-  let caras = (D.caras || []).slice(0, 3).map(cara).join(""), tx, btn, reto = false, url = "go:duelo";
-  if (D.retos && D.retos.length) {
-    reto = true; caras = D.retos.slice(0, 2).map(cara).join("");
-    tx = '<b>' + esc(D.retos[0].n) + '</b> te retó' + (D.retos.length > 1 ? ' y ' + (D.retos.length - 1) + ' más' : '');
-    btn = SW(15) + 'Jugar';
-  } else if (D.espera) {
-    tx = 'Esperando a <b>' + esc(D.espera) + '</b>' + (D.nEspera > 1 ? ' · ' + D.nEspera + ' duelos' : ''); btn = SW(15) + 'Retar';
-  } else if (D.amigos) {
-    tx = 'Reta a un amigo · <b>' + D.amigos + (D.amigos === 1 ? ' amigo' : ' amigos') + '</b>'; btn = SW(15) + 'Retar';
-  } else {
-    tx = 'Agrega amigos para retarlos'; btn = 'Agregar'; url = "go:ranking"; caras = "";
-  }
-  el.href = url; el.classList.toggle("reto", reto);
-  el.innerHTML = (caras ? '<span class="dt-st">' + caras + '</span>' : '<span class="dt-ic">' + SW(18) + '</span>') + '<span class="dt-tx">' + tx + '</span><span class="dt-btn">' + btn + '</span>';
+  let vistos = []; try { vistos = JSON.parse(localStorage.getItem(VISTOS) || "[]"); } catch (e) {}
+  const circ = (j, i) => { const tot = Math.max(1, (j.ve || 0) - (j.t || 0)), pct = j.ve ? Math.max(4, Math.min(100, Math.round((j.ve - Date.now()) / tot * 100))) : 100, nuevo = j.id && vistos.indexOf(j.id) < 0;
+    return '<a class="dh' + (nuevo ? ' dhn' : '') + '" href="go:duelo"><span class="dh-r" style="--p:' + pct + '%">' + cara(j).replace('class="dt-av"', 'class="dt-av dh-c"') + '<em class="dh-tg' + (nuevo ? '' : ' e') + '">' + (nuevo ? '¡NUEVO!' : j.ve ? quedan(j.ve) : 'Jugar') + '</em></span><b>' + esc(j.n) + '</b>' +
+      (j.ap ? '<small>' + j.ap + ' Aura</small>' : '<small>Te retó</small>') + '</a>'; };
+  const mas = (t, u) => '<a class="dh" href="' + (u || "go:duelo") + '"><span class="dh-mas">' + SW(24) + '</span><b>' + t + '</b><small>&nbsp;</small></a>';
+  let head, fila;
+  if (n) { head = '<span>DUELOS</span><b class="rojo">' + n + (n === 1 ? ' PENDIENTE' : ' PENDIENTES') + '</b>'; fila = D.retos.slice(0, 8).map(circ).join("") + mas("Retar"); }
+  else if (D.espera) { head = '<span>DUELOS</span><b>ESPERANDO A ' + esc(D.espera).toUpperCase() + '</b>'; fila = mas("Retar") + '<p class="dh-tx">No tienes retos pendientes. ' + (D.nEspera > 1 ? D.nEspera + ' duelos esperan a tus amigos.' : 'Tu duelo espera a ' + esc(D.espera) + '.') + '</p>'; }
+  else if (D.amigos) { head = '<span>DUELOS</span><b>SIN RETOS</b>'; fila = mas("Retar") + '<p class="dh-tx">Nadie te ha retado. ¡Reta a uno de tus ' + D.amigos + (D.amigos === 1 ? ' amigo' : ' amigos') + '!</p>'; }
+  else { head = '<span>DUELOS</span><b>SIN AMIGOS AÚN</b>'; fila = mas("Agregar", "go:ranking") + '<p class="dh-tx">Agrega amigos en el Ranking para retarlos a duelos.</p>'; }
+  el.innerHTML = '<div class="dh-t">' + head + '</div><div class="dh-fila">' + fila + '</div>';
   el.hidden = false;
+  if (n) ventanaReto(D.retos, vistos);
+}
+/* ventana «¡Te retaron!» — una vez por cada reto nuevo */
+function ventanaReto(retos, vistos) {
+  const nuevos = retos.filter(r => r.id && vistos.indexOf(r.id) < 0); if (!nuevos.length || document.querySelector(".dvn")) return;
+  const r = nuevos[0];
+  try { localStorage.setItem(VISTOS, JSON.stringify(vistos.concat(nuevos.map(x => x.id)).slice(-60))); } catch (e) {}
+  let yoAv = 0, yoMp = 0; try { const pf = JSON.parse(localStorage.getItem("ingles_gamer_perfil") || "{}"); yoAv = +pf.a || 0; } catch (e) {}
+  try { const t = JSON.parse(localStorage.getItem("ingles_gamer_tienda") || "{}"); yoMp = +String((t.eq || {}).mp || "mp0").replace(/\D/g, "") || 0; } catch (e) {}
+  const big = (j, c) => cara(j).replace('class="dt-av"', 'class="dt-av dvn-c ' + c + '"').replace(/sprite\(/, "sprite(");
+  const ov = document.createElement("div"); ov.className = "dvn";
+  ov.innerHTML = '<div class="dvn-b" role="dialog" aria-label="Te retaron a un duelo"><p class="dvn-k">¡TE RETARON!</p><div class="dvn-vs">' + big(r, "r") + '<span class="dvn-x">VS</span>' + big({ av:yoAv, mp:yoMp }, "y") + '</div>' +
+    '<h3>' + esc(r.n) + ' te retó a un duelo</h3><p class="dvn-s">' + (nuevos.length > 1 ? 'y tienes ' + (nuevos.length - 1) + (nuevos.length === 2 ? ' reto nuevo más' : ' retos nuevos más') : '¿Aceptas?') + '</p>' +
+    '<div class="dvn-ch">' + (r.ap ? '<span>Apuesta: ' + r.ap + ' Aura</span>' : '<span>Sin apuesta</span>') + (r.ve ? '<span class="t">Vence en ' + quedan(r.ve) + '</span>' : '') + '</div>' +
+    '<a class="dvn-go" href="go:duelo">Jugar ahora</a><button type="button" class="dvn-no">Más tarde</button></div>';
+  document.body.appendChild(ov); requestAnimationFrame(() => ov.classList.add("on"));
+  const cerrar = () => { ov.classList.remove("on"); setTimeout(() => ov.remove(), 300); };
+  ov.querySelector(".dvn-no").onclick = cerrar; ov.addEventListener("click", e => { if (e.target === ov) cerrar(); });
+  /* actualizar las etiquetas «¡NUEVO!» de la fila */
 }
 let cache = null; try { cache = JSON.parse(localStorage.getItem(CACHE) || "null"); } catch (e) {}
 let uid = "", t0 = 0;
@@ -2246,9 +2298,9 @@ async function cargar(forzar) {
     /* Duelos v4 (v == 2): js = jugadores, res = resultados por uid, rech = rechazos */
     const v2 = []; rv.forEach(d => { const v = d.data(); if (v.v === 2) v2.push(Object.assign({ id:d.id }, v)); });
     v2.forEach(v => { const res = v.res || {}, rech = v.rech || {}, act = v.js.filter(u => !rech[u]), falta = act.filter(u => !res[u]);
-      if (!res[uid] && !rech[uid] && v.a !== uid && +v.vence > ahora && act.length > 1) { const c = (v.p || {})[v.a] || {}; retos.push({ n:c.n || "Amigo", av:c.av, mp:c.l && c.l[2], t:+v.t || 0 }); }
+      if (!res[uid] && !rech[uid] && v.a !== uid && +v.vence > ahora && act.length > 1) { const c = (v.p || {})[v.a] || {}; retos.push({ n:c.n || "Amigo", av:c.av, mp:c.l && c.l[2], t:+v.t || 0, id:v.id, ve:+v.vence || 0, ap:+v.ap || 0 }); }
       else if (res[uid] && falta.length && +v.vence > ahora) { const o = (v.p || {})[falta[0]] || {}; esp.push({ n:o.n || "Amigo", t:+v.t || 0 }); } });
-    rb.forEach(d => { const v = d.data(); if (!v.rb && v.est !== "rech" && +v.vence > ahora) retos.push({ n:v.an || "Amigo", av:v.aav, mp:v.al && v.al[2], t:+v.t || 0 }); });
+    rb.forEach(d => { const v = d.data(); if (!v.rb && v.est !== "rech" && +v.vence > ahora) retos.push({ n:v.an || "Amigo", av:v.aav, mp:v.al && v.al[2], t:+v.t || 0, id:d.id, ve:+v.vence || 0, ap:+v.ap || 0 }); });
     ra.forEach(d => { const v = d.data(); if (v.v !== 2 && !v.rb && v.est !== "rech" && +v.vence > ahora) esp.push({ n:v.bn || "Amigo", t:+v.t || 0 }); });
     retos.sort((x, y) => y.t - x.t); esp.sort((x, y) => y.t - x.t);
     const ids = []; am1.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().para); }); am2.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().de); });
