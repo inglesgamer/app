@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Duelos en el Inicio · diseños</title><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<script>var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+
+aplicarTema((location.search.match(/tema=([a-z]+)/) || [])[1] || (function () { try { return localStorage.getItem(TEMA_KEY) || "noche"; } catch (e) { return "noche"; } })());
+</script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+.w{max-width:440px;margin:0 auto;padding:14px 12px 40px}
+h1{font-size:21px;margin:4px 0}p.s{margin:0 0 10px;color:var(--mu);font-weight:700;font-size:14px}
+.tabs{position:sticky;top:0;z-index:30;display:flex;gap:6px;padding:8px 0;background:var(--bg)}
+.tabs button{flex:1;padding:10px 0;border-radius:14px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:900 15px Nunito,sans-serif}
+.tabs button.on{background:#FF6B00;color:#fff;border-color:#FF6B00}
+.desc{padding:12px;border-radius:16px;background:var(--card);border:1px solid var(--bd);font-size:14px;font-weight:700;min-height:70px}.desc b{display:block;font-size:17px;font-weight:900}
+.tel{position:relative;height:640px;margin-top:10px;border-radius:30px;border:2px solid var(--bd);overflow:hidden;background:var(--bg)}
+.in{padding:14px 12px}
+/* tarjeta jugador (simulada) */
+.yo{position:relative;z-index:2;display:flex;align-items:center;gap:10px;padding:12px;border-radius:22px;background:var(--card);border:1px solid var(--bd)}
+.yo .av{width:54px;height:54px;border-radius:50%;background:linear-gradient(#3A4A7A,#1B2340);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;border:3px solid #FFC83D}
+.yo b{font-size:17px}.yo small{display:block;color:var(--mu);font-weight:800;font-size:12px}
+.yo .st{margin-left:auto;display:flex;gap:6px}.yo .st span{padding:5px 9px;border-radius:12px;background:var(--chip);font-weight:900;font-size:13px}
+.blk{margin-top:12px;height:120px;border-radius:22px;background:var(--card);border:1px solid var(--bd);padding:14px;color:var(--mu);font-weight:800}
+.blk.s{height:80px}
+.nav{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:10px 0 14px;background:var(--nav,var(--card));border-top:1px solid var(--bd);font-size:11px;font-weight:800;color:var(--mu)}
+.nav span{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px}
+.nav i{width:24px;height:24px;border-radius:7px;background:var(--chip)}
+.badge{position:absolute;top:-6px;right:-10px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:#E5484D;color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);animation:bd 1.2s ease-in-out infinite}
+@keyframes bd{50%{transform:scale(1.18)}}
+.pix{line-height:0;display:inline-flex}.pix svg{overflow:visible}
+.btnD{border:0;border-radius:99px;font:900 16px Nunito,sans-serif;cursor:pointer}
+/* A: ventana al entrar */
+.velo{position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;transition:opacity .25s}.velo.on{opacity:1}
+.mA{width:100%;padding:20px 18px;border-radius:28px;background:var(--card);border:2px solid #FF6B00;text-align:center;transform:scale(.8);transition:transform .35s cubic-bezier(.3,1.5,.5,1)}.velo.on .mA{transform:none}
+.mA .vs{display:flex;align-items:center;justify-content:center;gap:12px;margin:6px 0 10px}
+.mA .c{width:84px;height:84px;border-radius:50%;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.mA .c.r{background:linear-gradient(#7A2E5A,#3A1430);border:3px solid #FF4D8D}.mA .c.y{background:linear-gradient(#3A4A7A,#1B2340);border:3px solid #FFC83D}
+.mA .x{font-size:28px;font-weight:900;color:#FF6B00;animation:vsP 1s ease-in-out infinite}@keyframes vsP{50%{transform:scale(1.25) rotate(-8deg)}}
+.mA h3{margin:0;font-size:24px}.mA p{margin:4px 0 12px;color:var(--mu);font-weight:800}
+.chips{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:14px}.chips span{padding:6px 11px;border-radius:99px;background:var(--chip);font-size:13px;font-weight:900}
+.chips .t{background:rgba(229,72,77,.15);color:#FF6B6B}
+.mA .go{width:100%;height:54px;background:#FF6B00;color:#fff;box-shadow:0 5px 0 #B84A00}.mA .no{width:100%;height:46px;margin-top:8px;background:transparent;color:var(--mu);border:2px solid var(--bd)}
+/* B: tarjeta grande VS arriba */
+.cB{position:relative;margin-bottom:12px;padding:14px;border-radius:24px;overflow:hidden;color:#fff;background:linear-gradient(120deg,#E5484D,#FF6B00);box-shadow:0 6px 0 #9E2226;animation:cbG 2s ease-in-out infinite}
+@keyframes cbG{50%{box-shadow:0 6px 0 #9E2226,0 0 0 8px rgba(255,107,0,.25)}}
+.cB::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.08) 0 14px,transparent 14px 28px);animation:raya 3s linear infinite}@keyframes raya{to{background-position:56px 0}}
+.cB .t1{position:relative;display:flex;justify-content:space-between;font-size:11px;font-weight:900;letter-spacing:.14em}
+.cB .row{position:relative;display:flex;align-items:center;gap:10px;margin-top:8px}
+.cB .c{width:58px;height:58px;border-radius:50%;background:rgba(0,0,0,.25);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;border:3px solid #fff}
+.cB .vs{font-size:22px;font-weight:900}.cB .tx{flex:1}.cB .tx b{display:block;font-size:17px}.cB .tx small{font-weight:800;opacity:.9}
+.cB .go{position:relative;width:100%;height:48px;margin-top:10px;background:#fff;color:#C2410C}
+/* C: aviso que baja + punto en la barra */
+.ban{position:absolute;left:10px;right:10px;top:-120px;z-index:15;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:20px;background:var(--card);border:2px solid #FF6B00;box-shadow:0 10px 30px rgba(0,0,0,.45);transition:top .5s cubic-bezier(.2,1.3,.4,1)}
+.ban.on{top:10px}.ban .c{width:44px;height:44px;border-radius:50%;background:linear-gradient(#7A2E5A,#3A1430);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;flex:none}
+.ban .tx{flex:1;font-size:14px;font-weight:800}.ban .tx b{color:#FF6B00}.ban .tx small{display:block;color:var(--mu);font-size:12px}
+.ban .go{height:38px;padding:0 14px;background:#FF6B00;color:#fff;font-size:14px}
+/* D: fila tipo historias */
+.hist{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 10px;margin-bottom:6px}
+.h{flex:none;width:72px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:900}
+.h .ring{position:relative;width:68px;height:68px;border-radius:50%;padding:3px;background:conic-gradient(#FF6B00 var(--p),var(--track) 0)}
+.h .ring .c{width:100%;height:100%;border-radius:50%;background:var(--card);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;border:3px solid var(--bg)}
+.h .tg{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);padding:1px 7px;border-radius:99px;background:#E5484D;color:#fff;font-size:10px;border:2px solid var(--bg);white-space:nowrap}
+.h .tg.e{background:var(--chip);color:var(--mu)}
+.h.nuevo .ring{animation:anR 1.4s ease-in-out infinite}@keyframes anR{50%{transform:scale(1.07)}}
+.h small{color:var(--mu);font-size:11px}
+.h .mas{width:68px;height:68px;border-radius:50%;border:2px dashed var(--bd);display:flex;align-items:center;justify-content:center;font-size:30px;color:var(--mu)}
+.hist-t{display:flex;justify-content:space-between;align-items:center;margin:0 2px 6px;font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.hist-t b{color:#E5484D}
+/* E: franja actual mejorada */
+.eE{position:relative;z-index:1;margin-top:-26px;padding:30px 12px 12px;border-radius:0 0 24px 24px;background:#E5484D;color:#fff;display:flex;align-items:center;gap:10px;animation:sac 3s ease-in-out infinite}
+@keyframes sac{0%,86%,100%{transform:none}88%{transform:translateX(-4px) rotate(-1deg)}90%{transform:translateX(4px) rotate(1deg)}92%{transform:translateX(-3px)}94%{transform:translateX(3px)}}
+.eE .c{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.25);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;border:2px solid #fff;flex:none}
+.eE .tx{flex:1;font-weight:800;font-size:14px}.eE .tx b{font-size:16px}.eE .tx small{display:block;opacity:.9;font-size:12px}
+.eE .n{position:absolute;top:22px;left:40px;min-width:20px;height:20px;border-radius:99px;background:#FFD166;color:#1A0B02;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.eE .go{height:40px;padding:0 16px;background:#fff;color:#E5484D;font-size:15px}
+.probar{display:block;width:100%;height:52px;margin:12px 0;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font:900 17px Nunito,sans-serif}
+</style></head><body><div class="w">
+<h1>Duelos en el Inicio</h1><p class="s">Cinco ideas para que nunca se te pase un reto. Se pueden combinar.</p>
+<div class="tabs" id="ops"></div><div class="desc" id="desc"></div>
+<div class="tel" id="tel"></div><button class="probar" id="probar">Ver otra vez</button>
+<div class="tabs" id="pals"></div>
+</div>
+<script>const SPR = {
+  slime:{p:{g:"#5DB33A",l:"#8EE66A",k:"#0B0B0D"},r:["........","..gggg..",".gllggg.","gglggggg","gkggggkg","gggggggg","gggggggg",".gggggg."]},
+  gato:{p:{o:"#FF8A3D",k:"#0B0B0D",w:"#F2F4F8",p:"#FFB4B4"},r:["o......o","oo....oo","oooooooo","okooooko","oooppooo","owwoowwo",".oooooo.","..o..o.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},
+    r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},
+    r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},
+    r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},
+    r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},
+    r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},
+    r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},
+    r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},
+    r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},
+    r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]}
+};
+function sprite(n, size) {
+  const d = SPR[n]; if (!d) return "";
+  const N = d.r.length;
+  let o = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + N + ' ' + N + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach(function (row, y) { row.split("").forEach(function (c, x) { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }); });
+  return o + "</svg>";
+}
+const $ = id => document.getElementById(id);
+const ESP = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/></svg>';
+const RET = [{ n:"Sofía", av:3, tema:"Animales", ap:50, h:"5 h" }, { n:"Mateo", av:5, tema:"Colores", ap:25, h:"21 h" }, { n:"Valen", av:7, tema:"Números", ap:0, h:"2 d" }];
+const sp = (a, s) => '<span class="pix">' + sprite("av" + a, s) + '</span>';
+const yo = '<div class="yo"><span class="av">' + sp(2, 44) + '</span><div><b>Andrés</b><small>Campesino II · 120 Aura</small></div><div class="st"><span>20 ★</span><span>3 d</span></div></div>';
+const resto = '<div class="blk">Vocabulario del día</div><div class="blk s">Retos de la semana</div>';
+const nav = b => '<div class="nav">' + ["Inicio","Mapa","Tienda","Ranking","Perfil"].map((x, i) => '<span><i></i>' + x + (b && i === 3 ? '<em class="badge">3</em>' : '') + '</span>').join("") + '</div>';
+const OPS = {
+ A:["Ventana al entrar", "Apenas abres la app y alguien te retó, sale una ventana con los dos personajes (tú VS el que te retó), el tema, la apuesta y cuánto tiempo queda. Sale una vez por cada reto nuevo.", () => {
+   $("tel").innerHTML = '<div class="in">' + yo + resto + '</div>' + nav() +
+     '<div class="velo" id="velo"><div class="mA"><p style="margin:0;font-size:12px;letter-spacing:.14em">¡TE RETARON!</p><div class="vs"><span class="c r">' + sp(3, 66) + '</span><span class="x">VS</span><span class="c y">' + sp(2, 66) + '</span></div>' +
+     '<h3>Sofía te retó a un duelo</h3><p>¿Aceptas?</p><div class="chips"><span>Tema: Animales</span><span>Apuesta: 50 Aura</span><span class="t">Vence en 5 h</span></div>' +
+     '<button class="btnD go">Jugar ahora</button><button class="btnD no" id="luego">Más tarde</button></div></div>';
+   setTimeout(() => $("velo").classList.add("on"), 400); $("luego").onclick = () => $("velo").classList.remove("on"); }],
+ B:["Tarjeta grande arriba", "Mientras tengas un reto, arriba de todo sale una tarjeta naranja-roja que se mueve, con TÚ VS el que te retó, el tema, la apuesta y la cuenta regresiva. Imposible no verla.", () => {
+   $("tel").innerHTML = '<div class="in"><div class="cB"><div class="t1"><span>DUELO PENDIENTE · 3</span><span>VENCE EN 5 H</span></div><div class="row"><span class="c">' + sp(3, 46) + '</span><span class="vs">VS</span><span class="c">' + sp(2, 46) + '</span>' +
+     '<div class="tx"><b>Sofía te retó</b><small>Animales · 50 Aura en juego</small></div></div><button class="btnD go">' + 'Aceptar duelo</button></div>' + yo + resto + '</div>' + nav(); }],
+ C:["Aviso que baja + número", "Al entrar baja un aviso arriba (como una notificación) con quién te retó y botón «Jugar». Además, el ícono de Ranking muestra un número rojo con los retos pendientes.", () => {
+   $("tel").innerHTML = '<div class="in">' + yo + resto + '</div>' + nav(true) +
+     '<div class="ban" id="ban"><span class="c">' + sp(3, 36) + '</span><div class="tx"><b>Sofía</b> te retó en Animales<small>Vence en 5 h · y 2 retos más</small></div><button class="btnD go">Jugar</button></div>';
+   setTimeout(() => $("ban").classList.add("on"), 400); setTimeout(() => { const b = $("ban"); if (b) b.classList.remove("on"); }, 5200); }],
+ D:["Fila de retos (tipo historias)", "Debajo de tu tarjeta, una fila de círculos con cada persona que te retó. El anillo naranja muestra el tiempo que queda; los nuevos laten. Al final, «+» para retar a alguien.", () => {
+   const h = (r, i) => '<div class="h' + (i === 0 ? ' nuevo' : '') + '"><div class="ring" style="--p:' + [80, 40, 15][i] + '%"><div class="c">' + sp(r.av, 50) + '</div><span class="tg' + (i ? ' e' : '') + '">' + (i ? r.h : "¡NUEVO!") + '</span></div><span style="margin-top:6px">' + r.n + '</span><small>' + r.tema + '</small></div>';
+   $("tel").innerHTML = '<div class="in">' + yo + '<div style="margin-top:12px"><div class="hist-t"><span>DUELOS</span><b>3 PENDIENTES</b></div><div class="hist">' + RET.map(h).join("") +
+     '<div class="h"><div class="mas">+</div><span>Retar</span></div></div></div>' + resto + '</div>' + nav(); }],
+ E:["Franja actual, pero en rojo", "La misma franja de hoy pegada a tu tarjeta, pero roja, más grande, con el número de retos y un pequeño sacudón cada pocos segundos para que te des cuenta.", () => {
+   $("tel").innerHTML = '<div class="in">' + yo + '<div class="eE"><span class="c">' + sp(3, 32) + '</span><span class="n">3</span><div class="tx"><b>Sofía te retó</b><small>Animales · vence en 5 h · y 2 más</small></div><button class="btnD go">Jugar</button></div>' + resto + '</div>' + nav(); }]
+};
+let OP = (location.search.match(/op=([A-E])/) || [])[1] || "A";
+$("ops").innerHTML = Object.keys(OPS).map(k => '<button data-k="' + k + '">' + k + '</button>').join("");
+function sel() { document.querySelectorAll("#ops button").forEach(b => b.classList.toggle("on", b.dataset.k === OP)); $("desc").innerHTML = "<b>" + OP + ". " + OPS[OP][0] + "</b>" + OPS[OP][1]; OPS[OP][2](); }
+$("ops").onclick = e => { const b = e.target.closest("button"); if (b) { OP = b.dataset.k; sel(); } };
+$("probar").onclick = sel;
+const PL = [["noche","Noche"],["dia","Día"],["rosa","Rosa"],["azul","Azul"]];
+$("pals").innerHTML = PL.map(p => '<button data-t="' + p[0] + '">' + p[1] + '</button>').join("");
+$("pals").onclick = e => { const b = e.target.closest("button"); if (!b) return; aplicarTema(b.dataset.t); };
+sel();
+</script></body></html>
