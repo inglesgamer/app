@@ -429,6 +429,21 @@ header .dchip{gap:8px;padding:0 14px 0 5px;color:var(--ink);text-decoration:none
 .dh-tg.e{background:var(--chip);color:var(--ink)}
 .dh-mas{width:70px;height:70px;border-radius:50%;border:2px dashed var(--bd);display:flex;align-items:center;justify-content:center;color:#FF6B00}
 .dh-tx{align-self:center;margin:0;font-size:14px;font-weight:700;color:var(--mu);line-height:1.35}
+.dh-am{background:conic-gradient(#3FC46A 100%,#3FC46A 0)}.dh-ret{background:#3FC46A!important;color:#06290F!important;display:inline-flex;align-items:center;gap:3px}
+.dvB{flex:1;display:flex;align-items:center;gap:8px;padding:12px;border-radius:22px;background:linear-gradient(120deg,color-mix(in srgb,#FF6B00 22%,var(--card)),var(--card));border:2px solid color-mix(in srgb,#FF6B00 55%,var(--bd));color:var(--ink);text-decoration:none}
+.dvB-c{flex:none;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dvB-c.y{border:3px solid #FFC83D}.dvB-c .dvB-a{width:100%;height:100%;border:0}.dvB-c .dvB-a svg{width:38px!important;height:38px!important}
+.dvB-c.q{border:3px dashed #FF6B00;color:#FF6B00;font-size:26px;font-weight:900;animation:dvQ 1.6s ease-in-out infinite}@keyframes dvQ{50%{transform:rotate(-10deg) scale(1.08)}}
+.dvB-x{font-size:16px;font-weight:900;color:#FF6B00}
+.dvB-tx{flex:1;min-width:0}.dvB-tx b{display:block;font-size:16px}.dvB-tx small{display:block;font-size:12px;font-weight:700;color:var(--mu);line-height:1.3}
+.dvB-go{flex:none;height:38px;padding:0 14px;border-radius:99px;background:#FF6B00;color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center}
+.dvC{flex:1;position:relative;display:flex;align-items:center;gap:10px;padding:14px 12px;border-radius:22px;overflow:hidden;color:#fff;text-decoration:none;background:linear-gradient(120deg,#FF6B00,#E5484D);box-shadow:0 5px 0 #9E2226}
+.dvC::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.08) 0 14px,transparent 14px 28px)}
+.dvC-pj{position:relative;flex:none}.dvC-pj .dvC-a{width:62px;height:62px;border:3px solid #fff}.dvC-pj .dvC-a svg{width:46px!important;height:46px!important}
+.dvC-g{position:relative;flex:1;min-width:0}.dvC-g b{display:block;font-size:16px}.dvC-g small{display:block;font-size:12px;font-weight:800;opacity:.92}
+.dvC-am{display:flex;align-items:center;margin-top:6px}.dvC-am .dvC-m{width:26px;height:26px;border:2px solid #fff}.dvC-am .dvC-m+.dvC-m{margin-left:-8px}.dvC-am .dvC-m svg{width:18px!important;height:18px!important}
+.dvC-am i{margin-left:6px;font-style:normal;font-size:12px;font-weight:900}
+.dvC-go{position:relative;flex:none;display:flex;align-items:center;gap:5px;height:40px;padding:0 14px;border-radius:99px;background:#fff;color:#C2410C;font-size:14px;font-weight:900;animation:dvG 1.6s ease-in-out infinite}@keyframes dvG{50%{transform:scale(1.07)}}
 .dvn{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.66);opacity:0;transition:opacity .25s}.dvn.on{opacity:1}
 .dvn-b{width:100%;max-width:420px;padding:20px 18px;border-radius:28px;background:var(--card);border:2px solid #FF6B00;text-align:center;transform:scale(.85);transition:transform .35s cubic-bezier(.3,1.5,.5,1)}.dvn.on .dvn-b{transform:none}
 .dvn-k{margin:0;font-size:12px;font-weight:900;letter-spacing:.14em;color:var(--mu)}
@@ -2247,6 +2262,22 @@ function cara(j) {
 /* INICIO_DUELOS (19 nov 2026) */
 const VISTOS = "ig_retos_vistos";
 const quedan = ve => { const m = Math.max(0, ve - Date.now()), h = Math.round(m / 36e5); return h >= 48 ? Math.round(h / 24) + " d" : h >= 1 ? h + " h" : Math.max(1, Math.round(m / 6e4)) + " min"; };
+/* sin retos: 3 diseños para elegir (?dv=A|B|C) */
+const DV = (location.search.match(/[?&]dv=([ABC])/) || [])[1] || "A";
+function VACIO(D) {
+  let yoAv = 0, yoMp = 0; try { yoAv = +(JSON.parse(localStorage.getItem("ingles_gamer_perfil") || "{}").a) || 0; } catch (e) {}
+  try { yoMp = +String((JSON.parse(localStorage.getItem("ingles_gamer_tienda") || "{}").eq || {}).mp || "mp0").replace(/\D/g, "") || 0; } catch (e) {}
+  const am = (D.caras || []).slice(0, 3), nA = D.amigos;
+  if (DV === "A") return ['<span>DUELOS</span><b>RETA A UN AMIGO</b>',
+    am.map(j => '<a class="dh" href="go:duelo"><span class="dh-r dh-am">' + cara(j).replace('class="dt-av"', 'class="dt-av dh-c"') + '<em class="dh-tg dh-ret">' + SW(10) + ' RETAR</em></span><b>' + esc(j.n || "Amigo") + '</b><small>Sin duelo</small></a>').join("") +
+    '<a class="dh" href="go:duelo"><span class="dh-mas">' + SW(24) + '</span><b>Otro</b><small>' + nA + (nA === 1 ? ' amigo' : ' amigos') + '</small></a>'];
+  if (DV === "B") return ['<span>DUELOS</span><b>SIN RETOS</b>',
+    '<a class="dvB" href="go:duelo"><span class="dvB-c y">' + cara({ av:yoAv, mp:yoMp }).replace('class="dt-av"', 'class="dt-av dvB-a"') + '</span><span class="dvB-x">VS</span><span class="dvB-c q">?</span>' +
+    '<span class="dvB-tx"><b>¿Quién se atreve?</b><small>Elige rival y apuesta Aura.</small></span><span class="dvB-go">Retar</span></a>'];
+  return ['<span>DUELOS</span><b>SIN RETOS</b>',
+    '<a class="dvC" href="go:duelo"><span class="dvC-pj">' + cara({ av:yoAv, mp:yoMp }).replace('class="dt-av"', 'class="dt-av dvC-a"') + '</span><span class="dvC-g"><b>¡Nadie se atreve a retarte!</b><small>Reta tú primero y gana Aura.</small>' +
+    '<span class="dvC-am">' + am.map(j => cara(j).replace('class="dt-av"', 'class="dt-av dvC-m"')).join("") + '<i>' + nA + (nA === 1 ? ' amigo listo' : ' amigos listos') + '</i></span></span><span class="dvC-go">' + SW(16) + 'Retar</span></a>'];
+}
 function pintar(D) {
   const n = D && D.retos ? D.retos.length : 0, N = document.getElementById("dcN");
   if (N) { N.hidden = !n; N.textContent = n > 9 ? "9+" : n; }
@@ -2259,7 +2290,7 @@ function pintar(D) {
   let head, fila;
   if (n) { head = '<span>DUELOS</span><b class="rojo">' + n + (n === 1 ? ' PENDIENTE' : ' PENDIENTES') + '</b>'; fila = D.retos.slice(0, 8).map(circ).join("") + mas("Retar"); }
   else if (D.espera) { head = '<span>DUELOS</span><b>ESPERANDO A ' + esc(D.espera).toUpperCase() + '</b>'; fila = mas("Retar") + '<p class="dh-tx">No tienes retos pendientes. ' + (D.nEspera > 1 ? D.nEspera + ' duelos esperan a tus amigos.' : 'Tu duelo espera a ' + esc(D.espera) + '.') + '</p>'; }
-  else if (D.amigos) { head = '<span>DUELOS</span><b>SIN RETOS</b>'; fila = mas("Retar") + '<p class="dh-tx">Nadie te ha retado. ¡Reta a uno de tus ' + D.amigos + (D.amigos === 1 ? ' amigo' : ' amigos') + '!</p>'; }
+  else if (D.amigos) { const V = VACIO(D); head = V[0]; fila = V[1]; }
   else { head = '<span>DUELOS</span><b>SIN AMIGOS AÚN</b>'; fila = mas("Agregar", "go:ranking") + '<p class="dh-tx">Agrega amigos en el Ranking para retarlos a duelos.</p>'; }
   el.innerHTML = '<div class="dh-t">' + head + '</div><div class="dh-fila">' + fila + '</div>';
   el.hidden = false;
@@ -2304,7 +2335,7 @@ async function cargar(forzar) {
     ra.forEach(d => { const v = d.data(); if (v.v !== 2 && !v.rb && v.est !== "rech" && +v.vence > ahora) esp.push({ n:v.bn || "Amigo", t:+v.t || 0 }); });
     retos.sort((x, y) => y.t - x.t); esp.sort((x, y) => y.t - x.t);
     const ids = []; am1.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().para); }); am2.forEach(d => { if (d.data().estado === "aceptada") ids.push(d.data().de); });
-    const caras = (await Promise.all(ids.slice(0, 3).map(async u => { try { const s = await getDoc(doc(db, "jugadores", u)); if (!s.exists()) return null; const x = s.data(); return { av:x.av, mp:x.lmp }; } catch (e) { return null; } }))).filter(Boolean);
+    const caras = (await Promise.all(ids.slice(0, 3).map(async u => { try { const s = await getDoc(doc(db, "jugadores", u)); if (!s.exists()) return null; const x = s.data(); return { av:x.av, mp:x.lmp, n:x.n || "Amigo" }; } catch (e) { return null; } }))).filter(Boolean);
     const D = { retos, espera:esp.length ? esp[0].n : "", nEspera:esp.length, amigos:ids.length, caras };
     try { localStorage.setItem(CACHE, JSON.stringify({ t:Date.now(), d:D })); } catch (e) {}
     pintar(D);
