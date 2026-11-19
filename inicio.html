@@ -444,6 +444,15 @@ header .dchip{gap:8px;padding:0 14px 0 5px;color:var(--ink);text-decoration:none
 .dvC-am{display:flex;align-items:center;margin-top:6px}.dvC-am .dvC-m{width:26px;height:26px;border:2px solid #fff}.dvC-am .dvC-m+.dvC-m{margin-left:-8px}.dvC-am .dvC-m svg{width:18px!important;height:18px!important}
 .dvC-am i{margin-left:6px;font-style:normal;font-size:12px;font-weight:900}
 .dvC-go{position:relative;flex:none;display:flex;align-items:center;gap:5px;height:40px;padding:0 14px;border-radius:99px;background:#fff;color:#C2410C;font-size:14px;font-weight:900;animation:dvG 1.6s ease-in-out infinite}@keyframes dvG{50%{transform:scale(1.07)}}
+.dh-fan{position:relative;width:70px;height:70px;border-radius:50%;border:2px dashed var(--bd);display:flex;align-items:center;justify-content:center;color:var(--mu);background:var(--card);animation:dhF 2.4s ease-in-out infinite}
+@keyframes dhF{50%{border-color:#FF6B00;color:#FF6B00}}
+.dh-fan em{position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;background:#FF6B00;color:#fff;font-style:normal;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
+.dh-bus{border-style:solid;border-color:#FF6B00;background:color-mix(in srgb,#FF6B00 14%,var(--card))}
+.dvD{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px;border-radius:22px;background:var(--card);border:2px dashed color-mix(in srgb,#FF6B00 60%,var(--bd));color:var(--ink);text-decoration:none}
+.dvD-g{display:flex;align-items:center}.dvD-g i{width:42px;height:42px;border-radius:50%;background:var(--chip);border:2px solid var(--card);display:flex;align-items:center;justify-content:center}.dvD-g em{margin-left:6px;width:30px;height:30px;border-radius:50%;background:#FF6B00;color:#fff;font-style:normal;font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:center}.dvD-g i+i{margin-left:-12px}
+.dvD-g i:nth-child(1){background:linear-gradient(#7A2E5A,#3A1430)}.dvD-g i:nth-child(2){background:linear-gradient(#3A4A7A,#1B2340)}.dvD-g i:nth-child(3){background:linear-gradient(#2E6B3A,#16351C)}
+.dvD-tx b{display:block;font-size:17px}.dvD-tx small{display:block;font-size:13px;font-weight:700;color:var(--mu);line-height:1.35}
+.dvD-go{height:42px;padding:0 18px;border-radius:99px;background:#FF6B00;color:#fff;font-size:15px;font-weight:900;display:flex;align-items:center}
 .dvn{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.66);opacity:0;transition:opacity .25s}.dvn.on{opacity:1}
 .dvn-b{width:100%;max-width:420px;padding:20px 18px;border-radius:28px;background:var(--card);border:2px solid #FF6B00;text-align:center;transform:scale(.85);transition:transform .35s cubic-bezier(.3,1.5,.5,1)}.dvn.on .dvn-b{transform:none}
 .dvn-k{margin:0;font-size:12px;font-weight:900;letter-spacing:.14em;color:var(--mu)}
@@ -2291,7 +2300,12 @@ function pintar(D) {
   if (n) { head = '<span>DUELOS</span><b class="rojo">' + n + (n === 1 ? ' PENDIENTE' : ' PENDIENTES') + '</b>'; fila = D.retos.slice(0, 8).map(circ).join("") + mas("Retar"); }
   else if (D.espera) { head = '<span>DUELOS</span><b>ESPERANDO A ' + esc(D.espera).toUpperCase() + '</b>'; fila = mas("Retar") + '<p class="dh-tx">No tienes retos pendientes. ' + (D.nEspera > 1 ? D.nEspera + ' duelos esperan a tus amigos.' : 'Tu duelo espera a ' + esc(D.espera) + '.') + '</p>'; }
   else if (D.amigos) { const V = VACIO(D); head = V[0]; fila = V[1]; }
-  else { head = '<span>DUELOS</span><b>SIN AMIGOS AÚN</b>'; fila = mas("Agregar", "go:ranking") + '<p class="dh-tx">Agrega amigos en el Ranking para retarlos a duelos.</p>'; }
+  else { const DN = (location.search.match(/[?&]dn=([12])/) || [])[1] || "1";
+    head = '<span>DUELOS</span><b>SIN AMIGOS AÚN</b>';
+    fila = DN === "1"
+      ? ['Invita', 'Agrega', 'Reta'].map((t, i) => '<a class="dh" href="go:ranking"><span class="dh-fan" style="animation-delay:' + i * .3 + 's"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><em>+</em></span><b>' + t + '</b><small>' + ['a un amigo', 'desde Ranking', 'y gana Aura'][i] + '</small></a>').join("")
+        + '<a class="dh" href="go:ranking"><span class="dh-mas dh-bus"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><b>Buscar</b><small>amigos</small></a>'
+      : '<a class="dvD" href="go:ranking"><span class="dvD-g">' + [0, 1, 2].map(() => '<i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></i>').join("") + '<em>+</em></span><span class="dvD-tx"><b>Juega duelos con amigos</b><small>Agrégalos en el Ranking con su código y rétalos apostando Aura.</small></span><span class="dvD-go">Buscar amigos</span></a>'; }
   el.innerHTML = '<div class="dh-t">' + head + '</div><div class="dh-fila">' + fila + '</div>';
   el.hidden = false;
   if (n) ventanaReto(D.retos, vistos);
