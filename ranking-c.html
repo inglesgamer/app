@@ -144,7 +144,7 @@ h1.t{font-size:20px;margin:4px 0}p.s{margin:0 0 8px;color:var(--mu);font-weight:
 .rdts{display:flex;justify-content:center;gap:6px;margin:4px 0 8px}.rdts i{width:7px;height:7px;border-radius:99px;background:var(--bd);transition:all .25s}.rdts i.on{width:22px;background:var(--ink)}.rdts i.mio{box-shadow:0 0 0 2px #FFC83D}
 .liga-t{display:flex;align-items:center;gap:6px;margin:2px 2px 8px;font-weight:900;color:var(--mu);font-size:13px}
 /* P1: premios dentro de la tarjeta */
-.pst{position:relative;display:flex;gap:6px;margin-top:12px}.pst span{flex:1;display:flex;align-items:center;gap:4px;justify-content:center;padding:6px 4px;border-radius:12px;background:rgba(0,0,0,.28);font-size:13px;font-weight:900;color:#fff}
+.pst{position:relative;display:flex;gap:6px;margin-top:12px}.pst>span{flex:1;display:flex;align-items:center;gap:4px;justify-content:center;padding:6px 4px;border-radius:12px;background:rgba(0,0,0,.28);font-size:13px;font-weight:900;color:#fff}
 .pst em{font-style:normal;opacity:.75;font-size:11px}
 /* P2: premio en el escalón */
 .es:has(.rg){flex-direction:column;align-items:center;justify-content:flex-start;padding-top:6px;line-height:1}.es .rg{display:flex;align-items:center;gap:3px;font-size:14px;font-weight:900;line-height:1.1;margin-top:2px;color:#2A1800}
@@ -158,10 +158,11 @@ h1.t{font-size:20px;margin:4px 0}p.s{margin:0 0 8px;color:var(--mu);font-weight:
 .esc-l .q{display:flex;gap:4px}.esc-l .q span{min-width:42px;padding:5px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:900;background:var(--chip)}
 .esc-l .q span:nth-child(1){background:#FFC83D33}.esc-l .q span:nth-child(2){background:#C9D3DE33}.esc-l .q span:nth-child(3){background:#E08A4E33}
 .dtabs{display:flex;gap:6px;margin:12px 0 0}.dtabs button{flex:1;height:46px;border-radius:14px;border:2px solid var(--bd);background:var(--card);color:var(--ink);font:900 15px Nunito,sans-serif}.dtabs button.on{background:var(--ink);color:var(--bg)}
+.llm{display:inline-flex;vertical-align:-2px;margin-right:3px}.pst .llm svg{width:15px;height:15px}
 .probar{display:block;width:100%;height:52px;margin:12px 0;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font:900 17px Nunito,sans-serif}
 </style></head><body><div class="w">
 <h1 class="t">Ranking: premios por rango</h1><p class="s">Desliza la tarjeta del rango para ver las otras ligas. Jugadores de ejemplo.</p>
-<div class="dtabs" id="dtabs"></div><div class="desc" id="desc"></div><div class="bot" id="bot"></div>
+<div class="dtabs" id="dtabs" hidden></div><div class="desc" id="desc"></div><div class="bot" id="bot"></div>
 <div class="tel"><div class="sc" id="sc"></div><div class="nav" id="nav"></div></div>
 <button class="probar" id="probar">Ver otra vez</button><div class="tabs" id="pals"></div>
 </div>
@@ -237,7 +238,7 @@ const LOOK_MP =  [
 
 const $ = id => document.getElementById(id);
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
-const LL = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#FF8A3D"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-4-1-6 1-9z"/></svg>';
+const LL = '<span class="llm">' + sprite("llama", 16) + '</span>';
 const J = [["Sofía",3,4,520],["Mateo",5,1,480],["Valen",7,3,410],["Juanes",12,0,350],["Lu",11,5,300],["Caro",14,2,260],["Tú",2,9,230,1],["Pipe",6,9,210],["Dani",10,6,180],["Majo",8,7,140],["Tomi",15,8,90],["Sara",1,0,60]]
   .map((x, i) => ({ n:x[0], av:x[1], mp:x[2], a:x[3], yo:!!x[4], h:[60,45,0,35,20,15,30,0,25,10,0,5][i] }));
 const ST = 1;   /* Campesino II */
@@ -317,7 +318,7 @@ function verPremios() {
 async function finSemana(pos, aura, t) {
   const col = pos === 1 ? "#FFC83D" : pos === 2 ? "#C9D3DE" : pos === 3 ? "#E08A4E" : "#7CC8FF";
   const pr = t ? PREMIOS.find(p => p[0] === t) : null;
-  const c = capa('<div class="fin" style="--c:' + col + '"><div class="et">SEMANA TERMINADA</div><div class="pu">' + pos + '.º</div><div class="ac">' + LL.replace(/16/g, "26") + ' <span id="cnt">0</span> de Aura</div>' +
+  const c = capa('<div class="fin" style="--c:' + col + '"><div class="et">SEMANA TERMINADA</div><div class="pu">' + pos + '.º</div><div class="ac">' + '<span class="llm">' + sprite("llama", 26) + '</span>' + ' <span id="cnt">0</span> de Aura</div>' +
     '<div class="cw">' + (t ? '<div class="luz"></div>' + cofre(t, 130) : '') + '</div><div class="pr" id="prl"></div><button class="ok">' + (t ? 'Reclamar' : 'Ver la nueva semana') + '</button></div>');
   const q = x => c.querySelector(x);
   if (!t) { q(".cw").style.height = "10px"; }
