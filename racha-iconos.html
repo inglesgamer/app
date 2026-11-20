@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ícono de racha: diseños</title>
+<script>/* VISTA PREVIA: almacenamiento de mentiras, no toca el juego */(function(){var M={};var S={getItem:function(k){return k in M?M[k]:null},setItem:function(k,v){M[k]=String(v)},removeItem:function(k){delete M[k]},clear:function(){M={}},key:function(i){return Object.keys(M)[i]||null},get length(){return Object.keys(M).length}};try{Object.defineProperty(window,"localStorage",{value:S,configurable:true})}catch(e){}})();</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0B0B0D;color:#F4F4F5;font-family:Nunito,system-ui,sans-serif}
+.w{max-width:520px;margin:0 auto;padding:16px}h1{margin:6px 0 2px;font-size:24px}.sub{margin:0 0 14px;color:#A1A1AA;font-weight:700}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c{padding:14px 10px 12px;border-radius:22px;background:#151518;border:2px solid #2A2A2E;text-align:center}
+.c .ic{height:120px;display:flex;align-items:center;justify-content:center}
+.c b{display:block;font-size:16px;margin-top:6px}.c small{display:block;color:#A1A1AA;font-weight:700;font-size:12px;min-height:30px}
+.fila{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:5px;height:38px;padding:0 12px;border-radius:99px;background:#1E1E22;font-weight:900;font-size:16px}
+.chip.off{color:#6A6A73}
+svg{overflow:visible}
+/* animaciones */
+.pulso{animation:pulso 1.6s ease-in-out infinite}@keyframes pulso{50%{transform:scale(1.08)}}
+.bril{animation:bril 2.2s ease-in-out infinite}@keyframes bril{50%{filter:drop-shadow(0 0 14px #FFC83D)}}
+.tit{animation:tit 2.4s infinite}@keyframes tit{0%,86%,100%{opacity:1}88%{opacity:.4}90%{opacity:1}92%{opacity:.5}}
+.bal{transform-origin:50% 100%;animation:bal 1.4s ease-in-out infinite}@keyframes bal{25%{transform:rotate(-4deg) scaleY(1.04)}75%{transform:rotate(4deg) scaleY(.97)}}
+.flo{animation:flo 2s ease-in-out infinite}@keyframes flo{50%{transform:translateY(-6px)}}
+.gir{animation:gir 6s linear infinite;transform-origin:50% 50%}@keyframes gir{to{transform:rotate(360deg)}}
+.ch{animation:ch 1.2s ease-out infinite;transform-origin:50% 50%}@keyframes ch{0%{opacity:0;transform:scale(.4)}40%{opacity:1}100%{opacity:0;transform:scale(1.4)}}
+.bar{animation:bar 2.6s linear infinite}@keyframes bar{from{transform:translateX(-40px)}to{transform:translateX(80px)}}
+.neon{animation:neon 1.8s ease-in-out infinite}@keyframes neon{50%{filter:drop-shadow(0 0 4px #7CF7FF) drop-shadow(0 0 12px #3FA9FF)}}
+</style></head><body><div class="w">
+<h1>Ícono de la racha</h1><p class="sub">9 formas distintas, cada una con su movimiento. Abajo de cada una: cómo se ve en el Inicio con racha y sin jugar hoy (gris).</p>
+<div class="g" id="g"></div></div>
+<script>
+const P = "M13.5 2 4 13.5h7L9.8 22 20 9.8h-7.2z";
+const I = [
+ ["1", "Rayo clásico", "El de ahora, más grueso y con brillo que late.", c => '<svg class="bril pulso" width="S" height="S" viewBox="0 0 24 24"><path d="' + P + '" fill="' + c[0] + '" stroke="' + c[1] + '" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.3 5 7.2 11.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".7"/></svg>'],
+ ["2", "Medalla", "Rayo blanco dentro de un círculo de color, como insignia.", c => '<svg class="pulso" width="S" height="S" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="' + c[0] + '" stroke="' + c[1] + '" stroke-width="1.4"/><circle cx="12" cy="12" r="8.6" fill="none" stroke="#fff" stroke-width=".8" opacity=".5"/><path transform="translate(4.2 4.2) scale(.65)" d="' + P + '" fill="#fff"/></svg>'],
+ ["3", "Llama con rayo", "Una llamita que se mueve y lleva un rayo adentro.", c => '<svg class="bal" width="S" height="S" viewBox="0 0 24 24"><path d="M12 1.5c1 3.4 6.5 6.2 6.5 12.2A6.5 6.5 0 0 1 12 22a6.5 6.5 0 0 1-6.5-8.3c.6-2.4 2.3-3.5 2.6-6 1.6 1.2 2 2.6 2.1 4C11.3 8.7 11 5 12 1.5z" fill="' + c[0] + '" stroke="' + c[1] + '" stroke-width="1.3" stroke-linejoin="round"/><path transform="translate(7.2 9.6) scale(.42)" d="' + P + '" fill="#fff"/></svg>'],
+ ["4", "Rayo redondito", "Rayo gordito con puntas redondas, más tierno.", c => '<svg class="flo" width="S" height="S" viewBox="0 0 24 24"><path d="M14 2.5 5 13.2c-.5.6 0 1.5.7 1.5H11l-1.3 6.2c-.2.9.9 1.4 1.5.7L20 10.8c.5-.6 0-1.5-.7-1.5H14l1.4-6c.2-.9-.9-1.4-1.4-.8z" fill="' + c[0] + '" stroke="' + c[1] + '" stroke-width="1.6" stroke-linejoin="round"/><ellipse cx="11" cy="8.5" rx="1.3" ry="2.6" transform="rotate(38 11 8.5)" fill="#fff" opacity=".6"/></svg>'],
+ ["5", "Doble rayo", "Dos rayos juntos, uno grande y uno pequeño atrás.", c => '<svg class="pulso" width="S" height="S" viewBox="0 0 24 24"><path transform="translate(5 1) scale(.7)" d="' + P + '" fill="' + c[1] + '" opacity=".75"/><path transform="translate(-1 2) scale(.85)" d="' + P + '" fill="' + c[0] + '" stroke="' + c[1] + '" stroke-width="1.6" stroke-linejoin="round"/></svg>'],
+ ["6", "Rayo con chispas", "Rayo con chispitas que salen todo el tiempo.", c => '<svg width="S" height="S" viewBox="0 0 24 24"><g class="ch"><circle cx="3" cy="5" r="1" fill="' + c[0] + '"/><circle cx="21" cy="17" r="1" fill="' + c[0] + '"/><circle cx="20" cy="4" r=".8" fill="#fff"/><circle cx="4" cy="19" r=".8" fill="#fff"/></g><path class="tit" d="' + P + '" fill="' + c[0] + '" stroke="' + c[1] + '" stroke-width="1.6" stroke-linejoin="round"/></svg>'],
+ ["7", "Escudo", "Rayo sobre un escudo, combina con los rangos del reino.", c => '<svg class="pulso" width="S" height="S" viewBox="0 0 24 24"><path d="M12 1.5 21 5v6.5c0 5.4-3.9 9.4-9 11-5.1-1.6-9-5.6-9-11V5z" fill="' + c[0] + '" stroke="' + c[1] + '" stroke-width="1.3" stroke-linejoin="round"/><path transform="translate(5.4 5) scale(.56)" d="' + P + '" fill="#fff"/></svg>'],
+ ["8", "Neón", "Solo el contorno, como un letrero de luz que titila.", c => '<svg class="' + (c[2] ? "" : "neon tit") + '" width="S" height="S" viewBox="0 0 24 24"><path d="' + P + '" fill="none" stroke="' + (c[2] ? c[0] : "#7CF7FF") + '" stroke-width="1.8" stroke-linejoin="round"/></svg>'],
+ ["9", "Gema", "Rayo de cristal con caras, que brilla con un reflejo.", c => '<svg width="S" height="S" viewBox="0 0 24 24"><defs><clipPath id="gm' + (c[2] ? 1 : 0) + '"><path d="' + P + '"/></clipPath></defs><path d="' + P + '" fill="' + c[0] + '" stroke="' + c[1] + '" stroke-width="1.4" stroke-linejoin="round"/><g clip-path="url(#gm' + (c[2] ? 1 : 0) + ')"><path d="M4 13.5 13.5 2 12 13.5z" fill="#fff" opacity=".35"/><path d="M12 13.5 20 9.8 12.8 9.8z" fill="#000" opacity=".15"/>' + (c[2] ? '' : '<rect class="bar" x="0" y="0" width="5" height="24" fill="#fff" opacity=".55" transform="skewX(-20)"/>') + '</g></svg>']
+];
+const ON = ["#FFC83D", "#8A5A00", 0], OFF = ["#3A3A40", "#26262B", 1];
+document.getElementById("g").innerHTML = I.map(x => '<div class="c"><div class="ic">' + x[3](ON).replace(/"S"/g, '"96"') + '</div><b>' + x[0] + '. ' + x[1] + '</b><small>' + x[2] + '</small>' +
+  '<div class="fila"><span class="chip">' + x[3](ON).replace(/"S"/g, '"22"') + '7</span><span class="chip off">' + x[3](OFF).replace(/"S"/g, '"22"').replace(/class="[^"]*"/, "") + '7</span></div></div>').join("");
+</script></body></html>
