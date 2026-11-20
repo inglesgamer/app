@@ -491,6 +491,21 @@ header .dchip{gap:8px;padding:0 14px 0 5px;color:var(--ink);text-decoration:none
 @keyframes dfCrece{to{height:100%;padding-bottom:62%}}@keyframes dfAplasta{to{height:0;opacity:.3}}
 @keyframes dfSello{to{transform:scale(1)}}@keyframes dfSube{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.dfin *{animation-duration:.01s!important;animation-delay:0s!important}}
+
+/* RACHA_LLAMA (20 nov 2026) */
+.llr{overflow:visible}.llr:not(.off){transform-origin:50% 100%;animation:llrBal 1.4s ease-in-out infinite}
+@keyframes llrBal{25%{transform:rotate(-4deg) scaleY(1.04)}75%{transform:rotate(4deg) scaleY(.97)}}
+.rfx{background:rgba(0,0,0,.95)!important}
+.rfx-ll{position:relative;width:170px;height:170px;display:flex;align-items:center;justify-content:center}
+.rfx-ll .gl{position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(255,170,40,.55),transparent 62%);opacity:0;transform:scale(.5);transition:all .5s}
+.rfx-ll .on2{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.3)}
+.rfx-ll.prende .gl{opacity:1;transform:none}.rfx-ll.prende .on2{animation:llrPrende .6s cubic-bezier(.3,1.6,.5,1) forwards}.rfx-ll.prende .ap{opacity:0;transition:opacity .2s}
+@keyframes llrPrende{to{opacity:1;transform:none}}
+.rfx-ch{position:absolute;left:50%;top:55%;width:8px;height:8px;border-radius:50%;background:#FFE08A;pointer-events:none}
+.rfx-num{font-size:72px;font-weight:900;line-height:1;color:#FFC83D;text-shadow:0 4px 0 #8A5A00;height:74px;overflow:hidden}
+.rfx-num .col{display:flex;flex-direction:column;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}.rfx-num .col span{height:74px}
+.rfx-num.sube .col{transform:translateY(-74px)}
+.rfx-se i.si{background:#2A1A00!important;box-shadow:inset 0 0 0 2px #FFC83D}.rfx-se i .mini{animation:none}
 </style>
 </head>
 <body>
@@ -1613,13 +1628,15 @@ const _rachaDatos = () => {
     for (let i = 0; i < Math.min(racha, 400); i++) { const d = new Date(d0); d.setDate(d0.getDate() - i); marcados[clave(d)] = 1; } }
   return { racha, marcados, jugoHoy: vivo && dia.u === kHoy };
 };
+/* RACHA_LLAMA (20 nov 2026) */
+const LLAMA_RAYO = (s, on, cls) => '<svg class="llr' + (on === false ? ' off' : '') + (cls ? ' ' + cls : '') + '" width="' + s + '" height="' + s + '" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c1 3.4 6.5 6.2 6.5 12.2A6.5 6.5 0 0 1 12 22a6.5 6.5 0 0 1-6.5-8.3c.6-2.4 2.3-3.5 2.6-6 1.6 1.2 2 2.6 2.1 4C11.3 8.7 11 5 12 1.5z" fill="' + (on === false ? '#3A3A40' : '#FFC83D') + '" stroke="' + (on === false ? '#26262B' : '#8A5A00') + '" stroke-width="1.3" stroke-linejoin="round"/><path transform="translate(7.2 9.6) scale(.42)" d="M13.5 2 4 13.5h7L9.8 22 20 9.8h-7.2z" fill="' + (on === false ? '#6A6A73' : '#fff') + '"/></svg>';
 const METAS = [3, 7, 14, 30, 60, 100, 200, 365];
 const _meta = r => { const m = METAS.find(x => x > r) || (Math.floor(r / 100) + 1) * 100; const a = METAS.filter(x => x <= r).pop() || 0; return { m, a, pct: Math.round((r - a) / Math.max(1, m - a) * 100) }; };
 const _nivel = r => r >= 100 ? { n:"Leyenda", f:"", cls:" arco" } : r >= 30 ? { n:"Imparable", f:"hue-rotate(250deg) saturate(1.5)" } : r >= 7 ? { n:"En llamas", f:"hue-rotate(185deg) saturate(1.6)" } : r >= 1 ? { n:"Encendida", f:"" } : { n:"Apagada", f:"grayscale(1) brightness(.7)" };
 
 pintarRacha = function () {
   const D = _rachaDatos(), M = _meta(D.racha);
-  $("racha").innerHTML = '<div class="rc-l"><span class="rc-ic">' + ic("bolt", 24) + '</span><div><div class="rc-n">' + D.racha + ' <small>' + (D.racha === 1 ? "día" : "días") + '</small></div></div></div>' +
+  $("racha").innerHTML = '<div class="rc-l"><span class="rc-ic">' + LLAMA_RAYO(30, D.jugoHoy) + '</span><div><div class="rc-n">' + D.racha + ' <small>' + (D.racha === 1 ? "día" : "días") + '</small></div></div></div>' +
     '<div class="rc-meta"><div class="rc-bar" role="img" aria-label="Faltan ' + (M.m - D.racha) + ' días para la meta de ' + M.m + '"><i style="width:' + (M.a > 0 && M.a === D.racha ? 100 : M.pct) + '%"></i></div>' + (M.a > 0 && M.a === D.racha ? '<small class="rc-logro">¡Lograste ' + M.a + '! Ahora a ' + M.m + ' ' + ic("bolt", 12, 2.6) + '</small>' : '<small>Faltan ' + (M.m - D.racha) + ' para ' + M.m + ' ' + ic("bolt", 12, 2.6) + '</small>') + '</div>';
 };
 pintarRacha();
@@ -2152,17 +2169,21 @@ const RachaFX = (function () {
   function semana(marcados) {
     const h = new Date(), lun = new Date(h); lun.setDate(h.getDate() - ((h.getDay() + 6) % 7));
     return '<div class="rfx-se">' + ["L","M","M","J","V","S","D"].map((l, i) => { const d = new Date(lun); d.setDate(lun.getDate() + i); const k = clave(d), si = marcados[k], hoy = k === clave(h);
-      return '<span><i class="' + (si ? "si " : "") + (hoy ? "hoy" : "") + '">' + (si ? BOLT(14, "#1a0d00") : "") + '</i>' + l + '</span>'; }).join("") + '</div>';
+      return '<span><i class="' + (si ? "si " : "") + (hoy ? "hoy" : "") + '">' + (si ? LLAMA_RAYO(16, true, "mini") : "") + '</i>' + l + '</span>'; }).join("") + '</div>';
   }
   function mostrar(D, m, premio) {
     const c = document.createElement("div"); c.className = "rfx"; c.setAttribute("role", "dialog"); c.setAttribute("aria-label", "Racha activada");
     const sub = m.d ? (m.d === D.racha ? m.sub : "Ganaste el regalo de " + m.d + " días") : D.racha + (D.racha === 1 ? " día" : " días seguidos") + " · vuelve mañana";
     const exacto = m.d && m.d === D.racha;
-    c.innerHTML = '<div class="rfx-gl">' + (exacto ? m.t : "¡" + D.racha + (D.racha === 1 ? " día" : " días seguidos") + "!") + '</div><div class="rfx-pj">' + GAL(m.g, 150) + '<span class="rfx-ry">' + BOLT(44) + '</span></div>' +
-      '<div class="t">¡Racha activada!</div><div class="s">' + sub + '</div>' + semana(D.marcados) +
+    c.innerHTML = (exacto ? '<div class="rfx-gl">' + m.t + '</div>' : '') + '<div class="rfx-ll" id="rfxLl"><span class="gl"></span><span class="ap">' + LLAMA_RAYO(150, false) + '</span><span class="on2">' + LLAMA_RAYO(150) + '</span></div>' +
+      '<div class="rfx-num" id="rfxNum"><div class="col"><span>' + Math.max(0, D.racha - 1) + '</span><span>' + D.racha + '</span></div></div>' +
+      '<div class="t">' + (D.racha === 1 ? "día de racha" : "días de racha") + '</div><div class="s">' + sub + '</div>' + semana(D.marcados) +
       '<button type="button" class="ok">' + (premio ? "Abrir regalo" : "Continuar") + '</button>';
     document.body.appendChild(c); void c.offsetWidth; c.classList.add("on");
-    confeti(c, !m.d ? 14 : m.d >= 100 ? 70 : 40); [523, 659, 784, 1047].forEach((f, i) => tono(f, i * .1, .3));
+    setTimeout(() => { const ll = c.querySelector("#rfxLl"); if (!ll) return; ll.classList.add("prende"); c.querySelector("#rfxNum").classList.add("sube");
+      for (let i = 0; i < 16; i++) { const ch = document.createElement("i"); ch.className = "rfx-ch"; ll.appendChild(ch); const a = Math.random() * 6.28, d = 70 + Math.random() * 50;
+        ch.animate([{ transform:"translate(-50%,-50%)", opacity:1 }, { transform:"translate(" + Math.cos(a) * d + "px," + Math.sin(a) * d + "px) scale(.3)", opacity:0 }], { duration:700, easing:"ease-out", fill:"forwards" }); }
+      confeti(c, !m.d ? 14 : m.d >= 100 ? 70 : 40); [523, 659, 784, 1047].forEach((f, i) => tono(f, i * .1, .3)); }, 500);
     const cerrar = () => { c.classList.remove("on"); setTimeout(() => c.remove(), 300); };
     c.querySelector(".ok").onclick = () => {
       if (!premio) { cerrar(); return; }
@@ -2556,6 +2577,7 @@ window.addEventListener("pageshow", pintarRetos);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) pintarRetos(); });
 /* FIN RETOS B */
 </script>
+
 
 <script>/* NAV_PUNTOS (20 nov 2026) */
 (function () {
