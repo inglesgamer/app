@@ -730,7 +730,7 @@ function colVista(id, z, D) {
 }
 function pintarColeccion() {
   const D = colDatos(), TEMP = PASES.reduce((a, p) => a.concat(p.items), []);
-  const badge = id => TEMP.indexOf(id) > -1 ? '<span class="bdg pase">' + PASES.find(p => p.items.indexOf(id) > -1).k.toUpperCase() + '</span>' : D.orig[id] === "regalo" ? '<span class="bdg reg">REGALO</span>' : '';
+  /* SIN_PASE (20 nov 2026): sin etiqueta de temporada */ const badge = id => D.orig[id] === "regalo" ? '<span class="bdg reg">REGALO</span>' : '';
   const card = (id, nom, ok) => { const k = id.slice(0, 2), puesto = ok && D.eq[k] === id;
     return '<button type="button" class="it2' + (ok ? '' : ' no') + (puesto ? ' eq' : '') + '"' + (ok ? ' data-eq="' + id + '"' : ' disabled') + ' aria-label="' + esc(ok ? nom : "Bloqueado") + (puesto ? ', puesto' : '') + '">' +
       (ok ? badge(id) : '') + (puesto ? '<span class="puesto" aria-hidden="true">✓</span>' : '') + '<span class="pv">' + colVista(id, 46, D) + '</span>' + (ok ? '' : '<span class="q">?</span>') + '<b>' + esc(ok ? nom : "Bloqueado") + '</b></button>'; };
@@ -742,7 +742,7 @@ function pintarColeccion() {
   const tabs = Object.keys(COL).map(k => '<button type="button" class="ctab' + (k === TAB ? ' on' : '') + '" data-tab="' + k + '">' + COL[k].t + ' <b>' + lista(k).length + '</b></button>').join("");
   const celda = x => { const k = x[0].slice(0, 2), puesto = D.eq[k] === x[0];
     return '<button type="button" class="ci' + (puesto ? ' eq' : '') + '" data-eq="' + x[0] + '" aria-label="' + esc(x[1]) + (puesto ? ', puesto' : '') + '">' + badge(x[0]) + (puesto ? '<span class="puesto" aria-hidden="true">✓</span>' : '') + '<span class="pv">' + colVista(x[0], 56, D) + '</span><b>' + esc(x[1]) + '</b></button>'; };
-  $("coleccion").innerHTML = '<h2 class="lab colh"><span>MI COLECCIÓN</span><small>' + D.own.size + ' objetos</small></h2>' + tickets +
+  $("coleccion").innerHTML = '<h2 class="lab colh"><span>MI COLECCIÓN</span><small>' + D.own.size + ' objetos</small></h2>' +   /* SIN_PASE: sin «Mis pases» */
     '<div class="ctabs" role="tablist">' + tabs + '</div><div class="cg">' + lista(TAB).map(celda).join("") + '<a class="ci mas" href="go:tienda">+ Consigue más<br>en la Tienda</a></div>';
 }
 $("coleccion").addEventListener("click", e => {
