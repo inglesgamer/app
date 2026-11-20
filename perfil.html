@@ -123,7 +123,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 .arco{animation:hue 3s linear infinite}@keyframes hue{to{filter:hue-rotate(360deg)}}
 .fr{display:inline-flex;align-items:flex-end;justify-content:center;overflow:hidden;border-radius:50%;border:5px solid var(--b,#9A6A3A);background:#0F0F12;box-shadow:0 0 var(--g,0px) var(--b)}
 .m0{--b:#9A6A3A}.m1{--b:#9A9AA6}.m2{--b:#FFC83D;--g:14px}.m3{--b:#3FD8C8;--g:14px}.m5{--b:#E8F7FF;--g:18px}
-.m7{--b:#C9BFA0;border-style:dashed!important}
+.m7{--b:#C9BFA0;border-style:dashed!important}.m8{--b:#FFD45C;--g:16px;border-style:double!important;border-width:7px!important;animation:coronaB 2s ease-in-out infinite}@keyframes coronaB{50%{box-shadow:0 0 26px #FFD45C}}
 .m4{animation:fuego 1s ease-in-out infinite alternate}.m6{animation:arcoB 3s linear infinite}
 @keyframes fuego{from{border-color:#FF4D4D;box-shadow:0 0 8px #FF4D4D}to{border-color:#FFC83D;box-shadow:0 0 22px #FF8A3D}}
 @keyframes arcoB{0%,100%{border-color:#FF4D4D}20%{border-color:#FFC83D}40%{border-color:#5DB33A}60%{border-color:#3FD8C8}80%{border-color:#8E5BD6}}
@@ -417,7 +417,7 @@ function calc() {
 }
 
 /* ===== LOOK: lo que equipó en la Tienda (clave "ingles_gamer_tienda"). Mismo orden que CATS de la Tienda. ===== */
-const LOOK_SK = ["", "hue-rotate(150deg)", "hue-rotate(-40deg) saturate(1.6)", "hue-rotate(80deg) saturate(1.3)", "grayscale(1) brightness(1.5) opacity(.75)", "hue-rotate(280deg) saturate(2.2) brightness(1.15)", "sepia(1) saturate(3.5) brightness(1.1)", "", "sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05)"]; // la última (Arcoíris) usa la clase .arco
+const LOOK_SK = ["", "hue-rotate(150deg)", "hue-rotate(-40deg) saturate(1.6)", "hue-rotate(80deg) saturate(1.3)", "grayscale(1) brightness(1.5) opacity(.75)", "hue-rotate(280deg) saturate(2.2) brightness(1.15)", "sepia(1) saturate(3.5) brightness(1.1)", "", "sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05)", "hue-rotate(185deg) saturate(1.9) brightness(1.3) contrast(1.05)"]; // la última (Arcoíris) usa la clase .arco
 const LOOK_MP = [
   { bg:"linear-gradient(#0F1A10,#1E3A22)", g:"#5DB33A" }, { bg:"linear-gradient(#070B1F,#1B1F4A)", g:"#2B3A7A" }, { bg:"linear-gradient(#5A3A18,#B8782E)", g:"#D9A04A" },
   { bg:"linear-gradient(#1B2A3A,#5A7C9A)", g:"#E8F2F8" }, { bg:"linear-gradient(#1E0B0E,#8A2214)", g:"#FF8A3D" }, { bg:"linear-gradient(#05020F,#1A0A3A)", g:"#3A2A6A" },
@@ -450,7 +450,7 @@ function lookHTML(sp, d, izq, sep) {
    tt = número del título de la Tienda (tt8, tt9...) que se puede reclamar gratis al completar el logro. */
 const LG_K = "ingles_gamer_logros";
 const LG_A1 = ["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3","final"];
-const LG_NIEVE = ["vocab1","preposiciones","esc1"];
+const LG_NIEVE = ["vocab1","preposiciones","adjetivos","gustos","esc1","conectores","comparativos","futuro","situaciones","esc2","vocab2","profesiones","cuerpo"];
 /* [nombre, claro, oscuro] */
 const LG_TIER = { b:["Bronce","#E3A06A","#8A4F22"], p:["Plata","#D9E2EC","#6A7888"], o:["Oro","#FFD45C","#A86B00"], d:["Diamante","#8DF0FF","#1A7FA0"] };
 const LG_ICO = {
@@ -475,33 +475,38 @@ const LG_ICO = {
   lock:'<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>'
 };
 /* c = grupo · i = icono · t = b/p/o/d (bronce, plata, oro, diamante) · m = meta · v = progreso actual */
-const LOGROS = [
-  { id:"p1",  c:"Aprendizaje", i:"star",   t:"b", n:"Primer paso",          d:"Ganar tu primera estrella",                 m:1,    v:D => D.tot, tt:1 },
-  { id:"e3",  c:"Aprendizaje", i:"stars",  t:"b", n:"Triple estrella",      d:"Sacar 3 estrellas en un nivel",             m:1,    v:D => D.tres, tt:2 },
-  { id:"m10", c:"Aprendizaje", i:"map",    t:"p", n:"Mitad del mapa",       d:"Pasar 10 niveles del A1",                   m:10,   v:D => D.pasados, tt:3 },
-  { id:"c5",  c:"Aprendizaje", i:"flag",   t:"p", n:"Cazajefes",            d:"Sacar 3 estrellas en 5 niveles",                 m:5,    v:D => D.tres },
-  { id:"vb",  c:"Aprendizaje", i:"book",   t:"p", n:"Rey de los verbos",    d:"Pasar el nivel Verbos básicos",             m:1,    v:D => D.verbos, tt:4 },
+const LOGROS = [   /* LOGROS_PREMIOS (20 nov 2026) */
+  { id:"p1",  c:"Aprendizaje", i:"star",   t:"b", n:"Primer paso",          d:"Ganar tu primera estrella",                 m:1,    v:D => D.tot, pr:["tt1"] },
+  { id:"e3",  c:"Aprendizaje", i:"stars",  t:"b", n:"Triple estrella",      d:"Sacar 3 estrellas en un nivel",             m:1,    v:D => D.tres, pr:["tt2"] },
+  { id:"m10", c:"Aprendizaje", i:"map",    t:"p", n:"Mitad del mapa",       d:"Pasar 10 niveles del A1",                   m:10,   v:D => D.pasados, pr:["tt3"] },
+  { id:"c5",  c:"Aprendizaje", i:"flag",   t:"p", n:"Cazajefes",            d:"Sacar 3 estrellas en 5 niveles",            m:5,    v:D => D.tres },
+  { id:"vb",  c:"Aprendizaje", i:"book",   t:"p", n:"Rey de los verbos",    d:"Pasar el nivel Verbos básicos",             m:1,    v:D => D.verbos, pr:["tt4"] },
   { id:"s30", c:"Aprendizaje", i:"star",   t:"o", n:"Cazador de estrellas", d:"Juntar 30 estrellas",                       m:30,   v:D => D.tot },
-  { id:"pf",  c:"Aprendizaje", i:"target", t:"o", n:"Perfeccionista",       d:"Sacar 3 estrellas en 10 niveles",                m:10,   v:D => D.tres, tt:8 },
-  { id:"a1",  c:"Aprendizaje", i:"crown",  t:"o", n:"Rey del A1",           d:"Vencer al jefe final del A1",               m:1,    v:D => D.fin, tt:5 },
-  { id:"s60", c:"Aprendizaje", i:"trophy", t:"d", n:"Mapa completo",        d:"Juntar las 60 estrellas del A1",                  m:60,   v:D => D.tot, tt:6 },
-  { id:"r3",  c:"Constancia",  i:"flame",  t:"b", n:"Racha de fuego",       d:"Jugar 3 días seguidos",                    m:3,    v:D => D.rm },
-  { id:"r7",  c:"Constancia",  i:"cal",    t:"p", n:"Semana perfecta",      d:"Jugar 7 días seguidos",                    m:7,    v:D => D.rm, tt:9 },
-  { id:"r30", c:"Constancia",  i:"flame",  t:"d", n:"Imparable",            d:"Jugar 30 días seguidos",                   m:30,   v:D => D.rm, tt:10 },
+  { id:"pf",  c:"Aprendizaje", i:"target", t:"o", n:"Perfeccionista",       d:"Sacar 3 estrellas en 10 niveles",           m:10,   v:D => D.tres, pr:["tt8"] },
+  { id:"a1",  c:"Aprendizaje", i:"crown",  t:"d", n:"Rey del A1",           d:"Terminar los mapas de Verano, Nieve y Fuego", m:3,  v:D => D.vFin + D.nFin + D.fFin, pr:["tt5"] },
+  { id:"s60", c:"Aprendizaje", i:"trophy", t:"d", n:"Mapa completo",        d:"Juntar las 60 estrellas de Verano",         m:60,   v:D => D.tot, pr:["tt6"] },
+  { id:"r3",  c:"Constancia",  i:"flame",  t:"b", n:"Racha de fuego",       d:"Jugar 3 días seguidos",                     m:3,    v:D => D.rm },
+  { id:"r7",  c:"Constancia",  i:"cal",    t:"p", n:"Semana perfecta",      d:"Jugar 7 días seguidos",                     m:7,    v:D => D.rm, pr:["tt9"] },
+  { id:"r30", c:"Constancia",  i:"flame",  t:"d", n:"Imparable",            d:"Jugar 30 días seguidos",                    m:30,   v:D => D.rm, pr:["tt10","sk9"] },
   { id:"au1", c:"Aura",        i:"bolt",   t:"b", n:"Primera chispa",       d:"Ganar 100 de Aura en total",                m:100,  v:D => D.ag },
   { id:"au2", c:"Aura",        i:"bolt",   t:"p", n:"Aura brillante",       d:"Ganar 1000 de Aura en total",               m:1000, v:D => D.ag },
   { id:"au3", c:"Aura",        i:"gem",    t:"o", n:"Aura dorada",          d:"Ganar 5000 de Aura en total",               m:5000, v:D => D.ag },
   { id:"d1",  c:"Duelos",      i:"swords", t:"b", n:"Primer duelo",         d:"Terminar tu primer duelo",                  m:1,    v:D => D.dj },
-  { id:"d5",  c:"Duelos",      i:"swords", t:"p", n:"Duelista",             d:"Ganar 5 duelos",                            m:5,    v:D => D.dg, tt:11 },
-  { id:"d20", c:"Duelos",      i:"trophy", t:"o", n:"Gladiador",            d:"Ganar 20 duelos",                           m:20,   v:D => D.dg, tt:12 },
-  { id:"k1",  c:"Reino",       i:"shield", t:"b", n:"Soldado",              d:"Llegar al rango Soldado en el Ranking",     m:1,    v:D => +(D.st >= 3) },
-  { id:"k2",  c:"Reino",       i:"helm",   t:"p", n:"Caballero",            d:"Llegar al rango Caballero en el Ranking",   m:1,    v:D => +(D.st >= 6), tt:13 },
-  { id:"k4",  c:"Reino",       i:"crown",  t:"d", n:"Coronado",             d:"Llegar a Rey en el Ranking",                m:1,    v:D => +(D.st >= 12), tt:14 },
+  { id:"g1",  c:"Duelos",      i:"swords", t:"p", n:"Gladiador",            d:"Ganar tu primer duelo",                     m:1,    v:D => D.dg, pr:["tt12"] },
+  { id:"d5",  c:"Duelos",      i:"swords", t:"p", n:"Duelista",             d:"Ganar 5 duelos",                            m:5,    v:D => D.dg },
+  { id:"d20", c:"Duelos",      i:"helm",   t:"o", n:"Caballero",            d:"Ganar 20 duelos",                           m:20,   v:D => D.dg, pr:["tt13"] },
+  { id:"k1",  c:"Reino",       i:"shield", t:"b", n:"Soldado",              d:"Llegar al rango Soldado en la liga semanal",  m:1,  v:D => +(D.st >= 3) },
+  { id:"k2",  c:"Reino",       i:"helm",   t:"p", n:"Escudo de caballero",  d:"Llegar al rango Caballero en la liga semanal", m:1, v:D => +(D.st >= 6) },
+  { id:"k4",  c:"Reino",       i:"crown",  t:"d", n:"Coronado",             d:"Llegar a la liga de Rey en la liga semanal",  m:1,  v:D => +(D.st >= 12), pr:["tt14","mc8"] },
   { id:"n1",  c:"Isla de Nieve", i:"snow", t:"b", n:"Explorador del hielo", d:"Pasar un nivel de la Isla de Nieve",        m:1,    v:D => D.nPas },
-  { id:"n3",  c:"Isla de Nieve", i:"snow", t:"o", n:"Rey del hielo",        d:"Sacar 3 estrellas en los 3 primeros niveles de Nieve", m:3, v:D => D.nTres, tt:15 },
-  { id:"c10", c:"Colección",   i:"hanger", t:"b", n:"Con estilo",           d:"Tener 10 cosas en tu colección",             m:10,   v:D => D.col },
-  { id:"c30", c:"Colección",   i:"chest",  t:"o", n:"Coleccionista",        d:"Tener 30 cosas en tu colección",             m:30,   v:D => D.col, tt:16 }
+  { id:"n3",  c:"Isla de Nieve", i:"snow", t:"o", n:"Rey del hielo",        d:"Terminar el mapa de la Isla de Nieve",      m:1,    v:D => D.nFin, pr:["tt15"] },
+  { id:"c10", c:"Colección",   i:"hanger", t:"b", n:"Con estilo",           d:"Tener 10 cosas en tu colección",            m:10,   v:D => D.col },
+  { id:"c30", c:"Colección",   i:"chest",  t:"o", n:"Coleccionista",        d:"Tener 10 personajes",                       m:10,   v:D => D.avs, pr:["tt16"] }
 ];
+/* premios que SOLO se consiguen con su logro (en la Tienda no tienen precio) */
+const LG_SOLO = ["tt5","tt8","tt9","tt10","sk9","tt12","tt13","tt14","mc8","tt15","tt16"];
+/* «Terminar el mapa» = pasar todos los niveles que ya existen (los «Próximamente» no cuentan) */
+const LG_FUEGO = ["pronombres","tobe","thereis","escf1","articulos","wh","vocab5"];
 /* nombres de los títulos (mismo orden que la pestaña Títulos de la Tienda) */
 const LG_TT = ["Novato","Gamer","Cazador de bugs","Speaker","Maestro Have/Has","Rey del A1","Leyenda","Cazador de dinos","Perfeccionista","Constante","Imparable","Duelista","Gladiador","Caballero del Reino","Su Majestad","Rey del Hielo","Coleccionista"];
 
@@ -522,18 +527,41 @@ function lgDatos(G) {
   return { tot, pasados, tres, fin:e("final"), verbos:+(e("verbos") >= 1), rm:Math.max(+G.rm || 0, racha, nr),
            ag:Math.max(0, +A.e || 0), dg:+Du.g || 0, dj:(+Du.g || 0) + (+Du.p || 0) + (+Du.e || 0), st,
            nPas:LG_NIEVE.filter(id => ne(id) >= 1).length, nTres:LG_NIEVE.filter(id => ne(id) >= 3).length,
-           col:Array.isArray(T.own) ? new Set(T.own).size : 7 };
+           col:Array.isArray(T.own) ? new Set(T.own).size : 7,
+           vFin:+LG_A1.every(id => e(id) >= 1), nFin:+LG_NIEVE.every(id => ne(id) >= 1), fFin:+LG_FUEGO.every(id => Math.min(3, Math.max(0, +((lgLee("ingles_gamer_fuego_repaso") || {}).est || {})[id] || 0)) >= 1),
+           avs:new Set((Array.isArray(T.own) ? T.own : []).filter(id => /^av\d+$/.test(id)).concat(["av0", "av1"])).size };
 }
 /* Revisa los logros, guarda los nuevos y devuelve la lista con { ok, cur, pct } */
 function lgRevisar() {
   const G = lgLee(LG_K) || {}; G.h = G.h && typeof G.h === "object" ? G.h : {}; G.v = Array.isArray(G.v) ? G.v : [];
   const D = lgDatos(G); let cambio = D.rm !== (+G.rm || 0); G.rm = D.rm;
   const L = LOGROS.map(x => { const cur = Math.max(0, +x.v(D) || 0); if (cur >= x.m && !G.h[x.id]) { G.h[x.id] = Date.now(); cambio = true; }
-    const ok = !!G.h[x.id], fh = +G.h[x.id] > 1e12 ? new Date(+G.h[x.id]).toLocaleDateString("es", { day:"numeric", month:"long", year:"numeric" }) : ""; return Object.assign({}, x, { ok, f:fh, t0:+G.h[x.id] || 0, cur:ok ? Math.max(cur, x.m) : cur, pct:ok ? 100 : Math.min(99, Math.floor(cur / x.m * 100)), nuevo:ok && G.v.indexOf(x.id) < 0 }); });
+    const ok = !!G.h[x.id], fh = +G.h[x.id] > 1e12 ? new Date(+G.h[x.id]).toLocaleDateString("es", { day:"numeric", month:"long", year:"numeric" }) : ""; return Object.assign({}, x, { ok, f:fh, t0:+G.h[x.id] || 0, cur:ok ? Math.max(cur, x.m) : cur, pct:ok ? 100 : Math.min(99, Math.floor(cur / x.m * 100)), nuevo:ok && G.v.indexOf(x.id) < 0, rec:ok && lgFalta(x).length > 0 }); });
   if (cambio) { try { localStorage.setItem(LG_K, JSON.stringify(G)); } catch (e) {} }
   return L;
 }
 function lgVistos(ids) { const G = lgLee(LG_K) || {}; G.h = G.h || {}; G.v = Array.isArray(G.v) ? G.v : []; ids.forEach(id => { if (G.v.indexOf(id) < 0) G.v.push(id); }); try { localStorage.setItem(LG_K, JSON.stringify(G)); } catch (e) {} }
+/* LOGROS_PREMIOS (20 nov 2026) */
+const LG_NUEVOS = "ingles_gamer_nuevos";   /* cosas reclamadas que aún no has visto en la Tienda (punto rojo) */
+function lgTienda() { const t = lgLee("ingles_gamer_tienda") || {}; if (!Array.isArray(t.own)) t.own = []; if (!t.eq || typeof t.eq !== "object") t.eq = {}; return t; }
+function lgFalta(x) { const t = lgTienda(); return (x.pr || []).filter(id => t.own.indexOf(id) < 0); }
+/* da los premios del logro: van directo a tu colección */
+function lgReclamar(x) {
+  const ids = lgFalta(x); if (!x.ok || !ids.length) return [];
+  const t = lgTienda(); ids.forEach(id => t.own.push(id)); try { localStorage.setItem("ingles_gamer_tienda", JSON.stringify(t)); } catch (e) {}
+  const nv = lgLee(LG_NUEVOS) || []; ids.forEach(id => { if (nv.indexOf(id) < 0) nv.push(id); }); try { localStorage.setItem(LG_NUEVOS, JSON.stringify(nv)); } catch (e) {}
+  try { if (window.lgTrasReclamar) lgTrasReclamar(ids); } catch (e) {}
+  return ids;
+}
+function lgPremios(x, conBotones) {
+  if (!x.pr || !x.pr.length) return "";
+  const t = lgTienda();
+  return x.pr.map(id => { const mio = t.own.indexOf(id) > -1, solo = LG_SOLO.indexOf(id) > -1;
+    const txt = mio ? "Ya está en tu colección." : x.ok ? "¡Es tuyo! Tócale «Reclamar»." : solo ? "Solo se consigue con este logro." : "Gratis con este logro (también se compra en la Tienda).";
+    return '<div class="pz"><span class="pzv">' + lgVis(id) + '</span><span class="pzt"><b>' + lgTipo(id) + ': ' + lgNom(id) + '</b><small>' + txt + '</small></span>' +
+      (mio && conBotones ? '<button type="button" class="pzp" data-pon="' + id + '">Ponérmelo</button>' : '') + '</div>'; }).join("");
+}
+const lgTipo = id => ({ tt:"Título", sk:"Skin", mc:"Marco", mp:"Fondo", av:"Personaje", an:"Animación" })[id.slice(0, 2)] || "Premio";
 const lgDe = id => LOGROS.find(x => x.id === id);
 const lgDelTitulo = n => LOGROS.find(x => x.tt === n);
 /* Medalla: ganada = con color y brillo; sin ganar = gris con un anillo que muestra cuánto llevas */
@@ -579,6 +607,11 @@ const LG_CSS = `
 .lg-sh .bt{display:flex;align-items:center;justify-content:center;width:100%;height:50px;margin-top:14px;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font:inherit;font-size:15px;font-weight:900;cursor:pointer;text-decoration:none}
 .lg-sh .bt.gh{background:transparent;color:var(--ink);border:2px solid var(--line);margin-top:8px}
 .lg-sh .ray{position:absolute;left:50%;top:70px;width:6px;height:6px;border-radius:2px;pointer-events:none}
+.lg-sh .pzs .pz{margin-top:10px}.lg-sh .pz .pzv{flex:none;display:flex;align-items:center;justify-content:center;min-width:54px;min-height:54px}
+.lg-sh .pz .pzt{flex:1;min-width:0}.lg-sh .pz .pzt b{display:block;font-size:14px;font-weight:900;color:var(--ink)}
+.lg-sh .pz .pzp{flex:none;height:36px;padding:0 14px;border:0;border-radius:99px;background:var(--hi);color:var(--on-hi);font:inherit;font-size:13px;font-weight:900}.lg-sh .pz .pzp:disabled{opacity:.6}
+.lg-sh .bt.rec{background:#3FC46A;color:#06290F}.lg-sh .recok{margin:12px 0 0;color:#3FC46A!important;font-weight:900}
+.lg-sh{max-height:92vh;overflow:auto}
 @keyframes lgfi{from{opacity:0}}@keyframes lgup{from{transform:translateY(100%)}}@keyframes lggir{to{transform:rotate(360deg)}}
 @keyframes lgpop{0%{transform:scale(.2) rotate(-40deg);opacity:0}60%{transform:scale(1.15) rotate(6deg);opacity:1}100%{transform:scale(1) rotate(0)}}
 .lg-sh .big.pop svg{animation:lgpop .7s cubic-bezier(.2,1.4,.4,1) both}
@@ -588,16 +621,21 @@ const LG_CSS = `
 /* Hoja de abajo con el detalle (o la celebración si es nuevo). botones = html extra */
 function lgHoja(x, nuevo, botones) {
   const T = LG_TIER[x.t], o = document.createElement("div"); o.className = "lg-ov";
-  const tt = x.tt != null ? '<div class="pz"><span class="ttc">' + LG_TT[x.tt] + '</span><small>' + (x.ok ? "Puedes reclamar este título gratis en la Tienda." : "Premio: este título gratis en la Tienda (o cómpralo con Aura).") + '</small></div>' : "";
+  const falta = x.ok ? lgFalta(x) : [];
   o.innerHTML = '<div class="lg-sh" role="dialog" aria-modal="true" aria-label="' + x.n + '" style="--rc:' + T[1] + '">' +
     (nuevo ? '<div style="font-size:12px;font-weight:900;letter-spacing:.16em;color:' + T[1] + ';text-shadow:0 0 1px #000">¡LOGRO DESBLOQUEADO!</div>' : '') +
-    '<div class="big' + (x.ok ? " ok" : "") + (nuevo ? " pop" : "") + '">' + lgMedalla(x, 120) + '</div><br>' +
+    '<div class="big' + (x.ok ? " ok" : "") + (nuevo ? " pop" : "") + '">' + lgMedalla(x, nuevo ? 110 : 96) + '</div><br>' +
     '<span class="tg" style="background:' + T[1] + '">' + T[0].toUpperCase() + ' · ' + x.c.toUpperCase() + '</span><h3>' + x.n + '</h3><p class="why"><span>' + (x.ok ? 'TE LA DIERON POR' : 'CÓMO SE GANA') + '</span>' + x.d + (x.ok && x.f ? '<em>Ganada el ' + x.f + '</em>' : '') + '</p>' +
-    (x.ok ? '' : '<div class="pb"><i style="width:' + x.pct + '%;background:' + T[1] + '"></i></div><div class="pr">' + lgProg(x) + '</div>') + tt + (botones || "") +
-    '<button type="button" class="bt' + (botones ? " gh" : "") + '" data-c="1">' + (nuevo ? "¡Genial!" : "Cerrar") + '</button></div>';
+    (x.ok ? '' : '<div class="pb"><i style="width:' + x.pct + '%;background:' + T[1] + '"></i></div><div class="pr">' + lgProg(x) + '</div>') +
+    '<div class="pzs">' + lgPremios(x, true) + '</div>' + (falta.length ? '<button type="button" class="bt rec" data-rec-lg="1">Reclamar ' + (falta.length > 1 ? 'premios' : lgTipo(falta[0]).toLowerCase()) + '</button>' : '') + (botones || "") +
+    '<button type="button" class="bt' + (falta.length || botones ? " gh" : "") + '" data-c="1">' + (nuevo ? (falta.length ? "Después" : "¡Genial!") : "Cerrar") + '</button></div>';
   document.body.appendChild(o);
   const cerrar = () => { o.remove(); if (o._fin) o._fin(); };
-  o.addEventListener("click", e => { if (e.target === o || e.target.closest("[data-c]")) cerrar(); });
+  o.addEventListener("click", e => {
+    if (e.target.closest("[data-rec-lg]")) { const ids = lgReclamar(x); if (ids.length) { try { sonido("raro"); } catch (er) {}
+        o.querySelector(".pzs").innerHTML = lgPremios(x, true); const r = o.querySelector("[data-rec-lg]"); r.outerHTML = '<p class="recok">¡Listo! Ya está en tu colección. Póntelo cuando quieras.</p>'; o.querySelector("[data-c]").textContent = "¡Genial!"; } return; }
+    const p = e.target.closest("[data-pon]"); if (p) { try { if (window.lgEquipar) lgEquipar(p.dataset.pon); } catch (er) {} p.textContent = "Puesto"; p.disabled = true; return; }
+    if (e.target === o || e.target.closest("[data-c]")) cerrar(); });
   if (nuevo && !(window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches)) {
     const sh = o.querySelector(".lg-sh");
     for (let i = 0; i < 26; i++) { const r = document.createElement("i"); r.className = "ray"; r.style.background = i % 2 ? T[1] : "#fff"; sh.appendChild(r);
@@ -612,7 +650,7 @@ function lgHoja(x, nuevo, botones) {
 function cartaLg(x, st) {
   const T = LG_TIER[x.t];
   return '<button type="button" class="lc' + (x.ok ? '' : ' no') + '" data-lg="' + x.id + '" style="--a:' + T[1] + ';--b:' + T[2] + ';' + (st || '') + '" aria-label="' + x.n + (x.ok ? ', ganada' : ', ' + lgProg(x)) + '">' +
-    (x.nuevo ? '<span class="nv">NUEVO</span>' : '') + '<small>' + (x.ok ? T[0].toUpperCase() : x.pct + '%') + '</small>' +
+    (x.rec ? '<span class="nv">RECLAMAR</span>' : x.nuevo ? '<span class="nv">NUEVO</span>' : '') + '<small>' + (x.ok ? T[0].toUpperCase() : x.pct + '%') + '</small>' +
     '<span class="em"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="' + (x.ok ? T[1] : 'var(--mu)') + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' + (x.ok ? '' : ' opacity=".6"') + '>' + LG_ICO[x.i] + '</svg></span><b>' + x.n + '</b></button>';
 }
 function pintarLogros() {
@@ -622,7 +660,8 @@ function pintarLogros() {
   if (!mano.length) { mano = L.slice().sort((a, b) => b.pct - a.pct).slice(0, 3); txt = "Gana tu primera carta jugando"; }
   else if (mano.length === 1) txt = "Tu primera carta";
   const k = mano.length, mid = (k - 1) / 2;
-  el.innerHTML = '<h2 class="lab"><span>MI ÁLBUM</span><span>' + ok.length + '/' + L.length + ' cartas</span></h2>' +
+  const nRec = L.filter(x => x.rec).length;
+  el.innerHTML = '<h2 class="lab"><span>MI ÁLBUM' + (nRec ? ' <i class="lgdot">' + nRec + '</i>' : '') + '</span><span>' + ok.length + '/' + L.length + ' cartas</span></h2>' + (nRec ? '<p class="lgaviso">Tienes ' + (nRec === 1 ? 'un premio' : nRec + ' premios') + ' por reclamar: toca las cartas que dicen RECLAMAR.</p>' : '') +
     '<div class="ldeck">' + mano.map((x, i) => cartaLg(x, 'transform:translateX(' + ((i - mid) * 46) + 'px) rotate(' + ((i - mid) * 9) + 'deg) translateY(' + (Math.abs(i - mid) * 8) + 'px);z-index:' + (10 - Math.round(Math.abs(i - mid) * 2)))).join("") + '</div>' +
     '<div class="lcnt">' + txt + ' · toca una</div>' +
     '<div class="lfold"><div>' + grupos.map(g => '<div class="lg-gr">' + g + ' <span>' + L.filter(x => x.c === g && x.ok).length + '/' + L.filter(x => x.c === g).length + '</span></div><div class="lgrid">' + L.filter(x => x.c === g).map(x => cartaLg(x)).join("") + '</div>').join("") + '</div></div>' +
@@ -639,6 +678,8 @@ function pintarLogros() {
 .lc .em{width:56px;height:56px;border-radius:50%;background:#15121C;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 2px rgba(255,255,255,.12)}
 .lc .nv{position:absolute;top:-8px;right:-6px;padding:2px 7px;border-radius:99px;background:#FF4D6D;color:#fff;font-size:8.5px;font-weight:900;animation:lgpul 1.2s ease-in-out infinite}
 .lc.no{background:var(--chip);border:2px dashed var(--line);box-shadow:none}.lc.no b,.lc.no small{color:var(--mu)}.lc.no .em{background:transparent;box-shadow:inset 0 0 0 2px var(--line)}
+.lgdot{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;margin-left:6px;padding:0 6px;border-radius:99px;background:#FF4D6D;color:#fff;font-style:normal;font-size:11px;letter-spacing:0;vertical-align:1px}
+.lgaviso{margin:0 0 4px;padding:10px 12px;border-radius:14px;background:rgba(255,77,109,.14);color:var(--ink);font-size:13px;font-weight:800;text-align:center}
 .lcnt{text-align:center;font-size:12.5px;font-weight:800;color:var(--mu)}
 .lfold{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.9,.3,1)}.lfold>div{overflow:hidden;padding-top:6px}#logros.open .lfold{grid-template-rows:1fr}
 .lg-gr span{float:right;letter-spacing:0}
@@ -651,22 +692,27 @@ function pintarLogros() {
 function celebrar(lista, i) {
   if (i >= lista.length) { lgVistos(lista.map(x => x.id)); window.LG_CELEB = 0; pintarLogros(); return; }
   try { sonido("magia"); } catch (e) {}
-  const x = lista[i], tt = x.tt != null && !tengoTitulo(x.tt);
-  const h = lgHoja(x, true, tt ? '<a class="bt" href="go:tienda">Reclamar el título</a>' : "");
+  const x = lista[i];
+  const h = lgHoja(x, true);
   h.fin(() => setTimeout(() => celebrar(lista, i + 1), 150));
 }
 /* Si hay varios logros nuevos de una vez, una sola hoja con todos */
 function celebrarVarios(lista) {
   try { sonido("magia"); } catch (e) {}
   const o = document.createElement("div"); o.className = "lg-ov";
-  const tts = lista.filter(x => x.tt != null && !tengoTitulo(x.tt)).length;
+  const tts = lista.filter(x => lgFalta(x).length).length;
   o.innerHTML = '<div class="lg-sh" role="dialog" aria-modal="true" aria-label="Logros nuevos" style="--rc:#FFD45C"><div style="font-size:12px;font-weight:900;letter-spacing:.16em;color:#FFD45C">¡LOGROS DESBLOQUEADOS!</div><h3 style="margin-top:4px">' + lista.length + ' logros nuevos</h3>' +
     '<div class="lg-grid lg-pop" style="margin:16px 0 4px">' + lista.map((x, i) => '<div class="lg-it ok" style="animation-delay:' + (i * .08) + 's">' + lgMedalla(x, 56) + '<b>' + x.n + '</b></div>').join("") + '</div>' +
-    (tts ? '<p style="margin-top:10px">Ganaste ' + tts + (tts === 1 ? ' título' : ' títulos') + ' gratis para reclamar en la Tienda.</p><a class="bt" href="go:tienda">Ir a reclamar</a>' : '') +
+    (tts ? '<p style="margin-top:10px" id="lgVtx">' + (tts === 1 ? 'Uno trae premio' : tts + ' traen premio') + '. Reclámalo aquí mismo.</p><button type="button" class="bt rec" id="lgVrec">Reclamar todo</button>' : '') +
     '<button type="button" class="bt' + (tts ? ' gh' : '') + '" data-c="1">¡Genial!</button></div>';
   document.body.appendChild(o);
-  o.addEventListener("click", e => { if (e.target === o || e.target.closest("[data-c]")) { o.remove(); lgVistos(lista.map(x => x.id)); window.LG_CELEB = 0; pintarLogros(); } });
+  o.addEventListener("click", e => { if (e.target.closest("#lgVrec")) { let n = 0; lista.forEach(x => { n += lgReclamar(x).length; }); try { sonido("raro"); } catch (er) {} e.target.closest("#lgVrec").remove(); o.querySelector("#lgVtx").textContent = "¡Listo! " + (n === 1 ? "Tu premio ya está" : "Tus " + n + " premios ya están") + " en tu colección."; return; }
+    if (e.target === o || e.target.closest("[data-c]")) { o.remove(); lgVistos(lista.map(x => x.id)); window.LG_CELEB = 0; pintarLogros(); } });
 }
+function lgNom(id) { const c = COL[id.slice(0, 2)]; return c ? c.n[+id.slice(2)] || "" : ""; }
+function lgVis(id) { try { return colVista(id, 40, colDatos()); } catch (e) { return ""; } }
+window.lgTrasReclamar = () => { try { pintar(); } catch (e) {} };
+window.lgEquipar = id => { const t = lgTienda(), k = id.slice(0, 2); t.eq[k] = id; try { localStorage.setItem("ingles_gamer_tienda", JSON.stringify(t)); } catch (e) {} const nv = (lgLee(LG_NUEVOS) || []).filter(x => x !== id); try { localStorage.setItem(LG_NUEVOS, JSON.stringify(nv)); } catch (e) {} try { pintar(); } catch (e) {} };
 function tengoTitulo(n) { const t = lgLee("ingles_gamer_tienda") || {}; return Array.isArray(t.own) && t.own.indexOf("tt" + n) > -1; }
 $("logros").addEventListener("click", e => {
   const t = e.target.closest("[data-t]");
@@ -674,8 +720,7 @@ $("logros").addEventListener("click", e => {
   const b = e.target.closest("[data-lg]"); if (!b) return;
   try { sonido("click"); } catch (er) {}
   const x = lgRevisar().find(y => y.id === b.dataset.lg);
-  const tt = x.ok && x.tt != null && !tengoTitulo(x.tt);
-  lgHoja(x, false, tt ? '<a class="bt" href="go:tienda">Reclamar el título</a>' : "");
+  lgHoja(x, false).fin(() => pintar());
 });
 
 /* ===== pintar ===== */
@@ -699,8 +744,8 @@ function pintar() {
    - "Mis pases" lee ingles_gamer_pase (si no lo compraste, el boleto sale en gris). */
 const COL = {
   av:{ t:"Personajes", n:AVATARES.map(a => a.n) },
-  sk:{ t:"Skins", n:["Original","Hielo","Lava","Bosque","Fantasma","Neón","Dorado","Arcoíris","Ámbar"] },
-  mc:{ t:"Marcos", n:["Madera","Hierro","Oro","Esmeralda","Fuego","Cristal","Arcoíris","Fósil"] },
+  sk:{ t:"Skins", n:["Original","Hielo","Lava","Bosque","Fantasma","Neón","Dorado","Arcoíris","Ámbar","Diamante"] },
+  mc:{ t:"Marcos", n:["Madera","Hierro","Oro","Esmeralda","Fuego","Cristal","Arcoíris","Fósil","Corona"] },
   mp:{ t:"Fondos", n:["Pradera","Noche","Desierto","Nieve","Volcán","Espacio","Ciudad","Jurásico","OVNI","Mar","Castillo","Selva","Tormenta","Dulces","Aurora"] },
   tt:{ t:"Títulos", n:LOOK_TT },
   an:{ t:"Animaciones", n:["Flotar","Saltar","Alegre","Pensar","Dormir","Bailar","Emocionado","Girar","Superestrella"] }
