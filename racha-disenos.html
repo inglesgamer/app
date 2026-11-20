@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Racha: diseños</title>
+<script>/* VISTA PREVIA: almacenamiento de mentiras, no toca el juego */(function(){var M={};var S={getItem:function(k){return k in M?M[k]:null},setItem:function(k,v){M[k]=String(v)},removeItem:function(k){delete M[k]},clear:function(){M={}},key:function(i){return Object.keys(M)[i]||null},get length(){return Object.keys(M).length}};try{Object.defineProperty(window,"localStorage",{value:S,configurable:true})}catch(e){}})();</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0B0B0D;color:#F4F4F5;font-family:Nunito,system-ui,sans-serif}
+.w{max-width:520px;margin:0 auto;padding:16px}
+h1{margin:6px 0 2px;font-size:24px}.sub{margin:0 0 12px;color:#A1A1AA;font-weight:700}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.tabs button{height:46px;border-radius:14px;border:2px solid #2A2A2E;background:#151518;color:#F4F4F5;font:900 15px Nunito,sans-serif}.tabs button.on{background:#fff;color:#000}
+.desc{padding:12px 14px;border-radius:16px;background:#151518;border:1px solid #2A2A2E;font-weight:700;color:#C9C9D1;margin-bottom:10px;font-size:14px}.desc b{display:block;color:#fff;font-size:16px;margin-bottom:2px}
+.tel{position:relative;height:640px;border-radius:30px;overflow:hidden;background:#000;border:2px solid #2A2A2E}
+.rep{width:100%;height:50px;margin-top:10px;border-radius:99px;border:2px solid #2A2A2E;background:#151518;color:#fff;font:900 16px Nunito,sans-serif}
+.sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px 22px;text-align:center}
+.ok{width:100%;max-width:300px;height:54px;border:0;border-radius:99px;background:#FFC83D;color:#3A2400;font:900 18px Nunito,sans-serif;box-shadow:0 5px 0 #B8860B;opacity:0;transform:translateY(16px);transition:all .4s}
+.ok.v{opacity:1;transform:none}
+.sem{display:flex;gap:8px;justify-content:center}.sem span{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;font-weight:900;color:#8A8A93}
+.sem i{width:34px;height:34px;border-radius:50%;background:#1E1E22;border:2px solid #2E2E33;display:grid;place-items:center;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
+.sem i.si{background:#FFC83D;border-color:#FFC83D}.sem i.si svg{opacity:1}.sem i svg{opacity:0}
+.sem i.hoy{transform:scale(1.25)}
+.txt{font-size:20px;font-weight:900;opacity:0;transition:opacity .4s}.txt.v{opacity:1}.mu{color:#A1A1AA;font-weight:800;font-size:15px;opacity:0;transition:opacity .4s}.mu.v{opacity:1}
+/* A: el rayo se llena */
+.ra{position:relative;width:170px;height:200px}
+.ra svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ra .glow{position:absolute;left:50%;top:50%;width:260px;height:260px;margin:-130px;border-radius:50%;background:radial-gradient(circle,rgba(255,200,61,.55),transparent 65%);opacity:0;transform:scale(.6);transition:all .5s}
+.ra.on .glow{opacity:1;transform:scale(1)}
+.ra.on{animation:raPop .5s cubic-bezier(.3,1.6,.5,1)}@keyframes raPop{40%{transform:scale(1.15)}}
+.chis{position:absolute;left:50%;top:45%;width:8px;height:8px;border-radius:50%;background:#FFE08A;pointer-events:none}
+.num{font-size:84px;font-weight:900;line-height:1;color:#FFC83D;text-shadow:0 4px 0 #8A5A00;display:flex;overflow:hidden;height:86px}
+.num .col{display:flex;flex-direction:column;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
+.num .col span{height:86px}
+/* B: número gigante */
+.bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,#FF8A00,#7A2A00 60%,#000);opacity:0;transition:opacity .5s}.bg.on{opacity:1}
+.big{position:relative;font-size:170px;font-weight:900;line-height:.9;color:#fff;text-shadow:0 8px 0 rgba(0,0,0,.25);height:160px;overflow:hidden;display:flex}
+.big .col{display:flex;flex-direction:column;transition:transform .8s cubic-bezier(.3,1.4,.5,1)}.big .col span{height:160px;line-height:160px}
+.bolt-sm{width:64px;height:64px;animation:bz .12s linear infinite alternate}@keyframes bz{to{transform:translate(1px,-1px) rotate(3deg)}}
+/* C: anillo de energía */
+.anillo{position:relative;width:210px;height:210px}
+.anillo>svg{width:100%;height:100%;transform:rotate(-90deg)}.anillo .cen{gap:2px}
+.anillo .cen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.anillo .cen b{font-size:56px;line-height:1;font-weight:900}.anillo .cen small{font-weight:900;color:#A1A1AA}
+.meta{padding:8px 14px;border-radius:99px;background:#1E1E22;font-weight:900;font-size:14px;color:#FFE08A;opacity:0;transition:opacity .4s}.meta.v{opacity:1}
+/* D: calendario */
+.cal{display:grid;grid-template-columns:repeat(7,38px);gap:6px;padding:14px;border-radius:22px;background:#151518;border:2px solid #2A2A2E}
+.cal i{height:38px;border-radius:12px;background:#1E1E22;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:13px;color:#6A6A73;transition:all .3s}
+.cal i.si{background:#FFC83D;color:#3A2400}.cal i.hoy{box-shadow:0 0 0 3px #fff}
+.saltin{position:absolute;width:44px;height:44px;z-index:2}
+</style></head><body><div class="w">
+<h1>Animación de la racha</h1><p class="sub">4 diseños con el rayo de la app. Toca cada uno.</p>
+<div class="tabs" id="tabs"></div><div class="desc" id="desc"></div>
+<div class="tel" id="tel"></div><button class="rep" id="rep">Repetir animación</button>
+</div>
+<script>
+const RAYO = (w, c) => '<svg width="' + w + '" height="' + w + '" viewBox="0 0 24 24"><path d="M13.5 2 4 13.5h7L9.8 22 20 9.8h-7.2z" fill="' + (c || "#FFC83D") + '" stroke="#8A5A00" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+const OK = '<svg width="16" height="16" viewBox="0 0 24 24"><path d="M5 12.5 10 17 19 7" stroke="#3A2400" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const DIAS = ["L","M","M","J","V","S","D"], HOY = 4, N = 7;   /* ejemplo: hoy viernes, 7 días */
+const dormir = ms => new Promise(r => setTimeout(r, ms));
+let AC; function tono(f, t, d, v) { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const o = AC.createOscillator(), g = AC.createGain(), t0 = AC.currentTime + t; o.type = "triangle"; o.frequency.value = f; g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(v || .08, t0 + .02); g.gain.exponentialRampToValueAtTime(.0001, t0 + d); o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0 + d + .05); } catch (e) {} }
+const subida = () => [440, 554, 659, 880].forEach((f, i) => tono(f, i * .09, .3));
+const semana = () => '<div class="sem">' + DIAS.map((d, i) => '<span><i class="' + (i < HOY ? "si" : "") + '" data-i="' + i + '">' + OK + '</i>' + d + '</span>').join("") + '</div>';
+const rodillo = (cls, de, a) => '<div class="' + cls + '"><div class="col" id="col">' + '<span>' + de + '</span><span>' + a + '</span></div></div>';
+let corrida = 0;
+const D = {
+ A:["Rayo que se enciende", "El rayo empieza gris, se llena de amarillo desde abajo, suelta chispas y el número sube de 6 a 7. Debajo, la semana marca el día de hoy.", async (T, id) => {
+   T.innerHTML = '<div class="sc"><div class="ra" id="ra"><div class="glow"></div><svg viewBox="0 0 24 24"><defs><clipPath id="cp"><rect id="ll" x="0" y="24" width="24" height="24"/></clipPath></defs><path d="M13.5 2 4 13.5h7L9.8 22 20 9.8h-7.2z" fill="#2A2A2E" stroke="#3A3A40" stroke-width="1.2" stroke-linejoin="round"/><path clip-path="url(#cp)" d="M13.5 2 4 13.5h7L9.8 22 20 9.8h-7.2z" fill="#FFC83D" stroke="#8A5A00" stroke-width="1.2" stroke-linejoin="round"/></svg></div>' +
+     rodillo("num", N - 1, N) + '<div class="txt" id="tx">días de racha</div>' + semana() + '<div class="mu" id="mu">¡Sigue así! Vuelve mañana para no perderla.</div><button class="ok" id="ok">Continuar</button></div>';
+   const q = x => T.querySelector(x), ll = q("#ll"); await dormir(400); if (id !== corrida) return;
+   const t0 = performance.now(); await new Promise(r => { (function p(n) { const k = Math.min(1, (n - t0) / 900); ll.setAttribute("y", 24 - 24 * k); k < 1 ? requestAnimationFrame(p) : r(); })(t0); });
+   q("#ra").classList.add("on"); subida();
+   for (let i = 0; i < 18; i++) { const c = document.createElement("i"); c.className = "chis"; q("#ra").appendChild(c); const a = Math.random() * 6.28, d = 70 + Math.random() * 60;
+     c.animate([{ transform:"translate(-50%,-50%)", opacity:1 }, { transform:"translate(" + Math.cos(a) * d + "px," + Math.sin(a) * d + "px) scale(.3)", opacity:0 }], { duration:700, easing:"ease-out", fill:"forwards" }); }
+   q("#col").style.transform = "translateY(-86px)"; await dormir(500); q("#tx").classList.add("v");
+   const h = q('.sem i[data-i="' + HOY + '"]'); h.classList.add("si", "hoy"); tono(1047, 0, .25); await dormir(400); q("#mu").classList.add("v"); q("#ok").classList.add("v"); }],
+ B:["Número gigante", "La pantalla se pone naranja, el número enorme gira de 6 a 7 y el rayo vibra encima. Es el más llamativo y el más parecido a lo que pediste.", async (T, id) => {
+   T.innerHTML = '<div class="bg" id="bg"></div><div class="sc"><span class="bolt-sm">' + RAYO(64, "#FFE08A") + '</span>' + rodillo("big", N - 1, N) + '<div class="txt" id="tx" style="font-size:26px">días de racha</div><div class="mu" id="mu" style="color:#FFE6C7">Llevas una semana entera. ¡Eres imparable!</div>' + semana().replace('class="sem"', 'class="sem" style="opacity:.95"') + '<button class="ok" id="ok" style="background:#fff;color:#7A2A00;box-shadow:0 5px 0 rgba(0,0,0,.25)">Continuar</button></div>';
+   const q = x => T.querySelector(x); await dormir(250); if (id !== corrida) return; q("#bg").classList.add("on"); await dormir(500);
+   q("#col").style.transform = "translateY(-160px)"; subida(); await dormir(600); q("#tx").classList.add("v"); q("#mu").classList.add("v");
+   const h = q('.sem i[data-i="' + HOY + '"]'); h.classList.add("si", "hoy"); await dormir(300); q("#ok").classList.add("v"); }],
+ C:["Anillo de energía", "Un anillo alrededor del rayo se carga hasta tu siguiente meta (ej. 7 de 14 días). Muestra cuánto falta para el próximo regalo de Aura.", async (T, id) => {
+   const R = 92, L = 2 * Math.PI * R, meta = 14;
+   T.innerHTML = '<div class="sc"><div class="anillo"><svg viewBox="0 0 210 210"><circle cx="105" cy="105" r="' + R + '" stroke="#1E1E22" stroke-width="16" fill="none"/><circle id="arc" cx="105" cy="105" r="' + R + '" stroke="#FFC83D" stroke-width="16" fill="none" stroke-linecap="round" stroke-dasharray="' + L + '" stroke-dashoffset="' + L * (1 - (N - 1) / meta) + '" style="transition:stroke-dashoffset 1s cubic-bezier(.3,1.2,.5,1)"/></svg><div class="cen">' + RAYO(54) + '<b id="nn">' + (N - 1) + '</b><small>días de racha</small></div></div>' +
+     '<div class="txt" id="tx">¡Racha de ' + N + ' días!</div><div class="meta" id="me">' + (meta - N) + ' días más para tu regalo de Aura</div>' + semana() + '<button class="ok" id="ok">Continuar</button></div>';
+   const q = x => T.querySelector(x); await dormir(500); if (id !== corrida) return;
+   q("#arc").style.strokeDashoffset = L * (1 - N / meta); await dormir(500); q("#nn").textContent = N; q("#nn").animate([{ transform:"scale(1.6)" }, { transform:"none" }], { duration:400, easing:"cubic-bezier(.3,1.6,.5,1)" }); subida();
+   await dormir(300); q("#tx").classList.add("v"); q("#me").classList.add("v"); q('.sem i[data-i="' + HOY + '"]').classList.add("si", "hoy"); await dormir(300); q("#ok").classList.add("v"); }],
+ D:["Rayo en el calendario", "Un rayito salta y cae en el día de hoy del calendario de la semana, que se enciende. Es el más sencillo y tranquilo.", async (T, id) => {
+   T.innerHTML = '<div class="sc"><div style="position:relative"><div class="cal" id="cal">' + DIAS.map((d, i) => '<i class="' + (i < HOY ? "si" : "") + '" data-i="' + i + '">' + d + '</i>').join("") + '</div></div>' +
+     '<div class="txt" id="tx" style="font-size:44px;display:flex;align-items:center;gap:8px">' + RAYO(42) + '<span id="nn">' + (N - 1) + '</span></div><div class="mu" id="mu">días de racha · ¡Vas muy bien!</div><button class="ok" id="ok">Continuar</button></div>';
+   const q = x => T.querySelector(x); q("#tx").classList.add("v"); await dormir(400); if (id !== corrida) return;
+   const dia = q('.cal i[data-i="' + HOY + '"]'), cal = q("#cal"), s = document.createElement("span"); s.className = "saltin"; s.innerHTML = RAYO(44); cal.parentNode.appendChild(s);
+   const x = dia.offsetLeft + 19 - 22, y = dia.offsetTop + 19 - 22; s.style.left = x + "px"; s.style.top = y + "px";
+   await s.animate([{ transform:"translate(-120px,260px) scale(.6)" }, { transform:"translate(-60px,-90px) scale(1)", offset:.55 }, { transform:"translate(0,0) scale(.9)" }], { duration:900, easing:"cubic-bezier(.4,.1,.5,1)" }).finished;
+   s.remove(); dia.classList.add("si", "hoy"); dia.animate([{ transform:"scale(1.5)" }, { transform:"none" }], { duration:400, easing:"cubic-bezier(.3,1.6,.5,1)" }); tono(880, 0, .2); tono(1175, .1, .3);
+   q("#nn").textContent = N; await dormir(300); q("#mu").classList.add("v"); q("#ok").classList.add("v"); }]
+};
+let SEL = "A";
+function correr() { corrida++; const T = document.getElementById("tel"); D[SEL][2](T, corrida); document.getElementById("desc").innerHTML = "<b>" + SEL + ". " + D[SEL][0] + "</b>" + D[SEL][1];
+  document.getElementById("tabs").innerHTML = Object.keys(D).map(k => '<button class="' + (k === SEL ? "on" : "") + '" data-k="' + k + '">' + k + '</button>').join(""); }
+document.getElementById("tabs").onclick = e => { const b = e.target.closest("button"); if (b) { SEL = b.dataset.k; correr(); } };
+document.getElementById("rep").onclick = correr;
+SEL = (location.search.match(/d=([A-D])/) || [0, "A"])[1]; correr();
+</script></body></html>
