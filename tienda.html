@@ -221,6 +221,9 @@ nav a:hover{color:var(--ink)}nav a.on,nav a.on:hover{color:var(--hi)}
 .a-sup{animation:aflt 2s ease-in-out infinite,asup 1.4s ease-in-out infinite alternate}@keyframes asup{from{filter:drop-shadow(0 0 2px #FFC83D)}to{filter:drop-shadow(0 0 14px #FFC83D) brightness(1.15)}}
 .a-sup .sym{color:#FFC83D;animation:parp2 .6s infinite alternate}
 /* ===== PACKS ===== */
+.pkc{display:inline-flex;align-items:center;gap:6px;color:var(--mu)}.pkc i{width:8px;height:8px;border-radius:50%;background:#FF4B4B;box-shadow:0 0 6px #FF4B4B;animation:pkcA 1s infinite alternate}@keyframes pkcA{to{opacity:.35}}
+.pk .sc{position:relative}.pkf{position:absolute;left:10px;top:10px;z-index:3;display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:99px;background:#FF4B4B;color:#fff;font-size:11.5px;font-weight:900}
+.pkf i{width:7px;height:7px;border-radius:50%;background:#fff;animation:pkcA 1s infinite alternate}
 .pks{display:flex;gap:12px;overflow-x:auto;margin:14px -16px 0;padding:0 16px 4px;scrollbar-width:none}.pks::-webkit-scrollbar{display:none}
 .pk{flex:none;width:300px;padding:14px;border-radius:28px;border:1px solid var(--bd);background:var(--card)}
 .pk .hd{display:flex;justify-content:space-between;align-items:flex-start;margin:2px 4px 10px}.pk small{font-size:10.5px;font-weight:900;letter-spacing:.12em;color:var(--mu)}.pk b.t{display:block;font-size:21px;font-weight:900}
@@ -699,7 +702,7 @@ const DIA = Math.floor((Date.now() - new Date().getTimezoneOffset() * 6e4) / 864
 /* ---------- TEMPORADA: los objetos con tmp:1 solo se venden hasta FIN (año-mes-día). Después solo los ve quien los compró. ---------- */
 const TEMPORADA = { nombre:"Jurásica", num:1, fin:"2026-12-01" };
 const finT = () => { const q = TEMPORADA.fin.split("-").map(Number); return new Date(q[0], q[1] - 1, q[2]).getTime(); };
-const tempActiva = () => Date.now() < finT();
+const tempActiva = () => false;   /* Pase / Temporada quitado de la Tienda (19 nov 2026) */
 const visible = it => !it.tmp || owns(it.id);   /* lo de temporada solo sale en la Tienda si ya lo tienes (se consigue en el Pase) */
 const POOL_OFERTA = ALL.filter(x => x.base >= 100 && !esUnico(x) && !x.tmp);
 const OFERTA = POOL_OFERTA[(DIA * 7) % POOL_OFERTA.length];
@@ -784,19 +787,27 @@ function pintarAnuncio() {
 
 /* ---------- PACKS: personaje + fondo + animación más baratos juntos ----------
    [nombre, personaje, fondo, animación, precio del pack]. Si ya tienes algo del pack, el precio baja en proporción. */
-const PACKS = [["Pack Pirata","av10","mp9","an5",850],["Pack Espacial","av11","mp8","an7",1300],["Pack Nocturno","av16","mp1","an4",850],["Pack Héroe","av17","mp6","an8",1400]];
+/* PACKS_SEMANA (19 nov 2026) */
+/* [nombre, personaje, fondo, animación]. Cada semana salen 2 (cambian el lunes). El precio es ~30 % menos que comprarlos por separado. */
+const PACKS_TODOS = [["Pack Pirata","av10","mp9","an5"],["Pack Espacial","av11","mp5","an7"],["Pack Nocturno","av16","mp1","an4"],["Pack Héroe","av17","mp6","an8"],
+  ["Pack Mago","av3","mp10","an3"],["Pack Dragón","av2","mp4","an6"],["Pack Sirena","av7","mp14","an2"],["Pack Robot","av12","mp12","an1"],
+  ["Pack Vaquero","av13","mp2","an1"],["Pack Ninja","av8","mp11","an5"],["Pack Princesa","av5","mp13","an2"],["Pack Alien","av6","mp8","an7"],["Pack Invierno","av4","mp3","an4"],["Pack Chef","av14","mp6","an6"]];
+const LUNES_SIG = (() => { const h = new Date(), d = new Date(h.getFullYear(), h.getMonth(), h.getDate()); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7); return d.getTime(); })();
+const SEMANA_N = Math.round((LUNES_SIG - 7 * 864e5 - new Date(2026, 0, 5).getTime()) / (7 * 864e5));
+const PACKS = [0, 1].map(i => { const q = PACKS_TODOS[(SEMANA_N * 2 + i) % PACKS_TODOS.length], tot = [q[1], q[2], q[3]].reduce((a, id) => a + ((get(id) || {}).p || 0), 0); return [q[0], q[1], q[2], q[3], Math.max(50, Math.round(tot * .7 / 50) * 50)]; });
+const quedaPack = () => { const ms = Math.max(0, LUNES_SIG - Date.now()), d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5); return d ? d + " d " + h + " h" : h ? h + " h" : Math.max(1, Math.round(ms / 6e4)) + " min"; };
 function precioPack(p) {
   const its = [p[1], p[2], p[3]].map(get), tot = its.reduce((a, x) => a + x.p, 0), falt = its.filter(x => !owns(x.id)).reduce((a, x) => a + x.p, 0);
   return { its, tot, falt, pr: falt ? Math.max(10, Math.round(p[4] * falt / tot / 10) * 10) : 0 };
 }
 function pintarPacks() {
   const AU = saldo();
-  $("packs").innerHTML = '<div class="pkt">Packs <small>Más barato junto</small></div><div class="pks">' + PACKS.map((p, k) => {
+  $("packs").innerHTML = '<div class="pkt">Packs de la semana <small class="pkc"><i></i>Nuevos en ' + quedaPack() + '</small></div><div class="pks">' + PACKS.map((p, k) => {
     const x = precioPack(p), a = x.its[0], m = x.its[1], n = x.its[2];
     const btn = !x.falt ? '<button class="bn on" type="button" disabled>Ya lo tienes</button>'
       : '<button class="bn ' + (AU >= x.pr ? "buy" : "no") + '" type="button" data-pk="' + k + '"><span class="old">' + x.falt + '</span>' + FLAME(16) + x.pr + '</button>';
     return '<div class="pk" id="pk' + k + '"><div class="hd"><div><small>PERSONAJE + FONDO + ANIMACIÓN</small><b class="t">' + p[0] + '</b></div>' + (x.falt ? '<span class="ah">-' + (x.falt - x.pr) + '</span>' : '') + '</div>' +
-      '<div class="sc" style="background:' + m.bg + '"><b class="fx f-' + m.id + '"></b><i class="g" style="background:' + m.g + '"></i>' + anim(n, pj(a.id, "sk0", 60)) + '</div>' +
+      '<div class="sc" style="background:' + m.bg + '"><span class="pkf"><i></i>Termina en ' + quedaPack() + '</span><b class="fx f-' + m.id + '"></b><i class="g" style="background:' + m.g + '"></i>' + anim(n, pj(a.id, "sk0", 60)) + '</div>' +
       '<div class="ls">' + x.its.map(i => '<span' + (owns(i.id) ? ' style="opacity:.5"' : '') + '>' + i.n + '</span>').join("") + '</div>' + btn + '</div>';
   }).join("") + '</div>';
 }
