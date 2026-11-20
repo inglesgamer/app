@@ -108,6 +108,7 @@ Voces (nombre del mp3 = slug del texto, sin tildes):
 - **Final del nivel (al ganar):** «Siguiente nivel» (sin ícono) + «Mapa» al lado (`tools/fin_botones.py`; URL_MAPA = go:mapaa1).
 - **Niveles de hablar:** cada 5 niveles, repasan esos 5 con el micrófono (reconocimiento de voz del navegador); solo dan Aura (+25 una vez), sin estrellas; saltar con anuncio (`premio4`). En el mapa: tarjeta (diseño B) blanca en Noche y negra en las paletas claras. Gen. `/home/claude/hablar/hacer_hablar.py`.
 - **Ranking = solo Liga semanal** (sin Temporada ni Siempre). Premios del top 3 por rango, solo Aura + trofeo: Campesino 60/40/20, Soldado 90/60/30, Caballero 120/80/40, Noble 160/110/60, Rey 220/150/80. Generador `ranking/liga_semanal.py` (parte de `ranking/ranking_base.html`; si se cambia la base, volver a correrlo).
+- **Después de regenerar** `mapaa1` (mapa/hacer_mapa_a1.py), `duelo` (duelo4/aplicar.py) o el Ranking: volver a correr `tools/nav_puntos.py` (y `tools/look_nuevo.py` en duelo). Logros con premio: `logros/premios.py` (Perfil + Tienda); si cambian los logros, correr otra vez `tools/nav_puntos.py`.
 - **Mapa:** un solo mapa en hilera (`mapaa1`); las secciones de islas solo redirigen.
 - Retos semanales = **mini juegos** (Vocabulario / Gramática / Escucha), con lo que el jugador ya jugó.
 - Refuerza: «Marcar como vista» es gratis (+5); el +35 es opcional con anuncio (nunca bloquear progreso con anuncios).

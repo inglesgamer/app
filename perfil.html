@@ -1122,5 +1122,85 @@ const CONFIG = {
   } catch (e) { console.error("[nube]", e); }
 })();
 </script>
+
+<script>/* NAV_PUNTOS (20 nov 2026) */
+(function () {
+const LG_A1 = ["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3","final"];
+const LG_NIEVE = ["vocab1","preposiciones","adjetivos","gustos","esc1","conectores","comparativos","futuro","situaciones","esc2","vocab2","profesiones","cuerpo"];
+const LOGROS = [   /* LOGROS_PREMIOS (20 nov 2026) */
+  { id:"p1",  c:"Aprendizaje", i:"star",   t:"b", n:"Primer paso",          d:"Ganar tu primera estrella",                 m:1,    v:D => D.tot, pr:["tt1"] },
+  { id:"e3",  c:"Aprendizaje", i:"stars",  t:"b", n:"Triple estrella",      d:"Sacar 3 estrellas en un nivel",             m:1,    v:D => D.tres, pr:["tt2"] },
+  { id:"m10", c:"Aprendizaje", i:"map",    t:"p", n:"Mitad del mapa",       d:"Pasar 10 niveles del A1",                   m:10,   v:D => D.pasados, pr:["tt3"] },
+  { id:"c5",  c:"Aprendizaje", i:"flag",   t:"p", n:"Cazajefes",            d:"Sacar 3 estrellas en 5 niveles",            m:5,    v:D => D.tres },
+  { id:"vb",  c:"Aprendizaje", i:"book",   t:"p", n:"Rey de los verbos",    d:"Pasar el nivel Verbos básicos",             m:1,    v:D => D.verbos, pr:["tt4"] },
+  { id:"s30", c:"Aprendizaje", i:"star",   t:"o", n:"Cazador de estrellas", d:"Juntar 30 estrellas",                       m:30,   v:D => D.tot },
+  { id:"pf",  c:"Aprendizaje", i:"target", t:"o", n:"Perfeccionista",       d:"Sacar 3 estrellas en 10 niveles",           m:10,   v:D => D.tres, pr:["tt8"] },
+  { id:"a1",  c:"Aprendizaje", i:"crown",  t:"d", n:"Rey del A1",           d:"Terminar los mapas de Verano, Nieve y Fuego", m:3,  v:D => D.vFin + D.nFin + D.fFin, pr:["tt5"] },
+  { id:"s60", c:"Aprendizaje", i:"trophy", t:"d", n:"Mapa completo",        d:"Juntar las 60 estrellas de Verano",         m:60,   v:D => D.tot, pr:["tt6"] },
+  { id:"r3",  c:"Constancia",  i:"flame",  t:"b", n:"Racha de fuego",       d:"Jugar 3 días seguidos",                     m:3,    v:D => D.rm },
+  { id:"r7",  c:"Constancia",  i:"cal",    t:"p", n:"Semana perfecta",      d:"Jugar 7 días seguidos",                     m:7,    v:D => D.rm, pr:["tt9"] },
+  { id:"r30", c:"Constancia",  i:"flame",  t:"d", n:"Imparable",            d:"Jugar 30 días seguidos",                    m:30,   v:D => D.rm, pr:["tt10","sk9"] },
+  { id:"au1", c:"Aura",        i:"bolt",   t:"b", n:"Primera chispa",       d:"Ganar 100 de Aura en total",                m:100,  v:D => D.ag },
+  { id:"au2", c:"Aura",        i:"bolt",   t:"p", n:"Aura brillante",       d:"Ganar 1000 de Aura en total",               m:1000, v:D => D.ag },
+  { id:"au3", c:"Aura",        i:"gem",    t:"o", n:"Aura dorada",          d:"Ganar 5000 de Aura en total",               m:5000, v:D => D.ag },
+  { id:"d1",  c:"Duelos",      i:"swords", t:"b", n:"Primer duelo",         d:"Terminar tu primer duelo",                  m:1,    v:D => D.dj },
+  { id:"g1",  c:"Duelos",      i:"swords", t:"p", n:"Gladiador",            d:"Ganar tu primer duelo",                     m:1,    v:D => D.dg, pr:["tt12"] },
+  { id:"d5",  c:"Duelos",      i:"swords", t:"p", n:"Duelista",             d:"Ganar 5 duelos",                            m:5,    v:D => D.dg },
+  { id:"d20", c:"Duelos",      i:"helm",   t:"o", n:"Caballero",            d:"Ganar 20 duelos",                           m:20,   v:D => D.dg, pr:["tt13"] },
+  { id:"k1",  c:"Reino",       i:"shield", t:"b", n:"Soldado",              d:"Llegar al rango Soldado en la liga semanal",  m:1,  v:D => +(D.st >= 3) },
+  { id:"k2",  c:"Reino",       i:"helm",   t:"p", n:"Escudo de caballero",  d:"Llegar al rango Caballero en la liga semanal", m:1, v:D => +(D.st >= 6) },
+  { id:"k4",  c:"Reino",       i:"crown",  t:"d", n:"Coronado",             d:"Llegar a la liga de Rey en la liga semanal",  m:1,  v:D => +(D.st >= 12), pr:["tt14","mc8"] },
+  { id:"n1",  c:"Isla de Nieve", i:"snow", t:"b", n:"Explorador del hielo", d:"Pasar un nivel de la Isla de Nieve",        m:1,    v:D => D.nPas },
+  { id:"n3",  c:"Isla de Nieve", i:"snow", t:"o", n:"Rey del hielo",        d:"Terminar el mapa de la Isla de Nieve",      m:1,    v:D => D.nFin, pr:["tt15"] },
+  { id:"c10", c:"Colección",   i:"hanger", t:"b", n:"Con estilo",           d:"Tener 10 cosas en tu colección",            m:10,   v:D => D.col },
+  { id:"c30", c:"Colección",   i:"chest",  t:"o", n:"Coleccionista",        d:"Tener 10 personajes",                       m:10,   v:D => D.avs, pr:["tt16"] }
+];
+/* premios que SOLO se consiguen con su logro (en la Tienda no tienen precio) */
+const LG_SOLO = ["tt5","tt8","tt9","tt10","sk9","tt12","tt13","tt14","mc8","tt15","tt16"];
+/* «Terminar el mapa» = pasar todos los niveles que ya existen (los «Próximamente» no cuentan) */
+const LG_FUEGO = ["pronombres","tobe","thereis","escf1","articulos","wh","vocab5"];
+function lgLee(k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } }
+function lgDatos(G) {
+  const fch = d => d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+  const hoy = fch(new Date()), ayer = fch(new Date(Date.now() - 864e5));
+  const R = lgLee("ingles_gamer_a1_repaso") || {}, est = R.est || {}, dia = R.dia || {};
+  const e = id => Math.min(3, Math.max(0, +est[id] || 0));
+  let tot = 0, pasados = 0, tres = 0;
+  LG_A1.forEach(id => { const s = e(id); tot += s; if (s >= 1) pasados++; if (s >= 3) tres++; });
+  const racha = (dia.u === hoy || dia.u === ayer) ? Math.max(0, +dia.r || 0) : 0;
+  const N = lgLee("ingles_gamer_nieve_repaso") || {}, nest = N.est || {}, ndia = N.dia || {};
+  const ne = id => Math.min(3, Math.max(0, +nest[id] || 0));
+  const nr = (ndia.u === hoy || ndia.u === ayer) ? Math.max(0, +ndia.r || 0) : 0;
+  const A = lgLee("ingles_gamer_aura") || {}, Du = lgLee("ingles_gamer_duelos") || {}, L = lgLee("ingles_gamer_liga") || {}, T = lgLee("ingles_gamer_tienda") || {};
+  const st = L.v === 2 ? +L.st || 0 : (+L.lg || 0) * 3;
+  return { tot, pasados, tres, fin:e("final"), verbos:+(e("verbos") >= 1), rm:Math.max(+G.rm || 0, racha, nr),
+           ag:Math.max(0, +A.e || 0), dg:+Du.g || 0, dj:(+Du.g || 0) + (+Du.p || 0) + (+Du.e || 0), st,
+           nPas:LG_NIEVE.filter(id => ne(id) >= 1).length, nTres:LG_NIEVE.filter(id => ne(id) >= 3).length,
+           col:Array.isArray(T.own) ? new Set(T.own).size : 7,
+           vFin:+LG_A1.every(id => e(id) >= 1), nFin:+LG_NIEVE.every(id => ne(id) >= 1), fFin:+LG_FUEGO.every(id => Math.min(3, Math.max(0, +((lgLee("ingles_gamer_fuego_repaso") || {}).est || {})[id] || 0)) >= 1),
+           avs:new Set((Array.isArray(T.own) ? T.own : []).filter(id => /^av\d+$/.test(id)).concat(["av0", "av1"])).size };
+}
+function cuantos() {
+  let rec = 0, nue = 0;
+  try { const G = lgLee("ingles_gamer_logros") || {}, h = G.h || {}, D = lgDatos(G), T = lgLee("ingles_gamer_tienda") || {}, own = Array.isArray(T.own) ? T.own : [];
+    LOGROS.forEach(x => { if (!x.pr) return; const ok = h[x.id] || (+x.v(D) || 0) >= x.m; if (ok && x.pr.some(id => own.indexOf(id) < 0)) rec++; });
+    nue = (lgLee("ingles_gamer_nuevos") || []).filter(id => own.indexOf(id) > -1).length; } catch (e) {}
+  return { rec, nue };
+}
+function pintar() {
+  const c = cuantos();
+  document.querySelectorAll("nav a[href]").forEach(a => {
+    const h = a.getAttribute("href") || "", k = /perfil/i.test(h) ? "rec" : /tienda/i.test(h) ? "nue" : "";
+    if (!k) return; let d = a.querySelector(".navdot");
+    if (!c[k]) { if (d) d.remove(); return; }
+    if (!d) { d = document.createElement("i"); d.className = "navdot"; a.style.position = "relative"; a.appendChild(d); }
+  });
+}
+const st = document.createElement("style"); st.textContent = ".navdot{position:absolute;top:2px;left:calc(50% + 8px);width:11px;height:11px;border-radius:50%;background:#FF4D6D;border:2px solid var(--bg,#000);pointer-events:none;animation:navdotA 1.4s ease-in-out infinite}@keyframes navdotA{50%{transform:scale(1.2)}}"; document.head.appendChild(st);
+setTimeout(pintar, 400); setTimeout(pintar, 2500);
+window.addEventListener("storage", pintar); document.addEventListener("visibilitychange", () => { if (!document.hidden) pintar(); });
+window.igNavPuntos = pintar; setInterval(pintar, 3000);
+})();
+</script>
 </body>
 </html>
