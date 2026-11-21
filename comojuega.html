@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono-180.png?v=2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="InglésGamer">
+<script>
+/* ===== WEB (GitHub Pages): convierte los enlaces go:seccion en seccion.html. En App Creator no hace nada. ===== */
+(function(){
+  var web = /github\.io$/.test(location.hostname);
+  window.igURL = function(u){
+    u = String(u);
+    if (!web || u.indexOf("go:") !== 0) return u;
+    var s = u.slice(3);
+    return (s === "inicio" ? "index" : s) + ".html";
+  };
+  if (!web) return;
+  document.addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest('a[href^="go:"]');
+    if (a){ e.preventDefault(); location.href = igURL(a.getAttribute("href")); }
+  }, true);
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cómo se juega · InglésGamer</title>
+<meta name="theme-color" content="#000000">
+<script>
+/* ===== PALETAS: las mismas del resto de la app. La elección se guarda en "ingles_gamer_tema". ===== */
+var TEMA_KEY = "ingles_gamer_tema";
+var PALETAS = {
+  noche: { n:"Noche", meta:"#000000", cs:"dark", v:{ "--bg":"#000000","--card":"#141416","--bd":"#2A2A2E","--ink":"#F4F4F5","--mu":"#B8B8C0","--chip":"#222226","--gold":"#FFD166","--hi":"#FFFFFF","--on-hi":"#000000","--track":"#2A2A2E","--toff":"#3A3A40","--nav":"#0E0E10","--av1":"#3A3A40","--av2":"#101012","--ok":"#7BE3A8" } },
+  dia:   { n:"Día",   meta:"#F4F4F5", cs:"light", v:{ "--bg":"#F4F4F5","--card":"#FFFFFF","--bd":"#E4E4E7","--ink":"#0B0B0D","--mu":"#5C666B","--chip":"#EFEFF1","--gold":"#9A6000","--hi":"#0B0B0D","--on-hi":"#FFFFFF","--track":"#E4E4E7","--toff":"#D4D4D8","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#E4E4E7","--ok":"#0F7A44" } },
+  rosa:  { n:"Rosa",  meta:"#FFF1F6", cs:"light", v:{ "--bg":"#FFF1F6","--card":"#FFFFFF","--bd":"#F8D9E5","--ink":"#2B1420","--mu":"#7A5568","--chip":"#FFE3ED","--gold":"#B3245A","--hi":"#D63B7A","--on-hi":"#FFFFFF","--track":"#F8D9E5","--toff":"#EEBFD1","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#F8D9E5","--ok":"#0F7A44" } },
+  azul:  { n:"Azul",  meta:"#EFF6FF", cs:"light", v:{ "--bg":"#EFF6FF","--card":"#FFFFFF","--bd":"#D6E6F8","--ink":"#0E1B2B","--mu":"#4F647B","--chip":"#E0EFFD","--gold":"#0B5FB0","--hi":"#1C6FD6","--on-hi":"#FFFFFF","--track":"#D6E6F8","--toff":"#BDD6F0","--nav":"#FFFFFF","--av1":"#FFFFFF","--av2":"#D6E6F8","--ok":"#0F7A44" } }
+};
+function aplicarTema(id) {
+  var p = PALETAS[id] || PALETAS.noche, r = document.documentElement;
+  for (var k in p.v) r.style.setProperty(k, p.v[k]);
+  r.style.colorScheme = p.cs; r.setAttribute("data-tema", PALETAS[id] ? id : "noche");
+  var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", p.meta);
+}
+function temaActual() { try { var t = localStorage.getItem(TEMA_KEY); return PALETAS[t] ? t : "noche"; } catch (e) { return "noche"; } }
+aplicarTema(temaActual());
+window.addEventListener("storage", function (e) { if (e.key === TEMA_KEY) aplicarTema(temaActual()); });
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#141416;--bd:#2A2A2E;--ink:#F4F4F5;--mu:#B8B8C0;--chip:#222226;--gold:#FFD166;--hi:#FFFFFF;--on-hi:#000000;--track:#2A2A2E;--toff:#3A3A40;--nav:#0E0E10;--av1:#3A3A40;--av2:#101012;--ok:#7BE3A8}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;overscroll-behavior:none;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.app{width:100%;max-width:520px;margin:0 auto;flex:1;min-height:0;display:flex;flex-direction:column}
+header{flex-shrink:0;display:flex;align-items:center;gap:12px;padding:calc(14px + env(safe-area-inset-top)) 16px 10px}
+.logo{flex:1;min-width:0;margin:0;font-size:clamp(20px,6.2vw,26px);font-weight:900;letter-spacing:-.01em;white-space:nowrap;overflow:hidden}.logo span{opacity:.55}
+.menu-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;cursor:pointer;border-radius:50%;border:1px solid var(--bd);background:var(--card)}
+main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:none;padding:6px 16px 22px;display:flex;flex-direction:column;gap:14px}
+main>*{flex-shrink:0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:28px}
+.sr{display:inline-flex;gap:3px}.sr svg{display:block}.sr .f{fill:var(--hi)}.sr .e{fill:var(--toff)}
+
+/* paso: personaje + título + texto */
+.paso{padding:14px}
+.paso-h{display:flex;align-items:center;gap:14px}
+.st{flex:none;width:104px;height:104px;padding:4px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;border-radius:28px;border:1px solid var(--bd);background:radial-gradient(circle at 50% 30%,var(--av1),var(--av2))}
+.st svg{display:block;width:100%;height:100%;overflow:visible}
+.num{display:block;font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--mu)}
+.paso h2{margin:3px 0 0;font-size:23px;font-weight:900;line-height:1.15}
+.paso p{margin:14px 2px 0;font-size:15px;font-weight:600;line-height:1.5;color:var(--mu)}
+.paso p b{color:var(--ink)}
+.extra{margin-top:14px}
+.tip{display:flex;gap:8px;align-items:flex-start;margin-top:14px;padding:10px 14px;border-radius:18px;background:var(--chip);font-size:13px;font-weight:800;line-height:1.35}
+.tip svg{flex:none;margin-top:1px;color:var(--gold)}
+
+/* bienvenida (más grande) */
+.hero{padding:18px 16px;text-align:center}
+.hero .st{width:132px;height:132px;margin:0 auto 12px}
+.hero h2{margin:0;font-size:26px;font-weight:900}
+.hero p{margin:8px auto 0;max-width:380px;font-size:15px;font-weight:600;line-height:1.5;color:var(--mu)}
+
+/* mini ejemplos */
+.filas{display:flex;flex-direction:column;gap:8px}
+.fila{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-radius:18px;background:var(--chip);font-size:14px;font-weight:800}
+.fila small{font-size:12px;font-weight:700;color:var(--mu)}
+.rangos{display:flex;flex-wrap:wrap;gap:8px}
+.rk{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 8px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:12px;font-weight:900;letter-spacing:.06em}
+.rk svg{display:block}
+.rc-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;max-width:300px}
+.rc-d{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;font-weight:800;color:var(--mu)}
+.rc-d i{display:block;width:100%;max-width:28px;height:38px;border-radius:99px;background:var(--track)}
+.rc-d.on i{background:var(--hi)}.rc-d.hoy span{color:var(--ink)}.rc-d.hoy i{outline:2px solid var(--hi);outline-offset:2px}
+.tema-op{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tm{height:48px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;border-radius:16px;border:1px solid var(--bd);background:var(--chip);color:var(--ink);font:800 14px Nunito,sans-serif}
+.tm.on{background:var(--hi);border-color:var(--hi);color:var(--on-hi)}
+
+/* resumen y botón */
+.res{padding:18px 16px}
+.res h2{margin:0 0 12px;font-size:20px;font-weight:900}
+.res ol{margin:0;padding:0;list-style:none;counter-reset:n;display:flex;flex-direction:column;gap:10px}
+.res li{counter-increment:n;display:flex;align-items:center;gap:12px;font-size:15px;font-weight:700;line-height:1.35}
+.res li::before{content:counter(n);flex:none;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--hi);color:var(--on-hi);font-size:15px;font-weight:900}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;height:60px;border-radius:99px;background:var(--hi);color:var(--on-hi);font-size:18px;font-weight:900;box-shadow:0 4px 0 rgba(128,128,128,.35)}
+.cta:active{transform:translateY(2px)}
+
+/* nav */
+nav{flex-shrink:0;background:var(--nav);border-radius:28px 28px 0 0;border-top:1px solid var(--bd)}
+nav .inner{max-width:520px;margin:0 auto;display:flex;padding:8px 6px max(12px,env(safe-area-inset-bottom))}
+nav a{flex:1;min-width:0;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mu);font-size:11px;font-weight:700}
+
+/* ================= PERSONAJES ANIMADOS ================= */
+.oc,.bo,.r1,.r2,.l1,.l2{opacity:0}
+.oc{animation:parp 4s infinite}
+@keyframes parp{0%,92%,100%{opacity:0}94%,97%{opacity:1}}
+.sp{transform-box:fill-box;transform-origin:center;animation:brilla 1s ease-in-out infinite}
+@keyframes brilla{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes ua{0%{opacity:1}50%{opacity:0}}
+@keyframes ub{0%{opacity:0}50%{opacity:1}}
+@keyframes salta{from{transform:translateY(0)}to{transform:translateY(-1px)}}
+@keyframes tiembla{from{transform:translateX(-.1px)}to{transform:translateX(.1px)}}
+@keyframes vibra{from{transform:translateY(0)}to{transform:translateY(.15px)}}
+@keyframes ladea{from{transform:translateX(-.15px)}to{transform:translateX(.25px)}}
+@keyframes flota{from{transform:translateY(0)}to{transform:translateY(-.6px)}}
+@keyframes galopa{from{transform:translateY(0)}to{transform:translateY(-.5px)}}
+@keyframes wink{0%{opacity:0}60%{opacity:1}70%{opacity:0}100%{opacity:0}}
+@keyframes sube2{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-3px);opacity:0}}
+@keyframes cae2{0%{transform:translateY(-1px);opacity:0}15%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+@keyframes late{from{opacity:.15}to{opacity:.5}}
+@keyframes tA{0%{opacity:1}33%{opacity:0}100%{opacity:0}}
+@keyframes tB{0%{opacity:0}33%{opacity:1}66%{opacity:0}100%{opacity:0}}
+.gu,.gl{opacity:0}
+.cor{opacity:0;animation:sube2 2.4s linear infinite}
+.q{animation:flota 1.6s ease-in-out infinite alternate}
+.nieve{opacity:0;animation:cae2 2.2s linear infinite}
+.rojo,.vena{animation:late 1s ease-in-out infinite alternate}
+.rojo{opacity:.15}
+.tA,.tB{opacity:0;animation:tA 1.8s step-end infinite}
+.tB{animation-name:tB}
+.m1{animation:ua .2s step-end infinite}.m2{opacity:0;animation:ub .2s step-end infinite}
+.b1{animation:ua .5s step-end infinite}.b2{opacity:0;animation:ub .5s step-end infinite}
+/* saludar */
+.saludo .mov{animation:resp 2.4s ease-in-out infinite}
+@keyframes resp{0%,100%{transform:translateY(0)}50%{transform:translateY(-.25px)}}
+.saludo .rd{animation:sd 7s step-end infinite}
+.saludo .r1{animation:s1 7s step-end infinite}
+.saludo .r2{animation:s2 7s step-end infinite}
+.saludo .bo{animation:sb 7s step-end infinite}
+@keyframes sd{0%{opacity:1}10%{opacity:0}50%{opacity:1}100%{opacity:1}}
+@keyframes s1{0%{opacity:0}10%{opacity:1}15%{opacity:0}20%{opacity:1}25%{opacity:0}30%{opacity:1}35%{opacity:0}40%{opacity:1}45%{opacity:0}100%{opacity:0}}
+@keyframes s2{0%{opacity:0}15%{opacity:1}20%{opacity:0}25%{opacity:1}30%{opacity:0}35%{opacity:1}40%{opacity:0}45%{opacity:1}50%{opacity:0}100%{opacity:0}}
+@keyframes sb{0%{opacity:0}10%{opacity:1}13%{opacity:0}15%{opacity:1}18%{opacity:0}20%{opacity:1}23%{opacity:0}25%{opacity:1}28%{opacity:0}30%{opacity:1}33%{opacity:0}35%{opacity:1}38%{opacity:0}40%{opacity:1}43%{opacity:0}45%{opacity:1}48%{opacity:0}100%{opacity:0}}
+/* pensando */
+.pienso .cab{animation:ladea 2s ease-in-out infinite alternate}
+.pienso .rd{opacity:0}
+.pienso .r1{animation:ua 1.2s step-end infinite}
+.pienso .r2{animation:ub 1.2s step-end infinite}
+/* ¡ups! */
+.ups .mov{animation:tiembla .1s linear infinite alternate}
+.ups .rd,.ups .ld{opacity:0}
+.ups .r1,.ups .l1{opacity:1}
+/* baile */
+.baile .mov{animation:salta .3s ease-in-out infinite alternate}
+.baile .rd{animation:ub .6s step-end infinite}
+.baile .r1{animation:ua .6s step-end infinite}
+.baile .ld{animation:ua .6s step-end infinite}
+.baile .l1{animation:ub .6s step-end infinite}
+/* caballo */
+.caballo .mov,.caballo .atras,.caballo .fuera{animation:galopa .35s ease-in-out infinite alternate}
+.caballo .hA{animation:ua .35s step-end infinite}
+.caballo .hB{animation:ub .35s step-end infinite}
+/* cool */
+.cool .oc{animation:none}
+.cool .rd{opacity:0}
+.cool .r1{animation:ua 3s step-end infinite}.cool .r2{animation:ub 3s step-end infinite}
+.cool .gu{animation:wink 3s step-end infinite}
+/* idea */
+.idea .mov{animation:salta .5s ease-in-out infinite alternate}
+.idea .rd{opacity:0}
+.idea .r1{animation:ua .5s step-end infinite}.idea .r2{animation:ub .5s step-end infinite}
+/* héroes y retos */
+@keyframes hd{0%{opacity:1}10%{opacity:0}100%{opacity:0}}
+@keyframes h2{0%{opacity:0}10%{opacity:1}25%{opacity:0}100%{opacity:0}}
+@keyframes h1{0%{opacity:0}25%{opacity:1}100%{opacity:1}}
+.heroe .rd{animation:hd 5s step-end infinite}
+.heroe .r2{animation:h2 5s step-end infinite}
+.heroe .r1{animation:h1 5s step-end infinite}
+.heroe .gu{animation:h1 5s step-end infinite}
+.ejer .mov{animation:vibra .1s linear infinite alternate}
+.ejer .rd,.ejer .ld{opacity:0}
+.ejer .r1,.ejer .l1{animation:ua .8s step-end infinite}
+.ejer .r2,.ejer .l2{animation:ub .8s step-end infinite}
+.copa .mov{animation:salta .4s ease-in-out infinite alternate}
+.copa .rd,.copa .ld{opacity:0}
+.copa .r1,.copa .l2{animation:ua .4s step-end infinite}
+.copa .r2,.copa .l1{animation:ub .4s step-end infinite}
+.super .mov{animation:salta 1s ease-in-out infinite alternate}
+.super .cab{animation:tiembla .06s linear infinite alternate}
+.super .oc{animation:none}
+.super .bo{animation:ua .3s step-end infinite}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.cor{opacity:1}.rojo{opacity:.3}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <a class="menu-btn" href="go:inicio" aria-label="Volver">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+    </a>
+    <h1 class="logo">Cómo<span> se juega</span></h1>
+  </header>
+  <main id="main"></main>
+</div>
+<nav aria-label="Navegación principal"><div class="inner" id="navbar"></div></nav>
+
+<script>
+/* ================= TUS DATOS: igual que en Inicio ================= */
+const AURA_RETO = 50;            // Aura de cada reto de la semana
+const NIVELES_TOTAL = 20;        // niveles del Mapa
+/* Igual que en Inicio y Perfil: m = estrellas mínimas para llegar a ese rango */
+const RANGOS = [
+  { n:"Novato",   m:0,  c:"#8C8C96" },
+  { n:"Aprendiz", m:15, c:"#3FD8C8" },
+  { n:"Campeón",  m:35, c:"#FF8A3D" },
+  { n:"Leyenda",  m:55, c:"#FF4D4D" }
+];
+const NAV = [
+  { nombre:"Inicio", url:"go:inicio", icono:'<path d="M3 11 12 3l9 8"></path><path d="M5 10v10h14V10"></path>' },
+  { nombre:"Mapa", url:"go:MAPA", icono:'<path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7z"></path><path d="M9 4v13M15 7v12.5"></path>' },
+  { nombre:"Tienda", url:"go:tienda", icono:'<path d="M4 9h16l-1 11H5L4 9z"></path><path d="M8 9V7a4 4 0 0 1 8 0v2"></path>' },
+  { nombre:"Ranking", url:"go:ranking", icono:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"></path>' },
+  { nombre:"Perfil", url:"go:perfil", icono:'<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>' }
+];
+
+/* ================= Personajes (mismo código de siempre) ================= */
+const BASE = [
+"...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..",
+"ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss",
+"..ppp..ppp..","..fff..fff.."
+];
+const PAL = { k:"#151518", w:"#F2F4F8", h:"#8A5A33", e:"#3A2414", s:"#F2B98F", m:"#B8704F", M:"#7A1F1F", g:"#5A5A5E", l:"#C4C4C8", q:"#A0A0A5", z:"#0B0B0D", p:"#1A1A1E", f:"#F2F4F8", W:"#FFFFFF", r:"#FF8FA3", t:"#6EC6FF", v:"#FF2D2D", S:"#E3A67C", H:"#FF4D8D", y:"#FFC83D", R:"#E5322B", N:"#2B1B12", B:"#8B5A2B", b:"#5E3E22", C:"#C98F6B", U:"#2E86DE", O:"#FF8A3D", T:"#FF6B5E", G:"#44444A", c:"#3FD8C8" };
+const solo = (r1, r2, c1, c2, k) => { const o = []; for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) o.push([r, c, k]); return o; };
+const rects = l => l.map(x => '<rect x="' + x[1] + '" y="' + x[0] + '" width="1" height="1" fill="' + PAL[x[2]] + '"></rect>').join("");
+const arriba = (lado, top) => { const a = lado === "R" ? 10 : 0; return solo(top, top + 1, a, a + 1, "s").concat(solo(top + 2, top + 2, a, a + 1, "l"), solo(top + 3, 8, a, a + 1, "g")); };
+const lado = top => solo(top, top + 1, 11, 12, "s").concat(solo(top + 2, top + 2, 11, 12, "l"), solo(top + 3, 8, 10, 11, "g"));
+const cara = () => solo(4, 5, 9, 10, "s").concat(solo(6, 6, 10, 11, "l"), solo(7, 8, 10, 11, "g"));
+const chispa = (x, y, d) => '<g class="sp" style="animation-delay:' + d + 's"><rect x="' + (x + 1) + '" y="' + y + '" width="1" height="3" fill="#FFC83D"></rect><rect x="' + x + '" y="' + (y + 1) + '" width="3" height="1" fill="#FFC83D"></rect></g>';
+const interrog = '<g class="q">' + rects([[-2,10,"y"],[-2,11,"y"],[-2,12,"y"],[-1,12,"y"],[0,11,"y"],[2,11,"y"]]) + '</g>';
+const sudor = (a, b, d) => '<g class="tA" style="animation-delay:' + d + 's">' + rects([[a[0],a[1],"t"]]) + '</g><g class="tB" style="animation-delay:' + d + 's">' + rects([[b[0],b[1],"t"]]) + '</g>';
+const SONRISA = [[6,4,7,"M"],[5,3,3,"M"],[5,8,8,"M"]];
+const nota = (x, y, d) => '<g class="cor" style="animation-delay:' + d + 's">' + rects([[y,x+1,"y"],[y+1,x+1,"y"],[y+2,x,"y"],[y+2,x+1,"y"]]) + '</g>';
+const SIN_PIERNAS = [[13,2,9,"."],[14,2,9,"."],[15,2,9,"."]];
+const bombilla = '<g class="b1">' + rects(solo(-3, -2, 4, 6, "y").concat([[-1,5,"q"]])) + '</g><g class="b2">' + rects(solo(-3, -2, 4, 6, "W").concat([[-1,5,"q"],[-3,3,"y"],[-3,7,"y"],[-2,2,"y"],[-2,8,"y"]])) + '</g>';
+const barra = y => solo(y, y, -1, 12, "q").concat(solo(y - 2, y + 2, -1, -1, "z"), solo(y - 2, y + 2, 12, 12, "z"));
+const copaC = y => solo(y, y, 10, 13, "y").concat([[y+1,10,"y"],[y+1,11,"W"],[y+1,12,"y"],[y+1,13,"y"]], solo(y + 2, y + 3, 11, 12, "y"), [[y,9,"y"],[y+1,9,"y"],[y,14,"y"],[y+1,14,"y"]]);
+const confeti = (x, col, d) => '<g class="nieve" style="animation-delay:' + d + 's"><rect x="' + x + '" y="-3" width=".8" height=".8" fill="' + col + '"></rect></g>';
+const llamas = hs => [-1, 0, 11, 12].reduce((o, x, i) => { for (let k = 0; k < hs[i]; k++) o.push([14 - k, x, k < 2 ? "O" : "y"]); return o; }, []);
+const CAPA_A = solo(13, 16, 1, 10, "R").concat(solo(15, 16, 11, 12, "R"));
+const CAPA_B = solo(13, 16, 1, 10, "R").concat(solo(15, 16, -1, 0, "R"));
+
+const ACCIONES = {
+  saludo:{ n:"Saludar", mod:[], bo:solo(5, 6, 5, 6, "M"), r1:arriba("R", 3), r2:lado(3), extra:"" },
+  pienso:{ n:"Pensando", mod:[[6,5,6,"s"],[6,6,7,"m"]], bo:[],
+    r1:solo(5, 6, 9, 10, "S").concat(solo(7, 7, 10, 11, "l"), solo(8, 8, 10, 11, "g")),
+    r2:solo(6, 7, 9, 10, "S").concat(solo(8, 8, 10, 11, "l")), extra:"", fuera:interrog },
+  ups:{ n:"¡Ups!", mod:[[5,5,6,"M"],[6,5,6,"M"]], bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:sudor([1,1], [2,1], 0),
+    fuera:'<g class="vena">' + rects([[-2,10,"v"],[-1,10,"v"],[0,10,"v"],[2,10,"v"]]) + '</g>' },
+  caballo:{ n:"A caballo", vb:"-1 -2 14 22", sy:19, mod:SIN_PIERNAS.concat(SONRISA, [[13,2,3,"p"],[13,8,9,"p"],[14,2,2,"p"],[14,9,9,"p"],[15,2,2,"f"],[15,9,9,"f"]]), bo:[],
+    atras:rects(solo(14, 16, 1, 10, "B").concat([[17,2,"B"],[17,3,"B"],[17,8,"B"],[17,9,"B"]])) +
+          '<g class="hA">' + rects([[18,2,"b"],[18,3,"b"]]) + '</g><g class="hB">' + rects([[18,8,"b"],[18,9,"b"]]) + '</g>',
+    extra:"", fuera:rects(solo(14, 16, 4, 7, "B").concat([[13,4,"b"],[13,7,"b"],[13,5,"R"],[13,6,"R"],[14,3,"N"],[14,8,"N"],[15,3,"N"],[15,8,"N"],[15,4,"z"],[15,7,"z"],[15,5,"W"],[15,6,"W"],[16,5,"W"],[16,6,"W"]], solo(17, 17, 4, 7, "C"), [[17,4,"z"],[17,7,"z"]])) },
+  baile:{ n:"Bailando", mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[], r1:arriba("R", 3), l1:arriba("L", 3),
+    extra:"", fuera:nota(10, 1, 0) + nota(-1, 0, .8) + nota(10, -2, 1.6) },
+  cool:{ n:"Cool", mod:[[4,3,8,"z"],[6,4,7,"m"],[5,8,8,"m"]], bo:[], gu:[[4,4,"W"],[4,7,"W"]],
+    r1:arriba("R", 4), r2:cara(), extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 0, .7) },
+  idea:{ n:"¡Una idea!", vb:"-1 -3 14 19.8", mod:SONRISA, bo:[], r1:arriba("R", 1), r2:arriba("R", 2), extra:"", fuera:bombilla },
+  ejer:{ n:"Haciendo ejercicio", vb:"-1 -4 14 20.8", mod:[[3,3,8,"e"],[6,4,7,"W"]], bo:[],
+    r1:arriba("R", 0).concat(barra(-1)), r2:arriba("R", 3).concat(barra(2)), l1:arriba("L", 0), l2:arriba("L", 3),
+    extra:'<rect class="rojo" x="2" y="4" width="8" height="3" fill="#FF3B3B"></rect>' },
+  copa:{ n:"Ganando la copa", vb:"-1 -3 16 19.8", mod:SONRISA.concat([[5,2,2,"r"],[5,9,9,"r"]]), bo:[],
+    r1:arriba("R", 3).concat(copaC(-1)), r2:arriba("R", 2).concat(copaC(-2)), l1:arriba("L", 3), l2:arriba("L", 4),
+    extra:"", fuera:confeti(-1, "#FF4D4D", 0) + confeti(2, "#3FD8C8", .5) + confeti(5, "#FFC83D", 1) + confeti(8, "#8E5BD6", 1.5) + confeti(12, "#5DB33A", .3) + confeti(14, "#FF4D8D", 1.1) },
+  super:{ n:"Poder máximo", vb:"-1 -4 14 20.8", mod:[[0,3,8,"y"],[1,2,9,"y"],[2,2,9,"y"],[3,2,9,"y"],[4,4,4,"c"],[4,7,7,"c"],[6,4,7,"W"]], bo:solo(5, 6, 5, 6, "M"),
+    atras:'<rect class="rojo" x="-1" y="-4" width="14" height="20.8" fill="#FFC83D"></rect>' +
+          '<g class="m1">' + rects(llamas([7,5,5,7])) + '</g><g class="m2">' + rects(llamas([5,8,8,5])) + '</g>' +
+          '<g class="b1">' + rects([[2,-1,"c"],[3,0,"c"],[4,-1,"c"],[5,0,"c"],[4,12,"c"],[5,11,"c"],[6,12,"c"],[7,11,"c"]]) + '</g>' +
+          '<g class="b2">' + rects([[6,-1,"c"],[7,0,"c"],[8,-1,"c"],[9,0,"c"],[1,12,"c"],[2,11,"c"],[3,12,"c"],[4,11,"c"]]) + '</g>',
+    extra:'<g class="m1">' + rects([[-1,3,"y"],[-1,5,"y"],[-1,6,"y"],[-1,8,"y"],[-2,4,"y"],[-2,7,"y"],[-3,5,"y"]]) + '</g><g class="m2">' + rects([[-1,3,"y"],[-1,4,"y"],[-1,7,"y"],[-1,8,"y"],[-2,3,"y"],[-2,6,"y"],[-2,8,"y"],[-3,4,"y"],[-3,7,"y"]]) + '</g>' },
+  heroe:{ n:"Superhéroe", mod:SONRISA.concat([[9,5,6,"y"],[10,5,6,"y"]]), bo:[], gu:[[4,2,"R"],[4,5,"R"],[4,6,"R"],[4,9,"R"]],
+    r1:arriba("R", 3), r2:cara(),
+    atras:'<g class="m1">' + rects(CAPA_A) + '</g><g class="m2">' + rects(CAPA_B) + '</g>', extra:"", fuera:chispa(11, -1, 0) + chispa(-1, 1, .6) }
+};
+
+function dibujar(id) {
+  const a = ACCIONES[id];
+  const g = BASE.map(f => f.split(""));
+  a.mod.forEach(m => { for (let c = m[1]; c <= m[2]; c++) g[m[0]][c] = m[3]; });
+  const cab = [], cue = [], rd = [], ld = [];
+  g.forEach((fila, r) => fila.forEach((k, c) => {
+    if (k === ".") return;
+    const x = [r, c, k];
+    if (r <= 6) cab.push(x); else if (r <= 13 && c >= 10) rd.push(x); else if (r <= 13 && c <= 1) ld.push(x); else cue.push(x);
+  }));
+  const ojos = [[4,3,"e"],[4,4,"e"],[4,7,"e"],[4,8,"e"]];
+  return '<svg class="' + id + '" viewBox="' + (a.vb || "-1 -2 14 18.8") + '" shape-rendering="crispEdges" role="img" aria-label="' + a.n + '">' +
+    '<rect x="2" y="' + (a.sy || 16) + '" width="8" height=".6" fill="#000" opacity=".4"></rect><g class="atras">' + (a.atras || "") + '</g>' +
+    '<g class="mov">' + rects(cue) +
+    '<g class="cab">' + rects(cab) + '<g class="oc">' + rects(ojos) + '</g><g class="bo">' + rects(a.bo) + '</g>' + (a.extra || "") + '</g>' +
+    '<g class="ld">' + rects(ld) + '</g><g class="l1">' + rects(a.l1 || []) + '</g><g class="l2">' + rects(a.l2 || []) + '</g>' +
+    '<g class="rd">' + rects(rd) + '</g><g class="r1">' + rects(a.r1 || []) + '</g><g class="r2">' + rects(a.r2 || []) + '</g>' +
+    '</g><g class="fuera">' + (a.fuera || "") + '</g></svg>';
+}
+
+/* ================= Iconos y mini ejemplos ================= */
+const $ = id => document.getElementById(id);
+const svg = (p, s) => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+const BOMBILLA = '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"></path>';
+const estrella = cls => '<svg class="' + cls + '" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg>';
+const estrellasHTML = n => '<span class="sr">' + [0, 1, 2].map(k => estrella(k < n ? "f" : "e")).join("") + '</span>';
+const ESCUDO = ["bbbbbbbb","bffffffb","bffssffb","bfssssfb","bffssffb",".bffffb.","..bffb..","...bb..."];
+function escudo(c, s) {
+  const col = { b:c, f:"#1E1E24", s:"#F2F4F8" };
+  let o = '<svg width="' + s + '" height="' + s + '" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">';
+  ESCUDO.forEach((row, y) => row.split("").forEach((ch, x) => { if (ch !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + col[ch] + '"></rect>'; }));
+  return o + "</svg>";
+}
+const ICO_TEMA = { noche:'<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"></path>', rosa:'<path d="M12 21s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.65-9.5 9-9.5 9z"></path>', azul:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"></path>', dia:'<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>' };
+
+const EXTRAS = {
+  estrellas: () => '<div class="filas">' +
+    '<div class="fila">' + estrellasHTML(1) + '<small>Pasaste el nivel</small></div>' +
+    '<div class="fila">' + estrellasHTML(2) + '<small>Vas muy bien</small></div>' +
+    '<div class="fila">' + estrellasHTML(3) + '<small>¡Lo dominas!</small></div></div>',
+  racha: () => {
+    const l = ["L", "M", "M", "J", "V", "S", "D"], on = [0, 0, 0, 0, 1, 1, 1];
+    return '<div class="rc-days" role="img" aria-label="Ejemplo: tres días seguidos">' + l.map((d, i) => '<div class="rc-d' + (on[i] ? " on" : "") + (i === 6 ? " hoy" : "") + '"><i></i><span>' + d + '</span></div>').join("") + '</div>';
+  },
+  rangos: () => '<div class="filas">' + RANGOS.map(r => '<div class="fila"><span class="rk">' + escudo(r.c, 16) + r.n.toUpperCase() + '</span><small>' + (r.m ? r.m + ' ★ o más' : 'Desde el inicio') + '</small></div>').join("") + '</div>',
+  tema: () => '<div class="tema-op" id="temaOp"></div>'
+};
+
+/* ================= Los pasos ================= */
+const PASOS = [   /* COMOJUEGA_2611 (21 nov 2026) */
+  { pj:"caballo", t:"El Mapa",
+    p:"Es tu camino de aventura: un solo mapa con <b>3 islas</b> en orden, <b>Verano, Nieve y Fuego</b>. En Verano hay " + NIVELES_TOTAL + " niveles (saludos, números, colores, familia, comidas, viajes…) y al final te espera el <b>Jefe final</b>. Nieve se abre con 40 estrellas y Fuego con 51.",
+    tip:"Cada nivel tiene «Ver lección» por si quieres repasar antes de jugar." },
+  { pj:"copa", t:"Estrellas", ex:"estrellas",
+    p:"Cada nivel te da hasta <b>3 estrellas</b> según qué tan bien te vaya. Pasar un nivel ya te da una; para completar las tres, puedes repetirlo cuantas veces quieras. Tienes <b>3 corazones</b>: si se acaban, puedes ver un anuncio para seguir.",
+    tip:"Si un nivel se te complica, puedes saltarlo viendo un anuncio (no da Aura)." },
+  { pj:"super", t:"Aura",
+    p:"Es tu <b>poder</b> y tu moneda. Cada nivel da <b>25 de Aura con 3 estrellas</b>, 15 con 2 y 5 con 1. También ganas Aura con los retos de la semana, los regalos del mapa, la racha y los duelos. Al terminar un nivel puedes ver un anuncio para <b>duplicarla</b>.",
+    tip:"Con el Aura compras personajes, fondos y más en la Tienda." },
+  { pj:"ejer", t:"Racha", ex:"racha",
+    p:"Cuenta los <b>días seguidos</b> que juegas. Se ve con la llama en el Inicio: si hoy todavía no juegas, sale gris. Al llegar a 3, 7, 14, 30 días y más, te llega un <b>regalo de Aura</b>.",
+    tip:"Si pasa un día completo sin jugar, la racha vuelve a 0. ¡Entra aunque sea 5 minutos!" },
+  { pj:"heroe", t:"Rangos", ex:"rangos",
+    p:"Con tus estrellas vas <b>subiendo de rango</b>. Todos empiezan como Novato y suben al llegar a cierta cantidad de estrellas, hasta ser Leyenda. Tu tarjeta de Inicio te dice cuántas estrellas te faltan para el siguiente.",
+    tip:"Tu rango aparece con su escudo junto a tu nombre." },
+  { pj:"baile", t:"Liga semanal",
+    p:"En el <b>Ranking</b> compites cada semana con jugadores de tu mismo rango del reino: <b>Campesino, Soldado, Caballero, Noble y Rey</b>. El Aura que ganas en la semana te hace subir. El lunes, el <b>top 3 gana un cofre</b> con Aura y un trofeo, y entre más alto el rango, mejor el premio.",
+    tip:"Desliza la tarjeta del rango para ver las otras ligas." },
+  { pj:"cool", t:"Duelos",
+    p:"Reta a tus amigos a un <b>duelo</b>: cada uno juega por su lado y gana el que más acierte. Hay 1 contra 1, parejas y todos contra todos, con apuestas de Aura.",
+    tip:"Cuando alguien te reta, te sale en el Inicio. ¡No dejes que se venza!" },
+  { pj:"idea", t:"Palabra del día y hablar",
+    p:"Cada día aparece <b>una palabra nueva</b> en el Inicio: tócala para escucharla. Y cada 5 niveles del mapa hay un <b>nivel de hablar</b>: dices las frases en voz alta con el micrófono y ganas Aura.",
+    tip:"Repetir en voz alta ayuda a que no se te olvide." },
+  { pj:"pienso", t:"Retos y práctica",
+    p:"Cada semana hay <b>3 retos</b> cortos (vocabulario, gramática y escucha) con lo que ya jugaste; cada uno suma <b>+" + AURA_RETO + " Aura</b> y cambian el lunes. En <b>Refuerza tu inglés</b> tienes 44 lecciones para repasar: marcar una como vista da +5 de Aura.",
+    tip:"Los retos son cortos: perfectos para una pausa." },
+  { pj:"copa", t:"Logros",
+    p:"En tu <b>Perfil</b> está tu álbum de logros. Algunos dan <b>premios que solo se consiguen así</b>: títulos, una skin y un marco. Cuando ganas uno, lo reclamas ahí mismo; si ves un <b>punto rojo</b> en Perfil, tienes algo por reclamar.",
+    tip:"Lo nuevo que reclamas sale con la etiqueta NUEVO en la Tienda para que te lo pongas." },
+  { pj:"cool", t:"Tienda y apariencia", ex:"tema",
+    p:"En la <b>Tienda</b> personalizas tu jugador: personajes, skins, marcos, títulos, fondos y animaciones. Hay una <b>oferta del día</b> y <b>packs de la semana</b> más baratos que cambian cada lunes. Y si quieres cambiar los colores de la app, elige una apariencia:",
+    tip:"También puedes cambiarla desde el menú del Inicio." },
+  { pj:"ups", t:"Si te equivocas",
+    p:"¡No pasa nada! Equivocarse es parte del juego. Mira qué falló, repite el nivel y mejora tus estrellas: así es como el inglés se te queda.",
+    tip:"Necesitas internet para jugar; si se cae la conexión, la app te avisa." }
+];
+
+const ICO_TIP = svg(BOMBILLA, 18);
+function tarjeta(s, i) {
+  return '<section class="card paso"><div class="paso-h"><div class="st">' + dibujar(s.pj) + '</div><div><span class="num">PASO ' + (i + 1) + '</span><h2>' + s.t + '</h2></div></div>' +
+    '<p>' + s.p + '</p>' + (s.ex ? '<div class="extra">' + EXTRAS[s.ex]() + '</div>' : '') +
+    '<div class="tip">' + ICO_TIP + '<span>' + s.tip + '</span></div></section>';
+}
+
+$("main").innerHTML =
+  '<section class="card hero"><div class="st">' + dibujar("saludo") + '</div><h2>¡Bienvenido, gamer!</h2>' +
+  '<p>En <b>InglésGamer</b> el inglés se aprende como un videojuego: avanzas por un mapa de islas, ganas estrellas y Aura, subes de rango y compites con tus amigos en la liga y en duelos. Te lo contamos en un minuto.</p></section>' +
+  PASOS.map(tarjeta).join("") +
+  '<section class="card res"><h2>En resumen</h2><ol>' +
+  '<li>Abre el <b>Mapa</b> y juega un nivel.</li>' +
+  '<li>Gana <b>estrellas</b> y <b>Aura</b>.</li>' +
+  '<li>Juega cada día para cuidar tu <b>racha</b>.</li>' +
+  '<li>Compite en la <b>liga semanal</b> y reta a tus amigos.</li></ol></section>' +
+  '<a class="cta" href="go:MAPA">' + svg('<path d="M8 5v14l11-7z" fill="currentColor"></path>', 22) + 'Ir al Mapa</a>';
+
+/* selector de apariencia (funciona de verdad) */
+function pintarTema() {
+  const cont = $("temaOp"); if (!cont) return;
+  const act = temaActual();
+  cont.innerHTML = Object.keys(PALETAS).map(id => '<button type="button" class="tm' + (id === act ? " on" : "") + '" data-tema="' + id + '" aria-pressed="' + (id === act) + '">' + svg(ICO_TEMA[id] || "", 20) + PALETAS[id].n + '</button>').join("");
+}
+pintarTema();
+$("main").addEventListener("click", e => {
+  const b = e.target.closest(".tm"); if (!b) return;
+  try { localStorage.setItem(TEMA_KEY, b.dataset.tema); } catch (x) {}
+  aplicarTema(b.dataset.tema); pintarTema();
+});
+window.addEventListener("storage", e => { if (e.key === TEMA_KEY) pintarTema(); });
+
+$("navbar").innerHTML = NAV.map(n => '<a href="' + n.url + '">' + svg(n.icono, 26) + n.nombre + '</a>').join("");
+</script>
+</body>
+</html>
