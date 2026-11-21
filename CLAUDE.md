@@ -73,8 +73,8 @@ Voces (nombre del mp3 = slug del texto, sin tildes):
 
 - Mapas Verano (20 niveles), Nieve, Fuego; jefes; estrellas, Aura, corazones, racha.
 - «Ver lección» en cada nivel → lección de Refuerza (con «Volver al nivel»).
-- Anuncios: +1 corazón, Aura x2, Saltar nivel, +10 en duelos, +35 en Refuerza.
-- Refuerza tu inglés: 44 lecciones divididas por isla, con sonido, +5 Aura al marcar vista y +35 con anuncio.
+- Anuncios: +1 corazón, Aura x2, Saltar nivel, +10 en duelos, +25 en Refuerza. Regalos del mapa: 20 de Aura cada uno.
+- Refuerza tu inglés: 44 lecciones divididas por isla, con sonido, +5 Aura al marcar vista y +25 con anuncio (antes 35).
 - Retos de la semana (3 mini juegos, cambian cada lunes).
 - Duelos v4: 1v1, 2v2, todos contra todos; 18 juegos; 27 temas; apuestas.
 - Vocabulario del día (67 palabras), sopa de letras, liga semanal, tienda, perfil, logros, ranking.
@@ -111,7 +111,7 @@ Voces (nombre del mp3 = slug del texto, sin tildes):
 - **Después de regenerar** `mapaa1` (mapa/hacer_mapa_a1.py), `duelo` (duelo4/aplicar.py) o el Ranking: volver a correr `tools/nav_puntos.py` (y `tools/look_nuevo.py` en duelo). Logros con premio: `logros/premios.py` (Perfil + Tienda); si cambian los logros, correr otra vez `tools/nav_puntos.py`.
 - **Mapa:** un solo mapa en hilera (`mapaa1`); las secciones de islas solo redirigen.
 - Retos semanales = **mini juegos** (Vocabulario / Gramática / Escucha), con lo que el jugador ya jugó.
-- Refuerza: «Marcar como vista» es gratis (+5); el +35 es opcional con anuncio (nunca bloquear progreso con anuncios).
+- Refuerza: «Marcar como vista» es gratis (+5); el +25 es opcional con anuncio (nunca bloquear progreso con anuncios).
 - Firebase: seguir en Spark; si se pasa a Blaze, poner alerta de presupuesto.
 
 ## 8. Preferencias de diseño e interfaz
