@@ -22,7 +22,7 @@ personajes pixel de InglésGamer, islas temáticas, Aura como moneda, rangos, li
 2. **Inicio:** racha, Aura, Vocabulario del día, Retos de la semana, Refuerza tu inglés (Continuar / Ver todos los temas), duelos pendientes, sopa de letras.
 3. **Mapas / Islas** del A1, en este orden: **Verano → Nieve → Fuego**.
    - Nieve se abre con 40 ★ de Verano, Fuego con 51.
-   - Cada nivel da hasta 3 ★ y Aura según estrellas. **Nuevo (17 nov): 25 / 15 / 5** (antes 35 / 25 / 15), se va pasando nivel por nivel con `tools/aura_valores.py 25 15 5 out/X.html`. Jefe de Verano 100 / 70 / 40 (sin cambiar aún).
+   - Cada nivel da hasta 3 ★ y Aura según estrellas. **Nuevo (17 nov): 25 / 15 / 5** (antes 35 / 25 / 15), se va pasando nivel por nivel con `tools/aura_valores.py 25 15 5 out/X.html`. Jefe de Verano **50 / 30 / 10** (21 nov).
    - 3 corazones; «Sin corazones» → ver anuncio para revivir.
 4. **Refuerza tu inglés:** 44 lecciones cortas (teoría + tarjetas + minijuego), que se abren al LLEGAR al nivel del mapa.
 5. **Duelos** asincrónicos con amigos, **Ranking / liga semanal**, **Tienda** (personajes, skins, marcos, paletas), **Perfil** (rango, colección, logros).
