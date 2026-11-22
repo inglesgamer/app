@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Demo: entrena el oído</title><script>/* VISTA PREVIA: almacenamiento de mentiras, no toca el juego */(function(){var M={};var S={getItem:function(k){return k in M?M[k]:null},setItem:function(k,v){M[k]=String(v)},removeItem:function(k){delete M[k]},clear:function(){M={}},key:function(i){return Object.keys(M)[i]||null},get length(){return Object.keys(M).length}};try{Object.defineProperty(window,"localStorage",{value:S,configurable:true})}catch(e){}})();</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}html,body{margin:0;background:#000;color:#F4F4F5;font-family:Nunito,system-ui,sans-serif}
+.app{max-width:520px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:calc(12px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}.x{width:42px;height:42px;border-radius:50%;border:1px solid #2A2A2E;display:grid;place-items:center;color:#B8B8C0;font-weight:900;text-decoration:none}
+.prog{flex:1;height:14px;border-radius:99px;background:#222226;overflow:hidden}.prog i{display:block;height:100%;width:0;border-radius:99px;background:#58CC02;transition:width .4s}
+.tag{align-self:flex-start;padding:5px 11px;border-radius:99px;font-size:12px;font-weight:900;letter-spacing:.1em;margin-bottom:8px}
+h2{margin:0 0 12px;font-size:22px}
+.ctrl{display:flex;gap:8px;margin:10px 0 14px}.ctrl button{flex:1;height:48px;border-radius:14px;background:#151518;border:1px solid #2A2A2E;color:#F4F4F5;display:flex;align-items:center;justify-content:center;gap:6px;font:900 15px Nunito,sans-serif}
+.ctrl button.on{border-color:#FFC83D;color:#FFC83D}
+.frase{font-size:22px;font-weight:900;line-height:1.9}
+.hueco{display:inline-block;min-width:90px;border-bottom:3px solid #FFC83D;color:#FFC83D;text-align:center;margin:0 3px}
+.hueco.ok{border-color:#58CC02;color:#58CC02}.hueco.mal{border-color:#FF4B4B;color:#FF8A8A}
+.tr{color:#A1A1AA;font-weight:700;margin:2px 0 14px;min-height:22px}
+input.inp{width:100%;height:56px;border-radius:16px;background:#151518;border:2px solid #3A3A40;padding:0 16px;font:800 19px Nunito,sans-serif;color:#F4F4F5;outline:none;margin-bottom:12px}input.inp:focus{border-color:#FFC83D}
+.btn{width:100%;height:56px;border:0;border-radius:99px;font:900 18px Nunito,sans-serif;background:#58CC02;color:#fff;box-shadow:0 4px 0 #3E9100}
+.btn:disabled{background:#222226;color:#6A6A73;box-shadow:none}.btn.w2{background:#fff;color:#000;box-shadow:0 4px 0 #9A9AA3}
+.fb{position:fixed;left:0;right:0;bottom:0;padding:16px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s;z-index:9}
+.fb.on{transform:none}.fb.ok{background:#173A12}.fb.mal{background:#3A1414}.fb .in{max-width:520px;margin:0 auto}
+.fb b{display:block;font-size:20px;margin-bottom:4px}.fb.ok b{color:#7BE3A8}.fb.mal b{color:#FF8A8A}.fb p{margin:0 0 12px;font-weight:800;color:#E4E4E7}
+.fin{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
+.fin h1{margin:0;font-size:30px}.fin p{margin:0 0 10px;color:#B8B8C0;font-weight:800}
+.nota{margin-top:auto;padding:12px 14px;border-radius:16px;background:#151518;border:1px dashed #3A3A40;color:#B8B8C0;font-size:13px;font-weight:700}
+
+.alt{width:110px;height:110px;margin:16px auto 6px;border-radius:50%;background:#3FA9FF;border:0;display:grid;place-items:center;box-shadow:0 6px 0 #1C5FA8}
+.alt:active{transform:translateY(3px);box-shadow:0 3px 0 #1C5FA8}.lt{display:block;margin:0 auto 10px;background:none;border:0;color:#B8B8C0;font:900 14px Nunito,sans-serif}
+.par{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 14px}.par button{height:130px;border-radius:22px;background:#151518;border:2px solid #2A2A2E;color:#F4F4F5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:900 32px Nunito,sans-serif}
+.par button small{font-size:14px;color:#A1A1AA}.par button.sel{border-color:#FFC83D;color:#FFC83D}.par button.ok{border-color:#58CC02;background:#173A12;color:#7BE3A8}.par button.mal{border-color:#FF4B4B;color:#FF8A8A}
+.par button .mini{font-size:13px;font-weight:800;color:#3FA9FF;margin-top:4px}
+.pista{min-height:22px;color:#B8B8C0;font-weight:800;text-align:center;margin-bottom:12px}</style></head><body><div class="app" id="app"><div class="top"><a class="x" href="aprender-disenos.html">✕</a><div class="prog"><i id="pr"></i></div></div><span class="tag" style="background:#FFC83D22;color:#FFE08A">ENTRENA EL OÍDO</span><h2>¿Cuál escuchaste?</h2><button class="alt" id="alt"></button><button class="lt" id="lt">Escuchar lento</button><div class="par" id="par"></div><div class="pista" id="pi"></div><button class="btn" id="ok" disabled>Comprobar</button><p class="nota">Demo. Suena una de las dos palabras. Toca cada tarjeta para oírla después de responder.</p></div><div class="fb" id="fb"><div class="in"><b id="fbT"></b><p id="fbP"></p><button class="btn w2" id="fbB">Continuar</button></div></div><script>
+const SPR = {
+  av18:{"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
+  av19:{"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]},
+  av10:{"p": {"r": "#E8343B", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#6B3A1E", "m": "#B5574A", "w": "#F2F4F8", "b": "#2F5BD6", "l": "#3A3A42", "y": "#FFC83D"}, "r": ["....rrrr....", "..rrrrrrrr.r", "..rrrrrrrrr.", "..ssssssss..", "..skssskkk..", "..ssssssss..", "..hhsmmshh..", "...hhhhhh...", "..wbwbwbwb..", ".swbwbwbwbs.", "..lll..lll..", "..kkk..kkk.."]},
+  av11:{"p": {"w": "#F2F4F8", "c": "#3FA9F5", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#FF4D4D", "b": "#2F5BD6", "g": "#8C8C96"}, "r": ["...wwwwww...", "..wwwwwwww..", ".wwccccccww.", ".wcskssksccw", ".wcssmmsscw.", ".wwccccccww.", "..wwwwwwww..", ".wwwrwwbwww.", "w.wwwwwwww.w", "..wwwwwwww..", "..ww....ww..", "..gg....gg.."]},
+  av12:{"p": {"y": "#FFC83D", "g": "#A0AAB8", "d": "#5A6270", "r": "#FF4D4D", "b": "#3F7FD8", "c": "#3FD8C8"}, "r": [".....yy.....", ".....gg.....", "..gggggggg..", "..gddddddg..", "..gdyddydg..", "..gddddddg..", "..gdrrrrdg..", "...gggggg...", ".bbbbbbbbbb.", "g.bbbccbbb.g", "..bbbbbbbb..", "..gg....gg.."]},
+  av13:{"p": {"h": "#8B5A2B", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#E8343B", "p": "#E07A3A", "j": "#3F6FB5", "b": "#5E3E22"}, "r": ["...hhhhhh...", "...hhhhhh...", "hhhhhhhhhhhh", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..rrrrrrrr..", ".spppppppps.", "..jjjjjjjj..", "..jjj..jjj..", "..bbb..bbb.."]},
+  av14:{"p": {"w": "#F2F4F8", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#3A2414", "m": "#B5574A", "r": "#E8343B", "l": "#3A3A42"}, "r": ["...wwwwww...", "..wwwwwwww..", "..wwwwwwww..", "...wwwwww...", "..ssssssss..", "..skssssks..", "..sshhhhss..", "...ssmmss...", ".swwwwwwwws.", "..wwrrwwww..", "..lll..lll..", "..kkk..kkk.."]},
+  av15:{"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},
+  av16:{"p": {"k": "#1A1A22", "p": "#E6E1F0", "r": "#E8343B", "w": "#FFFFFF", "c": "#8E1B2B"}, "r": ["...kkkkkk...", "..kkkkkkkk..", "..kppppppk..", "..prpppprp..", "..pppppppp..", "...pwppwp...", "cc.kkkkkk.cc", "cckkwwwwkkcc", "cckkkkkkkkcc", "c.kkkkkkkk.c", "..kk....kk..", "..kk....kk.."]},
+  av17:{"p": {"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"}, "r": ["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]},
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+  av9:{p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]}
+};
+function sprite(n, s) {
+  const d = SPR[n]; if (!d) return "";
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+const SV = (p, s, c) => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="' + (c || "currentColor") + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
+const REP = SV('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>', 20), LENTO = SV('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>', 20);
+const $ = id => document.getElementById(id);
+const norm = t => String(t).toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+let AC; function tono(f, t, d) { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const o = AC.createOscillator(), g = AC.createGain(), t0 = AC.currentTime + t; o.type = "triangle"; o.frequency.value = f; g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(.08, t0 + .02); g.gain.exponentialRampToValueAtTime(.0001, t0 + d); o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0 + d + .05); } catch (e) {} }
+const bien = () => { tono(660, 0, .15); tono(990, .1, .25); }, malS = () => { tono(220, 0, .25); };
+
+const AUD = "https://inglesgamer.github.io/app/audios/demos/";
+const slug = t => t.toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+let audio = null; function oir(t, lento) { return new Promise(r => { try { if (audio) audio.pause(); audio = new Audio(AUD + slug(t) + ".mp3"); audio.playbackRate = lento ? .75 : 1; audio.onended = r; audio.onerror = () => setTimeout(r, 900); audio.play().catch(() => setTimeout(r, 900)); } catch (e) { r(); } }); }
+const PARES = [["ship","barco","sheep","oveja","La «i» de sheep es larga: shiiip"],["live","vivir","leave","irse","Leave suena como «liiv», más larga"],["full","lleno","fool","tonto","Fool tiene la «u» larga: fuuul"],["cap","gorra","cup","taza","Cap se abre como «a»; cup suena casi como «ka»"],["hat","sombrero","hot","caliente","Hot suena casi como «jat»; hat abre más la boca, casi «jeat»"],["bed","cama","bad","malo","Bad abre más la boca: «baed»"]];
+let n = 0, sel = null, suena = "", ac = 0, fase = 0;
+$("alt").innerHTML = SV('<path d="M4 10v4h4l5 4V6L8 10z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/>', 50, "#fff");
+function pintar() { const p = PARES[n]; suena = Math.random() < .5 ? p[0] : p[2]; sel = null; fase = 0; $("pr").style.width = n / PARES.length * 100 + "%"; $("pi").textContent = "";
+  $("par").innerHTML = [[p[0], p[1]], [p[2], p[3]]].map(x => '<button data-w="' + x[0] + '">' + x[0] + '<small>' + x[1] + '</small></button>').join(""); $("ok").disabled = true; $("ok").textContent = "Comprobar"; setTimeout(() => oir(suena), 300); }
+$("alt").onclick = () => oir(suena); $("lt").onclick = () => oir(suena, true);
+$("par").onclick = e => { const b = e.target.closest("button"); if (!b) return; if (fase) { oir(b.dataset.w); return; } sel = b.dataset.w; [...$("par").children].forEach(x => x.classList.toggle("sel", x === b)); $("ok").disabled = false; };
+$("ok").onclick = () => { const p = PARES[n], ok = sel === suena; fase = 1; if (ok) { ac++; bien(); } else malS();
+  [...$("par").children].forEach(x => { x.classList.remove("sel"); if (x.dataset.w === suena) x.classList.add("ok"); else if (x.dataset.w === sel) x.classList.add("mal"); x.insertAdjacentHTML("beforeend", '<span class="mini">tócala para oírla</span>'); });
+  $("pi").textContent = p[4]; $("fbT").textContent = ok ? "¡Buen oído!" : "Casi"; $("fbP").textContent = "Sonó «" + suena + "»."; $("fb").className = "fb on " + (ok ? "ok" : "mal"); };
+$("fbB").onclick = () => { $("fb").className = "fb"; n++; if (n < PARES.length) return pintar(); $("pr").style.width = "100%";
+  $("app").innerHTML = '<div class="fin">' + sprite("av3", 110) + '<h1>¡Oído entrenado!</h1><p>' + ac + ' de ' + PARES.length + ' bien</p><button class="btn" onclick="location.reload()">Otra vez</button></div>'; };
+pintar();</script></body></html>
