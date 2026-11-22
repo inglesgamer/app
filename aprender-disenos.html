@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nuevas formas de aprender: diseños</title>
+<script>/* VISTA PREVIA: almacenamiento de mentiras, no toca el juego */(function(){var M={};var S={getItem:function(k){return k in M?M[k]:null},setItem:function(k,v){M[k]=String(v)},removeItem:function(k){delete M[k]},clear:function(){M={}},key:function(i){return Object.keys(M)[i]||null},get length(){return Object.keys(M).length}};try{Object.defineProperty(window,"localStorage",{value:S,configurable:true})}catch(e){}})();</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0B0B0D;color:#F4F4F5;font-family:Nunito,system-ui,sans-serif}
+.w{max-width:520px;margin:0 auto;padding:16px}h1{margin:6px 0 2px;font-size:24px}.sub{margin:0 0 12px;color:#A1A1AA;font-weight:700}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none}
+.tabs button{flex:none;height:42px;padding:0 14px;border-radius:99px;border:2px solid #2A2A2E;background:#151518;color:#F4F4F5;font:900 14px Nunito,sans-serif}.tabs button.on{background:#fff;color:#000}
+.desc{padding:12px 14px;border-radius:16px;background:#151518;border:1px solid #2A2A2E;font-weight:700;color:#C9C9D1;margin-bottom:10px;font-size:14px}.desc b{display:block;color:#fff;font-size:16px;margin-bottom:2px}
+.tel{position:relative;min-height:700px;border-radius:30px;overflow:hidden;background:#000;border:2px solid #2A2A2E;padding:16px 16px 20px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}.x{width:40px;height:40px;border-radius:50%;border:1px solid #2A2A2E;display:grid;place-items:center;color:#B8B8C0;font-weight:900}
+.prog{flex:1;height:14px;border-radius:99px;background:#222226;overflow:hidden}.prog i{display:block;height:100%;border-radius:99px;background:#58CC02}
+.cor{display:flex;align-items:center;gap:4px;font-weight:900;color:#FF4B4B}
+.tag{display:inline-block;padding:5px 11px;border-radius:99px;font-size:12px;font-weight:900;letter-spacing:.1em;margin-bottom:8px}
+h2{margin:0 0 12px;font-size:22px}
+.vid{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/9;background:linear-gradient(135deg,#1a2a44,#0b0f1a);display:grid;place-items:center;border:1px solid #2A2A2E}
+.vid .pl{width:70px;height:70px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.vid .yt{position:absolute;left:10px;bottom:10px;padding:4px 9px;border-radius:8px;background:rgba(0,0,0,.6);font-size:12px;font-weight:900}
+.vid .tm{position:absolute;right:10px;bottom:10px;padding:4px 9px;border-radius:8px;background:rgba(0,0,0,.6);font-size:12px;font-weight:900}
+.ctrl{display:flex;gap:8px;margin:10px 0 16px}.ctrl span{flex:1;height:46px;border-radius:14px;background:#151518;border:1px solid #2A2A2E;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:900;font-size:14px}
+.frase{font-size:22px;font-weight:900;line-height:1.9}
+.hueco{display:inline-block;min-width:86px;border-bottom:3px solid #FFC83D;color:#FFC83D;text-align:center;margin:0 3px}
+.hueco.ok{border-color:#58CC02;color:#58CC02}.hueco.vac{color:transparent}
+.tr{color:#A1A1AA;font-weight:700;margin:4px 0 16px}
+.inp{height:56px;border-radius:16px;background:#151518;border:2px solid #3A3A40;display:flex;align-items:center;padding:0 16px;font-size:18px;font-weight:800;color:#F4F4F5;margin-bottom:12px}
+.btn{height:56px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;background:#58CC02;color:#fff;box-shadow:0 4px 0 #3E9100}
+.btn.g{background:#222226;color:#6A6A73;box-shadow:none}.btn.w2{background:#fff;color:#000;box-shadow:0 4px 0 #9A9AA3}
+.esc{position:relative;height:230px;border-radius:22px;overflow:hidden;background:linear-gradient(#FFB36B,#FF7B54 55%,#5B2A2A 56%,#3A1B1B);border:1px solid #2A2A2E}
+.esc .p1,.esc .p2{position:absolute;bottom:18px}.esc .p1{left:30px}.esc .p2{right:30px;transform:scaleX(-1)}
+.esc .mesa{position:absolute;left:50%;bottom:16px;width:90px;height:44px;margin-left:-45px;background:#7A4A26;border-radius:8px 8px 0 0;border:3px solid #3B2210}
+.burb{position:absolute;padding:8px 12px;border-radius:16px;background:#fff;color:#000;font-weight:900;font-size:14px;max-width:180px}
+.burb::after{content:"";position:absolute;bottom:-8px;width:14px;height:14px;background:#fff;transform:rotate(45deg)}
+.b1{left:16px;top:16px}.b1::after{left:30px}.b2{right:16px;top:70px;background:#FFE08A}.b2::after{right:30px;background:#FFE08A}
+.onda{display:flex;align-items:center;justify-content:center;gap:4px;height:80px}.onda i{width:6px;border-radius:99px;background:#A879FF;animation:on 1s ease-in-out infinite}
+@keyframes on{50%{transform:scaleY(.35)}}
+.mic{width:110px;height:110px;margin:18px auto;border-radius:50%;background:#FF4B4B;display:grid;place-items:center;box-shadow:0 0 0 12px rgba(255,75,75,.18),0 0 0 26px rgba(255,75,75,.08)}
+.pal{display:inline-block;padding:2px 6px;border-radius:8px}.pal.ok{background:rgba(88,204,2,.2);color:#7BE3A8}.pal.mal{background:rgba(255,75,75,.2);color:#FF8A8A}
+.cancion{padding:16px;border-radius:22px;background:linear-gradient(135deg,#2B124A,#120822);border:1px solid #3A2A55}
+.cancion .l{font-size:19px;font-weight:900;line-height:2;opacity:.45}.cancion .l.act{opacity:1}
+.op{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.op span{height:52px;border-radius:14px;background:#151518;border:2px solid #2A2A2E;display:grid;place-items:center;font-weight:900;font-size:17px}
+.op span.sel{border-color:#FFC83D;color:#FFC83D}
+.cap{padding:16px;border-radius:22px;background:#151518;border:1px solid #2A2A2E}
+.cap p{font-size:18px;line-height:1.6;font-weight:700;margin:0}.cap p u{text-decoration:none;border-bottom:2px dotted #FFC83D}
+.capl{display:flex;gap:6px;margin-bottom:12px}.capl span{flex:1;height:8px;border-radius:99px;background:#2A2A2E}.capl span.si{background:#FF8A3D}
+.tarj{padding:18px;border-radius:22px;background:#151518;border:2px solid #2A2A2E;text-align:center;margin-bottom:12px}
+.tarj .pw{font-size:34px;font-weight:900}.tarj small{display:block;color:#A1A1AA;font-weight:800;margin-top:2px}
+.rep{display:flex;gap:8px;margin-bottom:12px}.rep div{flex:1;padding:10px;border-radius:16px;background:#151518;border:1px solid #2A2A2E;text-align:center;font-weight:900}.rep div b{display:block;font-size:22px}.rep div small{color:#A1A1AA;font-weight:800;font-size:12px}
+.par{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.par span{height:120px;border-radius:22px;background:#151518;border:2px solid #2A2A2E;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:28px;font-weight:900}
+.par span small{font-size:13px;color:#A1A1AA}.par span.sel{border-color:#58CC02;background:rgba(88,204,2,.1)}
+.ent{display:flex;align-items:center;gap:12px;padding:14px;border-radius:22px;margin-bottom:10px;color:#fff}
+.ent b{display:block;font-size:18px}.ent small{display:block;font-weight:800;opacity:.85}
+</style></head><body><div class="w">
+<h1>Nuevas formas de aprender</h1><p class="sub">7 diseños. Toca cada uno. Son de ejemplo: todavía no funcionan.</p>
+<div class="tabs" id="tabs"></div><div class="desc" id="desc"></div><div class="tel" id="tel"></div></div>
+<script>
+const SPR = {
+  av18:{"p": {"g": "#3FB58A", "d": "#2A7A5C", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D"}, "r": ["........gg..", ".......gggg.", ".......gkgg.", ".......ggggw", "......ggg...", "..g..gggg...", ".gggggggg...", "gggydgggg...", "...gggggg...", "...gg..gg...", "...d....d...", "...kk...kk.."]},
+  av19:{"p": {"b": "#6E7FD6", "f": "#B58CFF", "w": "#F5EFD8", "k": "#0B0B0D", "d": "#4A5AB0"}, "r": ["...ff.......", "..ffff......", ".wfbbf......", "wwbkbbbbbbb.", ".bbbbbbbbbbb", "..bbbbbbbbbb", "...bbbbbbbbb", "...bdbbbbbd.", "...bb..bb...", "...bb..bb...", "...kk..kk...", "............"]},
+  av10:{"p": {"r": "#E8343B", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#6B3A1E", "m": "#B5574A", "w": "#F2F4F8", "b": "#2F5BD6", "l": "#3A3A42", "y": "#FFC83D"}, "r": ["....rrrr....", "..rrrrrrrr.r", "..rrrrrrrrr.", "..ssssssss..", "..skssskkk..", "..ssssssss..", "..hhsmmshh..", "...hhhhhh...", "..wbwbwbwb..", ".swbwbwbwbs.", "..lll..lll..", "..kkk..kkk.."]},
+  av11:{"p": {"w": "#F2F4F8", "c": "#3FA9F5", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#FF4D4D", "b": "#2F5BD6", "g": "#8C8C96"}, "r": ["...wwwwww...", "..wwwwwwww..", ".wwccccccww.", ".wcskssksccw", ".wcssmmsscw.", ".wwccccccww.", "..wwwwwwww..", ".wwwrwwbwww.", "w.wwwwwwww.w", "..wwwwwwww..", "..ww....ww..", "..gg....gg.."]},
+  av12:{"p": {"y": "#FFC83D", "g": "#A0AAB8", "d": "#5A6270", "r": "#FF4D4D", "b": "#3F7FD8", "c": "#3FD8C8"}, "r": [".....yy.....", ".....gg.....", "..gggggggg..", "..gddddddg..", "..gdyddydg..", "..gddddddg..", "..gdrrrrdg..", "...gggggg...", ".bbbbbbbbbb.", "g.bbbccbbb.g", "..bbbbbbbb..", "..gg....gg.."]},
+  av13:{"p": {"h": "#8B5A2B", "s": "#F2C9A0", "k": "#0B0B0D", "m": "#B5574A", "r": "#E8343B", "p": "#E07A3A", "j": "#3F6FB5", "b": "#5E3E22"}, "r": ["...hhhhhh...", "...hhhhhh...", "hhhhhhhhhhhh", "..ssssssss..", "..skssssks..", "..ssssssss..", "...ssmmss...", "..rrrrrrrr..", ".spppppppps.", "..jjjjjjjj..", "..jjj..jjj..", "..bbb..bbb.."]},
+  av14:{"p": {"w": "#F2F4F8", "s": "#F2C9A0", "k": "#0B0B0D", "h": "#3A2414", "m": "#B5574A", "r": "#E8343B", "l": "#3A3A42"}, "r": ["...wwwwww...", "..wwwwwwww..", "..wwwwwwww..", "...wwwwww...", "..ssssssss..", "..skssssks..", "..sshhhhss..", "...ssmmss...", ".swwwwwwwws.", "..wwrrwwww..", "..lll..lll..", "..kkk..kkk.."]},
+  av15:{"p": {"o": "#FF8A3D", "k": "#0B0B0D", "w": "#F2F4F8", "y": "#FFC83D", "d": "#C55A1E"}, "r": ["......oooo..", ".....oooooo.", ".....okoooo.", ".....oooooo.", ".....ooowww.", "..o.oooo....", ".oooooooo...", "ooooooyooo..", ".ooyyyyoo...", "..ooo.ooo...", "..oo...oo...", "..dd...dd..."]},
+  av16:{"p": {"k": "#1A1A22", "p": "#E6E1F0", "r": "#E8343B", "w": "#FFFFFF", "c": "#8E1B2B"}, "r": ["...kkkkkk...", "..kkkkkkkk..", "..kppppppk..", "..prpppprp..", "..pppppppp..", "...pwppwp...", "cc.kkkkkk.cc", "cckkwwwwkkcc", "cckkkkkkkkcc", "c.kkkkkkkk.c", "..kk....kk..", "..kk....kk.."]},
+  av17:{"p": {"k": "#2A1A12", "s": "#F2C9A0", "b": "#2F5BD6", "r": "#E8343B", "y": "#FFC83D", "m": "#B5574A"}, "r": ["....kkkk....", "...kkkkkk...", "..kkkkkkkk..", "..ssssssss..", "..bkbbbbkb..", "..ssssssss..", "...ssmmss...", "r.bbbbbbbb.r", "rsbbyyyybbsr", "r.bbbbbbbb.r", "..bbb..bbb..", "..rrr..rrr.."]},
+  llama:{p:{o:"#FF8A3D",y:"#FFC83D"},r:["...o....","..oo.o..","..ooo.o.",".oooooo.",".ooyyoo.","oooyyooo",".oyyyyo.","..yyyy.."]},
+  av0:{p:{o:"#FF8A3D",s:"#F2C9A0",k:"#0B0B0D",b:"#3FD8C8",d:"#1E8F84",m:"#B5574A",l:"#3A3A42"},r:["....oooo....","..oooooooo..",".oooooooooo.","..ssssssss..","..skssssks..","..ssssssss..","...ssmmss...","..bbbbbbbb..",".sbbbbbbbbs.","..dddddddd..","..lll..lll..","..kkk..kkk.."]},
+  av1:{p:{g:"#5DB33A",d:"#3E7A25",s:"#F2C9A0",k:"#0B0B0D",h:"#7A3E1D",b:"#8B5A2B"},r:["....gggg....","...gggggg...","..gggggggg..","..gssssssg..","..hskssksh..","..hssssssh..","..h.ssss.h..",".bgggggggg..","b.ggddddgg..","b.gggggggg..",".b.ggg.ggg..","...kkk.kkk.."]},
+  av2:{p:{g:"#5DB33A",w:"#FFFFFF",k:"#0B0B0D",y:"#FFC83D"},r:["..g......g..","..gg....gg..","..gggggggg..",".gggggggggg.",".gwkggggwkg.",".gggggggggg.",".ggkggggkgg.","..gggwwggg..",".gggyyyyggg.",".gggyyyyggg.","..ggg..ggg..","..kkk..kkk.."]},
+  av3:{p:{m:"#8E5BD6",y:"#FFC83D",s:"#F2C9A0",k:"#0B0B0D",w:"#EDE7F6",t:"#8B5A2B",c:"#3FD8C8"},r:[".....mm.....","....mmmm....","...mmmmmm...","..mmmmmmmm..",".yyyyyyyyyy.","..ssssssss..","..skssssks..","..wwssssww..","c..wwwwww...","t.mmwwwwmm..","tmmmmmmmmmm.","t.mmmmmmmm.."]},
+  av4:{p:{g:"#8C8C96",d:"#5A5A66",r:"#FF4D4D",k:"#0B0B0D",l:"#E8F7FF",y:"#FFC83D"},r:[".....rr.....","....rrrr....","..gggggggg..",".gggggggggg.",".gkkkkkkkkg.","lgggggggggg.","l.gggggggg..","l.gggggggg..","l.ggrrrrgg..","l.gggrrggg..","y.ggg..ggg..","k.ddd..ddd.."]},
+  av5:{p:{y:"#FFC83D",h:"#FFE08A",s:"#F2C9A0",k:"#0B0B0D",m:"#D94A6A",p:"#FF6FB5",q:"#D94A93",w:"#F2F4F8"},r:["...y.yy.y...","...yyyyyy...","..hhhhhhhh..",".hhsssssshh.",".hhsksskshh.",".hhssmmsshh.",".hh.ssss.hh.",".hhpppppphh.","..pppppppp..","..qqqqqqqq..",".pppppppppp.","pwpwpwpwpwpw"]},
+  av6:{p:{g:"#7ED957",d:"#3E9A2A",k:"#0B0B0D",w:"#FFFFFF",p:"#8E5BD6",l:"#3FD8C8"},r:["...gggggg...","..gggggggg..",".gggggggggg.",".gkkggggkkg.",".gkwggggwkg.",".gggggggggg.","..gggddggg..","...gggggg...","..pppppppp.l",".gppppppppgl","..pppppppp.l","..gg....gg.."]},
+  av7:{p:{h:"#FF5E3A",s:"#F2C9A0",k:"#0B0B0D",x:"#B5574A",p:"#FF6FB5",t:"#2EC4B6",d:"#1E8F84",y:"#FFC83D"},r:["...hhhhhh..y","..hhhhhhhhyy",".hhsssssshhy",".hhsksskshhy",".hhssxxsshhy",".hh.ssss.hhy",".hhsppppshhy",".hh.ssss.hhy","..tttttttt.y","...tttttt..y","....tttt....","..dddttddd.."]},
+  av8:{p:{k:"#2A2A33",m:"#D94A93",s:"#F2C9A0",x:"#B5574A",l:"#E8F7FF",b:"#8B5A2B"},r:["...kkkkkk...","..kkkkkkkk.k","..mmmmmmmm.k","..kssssssk.k","..kskssksk.k","..kssxxssk..","..mmmmmmmm..",".kkkkkkkkkkl",".kkmmmmmmkkl","..kkkkkkkk.l","..kk....kk.b","..kk....kk.."]},
+  av9:{p:{k:"#151518",w:"#F2F4F8",h:"#8A5A33",e:"#3A2414",s:"#F2B98F",m:"#B8704F",g:"#5A5A5E",l:"#C4C4C8",q:"#A0A0A5",z:"#0B0B0D",p:"#1A1A1E",f:"#F2F4F8"},r:["...kkkkkk...","..kkkkkkkk..","..kwwwwwwk..","..hhhhhhhh..","..hwessewh..","..ssssssss..","..sssmmsss..","ggggqllqgggg","ggggqllqgggg","ggggzllzgggg","gggggllggggg","llgggllgggll","ssgggllgggss","ssppppppppss","..ppp..ppp..","..fff..fff.."]}
+};
+function sprite(n, s) {
+  const d = SPR[n]; if (!d) return "";
+  const h = d.r.length, w = d.r[0].length;
+  let o = '<svg width="' + Math.round(s * w / h) + '" height="' + s + '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges" aria-hidden="true">';
+  d.r.forEach((row, y) => row.split("").forEach((c, x) => { if (c !== ".") o += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + d.p[c] + '"></rect>'; }));
+  return o + "</svg>";
+}
+
+const SV = (p, s, c) => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="' + (c || "currentColor") + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
+const PLAY = '<svg width="30" height="30" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#000"/></svg>';
+const ALT = SV('<path d="M4 10v4h4l5 4V6L8 10z"/><path d="M16 9a4 4 0 0 1 0 6"/>', 20), LENTO = SV('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>', 20), REP = SV('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>', 20);
+const barraT = p => '<div class="top"><span class="x">✕</span><div class="prog"><i style="width:' + p + '%"></i></div><span class="cor">' + SV('<path d="M12 21s-7-4.4-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.6-9.5 9-9.5 9z"/>', 20, "#FF4B4B") + '3</span></div>';
+const ctrl = '<div class="ctrl"><span>' + REP + 'Repetir</span><span>' + LENTO + 'Lento</span></div>';
+const D = {
+ yt:["Escena de video (YouTube)", "Un pedacito real de un video de YouTube (unos segundos). La frase sale con espacios y escribes lo que dicen. Se puede repetir y poner lento.", () => barraT(40) +
+   '<span class="tag" style="background:#FF4B4B22;color:#FF8A8A">ESCENA DE VIDEO</span><h2>Escribe lo que dicen</h2><div class="vid"><span class="pl">' + PLAY + '</span><span class="yt">YouTube</span><span class="tm">0:12 – 0:16</span></div>' + ctrl +
+   '<div class="frase">I\'d <span class="hueco ok">like</span> a coffee, <span class="hueco">ple</span></div><div class="tr">Quisiera un café, por favor.</div><div class="inp">ple|</div><div class="btn">Comprobar</div>'],
+ pj:["Escena con nuestros personajes", "Dos personajes pixel hablan con voz natural (como los audios de los niveles). Las burbujas se van llenando y tú completas la palabra que falta. Es 100 % nuestro.", () => barraT(55) +
+   '<span class="tag" style="background:#FF8A3D22;color:#FFB37A">ESCENA · EN EL RESTAURANTE</span><div class="esc"><span class="mesa"></span><span class="p1">' + sprite("av3", 110) + '</span><span class="p2">' + sprite("av7", 110) + '</span>' +
+   '<span class="burb b1">What would you like?</span><span class="burb b2">A ____ of soup, please.</span></div>' + ctrl +
+   '<h2 style="font-size:18px">¿Qué pidió?</h2><div class="op"><span>cup</span><span class="sel">bowl</span><span>glass</span><span>plate</span></div><div class="btn" style="margin-top:14px">Comprobar</div>'],
+ sh:["Repetir encima (shadowing)", "Oyes la frase y la repites al mismo ritmo con el micrófono. Te marca en verde las palabras que dijiste bien y en rojo las que no.", () => barraT(30) +
+   '<span class="tag" style="background:#A879FF22;color:#C8A8FF">REPITE AL MISMO RITMO</span><h2>Escucha y repite encima</h2><div class="onda">' + Array.from({ length: 22 }, (_, i) => '<i style="height:' + (20 + Math.abs(Math.sin(i * .9)) * 60) + 'px;animation-delay:' + i * .05 + 's"></i>').join("") + '</div>' +
+   '<div class="frase" style="text-align:center;font-size:24px"><span class="pal ok">Nice</span> <span class="pal ok">to</span> <span class="pal mal">meet</span> <span class="pal ok">you</span></div><div class="tr" style="text-align:center">Mucho gusto en conocerte · 3 de 4 bien</div>' +
+   '<div class="mic">' + SV('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>', 46, "#fff") + '</div><div class="btn w2">Intentar otra vez</div>'],
+ ca:["Canción con espacios", "Suena una canción (de YouTube o música libre) y la letra va pasando. Cuando llega el espacio, eliges la palabra que oíste. Hay que ir al ritmo.", () => barraT(65) +
+   '<span class="tag" style="background:#FF4D8D22;color:#FF8AB5">CANCIÓN</span><h2>Completa la letra</h2><div class="vid" style="aspect-ratio:16/7;background:linear-gradient(135deg,#4A1A6A,#140822)"><span class="pl">' + PLAY + '</span><span class="tm">1:05</span></div>' +
+   '<div class="cancion" style="margin-top:12px"><div class="l">The night is young and so are we</div><div class="l act">Come on and <span class="hueco vac">dance</span> with me</div><div class="l">Under the lights of the city</div></div>' +
+   '<div class="op"><span class="sel">dance</span><span>dense</span><span>dancing</span><span>stance</span></div>'],
+ hi:["Historia por capítulos", "Una mini novela en inglés fácil, un capítulo por día. Tocas una palabra para ver qué significa y al final respondes 2 preguntas. Engancha para volver mañana.", () => barraT(20) +
+   '<span class="tag" style="background:#3FA9FF22;color:#8ACBFF">HISTORIA · EL MISTERIO DEL FARO</span><h2>Capítulo 3 de 10</h2><div class="capl"><span class="si"></span><span class="si"></span><span class="si"></span>' + '<span></span>'.repeat(7) + '</div>' +
+   '<div class="cap"><div style="display:flex;gap:12px;align-items:flex-end;margin-bottom:10px">' + sprite("av10", 70) + '<span style="font-weight:900;color:#A1A1AA">' + ALT + ' Escuchar</span></div><p>Tom opens the <u>door</u>. The room is dark and <u>cold</u>. On the table there is an old <u>map</u>. "Who left this here?" he asks.</p></div>' +
+   '<div class="desc" style="margin-top:12px"><b>map = mapa</b>Toca las palabras subrayadas para ver la traducción.</div><div class="btn">Responder 2 preguntas</div>'],
+ er:["Repaso de tus errores", "Las palabras que fallaste vuelven días después, hasta que te las aprendes. Un botón diario en el Inicio: «Repasa tus errores».", () => barraT(50) +
+   '<span class="tag" style="background:#58CC0222;color:#7BE3A8">REPASO DE HOY</span><h2>Palabras que fallaste</h2><div class="rep"><div><b>8</b><small>para hoy</small></div><div><b>23</b><small>ya aprendidas</small></div><div><b>+10</b><small>de Aura</small></div></div>' +
+   '<div class="tarj"><small>LA FALLASTE HACE 3 DÍAS</small><div class="pw">Wednesday</div><small>¿Qué significa?</small></div><div class="op" style="margin-top:0"><span>Martes</span><span class="sel">Miércoles</span><span>Jueves</span><span>Sábado</span></div><div class="btn" style="margin-top:14px">Comprobar</div>'],
+ pa:["Pares que suenan parecido", "Suena una palabra y eliges cuál fue de dos que suenan casi igual. Es corto y entrena el oído y el acento.", () => barraT(70) +
+   '<span class="tag" style="background:#FFC83D22;color:#FFE08A">ENTRENA EL OÍDO</span><h2>¿Cuál escuchaste?</h2><div style="display:flex;justify-content:center;margin:20px 0"><span class="pl" style="width:96px;height:96px;border-radius:50%;background:#3FA9FF;display:grid;place-items:center">' + SV('<path d="M4 10v4h4l5 4V6L8 10z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/>', 44, "#fff") + '</span></div>' +
+   '<div class="par"><span>ship<small>barco</small></span><span class="sel">sheep<small>oveja</small></span></div><div class="tr" style="text-align:center;margin-top:14px">Pista: en «sheep» la «i» es larga: shiiip</div><div class="btn">Comprobar</div>'],
+ in:["Dónde aparecería", "En el Inicio, una tarjeta nueva «Practica tu oído» con las escenas del día, y en el Mapa algunas escenas como niveles especiales (como los de hablar).", () => '<h2 style="margin-top:6px">Practica tu oído</h2>' +
+   '<div class="ent" style="background:linear-gradient(135deg,#FF8A3D,#B8461A)">' + SV('<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9l5 3-5 3z"/>', 34, "#fff") + '<div><b>Escena del día</b><small>En el restaurante · 2 min · +10 Aura</small></div></div>' +
+   '<div class="ent" style="background:linear-gradient(135deg,#3FA9FF,#1C5FA8)">' + SV('<path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h6"/>', 34, "#fff") + '<div><b>Historia · Capítulo 3</b><small>El misterio del faro · sigue leyendo</small></div></div>' +
+   '<div class="ent" style="background:linear-gradient(135deg,#58CC02,#2E7A00)">' + SV('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>', 34, "#fff") + '<div><b>Repasa tus errores</b><small>8 palabras para hoy</small></div></div>' +
+   '<div class="ent" style="background:linear-gradient(135deg,#A879FF,#5B36A8)">' + SV('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>', 34, "#fff") + '<div><b>Repite encima</b><small>5 frases · con el micrófono</small></div></div>']
+};
+let SEL = (location.search.match(/d=(\w+)/) || [0, "yt"])[1];
+function pintar() { document.getElementById("tabs").innerHTML = Object.keys(D).map((k, i) => '<button class="' + (k === SEL ? "on" : "") + '" data-k="' + k + '">' + (i + 1) + '. ' + D[k][0].split(" (")[0] + '</button>').join("");
+  document.getElementById("desc").innerHTML = "<b>" + D[SEL][0] + "</b>" + D[SEL][1]; document.getElementById("tel").innerHTML = D[SEL][2](); }
+document.getElementById("tabs").onclick = e => { const b = e.target.closest("button"); if (b) { SEL = b.dataset.k; pintar(); } };
+pintar();
+</script></body></html>
