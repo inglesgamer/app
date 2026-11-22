@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Demo: escena de video</title><script>/* VISTA PREVIA: almacenamiento de mentiras, no toca el juego */(function(){var M={};var S={getItem:function(k){return k in M?M[k]:null},setItem:function(k,v){M[k]=String(v)},removeItem:function(k){delete M[k]},clear:function(){M={}},key:function(i){return Object.keys(M)[i]||null},get length(){return Object.keys(M).length}};try{Object.defineProperty(window,"localStorage",{value:S,configurable:true})}catch(e){}})();</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}html,body{margin:0;background:#000;color:#F4F4F5;font-family:Nunito,system-ui,sans-serif}
+.app{max-width:520px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:calc(12px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}.x{width:42px;height:42px;border-radius:50%;border:1px solid #2A2A2E;display:grid;place-items:center;color:#B8B8C0;font-weight:900;text-decoration:none}
+.prog{flex:1;height:14px;border-radius:99px;background:#222226;overflow:hidden}.prog i{display:block;height:100%;width:0;border-radius:99px;background:#58CC02;transition:width .4s}
+.tag{align-self:flex-start;padding:5px 11px;border-radius:99px;font-size:12px;font-weight:900;letter-spacing:.1em;margin-bottom:8px}
+h2{margin:0 0 12px;font-size:22px}
+.ctrl{display:flex;gap:8px;margin:10px 0 14px}.ctrl button{flex:1;height:48px;border-radius:14px;background:#151518;border:1px solid #2A2A2E;color:#F4F4F5;display:flex;align-items:center;justify-content:center;gap:6px;font:900 15px Nunito,sans-serif}
+.ctrl button.on{border-color:#FFC83D;color:#FFC83D}
+.frase{font-size:22px;font-weight:900;line-height:1.9}
+.hueco{display:inline-block;min-width:90px;border-bottom:3px solid #FFC83D;color:#FFC83D;text-align:center;margin:0 3px}
+.hueco.ok{border-color:#58CC02;color:#58CC02}.hueco.mal{border-color:#FF4B4B;color:#FF8A8A}
+.tr{color:#A1A1AA;font-weight:700;margin:2px 0 14px;min-height:22px}
+input.inp{width:100%;height:56px;border-radius:16px;background:#151518;border:2px solid #3A3A40;padding:0 16px;font:800 19px Nunito,sans-serif;color:#F4F4F5;outline:none;margin-bottom:12px}input.inp:focus{border-color:#FFC83D}
+.btn{width:100%;height:56px;border:0;border-radius:99px;font:900 18px Nunito,sans-serif;background:#58CC02;color:#fff;box-shadow:0 4px 0 #3E9100}
+.btn:disabled{background:#222226;color:#6A6A73;box-shadow:none}.btn.w2{background:#fff;color:#000;box-shadow:0 4px 0 #9A9AA3}
+.fb{position:fixed;left:0;right:0;bottom:0;padding:16px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s;z-index:9}
+.fb.on{transform:none}.fb.ok{background:#173A12}.fb.mal{background:#3A1414}.fb .in{max-width:520px;margin:0 auto}
+.fb b{display:block;font-size:20px;margin-bottom:4px}.fb.ok b{color:#7BE3A8}.fb.mal b{color:#FF8A8A}.fb p{margin:0 0 12px;font-weight:800;color:#E4E4E7}
+.fin{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
+.fin h1{margin:0;font-size:30px}.fin p{margin:0 0 10px;color:#B8B8C0;font-weight:800}
+.nota{margin-top:auto;padding:12px 14px;border-radius:16px;background:#151518;border:1px dashed #3A3A40;color:#B8B8C0;font-size:13px;font-weight:700}
+
+.vid{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/9;background:#111;border:1px solid #2A2A2E}
+.vid iframe,.vid #yt{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid .tapa{position:absolute;inset:0;z-index:2;display:grid;place-items:center;background:rgba(0,0,0,.35);cursor:pointer}
+.vid .tapa span{width:72px;height:72px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.vid .tm{position:absolute;right:10px;bottom:10px;z-index:3;padding:4px 9px;border-radius:8px;background:rgba(0,0,0,.65);font-size:12px;font-weight:900}
+.ed{margin-top:14px;padding:12px;border-radius:16px;background:#151518;border:1px solid #2A2A2E;font-size:13px;font-weight:800;color:#B8B8C0}.ed button{height:38px;padding:0 12px;border-radius:10px;border:1px solid #3A3A40;background:#222226;color:#fff;font:900 13px Nunito,sans-serif;margin:6px 6px 0 0}
+</style></head><body><div class="app" id="app">
+<div class="top"><a class="x" href="aprender-disenos.html">✕</a><div class="prog"><i id="pr"></i></div></div>
+<span class="tag" style="background:#FF4B4B22;color:#FF8A8A">ESCENA DE VIDEO · PEDIR UN CAFÉ</span><h2>Escribe la palabra que falta</h2>
+<div class="vid"><div id="yt"></div><div class="tapa" id="tapa"><span><svg width="30" height="30" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#000"/></svg></span></div><span class="tm" id="tm"></span></div>
+<div class="ctrl"><button id="bRep">Repetir</button><button id="bLen">Lento</button></div>
+<div class="frase" id="fr"></div><div class="tr" id="tr"></div>
+<input class="inp" id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Escribe aquí"><button class="btn" id="bOk" disabled>Comprobar</button>
+<div class="ed" id="ed"><b style="color:#fff">Modo ajuste (solo para nosotros)</b><br>Si el pedacito no coincide con la frase, pon el video y toca «Empieza aquí» justo cuando empieza la frase. Luego me mandas los números.<br><span id="edTx"></span><br><button id="edIni">Empieza aquí</button><button id="edFin">Termina aquí</button><button id="edVer">Ver video completo</button></div>
+<p class="nota">Demo. Video de YouTube: «5-Minute English Conversation Practice: Ordering Coffee». Los segundos de cada frase son aproximados.</p>
+</div>
+<div class="fb" id="fb"><div class="in"><b id="fbT"></b><p id="fbP"></p><button class="btn w2" id="fbB">Continuar</button></div></div>
+<script>
+const SV = (p, s, c) => '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="' + (c || "currentColor") + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
+const REP = SV('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>', 20), LENTO = SV('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>', 20);
+const $ = id => document.getElementById(id);
+const norm = t => String(t).toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+let AC; function tono(f, t, d) { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const o = AC.createOscillator(), g = AC.createGain(), t0 = AC.currentTime + t; o.type = "triangle"; o.frequency.value = f; g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(.08, t0 + .02); g.gain.exponentialRampToValueAtTime(.0001, t0 + d); o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0 + d + .05); } catch (e) {} }
+const bien = () => { tono(660, 0, .15); tono(990, .1, .25); }, malS = () => { tono(220, 0, .25); };
+
+const VIDEO = "x-0WIrRZGIE";
+/* cada pedacito: inicio y fin (segundos), frase con ___ y respuesta */
+const ITEMS = [
+  { s:4,  e:12, f:"I would like a ___, please.", r:"latte", es:"Quisiera un latte, por favor." },
+  { s:14, e:22, f:"___, please.",                r:"medium", es:"Mediano, por favor." },
+  { s:28, e:36, f:"To ___, please.",             r:"go",     es:"Para llevar, por favor." }
+];
+let P = null, listo = false, n = 0, lento = false, vigia = null, aciertos = 0;
+$("bRep").innerHTML = REP + "Repetir"; $("bLen").innerHTML = LENTO + "Lento";
+function pintar() {
+  const it = ITEMS[n]; $("pr").style.width = (n / ITEMS.length * 100) + "%";
+  $("fr").innerHTML = it.f.replace("___", '<span class="hueco" id="hu">&nbsp;</span>'); $("tr").textContent = "";
+  $("inp").value = ""; $("bOk").disabled = true; $("tm").textContent = fmt(it.s) + " – " + fmt(it.e); $("edTx").textContent = "Frase " + (n + 1) + ": " + it.s + " s a " + it.e + " s";
+}
+const fmt = x => Math.floor(x / 60) + ":" + String(Math.floor(x % 60)).padStart(2, "0");
+function tocar() {
+  if (!listo) return; const it = ITEMS[n]; clearInterval(vigia);
+  P.setPlaybackRate(lento ? .75 : 1); P.seekTo(it.s, true); P.playVideo(); $("tapa").style.display = "none";
+  vigia = setInterval(() => { if (P.getCurrentTime() >= it.e) { P.pauseVideo(); clearInterval(vigia); $("tapa").style.display = ""; } }, 100);
+}
+window.onYouTubeIframeAPIReady = () => { P = new YT.Player("yt", { videoId:VIDEO, playerVars:{ controls:0, rel:0, playsinline:1, modestbranding:1, disablekb:1 }, events:{ onReady:() => { listo = true; } } }); };
+const tg = document.createElement("script"); tg.src = "https://www.youtube.com/iframe_api"; document.head.appendChild(tg);
+$("tapa").onclick = tocar; $("bRep").onclick = tocar;
+$("bLen").onclick = () => { lento = !lento; $("bLen").classList.toggle("on", lento); tocar(); };
+$("inp").oninput = () => { $("bOk").disabled = !$("inp").value.trim(); $("hu").textContent = $("inp").value || " "; };
+$("inp").onkeydown = e => { if (e.key === "Enter" && !$("bOk").disabled) $("bOk").click(); };
+$("bOk").onclick = () => {
+  const it = ITEMS[n], ok = norm($("inp").value) === norm(it.r), h = $("hu");
+  h.textContent = it.r; h.className = "hueco " + (ok ? "ok" : "mal"); $("tr").textContent = it.es; if (ok) { aciertos++; bien(); } else malS();
+  $("fbT").textContent = ok ? "¡Muy bien!" : "Casi"; $("fbP").textContent = ok ? it.f.replace("___", it.r) : "Era «" + it.r + "»: " + it.f.replace("___", it.r);
+  $("fb").className = "fb on " + (ok ? "ok" : "mal");
+};
+$("fbB").onclick = () => { $("fb").className = "fb"; n++; if (n < ITEMS.length) { pintar(); tocar(); return; }
+  $("pr").style.width = "100%"; $("app").innerHTML = '<div class="fin"><h1>¡Escena terminada!</h1><p>' + aciertos + ' de ' + ITEMS.length + ' bien</p><button class="btn" onclick="location.reload()">Otra vez</button></div>'; };
+$("edIni").onclick = () => { if (!listo) return; ITEMS[n].s = Math.round(P.getCurrentTime() * 10) / 10; pintar(); };
+$("edFin").onclick = () => { if (!listo) return; ITEMS[n].e = Math.round(P.getCurrentTime() * 10) / 10; pintar(); };
+$("edVer").onclick = () => { if (!listo) return; clearInterval(vigia); $("tapa").style.display = "none"; P.seekTo(0, true); P.playVideo(); };
+pintar();
+</script></body></html>
