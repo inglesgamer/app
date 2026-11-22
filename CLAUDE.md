@@ -75,7 +75,7 @@ Voces (nombre del mp3 = slug del texto, sin tildes):
 - «Ver lección» en cada nivel → lección de Refuerza (con «Volver al nivel»).
 - Anuncios: +1 corazón, Aura x2, Saltar nivel, +10 en duelos, +25 en Refuerza. Regalos del mapa: 20 de Aura cada uno.
 - Refuerza tu inglés: 44 lecciones divididas por isla, con sonido, +5 Aura al marcar vista y +25 con anuncio (antes 35).
-- Retos de la semana (3 mini juegos, cambian cada lunes).
+- Retos de la semana: Escena, Historia y Repite encima (+30 c/u, cambian cada lunes).
 - Duelos v4: 1v1, 2v2, todos contra todos; 18 juegos; 27 temas; apuestas.
 - Vocabulario del día (67 palabras), sopa de letras, liga semanal, tienda, perfil, logros, ranking.
 
@@ -110,7 +110,7 @@ Voces (nombre del mp3 = slug del texto, sin tildes):
 - **Ranking = solo Liga semanal** (sin Temporada ni Siempre). Premios del top 3 por rango, solo Aura + trofeo: Campesino 60/40/20, Soldado 90/60/30, Caballero 120/80/40, Noble 160/110/60, Rey 220/150/80. Generador `ranking/liga_semanal.py` (parte de `ranking/ranking_base.html`; si se cambia la base, volver a correrlo).
 - **Después de regenerar** `mapaa1` (mapa/hacer_mapa_a1.py), `duelo` (duelo4/aplicar.py) o el Ranking: volver a correr `tools/nav_puntos.py` (y `tools/look_nuevo.py` en duelo). Logros con premio: `logros/premios.py` (Perfil + Tienda); si cambian los logros, correr otra vez `tools/nav_puntos.py`.
 - **Mapa:** un solo mapa en hilera (`mapaa1`); las secciones de islas solo redirigen.
-- Retos semanales = **mini juegos** (Vocabulario / Gramática / Escucha), con lo que el jugador ya jugó.
+- Retos semanales (22 nov) = **Escena · Historia · Repite encima**, +30 de Aura cada uno, rotan cada lunes. Gen. `retos2/hacer_retos_v2.py` (contenido en `retos2/contenido.json`, audios `audios/retos/`). **No usar** el viejo `retos/hacer_retos.py`.
 - Refuerza: «Marcar como vista» es gratis (+5); el +25 es opcional con anuncio (nunca bloquear progreso con anuncios).
 - Firebase: seguir en Spark; si se pasa a Blaze, poner alerta de presupuesto.
 
