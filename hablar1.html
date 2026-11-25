@@ -651,7 +651,7 @@ const FRASES = [["Hello, my name is Ana.", "Hola, me llamo Ana.", "hello-my-name
 /* ---- comparar lo que dijo con la frase ---- */
 const NUM = { "1":"one","2":"two","3":"three","4":"four","5":"five","6":"six","7":"seven","8":"eight","9":"nine","10":"ten","11":"eleven","12":"twelve","13":"thirteen","14":"fourteen","15":"fifteen","16":"sixteen","17":"seventeen","18":"eighteen","19":"nineteen","20":"twenty" };
 function palabras(t) {
-  return String(t).toLowerCase().replace(/[’']/g, "'").replace(/\btshirt\b/g, "t shirt").replace(/\bi'm\b/g, "i am").replace(/\bit's\b/g, "it is").replace(/\bthat's\b/g, "that is")
+  return String(t).toLowerCase().replace(/[’']/g, "'").replace(/\btshirt\b/g, "t shirt").replace(/\bi'm\b/g, "i am").replace(/\bit's\b/g, "it is").replace(/\bthat's\b/g, "that is").replace(/\bdon't\b/g, "do not").replace(/\bwon't\b/g, "will not").replace(/\bwhat's\b/g, "what is")
     .replace(/[^a-z0-9' ]+/g, " ").split(/\s+/).filter(Boolean).map(w => NUM[w] || w).map(w => ({ mom:"mother", anna:"ana", okay:"ok", thank:"thanks" }[w] || w));
 }
 function comparar(dicho, meta) {   /* palabras en común en orden (LCS) */

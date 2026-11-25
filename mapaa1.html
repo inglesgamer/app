@@ -1170,7 +1170,7 @@ function pintar() {
     const L = []; let cuenta = 0, grupo = 0;
     I.N.forEach((n, i) => { L.push({ t:"n", i }); if (I.regalos.indexOf(i) > -1) L.push({ t:"a", i });
       /* HABLAR (18 nov 2026; cada 5 desde el 19 nov): un nivel de hablar cada 5 niveles, que repasa esos 5 (solo si el diseño está activo) */
-      if (HAB && k === 0 && n[1] !== "final")   /* por ahora solo Verano */ { cuenta++; if (cuenta % 5 === 0 && i < I.N.length - 1) L.push({ t:"h", i, g:++grupo }); } });
+      if (HAB && k < 2 && n[1] !== "final")   /* Verano cada 5 · Nieve cada 3 (24 nov) */ { cuenta++; if (cuenta % (k ? 3 : 5) === 0 && i < I.N.length - 1) L.push({ t:"h", i, g:++grupo }); } });
     const DY = 142, top = 400, H = top + L.length * DY + 40; z.style.height = H + "px";
     const P = L.map((e, j) => Object.assign(e, { x: XS[j % 8], y: top + j * DY }));
     /* cuál es el actual: el primer nivel abierto sin estrellas */
@@ -1199,7 +1199,7 @@ function pintar() {
           const c = e >= 1 ? "#FFC83D" : "var(--toff)"; t.innerHTML = '<div class="' + (e >= 1 ? "flota" : "") + '"><svg width="70" height="70" viewBox="0 0 92 92"><path d="M24 12h44v22a22 22 0 0 1-44 0z" fill="' + c + '"/><path d="M24 18H12a12 12 0 0 0 14 16M68 18h12a12 12 0 0 1-14 16" fill="none" stroke="' + c + '" stroke-width="6"/><rect x="40" y="54" width="12" height="14" fill="' + c + '"/><rect x="28" y="68" width="36" height="12" rx="4" fill="' + c + '"/><text x="46" y="42" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="20" fill="#fff">' + (k + 1) + '</text></svg></div>'; z.appendChild(t); }
       } else if (p.t === "h") {
         const hid = I.id + "_h" + p.g, hecho = !!(((leer("ingles_gamer_hablar") || {}).est || {})[hid]) || DEMO, abre = est(I, I.N[p.i][0]) >= 1, st = hecho ? "done" : abre ? "act" : "lock";
-        const temas = I.N.slice(Math.max(0, p.i - 4), p.i + 1).map(x => x[2]).join(" · ");
+        const temas = I.N.slice(Math.max(0, p.i - (k ? 2 : 4)), p.i + 1).map(x => x[2]).join(" · ");
         el.dataset.hablar = hid; el.dataset.abre = abre ? 1 : "";
         el.className = "hab hb" + HAB + " " + st; el.innerHTML = HAB_HTML(HAB, st, temas);
         if (HAB === "B") el.style.left = Math.max(115, Math.min(w - 115, p.x)) + "px";
@@ -1263,7 +1263,7 @@ document.addEventListener("click", e => {
     return hechos.length ? ir(hechos[hechos.length - 1][4]) : aviso("Pasa un nivel de esta zona para practicarlo");
   }
   const hb = e.target.closest("button[data-hablar]");
-  if (hb) { if (!hb.dataset.abre && !DEMO) return aviso("Pasa los 3 niveles de arriba para hablar"); return ir("go:hablar" + hb.dataset.hablar.replace(/^verano_h/, "")); }
+  if (hb) { if (!hb.dataset.abre && !DEMO) return aviso("Pasa los niveles de arriba para hablar"); return ir("go:hablar" + hb.dataset.hablar.replace(/^verano_h/, "").replace(/^nieve_h/, "n")); }
   const b = e.target.closest("button[data-regalo]");
   if (b) { const id = b.dataset.regalo, R = regalos(), AURA_REGALO = ISLAS.find(x => id.indexOf(x.id + "_") === 0).aura;
     if (R[id]) return aviso("Ya reclamaste este regalo");
@@ -1827,7 +1827,6 @@ async function mostrar(o) {
 })();
 
 </script>
-
 <script>/* NAV_PUNTOS (20 nov 2026) */
 (function () {
 const LG_A1 = ["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3","final"];
