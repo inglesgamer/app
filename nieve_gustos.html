@@ -800,6 +800,7 @@ const PLAN = [
   { t:"completa", pj:"amor",    ob:"perro",   en:"I ___ dogs.", es:"Me gustan los perros.", ok:"like", ops:["like", "don't like"], nota:"Corazón → like" },
   { t:"nueva",    pj:"neg",     ob:"lluvia",  en:"rain", es:"la lluvia", tip:"<b>rain</b> = lluvia.", ej:"I don't like rain.", ejEs:"No me gusta la lluvia." },
   { t:"completa", pj:"neg",     ob:"lluvia",  en:"I ___ rain.", es:"No me gusta la lluvia.", ok:"don't like", ops:["like", "don't like"], nota:"No le gusta → don't like" },
+  { t:"completa", pj:"hambre",  ob:"pizza",   en:"The pizza is ___.", es:"La pizza está caliente.", ok:"hot", ops:["hot", "cold", "sad"], nota:"Repaso de Adjetivos: hot = caliente" },
   { t:"completa", pj:"triste",  ob:["lluvia", "g_triste"], en:"I don't like rain. I am ___.", es:"No me gusta la lluvia. Estoy triste.", ok:"sad", ops:["sad", "happy", "hot"], nota:"Repaso de Adjetivos: sad = triste" },
   { t:"nueva",    pj:"amor",    ob:"helado",  en:"ice cream", es:"el helado", tip:"<b>ice cream</b> = helado. Son dos palabras.", ej:"I like ice cream.", ejEs:"Me gusta el helado." },
   { t:"escribe",  ob:"helado",  en:"ice cream", es:"helado", sub:"Pista: es un <b>helado</b>. Escríbelo en inglés." },
@@ -812,8 +813,8 @@ const PLAN = [
   { t:"parejas",  pares:[["I like", "me gusta"], ["I don't like", "no me gusta"], ["rain", "la lluvia", "lluvia"], ["ice cream", "el helado", "helado"], ["football", "el fútbol", "balon"]] },
   { t:"traduce",  pj:"pienso",  ob:"tarea",   es:"No me gusta la tarea.", en:"I don't like homework", extra:["likes", "pizza"] },
   { t:"traduce",  pj:"amor",    ob:"a_tehot", es:"Me gusta el té caliente.", en:"I like hot tea", extra:["cold", "don't"], nota:"Repaso de Adjetivos: hot = caliente (va antes de tea)" },
-  { t:"escribe",  ob:"g_alegre", en:"happy", es:"feliz", sub:"Pista: está <b>feliz</b>. ¿Cómo se dice en inglés?" },
-  { t:"memoriza", ver:["g_alegre", "g_dormido", "a_hot"], otras:["g_triste", "g_frio", "a_big"] },
+  { t:"escribe",  ob:"g_alegre", en:"happy", es:"feliz", sub:"Pista: está <b>feliz</b>. ¿Cómo se dice en inglés?", nota:"Repaso de Adjetivos" },
+  { t:"memoriza", ver:["g_alegre", "g_dormido", "a_hot"], otras:["g_triste", "g_frio", "a_big"], nota:"Repaso de Adjetivos" },
   { t:"escucha",  pj:"amor",    en:"I like ice cream.", es:"Me gusta el helado." },
   { t:"escucha",  pj:"pulgar",  en:"I like football.", es:"Me gusta el fútbol." }
 ];

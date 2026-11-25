@@ -764,9 +764,9 @@ body.auto .u-btn:disabled{visibility:hidden}
 /* =====================================================================
    TUS DATOS · Isla de Nieve: Repaso 3 (escucha) — repasa Vocabulario 3, Preposiciones, Adjetivos y Gustos
    ===================================================================== */
-const URL_MAPA = "go:mapanieve";
-const URL_SIGUIENTE = "";
-const AURA_EST = { 3:35, 2:25, 1:15 };   // Aura según las estrellas (solo se paga lo que falte)
+const URL_MAPA = "go:mapaa1";
+const URL_SIGUIENTE = "go:nieve_conectores";
+const AURA_EST = { 3:25, 2:15, 1:5 };   // Aura según las estrellas (solo se paga lo que falte)
 const AURA_NIVEL_ANT = 35;               // 3 estrellas = 35 · 2 = 25 · 1 = 15 (AURA_EST)
 const DIAGNOSTICO = true;
 const APRENDE = false;               // false = con los 3 corazones
@@ -889,8 +889,10 @@ function finalHTML(d) {
   const msg = d.msg ? '<p class="ya">' + esc(d.msg) + '</p>' : "";
   const rep = d.rep ? '<div class="rep"><h3>' + esc(d.repT || "REPASA ESTAS PALABRAS") + '</h3>' + d.rep + '</div>' : "";
   const cab = d.gano ? '<div class="medw"><div class="cinta"><i></i><i></i></div><div class="med">' + sprite("copa", 96) + '</div></div>' : '<div class="medw">' + dibujar(ACC.triste, "") + '</div>';
-  const sig = URL_SIGUIENTE ? '<a class="g-btn main" href="' + URL_SIGUIENTE + '">Siguiente nivel ▶</a>' : '<a class="g-btn main" href="' + URL_MAPA + '">Volver al mapa</a>';
-  const btns = d.gano ? sig + '<button type="button" class="g-btn alt" id="fmOtra">Practicar otra vez</button>'
+  /* FIN_BOTONES (17 nov 2026) */
+  const sig = URL_SIGUIENTE ? '<a class="g-btn main" href="' + URL_SIGUIENTE + '">Siguiente nivel</a><a class="g-btn alt" href="' + URL_MAPA + '">Mapa</a>'
+    : '<a class="g-btn main" href="' + URL_MAPA + '">Volver al mapa</a><button type="button" class="g-btn alt" id="fmOtra">Practicar otra vez</button>';
+  const btns = d.gano ? sig
     : '<button type="button" class="g-btn main" id="fmOtra">Intentar de nuevo ▶</button><a class="g-btn alt" href="' + URL_MAPA + '">Mapa</a>';
   return '<section class="f2' + (d.gano ? "" : " perdio") + '"><div class="rayos"></div>' + cab + '<div class="est">' + estr + '</div><h2>' + esc(d.titulo) + '</h2>' +
     '<div class="chips"><span><b>' + esc(d.n1) + '</b> ' + esc(d.t1) + '</span><span><b>' + d.est + '</b> estrellas</span></div>' + aura + msg + rep +
