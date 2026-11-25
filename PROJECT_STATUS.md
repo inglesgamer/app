@@ -7,6 +7,14 @@ Leyenda: ✅ terminado y comprobado en archivo · 🟡 en desarrollo / en prueba
 
 ---
 
+## 0. RECORDATORIOS FIJOS (decirlos al final de CADA respuesta hasta que el usuario confirme)
+
+**Meta: subir la app a más tardar el 1 de diciembre de 2026.**
+1. Refuerzos: crear `premio5` y pegar lecciones 1–44 + `refuerza.html` (zip `refuerza_aura_sonido.zip`).
+2. **Mandarle a Claude las reglas de Firebase** (Firestore → Reglas) para comprobar que ranking, liga, duelos y nube guardan bien.
+3. Sugerencias pendientes (de la crítica 6.5/10): respaldo privado en GitHub de los generadores (hoy solo viven en el espacio de trabajo); probar hablar y duelos en un Android real; terminar Nieve (jefe) y Fuego; revisión de errores general; reglas de Firestore; optimizar lecturas de Firebase (Spark ≈400 sesiones/día).
+4. Secciones por pegar en AC24 (ver último mensaje).
+
 ## 1. Funcionalidades terminadas ✅
 
 ### Mapas y niveles
@@ -136,6 +144,7 @@ Decisiones ya tomadas para el mapa nuevo: fondo liso (sin paisaje), ícono propi
 - Regalos guardados en clave `ingles_gamer_mapa_regalos`. Niveles que no existen salen «Pronto».
 - Zona de Verano con la **misma escena del mapa de Verano** (cielo con sol/luna, mar, olas, barco, arena, palmeras, sombrillas, camino de arena). Nieve y Fuego también con su escena original (montañas, aurora, pinos, muñecos, nieve cayendo / volcán, mar de lava, rocas, cristales, brasas). Las escenas se sacan de los mapas viejos con `mapa/escenas.py`. Demo con todo pasado: `mapaa1.html?demo=1`.
 - Descartado: `verano-deco.html` (4 decoraciones nuevas); el usuario quiere la escena original.
+- 24 nov (4): **Nieve 1–4** (vocab1, preposiciones, adjetivos, gustos) a Aura 25/15/5 + fin_botones (gustos → nieve_repaso1). Faltan 5–13 de Nieve y el jefe.
 - 24 nov (3): **Nieve: 5 niveles de hablar** (uno **cada 3 niveles**, 10 frases c/u con audios Puck ya existentes, `audios/puck/`): `hablarn1..hablarn5` (ids `nieve_h1..h5`), secciones AC24 `hablarn1`…`hablarn5`. Grupos: Vocab 3·Preposiciones·Adjetivos / Gustos·Repaso 3·Conectores / Comparativos·Futuro·Situaciones / Repaso 4·Vocab 4·Profesiones / Cuerpo·Clima·Ciudad. Generador `hablar/hacer_hablar.py` (`GRUPOS_NIEVE`, placeholder `__CARPETA__`; normaliza don't/won't/what's). Mapa: `k < 2`, Verano cada 5 y Nieve cada 3 (`hacer_mapa_a1.py`); clic → `go:hablarnN`. Falta Fuego.
 - 24 nov (2): **Nieve: 2 niveles nuevos** (A1, Puck, 3 corazones, 19–20 pantallas, ~30 % repaso del anterior): **El clima** (`crear_n14.py`→`nivel_n14.py`→`nieve_clima`, go:nieve_clima: sunny, cloudy, rainy, snowy, windy, cold, hot, summer, winter; dibujos `cl_*`, `es_*`) y **La ciudad** (`crear_n15.py`→`nivel_n15.py`→`nieve_ciudad`, go:nieve_ciudad: left, right, go straight, bus stop, supermarket, near, far; dibujos `di_*`, `lu_bus`, `lu_super`). Cadena: aura_est 35 → nieve_voz → anuncios v1–v4 → escribir_comprobar → final_sin_liga → aura_valores 25/15/5 → arriba → fin_botones (ORDEN con clima y ciudad; cuerpo → clima → ciudad → mapa). 65 mp3 Puck nuevos. Mapa: 2 nodos antes del Jefe (íconos mundo/casa). LG_NIEVE (logros, estadísticas, nav_puntos) con clima y ciudad. Sin «Ver lección» (no hay lección de Refuerza para estos). Pendiente: el usuario pidió «5 de habla» (confirmar si son 5 niveles de hablar en Nieve).
 - 24 nov: Recordatorio en el celular: **agregar más retos de la semana** (más escenas, capítulos, frases y tipos nuevos). Lo que sigue: **Nieve** (13 niveles a 25/15/5 + fin_botones; jefe `nieve_final` no existe) → **Fuego** (7 hechos a ajustar + 8 por hacer y su jefe) → niveles de hablar de Nieve y Fuego.
