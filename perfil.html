@@ -450,7 +450,7 @@ function lookHTML(sp, d, izq, sep) {
    tt = número del título de la Tienda (tt8, tt9...) que se puede reclamar gratis al completar el logro. */
 const LG_K = "ingles_gamer_logros";
 const LG_A1 = ["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3","final"];
-const LG_NIEVE = ["vocab1","preposiciones","adjetivos","gustos","esc1","conectores","comparativos","futuro","situaciones","esc2","vocab2","profesiones","cuerpo"];
+const LG_NIEVE = ["vocab1","preposiciones","adjetivos","gustos","esc1","conectores","comparativos","futuro","situaciones","esc2","vocab2","profesiones","cuerpo","clima","ciudad"];
 /* [nombre, claro, oscuro] */
 const LG_TIER = { b:["Bronce","#E3A06A","#8A4F22"], p:["Plata","#D9E2EC","#6A7888"], o:["Oro","#FFD45C","#A86B00"], d:["Diamante","#8DF0FF","#1A7FA0"] };
 const LG_ICO = {
@@ -1123,10 +1123,11 @@ const CONFIG = {
 })();
 </script>
 
+
 <script>/* NAV_PUNTOS (20 nov 2026) */
 (function () {
 const LG_A1 = ["esc1","saludos","vocab","infopers","paises","numeros","colores","familia","hogar","objetos","animales","comidas","restaurante","esc2","viajes","verbos","vocab2","fechas","esc3","final"];
-const LG_NIEVE = ["vocab1","preposiciones","adjetivos","gustos","esc1","conectores","comparativos","futuro","situaciones","esc2","vocab2","profesiones","cuerpo"];
+const LG_NIEVE = ["vocab1","preposiciones","adjetivos","gustos","esc1","conectores","comparativos","futuro","situaciones","esc2","vocab2","profesiones","cuerpo","clima","ciudad"];
 const LOGROS = [   /* LOGROS_PREMIOS (20 nov 2026) */
   { id:"p1",  c:"Aprendizaje", i:"star",   t:"b", n:"Primer paso",          d:"Ganar tu primera estrella",                 m:1,    v:D => D.tot, pr:["tt1"] },
   { id:"e3",  c:"Aprendizaje", i:"stars",  t:"b", n:"Triple estrella",      d:"Sacar 3 estrellas en un nivel",             m:1,    v:D => D.tres, pr:["tt2"] },
