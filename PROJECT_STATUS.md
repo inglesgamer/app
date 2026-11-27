@@ -11,7 +11,7 @@ Leyenda: ✅ terminado y comprobado en archivo · 🟡 en desarrollo / en prueba
 
 **Meta: subir la app a más tardar el 1 de diciembre de 2026.**
 1. Refuerzos: crear `premio5` y pegar lecciones 1–44 + `refuerza.html` (zip `refuerza_aura_sonido.zip`).
-2. **Mandarle a Claude las reglas de Firebase** (Firestore → Reglas) para comprobar que ranking, liga, duelos y nube guardan bien.
+2. ✅ (26 nov) Reglas de Firebase recibidas (`out/firestore-reglas-actuales-26nov.txt`) y revisadas contra el código: todo lo que escriben ranking, liga (ls/lgw/lsa/lgwa/ag/dd/dg), nube (progreso: datos/t/v, ~35 claves de 60), duelos v4 (18 juegos, apuestas, res/rech) y amigos cumple las reglas. Detalle menor: la ficha no publica skin Diamante (sk9) ni marco Corona (mc8) porque `pick("sk", 9)`/`pick("mc", 8)` los deja fuera (los amigos no los ven); arreglarlo = cambiar a 10/9 en el bloque FICHA de todas las pantallas (ofrecido, sin hacer).
 3. Sugerencias pendientes (de la crítica 6.5/10): respaldo privado en GitHub de los generadores (hoy solo viven en el espacio de trabajo); probar hablar y duelos en un Android real; terminar Nieve (jefe) y Fuego; revisión de errores general; reglas de Firestore; optimizar lecturas de Firebase (Spark ≈400 sesiones/día).
 4. Secciones por pegar en AC24 (ver último mensaje).
 
